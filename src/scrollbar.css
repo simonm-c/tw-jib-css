@@ -1,0 +1,42 @@
+@property --tw-scrollbar-thumb {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: #7d7d7d;
+}
+@property --tw-scrollbar-track {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: transparent;
+}
+@utility scrollbar-auto {
+  scrollbar-color: auto;
+}
+
+@utility scrollbar-* {
+  --tw-scrollbar-thumb: --value(--color- *, [color]);
+  --tw-scrollbar-track: --modifier(--color- *, [color]);
+  scrollbar-color: var(--tw-scrollbar-thumb) var(--tw-scrollbar-track);
+}
+
+@utility scrollbar-thumb-* {
+  --tw-scrollbar-thumb: --value(--color- *, [color]);
+  --tw-scrollbar-thumb: --alpha(--value(--color- *, [color]) / calc(--modifier(integer) * 1%));
+  scrollbar-color: var(--tw-scrollbar-thumb) var(--tw-scrollbar-track);
+}
+
+@utility scrollbar-track-* {
+  --tw-scrollbar-track: --value(--color- *, [color]);
+  --tw-scrollbar-track: --alpha(--value(--color- *, [color]) / calc(--modifier(integer) * 1%));
+  scrollbar-color: var(--tw-scrollbar-thumb) var(--tw-scrollbar-track);
+}
+
+@utility scrollbar-gutter-* {
+  scrollbar-gutter: --value('auto', 'stable', [ *]);
+}
+@utility scrollbar-gutter-stable-both {
+  scrollbar-gutter: stable both-edges;
+}
+
+@utility scrollbar-width-* {
+  scrollbar-width: --value('auto', 'thin', 'none', [ *]);
+}

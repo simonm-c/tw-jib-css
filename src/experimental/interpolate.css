@@ -1,0 +1,9 @@
+@utility interpolate-numeric {
+  interpolate-size: numeric-only;
+}
+@utility interpolate-keywords {
+  interpolate-size: allow-keywords;
+}
+@utility interpolate-* {
+  interpolate-size: --value('numeric-only', 'allow-keywords', [*]);
+}

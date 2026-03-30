@@ -1,0 +1,113 @@
+@utility border-l-* {
+  border-left-style: --value(
+    'groove',
+    'ridge',
+    'inset',
+    'outset',
+    'solid',
+    'dashed',
+    'dotted',
+    'double',
+    'none',
+    'hidden'
+  );
+}
+
+@utility border-r-* {
+  border-right-style: --value(
+    'groove',
+    'ridge',
+    'inset',
+    'outset',
+    'solid',
+    'dashed',
+    'dotted',
+    'double',
+    'none',
+    'hidden'
+  );
+}
+@utility border-t-* {
+  border-top-style: --value(
+    'groove',
+    'ridge',
+    'inset',
+    'outset',
+    'solid',
+    'dashed',
+    'dotted',
+    'double',
+    'none',
+    'hidden'
+  );
+}
+@utility border-b-* {
+  border-bottom-style: --value(
+    'groove',
+    'ridge',
+    'inset',
+    'outset',
+    'solid',
+    'dashed',
+    'dotted',
+    'double',
+    'none',
+    'hidden'
+  );
+}
+@utility border-x-* {
+  border-inline-style: --value(
+    'groove',
+    'ridge',
+    'inset',
+    'outset',
+    'solid',
+    'dashed',
+    'dotted',
+    'double',
+    'none',
+    'hidden'
+  );
+}
+@utility border-y-* {
+  border-block-style: --value(
+    'groove',
+    'ridge',
+    'inset',
+    'outset',
+    'solid',
+    'dashed',
+    'dotted',
+    'double',
+    'none',
+    'hidden'
+  );
+}
+@utility border-s-* {
+  border-inline-start-style: --value(
+    'groove',
+    'ridge',
+    'inset',
+    'outset',
+    'solid',
+    'dashed',
+    'dotted',
+    'double',
+    'none',
+    'hidden'
+  );
+}
+@utility border-e-* {
+  border-inline-end-style: --value(
+    'groove',
+    'ridge',
+    'inset',
+    'outset',
+    'solid',
+    'dashed',
+    'dotted',
+    'double',
+    'none',
+    'hidden'
+  );
+}

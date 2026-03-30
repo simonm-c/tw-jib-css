@@ -1,0 +1,27 @@
+@utility appearance-base-select {
+  appearance: base-select;
+}
+
+@custom-variant picker {
+  &:is(select) {
+    appearance: base-select;
+  }
+  &::picker(select) {
+    appearance: base-select;
+    @slot;
+  }
+}
+
+@custom-variant picker-icon {
+  &:is(select) {
+    appearance: base-select;
+  }
+  &::picker-icon {
+    @slot;
+  }
+}
+@custom-variant checkmark {
+  &::checkmark {
+    @slot;
+  }
+}

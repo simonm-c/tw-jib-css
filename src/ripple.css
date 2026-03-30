@@ -1,0 +1,117 @@
+/* Explicitly whitelist ripple colors for sake of the story demonstrating colors, don't do this in a production app. */
+@source inline("ripple-color-{inherit,current,transparent,black,white,}");
+@source inline("ripple-color-{red,orange,amber,yellow,lime,green,emerald,teal,cyan,sky,blue,indigo,violet,purple,fuchsia,pink,rose,slate,gray,zinc,neutral,stone,}-{50,{100..900},950}");
+
+@property --ripple-distance {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+@property --ripple-position {
+  syntax: '<length>+ | <custom-ident>';
+  inherits: false;
+  initial-value: center;
+}
+@property --ripple-duration {
+  syntax: '<time>';
+  inherits: false;
+  initial-value: 0.4s;
+}
+@property --ripple-color {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: oklch(1 0 0 / 20%);
+}
+@property --ripple-color-mix {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+@property --ripple-fade-amount {
+  syntax: '<percentage>';
+  inherits: false;
+  initial-value: 0%;
+}
+@keyframes ripple {
+  0% {
+    --ripple-distance: 0%;
+  }
+  100% {
+    --ripple-distance: 100%;
+    --ripple-color-mix: var(--ripple-fade-amount);
+  }
+}
+@property --tw-ripple-image {
+  syntax: '<image>';
+  inherits: false;
+  initial-value: radial-gradient(
+    circle at center,
+    transparent 0%,
+    transparent 0%,
+    transparent 0%,
+    transparent 100%
+  );
+}
+@utility bg-ripple {
+  --mixed-ripple-color: color-mix(
+    in oklch,
+    var(--ripple-color) calc(100% - var(--ripple-color-mix)),
+    transparent var(--ripple-color-mix)
+  );
+  background:
+    var(--tw-ripple-image) padding-box,
+    var(--tw-bg-image) padding-box,
+    var(--tw-border-gradient) border-box;
+  &:active {
+    --tw-ripple-image: radial-gradient(
+      circle at var(--ripple-position),
+      var(--mixed-ripple-color) 0%,
+      var(--mixed-ripple-color) calc(var(--ripple-distance)),
+      var(--mixed-ripple-color) var(--ripple-distance),
+      transparent var(--ripple-distance),
+      transparent 100%
+    );
+    animation: ripple var(--ripple-duration) forwards ease-in;
+  }
+}
+
+@utility ripple-color-* {
+  --ripple-color: --value('inherit', --color- *, [color], var(--color));
+  --ripple-color: color-mix(
+    in oklch,
+    --value(--color- *, [color], var(--color)) calc(--modifier(integer, [number]) * 1%),
+    transparent
+  );
+}
+
+@utility ripple-duration-* {
+  --ripple-duration: calc(--value(integer) * 10ms);
+  --ripple-duration: --value([ *]);
+}
+
+@utility ripple-color-current {
+  --ripple-color: currentColor;
+}
+
+@utility ripple-color-* {
+  --ripple-color: --value('inherit', --color- *, [color], var(--color));
+  --ripple-color: color-mix(
+    in oklch,
+    --value(--color- *, [color], var(--color)) calc(--modifier(integer, [number]) * 1%),
+    transparent
+  );
+}
+
+@utility ripple-position-* {
+  --ripple-position: --value('top', 'left', 'right', 'bottom', 'center', [position]);
+}
+@utility ripple-fade {
+  --ripple-fade-amount: 100%;
+}
+@utility ripple-fade-none {
+  --ripple-fade-amount: 0%;
+}
+
+@utility ripple-fade-* {
+  --ripple-fade-amount: calc(--value(integer) * 1%);
+}

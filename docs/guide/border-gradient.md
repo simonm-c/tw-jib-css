@@ -60,14 +60,103 @@ Use `border-linear-to-{direction}` with `border-from-{color}` and `border-to-{co
 
 ### With a background colour
 
-The gradient border works alongside any background:
+Border gradients work alongside Tailwind's `bg-*` utilities. When you apply a `bg-*` class, the module layers your background inside the border gradient automatically.
+
+#### Solid background colours
 
 <Example>
   <div class="flex gap-4">
     <div class="flex-1 bg-white border-4 border-linear-to-r border-from-orange-500 border-to-violet-500 rounded-xl p-6 text-center font-mono text-xs text-gray-500">bg-white</div>
     <div class="flex-1 bg-gray-900 border-4 border-linear-to-r border-from-orange-500 border-to-violet-500 rounded-xl p-6 text-center font-mono text-xs text-gray-400">bg-gray-900</div>
+    <div class="flex-1 bg-sky-100 border-4 border-linear-to-r border-from-orange-500 border-to-violet-500 rounded-xl p-6 text-center font-mono text-xs text-gray-500">bg-sky-100</div>
   </div>
 </Example>
+
+#### Gradient backgrounds
+
+Tailwind gradient backgrounds and border gradients coexist — the background gradient layers inside the padding area while the border gradient fills the border area:
+
+<Example>
+  <div class="flex gap-4">
+    <div class="flex-1 bg-linear-to-r from-indigo-500 to-purple-500 border-4 border-linear-to-r border-from-amber-400 border-to-rose-500 rounded-xl p-6 text-center font-mono text-xs text-white">bg-linear-to-r from-indigo-500 to-purple-500</div>
+    <div class="flex-1 bg-linear-to-br from-emerald-400 to-cyan-500 border-4 border-linear-to-r border-from-amber-400 border-to-rose-500 rounded-xl p-6 text-center font-mono text-xs text-white">bg-linear-to-br from-emerald-400 to-cyan-500</div>
+  </div>
+</Example>
+
+#### Inherited backgrounds
+
+The background colour does not inherit from parent elements. The `--tw-bg-color` custom property is registered with `inherits: false`, so a child element without its own `bg-*` class gets the initial value (`canvas`) rather than the parent's colour:
+
+<Example>
+  <div class="bg-slate-800 rounded-xl p-6">
+    <p class="text-sm text-slate-300 mb-3 font-mono">Parent: bg-slate-800</p>
+    <div class="flex gap-4">
+      <div class="flex-1 border-4 border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-xs text-gray-500">No bg-* class (canvas)</div>
+      <div class="flex-1 bg-slate-800 border-4 border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-xs text-slate-300">bg-slate-800 (explicit)</div>
+    </div>
+  </div>
+</Example>
+
+#### Transparent and semi-transparent backgrounds
+
+The border-gradient technique works by stacking two background layers — a `padding-box` layer (your background) on top of a `border-box` layer (the gradient). A transparent or semi-transparent background lets the gradient layer show through into the content area, not just the border:
+
+<Example>
+  <div class="flex gap-4">
+    <div class="flex-1 bg-white border-4 border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-xl p-6 text-center font-mono text-xs text-gray-500">bg-white (opaque)</div>
+    <!-- TODO: fix bg-*/opacity modifier not working with border-gradient (--tw-bg-image not receiving opacity value) -->
+    <div class="flex-1 bg-white/50 border-4 border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-xl p-6 text-center font-mono text-xs text-gray-500">bg-white/50 (gradient bleeds through)</div>
+    <div class="flex-1 bg-transparent border-4 border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-xl p-6 text-center font-mono text-xs text-gray-500">bg-transparent (fully visible)</div>
+  </div>
+</Example>
+
+This is inherent to the clipping technique — the `padding-box` layer must be fully opaque to mask the gradient behind it. If you want a see-through content area with only a gradient border, this approach won't work; you'd need a pseudo-element or `border-image` technique instead.
+
+### What doesn't work
+
+::: warning
+Backgrounds set outside Tailwind's `bg-*` classes won't show through the border gradient. The border-gradient utilities set a `background` shorthand that replaces any `background` or `background-color` from custom CSS classes or inline styles.
+:::
+
+A background set via a custom CSS class or inline style is overwritten by the border-gradient utility's `background` shorthand. The `--tw-bg-image` property stays at its initial value (`canvas`), so the element loses its intended background:
+
+```html
+<!-- ✗ Custom class — background is overwritten -->
+<style>.my-card { background: #e0f2fe; }</style>
+<div class="my-card border-4 border-linear-to-r border-from-pink-500 border-to-cyan-500">
+  Background will be canvas, not #e0f2fe
+</div>
+
+<!-- ✗ Inline style — same issue -->
+<div style="background-color: #e0f2fe" class="border-4 border-linear-to-r border-from-pink-500 border-to-cyan-500">
+  Background will be canvas, not #e0f2fe
+</div>
+```
+
+#### Workarounds
+
+Route the colour through Tailwind's `bg-*` pipeline so it feeds into `--tw-bg-image`:
+
+```html
+<!-- ✓ Arbitrary value -->
+<div class="bg-[#e0f2fe] border-4 border-linear-to-r border-from-pink-500 border-to-cyan-500">
+  ...
+</div>
+
+<!-- ✓ Custom property via bare-value syntax -->
+<div class="bg-(--my-color) border-4 border-linear-to-r border-from-pink-500 border-to-cyan-500">
+  ...
+</div>
+```
+
+Or set `--tw-bg-image` directly to bypass the `bg-*` utility:
+
+```html
+<!-- ✓ Setting the custom property directly -->
+<div style="--tw-bg-image: linear-gradient(#e0f2fe 0 0)" class="border-4 border-linear-to-r border-from-pink-500 border-to-cyan-500">
+  ...
+</div>
+```
 
 ## Gradient Direction
 
@@ -162,8 +251,8 @@ Use `border-conic-{angle}` for a gradient that sweeps around a centre point:
       <span class="font-mono text-[11px] text-gray-500">border-conic-45</span>
     </div>
     <div class="flex flex-col items-center gap-2">
-      <div class="size-36 border-8 border-conic-0/longer border-from-red-500 border-to-cyan-500 rounded-full bg-white"></div>
-      <span class="font-mono text-[11px] text-gray-500">border-conic-0/longer</span>
+      <div class="size-36 border-8 border-conic/longer border-from-red-500 border-to-cyan-500 rounded-full bg-white"></div>
+      <span class="font-mono text-[11px] text-gray-500">border-conic/longer</span>
     </div>
   </div>
 </Example>
@@ -177,35 +266,35 @@ Control how colours blend using the slash modifier on the gradient type. The def
 <Example stretch>
   <div class="grid grid-cols-4 gap-3 w-full">
     <div class="flex flex-col items-center gap-2">
-      <div class="w-full h-12 border-4 border-linear-to-r/srgb border-from-red-500 border-to-cyan-500 rounded-lg bg-white"></div>
+      <div class="w-full h-12 border-4 border-linear/srgb border-from-red-500 border-to-cyan-500 rounded-lg bg-white"></div>
       <span class="font-mono text-[11px] text-gray-500">/srgb</span>
     </div>
     <div class="flex flex-col items-center gap-2">
-      <div class="w-full h-12 border-4 border-linear-to-r/hsl border-from-red-500 border-to-cyan-500 rounded-lg bg-white"></div>
+      <div class="w-full h-12 border-4 border-linear/hsl border-from-red-500 border-to-cyan-500 rounded-lg bg-white"></div>
       <span class="font-mono text-[11px] text-gray-500">/hsl</span>
     </div>
     <div class="flex flex-col items-center gap-2">
-      <div class="w-full h-12 border-4 border-linear-to-r/oklab border-from-red-500 border-to-cyan-500 rounded-lg bg-white"></div>
+      <div class="w-full h-12 border-4 border-linear/oklab border-from-red-500 border-to-cyan-500 rounded-lg bg-white"></div>
       <span class="font-mono text-[11px] text-gray-500">/oklab</span>
     </div>
     <div class="flex flex-col items-center gap-2">
-      <div class="w-full h-12 border-4 border-linear-to-r/oklch border-from-red-500 border-to-cyan-500 rounded-lg bg-white"></div>
+      <div class="w-full h-12 border-4 border-linear/oklch border-from-red-500 border-to-cyan-500 rounded-lg bg-white"></div>
       <span class="font-mono text-[11px] text-gray-500">/oklch</span>
     </div>
     <div class="flex flex-col items-center gap-2">
-      <div class="w-full h-12 border-4 border-linear-to-r/longer border-from-red-500 border-to-cyan-500 rounded-lg bg-white"></div>
+      <div class="w-full h-12 border-4 border-linear/longer border-from-red-500 border-to-cyan-500 rounded-lg bg-white"></div>
       <span class="font-mono text-[11px] text-gray-500">/longer</span>
     </div>
     <div class="flex flex-col items-center gap-2">
-      <div class="w-full h-12 border-4 border-linear-to-r/shorter border-from-red-500 border-to-cyan-500 rounded-lg bg-white"></div>
+      <div class="w-full h-12 border-4 border-linear/shorter border-from-red-500 border-to-cyan-500 rounded-lg bg-white"></div>
       <span class="font-mono text-[11px] text-gray-500">/shorter</span>
     </div>
     <div class="flex flex-col items-center gap-2">
-      <div class="w-full h-12 border-4 border-linear-to-r/increasing border-from-red-500 border-to-cyan-500 rounded-lg bg-white"></div>
+      <div class="w-full h-12 border-4 border-linear/increasing border-from-red-500 border-to-cyan-500 rounded-lg bg-white"></div>
       <span class="font-mono text-[11px] text-gray-500">/increasing</span>
     </div>
     <div class="flex flex-col items-center gap-2">
-      <div class="w-full h-12 border-4 border-linear-to-r/decreasing border-from-red-500 border-to-cyan-500 rounded-lg bg-white"></div>
+      <div class="w-full h-12 border-4 border-linear/decreasing border-from-red-500 border-to-cyan-500 rounded-lg bg-white"></div>
       <span class="font-mono text-[11px] text-gray-500">/decreasing</span>
     </div>
   </div>
@@ -255,35 +344,35 @@ Control how colours blend using the slash modifier on the gradient type. The def
 <Example>
   <div class="grid grid-cols-4 gap-3 w-full max-w-2xl">
     <div class="flex flex-col items-center gap-2">
-      <div class="border-8 border-conic-0/srgb border-from-red-500 border-to-cyan-500 rounded-full size-24 bg-white"></div>
+      <div class="border-8 border-conic/srgb border-from-red-500 border-to-cyan-500 rounded-full size-24 bg-white"></div>
       <span class="font-mono text-[11px] text-gray-500">/srgb</span>
     </div>
     <div class="flex flex-col items-center gap-2">
-      <div class="border-8 border-conic-0/hsl border-from-red-500 border-to-cyan-500 rounded-full size-24 bg-white"></div>
+      <div class="border-8 border-conic/hsl border-from-red-500 border-to-cyan-500 rounded-full size-24 bg-white"></div>
       <span class="font-mono text-[11px] text-gray-500">/hsl</span>
     </div>
     <div class="flex flex-col items-center gap-2">
-      <div class="border-8 border-conic-0/oklab border-from-red-500 border-to-cyan-500 rounded-full size-24 bg-white"></div>
+      <div class="border-8 border-conic/oklab border-from-red-500 border-to-cyan-500 rounded-full size-24 bg-white"></div>
       <span class="font-mono text-[11px] text-gray-500">/oklab</span>
     </div>
     <div class="flex flex-col items-center gap-2">
-      <div class="border-8 border-conic-0/oklch border-from-red-500 border-to-cyan-500 rounded-full size-24 bg-white"></div>
+      <div class="border-8 border-conic/oklch border-from-red-500 border-to-cyan-500 rounded-full size-24 bg-white"></div>
       <span class="font-mono text-[11px] text-gray-500">/oklch</span>
     </div>
     <div class="flex flex-col items-center gap-2">
-      <div class="border-8 border-conic-0/longer border-from-red-500 border-to-cyan-500 rounded-full size-24 bg-white"></div>
+      <div class="border-8 border-conic/longer border-from-red-500 border-to-cyan-500 rounded-full size-24 bg-white"></div>
       <span class="font-mono text-[11px] text-gray-500">/longer</span>
     </div>
     <div class="flex flex-col items-center gap-2">
-      <div class="border-8 border-conic-0/shorter border-from-red-500 border-to-cyan-500 rounded-full size-24 bg-white"></div>
+      <div class="border-8 border-conic/shorter border-from-red-500 border-to-cyan-500 rounded-full size-24 bg-white"></div>
       <span class="font-mono text-[11px] text-gray-500">/shorter</span>
     </div>
     <div class="flex flex-col items-center gap-2">
-      <div class="border-8 border-conic-0/increasing border-from-red-500 border-to-cyan-500 rounded-full size-24 bg-white"></div>
+      <div class="border-8 border-conic/increasing border-from-red-500 border-to-cyan-500 rounded-full size-24 bg-white"></div>
       <span class="font-mono text-[11px] text-gray-500">/increasing</span>
     </div>
     <div class="flex flex-col items-center gap-2">
-      <div class="border-8 border-conic-0/decreasing border-from-red-500 border-to-cyan-500 rounded-full size-24 bg-white"></div>
+      <div class="border-8 border-conic/decreasing border-from-red-500 border-to-cyan-500 rounded-full size-24 bg-white"></div>
       <span class="font-mono text-[11px] text-gray-500">/decreasing</span>
     </div>
   </div>
@@ -315,11 +404,11 @@ Add `border-spin` to rotate the gradient continuously. The default duration is `
       <span class="font-mono text-[11px] text-gray-500">border-spin</span>
     </div>
     <div class="flex flex-col items-center gap-2">
-      <div class="size-28 border-8 border-conic-0/longer border-from-red-500 border-via-emerald-400 border-to-blue-500 border-spin border-spin-duration-2 rounded-full bg-white"></div>
+      <div class="size-28 border-8 border-conic/longer border-from-red-500 border-via-emerald-400 border-to-blue-500 border-spin border-spin-duration-2 rounded-full bg-white"></div>
       <span class="font-mono text-[11px] text-gray-500">border-spin border-spin-duration-2</span>
     </div>
     <div class="flex flex-col items-center gap-2">
-      <button class="border-4 border-conic-0/longer border-from-blue-500 border-via-red-500 border-to-yellow-400 border-spin border-spin-duration-1.5 bg-white rounded-full px-6 py-3 text-sm text-gray-700 cursor-pointer">Loading...</button>
+      <button class="border-4 border-conic/longer border-from-blue-500 border-via-red-500 border-to-yellow-400 border-spin border-spin-duration-1.5 bg-white rounded-full px-6 py-3 text-sm text-gray-700 cursor-pointer">Loading...</button>
       <span class="font-mono text-[11px] text-gray-500">border-spin-duration-1.5</span>
     </div>
   </div>
@@ -365,15 +454,26 @@ Use bracket notation for custom colours, angles, and durations:
 
 ## Using a custom variable
 
-For CSS variables, you can also use the `border-from-(--custom-property)` syntax:
+Reference CSS custom properties with the typed bare-value syntax `(type:--var)`. The type hint tells Tailwind how to interpret the variable:
 
 <Example>
-  <div class="border-4 border-linear-to-r border-from-(--brand-from) border-to-(--brand-to) rounded-xl p-6 bg-white text-center font-mono text-xs text-gray-500" style="--brand-from: #ff6b35; --brand-to: #6366f1">
-    border-from-(--brand-from) border-to-(--brand-to)
+  <div class="border-4 border-linear-to-r border-from-(color:--brand-from) border-to-(color:--brand-to) rounded-xl p-6 bg-white text-center font-mono text-xs text-gray-500" style="--brand-from: #ff6b35; --brand-to: #6366f1">
+    border-from-(color:--brand-from) border-to-(color:--brand-to)
   </div>
 </Example>
 
-This is just a shorthand for `border-from-[var(--brand-from)]` that adds the `var()` function for you automatically.
+All border gradient utilities that accept custom properties:
+
+| Utility | Type hint | Example |
+| --- | --- | --- |
+| `border-from-*` | `color` | `border-from-(color:--brand-from)` |
+| `border-via-*` | `color` | `border-via-(color:--brand-accent)` |
+| `border-to-*` | `color` | `border-to-(color:--brand-to)` |
+| `border-from-*` | `percentage` | `border-from-(percentage:--stop-start)` |
+| `border-to-*` | `percentage` | `border-to-(percentage:--stop-end)` |
+| `border-linear-*` | `number` | `border-linear-(number:--angle)` |
+| `border-conic-*` | `number` | `border-conic-(number:--start-angle)` |
+| `border-spin-duration-*` | `time` | `border-spin-duration-(time:--spin-speed)` |
 
 ## Applying conditionally
 

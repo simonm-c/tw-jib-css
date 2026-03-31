@@ -1,0 +1,5 @@
+@import 'tailwindcss';
+@import '../../../src/index.css';
+@import '../../../src/experimental.css';
+@source '../../**/*.md';
+@source '../../**/*.vue';

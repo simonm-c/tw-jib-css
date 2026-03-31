@@ -1,0 +1,110 @@
+{
+  "name": "tw-jib-css",
+  "version": "0.1.0",
+  "description": "TailwindCSS v4 utility library — border gradients, CSS relative color transforms, ripple effects, and more — built entirely with CSS-first @utility and @custom-variant syntax.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Simon Monk-Chipman",
+  "homepage": "https://github.com/simonm-c/tw-jib-css#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simonm-c/tw-jib-css.git"
+  },
+  "bugs": {
+    "url": "https://github.com/simonm-c/tw-jib-css/issues"
+  },
+  "keywords": [
+    "tailwindcss",
+    "tailwind",
+    "css",
+    "utilities",
+    "border-gradient",
+    "color-transform",
+    "lighten",
+    "darken",
+    "ripple",
+    "v4",
+    "css-first"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "src"
+  ],
+  "exports": {
+    ".": {
+      "style": "./src/index.css",
+      "default": "./src/index.css"
+    },
+    "./experimental": {
+      "style": "./src/experimental.css",
+      "default": "./src/experimental.css"
+    },
+    "./border-gradient": {
+      "style": "./src/border-gradient.css",
+      "default": "./src/border-gradient.css"
+    },
+    "./lighten-darken": {
+      "style": "./src/lighten-darken.css",
+      "default": "./src/lighten-darken.css"
+    },
+    "./ripple": {
+      "style": "./src/ripple.css",
+      "default": "./src/ripple.css"
+    },
+    "./border-style": {
+      "style": "./src/border-style.css",
+      "default": "./src/border-style.css"
+    },
+    "./scrollbar": {
+      "style": "./src/scrollbar.css",
+      "default": "./src/scrollbar.css"
+    },
+    "./grid": {
+      "style": "./src/grid.css",
+      "default": "./src/grid.css"
+    },
+    "./experimental/corner": {
+      "style": "./src/experimental/corner.css",
+      "default": "./src/experimental/corner.css"
+    },
+    "./experimental/interpolate": {
+      "style": "./src/experimental/interpolate.css",
+      "default": "./src/experimental/interpolate.css"
+    },
+    "./experimental/picker": {
+      "style": "./src/experimental/picker.css",
+      "default": "./src/experimental/picker.css"
+    }
+  },
+  "packageManager": "pnpm@10.32.1",
+  "scripts": {
+    "test": "vitest run",
+    "test:css": "vitest run tests/css",
+    "test:integration": "playwright test",
+    "dev:docs": "vitepress dev docs",
+    "build:docs": "vitepress build docs",
+    "build:llm-docs": "tsx scripts/build-llm-docs.ts",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check ."
+  },
+  "peerDependencies": {
+    "tailwindcss": ">=4.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.28.0",
+    "@playwright/test": "^1.52.0",
+    "@tailwindcss/node": "^4.1.0",
+    "eslint": "^9.28.0",
+    "eslint-config-prettier": "^10.1.0",
+    "prettier": "^3.5.0",
+    "tailwindcss": "^4.1.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.8.0",
+    "typescript-eslint": "^8.33.0",
+    "vitepress": "^1.6.0",
+    "vitest": "^3.2.0"
+  }
+}

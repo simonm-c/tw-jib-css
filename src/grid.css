@@ -1,6 +1,6 @@
 @utility grid-template-areas-* {
-  grid-template-areas: --value([ *]);
+  grid-template-areas: --value([*]);
 }
 @utility grid-area-* {
-  grid-area: --value(integer, [ *]);
+  grid-area: --value(integer, [*]);
 }

@@ -76,17 +76,17 @@
 }
 
 @utility ripple-color-* {
-  --ripple-color: --value('inherit', --color- *, [color], var(--color));
+  --ripple-color: --value('inherit', --color-*, [color], var(--color));
   --ripple-color: color-mix(
     in oklch,
-    --value(--color- *, [color], var(--color)) calc(--modifier(integer, [number]) * 1%),
+    --value(--color-*, [color], var(--color)) calc(--modifier(integer, [number]) * 1%),
     transparent
   );
 }
 
 @utility ripple-duration-* {
   --ripple-duration: calc(--value(integer) * 10ms);
-  --ripple-duration: --value([ *]);
+  --ripple-duration: --value([*]);
 }
 
 @utility ripple-color-current {
@@ -94,10 +94,10 @@
 }
 
 @utility ripple-color-* {
-  --ripple-color: --value('inherit', --color- *, [color], var(--color));
+  --ripple-color: --value('inherit', --color-*, [color], var(--color));
   --ripple-color: color-mix(
     in oklch,
-    --value(--color- *, [color], var(--color)) calc(--modifier(integer, [number]) * 1%),
+    --value(--color-*, [color], var(--color)) calc(--modifier(integer, [number]) * 1%),
     transparent
   );
 }

@@ -13,30 +13,30 @@
 }
 
 @utility scrollbar-* {
-  --tw-scrollbar-thumb: --value(--color- *, [color]);
-  --tw-scrollbar-track: --modifier(--color- *, [color]);
+  --tw-scrollbar-thumb: --value(--color-*, [color]);
+  --tw-scrollbar-track: --modifier(--color-*, [color]);
   scrollbar-color: var(--tw-scrollbar-thumb) var(--tw-scrollbar-track);
 }
 
 @utility scrollbar-thumb-* {
-  --tw-scrollbar-thumb: --value(--color- *, [color]);
-  --tw-scrollbar-thumb: --alpha(--value(--color- *, [color]) / calc(--modifier(integer) * 1%));
+  --tw-scrollbar-thumb: --value(--color-*, [color]);
+  --tw-scrollbar-thumb: --alpha(--value(--color-*, [color]) / calc(--modifier(integer) * 1%));
   scrollbar-color: var(--tw-scrollbar-thumb) var(--tw-scrollbar-track);
 }
 
 @utility scrollbar-track-* {
-  --tw-scrollbar-track: --value(--color- *, [color]);
-  --tw-scrollbar-track: --alpha(--value(--color- *, [color]) / calc(--modifier(integer) * 1%));
+  --tw-scrollbar-track: --value(--color-*, [color]);
+  --tw-scrollbar-track: --alpha(--value(--color-*, [color]) / calc(--modifier(integer) * 1%));
   scrollbar-color: var(--tw-scrollbar-thumb) var(--tw-scrollbar-track);
 }
 
 @utility scrollbar-gutter-* {
-  scrollbar-gutter: --value('auto', 'stable', [ *]);
+  scrollbar-gutter: --value('auto', 'stable', [*]);
 }
 @utility scrollbar-gutter-stable-both {
   scrollbar-gutter: stable both-edges;
 }
 
 @utility scrollbar-width-* {
-  scrollbar-width: --value('auto', 'thin', 'none', [ *]);
+  scrollbar-width: --value('auto', 'thin', 'none', [*]);
 }

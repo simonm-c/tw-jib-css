@@ -67,62 +67,110 @@
   --tw-color-interpolation-color-mix: inherit;
 }
 
-@utility bg-darken-* {
-  --tw-darken-amount: calc(--value(integer, [number]) * 0.01);
-  background-color: --modifier(--tw-color-interpolation- *);
-}
+/*
+ * bg-darken / bg-lighten: 5 same-name @utility blocks each — all required.
+ * TW4 sorts by property count (more props → earlier in CSS) and modifier-only
+ * blocks don't resolve when no modifier is given. This creates two independent
+ * resolution chains: with-modifier and without-modifier.
+ */
 
+/* 2 props → sorted first. Sets amount; bg-color overridden by later blocks */
 @utility bg-darken-* {
-  background-color: --modifier(--tw-color-interpolation- *);
-}
-
-
-@utility bg-darken-* {
-  @variant supports-darken {
-    background-color: --darken(
-      var(--tw-bg-color),
-      --value(integer, [number]), --modifier('oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb', 'srgb', 'srgb-linear', 'display-p3', 'a98-rgb', 'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65', 'color-mix'));
+  &:not(._) {
+    --tw-darken-amount: calc(--value(integer, [number]) * 0.01);
+    background-color: --modifier(--tw-color-interpolation-*);
   }
 }
 
+/* stable with-modifier path (non-@function browsers) */
 @utility bg-darken-* {
-  background-color: oklch(from var(--tw-bg-color) calc(l - var(--tw-darken-amount)) c h / alpha);
-}
-
-@utility bg-darken-* {
-  @variant supports-darken {
-    background-color: --darken(
-      var(--tw-bg-color),
-      --value(integer, [number]));
+  &:not(._) {
+    background-color: --modifier(--tw-color-interpolation-*);
   }
 }
 
-@utility bg-lighten-* {
-  --tw-darken-amount: calc(--value(integer, [number]) * -0.01);
-  background-color: --modifier(--tw-color-interpolation- *);
-}
-
-@utility bg-lighten-* {
-  background-color: --modifier(--tw-color-interpolation- *);
-}
-
-@utility bg-lighten-* {
-  @variant supports-darken {
-    background-color: --darken(
-      var(--tw-bg-color),
-      calc(--value(integer, [number]) * -1), --modifier('oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb', 'srgb', 'srgb-linear', 'display-p3', 'a98-rgb', 'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65', 'color-mix'));
+/* experimental with-modifier path — overrides above where @function supported */
+@utility bg-darken-* {
+  &:not(._) {
+    @variant supports-darken {
+      background-color: --darken(
+        var(--tw-bg-color),
+        --value(integer, [number]),
+        --modifier(
+          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
+          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
+          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+          'color-mix'
+        )
+      );
+    }
   }
 }
 
-@utility bg-lighten-* {
-  background-color: oklch(from var(--tw-bg-color) calc(l - var(--tw-darken-amount)) c h / alpha);
+/* stable no-modifier default — oklch */
+@utility bg-darken-* {
+  &:not(._) {
+    background-color: oklch(from var(--tw-bg-color) calc(l - var(--tw-darken-amount)) c h / alpha);
+  }
 }
 
+/* experimental no-modifier default — overrides above where @function supported */
+@utility bg-darken-* {
+  &:not(._) {
+    @variant supports-darken {
+      background-color: --darken(var(--tw-bg-color), --value(integer, [number]));
+    }
+  }
+}
+
+/* bg-lighten-*: same cascade as bg-darken-* with negated amounts */
+
+/* 2 props → sorted first */
 @utility bg-lighten-* {
-  @variant supports-darken {
-    background-color: --darken(
-      var(--tw-bg-color),
-      calc(--value(integer, [number]) * -1));
+  &:not(._) {
+    --tw-darken-amount: calc(--value(integer, [number]) * -0.01);
+    background-color: --modifier(--tw-color-interpolation-*);
+  }
+}
+
+/* stable with-modifier path */
+@utility bg-lighten-* {
+  &:not(._) {
+    background-color: --modifier(--tw-color-interpolation-*);
+  }
+}
+
+/* experimental with-modifier path */
+@utility bg-lighten-* {
+  &:not(._) {
+    @variant supports-darken {
+      background-color: --darken(
+        var(--tw-bg-color),
+        calc(--value(integer, [number]) * -1),
+        --modifier(
+          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
+          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
+          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+          'color-mix'
+        )
+      );
+    }
+  }
+}
+
+/* stable no-modifier default — oklch */
+@utility bg-lighten-* {
+  &:not(._) {
+    background-color: oklch(from var(--tw-bg-color) calc(l - var(--tw-darken-amount)) c h / alpha);
+  }
+}
+
+/* experimental no-modifier default */
+@utility bg-lighten-* {
+  &:not(._) {
+    @variant supports-darken {
+      background-color: --darken(var(--tw-bg-color), calc(--value(integer, [number]) * -1));
+    }
   }
 }
 
@@ -154,32 +202,32 @@ returns <color> {
 @function --hwb-darken(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: hwb(
-    from var(--color) h calc(w - var(--amount))
-    calc(b + var(--amount)) / alpha
+          from var(--color) h calc(w - var(--amount))
+          calc(b + var(--amount)) / alpha
   );
 }
 
 @function --rgb-darken(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: rgb(
-    from var(--color) calc(r - var(--amount) * 2.55)
-    calc(g - var(--amount) * 2.55) calc(b - var(--amount) * 2.55) / alpha
+          from var(--color) calc(r - var(--amount) * 2.55)
+          calc(g - var(--amount) * 2.55) calc(b - var(--amount) * 2.55) / alpha
   )
 }
 
 @function --srgb-darken(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: color(
-    from var(--color) srgb calc(r - var(--amount) * 0.01) calc(g - var(--amount) * 0.01)
-    calc(b - var(--amount) * 0.01) / alpha
+          from var(--color) srgb calc(r - var(--amount) * 0.01) calc(g - var(--amount) * 0.01)
+          calc(b - var(--amount) * 0.01) / alpha
   )
 }
 
 @function --srgb-linear-darken(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: color(
-    from var(--color) srgb-linear calc(r - var(--amount) * 0.01)
-    calc(g - var(--amount) * 0.01) calc(b - var(--amount) * 0.01) / alpha
+          from var(--color) srgb-linear calc(r - var(--amount) * 0.01)
+          calc(g - var(--amount) * 0.01) calc(b - var(--amount) * 0.01) / alpha
   )
 }
 
@@ -187,8 +235,8 @@ returns <color> {
 @function --display-p3-darken(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: color(
-    from var(--color) display-p3 calc(r - var(--amount))
-    calc(g - var(--amount)) calc(b - var(--amount)) / alpha
+          from var(--color) display-p3 calc(r - var(--amount) * 0.01)
+          calc(g - var(--amount) * 0.01) calc(b - var(--amount) * 0.01) / alpha
   )
 }
 
@@ -196,39 +244,39 @@ returns <color> {
 @function --a98-rgb-darken(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: color(
-    from var(--color) a98-rgb calc(r - var(--amount) * 0.01)
-    calc(g - var(--amount) * 0.01) calc(b - var(--amount) * 0.01) / alpha
+          from var(--color) a98-rgb calc(r - var(--amount) * 0.01)
+          calc(g - var(--amount) * 0.01) calc(b - var(--amount) * 0.01) / alpha
   )
 }
 
 @function --prophoto-rgb-darken(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: color(
-    from var(--color) prophoto-rgb calc(r - var(--amount) * 0.01)
-    calc(g - var(--amount) * 0.01) calc(b - var(--amount) * 0.01) / alpha
+          from var(--color) prophoto-rgb calc(r - var(--amount) * 0.01)
+          calc(g - var(--amount) * 0.01) calc(b - var(--amount) * 0.01) / alpha
   )
 }
 
 @function --rec-2020-darken(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: color(
-    from var(--color) rec2020 calc(r - var(--amount) * 0.01)
-    calc(g - var(--amount) * 0.01) calc(b - var(--amount) * 0.01) / alpha
+          from var(--color) rec2020 calc(r - var(--amount) * 0.01)
+          calc(g - var(--amount) * 0.01) calc(b - var(--amount) * 0.01) / alpha
   )
 }
 
 @function --xyz-darken(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: color(
-    from var(--color) xyz calc(x - var(--amount) * 0.01) calc(y - var(--amount) * 0.01)
-    calc(z - var(--amount) * 0.01) / alpha
+          from var(--color) xyz calc(x - var(--amount) * 0.01) calc(y - var(--amount) * 0.01)
+          calc(z - var(--amount) * 0.01) / alpha
   )
 }
 @function --xyz-d50-darken(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: color(
-    from var(--color) xyz-d50 calc(x - var(--amount) * 0.01) calc(y - var(--amount) * 0.01)
-    calc(z - var(--amount) * 0.01) / alpha
+          from var(--color) xyz-d50 calc(x - var(--amount) * 0.01) calc(y - var(--amount) * 0.01)
+          calc(z - var(--amount) * 0.01) / alpha
   )
 }
 
@@ -243,32 +291,31 @@ returns <color> {
 @function --xyz-d65-darken(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: color(
-    from var(--color) xyz-d65 calc(x - var(--amount) * 0.01) calc(y - var(--amount) * 0.01)
-    calc(z - var(--amount) * 0.01) / alpha
+          from var(--color) xyz-d65 calc(x - var(--amount) * 0.01) calc(y - var(--amount) * 0.01)
+          calc(z - var(--amount) * 0.01) / alpha
   )
 }
 
-
-@function --darken(--color type(<color>): currentColor, --amount type(<number>): 0, --interpolation: oklch )
+@function --darken(--color type(<color>): currentColor, --amount type(<number>): 0, --interpolation type(<custom-ident>): oklch )
 returns <color> {
   result: if(
   style(--interpolation: oklch): --oklch-darken(var(--color), var(--amount));
-  style(--interpolation: lch): --lch-darken(var(--color), var(--amount));
-  style(--interpolation: lab): --lab-darken(var(--color), var(--amount));
-  style(--interpolation: oklab): --oklab-darken(var(--color), var(--amount));
-  style(--interpolation: hsl): --hsl-darken(var(--color), var(--amount));
-  style(--interpolation: hwb): --hwb-darken(var(--color), var(--amount));
-  style(--interpolation: rgb): --rgb-darken(var(--color), var(--amount));
-  style(--interpolation: srgb): --srgb-darken(var(--color), var(--amount));
-  style(--interpolation: srgb-linear): --srgb-linear-darken(var(--color), var(--amount));
-  style(--interpolation: display-p3): --display-p3-darken(var(--color), var(--amount));
-  style(--interpolation: a98-rgb): --a98-rgb-darken(var(--color), var(--amount));
-  style(--interpolation: prophoto-rgb): --prophoto-rgb-darken(var(--color), var(--amount));
-  style(--interpolation: rec2020): --rec-2020-darken(var(--color), var(--amount));
-  style(--interpolation: xyz): --xyz-darken(var(--color), var(--amount));
-  style(--interpolation: xyz-d50): --xyz-d50-darken(var(--color), var(--amount));
-  style(--interpolation: xyz-d65): --xyz-d65-darken(var(--color), var(--amount));
-  style(--interpolation: color-mix): --color-mix-darken(var(--color), var(--amount));
+style(--interpolation: lch): --lch-darken(var(--color), var(--amount));
+style(--interpolation: lab): --lab-darken(var(--color), var(--amount));
+style(--interpolation: oklab): --oklab-darken(var(--color), var(--amount));
+style(--interpolation: hsl): --hsl-darken(var(--color), var(--amount));
+style(--interpolation: hwb): --hwb-darken(var(--color), var(--amount));
+style(--interpolation: rgb): --rgb-darken(var(--color), var(--amount));
+style(--interpolation: srgb): --srgb-darken(var(--color), var(--amount));
+style(--interpolation: srgb-linear): --srgb-linear-darken(var(--color), var(--amount));
+style(--interpolation: display-p3): --display-p3-darken(var(--color), var(--amount));
+style(--interpolation: a98-rgb): --a98-rgb-darken(var(--color), var(--amount));
+style(--interpolation: prophoto-rgb): --prophoto-rgb-darken(var(--color), var(--amount));
+style(--interpolation: rec2020): --rec-2020-darken(var(--color), var(--amount));
+style(--interpolation: xyz): --xyz-darken(var(--color), var(--amount));
+style(--interpolation: xyz-d50): --xyz-d50-darken(var(--color), var(--amount));
+style(--interpolation: xyz-d65): --xyz-d65-darken(var(--color), var(--amount));
+style(--interpolation: color-mix): --color-mix-darken(var(--color), var(--amount));
   else: --oklch-darken(var(--color), var(--amount));
 )
 }
@@ -276,16 +323,6 @@ returns <color> {
 @custom-variant supports-darken {
   /*test for support of custom functions and if queries*/
   @supports (background: if(style(--value): red)) and (background: --darken-oklch(red, 20)) {
-    @slot;
-  }
-}
-
-
-@utility container-* {
-  container-type: --value('scroll-state');
-}
-@custom-variant @scrollable-top {
-  @container scroll-state(scrollable: top) {
     @slot;
   }
 }

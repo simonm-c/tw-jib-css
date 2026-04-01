@@ -1,1 +1,21 @@
+# IDE
 .idea
+
+# Dependencies
+node_modules/
+.pnpm-store/
+
+# Build output
+dist/
+
+# VitePress
+docs/.vitepress/dist
+docs/.vitepress/cache
+
+# Test output
+coverage/
+test-results/
+playwright-report/
+
+# Package
+*.tgz

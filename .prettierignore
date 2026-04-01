@@ -1,0 +1,8 @@
+pnpm-lock.yaml
+node_modules
+dist
+docs/.vitepress/dist
+docs/.vitepress/cache
+coverage
+test-results
+playwright-report

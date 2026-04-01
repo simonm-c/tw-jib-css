@@ -1,8 +1,18 @@
-# tw-jib-css
+<p align="center">
+  <a href="https://simonm-c.github.io/tw-jib-css/">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset="docs/public/jibcss-logotype-white-hex.svg">
+      <source media="(prefers-color-scheme: light)" srcset="docs/public/jibcss-logotype-dark-hex.svg">
+      <img alt="Jibcss" src="docs/public/jibcss-logotype-dark-hex.svg" width="280" height="100" style="max-width: 100%;">
+    </picture>
+  </a>
+</p>
 
-[![npm version](https://img.shields.io/npm/v/tw-jib-css)](https://www.npmjs.com/package/tw-jib-css)
-[![npm downloads](https://img.shields.io/npm/dm/tw-jib-css)](https://www.npmjs.com/package/tw-jib-css)
-[![license](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+<p align="center">
+  <a href="https://www.npmjs.com/package/tw-jib-css"><img src="https://img.shields.io/npm/v/tw-jib-css" alt="npm version"></a>
+  <a href="https://www.npmjs.com/package/tw-jib-css"><img src="https://img.shields.io/npm/dm/tw-jib-css" alt="npm downloads"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue" alt="license"></a>
+</p>
 
 TailwindCSS v4 utility library — border gradients, CSS relative color transforms, ripple effects, and more — built entirely with CSS-first `@utility` and `@custom-variant` syntax.
 

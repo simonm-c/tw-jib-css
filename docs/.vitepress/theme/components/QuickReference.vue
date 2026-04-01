@@ -19,7 +19,7 @@ const hasMore = computed(() => props.rows.length > props.initialCount);
 </script>
 
 <template>
-  <div class="my-4 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
+  <div class="my-4 bg-white dark:bg-gray-900 border-2 border-linear-to-b border-from-gray-200 border-to-gray-300 dark:border-from-gray-700 dark:border-to-gray-600 rounded-lg overflow-hidden">
     <table class="w-full border-collapse text-sm">
       <thead>
         <tr class="bg-gray-50 dark:bg-gray-800/50">

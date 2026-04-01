@@ -6,7 +6,7 @@ title: Border Gradient
 
 # Border Gradient
 
-Apply gradient borders using CSS background clipping — no pseudo-elements or JavaScript. Supports linear, radial, and conic gradients with colour stop positions, 8 interpolation modes, and an animated spin effect.
+Apply gradient borders using CSS background clipping — no pseudo-elements or JavaScript. Supports linear, radial, and conic gradients with colour stop positions and 8 interpolation modes. For animated spinning borders, see [Border Spin](/guide/border-spin).
 
 ::: tip Import
 Included in `@import 'tw-jib-css'`. To import individually:
@@ -41,9 +41,6 @@ Note: `border-gradient` depends on `ripple` (for `--tw-ripple-image`).
   { class: 'border-to-<color>', styles: '--tw-border-gradient-to: <color>' },
   { class: 'border-to-<percentage>', styles: '--tw-border-gradient-to-position: <percentage>' },
   { class: 'border-to-[<value>]', styles: '--tw-border-gradient-to: <value>' },
-  { class: 'border-spin', styles: 'animation: border-spin var(--tw-border-spin-duration) linear infinite' },
-  { class: 'border-spin-duration-<number>', styles: '--tw-border-spin-duration: <number> * 1000ms' },
-  { class: 'border-spin-duration-[<value>]', styles: '--tw-border-spin-duration: <value>' },
 ]" />
 
 ## Basic Usage
@@ -393,62 +390,14 @@ Available modifiers: `/srgb`, `/hsl`, `/oklab`, `/oklch`, `/longer`, `/shorter`,
 | `/increasing` | Always moves clockwise around the hue wheel. |
 | `/decreasing` | Always moves counter-clockwise around the hue wheel. |
 
-## Animated Spin
-
-Add `border-spin` to rotate the gradient continuously. The default duration is `1s`.
-
-<Example>
-  <div class="flex gap-4 items-start">
-    <div class="flex flex-col items-center gap-2">
-      <div class="size-28 border-8 border-conic-0 border-from-rose-500 border-via-amber-400 border-to-rose-500 border-spin rounded-full bg-white"></div>
-      <span class="font-mono text-[11px] text-gray-500">border-spin</span>
-    </div>
-    <div class="flex flex-col items-center gap-2">
-      <div class="size-28 border-8 border-conic/longer border-from-red-500 border-via-emerald-400 border-to-blue-500 border-spin border-spin-duration-2 rounded-full bg-white"></div>
-      <span class="font-mono text-[11px] text-gray-500">border-spin border-spin-duration-2</span>
-    </div>
-    <div class="flex flex-col items-center gap-2">
-      <button class="border-4 border-conic/longer border-from-blue-500 border-via-red-500 border-to-yellow-400 border-spin border-spin-duration-1.5 bg-white rounded-full px-6 py-3 text-sm text-gray-700 cursor-pointer">Loading...</button>
-      <span class="font-mono text-[11px] text-gray-500">border-spin-duration-1.5</span>
-    </div>
-  </div>
-</Example>
-
-### Spin duration
-
-Use `border-spin-duration-{n}` where `n` is in seconds (multiplied by 1000ms):
-
-<Example>
-  <div class="flex gap-4 items-start">
-    <div class="flex flex-col items-center gap-2">
-      <div class="size-24 border-8 border-conic-0 border-from-orange-500 border-to-violet-600 border-spin border-spin-duration-0.5 rounded-full bg-white"></div>
-      <span class="font-mono text-[11px] text-gray-500">border-spin-duration-0.5</span>
-    </div>
-    <div class="flex flex-col items-center gap-2">
-      <div class="size-24 border-8 border-conic-0 border-from-orange-500 border-to-violet-600 border-spin rounded-full bg-white"></div>
-      <span class="font-mono text-[11px] text-gray-500">1s (default)</span>
-    </div>
-    <div class="flex flex-col items-center gap-2">
-      <div class="size-24 border-8 border-conic-0 border-from-orange-500 border-to-violet-600 border-spin border-spin-duration-3 rounded-full bg-white"></div>
-      <span class="font-mono text-[11px] text-gray-500">border-spin-duration-3</span>
-    </div>
-  </div>
-</Example>
-
 ## Using a custom value
 
-Use bracket notation for custom colours, angles, and durations:
+Use bracket notation for custom colours and angles:
 
 <Example>
-  <div class="flex gap-4 items-start">
-    <div class="flex flex-col items-center gap-2">
-      <div class="border-4 border-linear-[135deg] border-from-[#ff6b35] border-to-[#1a1a2e] rounded-xl p-6 bg-white"></div>
-      <span class="font-mono text-[11px] text-gray-500">border-linear-[135deg] border-from-[#ff6b35]</span>
-    </div>
-    <div class="flex flex-col items-center gap-2">
-      <div class="size-28 border-8 border-conic-0 border-from-[#ff6b35] border-to-[#6366f1] border-spin border-spin-duration-[500ms] rounded-full bg-white"></div>
-      <span class="font-mono text-[11px] text-gray-500">border-spin-duration-[500ms]</span>
-    </div>
+  <div class="flex flex-col items-center gap-2">
+    <div class="border-4 border-linear-[135deg] border-from-[#ff6b35] border-to-[#1a1a2e] rounded-xl p-6 bg-white"></div>
+    <span class="font-mono text-[11px] text-gray-500">border-linear-[135deg] border-from-[#ff6b35]</span>
   </div>
 </Example>
 
@@ -473,7 +422,6 @@ All border gradient utilities that accept custom properties:
 | `border-to-*` | `percentage` | `border-to-(percentage:--stop-end)` |
 | `border-linear-*` | `number` | `border-linear-(number:--angle)` |
 | `border-conic-*` | `number` | `border-conic-(number:--start-angle)` |
-| `border-spin-duration-*` | `time` | `border-spin-duration-(time:--spin-speed)` |
 
 ## Applying conditionally
 
@@ -497,4 +445,4 @@ The gradient border technique uses CSS background clipping. A transparent border
 
 The border area shows the gradient because the padding-box background doesn't cover it. This is a pure CSS technique that works with `border-radius` and doesn't require pseudo-elements.
 
-The animated spin uses `@property` to register `--tw-border-gradient-angle` as an `<angle>`, making it animatable via `@keyframes`.
+For animated spinning borders, see [Border Spin](/guide/border-spin).

@@ -2,9 +2,13 @@
 layout: home
 
 hero:
-  name: tw-jib-css
+  name: Jibcss
   text: CSS-first TailwindCSS v4 utilities
   tagline: Border gradients, color transforms, ripple effects, and more — no JavaScript required.
+  image:
+    light: /jibcss-logotype.svg
+    dark: /jibcss-logotype-white.svg
+    alt: Jibcss
   actions:
     - theme: brand
       text: Get Started

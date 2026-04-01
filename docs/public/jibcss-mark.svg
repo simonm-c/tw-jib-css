@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100%" height="100%" viewBox="0 0 322 459" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="mast-grad" x1="0.5" y1="1" x2="0.5" y2="0">
+      <stop offset="0%" stop-color="oklch(from oklch(74.6% 0.16 232.661) calc(l - 0.34) c h)"/>
+      <stop offset="100%" stop-color="oklch(from oklch(74.6% 0.16 232.661) calc(l + 0.1) c h)"/>
+    </linearGradient>
+  </defs>
+  <style>
+    * { --color-sky-400: oklch(74.6% 0.16 232.661); }
+    .fill-sky-400 { color: var(--color-sky-400); fill: var(--color-sky-400); }
+    .darken-26 { fill: oklch(from currentColor calc(l - 0.26) c h / alpha); }
+    .darken-34 { fill: oklch(from currentColor calc(l - 0.34) c h / alpha); }
+    .lighten-10 { fill: oklch(from currentColor calc(l + 0.1) c h / alpha); }
+  </style>
+  <path d="M7.71,412.11L8.33,426.03C116.35,451.47,212.32,415.83,292.24,386.04L314.29,352.44C218.77,395.15,135.49,423.14,7.71,412.11Z" class="fill-sky-400 darken-26"/>
+  <path d="M179.71,129.13L293.16,317.01C243.26,349.39,194.77,357.19,161.6,352.06C192.35,290.93,207.2,225.67,179.71,129.13Z" class="fill-sky-400 lighten-10"/>
+  <path d="M27.4,364.61L9.04,403.96C93.83,409.23,197.72,404.03,311.15,344.51C300.97,343.36,282.13,341.41,267.63,341.2C244.86,349,212.73,369.39,148.66,358.18C149.31,356.87,155.81,344.87,155.81,344.87C138.51,346.99,124.59,348.46,108.2,350.44L73.05,373L75.67,354.64L27.4,364.61Z" class="fill-sky-400 darken-34"/>
+  <path d="M137.94,10.13C133.99,8.41,131.07,9.48,128.64,11.86L179.19,281.09C180.82,272.82,182.59,265.51,183.81,254.37L137.94,10.13Z" fill="url(#mast-grad)"/>
+  <path d="M124.46,38.8L172.73,302.7L83.9,356.05L124.46,38.8Z" class="fill-sky-400"/>
+</svg>

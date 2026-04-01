@@ -129,29 +129,18 @@ Use the `ripple-color-[<value>]` syntax to set ripple properties based on a comp
 
 ## Using a custom variable
 
-For CSS variables, you can also use the `ripple-color-(--custom-property)` syntax:
+For CSS variables, use the typed bare-value syntax `ripple-color-(color:--var)`. The `color` type hint tells Tailwind to interpret the variable as a colour:
 
 <Example>
   <div class="flex gap-3">
-    <button class="bg-ripple ripple-color-(--theme-ripple) bg-gray-800 text-white px-8 py-4 rounded-lg font-medium cursor-pointer" style="--theme-ripple: #bada55">
-      ripple-color-(--theme-ripple)
+    <button class="bg-ripple ripple-color-(color:--theme-ripple) bg-gray-800 text-white px-8 py-4 rounded-lg font-medium cursor-pointer" style="--theme-ripple: #bada55">
+      ripple-color-(color:--theme-ripple)
     </button>
-    <button class="bg-ripple ripple-color-(--theme-ripple) bg-white text-gray-800 border border-gray-200 px-8 py-4 rounded-lg font-medium cursor-pointer" style="--theme-ripple: #6366f1">
-      ripple-color-(--theme-ripple)
+    <button class="bg-ripple ripple-color-(color:--theme-ripple) bg-white text-gray-800 border border-gray-200 px-8 py-4 rounded-lg font-medium cursor-pointer" style="--theme-ripple: #6366f1">
+      ripple-color-(color:--theme-ripple)
     </button>
   </div>
 </Example>
 
-This is just a shorthand for `ripple-color-[var(--theme-ripple)]` that adds the `var()` function for you automatically.
-
 ## Applying conditionally
 
-### Dark mode
-
-Use `dark:` variants to adapt the ripple for dark backgrounds:
-
-<Example>
-  <button class="bg-ripple ripple-color-blue-200/30 dark:ripple-color-white/30 bg-blue-600 dark:bg-blue-900 text-white px-8 py-4 rounded-lg font-medium cursor-pointer">
-    Adapts to dark mode
-  </button>
-</Example>

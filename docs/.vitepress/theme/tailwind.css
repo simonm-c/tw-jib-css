@@ -3,3 +3,9 @@
 @import '../../../src/experimental.css';
 @source '../../**/*.md';
 @source '../../**/*.vue';
+
+/* Navbar logo sizing — match Tailwind docs scale */
+.VPNavBarTitle .logo {
+  height: 36px;
+  width: auto;
+}

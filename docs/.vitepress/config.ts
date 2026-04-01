@@ -5,12 +5,17 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
-  title: 'tw-jib-css',
+  title: 'Jibcss',
   description:
     'TailwindCSS v4 utility library — border gradients, color transforms, ripple effects, and more.',
   base: '/tw-jib-css/',
+  head: [
+    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/tw-jib-css/jibcss-mark.svg' }],
+  ],
 
   themeConfig: {
+    logo: '/jibcss-logotype.svg',
+    siteTitle: false,
     nav: [
       { text: 'Guide', link: '/guide/' },
       { text: 'API', link: '/api/' },
@@ -28,6 +33,7 @@ export default defineConfig({
         text: 'Borders',
         items: [
           { text: 'Border Gradient', link: '/guide/border-gradient' },
+          { text: 'Border Spin', link: '/guide/border-spin' },
           { text: 'Border Style', link: '/guide/border-style' },
         ],
       },

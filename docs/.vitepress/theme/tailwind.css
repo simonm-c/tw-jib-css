@@ -9,3 +9,63 @@
   height: 36px;
   width: auto;
 }
+
+/* ── Hero theming ── */
+:root {
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(120deg, #7c3aed, #06b6d4);
+  --vp-home-hero-image-background-image: radial-gradient(
+    circle,
+    rgba(124, 58, 237, 0.35),
+    rgba(6, 182, 212, 0.2),
+    transparent 70%
+  );
+  --vp-home-hero-image-filter: blur(68px);
+}
+.dark {
+  --vp-home-hero-name-background: linear-gradient(120deg, #a78bfa, #22d3ee);
+  --vp-home-hero-image-background-image: radial-gradient(
+    circle,
+    rgba(139, 92, 246, 0.3),
+    rgba(34, 211, 238, 0.15),
+    transparent 70%
+  );
+}
+
+/* ── Feature card gradient borders ── */
+.VPFeatures .item:nth-child(1) .VPFeature {
+  @apply border-2 transition-all duration-300 bg-[var(--vp-c-bg-soft)] border-linear-to-br border-from-pink-500 border-to-amber-500;
+}
+.VPFeatures .item:nth-child(2) .VPFeature {
+  @apply border-2 transition-all duration-300 bg-[var(--vp-c-bg-soft)] border-linear-to-br border-from-violet-500 border-to-cyan-500;
+}
+.VPFeatures .item:nth-child(3) .VPFeature {
+  @apply border-2 transition-all duration-300 bg-[var(--vp-c-bg-soft)] border-linear-to-br border-from-blue-500 border-to-emerald-500;
+}
+.VPFeatures .item .VPFeature:hover {
+  @apply border-4;
+}
+
+/* ── Sidebar scrollbar ── */
+.VPSidebar {
+  @apply scrollbar-width-thin scrollbar-thumb-violet-400 scrollbar-track-[transparent];
+}
+.dark .VPSidebar {
+  @apply scrollbar-thumb-violet-600;
+}
+
+/* ── Ripple on brand CTA button ── */
+/* TODO: border-gradient and ripple don't compose yet — both fight over the background shorthand. Fix in src so they can layer together. */
+.VPButton.brand {
+  @apply bg-sky-500 bg-ripple ripple-color-white/25 ripple-position-center;
+}
+
+/* ── Corner shape (progressive enhancement) ── */
+@supports (corner-shape: squircle) {
+  .VPFeature {
+    @apply corner-squircle;
+  }
+  .VPFeatures .item .VPFeature:hover {
+    @apply corner-bevel;
+  }
+}

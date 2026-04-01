@@ -14,7 +14,7 @@ export default defineConfig({
   ],
 
   themeConfig: {
-    logo: '/jibcss-logotype.svg',
+    logo: { light: '/jibcss-logotype.svg', dark: '/jibcss-logotype-white.svg' },
     siteTitle: false,
     nav: [
       { text: 'Guide', link: '/guide/' },

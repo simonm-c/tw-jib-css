@@ -59,7 +59,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="my-4 border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden not-prose">
+  <div class="my-4 bg-white dark:bg-gray-900 border-2 border-linear-to-r border-from-gray-200 border-to-gray-300 dark:border-from-gray-700 dark:border-to-gray-600 rounded-lg overflow-hidden not-prose">
     <div
       ref="preview"
       :class="[

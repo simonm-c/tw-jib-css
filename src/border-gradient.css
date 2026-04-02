@@ -22,6 +22,10 @@
   syntax: '*';
   inherits: false;
 }
+@property --tw-jib--border-gradient-position {
+  syntax: '*';
+  inherits: false;
+}
 
 @property --tw-jib--gradient-interpolation {
   syntax: '*';
@@ -45,6 +49,11 @@
    syntax: "<color>";
    inherits: false;
    initial-value: #0000;
+}
+@property --tw-jib--border-gradient-via {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: #0000;
 }
 
 @property --tw-jib--border-spin-duration {
@@ -205,7 +214,7 @@
 }
 @utility border-spin-duration-* {
   --tw-jib--border-spin-duration: calc(--value(number) * 1000ms);
-  --tw-jib--border-spin-duration: --value([time]);
+  --tw-jib--border-spin-duration: --value([*]);
 }
 
 @keyframes border-spin {

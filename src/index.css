@@ -1,9 +1,7 @@
 /* tw-jib-css — stable utilities */
 
-/* ripple must load before border-gradient (defines --tw-ripple-image) */
+@import './core.css';
 @import './ripple.css';
-
-/* border-gradient must load before lighten-darken (defines --tw-bg-color) */
 @import './border-gradient.css';
 
 @import './lighten-darken.css';

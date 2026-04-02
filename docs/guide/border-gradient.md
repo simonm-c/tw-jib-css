@@ -71,12 +71,18 @@ Border gradients work alongside Tailwind's `bg-*` utilities. When you apply a `b
 
 #### Gradient backgrounds
 
-Tailwind gradient backgrounds and border gradients coexist — the background gradient layers inside the padding area while the border gradient fills the border area:
+Tailwind gradient backgrounds and border gradients coexist — the background gradient layers inside the padding area while the border gradient fills the border area. The background and border gradient types don't need to match:
 
 <Example>
-  <div class="flex gap-4">
-    <div class="flex-1 bg-linear-to-r from-indigo-500 to-purple-500 border-4 border-linear-to-r border-from-amber-400 border-to-rose-500 rounded-xl p-6 text-center font-mono text-xs text-white">bg-linear-to-r from-indigo-500 to-purple-500</div>
-    <div class="flex-1 bg-linear-to-br from-emerald-400 to-cyan-500 border-4 border-linear-to-r border-from-amber-400 border-to-rose-500 rounded-xl p-6 text-center font-mono text-xs text-white">bg-linear-to-br from-emerald-400 to-cyan-500</div>
+  <div class="flex flex-col gap-3">
+    <div class="flex gap-4">
+      <div class="flex-1 bg-linear-to-r from-indigo-500 to-purple-500 border-4 border-linear-to-r border-from-amber-400 border-to-rose-500 rounded-xl p-6 text-center font-mono text-xs text-white">bg-linear + border-linear</div>
+      <div class="flex-1 bg-linear-to-br from-emerald-400 to-cyan-500 border-4 border-conic-0 border-from-amber-400 border-via-rose-500 border-to-emerald-500 rounded-xl p-6 text-center font-mono text-xs text-white">bg-linear + border-conic</div>
+    </div>
+    <div class="flex gap-4">
+      <div class="flex-1 bg-radial from-blue-500 to-purple-900 border-4 border-linear-to-r border-from-amber-400 border-to-emerald-500 rounded-xl p-6 text-center font-mono text-xs text-white">bg-radial + border-linear</div>
+      <div class="flex-1 bg-conic from-blue-500 via-green-500 to-purple-500 border-4 border-radial border-from-amber-400 border-to-emerald-500 rounded-xl p-6 text-center font-mono text-xs text-white">bg-conic + border-radial</div>
+    </div>
   </div>
 </Example>
 
@@ -176,13 +182,14 @@ Use `border-linear-to-{t|tr|r|br|b|bl|l|tl}` for predefined directions:
 
 ### Custom angle
 
-Use `border-linear-{angle}` for a specific angle in degrees:
+Use `border-linear-{angle}` for a specific angle in degrees. Prefix with `-` for negative angles:
 
 <Example>
   <div class="flex gap-3">
     <div class="border-4 border-linear-45 border-from-amber-400 border-to-indigo-600 rounded-xl p-6 text-center font-mono text-xs text-gray-500 bg-white">border-linear-45</div>
     <div class="border-4 border-linear-65 border-from-amber-400 border-to-indigo-600 rounded-xl p-6 text-center font-mono text-xs text-gray-500 bg-white">border-linear-65</div>
     <div class="border-4 border-linear-135 border-from-amber-400 border-to-indigo-600 rounded-xl p-6 text-center font-mono text-xs text-gray-500 bg-white">border-linear-135</div>
+    <div class="border-4 -border-linear-45 border-from-amber-400 border-to-indigo-600 rounded-xl p-6 text-center font-mono text-xs text-gray-500 bg-white">-border-linear-45</div>
   </div>
 </Example>
 
@@ -190,14 +197,18 @@ Use `border-linear-{angle}` for a specific angle in degrees:
 
 ### Setting gradient colours
 
-Use `border-from-{color}`, `border-via-{color}`, and `border-to-{color}` to set gradient colour stops:
+Use `border-from-{color}`, `border-via-{color}`, and `border-to-{color}` to set gradient colour stops. These accept any Tailwind colour, including `transparent` and `inherit`:
 
 <Example>
   <div class="flex flex-col gap-3 w-full max-w-xl">
     <div class="border-4 border-linear-to-r border-from-pink-500 border-to-blue-500 rounded-lg p-4 bg-white font-mono text-xs text-gray-500">border-from-pink-500 border-to-blue-500</div>
     <div class="border-4 border-linear-to-r border-from-pink-500 border-via-yellow-400 border-to-blue-500 rounded-lg p-4 bg-white font-mono text-xs text-gray-500">border-from-pink-500 border-via-yellow-400 border-to-blue-500</div>
+    <div class="border-4 border-linear-to-r border-from-blue-500 border-to-transparent rounded-lg p-4 bg-white font-mono text-xs text-gray-500">border-from-blue-500 border-to-transparent</div>
+    <div class="border-4 border-linear-to-r border-from-inherit border-to-cyan-500 rounded-lg p-4 bg-white font-mono text-xs text-gray-500">border-from-inherit (resolves to registered initial value)</div>
   </div>
 </Example>
+
+<!-- llm-context: border-from-inherit sets --tw-jib--border-gradient-from: inherit. Because this property is registered with inherits: false and initial-value: #0000, inherit resolves to transparent — not currentColor or the text colour. -->
 
 ### Setting gradient stop positions
 
@@ -213,7 +224,7 @@ Use `border-from-{n}%`, `border-via-{n}%`, and `border-to-{n}%` to set where eac
 
 ## Radial Gradients
 
-Use `border-radial` for a gradient that radiates from the centre:
+Use `border-radial` for a gradient that radiates from the centre. Use bracket notation to set a custom position — either percentage-based or keyword-based:
 
 <Example>
   <div class="flex gap-4">
@@ -227,25 +238,33 @@ Use `border-radial` for a gradient that radiates from the centre:
       <span class="font-mono text-[11px] text-gray-500">border-radial-[at_25%_25%]</span>
     </div>
     <div class="flex flex-col items-center gap-2">
-      <div class="size-36 border-8 border-radial-[at_50%_75%] border-from-lime-400 border-to-indigo-600 rounded-full bg-white"></div>
-      <span class="font-mono text-[11px] text-gray-500">border-radial-[at_50%_75%]</span>
+      <div class="size-36 border-8 border-radial-[at_top] border-from-lime-400 border-to-indigo-600 rounded-full bg-white"></div>
+      <span class="font-mono text-[11px] text-gray-500">border-radial-[at_top]</span>
     </div>
   </div>
 </Example>
 
 ## Conic Gradients
 
-Use `border-conic-{angle}` for a gradient that sweeps around a centre point:
+Use `border-conic-{angle}` for a gradient that sweeps around a centre point. Prefix with `-` for negative start angles:
 
 <Example>
-  <div class="flex gap-4">
+  <div class="flex gap-4 flex-wrap">
     <div class="flex flex-col items-center gap-2">
       <div class="size-36 border-8 border-conic-0 border-from-orange-500 border-to-violet-600 rounded-full bg-white"></div>
       <span class="font-mono text-[11px] text-gray-500">border-conic-0</span>
     </div>
     <div class="flex flex-col items-center gap-2">
-      <div class="size-36 border-8 border-conic-45 border-from-rose-500 border-via-amber-400 border-to-rose-500 rounded-full bg-white"></div>
-      <span class="font-mono text-[11px] text-gray-500">border-conic-45</span>
+      <div class="size-36 border-8 border-conic-90 border-from-orange-500 border-to-violet-600 rounded-full bg-white"></div>
+      <span class="font-mono text-[11px] text-gray-500">border-conic-90</span>
+    </div>
+    <div class="flex flex-col items-center gap-2">
+      <div class="size-36 border-8 border-conic-180 border-from-orange-500 border-to-violet-600 rounded-full bg-white"></div>
+      <span class="font-mono text-[11px] text-gray-500">border-conic-180</span>
+    </div>
+    <div class="flex flex-col items-center gap-2">
+      <div class="size-36 border-8 -border-conic-45 border-from-rose-500 border-via-amber-400 border-to-rose-500 rounded-full bg-white"></div>
+      <span class="font-mono text-[11px] text-gray-500">-border-conic-45</span>
     </div>
     <div class="flex flex-col items-center gap-2">
       <div class="size-36 border-8 border-conic/longer border-from-red-500 border-to-cyan-500 rounded-full bg-white"></div>
@@ -379,6 +398,8 @@ Available modifiers: `/srgb`, `/hsl`, `/oklab`, `/oklch`, `/longer`, `/shorter`,
 
 ### Choosing an interpolation mode
 
+See [Colour Spaces](./colour-spaces.md) for a deeper look at how each space affects blending.
+
 | Mode | Best for |
 | --- | --- |
 | `/oklab` (default) | Smooth, perceptually uniform blends. No hue shifts. Best general-purpose choice. |
@@ -392,12 +413,22 @@ Available modifiers: `/srgb`, `/hsl`, `/oklab`, `/oklch`, `/longer`, `/shorter`,
 
 ## Using a custom value
 
-Use bracket notation for custom colours and angles:
+Use bracket notation for custom colours and angles. Colour stops accept any CSS colour format — hex, `rgb()`, `hsl()`, `oklch()`, etc.:
 
 <Example>
-  <div class="flex flex-col items-center gap-2">
-    <div class="border-4 border-linear-[135deg] border-from-[#ff6b35] border-to-[#1a1a2e] rounded-xl p-6 bg-white"></div>
-    <span class="font-mono text-[11px] text-gray-500">border-linear-[135deg] border-from-[#ff6b35]</span>
+  <div class="flex flex-col gap-3 w-full max-w-xl">
+    <div class="flex flex-col items-center gap-2">
+      <div class="w-full border-4 border-linear-[135deg] border-from-[#ff6b35] border-to-[#1a1a2e] rounded-xl p-6 bg-white"></div>
+      <span class="font-mono text-[11px] text-gray-500">border-linear-[135deg] border-from-[#ff6b35]</span>
+    </div>
+    <div class="flex flex-col items-center gap-2">
+      <div class="w-full border-4 border-linear-to-r border-from-[oklch(0.6_0.25_330)] border-to-[oklch(0.7_0.2_200)] rounded-xl p-6 bg-white"></div>
+      <span class="font-mono text-[11px] text-gray-500">border-from-[oklch(0.6_0.25_330)] border-to-[oklch(0.7_0.2_200)]</span>
+    </div>
+    <div class="flex flex-col items-center gap-2">
+      <div class="w-full border-4 border-linear-to-r border-from-[hsl(330,80%,50%)] border-to-[hsl(200,80%,50%)] rounded-xl p-6 bg-white"></div>
+      <span class="font-mono text-[11px] text-gray-500">border-from-[hsl(330,80%,50%)] border-to-[hsl(200,80%,50%)]</span>
+    </div>
   </div>
 </Example>
 
@@ -435,6 +466,19 @@ Prefix a border gradient utility with a state variant like `hover:*` to only app
   </div>
 </Example>
 
+
+## Border Width
+
+The gradient fills whatever border width you set. Thicker borders show more of the gradient:
+
+<Example>
+  <div class="flex gap-4">
+    <div class="flex-1 border border-linear-to-r border-from-rose-500 border-to-cyan-500 rounded-lg p-4 bg-white text-center font-mono text-xs text-gray-500">border (1px)</div>
+    <div class="flex-1 border-2 border-linear-to-r border-from-rose-500 border-to-cyan-500 rounded-lg p-4 bg-white text-center font-mono text-xs text-gray-500">border-2</div>
+    <div class="flex-1 border-4 border-linear-to-r border-from-rose-500 border-to-cyan-500 rounded-lg p-4 bg-white text-center font-mono text-xs text-gray-500">border-4</div>
+    <div class="flex-1 border-8 border-linear-to-r border-from-rose-500 border-to-cyan-500 rounded-lg p-4 bg-white text-center font-mono text-xs text-gray-500">border-8</div>
+  </div>
+</Example>
 
 ## How It Works
 

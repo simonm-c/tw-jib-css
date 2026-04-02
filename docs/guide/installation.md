@@ -51,20 +51,6 @@ Add the experimental entry point for cutting-edge CSS features with limited brow
 @import 'tw-jib-css/experimental';
 ```
 
-### Selective imports
-
-Import only the modules you need:
-
-```css
-@import 'tailwindcss';
-@import 'tw-jib-css/border-gradient';
-@import 'tw-jib-css/ripple';
-```
-
-::: warning Import Order
-When using selective imports, load modules in this order: `ripple` → `border-gradient` → `lighten-darken`. The border-gradient module references variables from ripple, and lighten-darken references variables from border-gradient. This ordering is handled automatically when using `@import 'tw-jib-css'`.
-:::
-
 ## Available Modules
 
 | Module | Import Path | Stability |

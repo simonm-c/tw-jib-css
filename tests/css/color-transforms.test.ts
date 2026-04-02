@@ -1,5 +1,6 @@
 import { describe, test, expect } from 'vitest';
 import { compile } from './helpers.js';
+import { BG_LAYER, DARKEN_PALETTE, LIGHTEN_PALETTE } from './constants.js';
 
 /**
  * The @supports query that gates the experimental @function path.
@@ -12,12 +13,6 @@ const SUPPORTS_FUNCTION =
  */
 const STABLE_OKLCH =
   'oklch(from var(--tw-jib--bg-color) calc(l - var(--tw-jib--darken-amount)) c h / alpha)';
-
-/**
- * The 3-layer background shorthand produced when border-gradient utilities are present.
- */
-const BG_LAYER =
-  'var(--tw-jib--ripple-image) padding-box, var(--tw-jib--bg-image) padding-box, var(--tw-jib--border-gradient) border-box';
 
 /**
  * Map of color space → stable relative-color substring marker.
@@ -113,28 +108,7 @@ describe('stable path (relative color syntax)', () => {
   });
 
   describe('base color range — darken-20', () => {
-    test.each([
-      ['red-500', '--color-red-500'],
-      ['orange-500', '--color-orange-500'],
-      ['amber-500', '--color-amber-500'],
-      ['yellow-400', '--color-yellow-400'],
-      ['lime-500', '--color-lime-500'],
-      ['green-500', '--color-green-500'],
-      ['emerald-500', '--color-emerald-500'],
-      ['teal-500', '--color-teal-500'],
-      ['cyan-500', '--color-cyan-500'],
-      ['sky-500', '--color-sky-500'],
-      ['blue-500', '--color-blue-500'],
-      ['indigo-500', '--color-indigo-500'],
-      ['violet-500', '--color-violet-500'],
-      ['purple-500', '--color-purple-500'],
-      ['fuchsia-500', '--color-fuchsia-500'],
-      ['pink-500', '--color-pink-500'],
-      ['rose-500', '--color-rose-500'],
-      ['slate-400', '--color-slate-400'],
-      ['gray-500', '--color-gray-500'],
-      ['white', 'background-color'],
-    ])('bg-%s bg-darken-20', async (color, marker) => {
+    test.each(DARKEN_PALETTE)('bg-%s bg-darken-20', async (color, marker) => {
       const css = await compile(`bg-${color} bg-darken-20`);
       expect(css).toContain(marker);
       expect(css).toContain(STABLE_OKLCH);
@@ -142,28 +116,7 @@ describe('stable path (relative color syntax)', () => {
   });
 
   describe('base color range — lighten-20', () => {
-    test.each([
-      ['red-500', '--color-red-500'],
-      ['orange-500', '--color-orange-500'],
-      ['amber-500', '--color-amber-500'],
-      ['yellow-400', '--color-yellow-400'],
-      ['lime-500', '--color-lime-500'],
-      ['green-500', '--color-green-500'],
-      ['emerald-500', '--color-emerald-500'],
-      ['teal-500', '--color-teal-500'],
-      ['cyan-500', '--color-cyan-500'],
-      ['sky-500', '--color-sky-500'],
-      ['blue-500', '--color-blue-500'],
-      ['indigo-500', '--color-indigo-500'],
-      ['violet-500', '--color-violet-500'],
-      ['purple-500', '--color-purple-500'],
-      ['fuchsia-500', '--color-fuchsia-500'],
-      ['pink-500', '--color-pink-500'],
-      ['rose-500', '--color-rose-500'],
-      ['slate-700', '--color-slate-700'],
-      ['gray-500', '--color-gray-500'],
-      ['black', 'background-color'],
-    ])('bg-%s bg-lighten-20', async (color, marker) => {
+    test.each(LIGHTEN_PALETTE)('bg-%s bg-lighten-20', async (color, marker) => {
       const css = await compile(`bg-${color} bg-lighten-20`);
       expect(css).toContain(marker);
       expect(css).toContain(STABLE_OKLCH);
@@ -690,28 +643,7 @@ describe('experimental path (@function + @supports)', () => {
   });
 
   describe('base color range — darken-20', () => {
-    test.each([
-      ['red-500', '--color-red-500'],
-      ['orange-500', '--color-orange-500'],
-      ['amber-500', '--color-amber-500'],
-      ['yellow-400', '--color-yellow-400'],
-      ['lime-500', '--color-lime-500'],
-      ['green-500', '--color-green-500'],
-      ['emerald-500', '--color-emerald-500'],
-      ['teal-500', '--color-teal-500'],
-      ['cyan-500', '--color-cyan-500'],
-      ['sky-500', '--color-sky-500'],
-      ['blue-500', '--color-blue-500'],
-      ['indigo-500', '--color-indigo-500'],
-      ['violet-500', '--color-violet-500'],
-      ['purple-500', '--color-purple-500'],
-      ['fuchsia-500', '--color-fuchsia-500'],
-      ['pink-500', '--color-pink-500'],
-      ['rose-500', '--color-rose-500'],
-      ['slate-400', '--color-slate-400'],
-      ['gray-500', '--color-gray-500'],
-      ['white', 'background-color'],
-    ])('bg-%s bg-darken-20', async (color, marker) => {
+    test.each(DARKEN_PALETTE)('bg-%s bg-darken-20', async (color, marker) => {
       const css = await compile(`bg-${color} bg-darken-20`);
       expect(css).toContain(SUPPORTS_FUNCTION);
       expect(css).toContain('--darken(var(--tw-jib--bg-color), 20)');
@@ -720,28 +652,7 @@ describe('experimental path (@function + @supports)', () => {
   });
 
   describe('base color range — lighten-20', () => {
-    test.each([
-      ['red-500', '--color-red-500'],
-      ['orange-500', '--color-orange-500'],
-      ['amber-500', '--color-amber-500'],
-      ['yellow-400', '--color-yellow-400'],
-      ['lime-500', '--color-lime-500'],
-      ['green-500', '--color-green-500'],
-      ['emerald-500', '--color-emerald-500'],
-      ['teal-500', '--color-teal-500'],
-      ['cyan-500', '--color-cyan-500'],
-      ['sky-500', '--color-sky-500'],
-      ['blue-500', '--color-blue-500'],
-      ['indigo-500', '--color-indigo-500'],
-      ['violet-500', '--color-violet-500'],
-      ['purple-500', '--color-purple-500'],
-      ['fuchsia-500', '--color-fuchsia-500'],
-      ['pink-500', '--color-pink-500'],
-      ['rose-500', '--color-rose-500'],
-      ['slate-700', '--color-slate-700'],
-      ['gray-500', '--color-gray-500'],
-      ['black', 'background-color'],
-    ])('bg-%s bg-lighten-20', async (color, marker) => {
+    test.each(LIGHTEN_PALETTE)('bg-%s bg-lighten-20', async (color, marker) => {
       const css = await compile(`bg-${color} bg-lighten-20`);
       expect(css).toContain(SUPPORTS_FUNCTION);
       expect(css).toContain('--darken(var(--tw-jib--bg-color), calc(20 * -1))');

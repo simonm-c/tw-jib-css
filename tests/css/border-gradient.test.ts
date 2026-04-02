@@ -1,16 +1,13 @@
 import { describe, test, expect } from 'vitest';
 import { compile } from './helpers.js';
+import { BG_LAYER } from './constants.js';
 
-/**
- * The 3-layer background shorthand that every border-gradient utility must produce.
- * Ripple sits above the bg image, which sits above the border gradient.
- */
-const BG_LAYER =
-  'var(--tw-jib--ripple-image) padding-box, var(--tw-jib--bg-image) padding-box, var(--tw-jib--border-gradient) border-box';
+/** Minimal border-gradient classes reused across most tests in this file. */
+const BORDER = 'border-linear-to-r border-from-rose-500 border-to-cyan-500';
 
 describe('background colors with border gradient', () => {
   test('bg-blue-500', async () => {
-    const css = await compile('bg-blue-500 border-linear-to-r border-from-rose-500 border-to-cyan-500');
+    const css = await compile(`bg-blue-500 ${BORDER}`);
     expect(css).toContain('--tw-jib--bg-color');
     expect(css).toContain('--tw-jib--border-gradient-from');
     expect(css).toContain('border-color: transparent');
@@ -18,82 +15,82 @@ describe('background colors with border gradient', () => {
   });
 
   test('bg-emerald-600', async () => {
-    const css = await compile('bg-emerald-600 border-linear-to-r border-from-rose-500 border-to-cyan-500');
+    const css = await compile(`bg-emerald-600 ${BORDER}`);
     expect(css).toContain('--color-emerald-600');
     expect(css).toContain(BG_LAYER);
   });
 
   test('bg-blue-500/50 opacity', async () => {
-    const css = await compile('bg-blue-500/50 border-linear-to-r border-from-rose-500 border-to-cyan-500');
+    const css = await compile(`bg-blue-500/50 ${BORDER}`);
     expect(css).toContain('color-mix');
     expect(css).toContain('50%');
     expect(css).toContain(BG_LAYER);
   });
 
   test('bg-blue-500/25 opacity', async () => {
-    const css = await compile('bg-blue-500/25 border-linear-to-r border-from-rose-500 border-to-cyan-500');
+    const css = await compile(`bg-blue-500/25 ${BORDER}`);
     expect(css).toContain('color-mix');
     expect(css).toContain('25');
     expect(css).toContain(BG_LAYER);
   });
 
   test('bg-red-500/75 opacity', async () => {
-    const css = await compile('bg-red-500/75 border-linear-to-r border-from-rose-500 border-to-cyan-500');
+    const css = await compile(`bg-red-500/75 ${BORDER}`);
     expect(css).toContain('color-mix');
     expect(css).toContain('75');
     expect(css).toContain(BG_LAYER);
   });
 
   test('bg-blue-500/0 opacity', async () => {
-    const css = await compile('bg-blue-500/0 border-linear-to-r border-from-rose-500 border-to-cyan-500');
+    const css = await compile(`bg-blue-500/0 ${BORDER}`);
     expect(css).toContain('--color-blue-500');
     expect(css).toContain(BG_LAYER);
   });
 
   test('bg-[#ff6b35] arbitrary hex', async () => {
-    const css = await compile('bg-[#ff6b35] border-linear-to-r border-from-rose-500 border-to-cyan-500');
+    const css = await compile(`bg-[#ff6b35] ${BORDER}`);
     expect(css).toContain('#ff6b35');
     expect(css).toContain(BG_LAYER);
   });
 
   test('bg-[rgb(50,215,30)] arbitrary rgb', async () => {
-    const css = await compile('bg-[rgb(50,215,30)] border-linear-to-r border-from-rose-500 border-to-cyan-500');
+    const css = await compile(`bg-[rgb(50,215,30)] ${BORDER}`);
     expect(css).toContain('rgb(50,215,30)');
     expect(css).toContain(BG_LAYER);
   });
 
   test('bg-[oklch(0.7_0.15_200)] arbitrary oklch', async () => {
-    const css = await compile('bg-[oklch(0.7_0.15_200)] border-linear-to-r border-from-rose-500 border-to-cyan-500');
+    const css = await compile(`bg-[oklch(0.7_0.15_200)] ${BORDER}`);
     expect(css).toContain('oklch');
     expect(css).toContain(BG_LAYER);
   });
 
   test('bg-transparent', async () => {
-    const css = await compile('bg-transparent border-linear-to-r border-from-rose-500 border-to-cyan-500');
+    const css = await compile(`bg-transparent ${BORDER}`);
     expect(css).toContain('transparent');
     expect(css).toContain(BG_LAYER);
   });
 
   test('bg-black', async () => {
-    const css = await compile('bg-black border-linear-to-r border-from-rose-500 border-to-cyan-500');
+    const css = await compile(`bg-black ${BORDER}`);
     expect(css).toContain('background-color');
     expect(css).toContain(BG_LAYER);
   });
 
   test('bg-white', async () => {
-    const css = await compile('bg-white border-linear-to-r border-from-rose-500 border-to-cyan-500');
+    const css = await compile(`bg-white ${BORDER}`);
     expect(css).toContain('background-color');
     expect(css).toContain(BG_LAYER);
   });
 
   test('bg-inherit', async () => {
-    const css = await compile('bg-inherit border-linear-to-r border-from-rose-500 border-to-cyan-500');
+    const css = await compile(`bg-inherit ${BORDER}`);
     expect(css).toContain('inherit');
     expect(css).toContain(BG_LAYER);
   });
 
   test('bg-current', async () => {
-    const css = await compile('bg-current border-linear-to-r border-from-rose-500 border-to-cyan-500');
+    const css = await compile(`bg-current ${BORDER}`);
     expect(css).toContain('currentColor');
     expect(css).toContain(BG_LAYER);
   });
@@ -110,26 +107,26 @@ describe('background linear gradients with border gradient', () => {
     ['bg-linear-to-bl', 'to bottom left'],
     ['bg-linear-to-tl', 'to top left'],
   ])('%s', async (cls, direction) => {
-    const css = await compile(`${cls} from-blue-500 to-purple-500 border-linear-to-r border-from-rose-500 border-to-cyan-500`);
+    const css = await compile(`${cls} from-blue-500 to-purple-500 ${BORDER}`);
     expect(css).toContain(direction);
     expect(css).toContain('linear-gradient');
     expect(css).toContain(BG_LAYER);
   });
 
   test('bg-linear-45', async () => {
-    const css = await compile('bg-linear-45 from-blue-500 to-purple-500 border-linear-to-r border-from-rose-500 border-to-cyan-500');
+    const css = await compile(`bg-linear-45 from-blue-500 to-purple-500 ${BORDER}`);
     expect(css).toContain('linear-gradient');
     expect(css).toContain(BG_LAYER);
   });
 
   test('-bg-linear-45', async () => {
-    const css = await compile('-bg-linear-45 from-blue-500 to-purple-500 border-linear-to-r border-from-rose-500 border-to-cyan-500');
+    const css = await compile(`-bg-linear-45 from-blue-500 to-purple-500 ${BORDER}`);
     expect(css).toContain('linear-gradient');
     expect(css).toContain(BG_LAYER);
   });
 
   test('bg-linear-[137deg]', async () => {
-    const css = await compile('bg-linear-[137deg] from-blue-500 to-purple-500 border-linear-to-r border-from-rose-500 border-to-cyan-500');
+    const css = await compile(`bg-linear-[137deg] from-blue-500 to-purple-500 ${BORDER}`);
     expect(css).toContain('137deg');
     expect(css).toContain(BG_LAYER);
   });
@@ -143,7 +140,7 @@ describe('background linear gradients with border gradient', () => {
   });
 
   test('gradient stop positions', async () => {
-    const css = await compile('bg-linear-to-r from-blue-500 from-10% via-purple-500 via-30% to-pink-500 to-90% border-linear-to-r border-from-rose-500 border-to-cyan-500');
+    const css = await compile(`bg-linear-to-r from-blue-500 from-10% via-purple-500 via-30% to-pink-500 to-90% ${BORDER}`);
     expect(css).toContain('10%');
     expect(css).toContain('30%');
     expect(css).toContain('90%');
@@ -153,43 +150,43 @@ describe('background linear gradients with border gradient', () => {
 
 describe('background radial and conic gradients with border gradient', () => {
   test('bg-radial', async () => {
-    const css = await compile('bg-radial from-blue-500 to-purple-500 border-linear-to-r border-from-rose-500 border-to-cyan-500');
+    const css = await compile(`bg-radial from-blue-500 to-purple-500 ${BORDER}`);
     expect(css).toContain('radial-gradient');
     expect(css).toContain(BG_LAYER);
   });
 
   test('bg-radial-[at_25%_25%]', async () => {
-    const css = await compile('bg-radial-[at_25%_25%] from-blue-500 to-purple-500 border-linear-to-r border-from-rose-500 border-to-cyan-500');
+    const css = await compile(`bg-radial-[at_25%_25%] from-blue-500 to-purple-500 ${BORDER}`);
     expect(css).toContain('25% 25%');
     expect(css).toContain(BG_LAYER);
   });
 
   test('bg-conic', async () => {
-    const css = await compile('bg-conic from-blue-500 via-green-500 to-purple-500 border-linear-to-r border-from-rose-500 border-to-cyan-500');
+    const css = await compile(`bg-conic from-blue-500 via-green-500 to-purple-500 ${BORDER}`);
     expect(css).toContain('conic-gradient');
     expect(css).toContain(BG_LAYER);
   });
 
   test('bg-conic-45', async () => {
-    const css = await compile('bg-conic-45 from-blue-500 via-green-500 to-purple-500 border-linear-to-r border-from-rose-500 border-to-cyan-500');
+    const css = await compile(`bg-conic-45 from-blue-500 via-green-500 to-purple-500 ${BORDER}`);
     expect(css).toContain('conic-gradient');
     expect(css).toContain(BG_LAYER);
   });
 
   test('-bg-conic-45', async () => {
-    const css = await compile('-bg-conic-45 from-blue-500 via-green-500 to-purple-500 border-linear-to-r border-from-rose-500 border-to-cyan-500');
+    const css = await compile(`-bg-conic-45 from-blue-500 via-green-500 to-purple-500 ${BORDER}`);
     expect(css).toContain('conic-gradient');
     expect(css).toContain(BG_LAYER);
   });
 
   test('bg-conic-[from_90deg]', async () => {
-    const css = await compile('bg-conic-[from_90deg] from-blue-500 to-purple-500 border-linear-to-r border-from-rose-500 border-to-cyan-500');
+    const css = await compile(`bg-conic-[from_90deg] from-blue-500 to-purple-500 ${BORDER}`);
     expect(css).toContain('90deg');
     expect(css).toContain(BG_LAYER);
   });
 
   test('bg-none', async () => {
-    const css = await compile('bg-none border-linear-to-r border-from-rose-500 border-to-cyan-500');
+    const css = await compile(`bg-none ${BORDER}`);
     expect(css).toContain('none');
     expect(css).toContain(BG_LAYER);
   });
@@ -442,7 +439,7 @@ describe('border gradient color stop positions', () => {
   });
 
   test('border-to-80%', async () => {
-    const css = await compile('bg-slate-800 border-linear-to-r border-from-rose-500 border-to-cyan-500 border-to-80%');
+    const css = await compile(`bg-slate-800 ${BORDER} border-to-80%`);
     expect(css).toContain('--tw-jib--border-gradient-to-position: 80%');
     expect(css).toContain(BG_LAYER);
   });
@@ -627,7 +624,7 @@ describe('edge cases: border widths', () => {
   test.each(['border', 'border-2', 'border-4', 'border-8'])(
     '%s + border gradient',
     async (widthClass) => {
-      const css = await compile(`bg-slate-800 ${widthClass} border-linear-to-r border-from-rose-500 border-to-cyan-500`);
+      const css = await compile(`bg-slate-800 ${widthClass} ${BORDER}`);
       expect(css).toContain('linear-gradient');
       expect(css).toContain('border-color: transparent');
       expect(css).toContain(BG_LAYER);
@@ -637,7 +634,7 @@ describe('edge cases: border widths', () => {
 
 describe('edge cases: no background', () => {
   test('border-linear without bg', async () => {
-    const css = await compile('border-linear-to-r border-from-rose-500 border-to-cyan-500');
+    const css = await compile(BORDER);
     expect(css).toContain('linear-gradient');
     expect(css).toContain('border-color: transparent');
     expect(css).toContain(BG_LAYER);
@@ -663,21 +660,21 @@ describe('edge cases: no background', () => {
 
 describe('edge cases: state variants', () => {
   test('hover:bg-red-500', async () => {
-    const css = await compile('bg-blue-500 hover:bg-red-500 border-linear-to-r border-from-rose-500 border-to-cyan-500');
+    const css = await compile(`bg-blue-500 hover:bg-red-500 ${BORDER}`);
     expect(css).toContain('hover');
     expect(css).toContain('--color-red-500');
     expect(css).toContain(BG_LAYER);
   });
 
   test('focus:bg-green-500', async () => {
-    const css = await compile('bg-blue-500 focus:bg-green-500 border-linear-to-r border-from-rose-500 border-to-cyan-500');
+    const css = await compile(`bg-blue-500 focus:bg-green-500 ${BORDER}`);
     expect(css).toContain('focus');
     expect(css).toContain('--color-green-500');
     expect(css).toContain(BG_LAYER);
   });
 
   test('dark:bg-slate-900', async () => {
-    const css = await compile('bg-white dark:bg-slate-900 border-linear-to-r border-from-rose-500 border-to-cyan-500');
+    const css = await compile(`bg-white dark:bg-slate-900 ${BORDER}`);
     expect(css).toContain('prefers-color-scheme: dark');
     expect(css).toContain('--color-slate-900');
     expect(css).toContain(BG_LAYER);

@@ -11,10 +11,9 @@ Animate gradient borders with a continuous rotation effect. Add `border-spin` to
 ::: tip Import
 Included in `@import 'tw-jib-css'`. To import individually:
 ```css
-@import 'tw-jib-css/ripple';
 @import 'tw-jib-css/border-gradient';
 ```
-Note: `border-spin` is part of `border-gradient`. The border-gradient module depends on `ripple` (for `--tw-ripple-image`).
+Note: `border-spin` is part of the `border-gradient` module.
 :::
 
 ## Quick Reference

@@ -11,10 +11,8 @@ Apply gradient borders using CSS background clipping — no pseudo-elements or J
 ::: tip Import
 Included in `@import 'tw-jib-css'`. To import individually:
 ```css
-@import 'tw-jib-css/ripple';
 @import 'tw-jib-css/border-gradient';
 ```
-Note: `border-gradient` depends on `ripple` (for `--tw-ripple-image`).
 :::
 
 ## Quick Reference
@@ -477,6 +475,63 @@ The gradient fills whatever border width you set. Thicker borders show more of t
     <div class="flex-1 border-2 border-linear-to-r border-from-rose-500 border-to-cyan-500 rounded-lg p-4 bg-white text-center font-mono text-xs text-gray-500">border-2</div>
     <div class="flex-1 border-4 border-linear-to-r border-from-rose-500 border-to-cyan-500 rounded-lg p-4 bg-white text-center font-mono text-xs text-gray-500">border-4</div>
     <div class="flex-1 border-8 border-linear-to-r border-from-rose-500 border-to-cyan-500 rounded-lg p-4 bg-white text-center font-mono text-xs text-gray-500">border-8</div>
+  </div>
+</Example>
+
+## Border Style and Border Colour
+
+The border-gradient technique renders the gradient as a background layer clipped to `border-box` and sets `border-color: transparent` by default. The gradient is always present underneath — what you see depends on how `border-color` and `border-style` combine to paint over it.
+
+### Default (transparent border colour)
+
+With `border-color: transparent` (the default), all border styles look identical — the gradient shows through the entire border area because nothing is painted on top of it:
+
+<Example stretch>
+  <div class="grid grid-cols-4 gap-3 w-full">
+    <div class="border-8 border-solid border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">solid</div>
+    <div class="border-8 border-dashed border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">dashed</div>
+    <div class="border-8 border-dotted border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">dotted</div>
+    <div class="border-8 border-double border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">double</div>
+    <div class="border-8 border-groove border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">groove</div>
+    <div class="border-8 border-ridge border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">ridge</div>
+    <div class="border-8 border-inset border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">inset</div>
+    <div class="border-8 border-outset border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">outset</div>
+  </div>
+</Example>
+
+### Solid border colour hides the gradient
+
+Setting a solid `border-color` with a Tailwind colour class (e.g. `border-amber-500`) or a custom property (e.g. `border-(color:--var)`) paints over the gradient completely. The border colour is drawn on top of the gradient background layer, so with `border-solid` the gradient is fully hidden:
+
+<Example stretch>
+  <div class="grid grid-cols-4 gap-3 w-full">
+    <div class="border-8 border-amber-500 border-solid border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">solid</div>
+    <div class="border-8 border-amber-500 border-dashed border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">dashed</div>
+    <div class="border-8 border-amber-500 border-dotted border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">dotted</div>
+    <div class="border-8 border-amber-500 border-double border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">double</div>
+    <div class="border-8 border-amber-500 border-groove border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">groove</div>
+    <div class="border-8 border-amber-500 border-ridge border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">ridge</div>
+    <div class="border-8 border-amber-500 border-inset border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">inset</div>
+    <div class="border-8 border-amber-500 border-outset border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">outset</div>
+  </div>
+</Example>
+
+With `dashed`, `dotted`, and `double`, the solid colour only covers the painted segments — the gradient shows through the gaps between dashes, dots, and double lines. The `groove`, `ridge`, `inset`, and `outset` styles derive their 3D shading from the border colour, so the gradient peeks through where the browser lightens or darkens the colour.
+
+### Semi-transparent border colour
+
+A semi-transparent border colour (e.g. `border-amber-500/50`) tints the gradient where the colour is painted, and the gradient shows through at full strength in the gaps:
+
+<Example stretch>
+  <div class="grid grid-cols-4 gap-3 w-full">
+    <div class="border-8 border-amber-500/50 border-solid border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">solid</div>
+    <div class="border-8 border-amber-500/50 border-dashed border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">dashed</div>
+    <div class="border-8 border-amber-500/50 border-dotted border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">dotted</div>
+    <div class="border-8 border-amber-500/50 border-double border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">double</div>
+    <div class="border-8 border-amber-500/50 border-groove border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">groove</div>
+    <div class="border-8 border-amber-500/50 border-ridge border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">ridge</div>
+    <div class="border-8 border-amber-500/50 border-inset border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">inset</div>
+    <div class="border-8 border-amber-500/50 border-outset border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">outset</div>
   </div>
 </Example>
 

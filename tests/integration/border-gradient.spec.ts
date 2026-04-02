@@ -463,6 +463,50 @@ test.describe('edge cases', () => {
   });
 });
 
+// ---------------------------------------------------------------------------
+// Border styles
+// ---------------------------------------------------------------------------
+
+test.describe('border styles', () => {
+  test('transparent border-color (default): all 8 styles render gradient with transparent border', async ({ page }) => {
+    await gotoPage(page);
+    const ids = [
+      'style-solid', 'style-dashed', 'style-dotted', 'style-double',
+      'style-groove', 'style-ridge', 'style-inset', 'style-outset',
+    ];
+    const s = await extractStyles(page, ids);
+    for (const id of ids) {
+      expect(s[id].backgroundImage, `${id} should have gradient layers`).toContain('gradient');
+      expect(s[id].borderColor, `${id} should have transparent border`).toBe('rgba(0, 0, 0, 0)');
+    }
+  });
+
+  test('solid border-color: all 8 styles render gradient layers with non-transparent border', async ({ page }) => {
+    await gotoPage(page);
+    const ids = [
+      'style-color-solid', 'style-color-dashed', 'style-color-dotted', 'style-color-double',
+      'style-color-groove', 'style-color-ridge', 'style-color-inset', 'style-color-outset',
+    ];
+    const s = await extractStyles(page, ids);
+    for (const id of ids) {
+      expect(s[id].backgroundImage, `${id} should have gradient layers`).toContain('gradient');
+      expect(s[id].borderColor, `${id} should have non-transparent border`).not.toBe('rgba(0, 0, 0, 0)');
+    }
+  });
+
+  test('semi-transparent border-color: all 8 styles render gradient layers', async ({ page }) => {
+    await gotoPage(page);
+    const ids = [
+      'style-alpha-solid', 'style-alpha-dashed', 'style-alpha-dotted', 'style-alpha-double',
+      'style-alpha-groove', 'style-alpha-ridge', 'style-alpha-inset', 'style-alpha-outset',
+    ];
+    const s = await extractStyles(page, ids);
+    for (const id of ids) {
+      expect(s[id].backgroundImage, `${id} should have gradient layers`).toContain('gradient');
+    }
+  });
+});
+
 test.describe('state variants', () => {
   test('hover:bg changes background on hover', async ({ page, browserName }) => {
     await gotoPage(page);

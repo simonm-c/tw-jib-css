@@ -11,11 +11,8 @@ Lighten any background colour using CSS relative colour syntax. Works across 17 
 ::: tip Import
 Included in `@import 'tw-jib-css'`. To import individually:
 ```css
-@import 'tw-jib-css/ripple';
-@import 'tw-jib-css/border-gradient';
 @import 'tw-jib-css/lighten-darken';
 ```
-Note: `lighten-darken` depends on `border-gradient` (for `--tw-bg-color`) which depends on `ripple`.
 :::
 
 ## Quick Reference

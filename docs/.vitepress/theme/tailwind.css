@@ -55,7 +55,6 @@
 }
 
 /* ── Ripple on brand CTA button ── */
-/* TODO: border-gradient and ripple don't compose yet — both fight over the background shorthand. Fix in src so they can layer together. */
 .VPButton.brand {
   @apply bg-sky-500 bg-ripple ripple-color-white/25 ripple-position-center;
 }

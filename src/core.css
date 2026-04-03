@@ -1,0 +1,127 @@
+@property --tw-jib--bg-color {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: canvas;
+}
+@property --tw-jib--bg-image {
+  syntax: '<image> | none';
+  inherits: false;
+  initial-value: linear-gradient(canvas 0 0);
+}
+
+@theme inline {
+  --tw-jib--size-unit-auto: auto;
+  --tw-jib--size-unit-px: 1px;
+  --tw-jib--size-unit-full: 100%;
+  --tw-jib--size-unit-screen: 100vh;
+  --tw-jib--size-unit-dvh: 100dvh;
+  --tw-jib--size-unit-dvw: 100dvw;
+  --tw-jib--size-unit-lvh: 100lvh;
+  --tw-jib--size-unit-lvw: 100lvw;
+  --tw-jib--size-unit-svh: 100svh;
+  --tw-jib--size-unit-svw: 100svw;
+  --tw-jib--size-unit-min: min-content;
+  --tw-jib--size-unit-max: max-content;
+  --tw-jib--size-unit-fit: fit-content;
+  --tw-jib--size-unit-lh: 1lh;
+  --tw-jib--size-unit-none: none;
+  --tw-jib--size-unit-stretch: stretch;
+}
+
+
+@utility bg-none {
+  background:
+          var(--tw-jib--ripple-image) padding-box,
+          none padding-box,
+          var(--tw-jib--border-gradient) border-box;
+}
+
+@utility bg-* {
+  --tw-jib--bg-color: --value('inherit', 'transparent', --color-*, [color]);
+  --tw-jib--bg-color: --alpha(--value('inherit', 'transparent', --color-*, [color]) / calc(--modifier(integer) * 1%));
+  --tw-jib--bg-image: linear-gradient(var(--tw-jib--bg-color) 0 0);
+  --tw-jib--bg-image: --value([url]);
+}
+
+@utility bg-* {
+  background:
+          var(--tw-jib--ripple-image) padding-box,
+          --value([url]) padding-box,
+          var(--tw-jib--border-gradient) border-box;
+}
+@utility bg-current {
+  --tw-jib--bg-color: currentColor;
+  --tw-jib--bg-image: linear-gradient(var(--tw-jib--bg-color) 0 0);
+}
+
+@utility bg-linear {
+  --tw-jib--bg-image: linear-gradient(var(--tw-gradient-stops));
+  background:
+          var(--tw-jib--ripple-image) padding-box,
+          var(--tw-jib--bg-image) padding-box,
+          var(--tw-jib--border-gradient) border-box;
+}
+@utility bg-linear-* {
+  --tw-jib--bg-image: linear-gradient(var(--tw-gradient-stops));
+  --tw-jib--noop: --modifier('srgb', 'hsl', 'oklab', 'oklch', 'longer', 'shorter', 'increasing', 'decreasing');
+  background:
+          var(--tw-jib--ripple-image) padding-box,
+          var(--tw-jib--bg-image) padding-box,
+          var(--tw-jib--border-gradient) border-box;
+}
+@utility -bg-linear-* {
+  --tw-jib--bg-image: linear-gradient(var(--tw-gradient-stops));
+  --tw-jib--noop: --modifier('srgb', 'hsl', 'oklab', 'oklch', 'longer', 'shorter', 'increasing', 'decreasing');
+  background:
+          var(--tw-jib--ripple-image) padding-box,
+          var(--tw-jib--bg-image) padding-box,
+          var(--tw-jib--border-gradient) border-box;
+}
+@utility bg-radial {
+  --tw-jib--bg-image: radial-gradient(var(--tw-gradient-stops));
+  --tw-jib--noop: --modifier('srgb', 'hsl', 'oklab', 'oklch', 'longer', 'shorter', 'increasing', 'decreasing');
+  background:
+          var(--tw-jib--ripple-image) padding-box,
+          var(--tw-jib--bg-image) padding-box,
+          var(--tw-jib--border-gradient) border-box;
+}
+@utility bg-radial-* {
+  --tw-jib--bg-image: radial-gradient(var(--tw-gradient-stops));
+  --tw-jib--noop: --modifier('srgb', 'hsl', 'oklab', 'oklch', 'longer', 'shorter', 'increasing', 'decreasing');
+  background:
+          var(--tw-jib--ripple-image) padding-box,
+          var(--tw-jib--bg-image) padding-box,
+          var(--tw-jib--border-gradient) border-box;
+}
+@utility -bg-radial-* {
+  --tw-jib--bg-image: radial-gradient(var(--tw-gradient-stops));
+  --tw-jib--noop: --modifier('srgb', 'hsl', 'oklab', 'oklch', 'longer', 'shorter', 'increasing', 'decreasing');
+  background:
+          var(--tw-jib--ripple-image) padding-box,
+          var(--tw-jib--bg-image) padding-box,
+          var(--tw-jib--border-gradient) border-box;
+}
+@utility bg-conic {
+  --tw-jib--bg-image: conic-gradient(var(--tw-gradient-stops));
+  --tw-jib--noop: --modifier('srgb', 'hsl', 'oklab', 'oklch', 'longer', 'shorter', 'increasing', 'decreasing');
+  background:
+          var(--tw-jib--ripple-image) padding-box,
+          var(--tw-jib--bg-image) padding-box,
+          var(--tw-jib--border-gradient) border-box;
+}
+@utility bg-conic-* {
+  --tw-jib--bg-image: conic-gradient(var(--tw-gradient-stops));
+  --tw-jib--noop: --modifier('srgb', 'hsl', 'oklab', 'oklch', 'longer', 'shorter', 'increasing', 'decreasing');
+  background:
+          var(--tw-jib--ripple-image) padding-box,
+          var(--tw-jib--bg-image) padding-box,
+          var(--tw-jib--border-gradient) border-box;
+}
+@utility -bg-conic-* {
+  --tw-jib--bg-image: conic-gradient(var(--tw-gradient-stops));
+  --tw-jib--noop: --modifier('srgb', 'hsl', 'oklab', 'oklch', 'longer', 'shorter', 'increasing', 'decreasing');
+  background:
+          var(--tw-jib--ripple-image) padding-box,
+          var(--tw-jib--bg-image) padding-box,
+          var(--tw-jib--border-gradient) border-box;
+}

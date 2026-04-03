@@ -1,9 +1,9 @@
-@property --tw-scrollbar-thumb {
+@property --tw-jib--scrollbar-thumb {
   syntax: '<color>';
   inherits: false;
   initial-value: #7d7d7d;
 }
-@property --tw-scrollbar-track {
+@property --tw-jib--scrollbar-track {
   syntax: '<color>';
   inherits: false;
   initial-value: transparent;
@@ -13,21 +13,21 @@
 }
 
 @utility scrollbar-* {
-  --tw-scrollbar-thumb: --value(--color-*, [color]);
-  --tw-scrollbar-track: --modifier(--color-*, [color]);
-  scrollbar-color: var(--tw-scrollbar-thumb) var(--tw-scrollbar-track);
+  --tw-jib--scrollbar-thumb: --value(--color-*, [color]);
+  --tw-jib--scrollbar-track: --modifier(--color-*, [color]);
+  scrollbar-color: var(--tw-jib--scrollbar-thumb) var(--tw-jib--scrollbar-track);
 }
 
 @utility scrollbar-thumb-* {
-  --tw-scrollbar-thumb: --value(--color-*, [color]);
-  --tw-scrollbar-thumb: --alpha(--value(--color-*, [color]) / calc(--modifier(integer) * 1%));
-  scrollbar-color: var(--tw-scrollbar-thumb) var(--tw-scrollbar-track);
+  --tw-jib--scrollbar-thumb: --value(--color-*, [color]);
+  --tw-jib--scrollbar-thumb: --alpha(--value(--color-*, [color]) / calc(--modifier(integer) * 1%));
+  scrollbar-color: var(--tw-jib--scrollbar-thumb) var(--tw-jib--scrollbar-track);
 }
 
 @utility scrollbar-track-* {
-  --tw-scrollbar-track: --value(--color-*, [color]);
-  --tw-scrollbar-track: --alpha(--value(--color-*, [color]) / calc(--modifier(integer) * 1%));
-  scrollbar-color: var(--tw-scrollbar-thumb) var(--tw-scrollbar-track);
+  --tw-jib--scrollbar-track: --value(--color-*, [color]);
+  --tw-jib--scrollbar-track: --alpha(--value(--color-*, [color]) / calc(--modifier(integer) * 1%));
+  scrollbar-color: var(--tw-jib--scrollbar-thumb) var(--tw-jib--scrollbar-track);
 }
 
 @utility scrollbar-gutter-* {

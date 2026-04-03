@@ -1,47 +1,43 @@
-/* Explicitly whitelist ripple colors for sake of the story demonstrating colors, don't do this in a production app. */
-@source inline("ripple-color-{inherit,current,transparent,black,white,}");
-@source inline("ripple-color-{red,orange,amber,yellow,lime,green,emerald,teal,cyan,sky,blue,indigo,violet,purple,fuchsia,pink,rose,slate,gray,zinc,neutral,stone,}-{50,{100..900},950}");
-
-@property --ripple-distance {
+@property --tw-jib--ripple-distance {
   syntax: '<percentage>';
   inherits: false;
   initial-value: 0%;
 }
-@property --ripple-position {
+@property --tw-jib--ripple-position {
   syntax: '<length>+ | <custom-ident>';
   inherits: false;
   initial-value: center;
 }
-@property --ripple-duration {
+@property --tw-jib--ripple-duration {
   syntax: '<time>';
   inherits: false;
   initial-value: 0.4s;
 }
-@property --ripple-color {
+@property --tw-jib--ripple-color {
   syntax: '<color>';
   inherits: true;
   initial-value: oklch(1 0 0 / 20%);
 }
-@property --ripple-color-mix {
+@property --tw-jib--ripple-color-mix {
   syntax: '<percentage>';
   inherits: false;
   initial-value: 0%;
 }
-@property --ripple-fade-amount {
+@property --tw-jib--ripple-fade-amount {
   syntax: '<percentage>';
   inherits: false;
   initial-value: 0%;
 }
 @keyframes ripple {
   0% {
-    --ripple-distance: 0%;
+    --tw-jib--ripple-distance: 0%;
   }
   100% {
-    --ripple-distance: 100%;
-    --ripple-color-mix: var(--ripple-fade-amount);
+    --tw-jib--ripple-distance: 100%;
+    --tw-jib--ripple-color-mix: var(--tw-jib--ripple-fade-amount);
   }
 }
-@property --tw-ripple-image {
+@property --tw-jib--ripple-image {
   syntax: '<image>';
   inherits: false;
   initial-value: radial-gradient(
@@ -52,32 +48,33 @@
     transparent 100%
   );
 }
+
 @utility bg-ripple {
-  --mixed-ripple-color: color-mix(
+  --tw-jib--mixed-ripple-color: color-mix(
     in oklch,
-    var(--ripple-color) calc(100% - var(--ripple-color-mix)),
-    transparent var(--ripple-color-mix)
+    var(--tw-jib--ripple-color) calc(100% - var(--tw-jib--ripple-color-mix)),
+    transparent var(--tw-jib--ripple-color-mix)
   );
   background:
-    var(--tw-ripple-image) padding-box,
-    var(--tw-bg-image) padding-box,
-    var(--tw-border-gradient) border-box;
+    var(--tw-jib--ripple-image) padding-box,
+    var(--tw-jib--bg-image) padding-box,
+    var(--tw-jib--border-gradient) border-box;
   &:active {
-    --tw-ripple-image: radial-gradient(
-      circle at var(--ripple-position),
-      var(--mixed-ripple-color) 0%,
-      var(--mixed-ripple-color) calc(var(--ripple-distance)),
-      var(--mixed-ripple-color) var(--ripple-distance),
-      transparent var(--ripple-distance),
+    --tw-jib--ripple-image: radial-gradient(
+      circle at var(--tw-jib--ripple-position),
+      var(--tw-jib--mixed-ripple-color) 0%,
+      var(--tw-jib--mixed-ripple-color) calc(var(--tw-jib--ripple-distance)),
+      var(--tw-jib--mixed-ripple-color) var(--tw-jib--ripple-distance),
+      transparent var(--tw-jib--ripple-distance),
       transparent 100%
     );
-    animation: ripple var(--ripple-duration) forwards ease-in;
+    animation: ripple var(--tw-jib--ripple-duration) forwards ease-in;
   }
 }
 
 @utility ripple-color-* {
-  --ripple-color: --value('inherit', --color-*, [color], var(--color));
-  --ripple-color: color-mix(
+  --tw-jib--ripple-color: --value('inherit', --color-*, [color], var(--color));
+  --tw-jib--ripple-color: color-mix(
     in oklch,
     --value(--color-*, [color], var(--color)) calc(--modifier(integer, [number]) * 1%),
     transparent
@@ -85,17 +82,17 @@
 }
 
 @utility ripple-duration-* {
-  --ripple-duration: calc(--value(integer) * 10ms);
-  --ripple-duration: --value([*]);
+  --tw-jib--ripple-duration: calc(--value(integer) * 10ms);
+  --tw-jib--ripple-duration: --value([*]);
 }
 
 @utility ripple-color-current {
-  --ripple-color: currentColor;
+  --tw-jib--ripple-color: currentColor;
 }
 
 @utility ripple-color-* {
-  --ripple-color: --value('inherit', --color-*, [color], var(--color));
-  --ripple-color: color-mix(
+  --tw-jib--ripple-color: --value('inherit', --color-*, [color], var(--color));
+  --tw-jib--ripple-color: color-mix(
     in oklch,
     --value(--color-*, [color], var(--color)) calc(--modifier(integer, [number]) * 1%),
     transparent
@@ -103,15 +100,15 @@
 }
 
 @utility ripple-position-* {
-  --ripple-position: --value('top', 'left', 'right', 'bottom', 'center', [position]);
+  --tw-jib--ripple-position: --value('top', 'left', 'right', 'bottom', 'center', [position]);
 }
 @utility ripple-fade {
-  --ripple-fade-amount: 100%;
+  --tw-jib--ripple-fade-amount: 100%;
 }
 @utility ripple-fade-none {
-  --ripple-fade-amount: 0%;
+  --tw-jib--ripple-fade-amount: 0%;
 }
 
 @utility ripple-fade-* {
-  --ripple-fade-amount: calc(--value(integer) * 1%);
+  --tw-jib--ripple-fade-amount: calc(--value(integer) * 1%);
 }

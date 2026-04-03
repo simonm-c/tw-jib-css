@@ -1,70 +1,70 @@
-@property --tw-darken-amount {
+@property --tw-jib--darken-amount {
   syntax: '<number>';
   inherits: false;
   initial-value: 0;
 }
 
 @theme inline {
-  --tw-color-interpolation-lch: lch(
-    from var(--tw-bg-color) calc(l - var(--tw-darken-amount) * 100) c h / alpha
+  --tw-jib--color-interpolation-lch: lch(
+    from var(--tw-jib--bg-color) calc(l - var(--tw-jib--darken-amount) * 100) c h / alpha
   );
-  --tw-color-interpolation-oklch: oklch(
-    from var(--tw-bg-color) calc(l - var(--tw-darken-amount)) c h / alpha
+  --tw-jib--color-interpolation-oklch: oklch(
+    from var(--tw-jib--bg-color) calc(l - var(--tw-jib--darken-amount)) c h / alpha
   );
-  --tw-color-interpolation-lab: lab(
-    from var(--tw-bg-color) calc(l - var(--tw-darken-amount) * 100) a b / alpha
+  --tw-jib--color-interpolation-lab: lab(
+    from var(--tw-jib--bg-color) calc(l - var(--tw-jib--darken-amount) * 100) a b / alpha
   );
-  --tw-color-interpolation-oklab: oklab(
-    from var(--tw-bg-color) calc(l - var(--tw-darken-amount)) a b / alpha
+  --tw-jib--color-interpolation-oklab: oklab(
+    from var(--tw-jib--bg-color) calc(l - var(--tw-jib--darken-amount)) a b / alpha
   );
-  --tw-color-interpolation-hsl: hsl(
-    from var(--tw-bg-color) h s calc(l - var(--tw-darken-amount) * 100) / alpha
+  --tw-jib--color-interpolation-hsl: hsl(
+    from var(--tw-jib--bg-color) h s calc(l - var(--tw-jib--darken-amount) * 100) / alpha
   );
-  --tw-color-interpolation-hwb: hwb(
-    from var(--tw-bg-color) h calc(w - var(--tw-darken-amount) * 100)
-      calc(b + var(--tw-darken-amount) * 100) / alpha
+  --tw-jib--color-interpolation-hwb: hwb(
+    from var(--tw-jib--bg-color) h calc(w - var(--tw-jib--darken-amount) * 100)
+      calc(b + var(--tw-jib--darken-amount) * 100) / alpha
   );
-  --tw-color-interpolation-rgb: rgb(
-    from var(--tw-bg-color) calc(r - var(--tw-darken-amount) * 255)
-      calc(g - var(--tw-darken-amount) * 255) calc(b - var(--tw-darken-amount) * 255) / alpha
+  --tw-jib--color-interpolation-rgb: rgb(
+    from var(--tw-jib--bg-color) calc(r - var(--tw-jib--darken-amount) * 255)
+      calc(g - var(--tw-jib--darken-amount) * 255) calc(b - var(--tw-jib--darken-amount) * 255) / alpha
   );
-  --tw-color-interpolation-srgb: color(
-    from var(--tw-bg-color) srgb calc(r - var(--tw-darken-amount)) calc(g - var(--tw-darken-amount))
-      calc(b - var(--tw-darken-amount)) / alpha
+  --tw-jib--color-interpolation-srgb: color(
+    from var(--tw-jib--bg-color) srgb calc(r - var(--tw-jib--darken-amount)) calc(g - var(--tw-jib--darken-amount))
+      calc(b - var(--tw-jib--darken-amount)) / alpha
   );
-  --tw-color-interpolation-srgb-linear: color(
-    from var(--tw-bg-color) srgb-linear calc(r - var(--tw-darken-amount))
-      calc(g - var(--tw-darken-amount)) calc(b - var(--tw-darken-amount)) / alpha
+  --tw-jib--color-interpolation-srgb-linear: color(
+    from var(--tw-jib--bg-color) srgb-linear calc(r - var(--tw-jib--darken-amount))
+      calc(g - var(--tw-jib--darken-amount)) calc(b - var(--tw-jib--darken-amount)) / alpha
   );
-  --tw-color-interpolation-display-p3: color(
-    from var(--tw-bg-color) display-p3 calc(r - var(--tw-darken-amount))
-      calc(g - var(--tw-darken-amount)) calc(b - var(--tw-darken-amount)) / alpha
+  --tw-jib--color-interpolation-display-p3: color(
+    from var(--tw-jib--bg-color) display-p3 calc(r - var(--tw-jib--darken-amount))
+      calc(g - var(--tw-jib--darken-amount)) calc(b - var(--tw-jib--darken-amount)) / alpha
   );
-  --tw-color-interpolation-a98-rgb: color(
-    from var(--tw-bg-color) a98-rgb calc(r - var(--tw-darken-amount))
-      calc(g - var(--tw-darken-amount)) calc(b - var(--tw-darken-amount)) / alpha
+  --tw-jib--color-interpolation-a98-rgb: color(
+    from var(--tw-jib--bg-color) a98-rgb calc(r - var(--tw-jib--darken-amount))
+      calc(g - var(--tw-jib--darken-amount)) calc(b - var(--tw-jib--darken-amount)) / alpha
   );
-  --tw-color-interpolation-prophoto-rgb: color(
-    from var(--tw-bg-color) prophoto-rgb calc(r - var(--tw-darken-amount))
-      calc(g - var(--tw-darken-amount)) calc(b - var(--tw-darken-amount)) / alpha
+  --tw-jib--color-interpolation-prophoto-rgb: color(
+    from var(--tw-jib--bg-color) prophoto-rgb calc(r - var(--tw-jib--darken-amount))
+      calc(g - var(--tw-jib--darken-amount)) calc(b - var(--tw-jib--darken-amount)) / alpha
   );
-  --tw-color-interpolation-rec2020: color(
-    from var(--tw-bg-color) rec2020 calc(r - var(--tw-darken-amount))
-      calc(g - var(--tw-darken-amount)) calc(b - var(--tw-darken-amount)) / alpha
+  --tw-jib--color-interpolation-rec2020: color(
+    from var(--tw-jib--bg-color) rec2020 calc(r - var(--tw-jib--darken-amount))
+      calc(g - var(--tw-jib--darken-amount)) calc(b - var(--tw-jib--darken-amount)) / alpha
   );
-  --tw-color-interpolation-xyz: color(
-    from var(--tw-bg-color) xyz calc(x - var(--tw-darken-amount)) calc(y - var(--tw-darken-amount))
-      calc(z - var(--tw-darken-amount)) / alpha
+  --tw-jib--color-interpolation-xyz: color(
+    from var(--tw-jib--bg-color) xyz calc(x - var(--tw-jib--darken-amount)) calc(y - var(--tw-jib--darken-amount))
+      calc(z - var(--tw-jib--darken-amount)) / alpha
   );
-  --tw-color-interpolation-xyz-d50: color(
-    from var(--tw-bg-color) xyz-d50 calc(x - var(--tw-darken-amount))
-      calc(y - var(--tw-darken-amount)) calc(z - var(--tw-darken-amount)) / alpha
+  --tw-jib--color-interpolation-xyz-d50: color(
+    from var(--tw-jib--bg-color) xyz-d50 calc(x - var(--tw-jib--darken-amount))
+      calc(y - var(--tw-jib--darken-amount)) calc(z - var(--tw-jib--darken-amount)) / alpha
   );
-  --tw-color-interpolation-xyz-d65: color(
-    from var(--tw-bg-color) xyz-d65 calc(x - var(--tw-darken-amount))
-      calc(y - var(--tw-darken-amount)) calc(z - var(--tw-darken-amount)) / alpha
+  --tw-jib--color-interpolation-xyz-d65: color(
+    from var(--tw-jib--bg-color) xyz-d65 calc(x - var(--tw-jib--darken-amount))
+      calc(y - var(--tw-jib--darken-amount)) calc(z - var(--tw-jib--darken-amount)) / alpha
   );
-  --tw-color-interpolation-color-mix: inherit;
+  --tw-jib--color-interpolation-color-mix: inherit;
 }
 
 /*
@@ -77,15 +77,17 @@
 /* 2 props → sorted first. Sets amount; bg-color overridden by later blocks */
 @utility bg-darken-* {
   &:not(._) {
-    --tw-darken-amount: calc(--value(integer, [number]) * 0.01);
-    background-color: --modifier(--tw-color-interpolation-*);
+    --tw-jib--darken-amount: calc(--value(integer, [number]) * 0.01);
+    background-color: --modifier(--tw-jib--color-interpolation-*);
+    --tw-jib--bg-image: linear-gradient(--modifier(--tw-jib--color-interpolation-*) 0 0);
   }
 }
 
 /* stable with-modifier path (non-@function browsers) */
 @utility bg-darken-* {
   &:not(._) {
-    background-color: --modifier(--tw-color-interpolation-*);
+    background-color: --modifier(--tw-jib--color-interpolation-*);
+    --tw-jib--bg-image: linear-gradient(--modifier(--tw-jib--color-interpolation-*) 0 0);
   }
 }
 
@@ -94,7 +96,7 @@
   &:not(._) {
     @variant supports-darken {
       background-color: --darken(
-        var(--tw-bg-color),
+        var(--tw-jib--bg-color),
         --value(integer, [number]),
         --modifier(
           'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
@@ -103,6 +105,16 @@
           'color-mix'
         )
       );
+      --tw-jib--bg-image: linear-gradient(--darken(
+              var(--tw-jib--bg-color),
+              --value(integer, [number]),
+              --modifier(
+                      'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
+                      'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
+                      'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+                      'color-mix'
+              )
+      ) 0 0);
     }
   }
 }
@@ -110,7 +122,8 @@
 /* stable no-modifier default — oklch */
 @utility bg-darken-* {
   &:not(._) {
-    background-color: oklch(from var(--tw-bg-color) calc(l - var(--tw-darken-amount)) c h / alpha);
+    background-color: oklch(from var(--tw-jib--bg-color) calc(l - var(--tw-jib--darken-amount)) c h / alpha);
+    --tw-jib--bg-image: linear-gradient(oklch(from var(--tw-jib--bg-color) calc(l - var(--tw-jib--darken-amount)) c h / alpha) 0 0);
   }
 }
 
@@ -118,7 +131,8 @@
 @utility bg-darken-* {
   &:not(._) {
     @variant supports-darken {
-      background-color: --darken(var(--tw-bg-color), --value(integer, [number]));
+      background-color: --darken(var(--tw-jib--bg-color), --value(integer, [number]));
+      --tw-jib--bg-image: linear-gradient(--darken(var(--tw-jib--bg-color), --value(integer, [number])) 0 0);
     }
   }
 }
@@ -128,15 +142,17 @@
 /* 2 props → sorted first */
 @utility bg-lighten-* {
   &:not(._) {
-    --tw-darken-amount: calc(--value(integer, [number]) * -0.01);
-    background-color: --modifier(--tw-color-interpolation-*);
+    --tw-jib--darken-amount: calc(--value(integer, [number]) * -0.01);
+    background-color: --modifier(--tw-jib--color-interpolation-*);
+    --tw-jib--bg-image: linear-gradient(--modifier(--tw-jib--color-interpolation-*) 0 0);
   }
 }
 
 /* stable with-modifier path */
 @utility bg-lighten-* {
   &:not(._) {
-    background-color: --modifier(--tw-color-interpolation-*);
+    background-color: --modifier(--tw-jib--color-interpolation-*);
+    --tw-jib--bg-image: linear-gradient(--modifier(--tw-jib--color-interpolation-*) 0 0);
   }
 }
 
@@ -145,7 +161,7 @@
   &:not(._) {
     @variant supports-darken {
       background-color: --darken(
-        var(--tw-bg-color),
+        var(--tw-jib--bg-color),
         calc(--value(integer, [number]) * -1),
         --modifier(
           'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
@@ -154,6 +170,16 @@
           'color-mix'
         )
       );
+      --tw-jib--bg-image: linear-gradient(--darken(
+              var(--tw-jib--bg-color),
+              calc(--value(integer, [number]) * -1),
+              --modifier(
+                      'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
+                      'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
+                      'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+                      'color-mix'
+              )
+      ) 0 0);
     }
   }
 }
@@ -161,7 +187,8 @@
 /* stable no-modifier default — oklch */
 @utility bg-lighten-* {
   &:not(._) {
-    background-color: oklch(from var(--tw-bg-color) calc(l - var(--tw-darken-amount)) c h / alpha);
+    background-color: oklch(from var(--tw-jib--bg-color) calc(l - var(--tw-jib--darken-amount)) c h / alpha);
+    --tw-jib--bg-image: linear-gradient(oklch(from var(--tw-jib--bg-color) calc(l - var(--tw-jib--darken-amount)) c h / alpha) 0 0);
   }
 }
 
@@ -169,7 +196,8 @@
 @utility bg-lighten-* {
   &:not(._) {
     @variant supports-darken {
-      background-color: --darken(var(--tw-bg-color), calc(--value(integer, [number]) * -1));
+      background-color: --darken(var(--tw-jib--bg-color), calc(--value(integer, [number]) * -1));
+      --tw-jib--bg-image: linear-gradient(--darken(var(--tw-jib--bg-color), calc(--value(integer, [number]) * -1)) 0 0);
     }
   }
 }

@@ -38,8 +38,10 @@ export default defineConfig({
         ],
       },
       {
-        text: 'Animations',
+        text: 'Backgrounds',
         items: [
+          { text: 'Ben Day Dots', link: '/guide/ben-day' },
+          { text: 'Sub-Pixel', link: '/guide/sub-pixel' },
           { text: 'Ripple', link: '/guide/ripple' },
         ],
       },

@@ -65,6 +65,10 @@
       "style": "./src/grid.css",
       "default": "./src/grid.css"
     },
+    "./sub-pixel": {
+      "style": "./src/sub-pixel.css",
+      "default": "./src/sub-pixel.css"
+    },
     "./experimental/corner": {
       "style": "./src/experimental/corner.css",
       "default": "./src/experimental/corner.css"

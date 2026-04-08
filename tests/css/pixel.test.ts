@@ -6,7 +6,7 @@ describe('pixel utilities', () => {
     test('bg-pixel-red-500 generates repeating-linear-gradient with screen blend', async () => {
       const css = await compile('bg-pixel-red-500');
       expect(css).toContain('repeating-linear-gradient');
-      expect(css).toContain('background-blend-mode: normal, multiply, screen, screen, screen, normal');
+      expect(css).toContain('background-blend-mode: normal, multiply, screen, screen, screen, normal, normal');
     });
 
     test('bg-pixel-red-500 extracts RGB channels via relative color syntax', async () => {
@@ -19,9 +19,9 @@ describe('pixel utilities', () => {
       expect(css).toContain('0 0 b');
     });
 
-    test('bg-pixel-red-500 has black background-color', async () => {
+    test('bg-pixel-red-500 has black base layer in --tw-jib--bg-image', async () => {
       const css = await compile('bg-pixel-red-500');
-      expect(css).toContain('background-color: rgb(0 0 0');
+      expect(css).toContain('linear-gradient(rgb(0 0 0');
     });
 
     test('bg-pixel-red-500/50 sets opacity modifier', async () => {
@@ -37,7 +37,7 @@ describe('pixel utilities', () => {
   });
 
   describe('pixel-size-*', () => {
-    test('pixel-size-2 sets sub-pixel size from spacing scale', async () => {
+    test('pixel-size-2 sets pixel size from spacing scale', async () => {
       const css = await compile('pixel-size-2');
       expect(css).toContain('--tw-jib--pixel-size');
     });

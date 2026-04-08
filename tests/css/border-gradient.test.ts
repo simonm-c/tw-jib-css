@@ -367,6 +367,56 @@ describe('border gradient interpolation modifiers', () => {
       expect(css).toContain(BG_LAYER);
     });
   });
+
+  describe('single-class modifier on border-linear-to-*', () => {
+    test.each([
+      ['border-linear-to-r/srgb', 'in srgb'],
+      ['border-linear-to-r/hsl', 'in hsl'],
+      ['border-linear-to-r/oklab', 'in oklab'],
+      ['border-linear-to-r/oklch', 'in oklch'],
+      ['border-linear-to-r/longer', 'in oklch longer hue'],
+      ['border-linear-to-r/shorter', 'in oklch shorter hue'],
+      ['border-linear-to-r/increasing', 'in oklch increasing hue'],
+      ['border-linear-to-r/decreasing', 'in oklch decreasing hue'],
+    ])('%s', async (cls, expected) => {
+      const css = await compile(`bg-slate-800 ${cls} border-from-red-500 border-to-blue-500`);
+      expect(css).toContain(`--tw-jib--gradient-interpolation: ${expected}`);
+      expect(css).toContain('linear-gradient');
+      expect(css).toContain('border-color: transparent');
+      expect(css).toContain(BG_LAYER);
+    });
+
+    test.each(['to-l', 'to-t', 'to-b', 'to-tr', 'to-br', 'to-bl', 'to-tl'])(
+      'border-linear-%s/oklch',
+      async (dir) => {
+        const css = await compile(`bg-slate-800 border-linear-${dir}/oklch border-from-red-500 border-to-blue-500`);
+        expect(css).toContain('--tw-jib--gradient-interpolation: in oklch');
+        expect(css).toContain('linear-gradient');
+      },
+    );
+  });
+
+  describe('single-class modifier on border-linear-* angles', () => {
+    test.each([
+      ['border-linear-45/oklch', 'in oklch'],
+      ['border-linear-90/srgb', 'in srgb'],
+    ])('%s', async (cls, expected) => {
+      const css = await compile(`bg-slate-800 ${cls} border-from-red-500 border-to-blue-500`);
+      expect(css).toContain(`--tw-jib--gradient-interpolation: ${expected}`);
+      expect(css).toContain('linear-gradient');
+    });
+  });
+
+  describe('single-class modifier on border-conic-* angles', () => {
+    test.each([
+      ['border-conic-45/oklch', 'in oklch'],
+      ['border-conic-90/longer', 'in oklch longer hue'],
+    ])('%s', async (cls, expected) => {
+      const css = await compile(`bg-slate-800 ${cls} border-from-red-500 border-via-yellow-400 border-to-blue-500`);
+      expect(css).toContain(`--tw-jib--gradient-interpolation: ${expected}`);
+      expect(css).toContain('conic-gradient');
+    });
+  });
 });
 
 describe('border gradient color stops', () => {

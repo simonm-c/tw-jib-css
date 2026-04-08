@@ -693,6 +693,20 @@ Use the slash modifier to select a colour space. Different spaces produce visual
   </div>
 </Example>
 
+::: info How the scaling works across colour spaces
+The lightness values (0–100) are not fixed steps added to a colour channel. A static offset breaks down because every colour starts at a different point on the lightness scale — blue-500 sits around `l = 0.62` in oklch, while yellow-400 is near `l = 0.88`. Adding a flat `+0.30` to both means blue lands at a reasonable `0.92`, but yellow overshoots to `1.18` and gets silently clamped to `1`, wasting the upper range and making high values indistinguishable.
+
+Instead, every value represents a **percentage of the distance** between the original colour and pure white (for lightening) or pure black (for darkening). `bg-lightness-50` moves the colour halfway to white; `bg-lightness-100` reaches white exactly, regardless of where the colour started. The different colour space families each need their own approach to make this work:
+
+**Perceptual spaces (oklch, lch, oklab, lab, hsl)** have a dedicated lightness channel plus separate chroma or saturation channels. The lightness channel is interpolated toward 1 (white) or 0 (black), but chroma needs special handling. As lightness approaches the extremes, the gamut of displayable colours narrows — there is physically less room for saturation. If chroma stays high while lightness pushes toward white, the colour falls outside the displayable gamut and the browser clips it back in unpredictably, causing hue shifts, flattened saturation, or visible banding. To avoid this, chroma is preserved at full strength through most of the range and only tapers off in the last stretch (above 80) where the gamut naturally demands it.
+
+**RGB-family spaces (rgb, srgb, display-p3, etc.)** don't have separate lightness and chroma channels — colour information is distributed across all three components. Each channel is interpolated independently toward its white-point value (255 for rgb, 1 for srgb and others) or toward 0 for darkening. Chroma reduction happens naturally as the channels converge toward a common value.
+
+**HWB** uses explicit whiteness and blackness channels instead of a single lightness axis. Lightening interpolates the whiteness toward 100% and blackness toward 0%; darkening does the opposite. This mirrors how the space is designed — you're literally adding white or black to the colour.
+
+**colour-mix** takes a fundamentally different approach: instead of manipulating channels with relative colour syntax, it blends the original colour with pure white or black using `color-mix()` in oklab. The blend proportions are scaled so that 100 always produces the pure extreme. This is the reference implementation that all other spaces are calibrated against.
+:::
+
 ## Aliases
 
 For convenience, `bg-lighten-*` and `bg-darken-*` are provided as user-friendly aliases that map to the same underlying utilities:

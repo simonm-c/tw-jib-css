@@ -6,7 +6,10 @@
 
 @theme inline {
   --tw-jib--color-interpolation-lch: lch(
-    from var(--tw-jib--bg-color) calc(l + var(--tw-jib--lightness-amount) * 100) c h / alpha
+    from var(--tw-jib--bg-color)
+    calc(l * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)) * 100)
+    calc(c * min(1, (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) * 5))
+    h / alpha
   );
   --tw-jib--color-interpolation-oklch: oklch(
     from var(--tw-jib--bg-color)
@@ -15,57 +18,100 @@
     h / alpha
   );
   --tw-jib--color-interpolation-lab: lab(
-    from var(--tw-jib--bg-color) calc(l + var(--tw-jib--lightness-amount) * 100) a b / alpha
+    from var(--tw-jib--bg-color)
+    calc(l * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)) * 100)
+    calc(a * min(1, (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) * 5))
+    calc(b * min(1, (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) * 5))
+    / alpha
   );
   --tw-jib--color-interpolation-oklab: oklab(
-    from var(--tw-jib--bg-color) calc(l + var(--tw-jib--lightness-amount)) a b / alpha
+    from var(--tw-jib--bg-color)
+    calc(l * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)))
+    calc(a * min(1, (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) * 5))
+    calc(b * min(1, (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) * 5))
+    / alpha
   );
   --tw-jib--color-interpolation-hsl: hsl(
-    from var(--tw-jib--bg-color) h s calc(l + var(--tw-jib--lightness-amount) * 100) / alpha
+    from var(--tw-jib--bg-color) h
+    calc(s * min(1, (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) * 5))
+    calc(l * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)) * 100)
+    / alpha
   );
   --tw-jib--color-interpolation-hwb: hwb(
-    from var(--tw-jib--bg-color) h calc(w + var(--tw-jib--lightness-amount) * 100)
-      calc(b - var(--tw-jib--lightness-amount) * 100) / alpha
+    from var(--tw-jib--bg-color) h
+    calc(w * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)) * 100)
+    calc(b * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, calc(0 - var(--tw-jib--lightness-amount))) * 100)
+    / alpha
   );
   --tw-jib--color-interpolation-rgb: rgb(
-    from var(--tw-jib--bg-color) calc(r + var(--tw-jib--lightness-amount) * 255)
-      calc(g + var(--tw-jib--lightness-amount) * 255) calc(b + var(--tw-jib--lightness-amount) * 255) / alpha
+    from var(--tw-jib--bg-color)
+    calc(r * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)) * 255)
+    calc(g * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)) * 255)
+    calc(b * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)) * 255)
+    / alpha
   );
   --tw-jib--color-interpolation-srgb: color(
-    from var(--tw-jib--bg-color) srgb calc(r + var(--tw-jib--lightness-amount)) calc(g + var(--tw-jib--lightness-amount))
-      calc(b + var(--tw-jib--lightness-amount)) / alpha
+    from var(--tw-jib--bg-color) srgb
+    calc(r * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)))
+    calc(g * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)))
+    calc(b * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)))
+    / alpha
   );
   --tw-jib--color-interpolation-srgb-linear: color(
-    from var(--tw-jib--bg-color) srgb-linear calc(r + var(--tw-jib--lightness-amount))
-      calc(g + var(--tw-jib--lightness-amount)) calc(b + var(--tw-jib--lightness-amount)) / alpha
+    from var(--tw-jib--bg-color) srgb-linear
+    calc(r * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)))
+    calc(g * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)))
+    calc(b * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)))
+    / alpha
   );
   --tw-jib--color-interpolation-display-p3: color(
-    from var(--tw-jib--bg-color) display-p3 calc(r + var(--tw-jib--lightness-amount))
-      calc(g + var(--tw-jib--lightness-amount)) calc(b + var(--tw-jib--lightness-amount)) / alpha
+    from var(--tw-jib--bg-color) display-p3
+    calc(r * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)))
+    calc(g * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)))
+    calc(b * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)))
+    / alpha
   );
   --tw-jib--color-interpolation-a98-rgb: color(
-    from var(--tw-jib--bg-color) a98-rgb calc(r + var(--tw-jib--lightness-amount))
-      calc(g + var(--tw-jib--lightness-amount)) calc(b + var(--tw-jib--lightness-amount)) / alpha
+    from var(--tw-jib--bg-color) a98-rgb
+    calc(r * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)))
+    calc(g * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)))
+    calc(b * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)))
+    / alpha
   );
   --tw-jib--color-interpolation-prophoto-rgb: color(
-    from var(--tw-jib--bg-color) prophoto-rgb calc(r + var(--tw-jib--lightness-amount))
-      calc(g + var(--tw-jib--lightness-amount)) calc(b + var(--tw-jib--lightness-amount)) / alpha
+    from var(--tw-jib--bg-color) prophoto-rgb
+    calc(r * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)))
+    calc(g * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)))
+    calc(b * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)))
+    / alpha
   );
   --tw-jib--color-interpolation-rec2020: color(
-    from var(--tw-jib--bg-color) rec2020 calc(r + var(--tw-jib--lightness-amount))
-      calc(g + var(--tw-jib--lightness-amount)) calc(b + var(--tw-jib--lightness-amount)) / alpha
+    from var(--tw-jib--bg-color) rec2020
+    calc(r * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)))
+    calc(g * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)))
+    calc(b * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)))
+    / alpha
   );
   --tw-jib--color-interpolation-xyz: color(
-    from var(--tw-jib--bg-color) xyz calc(x + var(--tw-jib--lightness-amount)) calc(y + var(--tw-jib--lightness-amount))
-      calc(z + var(--tw-jib--lightness-amount)) / alpha
+    from var(--tw-jib--bg-color) xyz
+    calc(x * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)))
+    calc(y * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)))
+    calc(z * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)))
+    / alpha
   );
   --tw-jib--color-interpolation-xyz-d50: color(
-    from var(--tw-jib--bg-color) xyz-d50 calc(x + var(--tw-jib--lightness-amount))
-      calc(y + var(--tw-jib--lightness-amount)) calc(z + var(--tw-jib--lightness-amount)) / alpha
+    from var(--tw-jib--bg-color) xyz-d50
+    calc(x * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)))
+    calc(y * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)))
+    calc(z * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)))
+    / alpha
   );
   --tw-jib--color-interpolation-xyz-d65: color(
-    from var(--tw-jib--bg-color) xyz-d65 calc(x + var(--tw-jib--lightness-amount))
-      calc(y + var(--tw-jib--lightness-amount)) calc(z + var(--tw-jib--lightness-amount)) / alpha
+    from var(--tw-jib--bg-color) xyz-d65
+    calc(x * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)))
+    calc(y * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)))
+    calc(z * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)))
+    / alpha
   );
   --tw-jib--color-interpolation-color-mix: inherit;
 }
@@ -349,100 +395,151 @@
 
 @function --lch-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
-  result: lch( from var(--color) calc(l + var(--amount)) c h / alpha);
+  result: lch(
+    from var(--color)
+    calc(l * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)) * 100)
+    calc(c * min(1, (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) * 5))
+    h / alpha
+  );
 }
 
 @function --lab-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
-  result: lab( from var(--color) calc(l + var(--amount)) a b / alpha);
+  result: lab(
+    from var(--color)
+    calc(l * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)) * 100)
+    calc(a * min(1, (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) * 5))
+    calc(b * min(1, (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) * 5))
+    / alpha
+  );
 }
 
 @function --oklab-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
-  result: oklab( from var(--color) calc(l + (var(--amount) * 0.01)) a b / alpha);
+  result: oklab(
+    from var(--color)
+    calc(l * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)))
+    calc(a * min(1, (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) * 5))
+    calc(b * min(1, (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) * 5))
+    / alpha
+  );
 }
 
 @function --hsl-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
-  result: hsl(from var(--color) h s calc(l + var(--amount)) / alpha);
+  result: hsl(
+    from var(--color) h
+    calc(s * min(1, (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) * 5))
+    calc(l * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)) * 100)
+    / alpha
+  );
 }
 
 @function --hwb-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: hwb(
-          from var(--color) h calc(w + var(--amount))
-          calc(b - var(--amount)) / alpha
+    from var(--color) h
+    calc(w * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)) * 100)
+    calc(b * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * -0.01)) * 100)
+    / alpha
   );
 }
 
 @function --rgb-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: rgb(
-          from var(--color) calc(r + var(--amount) * 2.55)
-          calc(g + var(--amount) * 2.55) calc(b + var(--amount) * 2.55) / alpha
+    from var(--color)
+    calc(r * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)) * 255)
+    calc(g * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)) * 255)
+    calc(b * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)) * 255)
+    / alpha
   )
 }
 
 @function --srgb-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: color(
-          from var(--color) srgb calc(r + var(--amount) * 0.01) calc(g + var(--amount) * 0.01)
-          calc(b + var(--amount) * 0.01) / alpha
+    from var(--color) srgb
+    calc(r * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)))
+    calc(g * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)))
+    calc(b * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)))
+    / alpha
   )
 }
 
 @function --srgb-linear-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: color(
-          from var(--color) srgb-linear calc(r + var(--amount) * 0.01)
-          calc(g + var(--amount) * 0.01) calc(b + var(--amount) * 0.01) / alpha
+    from var(--color) srgb-linear
+    calc(r * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)))
+    calc(g * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)))
+    calc(b * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)))
+    / alpha
   )
 }
 
 @function --display-p3-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: color(
-          from var(--color) display-p3 calc(r + var(--amount) * 0.01)
-          calc(g + var(--amount) * 0.01) calc(b + var(--amount) * 0.01) / alpha
+    from var(--color) display-p3
+    calc(r * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)))
+    calc(g * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)))
+    calc(b * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)))
+    / alpha
   )
 }
 
 @function --a98-rgb-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: color(
-          from var(--color) a98-rgb calc(r + var(--amount) * 0.01)
-          calc(g + var(--amount) * 0.01) calc(b + var(--amount) * 0.01) / alpha
+    from var(--color) a98-rgb
+    calc(r * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)))
+    calc(g * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)))
+    calc(b * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)))
+    / alpha
   )
 }
 
 @function --prophoto-rgb-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: color(
-          from var(--color) prophoto-rgb calc(r + var(--amount) * 0.01)
-          calc(g + var(--amount) * 0.01) calc(b + var(--amount) * 0.01) / alpha
+    from var(--color) prophoto-rgb
+    calc(r * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)))
+    calc(g * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)))
+    calc(b * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)))
+    / alpha
   )
 }
 
 @function --rec-2020-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: color(
-          from var(--color) rec2020 calc(r + var(--amount) * 0.01)
-          calc(g + var(--amount) * 0.01) calc(b + var(--amount) * 0.01) / alpha
+    from var(--color) rec2020
+    calc(r * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)))
+    calc(g * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)))
+    calc(b * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)))
+    / alpha
   )
 }
 
 @function --xyz-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: color(
-          from var(--color) xyz calc(x + var(--amount) * 0.01) calc(y + var(--amount) * 0.01)
-          calc(z + var(--amount) * 0.01) / alpha
+    from var(--color) xyz
+    calc(x * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)))
+    calc(y * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)))
+    calc(z * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)))
+    / alpha
   )
 }
 @function --xyz-d50-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: color(
-          from var(--color) xyz-d50 calc(x + var(--amount) * 0.01) calc(y + var(--amount) * 0.01)
-          calc(z + var(--amount) * 0.01) / alpha
+    from var(--color) xyz-d50
+    calc(x * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)))
+    calc(y * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)))
+    calc(z * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)))
+    / alpha
   )
 }
 
@@ -457,8 +554,11 @@ returns <color> {
 @function --xyz-d65-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: color(
-          from var(--color) xyz-d65 calc(x + var(--amount) * 0.01) calc(y + var(--amount) * 0.01)
-          calc(z + var(--amount) * 0.01) / alpha
+    from var(--color) xyz-d65
+    calc(x * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)))
+    calc(y * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)))
+    calc(z * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)))
+    / alpha
   )
 }
 

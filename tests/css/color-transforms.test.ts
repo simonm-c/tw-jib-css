@@ -20,21 +20,21 @@ const STABLE_OKLCH =
  */
 const STABLE_SPACE_MARKERS: [string, string][] = [
   ['oklch', 'oklch('],
-  ['lch', 'calc(l + var(--tw-jib--lightness-amount) * 100) c h'],
+  ['lch', 'var(--tw-jib--lightness-amount)) * 100)'],
   ['lab', 'lab('],
   ['oklab', 'oklab('],
   ['hsl', 'hsl('],
   ['hwb', 'hwb('],
-  ['rgb', 'calc(r + var(--tw-jib--lightness-amount) * 255)'],
-  ['srgb', 'srgb calc(r + var(--tw-jib--lightness-amount))'],
-  ['srgb-linear', 'srgb-linear calc(r + var(--tw-jib--lightness-amount))'],
-  ['display-p3', 'display-p3 calc(r + var(--tw-jib--lightness-amount))'],
-  ['a98-rgb', 'a98-rgb calc(r + var(--tw-jib--lightness-amount))'],
-  ['prophoto-rgb', 'prophoto-rgb calc(r + var(--tw-jib--lightness-amount))'],
-  ['rec2020', 'rec2020 calc(r + var(--tw-jib--lightness-amount))'],
-  ['xyz', 'xyz calc(x + var(--tw-jib--lightness-amount))'],
-  ['xyz-d50', 'xyz-d50 calc(x + var(--tw-jib--lightness-amount))'],
-  ['xyz-d65', 'xyz-d65 calc(x + var(--tw-jib--lightness-amount))'],
+  ['rgb', 'max(0, var(--tw-jib--lightness-amount)) * 255)'],
+  ['srgb', 'srgb calc(r *'],
+  ['srgb-linear', 'srgb-linear calc(r *'],
+  ['display-p3', 'display-p3 calc(r *'],
+  ['a98-rgb', 'a98-rgb calc(r *'],
+  ['prophoto-rgb', 'prophoto-rgb calc(r *'],
+  ['rec2020', 'rec2020 calc(r *'],
+  ['xyz', 'xyz calc(x *'],
+  ['xyz-d50', 'xyz-d50 calc(x *'],
+  ['xyz-d65', 'xyz-d65 calc(x *'],
 ];
 
 const ALL_SPACES = [
@@ -327,7 +327,7 @@ describe('stable path (relative color syntax)', () => {
 
     test('opacity-lighten-space-border', async () => {
       const css = await compile('bg-blue-500/50 bg-lighten-20/srgb border-linear-to-r border-from-rose-500 border-to-cyan-500');
-      expect(css).toContain('srgb calc(r + var(--tw-jib--lightness-amount))');
+      expect(css).toContain('srgb calc(r *');
       expect(css).toContain(BG_LAYER);
     });
 
@@ -440,7 +440,7 @@ describe('stable path (relative color syntax)', () => {
 
       test('darken/srgb + border/longer', async () => {
         const css = await compile('bg-blue-500 bg-darken-20/srgb border-linear/longer border-linear-to-r border-from-rose-500 border-to-cyan-500');
-        expect(css).toContain('srgb calc(r + var(--tw-jib--lightness-amount))');
+        expect(css).toContain('srgb calc(r *');
         expect(css).toContain(BG_LAYER);
       });
 
@@ -522,7 +522,7 @@ describe('stable path (relative color syntax)', () => {
     test('light base + lighten/rgb', async () => {
       const css = await compile('bg-yellow-100 bg-lighten-20/rgb');
       expect(css).toContain('--color-yellow-100');
-      expect(css).toContain('calc(r + var(--tw-jib--lightness-amount) * 255)');
+      expect(css).toContain('max(0, var(--tw-jib--lightness-amount)) * 255)');
     });
   });
 

@@ -1,7 +1,7 @@
 import { describe, test, expect } from 'vitest';
 import { compile } from './helpers.js';
 
-describe('sub-pixel utilities', () => {
+describe('pixel utilities', () => {
   describe('bg-pixel-*', () => {
     test('bg-pixel-red-500 generates repeating-linear-gradient with screen blend', async () => {
       const css = await compile('bg-pixel-red-500');

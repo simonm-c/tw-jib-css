@@ -1,5 +1,5 @@
 ---
-title: Ben Day Dots Test Fixtures
+title: Comic Dots Test Fixtures
 layout: page
 ---
 

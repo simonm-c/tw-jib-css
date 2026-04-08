@@ -1,6 +1,6 @@
 /* ==========================================================================
-   Sub-Pixel — TailwindCSS utilities
-   Renders a color as RGB sub-pixel columns on a black background using
+   Pixel — TailwindCSS utilities
+   Renders a color as RGB pixel columns on a black background using
    additive (screen) blending — mimics LCD/CRT display phosphors.
 
    RGB channel extraction (via relative color syntax):
@@ -19,9 +19,9 @@
    smooth additive colour transitions at the edges (like real phosphor glow).
 
    Usage:
-     bg-pixel-red-500       — red-500 as RGB sub-pixels
+     bg-pixel-red-500       — red-500 as RGB pixels
      bg-pixel-[#ff6600]     — arbitrary color
-     pixel-size-2           — sub-pixel size (width = size, height = size * 2)
+     pixel-size-2           — pixel size (width = size, height = size * 2)
      pixel-gap-2            — gap multiplier (2x pixel width between triplets)
      pixel-bleed-1          — edge softness (spacing/4)
    ========================================================================== */
@@ -57,7 +57,7 @@
 
 /* --- Utilities --- */
 
-/* bg-pixel-* — sets the color, applies the RGB sub-pixel pattern */
+/* bg-pixel-* — sets the color, applies the RGB pixel pattern */
 @utility bg-pixel-* {
   --tw-jib--pixel-color: --value(--color-*, [color]);
   --tw-jib--pixel--opacity: calc(--modifier(integer) * 0.01);
@@ -102,7 +102,7 @@
         rgb(0 0 0 / var(--tw-jib--pixel--opacity)) calc(var(--tw-jib--pixel-cell-h) - var(--tw-jib--pixel-bleed)),
         white var(--tw-jib--pixel-cell-h)
       ),
-    /* Layer 3: Red sub-pixel — column 0, bleeds into gap on both sides → screen */
+    /* Red pixel — column 0, bleeds into gap on both sides → screen */
     repeating-linear-gradient(
         to right,
         rgb(from var(--tw-jib--pixel-color) r 0 0 / var(--tw-jib--pixel--opacity)) 0px,
@@ -111,7 +111,7 @@
         transparent calc(var(--tw-jib--pixel-cell-w) - var(--tw-jib--pixel-bleed)),
         rgb(from var(--tw-jib--pixel-color) r 0 0 / var(--tw-jib--pixel--opacity)) var(--tw-jib--pixel-cell-w)
       ),
-    /* Layer 2: Green sub-pixel — column 1, bleeds into columns 0 and 2 → screen */
+    /* Green pixel — column 1, bleeds into columns 0 and 2 → screen */
     repeating-linear-gradient(
         to right,
         transparent 0px,
@@ -121,7 +121,7 @@
         transparent calc(var(--tw-jib--pixel-w) * 2 + var(--tw-jib--pixel-bleed)),
         transparent var(--tw-jib--pixel-cell-w)
       ),
-    /* Layer 1 (bottom): Blue sub-pixel — column 2, bleeds into column 1 → screen */
+    /* Blue pixel — column 2, bleeds into column 1 → screen */
     repeating-linear-gradient(
         to right,
         transparent 0px,
@@ -137,7 +137,7 @@
   background-blend-mode: normal, multiply, screen, screen, screen, normal;
 }
 
-/* pixel-size-* — sub-pixel size (width = size, height = size * 2). Spacing / 4 so pixel-size-1 = 1px. */
+/* pixel-size-* — pixel size (width = size, height = size * 2). Spacing / 4 so pixel-size-1 = 1px. */
 @utility pixel-size-* {
   --tw-jib--pixel-size: calc(--spacing(--value(number)) / 4);
   --tw-jib--pixel-size: --value([length]);

@@ -1,5 +1,5 @@
 ---
-title: Sub-Pixel Test Fixtures
+title: Pixel Test Fixtures
 layout: page
 ---
 

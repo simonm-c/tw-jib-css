@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Ben Day Dots — TailwindCSS utilities
+   Comic Dots — TailwindCSS utilities
    Converts a color into a CMYK halftone dot pattern using subtractive mixing.
 
    Uses proper CMYK conversion — K extracts the neutral/dark component,

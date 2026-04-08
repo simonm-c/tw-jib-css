@@ -60,7 +60,7 @@ If you are working with colours outside the sRGB gamut, using a wide gamut space
 | --- | --- |
 | OKLCh (default) | General purpose. Perceptually uniform lightness — the same numeric change produces a visually consistent result on any hue. |
 | OKLab | Smooth transforms without hue shifts. Good when you want to avoid any hue rotation during lightness changes. |
-| HSL | Familiar and intuitive, but not perceptually uniform. The same amount on yellow looks different from the same amount on blue. |
+| HSL | Familiar and intuitive, but not perceptually uniform. Saturation is automatically compensated when lightness shifts toward the mid-range to prevent colour spikes. |
 | Display P3 | Wide-gamut displays. Preserves P3 colours without clipping to sRGB. |
 | sRGB | Direct channel manipulation in the standard web colour space. Can produce harsh transitions. |
 | LCH / Lab | Perceptually uniform alternatives if you need CIE-based spaces. OKLCh/OKLab are generally preferred. |

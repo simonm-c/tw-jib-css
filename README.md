@@ -46,7 +46,7 @@ Import only the modules you need:
 ```css
 @import 'tailwindcss';
 @import 'tw-jib-css/border-gradient';
-@import 'tw-jib-css/lighten-darken';
+@import 'tw-jib-css/lightness';
 ```
 
 ### Experimental utilities

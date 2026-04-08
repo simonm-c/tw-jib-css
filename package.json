@@ -49,10 +49,6 @@
       "style": "./src/lightness.css",
       "default": "./src/lightness.css"
     },
-    "./lighten-darken": {
-      "style": "./src/lightness.css",
-      "default": "./src/lightness.css"
-    },
     "./ripple": {
       "style": "./src/ripple.css",
       "default": "./src/ripple.css"

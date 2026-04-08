@@ -4,7 +4,7 @@
   initial-value: canvas;
 }
 @property --tw-jib--bg-image {
-  syntax: '<image> | none';
+  syntax: '*';
   inherits: false;
   initial-value: linear-gradient(canvas 0 0);
 }

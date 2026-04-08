@@ -56,7 +56,7 @@ Add the experimental entry point for cutting-edge CSS features with limited brow
 | Module | Import Path | Stability |
 | --- | --- | --- |
 | Border Gradient | `tw-jib-css/border-gradient` | Stable |
-| Color Transforms | `tw-jib-css/lighten-darken` | Stable |
+| Color Transforms | `tw-jib-css/lightness` | Stable |
 | Ripple | `tw-jib-css/ripple` | Stable |
 | Border Style | `tw-jib-css/border-style` | Stable |
 | Scrollbar | `tw-jib-css/scrollbar` | Stable |

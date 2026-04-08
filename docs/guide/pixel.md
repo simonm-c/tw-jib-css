@@ -1,17 +1,17 @@
 ---
-title: Sub-Pixel
+title: Pixel
 ---
 
-<!-- llm-context: sub-pixel module — RGB sub-pixel pattern backgrounds. Decomposes any colour into R, G, B rectangular columns using CSS relative colour syntax and repeating linear gradients with screen blend mode (additive mixing). Mimics LCD/CRT display phosphors. -->
+<!-- llm-context: pixel module — RGB pixel pattern backgrounds. Decomposes any colour into R, G, B rectangular columns using CSS relative colour syntax and repeating linear gradients with screen blend mode (additive mixing). Mimics LCD/CRT display phosphors. -->
 
-# Sub-Pixel
+# Pixel
 
-LCD/CRT-style RGB sub-pixel backgrounds. Any colour is decomposed into three rectangular columns — red, green, and blue — using additive colour mixing via CSS relative colour syntax and `background-blend-mode: screen`.
+LCD/CRT-style RGB pixel backgrounds. Any colour is decomposed into three rectangular columns — red, green, and blue — using additive colour mixing via CSS relative colour syntax and `background-blend-mode: screen`.
 
 ::: tip Import
 Included in `@import 'tw-jib-css'`. To import individually:
 ```css
-@import 'tw-jib-css/sub-pixel';
+@import 'tw-jib-css/pixel';
 ```
 :::
 
@@ -22,10 +22,10 @@ Requires CSS relative colour syntax (`rgb(from ... r 0 0)`). Chrome 111+, Safari
 ## Quick Reference
 
 <QuickReference :rows="[
-  { class: 'bg-pixel-<color>', styles: 'Sets colour and applies RGB sub-pixel pattern with background-blend-mode: screen' },
+  { class: 'bg-pixel-<color>', styles: 'Sets colour and applies RGB pixel pattern with background-blend-mode: screen' },
   { class: 'bg-pixel-<color>/<opacity>', styles: 'Same with opacity modifier' },
   { class: 'bg-pixel-[<value>]', styles: 'Arbitrary colour value' },
-  { class: 'pixel-size-<number>', styles: '--pixel-size: --spacing(<number>) / 4 — sub-pixel size (width = size, height = size * 2)' },
+  { class: 'pixel-size-<number>', styles: '--pixel-size: --spacing(<number>) / 4 — pixel size (width = size, height = size * 2)' },
   { class: 'pixel-size-[<value>]', styles: '--pixel-size: <value>' },
   { class: 'pixel-gap-<number>', styles: '--pixel-gap: <number> — gap multiplier of pixel width' },
   { class: 'pixel-gap-[number:<value>]', styles: '--pixel-gap: <value>' },
@@ -50,7 +50,7 @@ Four background layers are composited — each channel needs its own layer for `
 3. **Green column** — same, at column position 1. Blended with `screen`.
 4. **Blue column** — same, at column position 2. Blended with `screen`.
 
-Over a black `background-color`. The `screen` blend mode adds the channels together (additive mixing), creating tall rectangular sub-pixels arranged in R|G|B triplets — just like a real LCD panel. When `pixel-bleed` > 0, the colour bleeds outward into the black gaps, and adjacent channels overlap to produce secondary colours (yellow, cyan, magenta) — mimicking CRT phosphor glow.
+Over a black `background-color`. The `screen` blend mode adds the channels together (additive mixing), creating tall rectangular pixels arranged in R|G|B triplets — just like a real LCD panel. When `pixel-bleed` > 0, the colour bleeds outward into the black gaps, and adjacent channels overlap to produce secondary colours (yellow, cyan, magenta) — mimicking CRT phosphor glow.
 
 ## Basic Usage
 
@@ -83,7 +83,7 @@ Gap scales proportionally with pixel size — changing `pixel-size-*` automatica
 
 ## Size
 
-Control the sub-pixel size with `pixel-size-{number}`. Scales at spacing/4 so `pixel-size-1` = 1px, `pixel-size-2` = 2px. Width equals the size value; height is always 2x width (preserving the 1:2 aspect ratio). The default is 1px.
+Control the pixel size with `pixel-size-{number}`. Scales at spacing/4 so `pixel-size-1` = 1px, `pixel-size-2` = 2px. Width equals the size value; height is always 2x width (preserving the 1:2 aspect ratio). The default is 1px.
 
 <Example>
   <div class="flex gap-3">
@@ -146,7 +146,7 @@ This scales the RGB channel opacities proportionally and makes the black backgro
 
 ## RGB Channel Behaviour
 
-Every Tailwind colour at every shade, rendered as sub-pixels. Whites light all three R|G|B columns equally. Pure hues light only the relevant channels — red lights R, blue lights B, yellow lights R+G.
+Every Tailwind colour at every shade, rendered as pixels. Whites light all three R|G|B columns equally. Pure hues light only the relevant channels — red lights R, blue lights B, yellow lights R+G.
 
 <div class="space-y-4 my-6">
   <div>
@@ -413,10 +413,10 @@ All `bg-pixel-*` and `pixel-*` utilities support Tailwind's variant syntax:
 </div>
 
 <div class="bg-pixel-red-500 md:pixel-size-3">
-  Larger sub-pixels on medium screens
+  Larger pixels on medium screens
 </div>
 ```
 
 ## Test Fixtures
 
-See the [Sub-Pixel Test Fixtures](/examples/sub-pixel) page for comprehensive visual tests across all Tailwind colours and parameter combinations.
+See the [Sub-Pixel Test Fixtures](/examples/pixel) page for comprehensive visual tests across all Tailwind colours and parameter combinations.

@@ -1,22 +1,22 @@
 ---
-title: Ben Day Dots
+title: Comic Dots
 ---
 
-<!-- llm-context: ben-day module — CMYK halftone dot pattern backgrounds. Converts any colour to overlapping cyan, magenta, yellow and black dots using CSS relative colour syntax and radial gradients. -->
+<!-- llm-context: comic module — CMYK halftone dot pattern backgrounds. Converts any colour to overlapping cyan, magenta, yellow and black dots using CSS relative colour syntax and radial gradients. -->
 
-# Ben Day Dots
+# Comic Dots
 
 Comic-book style CMYK halftone dot backgrounds. Any colour is decomposed into four overlapping dot grids — cyan, magenta, yellow, and black — using proper CMYK conversion via CSS relative colour syntax.
 
 ::: tip Import
 Included in `@import 'tw-jib-css'`. To import individually:
 ```css
-@import 'tw-jib-css/ben-day';
+@import 'tw-jib-css/comic';
 ```
 :::
 
-::: warning Browser Support
-Requires CSS `max()` inside `rgb()` relative colour syntax. Chrome 137+, Edge 137+. No Firefox or Safari support yet.
+::: info Browser Support
+Uses CSS relative colour syntax with `max()` inside `rgb(from ...)`. Supported in Chrome 125+, Edge 125+, Firefox 128+, and Safari 16.4+.
 :::
 
 ## Quick Reference

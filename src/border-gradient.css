@@ -98,6 +98,7 @@
 }
 
 @utility border-linear-* {
+  --tw-jib--gradient-interpolation: --modifier(--tw-jib--gradient-interpolation-*);
   --tw-jib--border-gradient-stops: var(--tw-jib--border-gradient-position), --value([*]);
   --tw-jib--border-gradient-position: calc(--value(number, [number]) * 1deg);
   --tw-jib--border-gradient-position: --value([angle])
@@ -110,6 +111,7 @@
   border-color: transparent;
 }
 @utility -border-linear-* {
+  --tw-jib--gradient-interpolation: --modifier(--tw-jib--gradient-interpolation-*);
   --tw-jib--border-gradient-stops: var(--tw-jib--border-gradient-position), --value([*]);
   --tw-jib--border-gradient-position: calc(--value(number, [number]) * -1deg);
   --tw-jib--border-gradient-position: calc(--value([angle]) * -1)
@@ -122,6 +124,7 @@
   border-color: transparent;
 }
 @utility border-linear-to-* {
+  --tw-jib--gradient-interpolation: --modifier(--tw-jib--gradient-interpolation-*);
   --tw-jib--border-gradient-position: to --value(--tw-jib--border-gradient-direction-*)
     var(--tw-jib--gradient-interpolation);
   --tw-jib--border-gradient-position:
@@ -153,6 +156,7 @@
   border-color: transparent;
 }
 @utility border-conic-* {
+  --tw-jib--gradient-interpolation: --modifier(--tw-jib--gradient-interpolation-*);
   --tw-jib--border-gradient-stops: var(--tw-jib--border-gradient-position), --value([*]);
   --tw-jib--border-gradient-position: from calc(--value(number) * 1deg) var(--tw-jib--gradient-interpolation);
   --tw-jib--border-gradient-position: from --value([angle]) var(--tw-jib--gradient-interpolation);
@@ -164,6 +168,7 @@
   border-color: transparent;
 }
 @utility -border-conic-* {
+  --tw-jib--gradient-interpolation: --modifier(--tw-jib--gradient-interpolation-*);
   --tw-jib--border-gradient-stops: var(--tw-jib--border-gradient-position), --value([*]);
   --tw-jib--border-gradient-position: from calc(--value(number) * -1deg) var(--tw-jib--gradient-interpolation);
   --tw-jib--border-gradient-position: from calc(--value([angle]) * -1) var(--tw-jib--gradient-interpolation);

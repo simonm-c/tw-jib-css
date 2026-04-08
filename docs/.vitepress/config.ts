@@ -40,16 +40,15 @@ export default defineConfig({
       {
         text: 'Backgrounds',
         items: [
-          { text: 'Ben Day Dots', link: '/guide/ben-day' },
-          { text: 'Sub-Pixel', link: '/guide/sub-pixel' },
+          { text: 'Comic Dots', link: '/guide/comic' },
+          { text: 'Pixel', link: '/guide/pixel' },
           { text: 'Ripple', link: '/guide/ripple' },
         ],
       },
       {
         text: 'Color Transforms',
         items: [
-          { text: 'Darken', link: '/guide/darken' },
-          { text: 'Lighten', link: '/guide/lighten' },
+          { text: 'Lightness', link: '/guide/lightness' },
         ],
       },
       {

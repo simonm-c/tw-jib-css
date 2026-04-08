@@ -4,9 +4,9 @@
 @import './ripple.css';
 @import './border-gradient.css';
 
-@import './lighten-darken.css';
+@import './lightness.css';
 @import './border-style.css';
 @import './scrollbar.css';
 @import './grid.css';
-@import './ben-day.css';
-@import './sub-pixel.css';
+@import './comic.css';
+@import './pixel.css';

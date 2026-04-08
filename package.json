@@ -45,9 +45,13 @@
       "style": "./src/border-gradient.css",
       "default": "./src/border-gradient.css"
     },
+    "./lightness": {
+      "style": "./src/lightness.css",
+      "default": "./src/lightness.css"
+    },
     "./lighten-darken": {
-      "style": "./src/lighten-darken.css",
-      "default": "./src/lighten-darken.css"
+      "style": "./src/lightness.css",
+      "default": "./src/lightness.css"
     },
     "./ripple": {
       "style": "./src/ripple.css",
@@ -65,9 +69,9 @@
       "style": "./src/grid.css",
       "default": "./src/grid.css"
     },
-    "./sub-pixel": {
-      "style": "./src/sub-pixel.css",
-      "default": "./src/sub-pixel.css"
+    "./pixel": {
+      "style": "./src/pixel.css",
+      "default": "./src/pixel.css"
     },
     "./experimental/corner": {
       "style": "./src/experimental/corner.css",

@@ -21,7 +21,7 @@ features:
   - title: Border Gradients
     details: Linear, radial, and conic gradient borders with 8 interpolation modes and animated spin.
   - title: Color Transforms
-    details: Lighten and darken colours across 16 colour spaces including oklch, hsl, and color-mix.
+    details: Adjust lightness across 16 colour spaces including oklch, hsl, and color-mix. Lighten and darken aliases included.
   - title: Ripple Effects
     details: Material-style ripple animation — pure CSS, no JavaScript. Powered by @property.
 ---

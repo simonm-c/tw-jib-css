@@ -449,8 +449,8 @@ returns <color> {
 @function --color-mix-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: if(
-  style(--amount > 0): color-mix(in oklab, var(--color) 100%, white calc(var(--amount) * 1%));
-  else: color-mix(in oklab, var(--color) 100%, black calc(var(--amount) * -1%));
+  style(--amount > 0): color-mix(in oklab, var(--color) min(100%, calc((100 - var(--amount)) * 2%)), white min(100%, calc(var(--amount) * 2%)));
+  else: color-mix(in oklab, var(--color) min(100%, calc((100 + var(--amount)) * 2%)), black min(100%, calc(var(--amount) * -2%)));
 )
 }
 

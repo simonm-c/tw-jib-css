@@ -12,7 +12,7 @@ const SUPPORTS_FUNCTION =
  * The stable default oklch relative color expression used when no modifier is given.
  */
 const STABLE_OKLCH =
-  'oklch(from var(--tw-jib--bg-color) calc(l + var(--tw-jib--lightness-amount)) c h / alpha)';
+  'oklch(from var(--tw-jib--bg-color) clamp(0, calc(l + var(--tw-jib--lightness-amount) * (1 - max(0, var(--tw-jib--lightness-amount)) / 2)), 1) calc(c * max(0, 1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) * max(0, 1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount))) / 2)) h / alpha)';
 
 /**
  * Map of color space → stable relative-color substring marker.

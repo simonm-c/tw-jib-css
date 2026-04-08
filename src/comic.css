@@ -55,36 +55,37 @@
   --tw-jib--comic-color: --value(--color-*, [color]);
   --tw-jib--comic--opacity: calc(--modifier(integer) * 0.01);
   --tw-jib--comic-cell: calc(var(--tw-jib--comic-dot) * 2 + var(--tw-jib--comic-gap));
-  --tw-jib--bg-image: linear-gradient(var(--tw-jib--comic-color) 0 0);
-  background:
-    var(--tw-jib--ripple-image) padding-box,
+  --tw-jib--bg-image:
     radial-gradient(
         circle,
         rgb(from var(--tw-jib--comic-color) 0 255 255 / calc((max(r, g, b) - r) / max(max(r, g, b), 1) * var(--tw-jib--comic--opacity))) var(--tw-jib--comic-dot),
         transparent calc(var(--tw-jib--comic-dot) + var(--tw-jib--comic-bleed))
       )
-      0px 0px / var(--tw-jib--comic-cell) var(--tw-jib--comic-cell),
+      0px 0px / var(--tw-jib--comic-cell) var(--tw-jib--comic-cell) padding-box,
     radial-gradient(
         circle,
         rgb(from var(--tw-jib--comic-color) 255 0 255 / calc((max(r, g, b) - g) / max(max(r, g, b), 1) * var(--tw-jib--comic--opacity))) var(--tw-jib--comic-dot),
         transparent calc(var(--tw-jib--comic-dot) + var(--tw-jib--comic-bleed))
       )
-      calc(var(--tw-jib--comic-cell) / 2) calc(var(--tw-jib--comic-cell) / 2) / var(--tw-jib--comic-cell) var(--tw-jib--comic-cell),
+      calc(var(--tw-jib--comic-cell) / 2) calc(var(--tw-jib--comic-cell) / 2) / var(--tw-jib--comic-cell) var(--tw-jib--comic-cell) padding-box,
     radial-gradient(
         circle,
         rgb(from var(--tw-jib--comic-color) 255 255 0 / calc((max(r, g, b) - b) / max(max(r, g, b), 1) * var(--tw-jib--comic--opacity))) var(--tw-jib--comic-dot),
         transparent calc(var(--tw-jib--comic-dot) + var(--tw-jib--comic-bleed))
       )
-      calc(var(--tw-jib--comic-cell) / 2) 0px / var(--tw-jib--comic-cell) var(--tw-jib--comic-cell),
+      calc(var(--tw-jib--comic-cell) / 2) 0px / var(--tw-jib--comic-cell) var(--tw-jib--comic-cell) padding-box,
     radial-gradient(
         circle,
         rgb(from var(--tw-jib--comic-color) 0 0 0 / calc((1 - max(r, g, b) / 255) * var(--tw-jib--comic--opacity))) var(--tw-jib--comic-dot),
         transparent calc(var(--tw-jib--comic-dot) + var(--tw-jib--comic-bleed))
       )
-      0px calc(var(--tw-jib--comic-cell) / 2) / var(--tw-jib--comic-cell) var(--tw-jib--comic-cell),
+      0px calc(var(--tw-jib--comic-cell) / 2) / var(--tw-jib--comic-cell) var(--tw-jib--comic-cell) padding-box,
+    linear-gradient(rgb(255 255 255 / var(--tw-jib--comic--opacity)) 0 0) padding-box;
+  background:
+    var(--tw-jib--ripple-image) padding-box,
+    var(--tw-jib--bg-image) padding-box,
     var(--tw-jib--border-gradient) border-box;
-  background-color: rgb(255 255 255 / var(--tw-jib--comic--opacity));
-  background-blend-mode: normal, multiply, multiply, multiply, multiply, normal;
+  background-blend-mode: normal, multiply, multiply, multiply, multiply, normal, normal;
 }
 
 /* comic-dot-* — dot radius from TW spacing scale */

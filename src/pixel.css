@@ -88,11 +88,8 @@
      At bleed>0 adjacent channels overlap via screen = additive glow.
   */
 
-  --tw-jib--bg-image: linear-gradient(var(--tw-jib--pixel-color) 0 0);
-  background:
-    /* Ripple overlay — normal blend so it sits on top */
-    var(--tw-jib--ripple-image) padding-box,
-    /* Layer 4 (top): vertical row mask → multiply punches out row gaps
+  --tw-jib--bg-image:
+    /* Row mask → multiply punches out row gaps
        White blooms outward into the gap by bleed amount on each side */
     repeating-linear-gradient(
         to bottom,
@@ -101,7 +98,7 @@
         rgb(0 0 0 / var(--tw-jib--pixel--opacity)) calc(var(--tw-jib--pixel-h) + var(--tw-jib--pixel-bleed)),
         rgb(0 0 0 / var(--tw-jib--pixel--opacity)) calc(var(--tw-jib--pixel-cell-h) - var(--tw-jib--pixel-bleed)),
         white var(--tw-jib--pixel-cell-h)
-      ),
+      ) padding-box,
     /* Red pixel — column 0, bleeds into gap on both sides → screen */
     repeating-linear-gradient(
         to right,
@@ -110,7 +107,7 @@
         transparent calc(var(--tw-jib--pixel-w) + var(--tw-jib--pixel-bleed)),
         transparent calc(var(--tw-jib--pixel-cell-w) - var(--tw-jib--pixel-bleed)),
         rgb(from var(--tw-jib--pixel-color) r 0 0 / var(--tw-jib--pixel--opacity)) var(--tw-jib--pixel-cell-w)
-      ),
+      ) padding-box,
     /* Green pixel — column 1, bleeds into columns 0 and 2 → screen */
     repeating-linear-gradient(
         to right,
@@ -120,7 +117,7 @@
         rgb(from var(--tw-jib--pixel-color) 0 g 0 / var(--tw-jib--pixel--opacity)) calc(var(--tw-jib--pixel-w) * 2),
         transparent calc(var(--tw-jib--pixel-w) * 2 + var(--tw-jib--pixel-bleed)),
         transparent var(--tw-jib--pixel-cell-w)
-      ),
+      ) padding-box,
     /* Blue pixel — column 2, bleeds into column 1 → screen */
     repeating-linear-gradient(
         to right,
@@ -130,11 +127,14 @@
         rgb(from var(--tw-jib--pixel-color) 0 0 b / var(--tw-jib--pixel--opacity)) var(--tw-jib--pixel-triplet-w),
         transparent calc(var(--tw-jib--pixel-triplet-w) + var(--tw-jib--pixel-bleed)),
         transparent var(--tw-jib--pixel-cell-w)
-      ),
-    /* Border gradient — normal blend at bottom */
+      ) padding-box,
+    /* Black base layer */
+    linear-gradient(rgb(0 0 0 / var(--tw-jib--pixel--opacity)) 0 0) padding-box;
+  background:
+    var(--tw-jib--ripple-image) padding-box,
+    var(--tw-jib--bg-image) padding-box,
     var(--tw-jib--border-gradient) border-box;
-  background-color: rgb(0 0 0 / var(--tw-jib--pixel--opacity));
-  background-blend-mode: normal, multiply, screen, screen, screen, normal;
+  background-blend-mode: normal, multiply, screen, screen, screen, normal, normal;
 }
 
 /* pixel-size-* — pixel size (width = size, height = size * 2). Spacing / 4 so pixel-size-1 = 1px. */

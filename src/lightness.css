@@ -10,8 +10,8 @@
   );
   --tw-jib--color-interpolation-oklch: oklch(
     from var(--tw-jib--bg-color)
-    clamp(0, calc(l + var(--tw-jib--lightness-amount) * (1 - max(0, var(--tw-jib--lightness-amount)) / 2)), 1)
-    calc(c * max(0, 1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) * max(0, 1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount))) / 2))
+    calc(l * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)))
+    calc(c * min(1, (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) * 5))
     h / alpha
   );
   --tw-jib--color-interpolation-lab: lab(
@@ -131,8 +131,8 @@
 /* stable no-modifier default — oklch */
 @utility bg-lightness-* {
   &:not(._) {
-    background-color: oklch(from var(--tw-jib--bg-color) clamp(0, calc(l + var(--tw-jib--lightness-amount) * (1 - max(0, var(--tw-jib--lightness-amount)) / 2)), 1) calc(c * max(0, 1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) * max(0, 1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount))) / 2)) h / alpha);
-    --tw-jib--bg-image: linear-gradient(oklch(from var(--tw-jib--bg-color) clamp(0, calc(l + var(--tw-jib--lightness-amount) * (1 - max(0, var(--tw-jib--lightness-amount)) / 2)), 1) calc(c * max(0, 1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) * max(0, 1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount))) / 2)) h / alpha) 0 0);
+    background-color: oklch(from var(--tw-jib--bg-color) calc(l * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount))) calc(c * min(1, (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) * 5)) h / alpha);
+    --tw-jib--bg-image: linear-gradient(oklch(from var(--tw-jib--bg-color) calc(l * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount))) calc(c * min(1, (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) * 5)) h / alpha) 0 0);
   }
 }
 
@@ -198,8 +198,8 @@
 /* stable no-modifier default — oklch */
 @utility -bg-lightness-* {
   &:not(._) {
-    background-color: oklch(from var(--tw-jib--bg-color) clamp(0, calc(l + var(--tw-jib--lightness-amount) * (1 - max(0, var(--tw-jib--lightness-amount)) / 2)), 1) calc(c * max(0, 1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) * max(0, 1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount))) / 2)) h / alpha);
-    --tw-jib--bg-image: linear-gradient(oklch(from var(--tw-jib--bg-color) clamp(0, calc(l + var(--tw-jib--lightness-amount) * (1 - max(0, var(--tw-jib--lightness-amount)) / 2)), 1) calc(c * max(0, 1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) * max(0, 1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount))) / 2)) h / alpha) 0 0);
+    background-color: oklch(from var(--tw-jib--bg-color) calc(l * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount))) calc(c * min(1, (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) * 5)) h / alpha);
+    --tw-jib--bg-image: linear-gradient(oklch(from var(--tw-jib--bg-color) calc(l * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount))) calc(c * min(1, (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) * 5)) h / alpha) 0 0);
   }
 }
 
@@ -261,8 +261,8 @@
 
 @utility bg-lighten-* {
   &:not(._) {
-    background-color: oklch(from var(--tw-jib--bg-color) clamp(0, calc(l + var(--tw-jib--lightness-amount) * (1 - max(0, var(--tw-jib--lightness-amount)) / 2)), 1) calc(c * max(0, 1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) * max(0, 1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount))) / 2)) h / alpha);
-    --tw-jib--bg-image: linear-gradient(oklch(from var(--tw-jib--bg-color) clamp(0, calc(l + var(--tw-jib--lightness-amount) * (1 - max(0, var(--tw-jib--lightness-amount)) / 2)), 1) calc(c * max(0, 1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) * max(0, 1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount))) / 2)) h / alpha) 0 0);
+    background-color: oklch(from var(--tw-jib--bg-color) calc(l * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount))) calc(c * min(1, (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) * 5)) h / alpha);
+    --tw-jib--bg-image: linear-gradient(oklch(from var(--tw-jib--bg-color) calc(l * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount))) calc(c * min(1, (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) * 5)) h / alpha) 0 0);
   }
 }
 
@@ -323,8 +323,8 @@
 
 @utility bg-darken-* {
   &:not(._) {
-    background-color: oklch(from var(--tw-jib--bg-color) clamp(0, calc(l + var(--tw-jib--lightness-amount) * (1 - max(0, var(--tw-jib--lightness-amount)) / 2)), 1) calc(c * max(0, 1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) * max(0, 1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount))) / 2)) h / alpha);
-    --tw-jib--bg-image: linear-gradient(oklch(from var(--tw-jib--bg-color) clamp(0, calc(l + var(--tw-jib--lightness-amount) * (1 - max(0, var(--tw-jib--lightness-amount)) / 2)), 1) calc(c * max(0, 1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) * max(0, 1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount))) / 2)) h / alpha) 0 0);
+    background-color: oklch(from var(--tw-jib--bg-color) calc(l * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount))) calc(c * min(1, (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) * 5)) h / alpha);
+    --tw-jib--bg-image: linear-gradient(oklch(from var(--tw-jib--bg-color) calc(l * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount))) calc(c * min(1, (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) * 5)) h / alpha) 0 0);
   }
 }
 
@@ -341,8 +341,8 @@
 @function --oklch-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 ) returns <color> {
   result: oklch(
     from var(--color)
-    clamp(0, calc(l + (var(--amount) * 0.01) * (1 - max(0, calc(var(--amount) * 0.01)) / 2)), 1)
-    calc(c * max(0, 1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) * max(0, 1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01)) / 2))
+    calc(l * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)))
+    calc(c * min(1, (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) * 5))
     h / alpha
   );
 }

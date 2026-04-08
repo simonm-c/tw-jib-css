@@ -33,7 +33,18 @@
   );
   --tw-jib--color-interpolation-hsl: hsl(
     from var(--tw-jib--bg-color) h
-    calc(s * min(1, (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) * 5))
+    calc(s
+      * min(1,
+          min(l, calc(100 - l))
+          / max(
+              min(
+                calc(l * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)) * 100),
+                calc(100 - (l * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)) * 100))
+              ),
+              0.5
+            )
+        )
+    )
     calc(l * (1 - max(var(--tw-jib--lightness-amount), calc(0 - var(--tw-jib--lightness-amount)))) + max(0, var(--tw-jib--lightness-amount)) * 100)
     / alpha
   );
@@ -429,7 +440,18 @@ returns <color> {
 returns <color> {
   result: hsl(
     from var(--color) h
-    calc(s * min(1, (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) * 5))
+    calc(s
+      * min(1,
+          min(l, calc(100 - l))
+          / max(
+              min(
+                calc(l * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)) * 100),
+                calc(100 - (l * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)) * 100))
+              ),
+              0.5
+            )
+        )
+    )
     calc(l * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)) * 100)
     / alpha
   );

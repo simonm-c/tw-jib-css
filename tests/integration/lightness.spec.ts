@@ -58,7 +58,7 @@ async function extractStyles(
 }
 
 /**
- * Navigate to the color-transforms example page and wait for it to render.
+ * Navigate to the lightness example page and wait for it to render.
  */
 async function gotoPage(page: Page) {
   await page.goto(PAGE, { waitUntil: 'networkidle' });
@@ -93,7 +93,7 @@ async function detectFunctionSupport(page: Page): Promise<boolean> {
   return page.evaluate((q) => CSS.supports(q), SUPPORTS_QUERY);
 }
 
-const PAGE = 'examples/color-transforms';
+const PAGE = 'examples/lightness';
 
 /**
  * Expected computed color-space prefix per modifier.
@@ -906,6 +906,77 @@ test.describe('stable fallback path (browsers without CSS @function)', () => {
       for (const id of ids) {
         expect(s[id].backgroundImage, `${id}`).toContain('gradient');
       }
+    });
+  });
+
+  // ---------------------------------------------------------------------------
+  // Comprehensive matrix spot-checks
+  // ---------------------------------------------------------------------------
+
+  test.describe('comprehensive matrix', () => {
+    test.beforeEach(async ({ page }) => {
+      await gotoPage(page);
+    });
+
+    test('light base (red-200) darken scale is monotonically darker', async ({ page }) => {
+      const amounts = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+      const ids = amounts.map((a) => `matrix-red-200-darken-${a}-oklch`);
+      const s = await extractStyles(page, ids);
+
+      for (let i = 1; i < ids.length; i++) {
+        expect(s[ids[i]].luminance, `${ids[i]} should be darker than ${ids[i - 1]}`)
+          .toBeLessThanOrEqual(s[ids[i - 1]].luminance + 0.02);
+      }
+    });
+
+    test('dark base (blue-800) lighten scale is monotonically lighter', async ({ page }) => {
+      const amounts = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
+      const ids = amounts.map((a) => `matrix-blue-800-lighten-${a}-oklch`);
+      const s = await extractStyles(page, ids);
+
+      for (let i = 1; i < ids.length; i++) {
+        expect(s[ids[i]].luminance, `${ids[i]} should be lighter than ${ids[i - 1]}`)
+          .toBeGreaterThanOrEqual(s[ids[i - 1]].luminance - 0.02);
+      }
+    });
+
+    test('mid base (green-500) works across all 17 colour spaces', async ({ page }) => {
+      const ids = ALL_SPACES.map((sp) => `matrix-green-500-darken-50-${sp}`);
+      const s = await extractStyles(page, ids);
+
+      for (const id of ids) {
+        expect(s[id].alpha, `${id} should not be transparent`).toBeGreaterThan(0.5);
+      }
+    });
+
+    test('all-colors oklch section renders non-transparent for sample colors', async ({ page }) => {
+      const sampleIds = [
+        'matrix-orange-500-darken-30-oklch',
+        'matrix-emerald-200-lighten-50-oklch',
+        'matrix-violet-800-lighten-40-oklch',
+        'matrix-zinc-500-darken-20-oklch',
+        'matrix-stone-200-darken-60-oklch',
+      ];
+      const s = await extractStyles(page, sampleIds);
+
+      for (const id of sampleIds) {
+        expect(s[id].alpha, `${id} should not be transparent`).toBeGreaterThan(0.5);
+      }
+    });
+
+    test('light base darkened heavily is darker than mid base', async ({ page }) => {
+      const ids = ['matrix-amber-200-darken-80-oklch', 'matrix-amber-500-darken-80-oklch'];
+      const s = await extractStyles(page, ids);
+      // amber-200 darkened by 80 should still be lighter than amber-500 darkened by 80
+      // (it started lighter)
+      expect(s[ids[0]].luminance).toBeGreaterThanOrEqual(s[ids[1]].luminance - 0.05);
+    });
+
+    test('dark base lightened heavily is lighter than mid base', async ({ page }) => {
+      const ids = ['matrix-slate-800-lighten-80-oklch', 'matrix-slate-500-lighten-80-oklch'];
+      const s = await extractStyles(page, ids);
+      // slate-800 lightened by 80 should still be darker than slate-500 lightened by 80
+      expect(s[ids[0]].luminance).toBeLessThanOrEqual(s[ids[1]].luminance + 0.05);
     });
   });
 });

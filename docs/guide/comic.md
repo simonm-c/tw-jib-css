@@ -15,8 +15,8 @@ Included in `@import 'tw-jib-css'`. To import individually:
 ```
 :::
 
-::: warning Browser Support
-Requires CSS `max()` inside `rgb()` relative colour syntax. Chrome 137+, Edge 137+. No Firefox or Safari support yet.
+::: info Browser Support
+Uses CSS relative colour syntax with `max()` inside `rgb(from ...)`. Supported in Chrome 125+, Edge 125+, Firefox 128+, and Safari 16.4+.
 :::
 
 ## Quick Reference

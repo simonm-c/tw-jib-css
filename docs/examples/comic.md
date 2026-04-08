@@ -3,7 +3,7 @@ title: Comic Dots Test Fixtures
 layout: page
 ---
 
-# Ben Day Dots Test Fixtures
+# Comic Dots Test Fixtures
 
 Visual test page for `bg-comic-*` utilities.
 
@@ -313,6 +313,147 @@ Verifies the white background becomes transparent, letting underlying content sh
       <div data-test="d3-g32" class="bg-comic-blue-500 comic-dot-[3px] comic-bleed-[4px] comic-gap-[32px] h-28 rounded-lg"></div>
       <p class="text-xs font-mono text-center mt-1">gap-[32px]</p>
     </div>
+  </div>
+</div>
+
+## Border Gradients
+
+Ben Day dots composing with border-gradient utilities on the same element.
+
+### Linear Border Gradients
+
+<div class="grid grid-cols-4 gap-3 my-6">
+  <div>
+    <div data-test="border-linear-r" class="bg-comic-blue-500 comic-gap-4 h-28 rounded-lg border-4 border-linear-to-r border-from-rose-500 border-to-cyan-500"></div>
+    <p class="text-xs font-mono text-center mt-1">border-linear-to-r</p>
+  </div>
+  <div>
+    <div data-test="border-linear-b" class="bg-comic-red-500 comic-gap-4 h-28 rounded-lg border-4 border-linear-to-b border-from-amber-400 border-to-emerald-500"></div>
+    <p class="text-xs font-mono text-center mt-1">border-linear-to-b</p>
+  </div>
+  <div>
+    <div data-test="border-linear-br" class="bg-comic-emerald-500 comic-gap-4 h-28 rounded-lg border-4 border-linear-to-br border-from-pink-500 border-to-violet-500"></div>
+    <p class="text-xs font-mono text-center mt-1">border-linear-to-br</p>
+  </div>
+  <div>
+    <div data-test="border-linear-angle" class="bg-comic-purple-500 comic-gap-4 h-28 rounded-lg border-4 border-linear-45 border-from-sky-400 border-to-indigo-600"></div>
+    <p class="text-xs font-mono text-center mt-1">border-linear-45</p>
+  </div>
+</div>
+
+### Radial Border Gradients
+
+<div class="grid grid-cols-3 gap-4 my-6">
+  <div>
+    <div data-test="border-radial" class="bg-comic-blue-500 comic-gap-4 h-28 rounded-lg border-4 border-radial border-from-rose-500 border-to-cyan-500"></div>
+    <p class="text-xs font-mono text-center mt-1">border-radial</p>
+  </div>
+  <div>
+    <div data-test="border-radial-at" class="bg-comic-red-500 comic-gap-4 h-28 rounded-lg border-4 border-radial-[at_25%_25%] border-from-amber-400 border-to-purple-500"></div>
+    <p class="text-xs font-mono text-center mt-1">border-radial [at 25% 25%]</p>
+  </div>
+  <div>
+    <div data-test="border-radial-top" class="bg-comic-emerald-500 comic-gap-4 h-28 rounded-lg border-4 border-radial-[at_top] border-from-emerald-400 border-to-blue-600"></div>
+    <p class="text-xs font-mono text-center mt-1">border-radial [at top]</p>
+  </div>
+</div>
+
+### Conic Border Gradients
+
+<div class="grid grid-cols-4 gap-3 my-6">
+  <div>
+    <div data-test="border-conic-0" class="bg-comic-cyan-500 comic-gap-4 h-28 rounded-lg border-4 border-conic-0 border-from-rose-500 border-via-yellow-400 border-to-cyan-500"></div>
+    <p class="text-xs font-mono text-center mt-1">border-conic-0</p>
+  </div>
+  <div>
+    <div data-test="border-conic-90" class="bg-comic-fuchsia-500 comic-gap-4 h-28 rounded-lg border-4 border-conic-90 border-from-pink-500 border-via-orange-400 border-to-violet-500"></div>
+    <p class="text-xs font-mono text-center mt-1">border-conic-90</p>
+  </div>
+  <div>
+    <div data-test="border-conic-180" class="bg-comic-yellow-500 comic-gap-4 h-28 rounded-lg border-4 border-conic-180 border-from-emerald-400 border-via-sky-400 border-to-purple-500"></div>
+    <p class="text-xs font-mono text-center mt-1">border-conic-180</p>
+  </div>
+  <div>
+    <div data-test="border-conic-neg" class="bg-comic-orange-500 comic-gap-4 h-28 rounded-lg border-4 -border-conic-45 border-from-amber-400 border-via-red-500 border-to-indigo-500"></div>
+    <p class="text-xs font-mono text-center mt-1">-border-conic-45</p>
+  </div>
+</div>
+
+### Border Spin
+
+<div class="grid grid-cols-4 gap-3 my-6">
+  <div>
+    <div data-test="border-spin-default" class="bg-comic-blue-500 comic-gap-4 h-28 rounded-lg border-4 border-conic-0 border-spin border-from-rose-500 border-via-yellow-400 border-to-cyan-500"></div>
+    <p class="text-xs font-mono text-center mt-1">border-spin</p>
+  </div>
+  <div>
+    <div data-test="border-spin-fast" class="bg-comic-red-500 comic-gap-4 h-28 rounded-lg border-4 border-conic-0 border-spin border-spin-duration-[500ms] border-from-pink-500 border-to-violet-500"></div>
+    <p class="text-xs font-mono text-center mt-1">spin 500ms</p>
+  </div>
+  <div>
+    <div data-test="border-spin-slow" class="bg-comic-emerald-500 comic-gap-4 h-28 rounded-lg border-4 border-conic-0 border-spin border-spin-duration-3 border-from-emerald-400 border-to-blue-500"></div>
+    <p class="text-xs font-mono text-center mt-1">spin 3s</p>
+  </div>
+  <div>
+    <div data-test="border-spin-longer" class="bg-comic-purple-500 comic-gap-4 h-28 rounded-lg border-4 border-conic/longer border-conic-0 border-spin border-from-red-500 border-to-blue-500"></div>
+    <p class="text-xs font-mono text-center mt-1">spin /longer</p>
+  </div>
+</div>
+
+### Border Via Colors
+
+<div class="grid grid-cols-3 gap-4 my-6">
+  <div>
+    <div data-test="border-via-linear" class="bg-comic-blue-500 comic-gap-4 h-28 rounded-lg border-4 border-linear-to-r border-from-rose-500 border-via-yellow-400 border-to-cyan-500"></div>
+    <p class="text-xs font-mono text-center mt-1">linear from/via/to</p>
+  </div>
+  <div>
+    <div data-test="border-via-conic" class="bg-comic-red-500 comic-gap-4 h-28 rounded-lg border-4 border-conic-0 border-from-indigo-500 border-via-pink-500 border-to-amber-400"></div>
+    <p class="text-xs font-mono text-center mt-1">conic from/via/to</p>
+  </div>
+  <div>
+    <div data-test="border-via-radial" class="bg-comic-emerald-500 comic-gap-4 h-28 rounded-lg border-4 border-radial border-from-emerald-400 border-via-purple-500 border-to-orange-400"></div>
+    <p class="text-xs font-mono text-center mt-1">radial from/via/to</p>
+  </div>
+</div>
+
+### Border Gradient Interpolation
+
+<div class="grid grid-cols-4 gap-3 my-6">
+  <div>
+    <div data-test="border-interp-oklch" class="bg-comic-blue-500 comic-gap-4 h-28 rounded-lg border-4 border-linear-to-r/oklch border-from-red-500 border-to-blue-500"></div>
+    <p class="text-xs font-mono text-center mt-1">/oklch</p>
+  </div>
+  <div>
+    <div data-test="border-interp-hsl" class="bg-comic-red-500 comic-gap-4 h-28 rounded-lg border-4 border-linear-to-r/hsl border-from-red-500 border-to-blue-500"></div>
+    <p class="text-xs font-mono text-center mt-1">/hsl</p>
+  </div>
+  <div>
+    <div data-test="border-interp-longer" class="bg-comic-emerald-500 comic-gap-4 h-28 rounded-lg border-4 border-linear-to-r/longer border-from-red-500 border-to-blue-500"></div>
+    <p class="text-xs font-mono text-center mt-1">/longer</p>
+  </div>
+  <div>
+    <div data-test="border-interp-shorter" class="bg-comic-purple-500 comic-gap-4 h-28 rounded-lg border-4 border-linear-to-r/shorter border-from-red-500 border-to-blue-500"></div>
+    <p class="text-xs font-mono text-center mt-1">/shorter</p>
+  </div>
+</div>
+
+### Dot Variations + Border Gradients
+
+Different dot sizes and bleed settings with border gradients.
+
+<div class="grid grid-cols-3 gap-4 my-6">
+  <div>
+    <div data-test="fine-dots-border" class="bg-comic-orange-500 comic-dot-0.5 comic-gap-2 comic-bleed-0 h-28 rounded-lg border-4 border-linear-to-br border-from-rose-500 border-via-amber-400 border-to-emerald-500"></div>
+    <p class="text-xs font-mono text-center mt-1">fine crisp + border via</p>
+  </div>
+  <div>
+    <div data-test="large-dots-border" class="bg-comic-purple-500 comic-dot-2 comic-gap-8 comic-bleed-1 h-28 rounded-lg border-4 border-conic-0 border-spin border-from-sky-400 border-via-violet-500 border-to-sky-400"></div>
+    <p class="text-xs font-mono text-center mt-1">large dots + border-spin</p>
+  </div>
+  <div>
+    <div data-test="soft-dots-border" class="bg-comic-cyan-500 comic-dot-1.5 comic-gap-4 comic-bleed-2 h-28 rounded-lg border-4 border-radial border-from-pink-500 border-to-indigo-500"></div>
+    <p class="text-xs font-mono text-center mt-1">soft bleed + border-radial</p>
   </div>
 </div>
 

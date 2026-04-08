@@ -3,11 +3,11 @@ title: Pixel Test Fixtures
 layout: page
 ---
 
-# Sub-Pixel Test Fixtures
+# Pixel Test Fixtures
 
 Visual test page for `bg-pixel-*` utilities.
 
-RGB sub-pixel columns on black background with `screen` blend mode (additive mixing). Cell = `(width * 3 + gap)` wide, `(height + gap)` tall. Gap separates each R|G|B triplet.
+RGB pixel columns on black background with `screen` blend mode (additive mixing). Cell = `(width * 3 + gap)` wide, `(height + gap)` tall. Gap separates each R|G|B triplet.
 
 ## Utility Classes — Primary & Secondary Colors
 
@@ -79,7 +79,7 @@ All using `bg-pixel-blue-500`. Gap is a multiplier of pixel width (pixel-gap-1 =
   </div>
 </div>
 
-## Sub-Pixel Size (pixel-size-*)
+## Pixel Size (pixel-size-*)
 
 Using `bg-pixel-red-500`. Size sets width (spacing/4, so size-1 = 1px); height is always 2x width.
 
@@ -379,7 +379,7 @@ Using `bg-pixel-white`. From crisp LCD to CRT phosphor glow.
 
 ## Opacity (bg-pixel-*/opacity)
 
-All using `bg-pixel-red-500` with varying opacity modifiers. The black background and all sub-pixel layers fade together.
+All using `bg-pixel-red-500` with varying opacity modifiers. The black background and all pixel layers fade together.
 
 <div class="grid grid-cols-6 gap-3 my-6">
   <div>
@@ -548,12 +548,153 @@ Verifies the black background becomes transparent, letting underlying content sh
   </div>
 </div>
 
-## Side-by-side: Solid vs Sub-Pixel — All Tailwind Colors
+## Border Gradients
+
+Sub-pixel patterns composing with border-gradient utilities on the same element.
+
+### Linear Border Gradients
+
+<div class="grid grid-cols-4 gap-3 my-6">
+  <div>
+    <div data-test="border-linear-r" class="bg-pixel-blue-500 pixel-size-2 pixel-gap-1 h-28 rounded-lg border-4 border-linear-to-r border-from-rose-500 border-to-cyan-500"></div>
+    <p class="text-xs font-mono text-center mt-1">border-linear-to-r</p>
+  </div>
+  <div>
+    <div data-test="border-linear-b" class="bg-pixel-red-500 pixel-size-2 pixel-gap-1 h-28 rounded-lg border-4 border-linear-to-b border-from-amber-400 border-to-emerald-500"></div>
+    <p class="text-xs font-mono text-center mt-1">border-linear-to-b</p>
+  </div>
+  <div>
+    <div data-test="border-linear-br" class="bg-pixel-emerald-400 pixel-size-2 pixel-gap-1 h-28 rounded-lg border-4 border-linear-to-br border-from-pink-500 border-to-violet-500"></div>
+    <p class="text-xs font-mono text-center mt-1">border-linear-to-br</p>
+  </div>
+  <div>
+    <div data-test="border-linear-angle" class="bg-pixel-fuchsia-400 pixel-size-2 pixel-gap-1 h-28 rounded-lg border-4 border-linear-45 border-from-sky-400 border-to-indigo-600"></div>
+    <p class="text-xs font-mono text-center mt-1">border-linear-45</p>
+  </div>
+</div>
+
+### Radial Border Gradients
+
+<div class="grid grid-cols-3 gap-4 my-6">
+  <div>
+    <div data-test="border-radial" class="bg-pixel-blue-500 pixel-size-2 pixel-gap-1 h-28 rounded-lg border-4 border-radial border-from-rose-500 border-to-cyan-500"></div>
+    <p class="text-xs font-mono text-center mt-1">border-radial</p>
+  </div>
+  <div>
+    <div data-test="border-radial-at" class="bg-pixel-red-500 pixel-size-2 pixel-gap-1 h-28 rounded-lg border-4 border-radial-[at_25%_25%] border-from-amber-400 border-to-purple-500"></div>
+    <p class="text-xs font-mono text-center mt-1">border-radial [at 25% 25%]</p>
+  </div>
+  <div>
+    <div data-test="border-radial-top" class="bg-pixel-emerald-400 pixel-size-2 pixel-gap-1 h-28 rounded-lg border-4 border-radial-[at_top] border-from-emerald-400 border-to-blue-600"></div>
+    <p class="text-xs font-mono text-center mt-1">border-radial [at top]</p>
+  </div>
+</div>
+
+### Conic Border Gradients
+
+<div class="grid grid-cols-4 gap-3 my-6">
+  <div>
+    <div data-test="border-conic-0" class="bg-pixel-white pixel-size-2 pixel-gap-1 h-28 rounded-lg border-4 border-conic-0 border-from-rose-500 border-via-yellow-400 border-to-cyan-500"></div>
+    <p class="text-xs font-mono text-center mt-1">border-conic-0</p>
+  </div>
+  <div>
+    <div data-test="border-conic-90" class="bg-pixel-amber-400 pixel-size-2 pixel-gap-1 h-28 rounded-lg border-4 border-conic-90 border-from-pink-500 border-via-orange-400 border-to-violet-500"></div>
+    <p class="text-xs font-mono text-center mt-1">border-conic-90</p>
+  </div>
+  <div>
+    <div data-test="border-conic-180" class="bg-pixel-cyan-500 pixel-size-2 pixel-gap-1 h-28 rounded-lg border-4 border-conic-180 border-from-emerald-400 border-via-sky-400 border-to-purple-500"></div>
+    <p class="text-xs font-mono text-center mt-1">border-conic-180</p>
+  </div>
+  <div>
+    <div data-test="border-conic-neg" class="bg-pixel-orange-500 pixel-size-2 pixel-gap-1 h-28 rounded-lg border-4 -border-conic-45 border-from-amber-400 border-via-red-500 border-to-indigo-500"></div>
+    <p class="text-xs font-mono text-center mt-1">-border-conic-45</p>
+  </div>
+</div>
+
+### Border Spin
+
+<div class="grid grid-cols-4 gap-3 my-6">
+  <div>
+    <div data-test="border-spin-default" class="bg-pixel-blue-500 pixel-size-2 pixel-gap-1 h-28 rounded-lg border-4 border-conic-0 border-spin border-from-rose-500 border-via-yellow-400 border-to-cyan-500"></div>
+    <p class="text-xs font-mono text-center mt-1">border-spin</p>
+  </div>
+  <div>
+    <div data-test="border-spin-fast" class="bg-pixel-red-500 pixel-size-2 pixel-gap-1 h-28 rounded-lg border-4 border-conic-0 border-spin border-spin-duration-[500ms] border-from-pink-500 border-to-violet-500"></div>
+    <p class="text-xs font-mono text-center mt-1">spin 500ms</p>
+  </div>
+  <div>
+    <div data-test="border-spin-slow" class="bg-pixel-emerald-400 pixel-size-2 pixel-gap-1 h-28 rounded-lg border-4 border-conic-0 border-spin border-spin-duration-3 border-from-emerald-400 border-to-blue-500"></div>
+    <p class="text-xs font-mono text-center mt-1">spin 3s</p>
+  </div>
+  <div>
+    <div data-test="border-spin-longer" class="bg-pixel-fuchsia-400 pixel-size-2 pixel-gap-1 h-28 rounded-lg border-4 border-conic/longer border-conic-0 border-spin border-from-red-500 border-to-blue-500"></div>
+    <p class="text-xs font-mono text-center mt-1">spin /longer</p>
+  </div>
+</div>
+
+### Border Via Colors
+
+<div class="grid grid-cols-3 gap-4 my-6">
+  <div>
+    <div data-test="border-via-linear" class="bg-pixel-blue-500 pixel-size-2 pixel-gap-1 h-28 rounded-lg border-4 border-linear-to-r border-from-rose-500 border-via-yellow-400 border-to-cyan-500"></div>
+    <p class="text-xs font-mono text-center mt-1">linear from/via/to</p>
+  </div>
+  <div>
+    <div data-test="border-via-conic" class="bg-pixel-red-500 pixel-size-2 pixel-gap-1 h-28 rounded-lg border-4 border-conic-0 border-from-indigo-500 border-via-pink-500 border-to-amber-400"></div>
+    <p class="text-xs font-mono text-center mt-1">conic from/via/to</p>
+  </div>
+  <div>
+    <div data-test="border-via-radial" class="bg-pixel-emerald-400 pixel-size-2 pixel-gap-1 h-28 rounded-lg border-4 border-radial border-from-emerald-400 border-via-purple-500 border-to-orange-400"></div>
+    <p class="text-xs font-mono text-center mt-1">radial from/via/to</p>
+  </div>
+</div>
+
+### Border Gradient Interpolation
+
+<div class="grid grid-cols-4 gap-3 my-6">
+  <div>
+    <div data-test="border-interp-oklch" class="bg-pixel-blue-500 pixel-size-2 pixel-gap-1 h-28 rounded-lg border-4 border-linear-to-r/oklch border-from-red-500 border-to-blue-500"></div>
+    <p class="text-xs font-mono text-center mt-1">/oklch</p>
+  </div>
+  <div>
+    <div data-test="border-interp-hsl" class="bg-pixel-red-500 pixel-size-2 pixel-gap-1 h-28 rounded-lg border-4 border-linear-to-r/hsl border-from-red-500 border-to-blue-500"></div>
+    <p class="text-xs font-mono text-center mt-1">/hsl</p>
+  </div>
+  <div>
+    <div data-test="border-interp-longer" class="bg-pixel-emerald-400 pixel-size-2 pixel-gap-1 h-28 rounded-lg border-4 border-linear-to-r/longer border-from-red-500 border-to-blue-500"></div>
+    <p class="text-xs font-mono text-center mt-1">/longer</p>
+  </div>
+  <div>
+    <div data-test="border-interp-shorter" class="bg-pixel-fuchsia-400 pixel-size-2 pixel-gap-1 h-28 rounded-lg border-4 border-linear-to-r/shorter border-from-red-500 border-to-blue-500"></div>
+    <p class="text-xs font-mono text-center mt-1">/shorter</p>
+  </div>
+</div>
+
+### Pixel Variations + Border Gradients
+
+Different pixel sizes and bleed settings with border gradients.
+
+<div class="grid grid-cols-3 gap-4 my-6">
+  <div>
+    <div data-test="crisp-pixels-border" class="bg-pixel-amber-400 pixel-size-1 pixel-gap-1 pixel-bleed-0 h-28 rounded-lg border-4 border-linear-to-br border-from-rose-500 border-via-amber-400 border-to-emerald-500"></div>
+    <p class="text-xs font-mono text-center mt-1">crisp tiny + border via</p>
+  </div>
+  <div>
+    <div data-test="large-pixels-border" class="bg-pixel-emerald-400 pixel-size-4 pixel-gap-2 pixel-bleed-1 h-28 rounded-lg border-4 border-conic-0 border-spin border-from-sky-400 border-via-violet-500 border-to-sky-400"></div>
+    <p class="text-xs font-mono text-center mt-1">large pixels + border-spin</p>
+  </div>
+  <div>
+    <div data-test="glow-pixels-border" class="bg-pixel-fuchsia-400 pixel-size-3 pixel-gap-1 pixel-bleed-2 h-28 rounded-lg border-4 border-radial border-from-pink-500 border-to-indigo-500"></div>
+    <p class="text-xs font-mono text-center mt-1">CRT glow + border-radial</p>
+  </div>
+</div>
+
+## Side-by-side: Solid vs Pixel — All Tailwind Colors
 
 <div class="grid grid-cols-[auto_1fr_1fr] gap-x-3 gap-y-1 items-center my-6">
   <p class="text-xs font-mono font-bold">Color</p>
   <p class="text-xs font-mono font-bold text-center">Solid</p>
-  <p class="text-xs font-mono font-bold text-center">Sub-Pixel</p>
+  <p class="text-xs font-mono font-bold text-center">Pixel</p>
 
   <p class="text-xs font-mono">slate-500</p>
   <div class="h-16 rounded-lg bg-slate-500"></div>
@@ -649,7 +790,7 @@ Verifies the black background becomes transparent, letting underlying content sh
 <div class="grid grid-cols-[auto_1fr_1fr] gap-x-3 gap-y-1 items-center my-6">
   <p class="text-xs font-mono font-bold">Shade</p>
   <p class="text-xs font-mono font-bold text-center">Solid</p>
-  <p class="text-xs font-mono font-bold text-center">Sub-Pixel</p>
+  <p class="text-xs font-mono font-bold text-center">Pixel</p>
 
   <p class="text-xs font-mono">50</p>
   <div class="h-16 rounded-lg bg-blue-50"></div>

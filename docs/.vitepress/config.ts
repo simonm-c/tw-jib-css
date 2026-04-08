@@ -48,8 +48,7 @@ export default defineConfig({
       {
         text: 'Color Transforms',
         items: [
-          { text: 'Darken', link: '/guide/darken' },
-          { text: 'Lighten', link: '/guide/lighten' },
+          { text: 'Lightness', link: '/guide/lightness' },
         ],
       },
       {

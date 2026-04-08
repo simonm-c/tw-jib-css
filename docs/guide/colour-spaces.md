@@ -67,6 +67,6 @@ If you are working with colours outside the sRGB gamut, using a wide gamut space
 
 ## Where colour spaces appear in tw-jib-css
 
-- **[Darken](/guide/darken)** and **[Lighten](/guide/lighten)** — All 17 spaces available via the `/modifier` syntax (e.g. `bg-darken-20/oklch`).
+- **[Lightness](/guide/lightness)** — All 17 spaces available via the `/modifier` syntax (e.g. `bg-lightness-20/oklch`, `-bg-lightness-20/oklch`). Also available as `bg-lighten-*` and `bg-darken-*` aliases.
 - **[Border Gradient](/guide/border-gradient)** — Interpolation modes control which space gradients blend through (sRGB, HSL, OKLab, OKLCh with hue direction modifiers).
 - **[Ripple](/guide/ripple)** — Uses `color-mix(in oklch)` internally for opacity blending.

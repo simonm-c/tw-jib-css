@@ -1,0 +1,340 @@
+@property --tw-jib--border-lightness--amount {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+
+@theme inline {
+  --tw-jib--border-color-interpolation-lch: lch(
+    from var(--tw-jib--border-color)
+    calc(l * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)) * 100)
+    calc(c * min(1, (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) * 5))
+    h / alpha
+  );
+  --tw-jib--border-color-interpolation-oklch: oklch(
+    from var(--tw-jib--border-color)
+    calc(l * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)))
+    calc(c * min(1, (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) * 5))
+    h / alpha
+  );
+  --tw-jib--border-color-interpolation-lab: lab(
+    from var(--tw-jib--border-color)
+    calc(l * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)) * 100)
+    calc(a * min(1, (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) * 5))
+    calc(b * min(1, (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) * 5))
+    / alpha
+  );
+  --tw-jib--border-color-interpolation-oklab: oklab(
+    from var(--tw-jib--border-color)
+    calc(l * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)))
+    calc(a * min(1, (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) * 5))
+    calc(b * min(1, (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) * 5))
+    / alpha
+  );
+  --tw-jib--border-color-interpolation-hsl: hsl(
+    from var(--tw-jib--border-color) h
+    calc(s
+      * min(1,
+          min(l, calc(100 - l))
+          / max(
+              min(
+                calc(l * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)) * 100),
+                calc(100 - (l * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)) * 100))
+              ),
+              0.5
+            )
+        )
+    )
+    calc(l * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)) * 100)
+    / alpha
+  );
+  --tw-jib--border-color-interpolation-hwb: hwb(
+    from var(--tw-jib--border-color) h
+    calc(w * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)) * 100)
+    calc(b * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, calc(0 - var(--tw-jib--border-lightness--amount))) * 100)
+    / alpha
+  );
+  --tw-jib--border-color-interpolation-rgb: rgb(
+    from var(--tw-jib--border-color)
+    calc(r * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)) * 255)
+    calc(g * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)) * 255)
+    calc(b * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)) * 255)
+    / alpha
+  );
+  --tw-jib--border-color-interpolation-srgb: color(
+    from var(--tw-jib--border-color) srgb
+    calc(r * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)))
+    calc(g * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)))
+    calc(b * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)))
+    / alpha
+  );
+  --tw-jib--border-color-interpolation-srgb-linear: color(
+    from var(--tw-jib--border-color) srgb-linear
+    calc(r * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)))
+    calc(g * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)))
+    calc(b * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)))
+    / alpha
+  );
+  --tw-jib--border-color-interpolation-display-p3: color(
+    from var(--tw-jib--border-color) display-p3
+    calc(r * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)))
+    calc(g * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)))
+    calc(b * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)))
+    / alpha
+  );
+  --tw-jib--border-color-interpolation-a98-rgb: color(
+    from var(--tw-jib--border-color) a98-rgb
+    calc(r * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)))
+    calc(g * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)))
+    calc(b * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)))
+    / alpha
+  );
+  --tw-jib--border-color-interpolation-prophoto-rgb: color(
+    from var(--tw-jib--border-color) prophoto-rgb
+    calc(r * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)))
+    calc(g * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)))
+    calc(b * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)))
+    / alpha
+  );
+  --tw-jib--border-color-interpolation-rec2020: color(
+    from var(--tw-jib--border-color) rec2020
+    calc(r * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)))
+    calc(g * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)))
+    calc(b * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)))
+    / alpha
+  );
+  --tw-jib--border-color-interpolation-xyz: color(
+    from var(--tw-jib--border-color) xyz
+    calc(x * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)))
+    calc(y * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)))
+    calc(z * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)))
+    / alpha
+  );
+  --tw-jib--border-color-interpolation-xyz-d50: color(
+    from var(--tw-jib--border-color) xyz-d50
+    calc(x * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)))
+    calc(y * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)))
+    calc(z * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)))
+    / alpha
+  );
+  --tw-jib--border-color-interpolation-xyz-d65: color(
+    from var(--tw-jib--border-color) xyz-d65
+    calc(x * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)))
+    calc(y * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)))
+    calc(z * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount)))
+    / alpha
+  );
+  --tw-jib--border-color-interpolation-color-mix: inherit;
+}
+
+/* =========================================================================
+ * PRIMARY: border-lightness-* (positive lightness — lighten)
+ * ========================================================================= */
+
+/* block 1: sets amount + color via modifier */
+@utility border-lightness-* {
+  &:not(._) {
+    --tw-jib--border-lightness--amount: calc(--value(integer, [number]) * 0.01);
+    border-color: --modifier(--tw-jib--border-color-interpolation-*);
+  }
+}
+
+/* block 2: stable with-modifier */
+@utility border-lightness-* {
+  &:not(._) {
+    border-color: --modifier(--tw-jib--border-color-interpolation-*);
+  }
+}
+
+/* block 3: experimental with-modifier */
+@utility border-lightness-* {
+  &:not(._) {
+    @variant supports-lightness {
+      border-color: --lightness(
+        var(--tw-jib--border-color),
+        --value(integer, [number]),
+        --modifier(
+          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
+          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
+          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+          'color-mix'
+        )
+      );
+    }
+  }
+}
+
+/* block 4: stable no-modifier default — oklch */
+@utility border-lightness-* {
+  &:not(._) {
+    border-color: oklch(from var(--tw-jib--border-color) calc(l * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) * 5)) h / alpha);
+  }
+}
+
+/* block 5: experimental no-modifier default */
+@utility border-lightness-* {
+  &:not(._) {
+    @variant supports-lightness {
+      border-color: --lightness(var(--tw-jib--border-color), --value(integer, [number]));
+    }
+  }
+}
+
+/* =========================================================================
+ * PRIMARY: -border-lightness-* (negative lightness — darken)
+ * ========================================================================= */
+
+/* block 1: sets amount + color via modifier */
+@utility -border-lightness-* {
+  &:not(._) {
+    --tw-jib--border-lightness--amount: calc(--value(integer, [number]) * -0.01);
+    border-color: --modifier(--tw-jib--border-color-interpolation-*);
+  }
+}
+
+/* block 2: stable with-modifier */
+@utility -border-lightness-* {
+  &:not(._) {
+    border-color: --modifier(--tw-jib--border-color-interpolation-*);
+  }
+}
+
+/* block 3: experimental with-modifier */
+@utility -border-lightness-* {
+  &:not(._) {
+    @variant supports-lightness {
+      border-color: --lightness(
+        var(--tw-jib--border-color),
+        calc(--value(integer, [number]) * -1),
+        --modifier(
+          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
+          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
+          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+          'color-mix'
+        )
+      );
+    }
+  }
+}
+
+/* block 4: stable no-modifier default — oklch */
+@utility -border-lightness-* {
+  &:not(._) {
+    border-color: oklch(from var(--tw-jib--border-color) calc(l * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) * 5)) h / alpha);
+  }
+}
+
+/* block 5: experimental no-modifier default */
+@utility -border-lightness-* {
+  &:not(._) {
+    @variant supports-lightness {
+      border-color: --lightness(var(--tw-jib--border-color), calc(--value(integer, [number]) * -1));
+    }
+  }
+}
+
+/* =========================================================================
+ * ALIAS: border-lighten-*
+ * ========================================================================= */
+
+/* block 1: sets amount + color via modifier */
+@utility border-lighten-* {
+  &:not(._) {
+    --tw-jib--border-lightness--amount: calc(--value(integer, [number]) * 0.01);
+    border-color: --modifier(--tw-jib--border-color-interpolation-*);
+  }
+}
+
+/* block 2: stable with-modifier */
+@utility border-lighten-* {
+  &:not(._) {
+    border-color: --modifier(--tw-jib--border-color-interpolation-*);
+  }
+}
+
+/* block 3: experimental with-modifier */
+@utility border-lighten-* {
+  &:not(._) {
+    @variant supports-lightness {
+      border-color: --lightness(
+        var(--tw-jib--border-color),
+        --value(integer, [number]),
+        --modifier(
+          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
+          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
+          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+          'color-mix'
+        )
+      );
+    }
+  }
+}
+
+/* block 4: stable no-modifier default — oklch */
+@utility border-lighten-* {
+  &:not(._) {
+    border-color: oklch(from var(--tw-jib--border-color) calc(l * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) * 5)) h / alpha);
+  }
+}
+
+/* block 5: experimental no-modifier default */
+@utility border-lighten-* {
+  &:not(._) {
+    @variant supports-lightness {
+      border-color: --lightness(var(--tw-jib--border-color), --value(integer, [number]));
+    }
+  }
+}
+
+/* =========================================================================
+ * ALIAS: border-darken-*
+ * ========================================================================= */
+
+/* block 1: sets amount + color via modifier */
+@utility border-darken-* {
+  &:not(._) {
+    --tw-jib--border-lightness--amount: calc(--value(integer, [number]) * -0.01);
+    border-color: --modifier(--tw-jib--border-color-interpolation-*);
+  }
+}
+
+/* block 2: stable with-modifier */
+@utility border-darken-* {
+  &:not(._) {
+    border-color: --modifier(--tw-jib--border-color-interpolation-*);
+  }
+}
+
+/* block 3: experimental with-modifier */
+@utility border-darken-* {
+  &:not(._) {
+    @variant supports-lightness {
+      border-color: --lightness(
+        var(--tw-jib--border-color),
+        calc(--value(integer, [number]) * -1),
+        --modifier(
+          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
+          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
+          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+          'color-mix'
+        )
+      );
+    }
+  }
+}
+
+/* block 4: stable no-modifier default — oklch */
+@utility border-darken-* {
+  &:not(._) {
+    border-color: oklch(from var(--tw-jib--border-color) calc(l * (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) + max(0, var(--tw-jib--border-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--border-lightness--amount), calc(0 - var(--tw-jib--border-lightness--amount)))) * 5)) h / alpha);
+  }
+}
+
+/* block 5: experimental no-modifier default */
+@utility border-darken-* {
+  &:not(._) {
+    @variant supports-lightness {
+      border-color: --lightness(var(--tw-jib--border-color), calc(--value(integer, [number]) * -1));
+    }
+  }
+}

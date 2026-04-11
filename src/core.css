@@ -8,6 +8,36 @@
   inherits: false;
   initial-value: linear-gradient(canvas 0 0);
 }
+@property --tw-jib--text-color {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: currentColor;
+}
+@property --tw-jib--fill-color {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: currentColor;
+}
+@property --tw-jib--stroke-color {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: currentColor;
+}
+@property --tw-jib--outline-color {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: currentColor;
+}
+@property --tw-jib--accent-color {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: currentColor;
+}
+@property --tw-jib--border-color {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: currentColor;
+}
 
 @theme inline {
   --tw-jib--size-unit-auto: auto;
@@ -125,3 +155,29 @@
           var(--tw-jib--bg-image) padding-box,
           var(--tw-jib--border-gradient) border-box;
 }
+
+@utility text-* {
+  --tw-jib--text-color: --value('inherit', 'transparent', --color-*, [color]);
+  --tw-jib--text-color: --alpha(--value('inherit', 'transparent', --color-*, [color]) / calc(--modifier(integer) * 1%));
+}
+
+@utility fill-* {
+  --tw-jib--fill-color: --value('inherit', 'transparent', --color-*, [color]);
+  --tw-jib--fill-color: --alpha(--value('inherit', 'transparent', --color-*, [color]) / calc(--modifier(integer) * 1%));
+}
+
+@utility stroke-* {
+  --tw-jib--stroke-color: --value('inherit', 'transparent', --color-*, [color]);
+  --tw-jib--stroke-color: --alpha(--value('inherit', 'transparent', --color-*, [color]) / calc(--modifier(integer) * 1%));
+}
+
+@utility outline-* {
+  --tw-jib--outline-color: --value('inherit', 'transparent', --color-*, [color]);
+  --tw-jib--outline-color: --alpha(--value('inherit', 'transparent', --color-*, [color]) / calc(--modifier(integer) * 1%));
+}
+
+@utility accent-* {
+  --tw-jib--accent-color: --value('inherit', 'transparent', --color-*, [color]);
+  --tw-jib--accent-color: --alpha(--value('inherit', 'transparent', --color-*, [color]) / calc(--modifier(integer) * 1%));
+}
+

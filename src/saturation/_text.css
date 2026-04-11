@@ -1,0 +1,328 @@
+@property --tw-jib--text-saturation--amount {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+
+@theme inline {
+  --tw-jib--text-sat-interpolation-lch: lch(
+    from var(--tw-jib--text-color)
+    l
+    calc(c * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * 150)
+    h / alpha
+  );
+  --tw-jib--text-sat-interpolation-oklch: oklch(
+    from var(--tw-jib--text-color)
+    l
+    calc(c * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * 0.4)
+    h / alpha
+  );
+  --tw-jib--text-sat-interpolation-lab: lab(
+    from var(--tw-jib--text-color)
+    l
+    calc(a * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * 125 * sign(a))
+    calc(b * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * 125 * sign(b))
+    / alpha
+  );
+  --tw-jib--text-sat-interpolation-oklab: oklab(
+    from var(--tw-jib--text-color)
+    l
+    calc(a * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * 0.4 * sign(a))
+    calc(b * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * 0.4 * sign(b))
+    / alpha
+  );
+  --tw-jib--text-sat-interpolation-hsl: hsl(
+    from var(--tw-jib--text-color) h
+    calc(s * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * 100)
+    l / alpha
+  );
+  --tw-jib--text-sat-interpolation-hwb: hwb(
+    from var(--tw-jib--text-color) h
+    calc(w * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, calc(0 - var(--tw-jib--text-saturation--amount))) * 50)
+    calc(b * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, calc(0 - var(--tw-jib--text-saturation--amount))) * 50)
+    / alpha
+  );
+  --tw-jib--text-sat-interpolation-rgb: rgb(
+    from var(--tw-jib--text-color)
+    calc(r * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * clamp(0, sign(r - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 255 + max(0, calc(0 - var(--tw-jib--text-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(g * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * clamp(0, sign(g - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 255 + max(0, calc(0 - var(--tw-jib--text-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(b * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * clamp(0, sign(b - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 255 + max(0, calc(0 - var(--tw-jib--text-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    / alpha
+  );
+  --tw-jib--text-sat-interpolation-srgb: color(
+    from var(--tw-jib--text-color) srgb
+    calc(r * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * clamp(0, sign(r - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--text-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(g * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * clamp(0, sign(g - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--text-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(b * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * clamp(0, sign(b - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--text-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    / alpha
+  );
+  --tw-jib--text-sat-interpolation-srgb-linear: color(
+    from var(--tw-jib--text-color) srgb-linear
+    calc(r * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * clamp(0, sign(r - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--text-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(g * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * clamp(0, sign(g - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--text-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(b * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * clamp(0, sign(b - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--text-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    / alpha
+  );
+  --tw-jib--text-sat-interpolation-display-p3: color(
+    from var(--tw-jib--text-color) display-p3
+    calc(r * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * clamp(0, sign(r - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--text-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(g * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * clamp(0, sign(g - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--text-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(b * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * clamp(0, sign(b - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--text-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    / alpha
+  );
+  --tw-jib--text-sat-interpolation-a98-rgb: color(
+    from var(--tw-jib--text-color) a98-rgb
+    calc(r * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * clamp(0, sign(r - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--text-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(g * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * clamp(0, sign(g - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--text-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(b * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * clamp(0, sign(b - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--text-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    / alpha
+  );
+  --tw-jib--text-sat-interpolation-prophoto-rgb: color(
+    from var(--tw-jib--text-color) prophoto-rgb
+    calc(r * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * clamp(0, sign(r - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--text-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(g * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * clamp(0, sign(g - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--text-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(b * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * clamp(0, sign(b - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--text-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    / alpha
+  );
+  --tw-jib--text-sat-interpolation-rec2020: color(
+    from var(--tw-jib--text-color) rec2020
+    calc(r * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * clamp(0, sign(r - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--text-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(g * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * clamp(0, sign(g - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--text-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(b * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * clamp(0, sign(b - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--text-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    / alpha
+  );
+  --tw-jib--text-sat-interpolation-xyz: color(
+    from var(--tw-jib--text-color) xyz
+    calc(x * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * sign(x - y * 0.95047) + max(0, calc(0 - var(--tw-jib--text-saturation--amount))) * y * 0.95047)
+    y
+    calc(z * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * sign(z - y * 1.08883) + max(0, calc(0 - var(--tw-jib--text-saturation--amount))) * y * 1.08883)
+    / alpha
+  );
+  --tw-jib--text-sat-interpolation-xyz-d50: color(
+    from var(--tw-jib--text-color) xyz-d50
+    calc(x * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * sign(x - y * 0.96422) + max(0, calc(0 - var(--tw-jib--text-saturation--amount))) * y * 0.96422)
+    y
+    calc(z * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * sign(z - y * 0.82521) + max(0, calc(0 - var(--tw-jib--text-saturation--amount))) * y * 0.82521)
+    / alpha
+  );
+  --tw-jib--text-sat-interpolation-xyz-d65: color(
+    from var(--tw-jib--text-color) xyz-d65
+    calc(x * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * sign(x - y * 0.95047) + max(0, calc(0 - var(--tw-jib--text-saturation--amount))) * y * 0.95047)
+    y
+    calc(z * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * sign(z - y * 1.08883) + max(0, calc(0 - var(--tw-jib--text-saturation--amount))) * y * 1.08883)
+    / alpha
+  );
+  --tw-jib--text-sat-interpolation-color-mix: inherit;
+}
+
+/* =========================================================================
+ * PRIMARY: text-saturation-* (positive saturation — saturate)
+ * ========================================================================= */
+
+/* block 1: sets amount + color via modifier */
+@utility text-saturation-* {
+  &:not(._) {
+    --tw-jib--text-saturation--amount: calc(--value(integer, [number]) * 0.01);
+    color: --modifier(--tw-jib--text-sat-interpolation-*);
+  }
+}
+
+/* block 2: stable with-modifier */
+@utility text-saturation-* {
+  &:not(._) {
+    color: --modifier(--tw-jib--text-sat-interpolation-*);
+  }
+}
+
+/* block 3: experimental with-modifier */
+@utility text-saturation-* {
+  &:not(._) {
+    @variant supports-saturation {
+      color: --saturation(
+        var(--tw-jib--text-color),
+        --value(integer, [number]),
+        --modifier(
+          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
+          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
+          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+          'color-mix'
+        )
+      );
+    }
+  }
+}
+
+/* block 4: stable no-modifier default — oklch */
+@utility text-saturation-* {
+  &:not(._) {
+    color: oklch(from var(--tw-jib--text-color) l calc(c * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * 0.4) h / alpha);
+  }
+}
+
+/* block 5: experimental no-modifier default */
+@utility text-saturation-* {
+  &:not(._) {
+    @variant supports-saturation {
+      color: --saturation(var(--tw-jib--text-color), --value(integer, [number]));
+    }
+  }
+}
+
+/* =========================================================================
+ * PRIMARY: -text-saturation-* (negative saturation — desaturate)
+ * ========================================================================= */
+
+/* block 1: sets amount + color via modifier */
+@utility -text-saturation-* {
+  &:not(._) {
+    --tw-jib--text-saturation--amount: calc(--value(integer, [number]) * -0.01);
+    color: --modifier(--tw-jib--text-sat-interpolation-*);
+  }
+}
+
+/* block 2: stable with-modifier */
+@utility -text-saturation-* {
+  &:not(._) {
+    color: --modifier(--tw-jib--text-sat-interpolation-*);
+  }
+}
+
+/* block 3: experimental with-modifier */
+@utility -text-saturation-* {
+  &:not(._) {
+    @variant supports-saturation {
+      color: --saturation(
+        var(--tw-jib--text-color),
+        calc(--value(integer, [number]) * -1),
+        --modifier(
+          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
+          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
+          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+          'color-mix'
+        )
+      );
+    }
+  }
+}
+
+/* block 4: stable no-modifier default — oklch */
+@utility -text-saturation-* {
+  &:not(._) {
+    color: oklch(from var(--tw-jib--text-color) l calc(c * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * 0.4) h / alpha);
+  }
+}
+
+/* block 5: experimental no-modifier default */
+@utility -text-saturation-* {
+  &:not(._) {
+    @variant supports-saturation {
+      color: --saturation(var(--tw-jib--text-color), calc(--value(integer, [number]) * -1));
+    }
+  }
+}
+
+/* =========================================================================
+ * ALIAS: text-saturate-*
+ * ========================================================================= */
+
+/* block 1: sets amount + color via modifier */
+@utility text-saturate-* {
+  &:not(._) {
+    --tw-jib--text-saturation--amount: calc(--value(integer, [number]) * 0.01);
+    color: --modifier(--tw-jib--text-sat-interpolation-*);
+  }
+}
+
+/* block 2: stable with-modifier */
+@utility text-saturate-* {
+  &:not(._) {
+    color: --modifier(--tw-jib--text-sat-interpolation-*);
+  }
+}
+
+/* block 3: experimental with-modifier */
+@utility text-saturate-* {
+  &:not(._) {
+    @variant supports-saturation {
+      color: --saturation(
+        var(--tw-jib--text-color),
+        --value(integer, [number]),
+        --modifier(
+          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
+          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
+          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+          'color-mix'
+        )
+      );
+    }
+  }
+}
+
+/* block 4: stable no-modifier default — oklch */
+@utility text-saturate-* {
+  &:not(._) {
+    color: oklch(from var(--tw-jib--text-color) l calc(c * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * 0.4) h / alpha);
+  }
+}
+
+/* block 5: experimental no-modifier default */
+@utility text-saturate-* {
+  &:not(._) {
+    @variant supports-saturation {
+      color: --saturation(var(--tw-jib--text-color), --value(integer, [number]));
+    }
+  }
+}
+
+/* =========================================================================
+ * ALIAS: text-desaturate-*
+ * ========================================================================= */
+
+/* block 1: sets amount + color via modifier */
+@utility text-desaturate-* {
+  &:not(._) {
+    --tw-jib--text-saturation--amount: calc(--value(integer, [number]) * -0.01);
+    color: --modifier(--tw-jib--text-sat-interpolation-*);
+  }
+}
+
+/* block 2: stable with-modifier */
+@utility text-desaturate-* {
+  &:not(._) {
+    color: --modifier(--tw-jib--text-sat-interpolation-*);
+  }
+}
+
+/* block 3: experimental with-modifier */
+@utility text-desaturate-* {
+  &:not(._) {
+    @variant supports-saturation {
+      color: --saturation(
+        var(--tw-jib--text-color),
+        calc(--value(integer, [number]) * -1),
+        --modifier(
+          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
+          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
+          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+          'color-mix'
+        )
+      );
+    }
+  }
+}
+
+/* block 4: stable no-modifier default — oklch */
+@utility text-desaturate-* {
+  &:not(._) {
+    color: oklch(from var(--tw-jib--text-color) l calc(c * (1 - max(var(--tw-jib--text-saturation--amount), calc(0 - var(--tw-jib--text-saturation--amount)))) + max(0, var(--tw-jib--text-saturation--amount)) * 0.4) h / alpha);
+  }
+}
+
+/* block 5: experimental no-modifier default */
+@utility text-desaturate-* {
+  &:not(._) {
+    @variant supports-saturation {
+      color: --saturation(var(--tw-jib--text-color), calc(--value(integer, [number]) * -1));
+    }
+  }
+}

@@ -1,0 +1,328 @@
+@property --tw-jib--border-saturation--amount {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+
+@theme inline {
+  --tw-jib--border-sat-interpolation-lch: lch(
+    from var(--tw-jib--border-color)
+    l
+    calc(c * (1 - max(var(--tw-jib--border-saturation--amount), calc(0 - var(--tw-jib--border-saturation--amount)))) + max(0, var(--tw-jib--border-saturation--amount)) * 150)
+    h / alpha
+  );
+  --tw-jib--border-sat-interpolation-oklch: oklch(
+    from var(--tw-jib--border-color)
+    l
+    calc(c * (1 - max(var(--tw-jib--border-saturation--amount), calc(0 - var(--tw-jib--border-saturation--amount)))) + max(0, var(--tw-jib--border-saturation--amount)) * 0.4)
+    h / alpha
+  );
+  --tw-jib--border-sat-interpolation-lab: lab(
+    from var(--tw-jib--border-color)
+    l
+    calc(a * (1 + var(--tw-jib--border-saturation--amount)))
+    calc(b * (1 + var(--tw-jib--border-saturation--amount)))
+    / alpha
+  );
+  --tw-jib--border-sat-interpolation-oklab: oklab(
+    from var(--tw-jib--border-color)
+    l
+    calc(a * (1 + var(--tw-jib--border-saturation--amount)))
+    calc(b * (1 + var(--tw-jib--border-saturation--amount)))
+    / alpha
+  );
+  --tw-jib--border-sat-interpolation-hsl: hsl(
+    from var(--tw-jib--border-color) h
+    calc(s * (1 - max(var(--tw-jib--border-saturation--amount), calc(0 - var(--tw-jib--border-saturation--amount)))) + max(0, var(--tw-jib--border-saturation--amount)) * 100)
+    l / alpha
+  );
+  --tw-jib--border-sat-interpolation-hwb: hwb(
+    from var(--tw-jib--border-color) h
+    calc(w * (1 - max(var(--tw-jib--border-saturation--amount), calc(0 - var(--tw-jib--border-saturation--amount)))) + max(0, calc(0 - var(--tw-jib--border-saturation--amount))) * 50)
+    calc(b * (1 - max(var(--tw-jib--border-saturation--amount), calc(0 - var(--tw-jib--border-saturation--amount)))) + max(0, calc(0 - var(--tw-jib--border-saturation--amount))) * 50)
+    / alpha
+  );
+  --tw-jib--border-sat-interpolation-rgb: rgb(
+    from var(--tw-jib--border-color)
+    calc(r + var(--tw-jib--border-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(g + var(--tw-jib--border-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(b + var(--tw-jib--border-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
+    / alpha
+  );
+  --tw-jib--border-sat-interpolation-srgb: color(
+    from var(--tw-jib--border-color) srgb
+    calc(r + var(--tw-jib--border-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(g + var(--tw-jib--border-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(b + var(--tw-jib--border-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
+    / alpha
+  );
+  --tw-jib--border-sat-interpolation-srgb-linear: color(
+    from var(--tw-jib--border-color) srgb-linear
+    calc(r + var(--tw-jib--border-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(g + var(--tw-jib--border-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(b + var(--tw-jib--border-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
+    / alpha
+  );
+  --tw-jib--border-sat-interpolation-display-p3: color(
+    from var(--tw-jib--border-color) display-p3
+    calc(r + var(--tw-jib--border-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(g + var(--tw-jib--border-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(b + var(--tw-jib--border-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
+    / alpha
+  );
+  --tw-jib--border-sat-interpolation-a98-rgb: color(
+    from var(--tw-jib--border-color) a98-rgb
+    calc(r + var(--tw-jib--border-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(g + var(--tw-jib--border-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(b + var(--tw-jib--border-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
+    / alpha
+  );
+  --tw-jib--border-sat-interpolation-prophoto-rgb: color(
+    from var(--tw-jib--border-color) prophoto-rgb
+    calc(r + var(--tw-jib--border-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(g + var(--tw-jib--border-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(b + var(--tw-jib--border-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
+    / alpha
+  );
+  --tw-jib--border-sat-interpolation-rec2020: color(
+    from var(--tw-jib--border-color) rec2020
+    calc(r + var(--tw-jib--border-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(g + var(--tw-jib--border-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(b + var(--tw-jib--border-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
+    / alpha
+  );
+  --tw-jib--border-sat-interpolation-xyz: color(
+    from var(--tw-jib--border-color) xyz
+    calc(y * 0.95047 + (x - y * 0.95047) * (1 + var(--tw-jib--border-saturation--amount)))
+    y
+    calc(y * 1.08883 + (z - y * 1.08883) * (1 + var(--tw-jib--border-saturation--amount)))
+    / alpha
+  );
+  --tw-jib--border-sat-interpolation-xyz-d50: color(
+    from var(--tw-jib--border-color) xyz-d50
+    calc(y * 0.96422 + (x - y * 0.96422) * (1 + var(--tw-jib--border-saturation--amount)))
+    y
+    calc(y * 0.82521 + (z - y * 0.82521) * (1 + var(--tw-jib--border-saturation--amount)))
+    / alpha
+  );
+  --tw-jib--border-sat-interpolation-xyz-d65: color(
+    from var(--tw-jib--border-color) xyz-d65
+    calc(y * 0.95047 + (x - y * 0.95047) * (1 + var(--tw-jib--border-saturation--amount)))
+    y
+    calc(y * 1.08883 + (z - y * 1.08883) * (1 + var(--tw-jib--border-saturation--amount)))
+    / alpha
+  );
+  --tw-jib--border-sat-interpolation-color-mix: inherit;
+}
+
+/* =========================================================================
+ * PRIMARY: border-saturation-* (positive saturation — saturate)
+ * ========================================================================= */
+
+/* block 1: sets amount + color via modifier */
+@utility border-saturation-* {
+  &:not(._) {
+    --tw-jib--border-saturation--amount: calc(--value(integer, [number]) * 0.01);
+    border-color: --modifier(--tw-jib--border-sat-interpolation-*);
+  }
+}
+
+/* block 2: stable with-modifier */
+@utility border-saturation-* {
+  &:not(._) {
+    border-color: --modifier(--tw-jib--border-sat-interpolation-*);
+  }
+}
+
+/* block 3: experimental with-modifier */
+@utility border-saturation-* {
+  &:not(._) {
+    @variant supports-saturation {
+      border-color: --saturation(
+        var(--tw-jib--border-color),
+        --value(integer, [number]),
+        --modifier(
+          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
+          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
+          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+          'color-mix'
+        )
+      );
+    }
+  }
+}
+
+/* block 4: stable no-modifier default — oklch */
+@utility border-saturation-* {
+  &:not(._) {
+    border-color: oklch(from var(--tw-jib--border-color) l calc(c * (1 - max(var(--tw-jib--border-saturation--amount), calc(0 - var(--tw-jib--border-saturation--amount)))) + max(0, var(--tw-jib--border-saturation--amount)) * 0.4) h / alpha);
+  }
+}
+
+/* block 5: experimental no-modifier default */
+@utility border-saturation-* {
+  &:not(._) {
+    @variant supports-saturation {
+      border-color: --saturation(var(--tw-jib--border-color), --value(integer, [number]));
+    }
+  }
+}
+
+/* =========================================================================
+ * PRIMARY: -border-saturation-* (negative saturation — desaturate)
+ * ========================================================================= */
+
+/* block 1: sets amount + color via modifier */
+@utility -border-saturation-* {
+  &:not(._) {
+    --tw-jib--border-saturation--amount: calc(--value(integer, [number]) * -0.01);
+    border-color: --modifier(--tw-jib--border-sat-interpolation-*);
+  }
+}
+
+/* block 2: stable with-modifier */
+@utility -border-saturation-* {
+  &:not(._) {
+    border-color: --modifier(--tw-jib--border-sat-interpolation-*);
+  }
+}
+
+/* block 3: experimental with-modifier */
+@utility -border-saturation-* {
+  &:not(._) {
+    @variant supports-saturation {
+      border-color: --saturation(
+        var(--tw-jib--border-color),
+        calc(--value(integer, [number]) * -1),
+        --modifier(
+          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
+          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
+          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+          'color-mix'
+        )
+      );
+    }
+  }
+}
+
+/* block 4: stable no-modifier default — oklch */
+@utility -border-saturation-* {
+  &:not(._) {
+    border-color: oklch(from var(--tw-jib--border-color) l calc(c * (1 - max(var(--tw-jib--border-saturation--amount), calc(0 - var(--tw-jib--border-saturation--amount)))) + max(0, var(--tw-jib--border-saturation--amount)) * 0.4) h / alpha);
+  }
+}
+
+/* block 5: experimental no-modifier default */
+@utility -border-saturation-* {
+  &:not(._) {
+    @variant supports-saturation {
+      border-color: --saturation(var(--tw-jib--border-color), calc(--value(integer, [number]) * -1));
+    }
+  }
+}
+
+/* =========================================================================
+ * ALIAS: border-saturate-*
+ * ========================================================================= */
+
+/* block 1: sets amount + color via modifier */
+@utility border-saturate-* {
+  &:not(._) {
+    --tw-jib--border-saturation--amount: calc(--value(integer, [number]) * 0.01);
+    border-color: --modifier(--tw-jib--border-sat-interpolation-*);
+  }
+}
+
+/* block 2: stable with-modifier */
+@utility border-saturate-* {
+  &:not(._) {
+    border-color: --modifier(--tw-jib--border-sat-interpolation-*);
+  }
+}
+
+/* block 3: experimental with-modifier */
+@utility border-saturate-* {
+  &:not(._) {
+    @variant supports-saturation {
+      border-color: --saturation(
+        var(--tw-jib--border-color),
+        --value(integer, [number]),
+        --modifier(
+          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
+          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
+          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+          'color-mix'
+        )
+      );
+    }
+  }
+}
+
+/* block 4: stable no-modifier default — oklch */
+@utility border-saturate-* {
+  &:not(._) {
+    border-color: oklch(from var(--tw-jib--border-color) l calc(c * (1 - max(var(--tw-jib--border-saturation--amount), calc(0 - var(--tw-jib--border-saturation--amount)))) + max(0, var(--tw-jib--border-saturation--amount)) * 0.4) h / alpha);
+  }
+}
+
+/* block 5: experimental no-modifier default */
+@utility border-saturate-* {
+  &:not(._) {
+    @variant supports-saturation {
+      border-color: --saturation(var(--tw-jib--border-color), --value(integer, [number]));
+    }
+  }
+}
+
+/* =========================================================================
+ * ALIAS: border-desaturate-*
+ * ========================================================================= */
+
+/* block 1: sets amount + color via modifier */
+@utility border-desaturate-* {
+  &:not(._) {
+    --tw-jib--border-saturation--amount: calc(--value(integer, [number]) * -0.01);
+    border-color: --modifier(--tw-jib--border-sat-interpolation-*);
+  }
+}
+
+/* block 2: stable with-modifier */
+@utility border-desaturate-* {
+  &:not(._) {
+    border-color: --modifier(--tw-jib--border-sat-interpolation-*);
+  }
+}
+
+/* block 3: experimental with-modifier */
+@utility border-desaturate-* {
+  &:not(._) {
+    @variant supports-saturation {
+      border-color: --saturation(
+        var(--tw-jib--border-color),
+        calc(--value(integer, [number]) * -1),
+        --modifier(
+          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
+          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
+          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+          'color-mix'
+        )
+      );
+    }
+  }
+}
+
+/* block 4: stable no-modifier default — oklch */
+@utility border-desaturate-* {
+  &:not(._) {
+    border-color: oklch(from var(--tw-jib--border-color) l calc(c * (1 - max(var(--tw-jib--border-saturation--amount), calc(0 - var(--tw-jib--border-saturation--amount)))) + max(0, var(--tw-jib--border-saturation--amount)) * 0.4) h / alpha);
+  }
+}
+
+/* block 5: experimental no-modifier default */
+@utility border-desaturate-* {
+  &:not(._) {
+    @variant supports-saturation {
+      border-color: --saturation(var(--tw-jib--border-color), calc(--value(integer, [number]) * -1));
+    }
+  }
+}

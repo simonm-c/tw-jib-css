@@ -49,6 +49,10 @@
       "style": "./src/lightness.css",
       "default": "./src/lightness.css"
     },
+    "./saturation": {
+      "style": "./src/saturation.css",
+      "default": "./src/saturation.css"
+    },
     "./ripple": {
       "style": "./src/ripple.css",
       "default": "./src/ripple.css"

@@ -1,0 +1,385 @@
+@property --tw-jib--background-saturation--amount {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+
+@theme inline {
+  --tw-jib--background-sat-interpolation-lch: lch(
+    from var(--tw-jib--bg-color)
+    l
+    calc(c * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * 150)
+    h / alpha
+  );
+  --tw-jib--background-sat-interpolation-oklch: oklch(
+    from var(--tw-jib--bg-color)
+    l
+    calc(c * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * 0.4)
+    h / alpha
+  );
+  --tw-jib--background-sat-interpolation-lab: lab(
+    from var(--tw-jib--bg-color)
+    l
+    calc(a * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * 125 * sign(a))
+    calc(b * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * 125 * sign(b))
+    / alpha
+  );
+  --tw-jib--background-sat-interpolation-oklab: oklab(
+    from var(--tw-jib--bg-color)
+    l
+    calc(a * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * 0.4 * sign(a))
+    calc(b * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * 0.4 * sign(b))
+    / alpha
+  );
+  --tw-jib--background-sat-interpolation-hsl: hsl(
+    from var(--tw-jib--bg-color) h
+    calc(s * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * 100)
+    l / alpha
+  );
+  --tw-jib--background-sat-interpolation-hwb: hwb(
+    from var(--tw-jib--bg-color) h
+    calc(w * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, calc(0 - var(--tw-jib--background-saturation--amount))) * 50)
+    calc(b * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, calc(0 - var(--tw-jib--background-saturation--amount))) * 50)
+    / alpha
+  );
+  --tw-jib--background-sat-interpolation-rgb: rgb(
+    from var(--tw-jib--bg-color)
+    calc(r * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * clamp(0, sign(r - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 255 + max(0, calc(0 - var(--tw-jib--background-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(g * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * clamp(0, sign(g - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 255 + max(0, calc(0 - var(--tw-jib--background-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(b * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * clamp(0, sign(b - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 255 + max(0, calc(0 - var(--tw-jib--background-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    / alpha
+  );
+  --tw-jib--background-sat-interpolation-srgb: color(
+    from var(--tw-jib--bg-color) srgb
+    calc(r * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * clamp(0, sign(r - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--background-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(g * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * clamp(0, sign(g - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--background-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(b * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * clamp(0, sign(b - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--background-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    / alpha
+  );
+  --tw-jib--background-sat-interpolation-srgb-linear: color(
+    from var(--tw-jib--bg-color) srgb-linear
+    calc(r * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * clamp(0, sign(r - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--background-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(g * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * clamp(0, sign(g - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--background-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(b * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * clamp(0, sign(b - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--background-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    / alpha
+  );
+  --tw-jib--background-sat-interpolation-display-p3: color(
+    from var(--tw-jib--bg-color) display-p3
+    calc(r * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * clamp(0, sign(r - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--background-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(g * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * clamp(0, sign(g - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--background-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(b * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * clamp(0, sign(b - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--background-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    / alpha
+  );
+  --tw-jib--background-sat-interpolation-a98-rgb: color(
+    from var(--tw-jib--bg-color) a98-rgb
+    calc(r * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * clamp(0, sign(r - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--background-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(g * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * clamp(0, sign(g - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--background-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(b * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * clamp(0, sign(b - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--background-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    / alpha
+  );
+  --tw-jib--background-sat-interpolation-prophoto-rgb: color(
+    from var(--tw-jib--bg-color) prophoto-rgb
+    calc(r * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * clamp(0, sign(r - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--background-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(g * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * clamp(0, sign(g - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--background-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(b * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * clamp(0, sign(b - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--background-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    / alpha
+  );
+  --tw-jib--background-sat-interpolation-rec2020: color(
+    from var(--tw-jib--bg-color) rec2020
+    calc(r * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * clamp(0, sign(r - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--background-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(g * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * clamp(0, sign(g - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--background-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(b * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * clamp(0, sign(b - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--background-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    / alpha
+  );
+  --tw-jib--background-sat-interpolation-xyz: color(
+    from var(--tw-jib--bg-color) xyz
+    calc(x * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * sign(x - y * 0.95047) + max(0, calc(0 - var(--tw-jib--background-saturation--amount))) * y * 0.95047)
+    y
+    calc(z * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * sign(z - y * 1.08883) + max(0, calc(0 - var(--tw-jib--background-saturation--amount))) * y * 1.08883)
+    / alpha
+  );
+  --tw-jib--background-sat-interpolation-xyz-d50: color(
+    from var(--tw-jib--bg-color) xyz-d50
+    calc(x * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * sign(x - y * 0.96422) + max(0, calc(0 - var(--tw-jib--background-saturation--amount))) * y * 0.96422)
+    y
+    calc(z * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * sign(z - y * 0.82521) + max(0, calc(0 - var(--tw-jib--background-saturation--amount))) * y * 0.82521)
+    / alpha
+  );
+  --tw-jib--background-sat-interpolation-xyz-d65: color(
+    from var(--tw-jib--bg-color) xyz-d65
+    calc(x * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * sign(x - y * 0.95047) + max(0, calc(0 - var(--tw-jib--background-saturation--amount))) * y * 0.95047)
+    y
+    calc(z * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * sign(z - y * 1.08883) + max(0, calc(0 - var(--tw-jib--background-saturation--amount))) * y * 1.08883)
+    / alpha
+  );
+  --tw-jib--background-sat-interpolation-color-mix: inherit;
+}
+
+/*
+ * bg-saturation / -bg-saturation: 5 same-name @utility blocks each — all required.
+ * TW4 sorts by property count (more props → earlier in CSS) and modifier-only
+ * blocks don't resolve when no modifier is given. This creates two independent
+ * resolution chains: with-modifier and without-modifier.
+ *
+ * Block order matters: experimental blocks (3,5) must be interleaved between
+ * stable blocks (1,2,4) — not appended after — for TW4's complexity-based
+ * resolution to work correctly.
+ *
+ * bg-saturate / bg-desaturate are user-friendly aliases for the same utilities.
+ *
+ * Experimental blocks use @variant supports-saturation which is a no-op unless
+ * the @custom-variant and @function definitions from _experimental.css are imported.
+ */
+
+/* =========================================================================
+ * PRIMARY: bg-saturation-* (positive saturation — saturate)
+ * ========================================================================= */
+
+/* block 1: 2 props → sorted first. Sets amount; bg-color overridden by later blocks */
+@utility bg-saturation-* {
+  &:not(._) {
+    --tw-jib--background-saturation--amount: calc(--value(integer, [number]) * 0.01);
+    background-color: --modifier(--tw-jib--background-sat-interpolation-*);
+    --tw-jib--bg-image: linear-gradient(--modifier(--tw-jib--background-sat-interpolation-*) 0 0);
+  }
+}
+
+/* block 2: stable with-modifier path (non-@function browsers) */
+@utility bg-saturation-* {
+  &:not(._) {
+    background-color: --modifier(--tw-jib--background-sat-interpolation-*);
+    --tw-jib--bg-image: linear-gradient(--modifier(--tw-jib--background-sat-interpolation-*) 0 0);
+  }
+}
+
+/* block 3: experimental with-modifier path — overrides above where @function supported */
+@utility bg-saturation-* {
+  &:not(._) {
+    @variant supports-saturation {
+      background-color: --saturation(
+        var(--tw-jib--bg-color),
+        --value(integer, [number]),
+        --modifier(
+          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
+          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
+          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+          'color-mix'
+        )
+      );
+      --tw-jib--bg-image: linear-gradient(--saturation(
+              var(--tw-jib--bg-color),
+              --value(integer, [number]),
+              --modifier(
+                      'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
+                      'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
+                      'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+                      'color-mix'
+              )
+      ) 0 0);
+    }
+  }
+}
+
+/* block 4: stable no-modifier default — oklch */
+@utility bg-saturation-* {
+  &:not(._) {
+    background-color: oklch(from var(--tw-jib--bg-color) l calc(c * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * 0.4) h / alpha);
+    --tw-jib--bg-image: linear-gradient(oklch(from var(--tw-jib--bg-color) l calc(c * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * 0.4) h / alpha) 0 0);
+  }
+}
+
+/* block 5: experimental no-modifier default — overrides above where @function supported */
+@utility bg-saturation-* {
+  &:not(._) {
+    @variant supports-saturation {
+      background-color: --saturation(var(--tw-jib--bg-color), --value(integer, [number]));
+      --tw-jib--bg-image: linear-gradient(--saturation(var(--tw-jib--bg-color), --value(integer, [number])) 0 0);
+    }
+  }
+}
+
+/* =========================================================================
+ * PRIMARY: -bg-saturation-* (negative saturation — desaturate)
+ * ========================================================================= */
+
+@utility -bg-saturation-* {
+  &:not(._) {
+    --tw-jib--background-saturation--amount: calc(--value(integer, [number]) * -0.01);
+    background-color: --modifier(--tw-jib--background-sat-interpolation-*);
+    --tw-jib--bg-image: linear-gradient(--modifier(--tw-jib--background-sat-interpolation-*) 0 0);
+  }
+}
+
+@utility -bg-saturation-* {
+  &:not(._) {
+    background-color: --modifier(--tw-jib--background-sat-interpolation-*);
+    --tw-jib--bg-image: linear-gradient(--modifier(--tw-jib--background-sat-interpolation-*) 0 0);
+  }
+}
+
+@utility -bg-saturation-* {
+  &:not(._) {
+    @variant supports-saturation {
+      background-color: --saturation(
+        var(--tw-jib--bg-color),
+        calc(--value(integer, [number]) * -1),
+        --modifier(
+          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
+          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
+          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+          'color-mix'
+        )
+      );
+      --tw-jib--bg-image: linear-gradient(--saturation(
+              var(--tw-jib--bg-color),
+              calc(--value(integer, [number]) * -1),
+              --modifier(
+                      'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
+                      'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
+                      'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+                      'color-mix'
+              )
+      ) 0 0);
+    }
+  }
+}
+
+@utility -bg-saturation-* {
+  &:not(._) {
+    background-color: oklch(from var(--tw-jib--bg-color) l calc(c * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * 0.4) h / alpha);
+    --tw-jib--bg-image: linear-gradient(oklch(from var(--tw-jib--bg-color) l calc(c * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * 0.4) h / alpha) 0 0);
+  }
+}
+
+@utility -bg-saturation-* {
+  &:not(._) {
+    @variant supports-saturation {
+      background-color: --saturation(var(--tw-jib--bg-color), calc(--value(integer, [number]) * -1));
+      --tw-jib--bg-image: linear-gradient(--saturation(var(--tw-jib--bg-color), calc(--value(integer, [number]) * -1)) 0 0);
+    }
+  }
+}
+
+/* =========================================================================
+ * ALIAS: bg-saturate-*
+ * ========================================================================= */
+
+@utility bg-saturate-* {
+  &:not(._) {
+    --tw-jib--background-saturation--amount: calc(--value(integer, [number]) * 0.01);
+    background-color: --modifier(--tw-jib--background-sat-interpolation-*);
+    --tw-jib--bg-image: linear-gradient(--modifier(--tw-jib--background-sat-interpolation-*) 0 0);
+  }
+}
+
+@utility bg-saturate-* {
+  &:not(._) {
+    background-color: --modifier(--tw-jib--background-sat-interpolation-*);
+    --tw-jib--bg-image: linear-gradient(--modifier(--tw-jib--background-sat-interpolation-*) 0 0);
+  }
+}
+
+@utility bg-saturate-* {
+  &:not(._) {
+    @variant supports-saturation {
+      background-color: --saturation(
+        var(--tw-jib--bg-color),
+        --value(integer, [number]),
+        --modifier(
+          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
+          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
+          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+          'color-mix'
+        )
+      );
+      --tw-jib--bg-image: linear-gradient(--saturation(
+              var(--tw-jib--bg-color),
+              --value(integer, [number]),
+              --modifier(
+                      'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
+                      'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
+                      'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+                      'color-mix'
+              )
+      ) 0 0);
+    }
+  }
+}
+
+@utility bg-saturate-* {
+  &:not(._) {
+    background-color: oklch(from var(--tw-jib--bg-color) l calc(c * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * 0.4) h / alpha);
+    --tw-jib--bg-image: linear-gradient(oklch(from var(--tw-jib--bg-color) l calc(c * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * 0.4) h / alpha) 0 0);
+  }
+}
+
+@utility bg-saturate-* {
+  &:not(._) {
+    @variant supports-saturation {
+      background-color: --saturation(var(--tw-jib--bg-color), --value(integer, [number]));
+      --tw-jib--bg-image: linear-gradient(--saturation(var(--tw-jib--bg-color), --value(integer, [number])) 0 0);
+    }
+  }
+}
+
+/* =========================================================================
+ * ALIAS: bg-desaturate-*
+ * ========================================================================= */
+
+@utility bg-desaturate-* {
+  &:not(._) {
+    --tw-jib--background-saturation--amount: calc(--value(integer, [number]) * -0.01);
+    background-color: --modifier(--tw-jib--background-sat-interpolation-*);
+    --tw-jib--bg-image: linear-gradient(--modifier(--tw-jib--background-sat-interpolation-*) 0 0);
+  }
+}
+
+@utility bg-desaturate-* {
+  &:not(._) {
+    background-color: --modifier(--tw-jib--background-sat-interpolation-*);
+    --tw-jib--bg-image: linear-gradient(--modifier(--tw-jib--background-sat-interpolation-*) 0 0);
+  }
+}
+
+@utility bg-desaturate-* {
+  &:not(._) {
+    @variant supports-saturation {
+      background-color: --saturation(
+        var(--tw-jib--bg-color),
+        calc(--value(integer, [number]) * -1),
+        --modifier(
+          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
+          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
+          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+          'color-mix'
+        )
+      );
+      --tw-jib--bg-image: linear-gradient(--saturation(
+              var(--tw-jib--bg-color),
+              calc(--value(integer, [number]) * -1),
+              --modifier(
+                      'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
+                      'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
+                      'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+                      'color-mix'
+              )
+      ) 0 0);
+    }
+  }
+}
+
+@utility bg-desaturate-* {
+  &:not(._) {
+    background-color: oklch(from var(--tw-jib--bg-color) l calc(c * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * 0.4) h / alpha);
+    --tw-jib--bg-image: linear-gradient(oklch(from var(--tw-jib--bg-color) l calc(c * (1 - max(var(--tw-jib--background-saturation--amount), calc(0 - var(--tw-jib--background-saturation--amount)))) + max(0, var(--tw-jib--background-saturation--amount)) * 0.4) h / alpha) 0 0);
+  }
+}
+
+@utility bg-desaturate-* {
+  &:not(._) {
+    @variant supports-saturation {
+      background-color: --saturation(var(--tw-jib--bg-color), calc(--value(integer, [number]) * -1));
+      --tw-jib--bg-image: linear-gradient(--saturation(var(--tw-jib--bg-color), calc(--value(integer, [number]) * -1)) 0 0);
+    }
+  }
+}

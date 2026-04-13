@@ -88,6 +88,8 @@ export default defineConfig({
           { text: 'Corner Shape', link: '/guide/corner' },
           { text: 'Interpolate Size', link: '/guide/interpolate' },
           { text: 'Base Select Picker', link: '/guide/picker' },
+          { text: 'Accessible Shade', link: '/guide/wcag' },
+          { text: 'WCAG Badge', link: '/guide/wcag-badge' },
         ],
       },
     ],

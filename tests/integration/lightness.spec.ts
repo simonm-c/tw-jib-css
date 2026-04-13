@@ -940,8 +940,11 @@ test.describe('stable fallback path (browsers without CSS @function)', () => {
       }
     });
 
-    test('mid base (green-500) works across all 17 colour spaces', async ({ page }) => {
-      const ids = ALL_SPACES.map((sp) => `matrix-green-500-darken-50-${sp}`);
+    test('mid base (green-500) works across all 16 non-color-mix colour spaces', async ({ page }) => {
+      // color-mix space requires CSS @function — falls back to inherit/transparent
+      // in this describe block (browsers without @function support).
+      const nonMixSpaces = ALL_SPACES.filter((sp) => sp !== 'color-mix');
+      const ids = nonMixSpaces.map((sp) => `matrix-green-500-darken-50-${sp}`);
       const s = await extractStyles(page, ids);
 
       for (const id of ids) {

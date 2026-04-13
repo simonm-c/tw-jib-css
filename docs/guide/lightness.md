@@ -1,12 +1,14 @@
 ---
-title: Lightness
+title: Background Lightness
 ---
 
 <!-- llm-context: bg-lightness / -bg-lightness utility — adjusts background colour lightness using CSS relative colour syntax across 17 colour spaces. bg-lightness-{n} to lighten, -bg-lightness-{n} to darken, with optional /{color-space} modifier. bg-lighten-{n} and bg-darken-{n} are user-friendly aliases. -->
 
-# Lightness
+# Background Lightness
 
 Adjust the lightness of any background colour using CSS relative colour syntax. Use `bg-lightness-{amount}` to lighten and `-bg-lightness-{amount}` to darken. Works across 17 colour spaces with a simple slash modifier.
+
+Lightness utilities are also available for [text](/guide/text-lightness), [fill](/guide/fill-lightness), [stroke](/guide/stroke-lightness), [outline](/guide/outline-lightness), and [accent](/guide/accent-lightness).
 
 ::: tip Import
 Included in `@import 'tw-jib-css'`. To import individually:
@@ -72,30 +74,46 @@ Use increasing values to create consistent lightening and darkening scales from 
 ### Lighten scale
 
 <Example stretch>
-  <div>
-    <div class="flex">
-      <div class="flex-1 bg-blue-500 h-12"></div>
-      <div class="flex-1 bg-blue-500 bg-lightness-10 h-12"></div>
-      <div class="flex-1 bg-blue-500 bg-lightness-20 h-12"></div>
-      <div class="flex-1 bg-blue-500 bg-lightness-30 h-12"></div>
-      <div class="flex-1 bg-blue-500 bg-lightness-40 h-12"></div>
-      <div class="flex-1 bg-blue-500 bg-lightness-50 h-12"></div>
-      <div class="flex-1 bg-blue-500 bg-lightness-60 h-12"></div>
-      <div class="flex-1 bg-blue-500 bg-lightness-70 h-12"></div>
-      <div class="flex-1 bg-blue-500 bg-lightness-80 h-12"></div>
-      <div class="flex-1 bg-blue-500 bg-lightness-90 h-12"></div>
+  <div class="flex gap-1">
+    <div class="flex-1 text-center">
+      <div class="bg-blue-500 h-12"></div>
+      <div class="text-[10px] text-gray-400 mt-0.5">base</div>
     </div>
-    <div class="flex text-[10px] text-gray-400 mt-0.5">
-      <div class="flex-1 text-center">base</div>
-      <div class="flex-1 text-center">10</div>
-      <div class="flex-1 text-center">20</div>
-      <div class="flex-1 text-center">30</div>
-      <div class="flex-1 text-center">40</div>
-      <div class="flex-1 text-center">50</div>
-      <div class="flex-1 text-center">60</div>
-      <div class="flex-1 text-center">70</div>
-      <div class="flex-1 text-center">80</div>
-      <div class="flex-1 text-center">90</div>
+    <div class="flex-1 text-center">
+      <div class="bg-blue-500 bg-lightness-10 h-12"></div>
+      <div class="text-[10px] text-gray-400 mt-0.5">10</div>
+    </div>
+    <div class="flex-1 text-center">
+      <div class="bg-blue-500 bg-lightness-20 h-12"></div>
+      <div class="text-[10px] text-gray-400 mt-0.5">20</div>
+    </div>
+    <div class="flex-1 text-center">
+      <div class="bg-blue-500 bg-lightness-30 h-12"></div>
+      <div class="text-[10px] text-gray-400 mt-0.5">30</div>
+    </div>
+    <div class="flex-1 text-center">
+      <div class="bg-blue-500 bg-lightness-40 h-12"></div>
+      <div class="text-[10px] text-gray-400 mt-0.5">40</div>
+    </div>
+    <div class="flex-1 text-center">
+      <div class="bg-blue-500 bg-lightness-50 h-12"></div>
+      <div class="text-[10px] text-gray-400 mt-0.5">50</div>
+    </div>
+    <div class="flex-1 text-center">
+      <div class="bg-blue-500 bg-lightness-60 h-12"></div>
+      <div class="text-[10px] text-gray-400 mt-0.5">60</div>
+    </div>
+    <div class="flex-1 text-center">
+      <div class="bg-blue-500 bg-lightness-70 h-12"></div>
+      <div class="text-[10px] text-gray-400 mt-0.5">70</div>
+    </div>
+    <div class="flex-1 text-center">
+      <div class="bg-blue-500 bg-lightness-80 h-12"></div>
+      <div class="text-[10px] text-gray-400 mt-0.5">80</div>
+    </div>
+    <div class="flex-1 text-center">
+      <div class="bg-blue-500 bg-lightness-90 h-12"></div>
+      <div class="text-[10px] text-gray-400 mt-0.5">90</div>
     </div>
   </div>
 </Example>
@@ -103,30 +121,46 @@ Use increasing values to create consistent lightening and darkening scales from 
 ### Darken scale
 
 <Example stretch>
-  <div>
-    <div class="flex">
-      <div class="flex-1 bg-blue-500 h-12"></div>
-      <div class="flex-1 bg-blue-500 -bg-lightness-10 h-12"></div>
-      <div class="flex-1 bg-blue-500 -bg-lightness-20 h-12"></div>
-      <div class="flex-1 bg-blue-500 -bg-lightness-30 h-12"></div>
-      <div class="flex-1 bg-blue-500 -bg-lightness-40 h-12"></div>
-      <div class="flex-1 bg-blue-500 -bg-lightness-50 h-12"></div>
-      <div class="flex-1 bg-blue-500 -bg-lightness-60 h-12"></div>
-      <div class="flex-1 bg-blue-500 -bg-lightness-70 h-12"></div>
-      <div class="flex-1 bg-blue-500 -bg-lightness-80 h-12"></div>
-      <div class="flex-1 bg-blue-500 -bg-lightness-90 h-12"></div>
+  <div class="flex gap-1">
+    <div class="flex-1 text-center">
+      <div class="bg-blue-500 h-12"></div>
+      <div class="text-[10px] text-gray-400 mt-0.5">base</div>
     </div>
-    <div class="flex text-[10px] text-gray-400 mt-0.5">
-      <div class="flex-1 text-center">base</div>
-      <div class="flex-1 text-center">10</div>
-      <div class="flex-1 text-center">20</div>
-      <div class="flex-1 text-center">30</div>
-      <div class="flex-1 text-center">40</div>
-      <div class="flex-1 text-center">50</div>
-      <div class="flex-1 text-center">60</div>
-      <div class="flex-1 text-center">70</div>
-      <div class="flex-1 text-center">80</div>
-      <div class="flex-1 text-center">90</div>
+    <div class="flex-1 text-center">
+      <div class="bg-blue-500 -bg-lightness-10 h-12"></div>
+      <div class="text-[10px] text-gray-400 mt-0.5">10</div>
+    </div>
+    <div class="flex-1 text-center">
+      <div class="bg-blue-500 -bg-lightness-20 h-12"></div>
+      <div class="text-[10px] text-gray-400 mt-0.5">20</div>
+    </div>
+    <div class="flex-1 text-center">
+      <div class="bg-blue-500 -bg-lightness-30 h-12"></div>
+      <div class="text-[10px] text-gray-400 mt-0.5">30</div>
+    </div>
+    <div class="flex-1 text-center">
+      <div class="bg-blue-500 -bg-lightness-40 h-12"></div>
+      <div class="text-[10px] text-gray-400 mt-0.5">40</div>
+    </div>
+    <div class="flex-1 text-center">
+      <div class="bg-blue-500 -bg-lightness-50 h-12"></div>
+      <div class="text-[10px] text-gray-400 mt-0.5">50</div>
+    </div>
+    <div class="flex-1 text-center">
+      <div class="bg-blue-500 -bg-lightness-60 h-12"></div>
+      <div class="text-[10px] text-gray-400 mt-0.5">60</div>
+    </div>
+    <div class="flex-1 text-center">
+      <div class="bg-blue-500 -bg-lightness-70 h-12"></div>
+      <div class="text-[10px] text-gray-400 mt-0.5">70</div>
+    </div>
+    <div class="flex-1 text-center">
+      <div class="bg-blue-500 -bg-lightness-80 h-12"></div>
+      <div class="text-[10px] text-gray-400 mt-0.5">80</div>
+    </div>
+    <div class="flex-1 text-center">
+      <div class="bg-blue-500 -bg-lightness-90 h-12"></div>
+      <div class="text-[10px] text-gray-400 mt-0.5">90</div>
     </div>
   </div>
 </Example>

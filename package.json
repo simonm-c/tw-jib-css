@@ -49,9 +49,9 @@
       "style": "./src/lightness.css",
       "default": "./src/lightness.css"
     },
-    "./lighten-darken": {
-      "style": "./src/lightness.css",
-      "default": "./src/lightness.css"
+    "./saturation": {
+      "style": "./src/saturation.css",
+      "default": "./src/saturation.css"
     },
     "./ripple": {
       "style": "./src/ripple.css",
@@ -84,6 +84,10 @@
     "./experimental/picker": {
       "style": "./src/experimental/picker.css",
       "default": "./src/experimental/picker.css"
+    },
+    "./experimental/wcag": {
+      "style": "./src/wcag.css",
+      "default": "./src/wcag.css"
     }
   },
   "packageManager": "pnpm@10.32.1",

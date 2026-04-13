@@ -14,7 +14,6 @@ export default defineConfig({
   ],
 
   themeConfig: {
-    logo: { light: '/jibcss-logotype.svg', dark: '/jibcss-logotype-white.svg' },
     siteTitle: false,
     nav: [
       { text: 'Guide', link: '/guide/' },
@@ -48,7 +47,32 @@ export default defineConfig({
       {
         text: 'Color Transforms',
         items: [
-          { text: 'Lightness', link: '/guide/lightness' },
+          {
+            text: 'Lightness',
+            collapsed: false,
+            items: [
+              { text: 'Background', link: '/guide/lightness' },
+              { text: 'Text', link: '/guide/text-lightness' },
+              { text: 'Fill', link: '/guide/fill-lightness' },
+              { text: 'Stroke', link: '/guide/stroke-lightness' },
+              { text: 'Outline', link: '/guide/outline-lightness' },
+              { text: 'Accent', link: '/guide/accent-lightness' },
+              { text: 'Border', link: '/guide/border-lightness' },
+            ],
+          },
+          {
+            text: 'Saturation',
+            collapsed: false,
+            items: [
+              { text: 'Background', link: '/guide/saturation' },
+              { text: 'Text', link: '/guide/text-saturation' },
+              { text: 'Fill', link: '/guide/fill-saturation' },
+              { text: 'Stroke', link: '/guide/stroke-saturation' },
+              { text: 'Outline', link: '/guide/outline-saturation' },
+              { text: 'Accent', link: '/guide/accent-saturation' },
+              { text: 'Border', link: '/guide/border-saturation' },
+            ],
+          },
         ],
       },
       {
@@ -64,6 +88,8 @@ export default defineConfig({
           { text: 'Corner Shape', link: '/guide/corner' },
           { text: 'Interpolate Size', link: '/guide/interpolate' },
           { text: 'Base Select Picker', link: '/guide/picker' },
+          { text: 'Accessible Shade', link: '/guide/wcag' },
+          { text: 'WCAG Badge', link: '/guide/wcag-badge' },
         ],
       },
     ],

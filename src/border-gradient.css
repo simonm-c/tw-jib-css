@@ -85,6 +85,7 @@
 }
 
 @utility border-* {
+  --tw-jib--border-color: --value('inherit', 'transparent', --color-*, [color]);
   --tw-jib--border-gradient: --value(--tw-jib--border-gradient-type-*);
   --tw-jib--gradient-interpolation: --modifier(--tw-jib--gradient-interpolation-*);
   --tw-jib--border-gradient-position: var(--tw-jib--gradient-interpolation);

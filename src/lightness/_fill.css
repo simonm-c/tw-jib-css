@@ -1,0 +1,340 @@
+@property --tw-jib--fill-lightness--amount {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+
+@theme inline {
+  --tw-jib--fill-color-interpolation-lch: lch(
+    from var(--tw-jib--fill-color)
+    calc(l * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)) * 100)
+    calc(c * min(1, (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) * 5))
+    h / alpha
+  );
+  --tw-jib--fill-color-interpolation-oklch: oklch(
+    from var(--tw-jib--fill-color)
+    calc(l * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)))
+    calc(c * min(1, (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) * 5))
+    h / alpha
+  );
+  --tw-jib--fill-color-interpolation-lab: lab(
+    from var(--tw-jib--fill-color)
+    calc(l * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)) * 100)
+    calc(a * min(1, (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) * 5))
+    calc(b * min(1, (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) * 5))
+    / alpha
+  );
+  --tw-jib--fill-color-interpolation-oklab: oklab(
+    from var(--tw-jib--fill-color)
+    calc(l * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)))
+    calc(a * min(1, (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) * 5))
+    calc(b * min(1, (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) * 5))
+    / alpha
+  );
+  --tw-jib--fill-color-interpolation-hsl: hsl(
+    from var(--tw-jib--fill-color) h
+    calc(s
+      * min(1,
+          min(l, calc(100 - l))
+          / max(
+              min(
+                calc(l * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)) * 100),
+                calc(100 - (l * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)) * 100))
+              ),
+              0.5
+            )
+        )
+    )
+    calc(l * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)) * 100)
+    / alpha
+  );
+  --tw-jib--fill-color-interpolation-hwb: hwb(
+    from var(--tw-jib--fill-color) h
+    calc(w * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)) * 100)
+    calc(b * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, calc(0 - var(--tw-jib--fill-lightness--amount))) * 100)
+    / alpha
+  );
+  --tw-jib--fill-color-interpolation-rgb: rgb(
+    from var(--tw-jib--fill-color)
+    calc(r * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)) * 255)
+    calc(g * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)) * 255)
+    calc(b * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)) * 255)
+    / alpha
+  );
+  --tw-jib--fill-color-interpolation-srgb: color(
+    from var(--tw-jib--fill-color) srgb
+    calc(r * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)))
+    calc(g * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)))
+    calc(b * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)))
+    / alpha
+  );
+  --tw-jib--fill-color-interpolation-srgb-linear: color(
+    from var(--tw-jib--fill-color) srgb-linear
+    calc(r * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)))
+    calc(g * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)))
+    calc(b * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)))
+    / alpha
+  );
+  --tw-jib--fill-color-interpolation-display-p3: color(
+    from var(--tw-jib--fill-color) display-p3
+    calc(r * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)))
+    calc(g * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)))
+    calc(b * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)))
+    / alpha
+  );
+  --tw-jib--fill-color-interpolation-a98-rgb: color(
+    from var(--tw-jib--fill-color) a98-rgb
+    calc(r * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)))
+    calc(g * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)))
+    calc(b * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)))
+    / alpha
+  );
+  --tw-jib--fill-color-interpolation-prophoto-rgb: color(
+    from var(--tw-jib--fill-color) prophoto-rgb
+    calc(r * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)))
+    calc(g * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)))
+    calc(b * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)))
+    / alpha
+  );
+  --tw-jib--fill-color-interpolation-rec2020: color(
+    from var(--tw-jib--fill-color) rec2020
+    calc(r * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)))
+    calc(g * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)))
+    calc(b * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)))
+    / alpha
+  );
+  --tw-jib--fill-color-interpolation-xyz: color(
+    from var(--tw-jib--fill-color) xyz
+    calc(x * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)))
+    calc(y * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)))
+    calc(z * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)))
+    / alpha
+  );
+  --tw-jib--fill-color-interpolation-xyz-d50: color(
+    from var(--tw-jib--fill-color) xyz-d50
+    calc(x * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)))
+    calc(y * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)))
+    calc(z * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)))
+    / alpha
+  );
+  --tw-jib--fill-color-interpolation-xyz-d65: color(
+    from var(--tw-jib--fill-color) xyz-d65
+    calc(x * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)))
+    calc(y * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)))
+    calc(z * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount)))
+    / alpha
+  );
+  --tw-jib--fill-color-interpolation-color-mix: inherit;
+}
+
+/* =========================================================================
+ * PRIMARY: fill-lightness-* (positive lightness — lighten)
+ * ========================================================================= */
+
+/* block 1: sets amount + color via modifier */
+@utility fill-lightness-* {
+  &:not(._) {
+    --tw-jib--fill-lightness--amount: calc(--value(integer, [number]) * 0.01);
+    fill: --modifier(--tw-jib--fill-color-interpolation-*);
+  }
+}
+
+/* block 2: stable with-modifier */
+@utility fill-lightness-* {
+  &:not(._) {
+    fill: --modifier(--tw-jib--fill-color-interpolation-*);
+  }
+}
+
+/* block 3: experimental with-modifier */
+@utility fill-lightness-* {
+  &:not(._) {
+    @variant supports-lightness {
+      fill: --lightness(
+        var(--tw-jib--fill-color),
+        --value(integer, [number]),
+        --modifier(
+          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
+          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
+          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+          'color-mix'
+        )
+      );
+    }
+  }
+}
+
+/* block 4: stable no-modifier default — oklch */
+@utility fill-lightness-* {
+  &:not(._) {
+    fill: oklch(from var(--tw-jib--fill-color) calc(l * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) * 5)) h / alpha);
+  }
+}
+
+/* block 5: experimental no-modifier default */
+@utility fill-lightness-* {
+  &:not(._) {
+    @variant supports-lightness {
+      fill: --lightness(var(--tw-jib--fill-color), --value(integer, [number]));
+    }
+  }
+}
+
+/* =========================================================================
+ * PRIMARY: -fill-lightness-* (negative lightness — darken)
+ * ========================================================================= */
+
+/* block 1: sets amount + color via modifier */
+@utility -fill-lightness-* {
+  &:not(._) {
+    --tw-jib--fill-lightness--amount: calc(--value(integer, [number]) * -0.01);
+    fill: --modifier(--tw-jib--fill-color-interpolation-*);
+  }
+}
+
+/* block 2: stable with-modifier */
+@utility -fill-lightness-* {
+  &:not(._) {
+    fill: --modifier(--tw-jib--fill-color-interpolation-*);
+  }
+}
+
+/* block 3: experimental with-modifier */
+@utility -fill-lightness-* {
+  &:not(._) {
+    @variant supports-lightness {
+      fill: --lightness(
+        var(--tw-jib--fill-color),
+        calc(--value(integer, [number]) * -1),
+        --modifier(
+          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
+          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
+          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+          'color-mix'
+        )
+      );
+    }
+  }
+}
+
+/* block 4: stable no-modifier default — oklch */
+@utility -fill-lightness-* {
+  &:not(._) {
+    fill: oklch(from var(--tw-jib--fill-color) calc(l * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) * 5)) h / alpha);
+  }
+}
+
+/* block 5: experimental no-modifier default */
+@utility -fill-lightness-* {
+  &:not(._) {
+    @variant supports-lightness {
+      fill: --lightness(var(--tw-jib--fill-color), calc(--value(integer, [number]) * -1));
+    }
+  }
+}
+
+/* =========================================================================
+ * ALIAS: fill-lighten-*
+ * ========================================================================= */
+
+/* block 1: sets amount + color via modifier */
+@utility fill-lighten-* {
+  &:not(._) {
+    --tw-jib--fill-lightness--amount: calc(--value(integer, [number]) * 0.01);
+    fill: --modifier(--tw-jib--fill-color-interpolation-*);
+  }
+}
+
+/* block 2: stable with-modifier */
+@utility fill-lighten-* {
+  &:not(._) {
+    fill: --modifier(--tw-jib--fill-color-interpolation-*);
+  }
+}
+
+/* block 3: experimental with-modifier */
+@utility fill-lighten-* {
+  &:not(._) {
+    @variant supports-lightness {
+      fill: --lightness(
+        var(--tw-jib--fill-color),
+        --value(integer, [number]),
+        --modifier(
+          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
+          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
+          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+          'color-mix'
+        )
+      );
+    }
+  }
+}
+
+/* block 4: stable no-modifier default — oklch */
+@utility fill-lighten-* {
+  &:not(._) {
+    fill: oklch(from var(--tw-jib--fill-color) calc(l * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) * 5)) h / alpha);
+  }
+}
+
+/* block 5: experimental no-modifier default */
+@utility fill-lighten-* {
+  &:not(._) {
+    @variant supports-lightness {
+      fill: --lightness(var(--tw-jib--fill-color), --value(integer, [number]));
+    }
+  }
+}
+
+/* =========================================================================
+ * ALIAS: fill-darken-*
+ * ========================================================================= */
+
+/* block 1: sets amount + color via modifier */
+@utility fill-darken-* {
+  &:not(._) {
+    --tw-jib--fill-lightness--amount: calc(--value(integer, [number]) * -0.01);
+    fill: --modifier(--tw-jib--fill-color-interpolation-*);
+  }
+}
+
+/* block 2: stable with-modifier */
+@utility fill-darken-* {
+  &:not(._) {
+    fill: --modifier(--tw-jib--fill-color-interpolation-*);
+  }
+}
+
+/* block 3: experimental with-modifier */
+@utility fill-darken-* {
+  &:not(._) {
+    @variant supports-lightness {
+      fill: --lightness(
+        var(--tw-jib--fill-color),
+        calc(--value(integer, [number]) * -1),
+        --modifier(
+          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
+          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
+          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+          'color-mix'
+        )
+      );
+    }
+  }
+}
+
+/* block 4: stable no-modifier default — oklch */
+@utility fill-darken-* {
+  &:not(._) {
+    fill: oklch(from var(--tw-jib--fill-color) calc(l * (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) + max(0, var(--tw-jib--fill-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--fill-lightness--amount), calc(0 - var(--tw-jib--fill-lightness--amount)))) * 5)) h / alpha);
+  }
+}
+
+/* block 5: experimental no-modifier default */
+@utility fill-darken-* {
+  &:not(._) {
+    @variant supports-lightness {
+      fill: --lightness(var(--tw-jib--fill-color), calc(--value(integer, [number]) * -1));
+    }
+  }
+}

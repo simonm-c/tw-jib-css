@@ -4,16 +4,18 @@
 @source '../../**/*.md';
 @source '../../**/*.vue';
 
+@custom-variant dark (&:where(.dark, .dark *));
+
+
 /* Navbar logo sizing — match Tailwind docs scale */
 .VPNavBarTitle .logo {
-  height: 36px;
-  width: auto;
+  @apply h-9 w-auto;
 }
 
 /* ── Hero theming ── */
 :root {
   --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: linear-gradient(120deg, #7c3aed, #06b6d4);
+  --vp-home-hero-name-background: linear-gradient(120deg, var(--color-sky-800), var(--color-sky-300));
   --vp-home-hero-image-background-image: radial-gradient(
     circle,
     rgba(124, 58, 237, 0.35),

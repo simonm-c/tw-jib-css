@@ -1,0 +1,328 @@
+@property --tw-jib--accent-saturation--amount {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+
+@theme inline {
+  --tw-jib--accent-sat-interpolation-lch: lch(
+    from var(--tw-jib--accent-color)
+    l
+    calc(c * (1 - max(var(--tw-jib--accent-saturation--amount), calc(0 - var(--tw-jib--accent-saturation--amount)))) + max(0, var(--tw-jib--accent-saturation--amount)) * 150)
+    h / alpha
+  );
+  --tw-jib--accent-sat-interpolation-oklch: oklch(
+    from var(--tw-jib--accent-color)
+    l
+    calc(c * (1 - max(var(--tw-jib--accent-saturation--amount), calc(0 - var(--tw-jib--accent-saturation--amount)))) + max(0, var(--tw-jib--accent-saturation--amount)) * 0.4)
+    h / alpha
+  );
+  --tw-jib--accent-sat-interpolation-lab: lab(
+    from var(--tw-jib--accent-color)
+    l
+    calc(a * (1 + var(--tw-jib--accent-saturation--amount)))
+    calc(b * (1 + var(--tw-jib--accent-saturation--amount)))
+    / alpha
+  );
+  --tw-jib--accent-sat-interpolation-oklab: oklab(
+    from var(--tw-jib--accent-color)
+    l
+    calc(a * (1 + var(--tw-jib--accent-saturation--amount)))
+    calc(b * (1 + var(--tw-jib--accent-saturation--amount)))
+    / alpha
+  );
+  --tw-jib--accent-sat-interpolation-hsl: hsl(
+    from var(--tw-jib--accent-color) h
+    calc(s * (1 - max(var(--tw-jib--accent-saturation--amount), calc(0 - var(--tw-jib--accent-saturation--amount)))) + max(0, var(--tw-jib--accent-saturation--amount)) * 100)
+    l / alpha
+  );
+  --tw-jib--accent-sat-interpolation-hwb: hwb(
+    from var(--tw-jib--accent-color) h
+    calc(w * (1 - max(var(--tw-jib--accent-saturation--amount), calc(0 - var(--tw-jib--accent-saturation--amount)))) + max(0, calc(0 - var(--tw-jib--accent-saturation--amount))) * 50)
+    calc(b * (1 - max(var(--tw-jib--accent-saturation--amount), calc(0 - var(--tw-jib--accent-saturation--amount)))) + max(0, calc(0 - var(--tw-jib--accent-saturation--amount))) * 50)
+    / alpha
+  );
+  --tw-jib--accent-sat-interpolation-rgb: rgb(
+    from var(--tw-jib--accent-color)
+    calc(r + var(--tw-jib--accent-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(g + var(--tw-jib--accent-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(b + var(--tw-jib--accent-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
+    / alpha
+  );
+  --tw-jib--accent-sat-interpolation-srgb: color(
+    from var(--tw-jib--accent-color) srgb
+    calc(r + var(--tw-jib--accent-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(g + var(--tw-jib--accent-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(b + var(--tw-jib--accent-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
+    / alpha
+  );
+  --tw-jib--accent-sat-interpolation-srgb-linear: color(
+    from var(--tw-jib--accent-color) srgb-linear
+    calc(r + var(--tw-jib--accent-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(g + var(--tw-jib--accent-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(b + var(--tw-jib--accent-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
+    / alpha
+  );
+  --tw-jib--accent-sat-interpolation-display-p3: color(
+    from var(--tw-jib--accent-color) display-p3
+    calc(r + var(--tw-jib--accent-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(g + var(--tw-jib--accent-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(b + var(--tw-jib--accent-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
+    / alpha
+  );
+  --tw-jib--accent-sat-interpolation-a98-rgb: color(
+    from var(--tw-jib--accent-color) a98-rgb
+    calc(r + var(--tw-jib--accent-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(g + var(--tw-jib--accent-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(b + var(--tw-jib--accent-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
+    / alpha
+  );
+  --tw-jib--accent-sat-interpolation-prophoto-rgb: color(
+    from var(--tw-jib--accent-color) prophoto-rgb
+    calc(r + var(--tw-jib--accent-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(g + var(--tw-jib--accent-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(b + var(--tw-jib--accent-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
+    / alpha
+  );
+  --tw-jib--accent-sat-interpolation-rec2020: color(
+    from var(--tw-jib--accent-color) rec2020
+    calc(r + var(--tw-jib--accent-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(g + var(--tw-jib--accent-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(b + var(--tw-jib--accent-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
+    / alpha
+  );
+  --tw-jib--accent-sat-interpolation-xyz: color(
+    from var(--tw-jib--accent-color) xyz
+    calc(y * 0.95047 + (x - y * 0.95047) * (1 + var(--tw-jib--accent-saturation--amount)))
+    y
+    calc(y * 1.08883 + (z - y * 1.08883) * (1 + var(--tw-jib--accent-saturation--amount)))
+    / alpha
+  );
+  --tw-jib--accent-sat-interpolation-xyz-d50: color(
+    from var(--tw-jib--accent-color) xyz-d50
+    calc(y * 0.96422 + (x - y * 0.96422) * (1 + var(--tw-jib--accent-saturation--amount)))
+    y
+    calc(y * 0.82521 + (z - y * 0.82521) * (1 + var(--tw-jib--accent-saturation--amount)))
+    / alpha
+  );
+  --tw-jib--accent-sat-interpolation-xyz-d65: color(
+    from var(--tw-jib--accent-color) xyz-d65
+    calc(y * 0.95047 + (x - y * 0.95047) * (1 + var(--tw-jib--accent-saturation--amount)))
+    y
+    calc(y * 1.08883 + (z - y * 1.08883) * (1 + var(--tw-jib--accent-saturation--amount)))
+    / alpha
+  );
+  --tw-jib--accent-sat-interpolation-color-mix: inherit;
+}
+
+/* =========================================================================
+ * PRIMARY: accent-saturation-* (positive saturation — saturate)
+ * ========================================================================= */
+
+/* block 1: sets amount + color via modifier */
+@utility accent-saturation-* {
+  &:not(._) {
+    --tw-jib--accent-saturation--amount: calc(--value(integer, [number]) * 0.01);
+    accent-color: --modifier(--tw-jib--accent-sat-interpolation-*);
+  }
+}
+
+/* block 2: stable with-modifier */
+@utility accent-saturation-* {
+  &:not(._) {
+    accent-color: --modifier(--tw-jib--accent-sat-interpolation-*);
+  }
+}
+
+/* block 3: experimental with-modifier */
+@utility accent-saturation-* {
+  &:not(._) {
+    @variant supports-saturation {
+      accent-color: --saturation(
+        var(--tw-jib--accent-color),
+        --value(integer, [number]),
+        --modifier(
+          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
+          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
+          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+          'color-mix'
+        )
+      );
+    }
+  }
+}
+
+/* block 4: stable no-modifier default — oklch */
+@utility accent-saturation-* {
+  &:not(._) {
+    accent-color: oklch(from var(--tw-jib--accent-color) l calc(c * (1 - max(var(--tw-jib--accent-saturation--amount), calc(0 - var(--tw-jib--accent-saturation--amount)))) + max(0, var(--tw-jib--accent-saturation--amount)) * 0.4) h / alpha);
+  }
+}
+
+/* block 5: experimental no-modifier default */
+@utility accent-saturation-* {
+  &:not(._) {
+    @variant supports-saturation {
+      accent-color: --saturation(var(--tw-jib--accent-color), --value(integer, [number]));
+    }
+  }
+}
+
+/* =========================================================================
+ * PRIMARY: -accent-saturation-* (negative saturation — desaturate)
+ * ========================================================================= */
+
+/* block 1: sets amount + color via modifier */
+@utility -accent-saturation-* {
+  &:not(._) {
+    --tw-jib--accent-saturation--amount: calc(--value(integer, [number]) * -0.01);
+    accent-color: --modifier(--tw-jib--accent-sat-interpolation-*);
+  }
+}
+
+/* block 2: stable with-modifier */
+@utility -accent-saturation-* {
+  &:not(._) {
+    accent-color: --modifier(--tw-jib--accent-sat-interpolation-*);
+  }
+}
+
+/* block 3: experimental with-modifier */
+@utility -accent-saturation-* {
+  &:not(._) {
+    @variant supports-saturation {
+      accent-color: --saturation(
+        var(--tw-jib--accent-color),
+        calc(--value(integer, [number]) * -1),
+        --modifier(
+          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
+          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
+          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+          'color-mix'
+        )
+      );
+    }
+  }
+}
+
+/* block 4: stable no-modifier default — oklch */
+@utility -accent-saturation-* {
+  &:not(._) {
+    accent-color: oklch(from var(--tw-jib--accent-color) l calc(c * (1 - max(var(--tw-jib--accent-saturation--amount), calc(0 - var(--tw-jib--accent-saturation--amount)))) + max(0, var(--tw-jib--accent-saturation--amount)) * 0.4) h / alpha);
+  }
+}
+
+/* block 5: experimental no-modifier default */
+@utility -accent-saturation-* {
+  &:not(._) {
+    @variant supports-saturation {
+      accent-color: --saturation(var(--tw-jib--accent-color), calc(--value(integer, [number]) * -1));
+    }
+  }
+}
+
+/* =========================================================================
+ * ALIAS: accent-saturate-*
+ * ========================================================================= */
+
+/* block 1: sets amount + color via modifier */
+@utility accent-saturate-* {
+  &:not(._) {
+    --tw-jib--accent-saturation--amount: calc(--value(integer, [number]) * 0.01);
+    accent-color: --modifier(--tw-jib--accent-sat-interpolation-*);
+  }
+}
+
+/* block 2: stable with-modifier */
+@utility accent-saturate-* {
+  &:not(._) {
+    accent-color: --modifier(--tw-jib--accent-sat-interpolation-*);
+  }
+}
+
+/* block 3: experimental with-modifier */
+@utility accent-saturate-* {
+  &:not(._) {
+    @variant supports-saturation {
+      accent-color: --saturation(
+        var(--tw-jib--accent-color),
+        --value(integer, [number]),
+        --modifier(
+          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
+          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
+          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+          'color-mix'
+        )
+      );
+    }
+  }
+}
+
+/* block 4: stable no-modifier default — oklch */
+@utility accent-saturate-* {
+  &:not(._) {
+    accent-color: oklch(from var(--tw-jib--accent-color) l calc(c * (1 - max(var(--tw-jib--accent-saturation--amount), calc(0 - var(--tw-jib--accent-saturation--amount)))) + max(0, var(--tw-jib--accent-saturation--amount)) * 0.4) h / alpha);
+  }
+}
+
+/* block 5: experimental no-modifier default */
+@utility accent-saturate-* {
+  &:not(._) {
+    @variant supports-saturation {
+      accent-color: --saturation(var(--tw-jib--accent-color), --value(integer, [number]));
+    }
+  }
+}
+
+/* =========================================================================
+ * ALIAS: accent-desaturate-*
+ * ========================================================================= */
+
+/* block 1: sets amount + color via modifier */
+@utility accent-desaturate-* {
+  &:not(._) {
+    --tw-jib--accent-saturation--amount: calc(--value(integer, [number]) * -0.01);
+    accent-color: --modifier(--tw-jib--accent-sat-interpolation-*);
+  }
+}
+
+/* block 2: stable with-modifier */
+@utility accent-desaturate-* {
+  &:not(._) {
+    accent-color: --modifier(--tw-jib--accent-sat-interpolation-*);
+  }
+}
+
+/* block 3: experimental with-modifier */
+@utility accent-desaturate-* {
+  &:not(._) {
+    @variant supports-saturation {
+      accent-color: --saturation(
+        var(--tw-jib--accent-color),
+        calc(--value(integer, [number]) * -1),
+        --modifier(
+          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
+          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
+          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+          'color-mix'
+        )
+      );
+    }
+  }
+}
+
+/* block 4: stable no-modifier default — oklch */
+@utility accent-desaturate-* {
+  &:not(._) {
+    accent-color: oklch(from var(--tw-jib--accent-color) l calc(c * (1 - max(var(--tw-jib--accent-saturation--amount), calc(0 - var(--tw-jib--accent-saturation--amount)))) + max(0, var(--tw-jib--accent-saturation--amount)) * 0.4) h / alpha);
+  }
+}
+
+/* block 5: experimental no-modifier default */
+@utility accent-desaturate-* {
+  &:not(._) {
+    @variant supports-saturation {
+      accent-color: --saturation(var(--tw-jib--accent-color), calc(--value(integer, [number]) * -1));
+    }
+  }
+}

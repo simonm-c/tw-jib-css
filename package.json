@@ -84,6 +84,10 @@
     "./experimental/picker": {
       "style": "./src/experimental/picker.css",
       "default": "./src/experimental/picker.css"
+    },
+    "./experimental/wcag": {
+      "style": "./src/wcag.css",
+      "default": "./src/wcag.css"
     }
   },
   "packageManager": "pnpm@10.32.1",

@@ -1,6 +1,6 @@
 @property --tw-jib--bg-color {
   syntax: '<color>';
-  inherits: false;
+  inherits: true;
   initial-value: canvas;
 }
 @property --tw-jib--bg-image {

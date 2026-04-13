@@ -1,0 +1,90 @@
+/*
+ * WCAG utility declarations — text-a11y-* and wcag-badge.
+ * Requires _functions.css (imported via the wcag.css barrel).
+ */
+
+/* =========================================================================
+ * Feature detection — gates all WCAG utilities behind @function support
+ * ========================================================================= */
+
+@custom-variant supports-wcag {
+  @supports (background: if(style(--value): red)) and (background: --linearize(red)) {
+    @slot;
+  }
+}
+
+/* =========================================================================
+ * text-a11y-* — accessible shade for text colour
+ *
+ * Two-block pattern:
+ *   Block A: with-modifier — explicit colour space
+ *   Block B: no-modifier — defaults to oklch
+ *
+ * Usage: text-a11y-aa, text-a11y-aaa, text-a11y-aa-lg
+ *        text-a11y-aa/hsl, text-a11y-aaa/lab, etc.
+ * ========================================================================= */
+
+/* Block A: with modifier — explicit colour space */
+@utility text-a11y-* {
+  @variant supports-wcag {
+    color: --accessible-shade(
+      var(--tw-jib--bg-color),
+      --value('aa', 'aaa', 'aa-lg'),
+      --modifier(
+        'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
+        'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
+        'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+        'color-mix'
+      )
+    );
+  }
+}
+
+/* Block B: no modifier — defaults to oklch */
+@utility text-a11y-* {
+  @variant supports-wcag {
+    color: --accessible-shade(
+      var(--tw-jib--bg-color),
+      --value('aa', 'aaa', 'aa-lg'),
+      oklch
+    );
+  }
+}
+
+/* =========================================================================
+ * wcag-badge — contrast rating badge
+ *
+ * Reads captured bg + text colours from core.css, computes WCAG rating,
+ * displays as a positioned badge via ::after. Badge text colour uses
+ * a simple if(style()) — black for yellow (AA), white for all others.
+ * ========================================================================= */
+
+@utility wcag-badge {
+  @variant supports-wcag {
+    --tw-jib--wcag-rating: --wcag-rating(var(--tw-jib--bg-color), var(--tw-jib--text-color));
+    position: relative;
+
+    &::after {
+      content: var(--tw-jib--wcag-rating);
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: --spacing(0.5) --spacing(1.5);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      line-height: 1;
+      border-radius: 0 0 0 var(--radius-sm, --spacing(1));
+      --tw-jib--wcag-badge-bg: if(
+        style(--tw-jib--wcag-rating: "AAA"): var(--color-green-500);
+        style(--tw-jib--wcag-rating: "AA"): var(--color-yellow-500);
+        style(--tw-jib--wcag-rating: "AA Large"): var(--color-orange-500);
+        else: var(--color-red-500)
+      );
+      background: var(--tw-jib--wcag-badge-bg);
+      color: if(
+        style(--tw-jib--wcag-rating: "AA"): black;
+        else: white
+      );
+    }
+  }
+}

@@ -53,6 +53,10 @@
       "style": "./src/saturation.css",
       "default": "./src/saturation.css"
     },
+    "./hue-rotate": {
+      "style": "./src/hue-rotate.css",
+      "default": "./src/hue-rotate.css"
+    },
     "./ripple": {
       "style": "./src/ripple.css",
       "default": "./src/ripple.css"

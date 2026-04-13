@@ -2,6 +2,7 @@
 
 @import './lightness/_experimental.css';
 @import './saturation/_experimental.css';
+@import './hue-rotate/_experimental.css';
 @import './experimental/corner.css';
 @import './experimental/interpolate.css';
 @import './experimental/picker.css';

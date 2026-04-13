@@ -6,6 +6,7 @@
 
 @import './lightness.css';
 @import './saturation.css';
+@import './hue-rotate.css';
 @import './border-style.css';
 @import './scrollbar.css';
 @import './grid.css';

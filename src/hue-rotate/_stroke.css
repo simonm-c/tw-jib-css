@@ -6,41 +6,41 @@
 
 @theme inline {
   --tw-jib--stroke-hue-interpolation-oklch: oklch(
-    from var(--tw-jib--stroke-color)
+    from var(--tw-jib--stroke-color-source)
     l c calc(h + var(--tw-jib--stroke-hue--amount))
     / alpha
   );
   --tw-jib--stroke-hue-interpolation-lch: lch(
-    from var(--tw-jib--stroke-color)
+    from var(--tw-jib--stroke-color-source)
     l c calc(h + var(--tw-jib--stroke-hue--amount))
     / alpha
   );
   --tw-jib--stroke-hue-interpolation-hsl: hsl(
-    from var(--tw-jib--stroke-color)
+    from var(--tw-jib--stroke-color-source)
     calc(h + var(--tw-jib--stroke-hue--amount)) s l
     / alpha
   );
   --tw-jib--stroke-hue-interpolation-hwb: hwb(
-    from var(--tw-jib--stroke-color)
+    from var(--tw-jib--stroke-color-source)
     calc(h + var(--tw-jib--stroke-hue--amount)) w b
     / alpha
   );
   --tw-jib--stroke-hue-interpolation-oklab: oklab(
-    from var(--tw-jib--stroke-color)
+    from var(--tw-jib--stroke-color-source)
     l
     calc(a * cos(var(--tw-jib--stroke-hue--amount) * 1deg) - b * sin(var(--tw-jib--stroke-hue--amount) * 1deg))
     calc(a * sin(var(--tw-jib--stroke-hue--amount) * 1deg) + b * cos(var(--tw-jib--stroke-hue--amount) * 1deg))
     / alpha
   );
   --tw-jib--stroke-hue-interpolation-lab: lab(
-    from var(--tw-jib--stroke-color)
+    from var(--tw-jib--stroke-color-source)
     l
     calc(a * cos(var(--tw-jib--stroke-hue--amount) * 1deg) - b * sin(var(--tw-jib--stroke-hue--amount) * 1deg))
     calc(a * sin(var(--tw-jib--stroke-hue--amount) * 1deg) + b * cos(var(--tw-jib--stroke-hue--amount) * 1deg))
     / alpha
   );
   --tw-jib--stroke-hue-interpolation-rgb: rgb(
-    from var(--tw-jib--stroke-color)
+    from var(--tw-jib--stroke-color-source)
     calc(r * (0.213 + 0.787 * cos(var(--tw-jib--stroke-hue--amount) * 1deg) - 0.213 * sin(var(--tw-jib--stroke-hue--amount) * 1deg))
        + g * (0.715 - 0.715 * cos(var(--tw-jib--stroke-hue--amount) * 1deg) - 0.715 * sin(var(--tw-jib--stroke-hue--amount) * 1deg))
        + b * (0.072 - 0.072 * cos(var(--tw-jib--stroke-hue--amount) * 1deg) + 0.928 * sin(var(--tw-jib--stroke-hue--amount) * 1deg)))
@@ -53,7 +53,7 @@
     / alpha
   );
   --tw-jib--stroke-hue-interpolation-srgb: color(
-    from var(--tw-jib--stroke-color) srgb
+    from var(--tw-jib--stroke-color-source) srgb
     calc(r * (0.213 + 0.787 * cos(var(--tw-jib--stroke-hue--amount) * 1deg) - 0.213 * sin(var(--tw-jib--stroke-hue--amount) * 1deg))
        + g * (0.715 - 0.715 * cos(var(--tw-jib--stroke-hue--amount) * 1deg) - 0.715 * sin(var(--tw-jib--stroke-hue--amount) * 1deg))
        + b * (0.072 - 0.072 * cos(var(--tw-jib--stroke-hue--amount) * 1deg) + 0.928 * sin(var(--tw-jib--stroke-hue--amount) * 1deg)))
@@ -66,7 +66,7 @@
     / alpha
   );
   --tw-jib--stroke-hue-interpolation-srgb-linear: color(
-    from var(--tw-jib--stroke-color) srgb-linear
+    from var(--tw-jib--stroke-color-source) srgb-linear
     calc(r * (0.213 + 0.787 * cos(var(--tw-jib--stroke-hue--amount) * 1deg) - 0.213 * sin(var(--tw-jib--stroke-hue--amount) * 1deg))
        + g * (0.715 - 0.715 * cos(var(--tw-jib--stroke-hue--amount) * 1deg) - 0.715 * sin(var(--tw-jib--stroke-hue--amount) * 1deg))
        + b * (0.072 - 0.072 * cos(var(--tw-jib--stroke-hue--amount) * 1deg) + 0.928 * sin(var(--tw-jib--stroke-hue--amount) * 1deg)))
@@ -79,7 +79,7 @@
     / alpha
   );
   --tw-jib--stroke-hue-interpolation-display-p3: color(
-    from var(--tw-jib--stroke-color) display-p3
+    from var(--tw-jib--stroke-color-source) display-p3
     calc(r * (0.213 + 0.787 * cos(var(--tw-jib--stroke-hue--amount) * 1deg) - 0.213 * sin(var(--tw-jib--stroke-hue--amount) * 1deg))
        + g * (0.715 - 0.715 * cos(var(--tw-jib--stroke-hue--amount) * 1deg) - 0.715 * sin(var(--tw-jib--stroke-hue--amount) * 1deg))
        + b * (0.072 - 0.072 * cos(var(--tw-jib--stroke-hue--amount) * 1deg) + 0.928 * sin(var(--tw-jib--stroke-hue--amount) * 1deg)))
@@ -92,7 +92,7 @@
     / alpha
   );
   --tw-jib--stroke-hue-interpolation-a98-rgb: color(
-    from var(--tw-jib--stroke-color) a98-rgb
+    from var(--tw-jib--stroke-color-source) a98-rgb
     calc(r * (0.213 + 0.787 * cos(var(--tw-jib--stroke-hue--amount) * 1deg) - 0.213 * sin(var(--tw-jib--stroke-hue--amount) * 1deg))
        + g * (0.715 - 0.715 * cos(var(--tw-jib--stroke-hue--amount) * 1deg) - 0.715 * sin(var(--tw-jib--stroke-hue--amount) * 1deg))
        + b * (0.072 - 0.072 * cos(var(--tw-jib--stroke-hue--amount) * 1deg) + 0.928 * sin(var(--tw-jib--stroke-hue--amount) * 1deg)))
@@ -105,7 +105,7 @@
     / alpha
   );
   --tw-jib--stroke-hue-interpolation-prophoto-rgb: color(
-    from var(--tw-jib--stroke-color) prophoto-rgb
+    from var(--tw-jib--stroke-color-source) prophoto-rgb
     calc(r * (0.213 + 0.787 * cos(var(--tw-jib--stroke-hue--amount) * 1deg) - 0.213 * sin(var(--tw-jib--stroke-hue--amount) * 1deg))
        + g * (0.715 - 0.715 * cos(var(--tw-jib--stroke-hue--amount) * 1deg) - 0.715 * sin(var(--tw-jib--stroke-hue--amount) * 1deg))
        + b * (0.072 - 0.072 * cos(var(--tw-jib--stroke-hue--amount) * 1deg) + 0.928 * sin(var(--tw-jib--stroke-hue--amount) * 1deg)))
@@ -118,7 +118,7 @@
     / alpha
   );
   --tw-jib--stroke-hue-interpolation-rec2020: color(
-    from var(--tw-jib--stroke-color) rec2020
+    from var(--tw-jib--stroke-color-source) rec2020
     calc(r * (0.213 + 0.787 * cos(var(--tw-jib--stroke-hue--amount) * 1deg) - 0.213 * sin(var(--tw-jib--stroke-hue--amount) * 1deg))
        + g * (0.715 - 0.715 * cos(var(--tw-jib--stroke-hue--amount) * 1deg) - 0.715 * sin(var(--tw-jib--stroke-hue--amount) * 1deg))
        + b * (0.072 - 0.072 * cos(var(--tw-jib--stroke-hue--amount) * 1deg) + 0.928 * sin(var(--tw-jib--stroke-hue--amount) * 1deg)))
@@ -131,7 +131,7 @@
     / alpha
   );
   --tw-jib--stroke-hue-interpolation-xyz: color(
-    from var(--tw-jib--stroke-color) xyz
+    from var(--tw-jib--stroke-color-source) xyz
     calc(y * 0.95047
        + (x - y * 0.95047) * cos(var(--tw-jib--stroke-hue--amount) * -1deg)
        - (z - y * 1.08883) * sin(var(--tw-jib--stroke-hue--amount) * -1deg))
@@ -142,7 +142,7 @@
     / alpha
   );
   --tw-jib--stroke-hue-interpolation-xyz-d50: color(
-    from var(--tw-jib--stroke-color) xyz-d50
+    from var(--tw-jib--stroke-color-source) xyz-d50
     calc(y * 0.96422
        + (x - y * 0.96422) * cos(var(--tw-jib--stroke-hue--amount) * -1deg)
        - (z - y * 0.82521) * sin(var(--tw-jib--stroke-hue--amount) * -1deg))
@@ -153,7 +153,7 @@
     / alpha
   );
   --tw-jib--stroke-hue-interpolation-xyz-d65: color(
-    from var(--tw-jib--stroke-color) xyz-d65
+    from var(--tw-jib--stroke-color-source) xyz-d65
     calc(y * 0.95047
        + (x - y * 0.95047) * cos(var(--tw-jib--stroke-hue--amount) * -1deg)
        - (z - y * 1.08883) * sin(var(--tw-jib--stroke-hue--amount) * -1deg))
@@ -185,18 +185,22 @@
  * PRIMARY: stroke-hue-rotate-* (positive — clockwise)
  * ========================================================================= */
 
-/* block 1: 2 props → sorted first. Sets amount; stroke-color overridden by later blocks */
+/* block 1: most props → sorted first. Sets amount; stage var overridden by later blocks */
 @utility stroke-hue-rotate-* {
   &:not(._) {
     --tw-jib--stroke-hue--amount: --value(integer, [number]);
-    stroke: --modifier(--tw-jib--stroke-hue-interpolation-*);
+    --tw-jib--stroke-color-after-hue-rotate: --modifier(--tw-jib--stroke-hue-interpolation-*);
+    --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
+    stroke: var(--tw-jib--stroke-color);
   }
 }
 
 /* block 2: stable with-modifier path (non-@function browsers) */
 @utility stroke-hue-rotate-* {
   &:not(._) {
-    stroke: --modifier(--tw-jib--stroke-hue-interpolation-*);
+    --tw-jib--stroke-color-after-hue-rotate: --modifier(--tw-jib--stroke-hue-interpolation-*);
+    --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
+    stroke: var(--tw-jib--stroke-color);
   }
 }
 
@@ -204,8 +208,8 @@
 @utility stroke-hue-rotate-* {
   &:not(._) {
     @variant supports-hue-rotate {
-      stroke: --hue-rotate(
-        var(--tw-jib--stroke-color),
+      --tw-jib--stroke-color-after-hue-rotate: --hue-rotate(
+        var(--tw-jib--stroke-color-source),
         --value(integer, [number]),
         --modifier(
           'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
@@ -213,6 +217,8 @@
           'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65'
         )
       );
+      --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
+      stroke: var(--tw-jib--stroke-color);
     }
   }
 }
@@ -220,7 +226,9 @@
 /* block 4: stable no-modifier default — oklch */
 @utility stroke-hue-rotate-* {
   &:not(._) {
-    stroke: oklch(from var(--tw-jib--stroke-color) l c calc(h + var(--tw-jib--stroke-hue--amount)) / alpha);
+    --tw-jib--stroke-color-after-hue-rotate: oklch(from var(--tw-jib--stroke-color-source) l c calc(h + var(--tw-jib--stroke-hue--amount)) / alpha);
+    --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
+    stroke: var(--tw-jib--stroke-color);
   }
 }
 
@@ -228,7 +236,9 @@
 @utility stroke-hue-rotate-* {
   &:not(._) {
     @variant supports-hue-rotate {
-      stroke: --hue-rotate(var(--tw-jib--stroke-color), --value(integer, [number]));
+      --tw-jib--stroke-color-after-hue-rotate: --hue-rotate(var(--tw-jib--stroke-color-source), --value(integer, [number]));
+      --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
+      stroke: var(--tw-jib--stroke-color);
     }
   }
 }
@@ -240,21 +250,25 @@
 @utility -stroke-hue-rotate-* {
   &:not(._) {
     --tw-jib--stroke-hue--amount: calc(--value(integer, [number]) * -1);
-    stroke: --modifier(--tw-jib--stroke-hue-interpolation-*);
+    --tw-jib--stroke-color-after-hue-rotate: --modifier(--tw-jib--stroke-hue-interpolation-*);
+    --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
+    stroke: var(--tw-jib--stroke-color);
   }
 }
 
 @utility -stroke-hue-rotate-* {
   &:not(._) {
-    stroke: --modifier(--tw-jib--stroke-hue-interpolation-*);
+    --tw-jib--stroke-color-after-hue-rotate: --modifier(--tw-jib--stroke-hue-interpolation-*);
+    --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
+    stroke: var(--tw-jib--stroke-color);
   }
 }
 
 @utility -stroke-hue-rotate-* {
   &:not(._) {
     @variant supports-hue-rotate {
-      stroke: --hue-rotate(
-        var(--tw-jib--stroke-color),
+      --tw-jib--stroke-color-after-hue-rotate: --hue-rotate(
+        var(--tw-jib--stroke-color-source),
         calc(--value(integer, [number]) * -1),
         --modifier(
           'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
@@ -262,20 +276,26 @@
           'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65'
         )
       );
+      --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
+      stroke: var(--tw-jib--stroke-color);
     }
   }
 }
 
 @utility -stroke-hue-rotate-* {
   &:not(._) {
-    stroke: oklch(from var(--tw-jib--stroke-color) l c calc(h + var(--tw-jib--stroke-hue--amount)) / alpha);
+    --tw-jib--stroke-color-after-hue-rotate: oklch(from var(--tw-jib--stroke-color-source) l c calc(h + var(--tw-jib--stroke-hue--amount)) / alpha);
+    --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
+    stroke: var(--tw-jib--stroke-color);
   }
 }
 
 @utility -stroke-hue-rotate-* {
   &:not(._) {
     @variant supports-hue-rotate {
-      stroke: --hue-rotate(var(--tw-jib--stroke-color), calc(--value(integer, [number]) * -1));
+      --tw-jib--stroke-color-after-hue-rotate: --hue-rotate(var(--tw-jib--stroke-color-source), calc(--value(integer, [number]) * -1));
+      --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
+      stroke: var(--tw-jib--stroke-color);
     }
   }
 }

@@ -32,7 +32,17 @@
   inherits: false;
   initial-value: linear-gradient(canvas 0 0);
 }
+@property --tw-jib--text-color-source {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: black;
+}
 @property --tw-jib--text-color {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: black;
+}
+@property --tw-jib--fill-color-source {
   syntax: '<color>';
   inherits: true;
   initial-value: black;
@@ -42,9 +52,19 @@
   inherits: true;
   initial-value: black;
 }
+@property --tw-jib--stroke-color-source {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: black;
+}
 @property --tw-jib--stroke-color {
   syntax: '<color>';
   inherits: true;
+  initial-value: black;
+}
+@property --tw-jib--outline-color-source {
+  syntax: '<color>';
+  inherits: false;
   initial-value: black;
 }
 @property --tw-jib--outline-color {
@@ -52,9 +72,19 @@
   inherits: false;
   initial-value: black;
 }
+@property --tw-jib--accent-color-source {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: black;
+}
 @property --tw-jib--accent-color {
   syntax: '<color>';
   inherits: true;
+  initial-value: black;
+}
+@property --tw-jib--border-color-source {
+  syntax: '<color>';
+  inherits: false;
   initial-value: black;
 }
 @property --tw-jib--border-color {
@@ -183,27 +213,32 @@
 }
 
 @utility text-* {
-  --tw-jib--text-color: --value('inherit', 'transparent', --color-*, [color]);
-  --tw-jib--text-color: --alpha(--value('inherit', 'transparent', --color-*, [color]) / calc(--modifier(integer) * 1%));
+  --tw-jib--text-color-source: --value('inherit', 'transparent', --color-*, [color]);
+  --tw-jib--text-color-source: --alpha(--value('inherit', 'transparent', --color-*, [color]) / calc(--modifier(integer) * 1%));
+  --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
 }
 
 @utility fill-* {
-  --tw-jib--fill-color: --value('inherit', 'transparent', --color-*, [color]);
-  --tw-jib--fill-color: --alpha(--value('inherit', 'transparent', --color-*, [color]) / calc(--modifier(integer) * 1%));
+  --tw-jib--fill-color-source: --value('inherit', 'transparent', --color-*, [color]);
+  --tw-jib--fill-color-source: --alpha(--value('inherit', 'transparent', --color-*, [color]) / calc(--modifier(integer) * 1%));
+  --tw-jib--fill-color: var(--tw-jib--fill-color-after-lightness, var(--tw-jib--fill-color-after-saturation, var(--tw-jib--fill-color-after-hue-rotate, var(--tw-jib--fill-color-source))));
 }
 
 @utility stroke-* {
-  --tw-jib--stroke-color: --value('inherit', 'transparent', --color-*, [color]);
-  --tw-jib--stroke-color: --alpha(--value('inherit', 'transparent', --color-*, [color]) / calc(--modifier(integer) * 1%));
+  --tw-jib--stroke-color-source: --value('inherit', 'transparent', --color-*, [color]);
+  --tw-jib--stroke-color-source: --alpha(--value('inherit', 'transparent', --color-*, [color]) / calc(--modifier(integer) * 1%));
+  --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
 }
 
 @utility outline-* {
-  --tw-jib--outline-color: --value('inherit', 'transparent', --color-*, [color]);
-  --tw-jib--outline-color: --alpha(--value('inherit', 'transparent', --color-*, [color]) / calc(--modifier(integer) * 1%));
+  --tw-jib--outline-color-source: --value('inherit', 'transparent', --color-*, [color]);
+  --tw-jib--outline-color-source: --alpha(--value('inherit', 'transparent', --color-*, [color]) / calc(--modifier(integer) * 1%));
+  --tw-jib--outline-color: var(--tw-jib--outline-color-after-lightness, var(--tw-jib--outline-color-after-saturation, var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source))));
 }
 
 @utility accent-* {
-  --tw-jib--accent-color: --value('inherit', 'transparent', --color-*, [color]);
-  --tw-jib--accent-color: --alpha(--value('inherit', 'transparent', --color-*, [color]) / calc(--modifier(integer) * 1%));
+  --tw-jib--accent-color-source: --value('inherit', 'transparent', --color-*, [color]);
+  --tw-jib--accent-color-source: --alpha(--value('inherit', 'transparent', --color-*, [color]) / calc(--modifier(integer) * 1%));
+  --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
 }
 

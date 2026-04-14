@@ -6,33 +6,33 @@
 
 @theme inline {
   --tw-jib--accent-color-interpolation-lch: lch(
-    from var(--tw-jib--accent-color)
+    from var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source)))
     calc(l * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)) * 100)
     calc(c * min(1, (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) * 5))
     h / alpha
   );
   --tw-jib--accent-color-interpolation-oklch: oklch(
-    from var(--tw-jib--accent-color)
+    from var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source)))
     calc(l * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)))
     calc(c * min(1, (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) * 5))
     h / alpha
   );
   --tw-jib--accent-color-interpolation-lab: lab(
-    from var(--tw-jib--accent-color)
+    from var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source)))
     calc(l * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)) * 100)
     calc(a * min(1, (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) * 5))
     calc(b * min(1, (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) * 5))
     / alpha
   );
   --tw-jib--accent-color-interpolation-oklab: oklab(
-    from var(--tw-jib--accent-color)
+    from var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source)))
     calc(l * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)))
     calc(a * min(1, (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) * 5))
     calc(b * min(1, (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) * 5))
     / alpha
   );
   --tw-jib--accent-color-interpolation-hsl: hsl(
-    from var(--tw-jib--accent-color) h
+    from var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))) h
     calc(s
       * min(1,
           min(l, calc(100 - l))
@@ -49,76 +49,76 @@
     / alpha
   );
   --tw-jib--accent-color-interpolation-hwb: hwb(
-    from var(--tw-jib--accent-color) h
+    from var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))) h
     calc(w * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)) * 100)
     calc(b * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, calc(0 - var(--tw-jib--accent-lightness--amount))) * 100)
     / alpha
   );
   --tw-jib--accent-color-interpolation-rgb: rgb(
-    from var(--tw-jib--accent-color)
+    from var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source)))
     calc(r * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)) * 255)
     calc(g * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)) * 255)
     calc(b * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)) * 255)
     / alpha
   );
   --tw-jib--accent-color-interpolation-srgb: color(
-    from var(--tw-jib--accent-color) srgb
+    from var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))) srgb
     calc(r * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)))
     calc(g * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)))
     calc(b * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)))
     / alpha
   );
   --tw-jib--accent-color-interpolation-srgb-linear: color(
-    from var(--tw-jib--accent-color) srgb-linear
+    from var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))) srgb-linear
     calc(r * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)))
     calc(g * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)))
     calc(b * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)))
     / alpha
   );
   --tw-jib--accent-color-interpolation-display-p3: color(
-    from var(--tw-jib--accent-color) display-p3
+    from var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))) display-p3
     calc(r * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)))
     calc(g * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)))
     calc(b * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)))
     / alpha
   );
   --tw-jib--accent-color-interpolation-a98-rgb: color(
-    from var(--tw-jib--accent-color) a98-rgb
+    from var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))) a98-rgb
     calc(r * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)))
     calc(g * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)))
     calc(b * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)))
     / alpha
   );
   --tw-jib--accent-color-interpolation-prophoto-rgb: color(
-    from var(--tw-jib--accent-color) prophoto-rgb
+    from var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))) prophoto-rgb
     calc(r * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)))
     calc(g * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)))
     calc(b * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)))
     / alpha
   );
   --tw-jib--accent-color-interpolation-rec2020: color(
-    from var(--tw-jib--accent-color) rec2020
+    from var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))) rec2020
     calc(r * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)))
     calc(g * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)))
     calc(b * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)))
     / alpha
   );
   --tw-jib--accent-color-interpolation-xyz: color(
-    from var(--tw-jib--accent-color) xyz
+    from var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))) xyz
     calc(x * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)))
     calc(y * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)))
     calc(z * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)))
     / alpha
   );
   --tw-jib--accent-color-interpolation-xyz-d50: color(
-    from var(--tw-jib--accent-color) xyz-d50
+    from var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))) xyz-d50
     calc(x * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)))
     calc(y * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)))
     calc(z * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)))
     / alpha
   );
   --tw-jib--accent-color-interpolation-xyz-d65: color(
-    from var(--tw-jib--accent-color) xyz-d65
+    from var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))) xyz-d65
     calc(x * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)))
     calc(y * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)))
     calc(z * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount)))
@@ -135,14 +135,18 @@
 @utility accent-lightness-* {
   &:not(._) {
     --tw-jib--accent-lightness--amount: calc(--value(integer, [number]) * 0.01);
-    accent-color: --modifier(--tw-jib--accent-color-interpolation-*);
+    --tw-jib--accent-color-after-lightness: --modifier(--tw-jib--accent-color-interpolation-*);
+    --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
+    accent-color: var(--tw-jib--accent-color);
   }
 }
 
 /* block 2: stable with-modifier */
 @utility accent-lightness-* {
   &:not(._) {
-    accent-color: --modifier(--tw-jib--accent-color-interpolation-*);
+    --tw-jib--accent-color-after-lightness: --modifier(--tw-jib--accent-color-interpolation-*);
+    --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
+    accent-color: var(--tw-jib--accent-color);
   }
 }
 
@@ -150,8 +154,8 @@
 @utility accent-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      accent-color: --lightness(
-        var(--tw-jib--accent-color),
+      --tw-jib--accent-color-after-lightness: --lightness(
+        var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))),
         --value(integer, [number]),
         --modifier(
           'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
@@ -160,6 +164,8 @@
           'color-mix'
         )
       );
+      --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
+      accent-color: var(--tw-jib--accent-color);
     }
   }
 }
@@ -167,7 +173,9 @@
 /* block 4: stable no-modifier default — oklch */
 @utility accent-lightness-* {
   &:not(._) {
-    accent-color: oklch(from var(--tw-jib--accent-color) calc(l * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) * 5)) h / alpha);
+    --tw-jib--accent-color-after-lightness: oklch(from var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))) calc(l * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) * 5)) h / alpha);
+    --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
+    accent-color: var(--tw-jib--accent-color);
   }
 }
 
@@ -175,7 +183,9 @@
 @utility accent-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      accent-color: --lightness(var(--tw-jib--accent-color), --value(integer, [number]));
+      --tw-jib--accent-color-after-lightness: --lightness(var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))), --value(integer, [number]));
+      --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
+      accent-color: var(--tw-jib--accent-color);
     }
   }
 }
@@ -188,14 +198,18 @@
 @utility -accent-lightness-* {
   &:not(._) {
     --tw-jib--accent-lightness--amount: calc(--value(integer, [number]) * -0.01);
-    accent-color: --modifier(--tw-jib--accent-color-interpolation-*);
+    --tw-jib--accent-color-after-lightness: --modifier(--tw-jib--accent-color-interpolation-*);
+    --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
+    accent-color: var(--tw-jib--accent-color);
   }
 }
 
 /* block 2: stable with-modifier */
 @utility -accent-lightness-* {
   &:not(._) {
-    accent-color: --modifier(--tw-jib--accent-color-interpolation-*);
+    --tw-jib--accent-color-after-lightness: --modifier(--tw-jib--accent-color-interpolation-*);
+    --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
+    accent-color: var(--tw-jib--accent-color);
   }
 }
 
@@ -203,8 +217,8 @@
 @utility -accent-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      accent-color: --lightness(
-        var(--tw-jib--accent-color),
+      --tw-jib--accent-color-after-lightness: --lightness(
+        var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))),
         calc(--value(integer, [number]) * -1),
         --modifier(
           'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
@@ -213,6 +227,8 @@
           'color-mix'
         )
       );
+      --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
+      accent-color: var(--tw-jib--accent-color);
     }
   }
 }
@@ -220,7 +236,9 @@
 /* block 4: stable no-modifier default — oklch */
 @utility -accent-lightness-* {
   &:not(._) {
-    accent-color: oklch(from var(--tw-jib--accent-color) calc(l * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) * 5)) h / alpha);
+    --tw-jib--accent-color-after-lightness: oklch(from var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))) calc(l * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) * 5)) h / alpha);
+    --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
+    accent-color: var(--tw-jib--accent-color);
   }
 }
 
@@ -228,7 +246,9 @@
 @utility -accent-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      accent-color: --lightness(var(--tw-jib--accent-color), calc(--value(integer, [number]) * -1));
+      --tw-jib--accent-color-after-lightness: --lightness(var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))), calc(--value(integer, [number]) * -1));
+      --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
+      accent-color: var(--tw-jib--accent-color);
     }
   }
 }
@@ -241,14 +261,18 @@
 @utility accent-lighten-* {
   &:not(._) {
     --tw-jib--accent-lightness--amount: calc(--value(integer, [number]) * 0.01);
-    accent-color: --modifier(--tw-jib--accent-color-interpolation-*);
+    --tw-jib--accent-color-after-lightness: --modifier(--tw-jib--accent-color-interpolation-*);
+    --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
+    accent-color: var(--tw-jib--accent-color);
   }
 }
 
 /* block 2: stable with-modifier */
 @utility accent-lighten-* {
   &:not(._) {
-    accent-color: --modifier(--tw-jib--accent-color-interpolation-*);
+    --tw-jib--accent-color-after-lightness: --modifier(--tw-jib--accent-color-interpolation-*);
+    --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
+    accent-color: var(--tw-jib--accent-color);
   }
 }
 
@@ -256,8 +280,8 @@
 @utility accent-lighten-* {
   &:not(._) {
     @variant supports-lightness {
-      accent-color: --lightness(
-        var(--tw-jib--accent-color),
+      --tw-jib--accent-color-after-lightness: --lightness(
+        var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))),
         --value(integer, [number]),
         --modifier(
           'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
@@ -266,6 +290,8 @@
           'color-mix'
         )
       );
+      --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
+      accent-color: var(--tw-jib--accent-color);
     }
   }
 }
@@ -273,7 +299,9 @@
 /* block 4: stable no-modifier default — oklch */
 @utility accent-lighten-* {
   &:not(._) {
-    accent-color: oklch(from var(--tw-jib--accent-color) calc(l * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) * 5)) h / alpha);
+    --tw-jib--accent-color-after-lightness: oklch(from var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))) calc(l * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) * 5)) h / alpha);
+    --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
+    accent-color: var(--tw-jib--accent-color);
   }
 }
 
@@ -281,7 +309,9 @@
 @utility accent-lighten-* {
   &:not(._) {
     @variant supports-lightness {
-      accent-color: --lightness(var(--tw-jib--accent-color), --value(integer, [number]));
+      --tw-jib--accent-color-after-lightness: --lightness(var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))), --value(integer, [number]));
+      --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
+      accent-color: var(--tw-jib--accent-color);
     }
   }
 }
@@ -294,14 +324,18 @@
 @utility accent-darken-* {
   &:not(._) {
     --tw-jib--accent-lightness--amount: calc(--value(integer, [number]) * -0.01);
-    accent-color: --modifier(--tw-jib--accent-color-interpolation-*);
+    --tw-jib--accent-color-after-lightness: --modifier(--tw-jib--accent-color-interpolation-*);
+    --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
+    accent-color: var(--tw-jib--accent-color);
   }
 }
 
 /* block 2: stable with-modifier */
 @utility accent-darken-* {
   &:not(._) {
-    accent-color: --modifier(--tw-jib--accent-color-interpolation-*);
+    --tw-jib--accent-color-after-lightness: --modifier(--tw-jib--accent-color-interpolation-*);
+    --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
+    accent-color: var(--tw-jib--accent-color);
   }
 }
 
@@ -309,8 +343,8 @@
 @utility accent-darken-* {
   &:not(._) {
     @variant supports-lightness {
-      accent-color: --lightness(
-        var(--tw-jib--accent-color),
+      --tw-jib--accent-color-after-lightness: --lightness(
+        var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))),
         calc(--value(integer, [number]) * -1),
         --modifier(
           'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
@@ -319,6 +353,8 @@
           'color-mix'
         )
       );
+      --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
+      accent-color: var(--tw-jib--accent-color);
     }
   }
 }
@@ -326,7 +362,9 @@
 /* block 4: stable no-modifier default — oklch */
 @utility accent-darken-* {
   &:not(._) {
-    accent-color: oklch(from var(--tw-jib--accent-color) calc(l * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) * 5)) h / alpha);
+    --tw-jib--accent-color-after-lightness: oklch(from var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))) calc(l * (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) + max(0, var(--tw-jib--accent-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--accent-lightness--amount), calc(0 - var(--tw-jib--accent-lightness--amount)))) * 5)) h / alpha);
+    --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
+    accent-color: var(--tw-jib--accent-color);
   }
 }
 
@@ -334,7 +372,9 @@
 @utility accent-darken-* {
   &:not(._) {
     @variant supports-lightness {
-      accent-color: --lightness(var(--tw-jib--accent-color), calc(--value(integer, [number]) * -1));
+      --tw-jib--accent-color-after-lightness: --lightness(var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))), calc(--value(integer, [number]) * -1));
+      --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
+      accent-color: var(--tw-jib--accent-color);
     }
   }
 }

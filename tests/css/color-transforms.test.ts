@@ -11,8 +11,10 @@ const SUPPORTS_FUNCTION =
 /**
  * The stable default oklch relative color expression used when no modifier is given.
  */
+const BG_LIGHT_INPUT = 'var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source)))';
+
 const STABLE_OKLCH =
-  'oklch(from var(--tw-jib--bg-color) calc(l * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) * 5)) h / alpha)';
+  `oklch(from ${BG_LIGHT_INPUT} calc(l * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) * 5)) h / alpha)`;
 
 /**
  * Map of color space → stable relative-color substring marker.
@@ -26,15 +28,15 @@ const STABLE_SPACE_MARKERS: [string, string][] = [
   ['hsl', 'hsl('],
   ['hwb', 'hwb('],
   ['rgb', 'max(0, var(--tw-jib--background-lightness--amount)) * 255)'],
-  ['srgb', 'from var(--tw-jib--bg-color) srgb'],
-  ['srgb-linear', 'from var(--tw-jib--bg-color) srgb-linear'],
-  ['display-p3', 'from var(--tw-jib--bg-color) display-p3'],
-  ['a98-rgb', 'from var(--tw-jib--bg-color) a98-rgb'],
-  ['prophoto-rgb', 'from var(--tw-jib--bg-color) prophoto-rgb'],
-  ['rec2020', 'from var(--tw-jib--bg-color) rec2020'],
-  ['xyz', 'from var(--tw-jib--bg-color) xyz'],
-  ['xyz-d50', 'from var(--tw-jib--bg-color) xyz-d50'],
-  ['xyz-d65', 'from var(--tw-jib--bg-color) xyz-d65'],
+  ['srgb', `from ${BG_LIGHT_INPUT} srgb`],
+  ['srgb-linear', `from ${BG_LIGHT_INPUT} srgb-linear`],
+  ['display-p3', `from ${BG_LIGHT_INPUT} display-p3`],
+  ['a98-rgb', `from ${BG_LIGHT_INPUT} a98-rgb`],
+  ['prophoto-rgb', `from ${BG_LIGHT_INPUT} prophoto-rgb`],
+  ['rec2020', `from ${BG_LIGHT_INPUT} rec2020`],
+  ['xyz', `from ${BG_LIGHT_INPUT} xyz`],
+  ['xyz-d50', `from ${BG_LIGHT_INPUT} xyz-d50`],
+  ['xyz-d65', `from ${BG_LIGHT_INPUT} xyz-d65`],
 ];
 
 const ALL_SPACES = [
@@ -56,7 +58,7 @@ describe('stable path (relative color syntax)', () => {
         const css = await compile(`bg-blue-500 bg-darken-${amount}`);
         expect(css).toContain(`--tw-jib--background-lightness--amount: calc(${amount} * -0.01)`);
         expect(css).toContain(STABLE_OKLCH);
-        expect(css).toContain('--tw-jib--bg-color: var(--color-blue-500)');
+        expect(css).toContain('--tw-jib--bg-color-source: var(--color-blue-500)');
       },
     );
   });
@@ -68,7 +70,7 @@ describe('stable path (relative color syntax)', () => {
         const css = await compile(`bg-blue-500 bg-lighten-${amount}`);
         expect(css).toContain(`--tw-jib--background-lightness--amount: calc(${amount} * 0.01)`);
         expect(css).toContain(STABLE_OKLCH);
-        expect(css).toContain('--tw-jib--bg-color: var(--color-blue-500)');
+        expect(css).toContain('--tw-jib--bg-color-source: var(--color-blue-500)');
       },
     );
   });
@@ -85,7 +87,7 @@ describe('stable path (relative color syntax)', () => {
 
     test('bg-darken-20/color-mix (inherit fallback)', async () => {
       const css = await compile('bg-blue-500 bg-darken-20/color-mix');
-      expect(css).toContain('background-color: inherit');
+      expect(css).toContain('--tw-jib--bg-color-after-lightness: inherit');
       expect(css).toContain('--tw-jib--background-lightness--amount: calc(20 * -0.01)');
     });
   });
@@ -102,7 +104,7 @@ describe('stable path (relative color syntax)', () => {
 
     test('bg-lighten-20/color-mix (inherit fallback)', async () => {
       const css = await compile('bg-blue-500 bg-lighten-20/color-mix');
-      expect(css).toContain('background-color: inherit');
+      expect(css).toContain('--tw-jib--bg-color-after-lightness: inherit');
       expect(css).toContain('--tw-jib--background-lightness--amount: calc(20 * 0.01)');
     });
   });
@@ -327,7 +329,7 @@ describe('stable path (relative color syntax)', () => {
 
     test('opacity-lighten-space-border', async () => {
       const css = await compile('bg-blue-500/50 bg-lighten-20/srgb border-linear-to-r border-from-rose-500 border-to-cyan-500');
-      expect(css).toContain('from var(--tw-jib--bg-color) srgb');
+      expect(css).toContain(`from ${BG_LIGHT_INPUT} srgb`);
       expect(css).toContain(BG_LAYER);
     });
 
@@ -440,7 +442,7 @@ describe('stable path (relative color syntax)', () => {
 
       test('darken/srgb + border/longer', async () => {
         const css = await compile('bg-blue-500 bg-darken-20/srgb border-linear/longer border-linear-to-r border-from-rose-500 border-to-cyan-500');
-        expect(css).toContain('from var(--tw-jib--bg-color) srgb');
+        expect(css).toContain(`from ${BG_LIGHT_INPUT} srgb`);
         expect(css).toContain(BG_LAYER);
       });
 
@@ -602,7 +604,7 @@ describe('experimental path (@function + @supports)', () => {
       async (amount) => {
         const css = await compile(`bg-blue-500 bg-darken-${amount}`, { experimental: true });
         expect(css).toContain(SUPPORTS_FUNCTION);
-        expect(css).toContain(`--lightness(var(--tw-jib--bg-color), calc(${amount} * -1))`);
+        expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, calc(${amount} * -1))`);
       },
     );
   });
@@ -613,7 +615,7 @@ describe('experimental path (@function + @supports)', () => {
       async (amount) => {
         const css = await compile(`bg-blue-500 bg-lighten-${amount}`, { experimental: true });
         expect(css).toContain(SUPPORTS_FUNCTION);
-        expect(css).toContain(`--lightness(var(--tw-jib--bg-color), ${amount})`);
+        expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, ${amount})`);
       },
     );
   });
@@ -625,7 +627,7 @@ describe('experimental path (@function + @supports)', () => {
         const css = await compile(`bg-blue-500 bg-darken-20/${space}`, { experimental: true });
         expect(css).toContain(SUPPORTS_FUNCTION);
         expect(css).toContain('--lightness(');
-        expect(css).toContain(`calc(20 * -1), ${space}`);
+        expect(css).toMatch(new RegExp(`calc\\(20 \\* -1\\),\\s+${space.replace(/-/g, '\\-')}\\b`));
       },
     );
   });
@@ -637,7 +639,7 @@ describe('experimental path (@function + @supports)', () => {
         const css = await compile(`bg-blue-500 bg-lighten-20/${space}`, { experimental: true });
         expect(css).toContain(SUPPORTS_FUNCTION);
         expect(css).toContain('--lightness(');
-        expect(css).toContain(`20, ${space}`);
+        expect(css).toMatch(new RegExp(`20,\\s+${space.replace(/-/g, '\\-')}\\b`));
       },
     );
   });
@@ -646,7 +648,7 @@ describe('experimental path (@function + @supports)', () => {
     test.each(DARKEN_PALETTE)('bg-%s bg-darken-20', async (color, marker) => {
       const css = await compile(`bg-${color} bg-darken-20`, { experimental: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
-      expect(css).toContain('--lightness(var(--tw-jib--bg-color), calc(20 * -1))');
+      expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, calc(20 * -1))`);
       expect(css).toContain(marker);
     });
   });
@@ -655,7 +657,7 @@ describe('experimental path (@function + @supports)', () => {
     test.each(LIGHTEN_PALETTE)('bg-%s bg-lighten-20', async (color, marker) => {
       const css = await compile(`bg-${color} bg-lighten-20`, { experimental: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
-      expect(css).toContain('--lightness(var(--tw-jib--bg-color), 20)');
+      expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, 20)`);
       expect(css).toContain(marker);
     });
   });
@@ -664,44 +666,44 @@ describe('experimental path (@function + @supports)', () => {
     test('bg-[#ff6b35] bg-darken-20', async () => {
       const css = await compile('bg-[#ff6b35] bg-darken-20', { experimental: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
-      expect(css).toContain('--lightness(var(--tw-jib--bg-color), calc(20 * -1))');
+      expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, calc(20 * -1))`);
       expect(css).toContain('#ff6b35');
     });
 
     test('bg-[oklch(0.7_0.15_200)] bg-darken-20', async () => {
       const css = await compile('bg-[oklch(0.7_0.15_200)] bg-darken-20', { experimental: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
-      expect(css).toContain('--lightness(var(--tw-jib--bg-color), calc(20 * -1))');
+      expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, calc(20 * -1))`);
     });
 
     test('bg-[rgb(50,215,30)] bg-darken-20', async () => {
       const css = await compile('bg-[rgb(50,215,30)] bg-darken-20', { experimental: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
-      expect(css).toContain('--lightness(var(--tw-jib--bg-color), calc(20 * -1))');
+      expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, calc(20 * -1))`);
     });
 
     test('bg-(color:--custom-bg-color) bg-darken-20', async () => {
       const css = await compile('bg-(color:--custom-bg-color) bg-darken-20', { experimental: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
-      expect(css).toContain('--lightness(var(--tw-jib--bg-color), calc(20 * -1))');
+      expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, calc(20 * -1))`);
     });
 
     test('bg-[#ff6b35] bg-lighten-20', async () => {
       const css = await compile('bg-[#ff6b35] bg-lighten-20', { experimental: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
-      expect(css).toContain('--lightness(var(--tw-jib--bg-color), 20)');
+      expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, 20)`);
     });
 
     test('bg-[oklch(0.7_0.15_200)] bg-lighten-20', async () => {
       const css = await compile('bg-[oklch(0.7_0.15_200)] bg-lighten-20', { experimental: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
-      expect(css).toContain('--lightness(var(--tw-jib--bg-color), 20)');
+      expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, 20)`);
     });
 
     test('bg-(color:--custom-bg-color) bg-lighten-20', async () => {
       const css = await compile('bg-(color:--custom-bg-color) bg-lighten-20', { experimental: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
-      expect(css).toContain('--lightness(var(--tw-jib--bg-color), 20)');
+      expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, 20)`);
     });
   });
 
@@ -713,7 +715,7 @@ describe('experimental path (@function + @supports)', () => {
           const css = await compile(`bg-red-500 bg-darken-20/${space}`, { experimental: true });
           expect(css).toContain(SUPPORTS_FUNCTION);
           expect(css).toContain('--lightness(');
-          expect(css).toContain(`calc(20 * -1), ${space}`);
+          expect(css).toMatch(new RegExp(`calc\\(20 \\* -1\\),\\s+${space.replace(/-/g, '\\-')}\\b`));
         },
       );
     });
@@ -725,7 +727,7 @@ describe('experimental path (@function + @supports)', () => {
           const css = await compile(`bg-emerald-400 bg-darken-20/${space}`, { experimental: true });
           expect(css).toContain(SUPPORTS_FUNCTION);
           expect(css).toContain('--lightness(');
-          expect(css).toContain(`calc(20 * -1), ${space}`);
+          expect(css).toMatch(new RegExp(`calc\\(20 \\* -1\\),\\s+${space.replace(/-/g, '\\-')}\\b`));
         },
       );
     });
@@ -737,7 +739,7 @@ describe('experimental path (@function + @supports)', () => {
           const css = await compile(`bg-purple-600 bg-lighten-20/${space}`, { experimental: true });
           expect(css).toContain(SUPPORTS_FUNCTION);
           expect(css).toContain('--lightness(');
-          expect(css).toContain(`20, ${space}`);
+          expect(css).toMatch(new RegExp(`20,\\s+${space.replace(/-/g, '\\-')}\\b`));
         },
       );
     });
@@ -753,7 +755,7 @@ describe('experimental path (@function + @supports)', () => {
       async (opacity, amount) => {
         const css = await compile(`bg-blue-500/${opacity} bg-darken-${amount}`, { experimental: true });
         expect(css).toContain(SUPPORTS_FUNCTION);
-        expect(css).toContain(`--lightness(var(--tw-jib--bg-color), calc(${amount} * -1))`);
+        expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, calc(${amount} * -1))`);
       },
     );
 
@@ -766,7 +768,7 @@ describe('experimental path (@function + @supports)', () => {
       async (_opacity, amount) => {
         const css = await compile(`bg-blue-500/${_opacity} bg-darken-${amount}`, { experimental: true });
         expect(css).toContain(SUPPORTS_FUNCTION);
-        expect(css).toContain(`--lightness(var(--tw-jib--bg-color), calc(${amount} * -1))`);
+        expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, calc(${amount} * -1))`);
       },
     );
   });
@@ -781,7 +783,7 @@ describe('experimental path (@function + @supports)', () => {
       async (opacity, amount) => {
         const css = await compile(`bg-blue-500/${opacity} bg-lighten-${amount}`, { experimental: true });
         expect(css).toContain(SUPPORTS_FUNCTION);
-        expect(css).toContain(`--lightness(var(--tw-jib--bg-color), ${amount})`);
+        expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, ${amount})`);
       },
     );
 
@@ -794,7 +796,7 @@ describe('experimental path (@function + @supports)', () => {
       async (_opacity, amount) => {
         const css = await compile(`bg-blue-500/${_opacity} bg-lighten-${amount}`, { experimental: true });
         expect(css).toContain(SUPPORTS_FUNCTION);
-        expect(css).toContain(`--lightness(var(--tw-jib--bg-color), ${amount})`);
+        expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, ${amount})`);
       },
     );
   });
@@ -806,7 +808,7 @@ describe('experimental path (@function + @supports)', () => {
         const css = await compile(`bg-blue-500/50 bg-darken-20/${space}`, { experimental: true });
         expect(css).toContain(SUPPORTS_FUNCTION);
         expect(css).toContain('--lightness(');
-        expect(css).toContain(`calc(20 * -1), ${space}`);
+        expect(css).toMatch(new RegExp(`calc\\(20 \\* -1\\),\\s+${space.replace(/-/g, '\\-')}\\b`));
       },
     );
 
@@ -816,25 +818,25 @@ describe('experimental path (@function + @supports)', () => {
         const css = await compile(`bg-blue-500/50 bg-lighten-20/${space}`, { experimental: true });
         expect(css).toContain(SUPPORTS_FUNCTION);
         expect(css).toContain('--lightness(');
-        expect(css).toContain(`20, ${space}`);
+        expect(css).toMatch(new RegExp(`20,\\s+${space.replace(/-/g, '\\-')}\\b`));
       },
     );
   });
 
   describe('opacity + different base colors', () => {
     test.each([
-      ['red-500/50', 'bg-darken-20', '--lightness(var(--tw-jib--bg-color), calc(20 * -1))'],
-      ['green-500/50', 'bg-darken-20', '--lightness(var(--tw-jib--bg-color), calc(20 * -1))'],
-      ['purple-500/50', 'bg-darken-20', '--lightness(var(--tw-jib--bg-color), calc(20 * -1))'],
-      ['amber-500/50', 'bg-darken-20', '--lightness(var(--tw-jib--bg-color), calc(20 * -1))'],
-      ['red-500/50', 'bg-lighten-20', '--lightness(var(--tw-jib--bg-color), 20)'],
-      ['green-500/50', 'bg-lighten-20', '--lightness(var(--tw-jib--bg-color), 20)'],
-      ['purple-500/50', 'bg-lighten-20', '--lightness(var(--tw-jib--bg-color), 20)'],
-      ['amber-500/50', 'bg-lighten-20', '--lightness(var(--tw-jib--bg-color), 20)'],
-      ['white/75', 'bg-darken-20', '--lightness(var(--tw-jib--bg-color), calc(20 * -1))'],
-      ['black/75', 'bg-lighten-20', '--lightness(var(--tw-jib--bg-color), 20)'],
-      ['[#ff6b35]/50', 'bg-darken-20', '--lightness(var(--tw-jib--bg-color), calc(20 * -1))'],
-      ['[#ff6b35]/50', 'bg-lighten-20', '--lightness(var(--tw-jib--bg-color), 20)'],
+      ['red-500/50', 'bg-darken-20', `--lightness(${BG_LIGHT_INPUT}, calc(20 * -1))`],
+      ['green-500/50', 'bg-darken-20', `--lightness(${BG_LIGHT_INPUT}, calc(20 * -1))`],
+      ['purple-500/50', 'bg-darken-20', `--lightness(${BG_LIGHT_INPUT}, calc(20 * -1))`],
+      ['amber-500/50', 'bg-darken-20', `--lightness(${BG_LIGHT_INPUT}, calc(20 * -1))`],
+      ['red-500/50', 'bg-lighten-20', `--lightness(${BG_LIGHT_INPUT}, 20)`],
+      ['green-500/50', 'bg-lighten-20', `--lightness(${BG_LIGHT_INPUT}, 20)`],
+      ['purple-500/50', 'bg-lighten-20', `--lightness(${BG_LIGHT_INPUT}, 20)`],
+      ['amber-500/50', 'bg-lighten-20', `--lightness(${BG_LIGHT_INPUT}, 20)`],
+      ['white/75', 'bg-darken-20', `--lightness(${BG_LIGHT_INPUT}, calc(20 * -1))`],
+      ['black/75', 'bg-lighten-20', `--lightness(${BG_LIGHT_INPUT}, 20)`],
+      ['[#ff6b35]/50', 'bg-darken-20', `--lightness(${BG_LIGHT_INPUT}, calc(20 * -1))`],
+      ['[#ff6b35]/50', 'bg-lighten-20', `--lightness(${BG_LIGHT_INPUT}, 20)`],
     ])(
       'bg-%s %s',
       async (bgColor, transform, marker) => {
@@ -849,56 +851,56 @@ describe('experimental path (@function + @supports)', () => {
     test('opacity-darken-border-linear', async () => {
       const css = await compile('bg-blue-500/50 bg-darken-20 border-linear-to-r border-from-rose-500 border-to-cyan-500', { experimental: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
-      expect(css).toContain('--lightness(var(--tw-jib--bg-color), calc(20 * -1))');
+      expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, calc(20 * -1))`);
       expect(css).toContain(BG_LAYER);
     });
 
     test('opacity-lighten-border-linear', async () => {
       const css = await compile('bg-blue-500/50 bg-lighten-20 border-linear-to-r border-from-rose-500 border-to-cyan-500', { experimental: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
-      expect(css).toContain('--lightness(var(--tw-jib--bg-color), 20)');
+      expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, 20)`);
       expect(css).toContain(BG_LAYER);
     });
 
     test('opacity-darken-space-border', async () => {
       const css = await compile('bg-blue-500/50 bg-darken-20/hsl border-linear-to-r border-from-rose-500 border-to-cyan-500', { experimental: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
-      expect(css).toContain('calc(20 * -1), hsl');
+      expect(css).toMatch(/calc\(20 \* -1\),\s+hsl/);
       expect(css).toContain(BG_LAYER);
     });
 
     test('opacity-lighten-space-border', async () => {
       const css = await compile('bg-blue-500/50 bg-lighten-20/srgb border-linear-to-r border-from-rose-500 border-to-cyan-500', { experimental: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
-      expect(css).toContain('20, srgb');
+      expect(css).toMatch(/20,\s+srgb/);
       expect(css).toContain(BG_LAYER);
     });
 
     test('opacity-darken-border-radial', async () => {
       const css = await compile('bg-red-500/75 bg-darken-20 border-radial border-from-amber-400 border-to-emerald-500', { experimental: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
-      expect(css).toContain('--lightness(var(--tw-jib--bg-color), calc(20 * -1))');
+      expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, calc(20 * -1))`);
       expect(css).toContain(BG_LAYER);
     });
 
     test('opacity-lighten-border-conic', async () => {
       const css = await compile('bg-red-500/75 bg-lighten-20 border-conic-0 border-from-amber-400 border-via-rose-500 border-to-emerald-500', { experimental: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
-      expect(css).toContain('--lightness(var(--tw-jib--bg-color), 20)');
+      expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, 20)`);
       expect(css).toContain(BG_LAYER);
     });
 
     test('opacity-darken-border-spin', async () => {
       const css = await compile('bg-emerald-500/50 bg-darken-20 border-conic-0 border-spin border-from-rose-500 border-to-cyan-500', { experimental: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
-      expect(css).toContain('--lightness(var(--tw-jib--bg-color), calc(20 * -1))');
+      expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, calc(20 * -1))`);
       expect(css).toContain(BG_LAYER);
     });
 
     test('opacity-darken-border-interp', async () => {
       const css = await compile('bg-purple-500/50 bg-darken-20/oklch border-linear/longer border-linear-to-r border-from-rose-500 border-to-cyan-500', { experimental: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
-      expect(css).toContain('calc(20 * -1), oklch');
+      expect(css).toMatch(/calc\(20 \* -1\),\s+oklch/);
       expect(css).toContain(BG_LAYER);
     });
   });
@@ -908,42 +910,42 @@ describe('experimental path (@function + @supports)', () => {
       test('darken + linear-r', async () => {
         const css = await compile('bg-blue-500 bg-darken-20 border-linear-to-r border-from-rose-500 border-to-cyan-500', { experimental: true });
         expect(css).toContain(SUPPORTS_FUNCTION);
-        expect(css).toContain('--lightness(var(--tw-jib--bg-color), calc(20 * -1))');
+        expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, calc(20 * -1))`);
         expect(css).toContain(BG_LAYER);
       });
 
       test('darken + linear-b', async () => {
         const css = await compile('bg-blue-500 bg-darken-20 border-linear-to-b border-from-rose-500 border-to-cyan-500', { experimental: true });
         expect(css).toContain(SUPPORTS_FUNCTION);
-        expect(css).toContain('--lightness(var(--tw-jib--bg-color), calc(20 * -1))');
+        expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, calc(20 * -1))`);
         expect(css).toContain(BG_LAYER);
       });
 
       test('darken + linear-45', async () => {
         const css = await compile('bg-blue-500 bg-darken-20 border-linear-45 border-from-rose-500 border-to-cyan-500', { experimental: true });
         expect(css).toContain(SUPPORTS_FUNCTION);
-        expect(css).toContain('--lightness(var(--tw-jib--bg-color), calc(20 * -1))');
+        expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, calc(20 * -1))`);
         expect(css).toContain(BG_LAYER);
       });
 
       test('darken + radial', async () => {
         const css = await compile('bg-blue-500 bg-darken-20 border-radial border-from-rose-500 border-to-cyan-500', { experimental: true });
         expect(css).toContain(SUPPORTS_FUNCTION);
-        expect(css).toContain('--lightness(var(--tw-jib--bg-color), calc(20 * -1))');
+        expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, calc(20 * -1))`);
         expect(css).toContain(BG_LAYER);
       });
 
       test('darken + conic', async () => {
         const css = await compile('bg-blue-500 bg-darken-20 border-conic-0 border-from-rose-500 border-via-yellow-400 border-to-cyan-500', { experimental: true });
         expect(css).toContain(SUPPORTS_FUNCTION);
-        expect(css).toContain('--lightness(var(--tw-jib--bg-color), calc(20 * -1))');
+        expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, calc(20 * -1))`);
         expect(css).toContain(BG_LAYER);
       });
 
       test('darken + spin', async () => {
         const css = await compile('bg-blue-500 bg-darken-20 border-conic-0 border-spin border-from-rose-500 border-to-cyan-500', { experimental: true });
         expect(css).toContain(SUPPORTS_FUNCTION);
-        expect(css).toContain('--lightness(var(--tw-jib--bg-color), calc(20 * -1))');
+        expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, calc(20 * -1))`);
         expect(css).toContain(BG_LAYER);
       });
     });
@@ -952,28 +954,28 @@ describe('experimental path (@function + @supports)', () => {
       test('lighten + linear-r', async () => {
         const css = await compile('bg-blue-500 bg-lighten-20 border-linear-to-r border-from-rose-500 border-to-cyan-500', { experimental: true });
         expect(css).toContain(SUPPORTS_FUNCTION);
-        expect(css).toContain('--lightness(var(--tw-jib--bg-color), 20)');
+        expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, 20)`);
         expect(css).toContain(BG_LAYER);
       });
 
       test('lighten + linear-b', async () => {
         const css = await compile('bg-blue-500 bg-lighten-20 border-linear-to-b border-from-rose-500 border-to-cyan-500', { experimental: true });
         expect(css).toContain(SUPPORTS_FUNCTION);
-        expect(css).toContain('--lightness(var(--tw-jib--bg-color), 20)');
+        expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, 20)`);
         expect(css).toContain(BG_LAYER);
       });
 
       test('lighten + radial', async () => {
         const css = await compile('bg-blue-500 bg-lighten-20 border-radial border-from-rose-500 border-to-cyan-500', { experimental: true });
         expect(css).toContain(SUPPORTS_FUNCTION);
-        expect(css).toContain('--lightness(var(--tw-jib--bg-color), 20)');
+        expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, 20)`);
         expect(css).toContain(BG_LAYER);
       });
 
       test('lighten + conic', async () => {
         const css = await compile('bg-blue-500 bg-lighten-20 border-conic-0 border-from-rose-500 border-via-yellow-400 border-to-cyan-500', { experimental: true });
         expect(css).toContain(SUPPORTS_FUNCTION);
-        expect(css).toContain('--lightness(var(--tw-jib--bg-color), 20)');
+        expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, 20)`);
         expect(css).toContain(BG_LAYER);
       });
     });
@@ -982,28 +984,28 @@ describe('experimental path (@function + @supports)', () => {
       test('darken/oklch + border/srgb', async () => {
         const css = await compile('bg-blue-500 bg-darken-20/oklch border-linear/srgb border-linear-to-r border-from-rose-500 border-to-cyan-500', { experimental: true });
         expect(css).toContain(SUPPORTS_FUNCTION);
-        expect(css).toContain('calc(20 * -1), oklch');
+        expect(css).toMatch(/calc\(20 \* -1\),\s+oklch/);
         expect(css).toContain(BG_LAYER);
       });
 
       test('darken/hsl + border/oklch', async () => {
         const css = await compile('bg-blue-500 bg-darken-20/hsl border-linear/oklch border-linear-to-r border-from-rose-500 border-to-cyan-500', { experimental: true });
         expect(css).toContain(SUPPORTS_FUNCTION);
-        expect(css).toContain('calc(20 * -1), hsl');
+        expect(css).toMatch(/calc\(20 \* -1\),\s+hsl/);
         expect(css).toContain(BG_LAYER);
       });
 
       test('darken/srgb + border/longer', async () => {
         const css = await compile('bg-blue-500 bg-darken-20/srgb border-linear/longer border-linear-to-r border-from-rose-500 border-to-cyan-500', { experimental: true });
         expect(css).toContain(SUPPORTS_FUNCTION);
-        expect(css).toContain('calc(20 * -1), srgb');
+        expect(css).toMatch(/calc\(20 \* -1\),\s+srgb/);
         expect(css).toContain(BG_LAYER);
       });
 
       test('lighten/oklab + border/decreasing', async () => {
         const css = await compile('bg-blue-500 bg-lighten-20/oklab border-linear/decreasing border-linear-to-r border-from-rose-500 border-to-cyan-500', { experimental: true });
         expect(css).toContain(SUPPORTS_FUNCTION);
-        expect(css).toContain('20, oklab');
+        expect(css).toMatch(/20,\s+oklab/);
         expect(css).toContain(BG_LAYER);
       });
     });
@@ -1012,28 +1014,28 @@ describe('experimental path (@function + @supports)', () => {
       test('red darken + border', async () => {
         const css = await compile('bg-red-500 bg-darken-20 border-linear-to-r border-from-amber-400 border-to-emerald-500', { experimental: true });
         expect(css).toContain(SUPPORTS_FUNCTION);
-        expect(css).toContain('--lightness(var(--tw-jib--bg-color), calc(20 * -1))');
+        expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, calc(20 * -1))`);
         expect(css).toContain(BG_LAYER);
       });
 
       test('green darken + border', async () => {
         const css = await compile('bg-green-500 bg-darken-20 border-linear-to-r border-from-amber-400 border-to-emerald-500', { experimental: true });
         expect(css).toContain(SUPPORTS_FUNCTION);
-        expect(css).toContain('--lightness(var(--tw-jib--bg-color), calc(20 * -1))');
+        expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, calc(20 * -1))`);
         expect(css).toContain(BG_LAYER);
       });
 
       test('purple lighten + border', async () => {
         const css = await compile('bg-purple-600 bg-lighten-20 border-linear-to-r border-from-amber-400 border-to-emerald-500', { experimental: true });
         expect(css).toContain(SUPPORTS_FUNCTION);
-        expect(css).toContain('--lightness(var(--tw-jib--bg-color), 20)');
+        expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, 20)`);
         expect(css).toContain(BG_LAYER);
       });
 
       test('arbitrary darken + border', async () => {
         const css = await compile('bg-[#ff6b35] bg-darken-20 border-linear-to-r border-from-rose-500 border-to-cyan-500', { experimental: true });
         expect(css).toContain(SUPPORTS_FUNCTION);
-        expect(css).toContain('--lightness(var(--tw-jib--bg-color), calc(20 * -1))');
+        expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, calc(20 * -1))`);
         expect(css).toContain(BG_LAYER);
       });
     });
@@ -1045,7 +1047,7 @@ describe('experimental path (@function + @supports)', () => {
       async (amount) => {
         const css = await compile(`bg-blue-500 bg-darken-${amount}`, { experimental: true });
         expect(css).toContain(SUPPORTS_FUNCTION);
-        expect(css).toContain(`--lightness(var(--tw-jib--bg-color), calc(${amount} * -1))`);
+        expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, calc(${amount} * -1))`);
       },
     );
 
@@ -1054,7 +1056,7 @@ describe('experimental path (@function + @supports)', () => {
       async (amount) => {
         const css = await compile(`bg-blue-500 bg-lighten-${amount}`, { experimental: true });
         expect(css).toContain(SUPPORTS_FUNCTION);
-        expect(css).toContain(`--lightness(var(--tw-jib--bg-color), ${amount})`);
+        expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, ${amount})`);
       },
     );
   });
@@ -1063,25 +1065,25 @@ describe('experimental path (@function + @supports)', () => {
     test('dark base + darken', async () => {
       const css = await compile('bg-slate-900 bg-darken-20', { experimental: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
-      expect(css).toContain('--lightness(var(--tw-jib--bg-color), calc(20 * -1))');
+      expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, calc(20 * -1))`);
     });
 
     test('dark base + darken/hsl', async () => {
       const css = await compile('bg-slate-900 bg-darken-20/hsl', { experimental: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
-      expect(css).toContain('calc(20 * -1), hsl');
+      expect(css).toMatch(/calc\(20 \* -1\),\s+hsl/);
     });
 
     test('light base + lighten', async () => {
       const css = await compile('bg-yellow-100 bg-lighten-20', { experimental: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
-      expect(css).toContain('--lightness(var(--tw-jib--bg-color), 20)');
+      expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, 20)`);
     });
 
     test('light base + lighten/rgb', async () => {
       const css = await compile('bg-yellow-100 bg-lighten-20/rgb', { experimental: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
-      expect(css).toContain('20, rgb');
+      expect(css).toMatch(/20,\s+rgb\b/);
     });
   });
 
@@ -1089,19 +1091,19 @@ describe('experimental path (@function + @supports)', () => {
     test('bg-darken-20 alone', async () => {
       const css = await compile('bg-darken-20', { experimental: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
-      expect(css).toContain('--lightness(var(--tw-jib--bg-color), calc(20 * -1))');
+      expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, calc(20 * -1))`);
     });
 
     test('bg-lighten-20 alone', async () => {
       const css = await compile('bg-lighten-20', { experimental: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
-      expect(css).toContain('--lightness(var(--tw-jib--bg-color), 20)');
+      expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, 20)`);
     });
 
     test('bg-darken-20/oklch alone', async () => {
       const css = await compile('bg-darken-20/oklch', { experimental: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
-      expect(css).toContain('calc(20 * -1), oklch');
+      expect(css).toMatch(/calc\(20 \* -1\),\s+oklch/);
     });
   });
 
@@ -1109,14 +1111,14 @@ describe('experimental path (@function + @supports)', () => {
     test('hover:bg-darken-20', async () => {
       const css = await compile('bg-blue-500 hover:bg-darken-20', { experimental: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
-      expect(css).toContain('--lightness(var(--tw-jib--bg-color), calc(20 * -1))');
+      expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, calc(20 * -1))`);
       expect(css).toContain('&:hover');
     });
 
     test('dark:bg-darken-30', async () => {
       const css = await compile('bg-blue-500 bg-darken-10 dark:bg-darken-30', { experimental: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
-      expect(css).toContain('--lightness(var(--tw-jib--bg-color), calc(30 * -1))');
+      expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, calc(30 * -1))`);
       expect(css).toContain('prefers-color-scheme: dark');
     });
   });
@@ -1125,28 +1127,28 @@ describe('experimental path (@function + @supports)', () => {
     test('triple-darken', async () => {
       const css = await compile('bg-blue-500/75 bg-darken-20 border-linear-to-r border-from-rose-500 border-to-cyan-500', { experimental: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
-      expect(css).toContain('--lightness(var(--tw-jib--bg-color), calc(20 * -1))');
+      expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, calc(20 * -1))`);
       expect(css).toContain(BG_LAYER);
     });
 
     test('triple-lighten', async () => {
       const css = await compile('bg-indigo-700/50 bg-lighten-25 border-linear-to-r border-from-amber-400 border-to-emerald-500', { experimental: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
-      expect(css).toContain('--lightness(var(--tw-jib--bg-color), 25)');
+      expect(css).toContain(`--lightness(${BG_LIGHT_INPUT}, 25)`);
       expect(css).toContain(BG_LAYER);
     });
 
     test('triple-darken-space', async () => {
       const css = await compile('bg-emerald-500/80 bg-darken-15/hsl border-linear/oklch border-linear-to-r border-from-rose-500 border-to-cyan-500', { experimental: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
-      expect(css).toContain('calc(15 * -1), hsl');
+      expect(css).toMatch(/calc\(15 \* -1\),\s+hsl/);
       expect(css).toContain(BG_LAYER);
     });
 
     test('triple-lighten-space', async () => {
       const css = await compile('bg-red-600/60 bg-lighten-20/oklab border-conic-0 border-from-amber-400 border-via-rose-500 border-to-emerald-500', { experimental: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
-      expect(css).toContain('20, oklab');
+      expect(css).toMatch(/20,\s+oklab/);
       expect(css).toContain(BG_LAYER);
     });
   });

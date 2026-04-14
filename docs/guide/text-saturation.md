@@ -719,3 +719,26 @@ Use the slash modifier to select a colour space. For details on how scaling work
   </div>
 </Example>
 
+## Aliases
+
+For convenience, `text-saturate-*` and `text-desaturate-*` are provided as user-friendly aliases that map to the same underlying utilities:
+
+| Alias | Equivalent |
+| --- | --- |
+| `text-saturate-{amount}` | `text-saturation-{amount}` |
+| `text-saturate-{amount}/{space}` | `text-saturation-{amount}/{space}` |
+| `text-desaturate-{amount}` | `-text-saturation-{amount}` |
+| `text-desaturate-{amount}/{space}` | `-text-saturation-{amount}/{space}` |
+
+Both forms produce identical CSS output. Use whichever reads better in your markup:
+
+```html
+<!-- These are equivalent -->
+<p class="text-slate-400 text-saturation-20">...</p>
+<p class="text-slate-400 text-saturate-20">...</p>
+
+<!-- These are equivalent -->
+<p class="text-blue-500 -text-saturation-20">...</p>
+<p class="text-blue-500 text-desaturate-20">...</p>
+```
+

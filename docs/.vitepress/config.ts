@@ -73,6 +73,19 @@ export default defineConfig({
               { text: 'Border', link: '/guide/border-saturation' },
             ],
           },
+          {
+            text: 'Hue Rotate',
+            collapsed: false,
+            items: [
+              { text: 'Background', link: '/guide/hue-rotate' },
+              { text: 'Text', link: '/guide/text-hue-rotate' },
+              { text: 'Fill', link: '/guide/fill-hue-rotate' },
+              { text: 'Stroke', link: '/guide/stroke-hue-rotate' },
+              { text: 'Outline', link: '/guide/outline-hue-rotate' },
+              { text: 'Accent', link: '/guide/accent-hue-rotate' },
+              { text: 'Border', link: '/guide/border-hue-rotate' },
+            ],
+          },
         ],
       },
       {

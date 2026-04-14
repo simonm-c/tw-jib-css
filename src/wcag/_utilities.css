@@ -27,7 +27,7 @@
 /* Block A: with modifier — explicit colour space */
 @utility text-a11y-* {
   @variant supports-wcag {
-    color: --accessible-shade(
+    --tw-jib--text-color: --accessible-shade(
       var(--tw-jib--bg-color),
       --value('aa', 'aaa', 'aa-lg'),
       --modifier(
@@ -37,17 +37,19 @@
         'color-mix'
       )
     );
+    color: var(--tw-jib--text-color);
   }
 }
 
 /* Block B: no modifier — defaults to oklch */
 @utility text-a11y-* {
   @variant supports-wcag {
-    color: --accessible-shade(
+    --tw-jib--text-color: --accessible-shade(
       var(--tw-jib--bg-color),
       --value('aa', 'aaa', 'aa-lg'),
       oklch
     );
+    color: var(--tw-jib--text-color);
   }
 }
 
@@ -61,7 +63,12 @@
 
 @utility wcag-badge {
   @variant supports-wcag {
-    --tw-jib--wcag-rating: --wcag-rating(var(--tw-jib--bg-color), var(--tw-jib--text-color));
+    /* Force-resolve --tw-jib--text-color via relative colour syntax so
+       currentColor (the @property initial-value) becomes a concrete colour
+       before entering the @function chain. Without this, currentColor
+       inside @function causes the renderer to crash (Error code: 5). */
+    --tw-jib--wcag-badge-text: oklch(from var(--tw-jib--text-color) l c h);
+    --tw-jib--wcag-rating: --wcag-rating(var(--tw-jib--bg-color), var(--tw-jib--wcag-badge-text));
     position: relative;
 
     &::after {

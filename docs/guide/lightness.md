@@ -67,6 +67,24 @@ Use `-bg-lightness-{amount}` to decrease lightness:
   </div>
 </Example>
 
+## On hover
+
+The lightness amount is a registered `@property` variable, so it composes with Tailwind's `hover:` prefix and animates smoothly when paired with `transition`:
+
+<Example stretch>
+  <div class="flex gap-3">
+    <div class="flex-1 bg-blue-500 hover:bg-lightness-40 transition duration-700 p-6 rounded text-center text-white text-sm font-medium cursor-pointer">hover to lighten</div>
+    <div class="flex-1 bg-blue-500 hover:-bg-lightness-40 transition duration-700 p-6 rounded text-center text-white text-sm font-medium cursor-pointer">hover to darken</div>
+    <div class="flex-1 bg-blue-500 hover:bg-lightness-80 transition duration-700 p-6 rounded text-center text-white text-sm font-medium cursor-pointer">hover to white</div>
+  </div>
+</Example>
+
+```html
+<div class="bg-blue-500 hover:bg-lightness-40 transition duration-700">
+  hover to lighten
+</div>
+```
+
 ## Scale
 
 Use increasing values to create consistent lightening and darkening scales from a single base colour:

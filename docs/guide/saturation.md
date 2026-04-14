@@ -57,6 +57,24 @@ Use `-bg-saturation-{amount}` to decrease saturation:
   </div>
 </Example>
 
+## On hover
+
+The saturation amount is a registered `@property` variable, so it composes with Tailwind's `hover:` prefix and animates smoothly when paired with `transition`:
+
+<Example stretch>
+  <div class="flex gap-3">
+    <div class="flex-1 bg-blue-500 hover:-bg-saturation-80 transition duration-700 p-6 rounded text-center text-white text-sm font-medium cursor-pointer">hover to desaturate</div>
+    <div class="flex-1 bg-slate-400 hover:bg-saturation-60 transition duration-700 p-6 rounded text-center text-white text-sm font-medium cursor-pointer">hover to saturate</div>
+    <div class="flex-1 bg-blue-500 hover:-bg-saturation-100 transition duration-700 p-6 rounded text-center text-white text-sm font-medium cursor-pointer">hover to grey</div>
+  </div>
+</Example>
+
+```html
+<div class="bg-blue-500 hover:-bg-saturation-80 transition duration-700">
+  hover to desaturate
+</div>
+```
+
 ## Scale
 
 Use increasing values to create consistent saturation and desaturation scales from a single base colour:

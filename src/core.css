@@ -1,3 +1,27 @@
+@property --tw-jib--bg-color-source {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: canvas;
+}
+/*
+ * --tw-jib--bg-color is the COMPOSED OUTPUT of the bg transform pipeline:
+ *   hue-rotate -> saturation -> lightness
+ *
+ * It is derived from --tw-jib--bg-color-source (set by bg-*) via the
+ * composer expression that walks back through any applied stage variables:
+ *   --tw-jib--bg-color-after-hue-rotate
+ *   --tw-jib--bg-color-after-saturation
+ *   --tw-jib--bg-color-after-lightness
+ *
+ * Stage variables are deliberately UNREGISTERED so var(stage, fallback)
+ * falls through when a stage isn't applied. The composer is written by every
+ * utility in the family (bg-*, bg-current, bg-hue-rotate-*, bg-saturation-*,
+ * bg-lightness-* / bg-lighten-* / bg-darken-* and their negatives) so the
+ * cascade winner produces the same value regardless of which utility wins.
+ *
+ * Consumers (text-a11y-*, wcag-badge, border-gradient layering) read
+ * var(--tw-jib--bg-color) and therefore see the post-pipeline colour.
+ */
 @property --tw-jib--bg-color {
   syntax: '<color>';
   inherits: true;
@@ -11,32 +35,32 @@
 @property --tw-jib--text-color {
   syntax: '<color>';
   inherits: true;
-  initial-value: currentColor;
+  initial-value: black;
 }
 @property --tw-jib--fill-color {
   syntax: '<color>';
   inherits: true;
-  initial-value: currentColor;
+  initial-value: black;
 }
 @property --tw-jib--stroke-color {
   syntax: '<color>';
   inherits: true;
-  initial-value: currentColor;
+  initial-value: black;
 }
 @property --tw-jib--outline-color {
   syntax: '<color>';
   inherits: false;
-  initial-value: currentColor;
+  initial-value: black;
 }
 @property --tw-jib--accent-color {
   syntax: '<color>';
   inherits: true;
-  initial-value: currentColor;
+  initial-value: black;
 }
 @property --tw-jib--border-color {
   syntax: '<color>';
   inherits: false;
-  initial-value: currentColor;
+  initial-value: black;
 }
 
 @theme inline {
@@ -67,8 +91,9 @@
 }
 
 @utility bg-* {
-  --tw-jib--bg-color: --value('inherit', 'transparent', --color-*, [color]);
-  --tw-jib--bg-color: --alpha(--value('inherit', 'transparent', --color-*, [color]) / calc(--modifier(integer) * 1%));
+  --tw-jib--bg-color-source: --value('inherit', 'transparent', --color-*, [color]);
+  --tw-jib--bg-color-source: --alpha(--value('inherit', 'transparent', --color-*, [color]) / calc(--modifier(integer) * 1%));
+  --tw-jib--bg-color: var(--tw-jib--bg-color-after-lightness, var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))));
   --tw-jib--bg-image: linear-gradient(var(--tw-jib--bg-color) 0 0);
   --tw-jib--bg-image: --value([url]);
 }
@@ -80,7 +105,8 @@
           var(--tw-jib--border-gradient) border-box;
 }
 @utility bg-current {
-  --tw-jib--bg-color: currentColor;
+  --tw-jib--bg-color-source: currentColor;
+  --tw-jib--bg-color: var(--tw-jib--bg-color-after-lightness, var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))));
   --tw-jib--bg-image: linear-gradient(var(--tw-jib--bg-color) 0 0);
 }
 

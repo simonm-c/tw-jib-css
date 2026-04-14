@@ -398,6 +398,49 @@ Use different levels for different text sizes — heading at AA Large, body at A
   </div>
 </Example>
 
+## Combining with wcag-badge
+
+`text-a11y-*` and `wcag-badge` work together on the same element. The accessible shade utility picks the text colour, and the badge verifies the actual contrast ratio — all in CSS at render time.
+
+<Example>
+  <div class="grid grid-cols-3 gap-3">
+    <div class="rounded-lg p-6 bg-indigo-600 text-a11y-aa wcag-badge text-center relative">
+      <div class="font-bold">AA on Indigo 600</div>
+    </div>
+    <div class="rounded-lg p-6 bg-amber-300 text-a11y-aaa wcag-badge text-center relative">
+      <div class="font-bold">AAA on Amber 300</div>
+    </div>
+    <div class="rounded-lg p-6 bg-emerald-700 text-a11y-aa-lg wcag-badge text-center relative">
+      <div class="font-bold">AA Large on Emerald 700</div>
+    </div>
+  </div>
+</Example>
+
+The badge reads the text colour set by `text-a11y-*`, so the badge rating always reflects the actual contrast between the background and the accessible shade — not a guess.
+
+### Real-time updates on hover
+
+Because both utilities read CSS custom properties, they update live when the background changes. Hover the cards below — the text colour and badge rating recompute instantly:
+
+<Example>
+  <div class="grid grid-cols-3 gap-3">
+    <div class="rounded-lg p-6 bg-sky-100 hover:bg-sky-800 text-a11y-aa wcag-badge text-center relative transition-colors duration-300">
+      <div class="font-bold">Sky 100 → 800</div>
+      <div class="text-xs mt-1">Hover to flip</div>
+    </div>
+    <div class="rounded-lg p-6 bg-rose-800 hover:bg-rose-200 text-a11y-aa wcag-badge text-center relative transition-colors duration-300">
+      <div class="font-bold">Rose 800 → 200</div>
+      <div class="text-xs mt-1">Hover to flip</div>
+    </div>
+    <div class="rounded-lg p-6 bg-emerald-200 hover:bg-emerald-900 text-a11y-aaa wcag-badge text-center relative transition-colors duration-300">
+      <div class="font-bold">Emerald 200 → 900</div>
+      <div class="text-xs mt-1">Hover to flip</div>
+    </div>
+  </div>
+</Example>
+
+<!-- llm-context: text-a11y-* sets --tw-jib--text-color so wcag-badge can read the actual accessible shade. Both utilities update live when bg changes (e.g. hover). -->
+
 ## How It Works
 
 The utility pipeline is built from composable CSS `@function` definitions:

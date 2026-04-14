@@ -7,10 +7,6 @@ layout: page
 
 Every TW default colour at all shade values with wcag-badge and white text. Integration tests extract the ::after content and verify the CSS rating matches the JS-computed WCAG rating.
 
-::: danger Do not combine wcag-badge and text-a11y-* on the same element
-Both utilities trigger deep CSS @function evaluation chains. Combining them on one element exceeds the browser's function nesting budget and causes a tab crash.
-:::
-
 ## All Colours — White Text + Badge
 
 ### Red

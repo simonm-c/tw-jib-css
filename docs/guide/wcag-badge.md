@@ -12,10 +12,6 @@ title: WCAG Badge
 CSS `@function` and `if(style())` are required. Currently supported in Chromium browsers only. All utilities are wrapped in `@supports` and will be silently ignored in unsupported browsers.
 :::
 
-::: danger Do not combine with text-a11y-*
-Both `wcag-badge` and `text-a11y-*` trigger deep CSS `@function` evaluation chains. Combining them on the same element exceeds the browser's function nesting budget and crashes the tab. Use them on separate elements — e.g. badge on the container, accessible shade on child text.
-:::
-
 ::: tip Import
 Included in `@import 'tw-jib-css/experimental'`. To import individually:
 ```css
@@ -100,6 +96,45 @@ Dark text on light backgrounds:
     </div>
   </div>
 </Example>
+
+## Combining with text-a11y-*
+
+`wcag-badge` and `text-a11y-*` work together on the same element. The badge reads the text colour set by `text-a11y-*` and shows the actual contrast rating:
+
+<Example>
+  <div class="grid grid-cols-3 gap-3">
+    <div class="rounded-lg p-6 bg-violet-600 text-a11y-aa wcag-badge text-center relative">
+      <div class="font-bold">AA shade + badge</div>
+    </div>
+    <div class="rounded-lg p-6 bg-teal-300 text-a11y-aaa wcag-badge text-center relative">
+      <div class="font-bold">AAA shade + badge</div>
+    </div>
+    <div class="rounded-lg p-6 bg-pink-700 text-a11y-aa-lg wcag-badge text-center relative">
+      <div class="font-bold">AA Large + badge</div>
+    </div>
+  </div>
+</Example>
+
+Both utilities update live when the background changes — hover to see the text and badge recompute:
+
+<Example>
+  <div class="grid grid-cols-2 gap-3">
+    <div class="rounded-lg p-6 bg-cyan-100 hover:bg-cyan-900 text-a11y-aa wcag-badge text-center relative transition-colors duration-300">
+      <div class="font-bold">Cyan 100 → 900</div>
+      <div class="text-xs mt-1">Hover me</div>
+    </div>
+    <div class="rounded-lg p-6 bg-fuchsia-800 text-a11y-aaa hover:text-a11y-aa-lg wcag-badge text-center relative transition-colors duration-300">
+      <div class="font-bold">AAA -> AA Large</div>
+      <div class="text-xs mt-1">Hover me</div>
+    </div>
+  </div>
+</Example>
+
+::: warning Badge must be on the text colour element
+`wcag-badge` reads `--tw-jib--text-color` from the element it's placed on. It measures the contrast between **its own** background and text colour — it cannot see or predict the contrast of child elements.
+
+Place the badge on the same element that has the text colour, or on a child element that carries the text colour. Do **not** place it on a parent and expect it to measure a child's `text-a11y-*` colour.
+:::
 
 ## How It Works
 

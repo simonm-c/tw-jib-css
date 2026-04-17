@@ -19,26 +19,30 @@ Included in `@import 'tw-jib-css'`. To import individually:
 
 ## Quick Reference
 
+<!-- llm-context: In the formulas below, `amt` is shorthand for `var(--tw-jib--background-lightness--amount)`, set to `<amount> × 0.01` (lighten) or `<amount> × −0.01` (darken). The algorithm uses multiplicative desaturation to preserve chroma at extreme values. -->
+
+Formulas use `amt` for `var(--tw-jib--background-lightness--amount)` — set to `<amount> × 0.01` (lighten) or `<amount> × −0.01` (darken).
+
 <QuickReference :rows="[
-  { class: 'bg-lightness-<amount>', styles: '--tw-lightness-amount: calc(<amount> * 0.01); background-color: oklch(from var(--tw-bg-color) calc(l + var(--tw-lightness-amount)) c h / alpha)' },
-  { class: '-bg-lightness-<amount>', styles: '--tw-lightness-amount: calc(<amount> * -0.01); background-color: oklch(from var(--tw-bg-color) calc(l + var(--tw-lightness-amount)) c h / alpha)' },
-  { class: 'bg-lightness-<amount>/oklch', styles: 'background-color: oklch(from var(--tw-bg-color) calc(l + <amount>) c h / alpha)' },
-  { class: 'bg-lightness-<amount>/lch', styles: 'background-color: lch(from var(--tw-bg-color) calc(l + <amount>) c h / alpha)' },
-  { class: 'bg-lightness-<amount>/lab', styles: 'background-color: lab(from var(--tw-bg-color) calc(l + <amount>) a b / alpha)' },
-  { class: 'bg-lightness-<amount>/oklab', styles: 'background-color: oklab(from var(--tw-bg-color) calc(l + <amount>) a b / alpha)' },
-  { class: 'bg-lightness-<amount>/hsl', styles: 'background-color: hsl(from var(--tw-bg-color) h s calc(l + <amount>) / alpha)' },
-  { class: 'bg-lightness-<amount>/hwb', styles: 'background-color: hwb(from var(--tw-bg-color) h calc(w + <amount>) calc(b - <amount>) / alpha)' },
-  { class: 'bg-lightness-<amount>/rgb', styles: 'background-color: rgb(from var(--tw-bg-color) calc(r + <amount>) calc(g + <amount>) calc(b + <amount>) / alpha)' },
-  { class: 'bg-lightness-<amount>/srgb', styles: 'background-color: color(from var(--tw-bg-color) srgb calc(r + <amount>) ...)' },
-  { class: 'bg-lightness-<amount>/srgb-linear', styles: 'background-color: color(from var(--tw-bg-color) srgb-linear calc(r + <amount>) ...)' },
-  { class: 'bg-lightness-<amount>/display-p3', styles: 'background-color: color(from var(--tw-bg-color) display-p3 calc(r + <amount>) ...)' },
-  { class: 'bg-lightness-<amount>/a98-rgb', styles: 'background-color: color(from var(--tw-bg-color) a98-rgb calc(r + <amount>) ...)' },
-  { class: 'bg-lightness-<amount>/prophoto-rgb', styles: 'background-color: color(from var(--tw-bg-color) prophoto-rgb calc(r + <amount>) ...)' },
-  { class: 'bg-lightness-<amount>/rec2020', styles: 'background-color: color(from var(--tw-bg-color) rec2020 calc(r + <amount>) ...)' },
-  { class: 'bg-lightness-<amount>/xyz', styles: 'background-color: color(from var(--tw-bg-color) xyz calc(x + <amount>) ...)' },
-  { class: 'bg-lightness-<amount>/xyz-d50', styles: 'background-color: color(from var(--tw-bg-color) xyz-d50 calc(x + <amount>) ...)' },
-  { class: 'bg-lightness-<amount>/xyz-d65', styles: 'background-color: color(from var(--tw-bg-color) xyz-d65 calc(x + <amount>) ...)' },
-  { class: 'bg-lightness-<amount>/color-mix', styles: 'background-color: color-mix(in oklab, var(--tw-bg-color) 100%, white calc(<amount> * 1%))' },
+  { class: 'bg-lightness-<amount>', styles: '--tw-jib--background-lightness--amount: calc(<amount> * 0.01); background-color: oklch(from var(--tw-jib--background-color) calc(l * (1 - max(amt, 0 - amt)) + max(0, amt)) calc(c * min(1, (1 - max(amt, 0 - amt)) * 5)) h / alpha)' },
+  { class: '-bg-lightness-<amount>', styles: '--tw-jib--background-lightness--amount: calc(<amount> * -0.01); background-color: oklch(from var(--tw-jib--background-color) calc(l * (1 - max(amt, 0 - amt)) + max(0, amt)) calc(c * min(1, (1 - max(amt, 0 - amt)) * 5)) h / alpha)' },
+  { class: 'bg-lightness-<amount>/oklch', styles: 'background-color: oklch(from var(--tw-jib--background-color) calc(l * (1 - max(amt, 0 - amt)) + max(0, amt)) calc(c * min(1, (1 - max(amt, 0 - amt)) * 5)) h / alpha)' },
+  { class: 'bg-lightness-<amount>/lch', styles: 'background-color: lch(from var(--tw-jib--background-color) calc(l * (1 - max(amt, 0 - amt)) + max(0, amt) * 100) calc(c * min(1, (1 - max(amt, 0 - amt)) * 5)) h / alpha)' },
+  { class: 'bg-lightness-<amount>/lab', styles: 'background-color: lab(from var(--tw-jib--background-color) calc(l * (1 - max(amt, 0 - amt)) + max(0, amt) * 100) calc(a * min(1, (1 - max(amt, 0 - amt)) * 5)) calc(b * min(1, (1 - max(amt, 0 - amt)) * 5)) / alpha)' },
+  { class: 'bg-lightness-<amount>/oklab', styles: 'background-color: oklab(from var(--tw-jib--background-color) calc(l * (1 - max(amt, 0 - amt)) + max(0, amt)) calc(a * min(1, (1 - max(amt, 0 - amt)) * 5)) calc(b * min(1, (1 - max(amt, 0 - amt)) * 5)) / alpha)' },
+  { class: 'bg-lightness-<amount>/hsl', styles: 'background-color: hsl(from var(--tw-jib--background-color) h calc(s * min(1, min(l, 100 - l) / max(min(L2, 100 - L2), 0.5))) L2 / alpha) — L2 = l * (1 - max(amt, 0 - amt)) + max(0, amt) * 100' },
+  { class: 'bg-lightness-<amount>/hwb', styles: 'background-color: hwb(from var(--tw-jib--background-color) h calc(w * (1 - max(amt, 0 - amt)) + max(0, amt) * 100) calc(b * (1 - max(amt, 0 - amt)) + max(0, 0 - amt) * 100) / alpha)' },
+  { class: 'bg-lightness-<amount>/rgb', styles: 'background-color: rgb(from var(--tw-jib--background-color) calc(r * (1 - max(amt, 0 - amt)) + max(0, amt) * 255) calc(g * (1 - max(amt, 0 - amt)) + max(0, amt) * 255) calc(b * (1 - max(amt, 0 - amt)) + max(0, amt) * 255) / alpha)' },
+  { class: 'bg-lightness-<amount>/srgb', styles: 'background-color: color(from var(--tw-jib--background-color) srgb calc(r * (1 - max(amt, 0 - amt)) + max(0, amt)) calc(g * (1 - max(amt, 0 - amt)) + max(0, amt)) calc(b * (1 - max(amt, 0 - amt)) + max(0, amt)) / alpha)' },
+  { class: 'bg-lightness-<amount>/srgb-linear', styles: 'background-color: color(from var(--tw-jib--background-color) srgb-linear calc(r * (1 - max(amt, 0 - amt)) + max(0, amt)) calc(g ...) calc(b ...) / alpha)' },
+  { class: 'bg-lightness-<amount>/display-p3', styles: 'background-color: color(from var(--tw-jib--background-color) display-p3 calc(r * (1 - max(amt, 0 - amt)) + max(0, amt)) calc(g ...) calc(b ...) / alpha)' },
+  { class: 'bg-lightness-<amount>/a98-rgb', styles: 'background-color: color(from var(--tw-jib--background-color) a98-rgb calc(r * (1 - max(amt, 0 - amt)) + max(0, amt)) calc(g ...) calc(b ...) / alpha)' },
+  { class: 'bg-lightness-<amount>/prophoto-rgb', styles: 'background-color: color(from var(--tw-jib--background-color) prophoto-rgb calc(r * (1 - max(amt, 0 - amt)) + max(0, amt)) calc(g ...) calc(b ...) / alpha)' },
+  { class: 'bg-lightness-<amount>/rec2020', styles: 'background-color: color(from var(--tw-jib--background-color) rec2020 calc(r * (1 - max(amt, 0 - amt)) + max(0, amt)) calc(g ...) calc(b ...) / alpha)' },
+  { class: 'bg-lightness-<amount>/xyz', styles: 'background-color: color(from var(--tw-jib--background-color) xyz calc(x * (1 - max(amt, 0 - amt)) + max(0, amt)) calc(y ...) calc(z ...) / alpha)' },
+  { class: 'bg-lightness-<amount>/xyz-d50', styles: 'background-color: color(from var(--tw-jib--background-color) xyz-d50 calc(x * (1 - max(amt, 0 - amt)) + max(0, amt)) calc(y ...) calc(z ...) / alpha)' },
+  { class: 'bg-lightness-<amount>/xyz-d65', styles: 'background-color: color(from var(--tw-jib--background-color) xyz-d65 calc(x * (1 - max(amt, 0 - amt)) + max(0, amt)) calc(y ...) calc(z ...) / alpha)' },
+  { class: 'bg-lightness-<amount>/color-mix', styles: 'background-color: color-mix(in oklab, var(--tw-jib--background-color), white calc(amt * 100%))' },
 ]" />
 
 ## Basic Usage

@@ -19,12 +19,14 @@ Included in `@import 'tw-jib-css'`. To import individually:
 
 ## Quick Reference
 
+Formulas use `amt` for `var(--tw-jib--stroke-lightness--amount)` — set to `<amount> × 0.01` (lighten) or `<amount> × −0.01` (darken).
+
 <QuickReference :rows="[
-  { class: 'stroke-lightness-<amount>', styles: 'stroke: oklch(from var(--tw-jib--stroke-color) calc(l + ...) c h / alpha)' },
-  { class: '-stroke-lightness-<amount>', styles: 'stroke: oklch(from var(--tw-jib--stroke-color) calc(l - ...) c h / alpha)' },
-  { class: 'stroke-lightness-<amount>/oklch', styles: 'stroke: oklch(from var(--tw-jib--stroke-color) calc(l + ...) c h / alpha)' },
-  { class: 'stroke-lightness-<amount>/hsl', styles: 'stroke: hsl(from var(--tw-jib--stroke-color) h s calc(l + ...) / alpha)' },
-  { class: 'stroke-lightness-<amount>/color-mix', styles: 'stroke: color-mix(in oklab, var(--tw-jib--stroke-color) ..., white ...)' },
+  { class: 'stroke-lightness-<amount>', styles: 'stroke: oklch(from var(--tw-jib--stroke-color) calc(l * (1 - max(amt, 0 - amt)) + max(0, amt)) calc(c * min(1, (1 - max(amt, 0 - amt)) * 5)) h / alpha)' },
+  { class: '-stroke-lightness-<amount>', styles: 'stroke: oklch(from var(--tw-jib--stroke-color) calc(l * (1 - max(amt, 0 - amt)) + max(0, amt)) calc(c * min(1, (1 - max(amt, 0 - amt)) * 5)) h / alpha)' },
+  { class: 'stroke-lightness-<amount>/oklch', styles: 'stroke: oklch(from var(--tw-jib--stroke-color) calc(l * (1 - max(amt, 0 - amt)) + max(0, amt)) calc(c * min(1, (1 - max(amt, 0 - amt)) * 5)) h / alpha)' },
+  { class: 'stroke-lightness-<amount>/hsl', styles: 'stroke: hsl(from var(--tw-jib--stroke-color) h calc(s * min(1, min(l, 100 - l) / max(min(L2, 100 - L2), 0.5))) L2 / alpha) — L2 = l * (1 - max(amt, 0 - amt)) + max(0, amt) * 100' },
+  { class: 'stroke-lightness-<amount>/color-mix', styles: 'stroke: color-mix(in oklab, var(--tw-jib--stroke-color), white calc(amt * 100%))' },
 ]" />
 
 ## Basic Usage

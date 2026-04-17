@@ -19,10 +19,10 @@ Included in `@import 'tw-jib-css'`. To import individually:
 
 <QuickReference :rows="[
   { class: 'scrollbar-auto', styles: 'scrollbar-color: auto' },
-  { class: 'scrollbar-thumb-<color>', styles: '--tw-scrollbar-thumb: <color>; scrollbar-color: var(--tw-scrollbar-thumb) var(--tw-scrollbar-track)' },
-  { class: 'scrollbar-thumb-<color>/<opacity>', styles: '--tw-scrollbar-thumb: <color> at <opacity>% opacity' },
-  { class: 'scrollbar-track-<color>', styles: '--tw-scrollbar-track: <color>; scrollbar-color: var(--tw-scrollbar-thumb) var(--tw-scrollbar-track)' },
-  { class: 'scrollbar-track-<color>/<opacity>', styles: '--tw-scrollbar-track: <color> at <opacity>% opacity' },
+  { class: 'scrollbar-thumb-<color>', styles: '--tw-jib--scrollbar-thumb: <color>; scrollbar-color: var(--tw-jib--scrollbar-thumb) var(--tw-jib--scrollbar-track)' },
+  { class: 'scrollbar-thumb-<color>/<opacity>', styles: '--tw-jib--scrollbar-thumb: --alpha(<color> / calc(<opacity> * 1%))' },
+  { class: 'scrollbar-track-<color>', styles: '--tw-jib--scrollbar-track: <color>; scrollbar-color: var(--tw-jib--scrollbar-thumb) var(--tw-jib--scrollbar-track)' },
+  { class: 'scrollbar-track-<color>/<opacity>', styles: '--tw-jib--scrollbar-track: --alpha(<color> / calc(<opacity> * 1%))' },
   { class: 'scrollbar-width-auto', styles: 'scrollbar-width: auto' },
   { class: 'scrollbar-width-thin', styles: 'scrollbar-width: thin' },
   { class: 'scrollbar-width-none', styles: 'scrollbar-width: none' },

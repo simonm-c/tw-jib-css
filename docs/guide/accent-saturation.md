@@ -19,12 +19,14 @@ Included in `@import 'tw-jib-css'`. To import individually:
 
 ## Quick Reference
 
+Formulas use `amt` for `var(--tw-jib--accent-saturation--amount)` — set to `<amount> × 0.01` (saturate) or `<amount> × −0.01` (desaturate).
+
 <QuickReference :rows="[
-  { class: 'accent-saturation-<amount>', styles: 'accent-color: oklch(from var(--tw-jib--accent-color) l calc(c ...) h / alpha)' },
-  { class: '-accent-saturation-<amount>', styles: 'accent-color: oklch(from var(--tw-jib--accent-color) l calc(c ...) h / alpha)' },
-  { class: 'accent-saturation-<amount>/oklch', styles: 'accent-color: oklch(from var(--tw-jib--accent-color) l calc(c ...) h / alpha)' },
-  { class: 'accent-saturation-<amount>/hsl', styles: 'accent-color: hsl(from var(--tw-jib--accent-color) h calc(s ...) l / alpha)' },
-  { class: 'accent-saturation-<amount>/color-mix', styles: 'accent-color: color-mix(in oklch, ...)' },
+  { class: 'accent-saturation-<amount>', styles: 'accent-color: oklch(from var(--tw-jib--accent-color) l calc(c * (1 - max(amt, 0 - amt)) + max(0, amt) * 0.4) h / alpha)' },
+  { class: '-accent-saturation-<amount>', styles: 'accent-color: oklch(from var(--tw-jib--accent-color) l calc(c * (1 - max(amt, 0 - amt)) + max(0, amt) * 0.4) h / alpha)' },
+  { class: 'accent-saturation-<amount>/oklch', styles: 'accent-color: oklch(from var(--tw-jib--accent-color) l calc(c * (1 - max(amt, 0 - amt)) + max(0, amt) * 0.4) h / alpha)' },
+  { class: 'accent-saturation-<amount>/hsl', styles: 'accent-color: hsl(from var(--tw-jib--accent-color) h calc(s * (1 - max(amt, 0 - amt)) + max(0, amt) * 100) l / alpha)' },
+  { class: 'accent-saturation-<amount>/color-mix', styles: 'accent-color: color-mix(in oklch, var(--tw-jib--accent-color), gray calc(max(0, 0 - amt) * 100%))' },
 ]" />
 
 ## Basic Usage

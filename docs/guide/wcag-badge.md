@@ -138,11 +138,11 @@ Place the badge on the same element that has the text colour, or on a child elem
 
 ## How It Works
 
-The badge reads the captured `--tw-jib--bg-color` and `--tw-jib--text-color` custom properties (set by `bg-*` and `text-*` utilities in `core.css`), and runs them through an exact contrast pipeline:
+The badge reads the captured `--tw-jib--background-color` and `--tw-jib--text-color` custom properties (set by `bg-*` and `text-*` utilities in `core.css`), and runs them through an exact contrast pipeline:
 
-1. **`--luminance-packed()`** — packs each colour's relative luminance into R and its complement into G, so a single `color-mix()` becomes a luminance subtraction.
-2. **`--contrast-test-all()`** — a multi-channel `color-mix()` tests all three WCAG thresholds (3, 4.5, 7) simultaneously. Each output channel encodes one threshold; running both directional orderings handles either-can-be-lighter without branching.
-3. **`--wcag-rating()`** — matches the result colour against the four exact states: white = AAA, yellow = AA, red = AA Large, black = Fail (returns `<string>`).
+1. **`--tw-jib--luminance-packed()`** — packs each colour's relative luminance into R and its complement into G, so a single `color-mix()` becomes a luminance subtraction.
+2. **`--tw-jib--contrast-test-all()`** — a multi-channel `color-mix()` tests all three WCAG thresholds (3, 4.5, 7) simultaneously. Each output channel encodes one threshold; running both directional orderings handles either-can-be-lighter without branching.
+3. **`--tw-jib--wcag-rating()`** — matches the result colour against the four exact states: white = AAA, yellow = AA, red = AA Large, black = Fail (returns `<string>`).
 4. **`::after` pseudo-element** — `content: var(--tw-jib--wcag-rating)` displays the rating.
 5. **Conditional badge colour** — `if(style())` maps the rating to green/yellow/orange/red using TW colour tokens; badge text is black on yellow (AA), white on all others.
 

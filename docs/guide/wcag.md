@@ -445,12 +445,12 @@ Because both utilities read CSS custom properties, they update live when the bac
 
 The utility pipeline is built from composable CSS `@function` definitions:
 
-1. **`--linearize()`** — undoes sRGB gamma via `pow()`.
-2. **`--luminance-packed()`** — packs `L` into R and `255−L` into G in a single colour, so the next step can treat luminance subtraction as a `color-mix()`.
-3. **`--contrast-test-directed()`** — multi-channel `color-mix()` that scales each output channel by a different WCAG threshold (R=3, G=4.5, B=7), testing all three levels in one operation.
-4. **`--contrast-test-all()`** — runs the directed test in both orderings and combines them; the output colour _is_ the rating (white = AAA, yellow = AA, red = AA Large, black = Fail).
-5. **`--wcag-rating()`** — matches the result colour and returns a `<string>` for `content:` / `style()` use.
-6. **`--get-wcag-lum()`** — banded threshold chain used only to seed the shade finder's target computation (never on the contrast hot path).
-7. **`--accessible-shade-lg / -aa / -aaa`** — solve the WCAG formula for a target oklch lightness, push the seed by a chroma-correction factor, generate a tight bracket of candidates via `--lightness()`, and verify each with `--contrast-test-all()`. The crossover at `--luminance-threshold(bg, 0.18)` decides whether to search lighter or darker first.
+1. **`--tw-jib--linearize()`** — undoes sRGB gamma via `pow()`.
+2. **`--tw-jib--luminance-packed()`** — packs `L` into R and `255−L` into G in a single colour, so the next step can treat luminance subtraction as a `color-mix()`.
+3. **`--tw-jib--contrast-test-directed()`** — multi-channel `color-mix()` that scales each output channel by a different WCAG threshold (R=3, G=4.5, B=7), testing all three levels in one operation.
+4. **`--tw-jib--contrast-test-all()`** — runs the directed test in both orderings and combines them; the output colour _is_ the rating (white = AAA, yellow = AA, red = AA Large, black = Fail).
+5. **`--tw-jib--wcag-rating()`** — matches the result colour and returns a `<string>` for `content:` / `style()` use.
+6. **`--tw-jib--get-wcag-luminance()`** — banded threshold chain used only to seed the shade finder's target computation (never on the contrast hot path).
+7. **`--tw-jib--accessible-shade-large / -aa / -aaa`** — solve the WCAG formula for a target oklch lightness, push the seed by a chroma-correction factor, generate a tight bracket of candidates via `--tw-jib--lightness()`, and verify each with `--tw-jib--contrast-test-all()`. The crossover at `--tw-jib--luminance-threshold(background, 0.18)` decides whether to search lighter or darker first.
 
 The contrast comparison is mathematically exact — no number is ever extracted from a colour, so there is no quantization error, no safety margin, and no uncertainty band. All functions are defined in `wcag/_functions.css` and can be imported independently for use in custom CSS.

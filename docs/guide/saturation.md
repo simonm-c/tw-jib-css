@@ -19,16 +19,20 @@ Included in `@import 'tw-jib-css'`. To import individually:
 
 ## Quick Reference
 
+<!-- llm-context: In the formulas below, `amt` is shorthand for `var(--tw-jib--background-saturation--amount)`, set to `<amount> × 0.01` (saturate) or `<amount> × −0.01` (desaturate). `gray` = `0.213 * r + 0.715 * g + 0.072 * b` (relative luminance). -->
+
+Formulas use `amt` for `var(--tw-jib--background-saturation--amount)` — set to `<amount> × 0.01` (saturate) or `<amount> × −0.01` (desaturate). In RGB formulas, `gray` = `0.213r + 0.715g + 0.072b`.
+
 <QuickReference :rows="[
-  { class: 'bg-saturation-<amount>', styles: 'background-color: oklch(from var(--tw-jib--bg-color) l calc(c * (1 - abs) + max(0, amt) * 0.4) h / alpha)' },
-  { class: '-bg-saturation-<amount>', styles: 'background-color: oklch(from var(--tw-jib--bg-color) l calc(c * (1 - abs) - ...) h / alpha)' },
-  { class: 'bg-saturation-<amount>/oklch', styles: 'background-color: oklch(from ... l calc(c ...) h / alpha)' },
-  { class: 'bg-saturation-<amount>/lch', styles: 'background-color: lch(from ... l calc(c ...) h / alpha)' },
-  { class: 'bg-saturation-<amount>/hsl', styles: 'background-color: hsl(from ... h calc(s ...) l / alpha)' },
-  { class: 'bg-saturation-<amount>/oklab', styles: 'background-color: oklab(from ... l calc(a * (1 + amt)) calc(b * (1 + amt)) / alpha)' },
-  { class: 'bg-saturation-<amount>/lab', styles: 'background-color: lab(from ... l calc(a * (1 + amt)) calc(b * (1 + amt)) / alpha)' },
-  { class: 'bg-saturation-<amount>/rgb', styles: 'background-color: rgb(from ... calc(r + amt * (r - gray)) calc(g + amt * (g - gray)) calc(b + amt * (b - gray)) / alpha)' },
-  { class: 'bg-saturation-<amount>/color-mix', styles: 'background-color: color-mix(in oklch, ...)' },
+  { class: 'bg-saturation-<amount>', styles: '--tw-jib--background-saturation--amount: calc(<amount> * 0.01); background-color: oklch(from var(--tw-jib--background-color) l calc(c * (1 - max(amt, 0 - amt)) + max(0, amt) * 0.4) h / alpha)' },
+  { class: '-bg-saturation-<amount>', styles: '--tw-jib--background-saturation--amount: calc(<amount> * -0.01); background-color: oklch(from var(--tw-jib--background-color) l calc(c * (1 - max(amt, 0 - amt)) + max(0, amt) * 0.4) h / alpha)' },
+  { class: 'bg-saturation-<amount>/oklch', styles: 'background-color: oklch(from var(--tw-jib--background-color) l calc(c * (1 - max(amt, 0 - amt)) + max(0, amt) * 0.4) h / alpha)' },
+  { class: 'bg-saturation-<amount>/lch', styles: 'background-color: lch(from var(--tw-jib--background-color) l calc(c * (1 - max(amt, 0 - amt)) + max(0, amt) * 150) h / alpha)' },
+  { class: 'bg-saturation-<amount>/hsl', styles: 'background-color: hsl(from var(--tw-jib--background-color) h calc(s * (1 - max(amt, 0 - amt)) + max(0, amt) * 100) l / alpha)' },
+  { class: 'bg-saturation-<amount>/oklab', styles: 'background-color: oklab(from var(--tw-jib--background-color) l calc(a * (1 - max(amt, 0 - amt)) + max(0, amt) * 0.4 * sign(a)) calc(b * (1 - max(amt, 0 - amt)) + max(0, amt) * 0.4 * sign(b)) / alpha)' },
+  { class: 'bg-saturation-<amount>/lab', styles: 'background-color: lab(from var(--tw-jib--background-color) l calc(a * (1 - max(amt, 0 - amt)) + max(0, amt) * 125 * sign(a)) calc(b * (1 - max(amt, 0 - amt)) + max(0, amt) * 125 * sign(b)) / alpha)' },
+  { class: 'bg-saturation-<amount>/rgb', styles: 'background-color: rgb(from var(--tw-jib--background-color) calc(r * (1 - max(amt, 0 - amt)) + max(0, amt) * clamp(0, sign(r - gray), 1) * 255 + max(0, 0 - amt) * gray) calc(g ...) calc(b ...) / alpha)' },
+  { class: 'bg-saturation-<amount>/color-mix', styles: 'background-color: color-mix(in oklch, var(--tw-jib--background-color), gray calc(max(0, 0 - amt) * 100%))' },
 ]" />
 
 ## Basic Usage

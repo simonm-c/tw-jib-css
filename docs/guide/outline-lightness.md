@@ -19,12 +19,14 @@ Included in `@import 'tw-jib-css'`. To import individually:
 
 ## Quick Reference
 
+Formulas use `amt` for `var(--tw-jib--outline-lightness--amount)` — set to `<amount> × 0.01` (lighten) or `<amount> × −0.01` (darken).
+
 <QuickReference :rows="[
-  { class: 'outline-lightness-<amount>', styles: 'outline-color: oklch(from var(--tw-jib--outline-color) calc(l + ...) c h / alpha)' },
-  { class: '-outline-lightness-<amount>', styles: 'outline-color: oklch(from var(--tw-jib--outline-color) calc(l - ...) c h / alpha)' },
-  { class: 'outline-lightness-<amount>/oklch', styles: 'outline-color: oklch(from var(--tw-jib--outline-color) calc(l + ...) c h / alpha)' },
-  { class: 'outline-lightness-<amount>/hsl', styles: 'outline-color: hsl(from var(--tw-jib--outline-color) h s calc(l + ...) / alpha)' },
-  { class: 'outline-lightness-<amount>/color-mix', styles: 'outline-color: color-mix(in oklab, var(--tw-jib--outline-color) ..., white ...)' },
+  { class: 'outline-lightness-<amount>', styles: 'outline-color: oklch(from var(--tw-jib--outline-color) calc(l * (1 - max(amt, 0 - amt)) + max(0, amt)) calc(c * min(1, (1 - max(amt, 0 - amt)) * 5)) h / alpha)' },
+  { class: '-outline-lightness-<amount>', styles: 'outline-color: oklch(from var(--tw-jib--outline-color) calc(l * (1 - max(amt, 0 - amt)) + max(0, amt)) calc(c * min(1, (1 - max(amt, 0 - amt)) * 5)) h / alpha)' },
+  { class: 'outline-lightness-<amount>/oklch', styles: 'outline-color: oklch(from var(--tw-jib--outline-color) calc(l * (1 - max(amt, 0 - amt)) + max(0, amt)) calc(c * min(1, (1 - max(amt, 0 - amt)) * 5)) h / alpha)' },
+  { class: 'outline-lightness-<amount>/hsl', styles: 'outline-color: hsl(from var(--tw-jib--outline-color) h calc(s * min(1, min(l, 100 - l) / max(min(L2, 100 - L2), 0.5))) L2 / alpha) — L2 = l * (1 - max(amt, 0 - amt)) + max(0, amt) * 100' },
+  { class: 'outline-lightness-<amount>/color-mix', styles: 'outline-color: color-mix(in oklab, var(--tw-jib--outline-color), white calc(amt * 100%))' },
 ]" />
 
 ## Basic Usage

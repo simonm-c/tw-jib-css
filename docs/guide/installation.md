@@ -56,14 +56,19 @@ Add the experimental entry point for cutting-edge CSS features with limited brow
 | Module | Import Path | Stability |
 | --- | --- | --- |
 | Border Gradient | `tw-jib-css/border-gradient` | Stable |
-| Color Transforms | `tw-jib-css/lightness` | Stable |
+| Lightness | `tw-jib-css/lightness` | Stable |
+| Saturation | `tw-jib-css/saturation` | Stable |
+| Hue Rotate | `tw-jib-css/hue-rotate` | Stable |
 | Ripple | `tw-jib-css/ripple` | Stable |
+| Comic Dots | `tw-jib-css/comic` | Stable |
+| Pixel | `tw-jib-css/pixel` | Stable |
 | Border Style | `tw-jib-css/border-style` | Stable |
 | Scrollbar | `tw-jib-css/scrollbar` | Stable |
 | Grid | `tw-jib-css/grid` | Stable |
 | Corner Shape | `tw-jib-css/experimental/corner` | Experimental |
 | Interpolate Size | `tw-jib-css/experimental/interpolate` | Experimental |
 | Base Select Picker | `tw-jib-css/experimental/picker` | Experimental |
+| Accessible Shade | `tw-jib-css/experimental/wcag` | Experimental |
 
 ## Requirements
 

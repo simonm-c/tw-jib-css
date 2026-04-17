@@ -19,13 +19,15 @@ Included in `@import 'tw-jib-css'`. To import individually:
 
 ## Quick Reference
 
+Formulas use `amt` for `var(--tw-jib--stroke-hue--amount)`. In oklab/lab, trig rotation: `cos(amt * 1deg)`, `sin(amt * 1deg)`. RGB uses a 3×3 luma-preserving matrix (0.213, 0.715, 0.072).
+
 <QuickReference :rows="[
-  { class: 'stroke-hue-rotate-<deg>', styles: 'stroke: oklch(from var(--tw-jib--stroke-color) l c calc(h + <deg>) / alpha)' },
-  { class: '-stroke-hue-rotate-<deg>', styles: 'stroke: oklch(from var(--tw-jib--stroke-color) l c calc(h - <deg>) / alpha)' },
-  { class: 'stroke-hue-rotate-<deg>/oklch', styles: 'stroke: oklch(from ... l c calc(h + <deg>) / alpha)' },
-  { class: 'stroke-hue-rotate-<deg>/hsl', styles: 'stroke: hsl(from ... calc(h + <deg>) s l / alpha)' },
-  { class: 'stroke-hue-rotate-<deg>/lab', styles: 'stroke: lab(from ... l calc(a·cosθ − b·sinθ) calc(a·sinθ + b·cosθ) / alpha)' },
-  { class: 'stroke-hue-rotate-<deg>/rgb', styles: 'stroke: rgb(from ... <SVG hueRotate matrix>)' },
+  { class: 'stroke-hue-rotate-<deg>', styles: 'stroke: oklch(from var(--tw-jib--stroke-color) l c calc(h + amt) / alpha)' },
+  { class: '-stroke-hue-rotate-<deg>', styles: 'stroke: oklch(from var(--tw-jib--stroke-color) l c calc(h + amt) / alpha)' },
+  { class: 'stroke-hue-rotate-<deg>/oklch', styles: 'stroke: oklch(from var(--tw-jib--stroke-color) l c calc(h + amt) / alpha)' },
+  { class: 'stroke-hue-rotate-<deg>/hsl', styles: 'stroke: hsl(from var(--tw-jib--stroke-color) calc(h + amt) s l / alpha)' },
+  { class: 'stroke-hue-rotate-<deg>/lab', styles: 'stroke: lab(from var(--tw-jib--stroke-color) l calc(a * cos(amt * 1deg) - b * sin(amt * 1deg)) calc(a * sin(amt * 1deg) + b * cos(amt * 1deg)) / alpha)' },
+  { class: 'stroke-hue-rotate-<deg>/rgb', styles: 'stroke: rgb(from var(--tw-jib--stroke-color) calc(r*(.213+.787*cos) + g*(.715-.715*cos-.715*sin) + b*(.072-.072*cos+.928*sin)) calc(r*(.213-.213*cos+.143*sin) + g*(.715+.285*cos+.140*sin) + b*(.072-.072*cos-.283*sin)) calc(r*(.213-.213*cos-.787*sin) + g*(.715-.715*cos+.715*sin) + b*(.072+.928*cos+.072*sin)) / alpha)' },
 ]" />
 
 ## Basic Usage

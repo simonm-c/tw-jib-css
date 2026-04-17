@@ -18,27 +18,27 @@ Included in `@import 'tw-jib-css'`. To import individually:
 ## Quick Reference
 
 <QuickReference :rows="[
-  { class: 'border-linear-to-t', styles: '--tw-border-gradient: linear-gradient(to top, var(--tw-border-gradient-stops))' },
-  { class: 'border-linear-to-tr', styles: '--tw-border-gradient: linear-gradient(to top right, var(--tw-border-gradient-stops))' },
-  { class: 'border-linear-to-r', styles: '--tw-border-gradient: linear-gradient(to right, var(--tw-border-gradient-stops))' },
-  { class: 'border-linear-to-br', styles: '--tw-border-gradient: linear-gradient(to bottom right, var(--tw-border-gradient-stops))' },
-  { class: 'border-linear-to-b', styles: '--tw-border-gradient: linear-gradient(to bottom, var(--tw-border-gradient-stops))' },
-  { class: 'border-linear-to-bl', styles: '--tw-border-gradient: linear-gradient(to bottom left, var(--tw-border-gradient-stops))' },
-  { class: 'border-linear-to-l', styles: '--tw-border-gradient: linear-gradient(to left, var(--tw-border-gradient-stops))' },
-  { class: 'border-linear-to-tl', styles: '--tw-border-gradient: linear-gradient(to top left, var(--tw-border-gradient-stops))' },
-  { class: 'border-linear-<angle>', styles: '--tw-border-gradient: linear-gradient(<angle>deg, var(--tw-border-gradient-stops))' },
-  { class: 'border-radial', styles: '--tw-border-gradient: radial-gradient(var(--tw-border-gradient-stops))' },
-  { class: 'border-radial-[<value>]', styles: '--tw-border-gradient: radial-gradient(<value>, var(--tw-border-gradient-stops))' },
-  { class: 'border-conic-<angle>', styles: '--tw-border-gradient: conic-gradient(from <angle>deg, var(--tw-border-gradient-stops))' },
-  { class: 'border-from-<color>', styles: '--tw-border-gradient-from: <color>' },
-  { class: 'border-from-<percentage>', styles: '--tw-border-gradient-from-position: <percentage>' },
-  { class: 'border-from-[<value>]', styles: '--tw-border-gradient-from: <value>' },
-  { class: 'border-via-<color>', styles: '--tw-border-gradient-via: <color>' },
-  { class: 'border-via-<percentage>', styles: '--tw-border-gradient-via-position: <percentage>' },
-  { class: 'border-via-[<value>]', styles: '--tw-border-gradient-via: <value>' },
-  { class: 'border-to-<color>', styles: '--tw-border-gradient-to: <color>' },
-  { class: 'border-to-<percentage>', styles: '--tw-border-gradient-to-position: <percentage>' },
-  { class: 'border-to-[<value>]', styles: '--tw-border-gradient-to: <value>' },
+  { class: 'border-linear-to-t', styles: '--tw-jib--border-gradient: linear-gradient(to top var(--tw-jib--gradient-interpolation), var(--tw-jib--border-gradient-stops))' },
+  { class: 'border-linear-to-tr', styles: '--tw-jib--border-gradient: linear-gradient(to top right var(--tw-jib--gradient-interpolation), var(--tw-jib--border-gradient-stops))' },
+  { class: 'border-linear-to-r', styles: '--tw-jib--border-gradient: linear-gradient(to right var(--tw-jib--gradient-interpolation), var(--tw-jib--border-gradient-stops))' },
+  { class: 'border-linear-to-br', styles: '--tw-jib--border-gradient: linear-gradient(to bottom right var(--tw-jib--gradient-interpolation), var(--tw-jib--border-gradient-stops))' },
+  { class: 'border-linear-to-b', styles: '--tw-jib--border-gradient: linear-gradient(to bottom var(--tw-jib--gradient-interpolation), var(--tw-jib--border-gradient-stops))' },
+  { class: 'border-linear-to-bl', styles: '--tw-jib--border-gradient: linear-gradient(to bottom left var(--tw-jib--gradient-interpolation), var(--tw-jib--border-gradient-stops))' },
+  { class: 'border-linear-to-l', styles: '--tw-jib--border-gradient: linear-gradient(to left var(--tw-jib--gradient-interpolation), var(--tw-jib--border-gradient-stops))' },
+  { class: 'border-linear-to-tl', styles: '--tw-jib--border-gradient: linear-gradient(to top left var(--tw-jib--gradient-interpolation), var(--tw-jib--border-gradient-stops))' },
+  { class: 'border-linear-<angle>', styles: '--tw-jib--border-gradient: linear-gradient(<angle>deg var(--tw-jib--gradient-interpolation), var(--tw-jib--border-gradient-stops))' },
+  { class: 'border-radial', styles: '--tw-jib--border-gradient: radial-gradient(var(--tw-jib--gradient-interpolation), var(--tw-jib--border-gradient-stops))' },
+  { class: 'border-radial-[<value>]', styles: '--tw-jib--border-gradient: radial-gradient(<value>, var(--tw-jib--border-gradient-stops))' },
+  { class: 'border-conic-<angle>', styles: '--tw-jib--border-gradient: conic-gradient(from <angle>deg var(--tw-jib--gradient-interpolation), var(--tw-jib--border-gradient-stops))' },
+  { class: 'border-from-<color>', styles: '--tw-jib--border-gradient-from: <color>' },
+  { class: 'border-from-<percentage>', styles: '--tw-jib--border-gradient-from-position: <percentage>' },
+  { class: 'border-from-[<value>]', styles: '--tw-jib--border-gradient-from: <value>' },
+  { class: 'border-via-<color>', styles: '--tw-jib--border-gradient-via: <color>' },
+  { class: 'border-via-<percentage>', styles: '--tw-jib--border-gradient-via-position: <percentage>' },
+  { class: 'border-via-[<value>]', styles: '--tw-jib--border-gradient-via: <value>' },
+  { class: 'border-to-<color>', styles: '--tw-jib--border-gradient-to: <color>' },
+  { class: 'border-to-<percentage>', styles: '--tw-jib--border-gradient-to-position: <percentage>' },
+  { class: 'border-to-[<value>]', styles: '--tw-jib--border-gradient-to: <value>' },
 ]" />
 
 ## Basic Usage
@@ -86,7 +86,7 @@ Tailwind gradient backgrounds and border gradients coexist — the background gr
 
 #### Inherited backgrounds
 
-The background colour does not inherit from parent elements. The `--tw-bg-color` custom property is registered with `inherits: false`, so a child element without its own `bg-*` class gets the initial value (`canvas`) rather than the parent's colour:
+The background colour does not inherit from parent elements. The `--tw-jib--background-image` custom property is registered with `inherits: false`, so a child element without its own `bg-*` class gets the initial value (`canvas`) rather than the parent's colour:
 
 <Example>
   <div class="bg-slate-800 rounded-xl p-6">

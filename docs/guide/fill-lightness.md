@@ -19,12 +19,14 @@ Included in `@import 'tw-jib-css'`. To import individually:
 
 ## Quick Reference
 
+Formulas use `amt` for `var(--tw-jib--fill-lightness--amount)` — set to `<amount> × 0.01` (lighten) or `<amount> × −0.01` (darken).
+
 <QuickReference :rows="[
-  { class: 'fill-lightness-<amount>', styles: 'fill: oklch(from var(--tw-jib--fill-color) calc(l + ...) c h / alpha)' },
-  { class: '-fill-lightness-<amount>', styles: 'fill: oklch(from var(--tw-jib--fill-color) calc(l - ...) c h / alpha)' },
-  { class: 'fill-lightness-<amount>/oklch', styles: 'fill: oklch(from var(--tw-jib--fill-color) calc(l + ...) c h / alpha)' },
-  { class: 'fill-lightness-<amount>/hsl', styles: 'fill: hsl(from var(--tw-jib--fill-color) h s calc(l + ...) / alpha)' },
-  { class: 'fill-lightness-<amount>/color-mix', styles: 'fill: color-mix(in oklab, var(--tw-jib--fill-color) ..., white ...)' },
+  { class: 'fill-lightness-<amount>', styles: 'fill: oklch(from var(--tw-jib--fill-color) calc(l * (1 - max(amt, 0 - amt)) + max(0, amt)) calc(c * min(1, (1 - max(amt, 0 - amt)) * 5)) h / alpha)' },
+  { class: '-fill-lightness-<amount>', styles: 'fill: oklch(from var(--tw-jib--fill-color) calc(l * (1 - max(amt, 0 - amt)) + max(0, amt)) calc(c * min(1, (1 - max(amt, 0 - amt)) * 5)) h / alpha)' },
+  { class: 'fill-lightness-<amount>/oklch', styles: 'fill: oklch(from var(--tw-jib--fill-color) calc(l * (1 - max(amt, 0 - amt)) + max(0, amt)) calc(c * min(1, (1 - max(amt, 0 - amt)) * 5)) h / alpha)' },
+  { class: 'fill-lightness-<amount>/hsl', styles: 'fill: hsl(from var(--tw-jib--fill-color) h calc(s * min(1, min(l, 100 - l) / max(min(L2, 100 - L2), 0.5))) L2 / alpha) — L2 = l * (1 - max(amt, 0 - amt)) + max(0, amt) * 100' },
+  { class: 'fill-lightness-<amount>/color-mix', styles: 'fill: color-mix(in oklab, var(--tw-jib--fill-color), white calc(amt * 100%))' },
 ]" />
 
 ## Basic Usage

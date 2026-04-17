@@ -73,6 +73,10 @@
       "style": "./src/grid.css",
       "default": "./src/grid.css"
     },
+    "./comic": {
+      "style": "./src/comic.css",
+      "default": "./src/comic.css"
+    },
     "./pixel": {
       "style": "./src/pixel.css",
       "default": "./src/pixel.css"

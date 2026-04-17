@@ -23,19 +23,21 @@ Border lightness sets `border-color` directly and cannot be combined with `borde
 
 ## Quick Reference
 
+Formulas use `amt` for `var(--tw-jib--border-lightness--amount)` — set to `<amount> × 0.01` (lighten) or `<amount> × −0.01` (darken).
+
 <QuickReference :rows="[
-  { class: 'border-lightness-<amount>', styles: 'border-color: oklch(from var(--tw-jib--border-color) calc(l + ...) c h / alpha)' },
-  { class: '-border-lightness-<amount>', styles: 'border-color: oklch(from var(--tw-jib--border-color) calc(l - ...) c h / alpha)' },
-  { class: 'border-lightness-<amount>/oklch', styles: 'border-color: oklch(from var(--tw-jib--border-color) calc(l + ...) c h / alpha)' },
-  { class: 'border-lightness-<amount>/hsl', styles: 'border-color: hsl(from var(--tw-jib--border-color) h s calc(l + ...) / alpha)' },
-  { class: 'border-lightness-<amount>/color-mix', styles: 'border-color: color-mix(in oklab, var(--tw-jib--border-color) ..., white ...)' },
+  { class: 'border-lightness-<amount>', styles: 'border-color: oklch(from var(--tw-jib--border-color) calc(l * (1 - max(amt, 0 - amt)) + max(0, amt)) calc(c * min(1, (1 - max(amt, 0 - amt)) * 5)) h / alpha)' },
+  { class: '-border-lightness-<amount>', styles: 'border-color: oklch(from var(--tw-jib--border-color) calc(l * (1 - max(amt, 0 - amt)) + max(0, amt)) calc(c * min(1, (1 - max(amt, 0 - amt)) * 5)) h / alpha)' },
+  { class: 'border-lightness-<amount>/oklch', styles: 'border-color: oklch(from var(--tw-jib--border-color) calc(l * (1 - max(amt, 0 - amt)) + max(0, amt)) calc(c * min(1, (1 - max(amt, 0 - amt)) * 5)) h / alpha)' },
+  { class: 'border-lightness-<amount>/hsl', styles: 'border-color: hsl(from var(--tw-jib--border-color) h calc(s * min(1, min(l, 100 - l) / max(min(L2, 100 - L2), 0.5))) L2 / alpha) — L2 = l * (1 - max(amt, 0 - amt)) + max(0, amt) * 100' },
+  { class: 'border-lightness-<amount>/color-mix', styles: 'border-color: color-mix(in oklab, var(--tw-jib--border-color), white calc(amt * 100%))' },
 ]" />
 
 ## Basic Usage
 
 ### Lighten
 
-Set a base outline colour with `outline-{color}`, then lighten it with `border-lightness-{amount}`:
+Set a base border colour with `border-{color}`, then lighten it with `border-lightness-{amount}`:
 
 <Example stretch>
   <div class="flex gap-4">
@@ -266,10 +268,10 @@ Both forms produce identical CSS output. Use whichever reads better in your mark
 
 ```html
 <!-- These are equivalent -->
-<div class="outline-blue-500 border-lightness-20">...</div>
-<div class="outline-blue-500 border-lighten-20">...</div>
+<div class="border-blue-500 border-lightness-20">...</div>
+<div class="border-blue-500 border-lighten-20">...</div>
 
 <!-- These are equivalent -->
-<div class="outline-blue-500 -border-lightness-20">...</div>
-<div class="outline-blue-500 border-darken-20">...</div>
+<div class="border-blue-500 -border-lightness-20">...</div>
+<div class="border-blue-500 border-darken-20">...</div>
 ```

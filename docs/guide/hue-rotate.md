@@ -19,16 +19,18 @@ Included in `@import 'tw-jib-css'`. To import individually:
 
 ## Quick Reference
 
+Formulas use `amt` for `var(--tw-jib--background-hue--amount)` — set to `<deg>` (clockwise) or `-<deg>` (counterclockwise). In oklab/lab, rotation uses trig: `cos(amt * 1deg)`, `sin(amt * 1deg)`. RGB uses a 3×3 luma-preserving matrix (coefficients: 0.213, 0.715, 0.072).
+
 <QuickReference :rows="[
-  { class: 'bg-hue-rotate-<deg>', styles: 'background-color: oklch(from var(--tw-jib--bg-color) l c calc(h + <deg>) / alpha)' },
-  { class: '-bg-hue-rotate-<deg>', styles: 'background-color: oklch(from var(--tw-jib--bg-color) l c calc(h - <deg>) / alpha)' },
-  { class: 'bg-hue-rotate-<deg>/oklch', styles: 'background-color: oklch(from ... l c calc(h + <deg>) / alpha)' },
-  { class: 'bg-hue-rotate-<deg>/lch', styles: 'background-color: lch(from ... l c calc(h + <deg>) / alpha)' },
-  { class: 'bg-hue-rotate-<deg>/hsl', styles: 'background-color: hsl(from ... calc(h + <deg>) s l / alpha)' },
-  { class: 'bg-hue-rotate-<deg>/hwb', styles: 'background-color: hwb(from ... calc(h + <deg>) w b / alpha)' },
-  { class: 'bg-hue-rotate-<deg>/oklab', styles: 'background-color: oklab(from ... l calc(a·cosθ − b·sinθ) calc(a·sinθ + b·cosθ) / alpha)' },
-  { class: 'bg-hue-rotate-<deg>/lab', styles: 'background-color: lab(from ... l calc(a·cosθ − b·sinθ) calc(a·sinθ + b·cosθ) / alpha)' },
-  { class: 'bg-hue-rotate-<deg>/rgb', styles: 'background-color: rgb(from ... <SVG hueRotate matrix>)' },
+  { class: 'bg-hue-rotate-<deg>', styles: '--tw-jib--background-hue--amount: <deg>; background-color: oklch(from var(--tw-jib--background-color) l c calc(h + amt) / alpha)' },
+  { class: '-bg-hue-rotate-<deg>', styles: '--tw-jib--background-hue--amount: calc(<deg> * -1); background-color: oklch(from var(--tw-jib--background-color) l c calc(h + amt) / alpha)' },
+  { class: 'bg-hue-rotate-<deg>/oklch', styles: 'background-color: oklch(from var(--tw-jib--background-color) l c calc(h + amt) / alpha)' },
+  { class: 'bg-hue-rotate-<deg>/lch', styles: 'background-color: lch(from var(--tw-jib--background-color) l c calc(h + amt) / alpha)' },
+  { class: 'bg-hue-rotate-<deg>/hsl', styles: 'background-color: hsl(from var(--tw-jib--background-color) calc(h + amt) s l / alpha)' },
+  { class: 'bg-hue-rotate-<deg>/hwb', styles: 'background-color: hwb(from var(--tw-jib--background-color) calc(h + amt) w b / alpha)' },
+  { class: 'bg-hue-rotate-<deg>/oklab', styles: 'background-color: oklab(from var(--tw-jib--background-color) l calc(a * cos(amt * 1deg) - b * sin(amt * 1deg)) calc(a * sin(amt * 1deg) + b * cos(amt * 1deg)) / alpha)' },
+  { class: 'bg-hue-rotate-<deg>/lab', styles: 'background-color: lab(from var(--tw-jib--background-color) l calc(a * cos(amt * 1deg) - b * sin(amt * 1deg)) calc(a * sin(amt * 1deg) + b * cos(amt * 1deg)) / alpha)' },
+  { class: 'bg-hue-rotate-<deg>/rgb', styles: 'background-color: rgb(from var(--tw-jib--background-color) calc(r*(.213+.787*cos) + g*(.715-.715*cos-.715*sin) + b*(.072-.072*cos+.928*sin)) calc(r*(.213-.213*cos+.143*sin) + g*(.715+.285*cos+.140*sin) + b*(.072-.072*cos-.283*sin)) calc(r*(.213-.213*cos-.787*sin) + g*(.715-.715*cos+.715*sin) + b*(.072+.928*cos+.072*sin)) / alpha)' },
 ]" />
 
 ## Basic Usage

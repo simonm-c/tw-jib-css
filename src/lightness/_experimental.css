@@ -16,7 +16,7 @@
  * @function definitions — color-space-specific lightness transforms
  * ========================================================================= */
 
-@function --oklch-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 ) returns <color> {
+@function --tw-jib--oklch-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 ) returns <color> {
   result: oklch(
     from var(--color)
     calc(l * (1 - max(calc(var(--amount) * 0.01), calc(var(--amount) * -0.01))) + max(0, calc(var(--amount) * 0.01)))
@@ -25,7 +25,7 @@
   );
 }
 
-@function --lch-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
+@function --tw-jib--lch-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: lch(
     from var(--color)
@@ -35,7 +35,7 @@ returns <color> {
   );
 }
 
-@function --lab-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
+@function --tw-jib--lab-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: lab(
     from var(--color)
@@ -46,7 +46,7 @@ returns <color> {
   );
 }
 
-@function --oklab-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
+@function --tw-jib--oklab-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: oklab(
     from var(--color)
@@ -57,7 +57,7 @@ returns <color> {
   );
 }
 
-@function --hsl-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
+@function --tw-jib--hsl-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: hsl(
     from var(--color) h
@@ -78,7 +78,7 @@ returns <color> {
   );
 }
 
-@function --hwb-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
+@function --tw-jib--hwb-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: hwb(
     from var(--color) h
@@ -88,7 +88,7 @@ returns <color> {
   );
 }
 
-@function --rgb-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
+@function --tw-jib--rgb-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: rgb(
     from var(--color)
@@ -99,7 +99,7 @@ returns <color> {
   )
 }
 
-@function --srgb-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
+@function --tw-jib--srgb-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: color(
     from var(--color) srgb
@@ -110,7 +110,7 @@ returns <color> {
   )
 }
 
-@function --srgb-linear-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
+@function --tw-jib--srgb-linear-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: color(
     from var(--color) srgb-linear
@@ -121,7 +121,7 @@ returns <color> {
   )
 }
 
-@function --display-p3-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
+@function --tw-jib--display-p3-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: color(
     from var(--color) display-p3
@@ -132,7 +132,7 @@ returns <color> {
   )
 }
 
-@function --a98-rgb-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
+@function --tw-jib--a98-rgb-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: color(
     from var(--color) a98-rgb
@@ -143,7 +143,7 @@ returns <color> {
   )
 }
 
-@function --prophoto-rgb-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
+@function --tw-jib--prophoto-rgb-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: color(
     from var(--color) prophoto-rgb
@@ -154,7 +154,7 @@ returns <color> {
   )
 }
 
-@function --rec-2020-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
+@function --tw-jib--rec-2020-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: color(
     from var(--color) rec2020
@@ -165,7 +165,7 @@ returns <color> {
   )
 }
 
-@function --xyz-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
+@function --tw-jib--xyz-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: color(
     from var(--color) xyz
@@ -175,7 +175,7 @@ returns <color> {
     / alpha
   )
 }
-@function --xyz-d50-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
+@function --tw-jib--xyz-d50-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: color(
     from var(--color) xyz-d50
@@ -186,7 +186,7 @@ returns <color> {
   )
 }
 
-@function --xyz-d65-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
+@function --tw-jib--xyz-d65-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: color(
     from var(--color) xyz-d65
@@ -197,7 +197,7 @@ returns <color> {
   )
 }
 
-@function --color-mix-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
+@function --tw-jib--color-mix-lightness(--color type(<color>): currentColor, --amount type(<number>): 0 )
 returns <color> {
   result: if(
   style(--amount > 0): color-mix(in oklab, var(--color) min(100%, calc((100 - var(--amount)) * 2%)), white min(100%, calc(var(--amount) * 2%)));
@@ -209,27 +209,27 @@ returns <color> {
  * --lightness() router — dispatches to the correct color-space function
  * ========================================================================= */
 
-@function --lightness(--color type(<color>): currentColor, --amount type(<number>): 0, --interpolation type(<custom-ident>): oklch )
+@function --tw-jib--lightness(--color type(<color>): currentColor, --amount type(<number>): 0, --interpolation type(<custom-ident>): oklch )
 returns <color> {
   result: if(
-  style(--interpolation: oklch): --oklch-lightness(var(--color), var(--amount));
-style(--interpolation: lch): --lch-lightness(var(--color), var(--amount));
-style(--interpolation: lab): --lab-lightness(var(--color), var(--amount));
-style(--interpolation: oklab): --oklab-lightness(var(--color), var(--amount));
-style(--interpolation: hsl): --hsl-lightness(var(--color), var(--amount));
-style(--interpolation: hwb): --hwb-lightness(var(--color), var(--amount));
-style(--interpolation: rgb): --rgb-lightness(var(--color), var(--amount));
-style(--interpolation: srgb): --srgb-lightness(var(--color), var(--amount));
-style(--interpolation: srgb-linear): --srgb-linear-lightness(var(--color), var(--amount));
-style(--interpolation: display-p3): --display-p3-lightness(var(--color), var(--amount));
-style(--interpolation: a98-rgb): --a98-rgb-lightness(var(--color), var(--amount));
-style(--interpolation: prophoto-rgb): --prophoto-rgb-lightness(var(--color), var(--amount));
-style(--interpolation: rec2020): --rec-2020-lightness(var(--color), var(--amount));
-style(--interpolation: xyz): --xyz-lightness(var(--color), var(--amount));
-style(--interpolation: xyz-d50): --xyz-d50-lightness(var(--color), var(--amount));
-style(--interpolation: xyz-d65): --xyz-d65-lightness(var(--color), var(--amount));
-style(--interpolation: color-mix): --color-mix-lightness(var(--color), var(--amount));
-  else: --oklch-lightness(var(--color), var(--amount));
+  style(--interpolation: oklch): --tw-jib--oklch-lightness(var(--color), var(--amount));
+style(--interpolation: lch): --tw-jib--lch-lightness(var(--color), var(--amount));
+style(--interpolation: lab): --tw-jib--lab-lightness(var(--color), var(--amount));
+style(--interpolation: oklab): --tw-jib--oklab-lightness(var(--color), var(--amount));
+style(--interpolation: hsl): --tw-jib--hsl-lightness(var(--color), var(--amount));
+style(--interpolation: hwb): --tw-jib--hwb-lightness(var(--color), var(--amount));
+style(--interpolation: rgb): --tw-jib--rgb-lightness(var(--color), var(--amount));
+style(--interpolation: srgb): --tw-jib--srgb-lightness(var(--color), var(--amount));
+style(--interpolation: srgb-linear): --tw-jib--srgb-linear-lightness(var(--color), var(--amount));
+style(--interpolation: display-p3): --tw-jib--display-p3-lightness(var(--color), var(--amount));
+style(--interpolation: a98-rgb): --tw-jib--a98-rgb-lightness(var(--color), var(--amount));
+style(--interpolation: prophoto-rgb): --tw-jib--prophoto-rgb-lightness(var(--color), var(--amount));
+style(--interpolation: rec2020): --tw-jib--rec-2020-lightness(var(--color), var(--amount));
+style(--interpolation: xyz): --tw-jib--xyz-lightness(var(--color), var(--amount));
+style(--interpolation: xyz-d50): --tw-jib--xyz-d50-lightness(var(--color), var(--amount));
+style(--interpolation: xyz-d65): --tw-jib--xyz-d65-lightness(var(--color), var(--amount));
+style(--interpolation: color-mix): --tw-jib--color-mix-lightness(var(--color), var(--amount));
+  else: --tw-jib--oklch-lightness(var(--color), var(--amount));
 )
 }
 
@@ -239,7 +239,7 @@ style(--interpolation: color-mix): --color-mix-lightness(var(--color), var(--amo
 
 @custom-variant supports-lightness {
   /*test for support of custom functions and if queries*/
-  @supports (background: if(style(--value): red)) and (background: --lightness-oklch(red, 20)) {
+  @supports (background: if(style(--value): red)) and (background: --tw-jib--oklch-lightness(red, 20)) {
     @slot;
   }
 }

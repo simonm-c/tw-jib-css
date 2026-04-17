@@ -87,7 +87,7 @@ async function getElementColor(page: Page, selector: string) {
 }
 
 const SUPPORTS_QUERY =
-  '(background: if(style(--value): red)) and (background: --lightness-oklch(red, 20))';
+  '(background: if(style(--value): red)) and (background: --tw-jib--oklch-lightness(red, 20))';
 
 async function detectFunctionSupport(page: Page): Promise<boolean> {
   return page.evaluate((q) => CSS.supports(q), SUPPORTS_QUERY);

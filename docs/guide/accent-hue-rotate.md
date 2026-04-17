@@ -19,13 +19,15 @@ Included in `@import 'tw-jib-css'`. To import individually:
 
 ## Quick Reference
 
+Formulas use `amt` for `var(--tw-jib--accent-hue--amount)`. In oklab/lab, trig rotation: `cos(amt * 1deg)`, `sin(amt * 1deg)`. RGB uses a 3×3 luma-preserving matrix (0.213, 0.715, 0.072).
+
 <QuickReference :rows="[
-  { class: 'accent-hue-rotate-<deg>', styles: 'accent-color: oklch(from var(--tw-jib--accent-color) l c calc(h + <deg>) / alpha)' },
-  { class: '-accent-hue-rotate-<deg>', styles: 'accent-color: oklch(from var(--tw-jib--accent-color) l c calc(h - <deg>) / alpha)' },
-  { class: 'accent-hue-rotate-<deg>/oklch', styles: 'accent-color: oklch(from ... l c calc(h + <deg>) / alpha)' },
-  { class: 'accent-hue-rotate-<deg>/hsl', styles: 'accent-color: hsl(from ... calc(h + <deg>) s l / alpha)' },
-  { class: 'accent-hue-rotate-<deg>/lab', styles: 'accent-color: lab(from ... l calc(a·cosθ − b·sinθ) calc(a·sinθ + b·cosθ) / alpha)' },
-  { class: 'accent-hue-rotate-<deg>/rgb', styles: 'accent-color: rgb(from ... <SVG hueRotate matrix>)' },
+  { class: 'accent-hue-rotate-<deg>', styles: 'accent-color: oklch(from var(--tw-jib--accent-color) l c calc(h + amt) / alpha)' },
+  { class: '-accent-hue-rotate-<deg>', styles: 'accent-color: oklch(from var(--tw-jib--accent-color) l c calc(h + amt) / alpha)' },
+  { class: 'accent-hue-rotate-<deg>/oklch', styles: 'accent-color: oklch(from var(--tw-jib--accent-color) l c calc(h + amt) / alpha)' },
+  { class: 'accent-hue-rotate-<deg>/hsl', styles: 'accent-color: hsl(from var(--tw-jib--accent-color) calc(h + amt) s l / alpha)' },
+  { class: 'accent-hue-rotate-<deg>/lab', styles: 'accent-color: lab(from var(--tw-jib--accent-color) l calc(a * cos(amt * 1deg) - b * sin(amt * 1deg)) calc(a * sin(amt * 1deg) + b * cos(amt * 1deg)) / alpha)' },
+  { class: 'accent-hue-rotate-<deg>/rgb', styles: 'accent-color: rgb(from var(--tw-jib--accent-color) calc(r*(.213+.787*cos) + g*(.715-.715*cos-.715*sin) + b*(.072-.072*cos+.928*sin)) calc(r*(.213-.213*cos+.143*sin) + g*(.715+.285*cos+.140*sin) + b*(.072-.072*cos-.283*sin)) calc(r*(.213-.213*cos-.787*sin) + g*(.715-.715*cos+.715*sin) + b*(.072+.928*cos+.072*sin)) / alpha)' },
 ]" />
 
 ## Basic Usage

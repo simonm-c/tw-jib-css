@@ -19,12 +19,14 @@ Included in `@import 'tw-jib-css'`. To import individually:
 
 ## Quick Reference
 
+Formulas use `amt` for `var(--tw-jib--fill-saturation--amount)` — set to `<amount> × 0.01` (saturate) or `<amount> × −0.01` (desaturate).
+
 <QuickReference :rows="[
-  { class: 'fill-saturation-<amount>', styles: 'fill: oklch(from var(--tw-jib--fill-color) l calc(c ...) h / alpha)' },
-  { class: '-fill-saturation-<amount>', styles: 'fill: oklch(from var(--tw-jib--fill-color) l calc(c ...) h / alpha)' },
-  { class: 'fill-saturation-<amount>/oklch', styles: 'fill: oklch(from var(--tw-jib--fill-color) l calc(c ...) h / alpha)' },
-  { class: 'fill-saturation-<amount>/hsl', styles: 'fill: hsl(from var(--tw-jib--fill-color) h calc(s ...) l / alpha)' },
-  { class: 'fill-saturation-<amount>/color-mix', styles: 'fill: color-mix(in oklch, ...)' },
+  { class: 'fill-saturation-<amount>', styles: 'fill: oklch(from var(--tw-jib--fill-color) l calc(c * (1 - max(amt, 0 - amt)) + max(0, amt) * 0.4) h / alpha)' },
+  { class: '-fill-saturation-<amount>', styles: 'fill: oklch(from var(--tw-jib--fill-color) l calc(c * (1 - max(amt, 0 - amt)) + max(0, amt) * 0.4) h / alpha)' },
+  { class: 'fill-saturation-<amount>/oklch', styles: 'fill: oklch(from var(--tw-jib--fill-color) l calc(c * (1 - max(amt, 0 - amt)) + max(0, amt) * 0.4) h / alpha)' },
+  { class: 'fill-saturation-<amount>/hsl', styles: 'fill: hsl(from var(--tw-jib--fill-color) h calc(s * (1 - max(amt, 0 - amt)) + max(0, amt) * 100) l / alpha)' },
+  { class: 'fill-saturation-<amount>/color-mix', styles: 'fill: color-mix(in oklch, var(--tw-jib--fill-color), gray calc(max(0, 0 - amt) * 100%))' },
 ]" />
 
 ## Basic Usage

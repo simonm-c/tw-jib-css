@@ -6,33 +6,33 @@
 
 @theme inline {
   --tw-jib--background-color-interpolation-lch: lch(
-    from var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source)))
+    from var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source)))
     calc(l * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)) * 100)
     calc(c * min(1, (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) * 5))
     h / alpha
   );
   --tw-jib--background-color-interpolation-oklch: oklch(
-    from var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source)))
+    from var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source)))
     calc(l * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)))
     calc(c * min(1, (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) * 5))
     h / alpha
   );
   --tw-jib--background-color-interpolation-lab: lab(
-    from var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source)))
+    from var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source)))
     calc(l * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)) * 100)
     calc(a * min(1, (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) * 5))
     calc(b * min(1, (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) * 5))
     / alpha
   );
   --tw-jib--background-color-interpolation-oklab: oklab(
-    from var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source)))
+    from var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source)))
     calc(l * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)))
     calc(a * min(1, (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) * 5))
     calc(b * min(1, (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) * 5))
     / alpha
   );
   --tw-jib--background-color-interpolation-hsl: hsl(
-    from var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))) h
+    from var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))) h
     calc(s
       * min(1,
           min(l, calc(100 - l))
@@ -49,76 +49,76 @@
     / alpha
   );
   --tw-jib--background-color-interpolation-hwb: hwb(
-    from var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))) h
+    from var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))) h
     calc(w * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)) * 100)
     calc(b * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, calc(0 - var(--tw-jib--background-lightness--amount))) * 100)
     / alpha
   );
   --tw-jib--background-color-interpolation-rgb: rgb(
-    from var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source)))
+    from var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source)))
     calc(r * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)) * 255)
     calc(g * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)) * 255)
     calc(b * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)) * 255)
     / alpha
   );
   --tw-jib--background-color-interpolation-srgb: color(
-    from var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))) srgb
+    from var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))) srgb
     calc(r * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)))
     calc(g * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)))
     calc(b * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)))
     / alpha
   );
   --tw-jib--background-color-interpolation-srgb-linear: color(
-    from var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))) srgb-linear
+    from var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))) srgb-linear
     calc(r * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)))
     calc(g * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)))
     calc(b * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)))
     / alpha
   );
   --tw-jib--background-color-interpolation-display-p3: color(
-    from var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))) display-p3
+    from var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))) display-p3
     calc(r * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)))
     calc(g * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)))
     calc(b * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)))
     / alpha
   );
   --tw-jib--background-color-interpolation-a98-rgb: color(
-    from var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))) a98-rgb
+    from var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))) a98-rgb
     calc(r * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)))
     calc(g * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)))
     calc(b * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)))
     / alpha
   );
   --tw-jib--background-color-interpolation-prophoto-rgb: color(
-    from var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))) prophoto-rgb
+    from var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))) prophoto-rgb
     calc(r * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)))
     calc(g * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)))
     calc(b * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)))
     / alpha
   );
   --tw-jib--background-color-interpolation-rec2020: color(
-    from var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))) rec2020
+    from var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))) rec2020
     calc(r * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)))
     calc(g * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)))
     calc(b * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)))
     / alpha
   );
   --tw-jib--background-color-interpolation-xyz: color(
-    from var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))) xyz
+    from var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))) xyz
     calc(x * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)))
     calc(y * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)))
     calc(z * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)))
     / alpha
   );
   --tw-jib--background-color-interpolation-xyz-d50: color(
-    from var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))) xyz-d50
+    from var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))) xyz-d50
     calc(x * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)))
     calc(y * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)))
     calc(z * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)))
     / alpha
   );
   --tw-jib--background-color-interpolation-xyz-d65: color(
-    from var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))) xyz-d65
+    from var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))) xyz-d65
     calc(x * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)))
     calc(y * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)))
     calc(z * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount)))
@@ -151,20 +151,20 @@
 @utility bg-lightness-* {
   &:not(._) {
     --tw-jib--background-lightness--amount: calc(--value(integer, [number]) * 0.01);
-    --tw-jib--bg-color-after-lightness: --modifier(--tw-jib--background-color-interpolation-*);
-    --tw-jib--bg-color: var(--tw-jib--bg-color-after-lightness, var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))));
-    background-color: var(--tw-jib--bg-color);
-    --tw-jib--bg-image: linear-gradient(var(--tw-jib--bg-color) 0 0);
+    --tw-jib--background-color-after-lightness: --modifier(--tw-jib--background-color-interpolation-*);
+    --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
+    background-color: var(--tw-jib--background-color);
+    --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
   }
 }
 
 /* block 2: stable with-modifier path (non-@function browsers) */
 @utility bg-lightness-* {
   &:not(._) {
-    --tw-jib--bg-color-after-lightness: --modifier(--tw-jib--background-color-interpolation-*);
-    --tw-jib--bg-color: var(--tw-jib--bg-color-after-lightness, var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))));
-    background-color: var(--tw-jib--bg-color);
-    --tw-jib--bg-image: linear-gradient(var(--tw-jib--bg-color) 0 0);
+    --tw-jib--background-color-after-lightness: --modifier(--tw-jib--background-color-interpolation-*);
+    --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
+    background-color: var(--tw-jib--background-color);
+    --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
   }
 }
 
@@ -172,8 +172,8 @@
 @utility bg-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--bg-color-after-lightness: --lightness(
-        var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))),
+      --tw-jib--background-color-after-lightness: --tw-jib--lightness(
+        var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))),
         --value(integer, [number]),
         --modifier(
           'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
@@ -182,9 +182,9 @@
           'color-mix'
         )
       );
-      --tw-jib--bg-color: var(--tw-jib--bg-color-after-lightness, var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))));
-      background-color: var(--tw-jib--bg-color);
-      --tw-jib--bg-image: linear-gradient(var(--tw-jib--bg-color) 0 0);
+      --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
+      background-color: var(--tw-jib--background-color);
+      --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
     }
   }
 }
@@ -192,10 +192,10 @@
 /* block 4: stable no-modifier default — oklch */
 @utility bg-lightness-* {
   &:not(._) {
-    --tw-jib--bg-color-after-lightness: oklch(from var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))) calc(l * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) * 5)) h / alpha);
-    --tw-jib--bg-color: var(--tw-jib--bg-color-after-lightness, var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))));
-    background-color: var(--tw-jib--bg-color);
-    --tw-jib--bg-image: linear-gradient(var(--tw-jib--bg-color) 0 0);
+    --tw-jib--background-color-after-lightness: oklch(from var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))) calc(l * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) * 5)) h / alpha);
+    --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
+    background-color: var(--tw-jib--background-color);
+    --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
   }
 }
 
@@ -203,10 +203,10 @@
 @utility bg-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--bg-color-after-lightness: --lightness(var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))), --value(integer, [number]));
-      --tw-jib--bg-color: var(--tw-jib--bg-color-after-lightness, var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))));
-      background-color: var(--tw-jib--bg-color);
-      --tw-jib--bg-image: linear-gradient(var(--tw-jib--bg-color) 0 0);
+      --tw-jib--background-color-after-lightness: --tw-jib--lightness(var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))), --value(integer, [number]));
+      --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
+      background-color: var(--tw-jib--background-color);
+      --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
     }
   }
 }
@@ -218,27 +218,27 @@
 @utility -bg-lightness-* {
   &:not(._) {
     --tw-jib--background-lightness--amount: calc(--value(integer, [number]) * -0.01);
-    --tw-jib--bg-color-after-lightness: --modifier(--tw-jib--background-color-interpolation-*);
-    --tw-jib--bg-color: var(--tw-jib--bg-color-after-lightness, var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))));
-    background-color: var(--tw-jib--bg-color);
-    --tw-jib--bg-image: linear-gradient(var(--tw-jib--bg-color) 0 0);
+    --tw-jib--background-color-after-lightness: --modifier(--tw-jib--background-color-interpolation-*);
+    --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
+    background-color: var(--tw-jib--background-color);
+    --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
   }
 }
 
 @utility -bg-lightness-* {
   &:not(._) {
-    --tw-jib--bg-color-after-lightness: --modifier(--tw-jib--background-color-interpolation-*);
-    --tw-jib--bg-color: var(--tw-jib--bg-color-after-lightness, var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))));
-    background-color: var(--tw-jib--bg-color);
-    --tw-jib--bg-image: linear-gradient(var(--tw-jib--bg-color) 0 0);
+    --tw-jib--background-color-after-lightness: --modifier(--tw-jib--background-color-interpolation-*);
+    --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
+    background-color: var(--tw-jib--background-color);
+    --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
   }
 }
 
 @utility -bg-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--bg-color-after-lightness: --lightness(
-        var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))),
+      --tw-jib--background-color-after-lightness: --tw-jib--lightness(
+        var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))),
         calc(--value(integer, [number]) * -1),
         --modifier(
           'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
@@ -247,29 +247,29 @@
           'color-mix'
         )
       );
-      --tw-jib--bg-color: var(--tw-jib--bg-color-after-lightness, var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))));
-      background-color: var(--tw-jib--bg-color);
-      --tw-jib--bg-image: linear-gradient(var(--tw-jib--bg-color) 0 0);
+      --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
+      background-color: var(--tw-jib--background-color);
+      --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
     }
   }
 }
 
 @utility -bg-lightness-* {
   &:not(._) {
-    --tw-jib--bg-color-after-lightness: oklch(from var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))) calc(l * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) * 5)) h / alpha);
-    --tw-jib--bg-color: var(--tw-jib--bg-color-after-lightness, var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))));
-    background-color: var(--tw-jib--bg-color);
-    --tw-jib--bg-image: linear-gradient(var(--tw-jib--bg-color) 0 0);
+    --tw-jib--background-color-after-lightness: oklch(from var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))) calc(l * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) * 5)) h / alpha);
+    --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
+    background-color: var(--tw-jib--background-color);
+    --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
   }
 }
 
 @utility -bg-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--bg-color-after-lightness: --lightness(var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))), calc(--value(integer, [number]) * -1));
-      --tw-jib--bg-color: var(--tw-jib--bg-color-after-lightness, var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))));
-      background-color: var(--tw-jib--bg-color);
-      --tw-jib--bg-image: linear-gradient(var(--tw-jib--bg-color) 0 0);
+      --tw-jib--background-color-after-lightness: --tw-jib--lightness(var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))), calc(--value(integer, [number]) * -1));
+      --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
+      background-color: var(--tw-jib--background-color);
+      --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
     }
   }
 }
@@ -281,27 +281,27 @@
 @utility bg-lighten-* {
   &:not(._) {
     --tw-jib--background-lightness--amount: calc(--value(integer, [number]) * 0.01);
-    --tw-jib--bg-color-after-lightness: --modifier(--tw-jib--background-color-interpolation-*);
-    --tw-jib--bg-color: var(--tw-jib--bg-color-after-lightness, var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))));
-    background-color: var(--tw-jib--bg-color);
-    --tw-jib--bg-image: linear-gradient(var(--tw-jib--bg-color) 0 0);
+    --tw-jib--background-color-after-lightness: --modifier(--tw-jib--background-color-interpolation-*);
+    --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
+    background-color: var(--tw-jib--background-color);
+    --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
   }
 }
 
 @utility bg-lighten-* {
   &:not(._) {
-    --tw-jib--bg-color-after-lightness: --modifier(--tw-jib--background-color-interpolation-*);
-    --tw-jib--bg-color: var(--tw-jib--bg-color-after-lightness, var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))));
-    background-color: var(--tw-jib--bg-color);
-    --tw-jib--bg-image: linear-gradient(var(--tw-jib--bg-color) 0 0);
+    --tw-jib--background-color-after-lightness: --modifier(--tw-jib--background-color-interpolation-*);
+    --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
+    background-color: var(--tw-jib--background-color);
+    --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
   }
 }
 
 @utility bg-lighten-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--bg-color-after-lightness: --lightness(
-        var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))),
+      --tw-jib--background-color-after-lightness: --tw-jib--lightness(
+        var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))),
         --value(integer, [number]),
         --modifier(
           'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
@@ -310,29 +310,29 @@
           'color-mix'
         )
       );
-      --tw-jib--bg-color: var(--tw-jib--bg-color-after-lightness, var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))));
-      background-color: var(--tw-jib--bg-color);
-      --tw-jib--bg-image: linear-gradient(var(--tw-jib--bg-color) 0 0);
+      --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
+      background-color: var(--tw-jib--background-color);
+      --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
     }
   }
 }
 
 @utility bg-lighten-* {
   &:not(._) {
-    --tw-jib--bg-color-after-lightness: oklch(from var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))) calc(l * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) * 5)) h / alpha);
-    --tw-jib--bg-color: var(--tw-jib--bg-color-after-lightness, var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))));
-    background-color: var(--tw-jib--bg-color);
-    --tw-jib--bg-image: linear-gradient(var(--tw-jib--bg-color) 0 0);
+    --tw-jib--background-color-after-lightness: oklch(from var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))) calc(l * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) * 5)) h / alpha);
+    --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
+    background-color: var(--tw-jib--background-color);
+    --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
   }
 }
 
 @utility bg-lighten-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--bg-color-after-lightness: --lightness(var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))), --value(integer, [number]));
-      --tw-jib--bg-color: var(--tw-jib--bg-color-after-lightness, var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))));
-      background-color: var(--tw-jib--bg-color);
-      --tw-jib--bg-image: linear-gradient(var(--tw-jib--bg-color) 0 0);
+      --tw-jib--background-color-after-lightness: --tw-jib--lightness(var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))), --value(integer, [number]));
+      --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
+      background-color: var(--tw-jib--background-color);
+      --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
     }
   }
 }
@@ -344,27 +344,27 @@
 @utility bg-darken-* {
   &:not(._) {
     --tw-jib--background-lightness--amount: calc(--value(integer, [number]) * -0.01);
-    --tw-jib--bg-color-after-lightness: --modifier(--tw-jib--background-color-interpolation-*);
-    --tw-jib--bg-color: var(--tw-jib--bg-color-after-lightness, var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))));
-    background-color: var(--tw-jib--bg-color);
-    --tw-jib--bg-image: linear-gradient(var(--tw-jib--bg-color) 0 0);
+    --tw-jib--background-color-after-lightness: --modifier(--tw-jib--background-color-interpolation-*);
+    --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
+    background-color: var(--tw-jib--background-color);
+    --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
   }
 }
 
 @utility bg-darken-* {
   &:not(._) {
-    --tw-jib--bg-color-after-lightness: --modifier(--tw-jib--background-color-interpolation-*);
-    --tw-jib--bg-color: var(--tw-jib--bg-color-after-lightness, var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))));
-    background-color: var(--tw-jib--bg-color);
-    --tw-jib--bg-image: linear-gradient(var(--tw-jib--bg-color) 0 0);
+    --tw-jib--background-color-after-lightness: --modifier(--tw-jib--background-color-interpolation-*);
+    --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
+    background-color: var(--tw-jib--background-color);
+    --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
   }
 }
 
 @utility bg-darken-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--bg-color-after-lightness: --lightness(
-        var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))),
+      --tw-jib--background-color-after-lightness: --tw-jib--lightness(
+        var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))),
         calc(--value(integer, [number]) * -1),
         --modifier(
           'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
@@ -373,29 +373,29 @@
           'color-mix'
         )
       );
-      --tw-jib--bg-color: var(--tw-jib--bg-color-after-lightness, var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))));
-      background-color: var(--tw-jib--bg-color);
-      --tw-jib--bg-image: linear-gradient(var(--tw-jib--bg-color) 0 0);
+      --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
+      background-color: var(--tw-jib--background-color);
+      --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
     }
   }
 }
 
 @utility bg-darken-* {
   &:not(._) {
-    --tw-jib--bg-color-after-lightness: oklch(from var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))) calc(l * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) * 5)) h / alpha);
-    --tw-jib--bg-color: var(--tw-jib--bg-color-after-lightness, var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))));
-    background-color: var(--tw-jib--bg-color);
-    --tw-jib--bg-image: linear-gradient(var(--tw-jib--bg-color) 0 0);
+    --tw-jib--background-color-after-lightness: oklch(from var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))) calc(l * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) * 5)) h / alpha);
+    --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
+    background-color: var(--tw-jib--background-color);
+    --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
   }
 }
 
 @utility bg-darken-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--bg-color-after-lightness: --lightness(var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))), calc(--value(integer, [number]) * -1));
-      --tw-jib--bg-color: var(--tw-jib--bg-color-after-lightness, var(--tw-jib--bg-color-after-saturation, var(--tw-jib--bg-color-after-hue-rotate, var(--tw-jib--bg-color-source))));
-      background-color: var(--tw-jib--bg-color);
-      --tw-jib--bg-image: linear-gradient(var(--tw-jib--bg-color) 0 0);
+      --tw-jib--background-color-after-lightness: --tw-jib--lightness(var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))), calc(--value(integer, [number]) * -1));
+      --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
+      background-color: var(--tw-jib--background-color);
+      --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
     }
   }
 }

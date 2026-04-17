@@ -6,33 +6,33 @@
 
 @theme inline {
   --tw-jib--text-color-interpolation-lch: lch(
-    from var(--tw-jib--text-color)
+    from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source)))
     calc(l * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)) * 100)
     calc(c * min(1, (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) * 5))
     h / alpha
   );
   --tw-jib--text-color-interpolation-oklch: oklch(
-    from var(--tw-jib--text-color)
+    from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source)))
     calc(l * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
     calc(c * min(1, (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) * 5))
     h / alpha
   );
   --tw-jib--text-color-interpolation-lab: lab(
-    from var(--tw-jib--text-color)
+    from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source)))
     calc(l * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)) * 100)
     calc(a * min(1, (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) * 5))
     calc(b * min(1, (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) * 5))
     / alpha
   );
   --tw-jib--text-color-interpolation-oklab: oklab(
-    from var(--tw-jib--text-color)
+    from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source)))
     calc(l * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
     calc(a * min(1, (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) * 5))
     calc(b * min(1, (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) * 5))
     / alpha
   );
   --tw-jib--text-color-interpolation-hsl: hsl(
-    from var(--tw-jib--text-color) h
+    from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) h
     calc(s
       * min(1,
           min(l, calc(100 - l))
@@ -49,76 +49,76 @@
     / alpha
   );
   --tw-jib--text-color-interpolation-hwb: hwb(
-    from var(--tw-jib--text-color) h
+    from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) h
     calc(w * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)) * 100)
     calc(b * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, calc(0 - var(--tw-jib--text-lightness--amount))) * 100)
     / alpha
   );
   --tw-jib--text-color-interpolation-rgb: rgb(
-    from var(--tw-jib--text-color)
+    from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source)))
     calc(r * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)) * 255)
     calc(g * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)) * 255)
     calc(b * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)) * 255)
     / alpha
   );
   --tw-jib--text-color-interpolation-srgb: color(
-    from var(--tw-jib--text-color) srgb
+    from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) srgb
     calc(r * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
     calc(g * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
     calc(b * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
     / alpha
   );
   --tw-jib--text-color-interpolation-srgb-linear: color(
-    from var(--tw-jib--text-color) srgb-linear
+    from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) srgb-linear
     calc(r * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
     calc(g * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
     calc(b * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
     / alpha
   );
   --tw-jib--text-color-interpolation-display-p3: color(
-    from var(--tw-jib--text-color) display-p3
+    from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) display-p3
     calc(r * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
     calc(g * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
     calc(b * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
     / alpha
   );
   --tw-jib--text-color-interpolation-a98-rgb: color(
-    from var(--tw-jib--text-color) a98-rgb
+    from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) a98-rgb
     calc(r * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
     calc(g * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
     calc(b * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
     / alpha
   );
   --tw-jib--text-color-interpolation-prophoto-rgb: color(
-    from var(--tw-jib--text-color) prophoto-rgb
+    from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) prophoto-rgb
     calc(r * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
     calc(g * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
     calc(b * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
     / alpha
   );
   --tw-jib--text-color-interpolation-rec2020: color(
-    from var(--tw-jib--text-color) rec2020
+    from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) rec2020
     calc(r * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
     calc(g * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
     calc(b * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
     / alpha
   );
   --tw-jib--text-color-interpolation-xyz: color(
-    from var(--tw-jib--text-color) xyz
+    from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) xyz
     calc(x * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
     calc(y * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
     calc(z * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
     / alpha
   );
   --tw-jib--text-color-interpolation-xyz-d50: color(
-    from var(--tw-jib--text-color) xyz-d50
+    from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) xyz-d50
     calc(x * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
     calc(y * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
     calc(z * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
     / alpha
   );
   --tw-jib--text-color-interpolation-xyz-d65: color(
-    from var(--tw-jib--text-color) xyz-d65
+    from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) xyz-d65
     calc(x * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
     calc(y * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
     calc(z * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
@@ -135,14 +135,18 @@
 @utility text-lightness-* {
   &:not(._) {
     --tw-jib--text-lightness--amount: calc(--value(integer, [number]) * 0.01);
-    color: --modifier(--tw-jib--text-color-interpolation-*);
+    --tw-jib--text-color-after-lightness: --modifier(--tw-jib--text-color-interpolation-*);
+    --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
+    color: var(--tw-jib--text-color);
   }
 }
 
 /* block 2: stable with-modifier */
 @utility text-lightness-* {
   &:not(._) {
-    color: --modifier(--tw-jib--text-color-interpolation-*);
+    --tw-jib--text-color-after-lightness: --modifier(--tw-jib--text-color-interpolation-*);
+    --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
+    color: var(--tw-jib--text-color);
   }
 }
 
@@ -150,8 +154,8 @@
 @utility text-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      color: --lightness(
-        var(--tw-jib--text-color),
+      --tw-jib--text-color-after-lightness: --tw-jib--lightness(
+        var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))),
         --value(integer, [number]),
         --modifier(
           'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
@@ -160,6 +164,8 @@
           'color-mix'
         )
       );
+      --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
+      color: var(--tw-jib--text-color);
     }
   }
 }
@@ -167,7 +173,9 @@
 /* block 4: stable no-modifier default — oklch */
 @utility text-lightness-* {
   &:not(._) {
-    color: oklch(from var(--tw-jib--text-color) calc(l * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) * 5)) h / alpha);
+    --tw-jib--text-color-after-lightness: oklch(from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) calc(l * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) * 5)) h / alpha);
+    --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
+    color: var(--tw-jib--text-color);
   }
 }
 
@@ -175,7 +183,9 @@
 @utility text-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      color: --lightness(var(--tw-jib--text-color), --value(integer, [number]));
+      --tw-jib--text-color-after-lightness: --tw-jib--lightness(var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))), --value(integer, [number]));
+      --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
+      color: var(--tw-jib--text-color);
     }
   }
 }
@@ -188,14 +198,18 @@
 @utility -text-lightness-* {
   &:not(._) {
     --tw-jib--text-lightness--amount: calc(--value(integer, [number]) * -0.01);
-    color: --modifier(--tw-jib--text-color-interpolation-*);
+    --tw-jib--text-color-after-lightness: --modifier(--tw-jib--text-color-interpolation-*);
+    --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
+    color: var(--tw-jib--text-color);
   }
 }
 
 /* block 2: stable with-modifier */
 @utility -text-lightness-* {
   &:not(._) {
-    color: --modifier(--tw-jib--text-color-interpolation-*);
+    --tw-jib--text-color-after-lightness: --modifier(--tw-jib--text-color-interpolation-*);
+    --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
+    color: var(--tw-jib--text-color);
   }
 }
 
@@ -203,8 +217,8 @@
 @utility -text-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      color: --lightness(
-        var(--tw-jib--text-color),
+      --tw-jib--text-color-after-lightness: --tw-jib--lightness(
+        var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))),
         calc(--value(integer, [number]) * -1),
         --modifier(
           'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
@@ -213,6 +227,8 @@
           'color-mix'
         )
       );
+      --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
+      color: var(--tw-jib--text-color);
     }
   }
 }
@@ -220,7 +236,9 @@
 /* block 4: stable no-modifier default — oklch */
 @utility -text-lightness-* {
   &:not(._) {
-    color: oklch(from var(--tw-jib--text-color) calc(l * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) * 5)) h / alpha);
+    --tw-jib--text-color-after-lightness: oklch(from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) calc(l * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) * 5)) h / alpha);
+    --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
+    color: var(--tw-jib--text-color);
   }
 }
 
@@ -228,7 +246,9 @@
 @utility -text-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      color: --lightness(var(--tw-jib--text-color), calc(--value(integer, [number]) * -1));
+      --tw-jib--text-color-after-lightness: --tw-jib--lightness(var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))), calc(--value(integer, [number]) * -1));
+      --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
+      color: var(--tw-jib--text-color);
     }
   }
 }
@@ -241,14 +261,18 @@
 @utility text-lighten-* {
   &:not(._) {
     --tw-jib--text-lightness--amount: calc(--value(integer, [number]) * 0.01);
-    color: --modifier(--tw-jib--text-color-interpolation-*);
+    --tw-jib--text-color-after-lightness: --modifier(--tw-jib--text-color-interpolation-*);
+    --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
+    color: var(--tw-jib--text-color);
   }
 }
 
 /* block 2: stable with-modifier */
 @utility text-lighten-* {
   &:not(._) {
-    color: --modifier(--tw-jib--text-color-interpolation-*);
+    --tw-jib--text-color-after-lightness: --modifier(--tw-jib--text-color-interpolation-*);
+    --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
+    color: var(--tw-jib--text-color);
   }
 }
 
@@ -256,8 +280,8 @@
 @utility text-lighten-* {
   &:not(._) {
     @variant supports-lightness {
-      color: --lightness(
-        var(--tw-jib--text-color),
+      --tw-jib--text-color-after-lightness: --tw-jib--lightness(
+        var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))),
         --value(integer, [number]),
         --modifier(
           'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
@@ -266,6 +290,8 @@
           'color-mix'
         )
       );
+      --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
+      color: var(--tw-jib--text-color);
     }
   }
 }
@@ -273,7 +299,9 @@
 /* block 4: stable no-modifier default — oklch */
 @utility text-lighten-* {
   &:not(._) {
-    color: oklch(from var(--tw-jib--text-color) calc(l * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) * 5)) h / alpha);
+    --tw-jib--text-color-after-lightness: oklch(from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) calc(l * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) * 5)) h / alpha);
+    --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
+    color: var(--tw-jib--text-color);
   }
 }
 
@@ -281,7 +309,9 @@
 @utility text-lighten-* {
   &:not(._) {
     @variant supports-lightness {
-      color: --lightness(var(--tw-jib--text-color), --value(integer, [number]));
+      --tw-jib--text-color-after-lightness: --tw-jib--lightness(var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))), --value(integer, [number]));
+      --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
+      color: var(--tw-jib--text-color);
     }
   }
 }
@@ -294,14 +324,18 @@
 @utility text-darken-* {
   &:not(._) {
     --tw-jib--text-lightness--amount: calc(--value(integer, [number]) * -0.01);
-    color: --modifier(--tw-jib--text-color-interpolation-*);
+    --tw-jib--text-color-after-lightness: --modifier(--tw-jib--text-color-interpolation-*);
+    --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
+    color: var(--tw-jib--text-color);
   }
 }
 
 /* block 2: stable with-modifier */
 @utility text-darken-* {
   &:not(._) {
-    color: --modifier(--tw-jib--text-color-interpolation-*);
+    --tw-jib--text-color-after-lightness: --modifier(--tw-jib--text-color-interpolation-*);
+    --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
+    color: var(--tw-jib--text-color);
   }
 }
 
@@ -309,8 +343,8 @@
 @utility text-darken-* {
   &:not(._) {
     @variant supports-lightness {
-      color: --lightness(
-        var(--tw-jib--text-color),
+      --tw-jib--text-color-after-lightness: --tw-jib--lightness(
+        var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))),
         calc(--value(integer, [number]) * -1),
         --modifier(
           'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
@@ -319,6 +353,8 @@
           'color-mix'
         )
       );
+      --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
+      color: var(--tw-jib--text-color);
     }
   }
 }
@@ -326,7 +362,9 @@
 /* block 4: stable no-modifier default — oklch */
 @utility text-darken-* {
   &:not(._) {
-    color: oklch(from var(--tw-jib--text-color) calc(l * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) * 5)) h / alpha);
+    --tw-jib--text-color-after-lightness: oklch(from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) calc(l * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) * 5)) h / alpha);
+    --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
+    color: var(--tw-jib--text-color);
   }
 }
 
@@ -334,7 +372,9 @@
 @utility text-darken-* {
   &:not(._) {
     @variant supports-lightness {
-      color: --lightness(var(--tw-jib--text-color), calc(--value(integer, [number]) * -1));
+      --tw-jib--text-color-after-lightness: --tw-jib--lightness(var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))), calc(--value(integer, [number]) * -1));
+      --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
+      color: var(--tw-jib--text-color);
     }
   }
 }

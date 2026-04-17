@@ -21,7 +21,7 @@ describe('comic utilities', () => {
       expect(css).toContain('0 0 0');
     });
 
-    test('bg-comic-red-500 has white base layer in --tw-jib--bg-image', async () => {
+    test('bg-comic-red-500 has white base layer in --tw-jib--background-image', async () => {
       const css = await compile('bg-comic-red-500');
       expect(css).toContain('linear-gradient(rgb(255 255 255');
     });

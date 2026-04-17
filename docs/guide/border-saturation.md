@@ -19,12 +19,14 @@ Included in `@import 'tw-jib-css'`. To import individually:
 
 ## Quick Reference
 
+Formulas use `amt` for `var(--tw-jib--border-saturation--amount)` — set to `<amount> × 0.01` (saturate) or `<amount> × −0.01` (desaturate).
+
 <QuickReference :rows="[
-  { class: 'border-saturation-<amount>', styles: 'border-color: oklch(from var(--tw-jib--border-color) l calc(c ...) h / alpha)' },
-  { class: '-border-saturation-<amount>', styles: 'border-color: oklch(from var(--tw-jib--border-color) l calc(c ...) h / alpha)' },
-  { class: 'border-saturation-<amount>/oklch', styles: 'border-color: oklch(from var(--tw-jib--border-color) l calc(c ...) h / alpha)' },
-  { class: 'border-saturation-<amount>/hsl', styles: 'border-color: hsl(from var(--tw-jib--border-color) h calc(s ...) l / alpha)' },
-  { class: 'border-saturation-<amount>/color-mix', styles: 'border-color: color-mix(in oklch, ...)' },
+  { class: 'border-saturation-<amount>', styles: 'border-color: oklch(from var(--tw-jib--border-color) l calc(c * (1 - max(amt, 0 - amt)) + max(0, amt) * 0.4) h / alpha)' },
+  { class: '-border-saturation-<amount>', styles: 'border-color: oklch(from var(--tw-jib--border-color) l calc(c * (1 - max(amt, 0 - amt)) + max(0, amt) * 0.4) h / alpha)' },
+  { class: 'border-saturation-<amount>/oklch', styles: 'border-color: oklch(from var(--tw-jib--border-color) l calc(c * (1 - max(amt, 0 - amt)) + max(0, amt) * 0.4) h / alpha)' },
+  { class: 'border-saturation-<amount>/hsl', styles: 'border-color: hsl(from var(--tw-jib--border-color) h calc(s * (1 - max(amt, 0 - amt)) + max(0, amt) * 100) l / alpha)' },
+  { class: 'border-saturation-<amount>/color-mix', styles: 'border-color: color-mix(in oklch, var(--tw-jib--border-color), gray calc(max(0, 0 - amt) * 100%))' },
 ]" />
 
 ## Basic Usage

@@ -19,12 +19,14 @@ Included in `@import 'tw-jib-css'`. To import individually:
 
 ## Quick Reference
 
+Formulas use `amt` for `var(--tw-jib--outline-saturation--amount)` — set to `<amount> × 0.01` (saturate) or `<amount> × −0.01` (desaturate).
+
 <QuickReference :rows="[
-  { class: 'outline-saturation-<amount>', styles: 'outline-color: oklch(from var(--tw-jib--outline-color) l calc(c ...) h / alpha)' },
-  { class: '-outline-saturation-<amount>', styles: 'outline-color: oklch(from var(--tw-jib--outline-color) l calc(c ...) h / alpha)' },
-  { class: 'outline-saturation-<amount>/oklch', styles: 'outline-color: oklch(from var(--tw-jib--outline-color) l calc(c ...) h / alpha)' },
-  { class: 'outline-saturation-<amount>/hsl', styles: 'outline-color: hsl(from var(--tw-jib--outline-color) h calc(s ...) l / alpha)' },
-  { class: 'outline-saturation-<amount>/color-mix', styles: 'outline-color: color-mix(in oklch, ...)' },
+  { class: 'outline-saturation-<amount>', styles: 'outline-color: oklch(from var(--tw-jib--outline-color) l calc(c * (1 - max(amt, 0 - amt)) + max(0, amt) * 0.4) h / alpha)' },
+  { class: '-outline-saturation-<amount>', styles: 'outline-color: oklch(from var(--tw-jib--outline-color) l calc(c * (1 - max(amt, 0 - amt)) + max(0, amt) * 0.4) h / alpha)' },
+  { class: 'outline-saturation-<amount>/oklch', styles: 'outline-color: oklch(from var(--tw-jib--outline-color) l calc(c * (1 - max(amt, 0 - amt)) + max(0, amt) * 0.4) h / alpha)' },
+  { class: 'outline-saturation-<amount>/hsl', styles: 'outline-color: hsl(from var(--tw-jib--outline-color) h calc(s * (1 - max(amt, 0 - amt)) + max(0, amt) * 100) l / alpha)' },
+  { class: 'outline-saturation-<amount>/color-mix', styles: 'outline-color: color-mix(in oklch, var(--tw-jib--outline-color), gray calc(max(0, 0 - amt) * 100%))' },
 ]" />
 
 ## Basic Usage

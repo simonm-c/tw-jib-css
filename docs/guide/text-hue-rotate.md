@@ -19,13 +19,15 @@ Included in `@import 'tw-jib-css'`. To import individually:
 
 ## Quick Reference
 
+Formulas use `amt` for `var(--tw-jib--text-hue--amount)`. In oklab/lab, trig rotation: `cos(amt * 1deg)`, `sin(amt * 1deg)`. RGB uses a 3×3 luma-preserving matrix (0.213, 0.715, 0.072).
+
 <QuickReference :rows="[
-  { class: 'text-hue-rotate-<deg>', styles: 'color: oklch(from var(--tw-jib--text-color) l c calc(h + <deg>) / alpha)' },
-  { class: '-text-hue-rotate-<deg>', styles: 'color: oklch(from var(--tw-jib--text-color) l c calc(h - <deg>) / alpha)' },
-  { class: 'text-hue-rotate-<deg>/oklch', styles: 'color: oklch(from ... l c calc(h + <deg>) / alpha)' },
-  { class: 'text-hue-rotate-<deg>/hsl', styles: 'color: hsl(from ... calc(h + <deg>) s l / alpha)' },
-  { class: 'text-hue-rotate-<deg>/lab', styles: 'color: lab(from ... l calc(a·cosθ − b·sinθ) calc(a·sinθ + b·cosθ) / alpha)' },
-  { class: 'text-hue-rotate-<deg>/rgb', styles: 'color: rgb(from ... <SVG hueRotate matrix>)' },
+  { class: 'text-hue-rotate-<deg>', styles: 'color: oklch(from var(--tw-jib--text-color) l c calc(h + amt) / alpha)' },
+  { class: '-text-hue-rotate-<deg>', styles: 'color: oklch(from var(--tw-jib--text-color) l c calc(h + amt) / alpha)' },
+  { class: 'text-hue-rotate-<deg>/oklch', styles: 'color: oklch(from var(--tw-jib--text-color) l c calc(h + amt) / alpha)' },
+  { class: 'text-hue-rotate-<deg>/hsl', styles: 'color: hsl(from var(--tw-jib--text-color) calc(h + amt) s l / alpha)' },
+  { class: 'text-hue-rotate-<deg>/lab', styles: 'color: lab(from var(--tw-jib--text-color) l calc(a * cos(amt * 1deg) - b * sin(amt * 1deg)) calc(a * sin(amt * 1deg) + b * cos(amt * 1deg)) / alpha)' },
+  { class: 'text-hue-rotate-<deg>/rgb', styles: 'color: rgb(from var(--tw-jib--text-color) calc(r*(.213+.787*cos) + g*(.715-.715*cos-.715*sin) + b*(.072-.072*cos+.928*sin)) calc(r*(.213-.213*cos+.143*sin) + g*(.715+.285*cos+.140*sin) + b*(.072-.072*cos-.283*sin)) calc(r*(.213-.213*cos-.787*sin) + g*(.715-.715*cos+.715*sin) + b*(.072+.928*cos+.072*sin)) / alpha)' },
 ]" />
 
 ## Basic Usage

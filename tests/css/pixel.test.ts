@@ -19,7 +19,7 @@ describe('pixel utilities', () => {
       expect(css).toContain('0 0 b');
     });
 
-    test('bg-pixel-red-500 has black base layer in --tw-jib--bg-image', async () => {
+    test('bg-pixel-red-500 has black base layer in --tw-jib--background-image', async () => {
       const css = await compile('bg-pixel-red-500');
       expect(css).toContain('linear-gradient(rgb(0 0 0');
     });

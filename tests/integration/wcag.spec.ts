@@ -23,7 +23,7 @@ const A11Y_AALG_IDS = TW_HUES.flatMap((h) => TW_SHADES.map((s) => `aalg-${h}-${s
 const BADGE_IDS = TW_HUES.flatMap((h) => TW_SHADES.map((s) => `badge-${h}-${s}`));
 
 const SUPPORTS_WCAG =
-  '(background: if(style(--value): red)) and (background: --linearize(red))';
+  '(background: if(style(--value): red)) and (background: --tw-jib--linearize(red))';
 
 const A11Y_PAGE = 'examples/wcag';
 const BADGE_PAGE = 'examples/wcag-badge';

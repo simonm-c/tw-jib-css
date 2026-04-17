@@ -19,12 +19,14 @@ Included in `@import 'tw-jib-css'`. To import individually:
 
 ## Quick Reference
 
+Formulas use `amt` for `var(--tw-jib--stroke-saturation--amount)` — set to `<amount> × 0.01` (saturate) or `<amount> × −0.01` (desaturate).
+
 <QuickReference :rows="[
-  { class: 'stroke-saturation-<amount>', styles: 'stroke: oklch(from var(--tw-jib--stroke-color) l calc(c ...) h / alpha)' },
-  { class: '-stroke-saturation-<amount>', styles: 'stroke: oklch(from var(--tw-jib--stroke-color) l calc(c ...) h / alpha)' },
-  { class: 'stroke-saturation-<amount>/oklch', styles: 'stroke: oklch(from var(--tw-jib--stroke-color) l calc(c ...) h / alpha)' },
-  { class: 'stroke-saturation-<amount>/hsl', styles: 'stroke: hsl(from var(--tw-jib--stroke-color) h calc(s ...) l / alpha)' },
-  { class: 'stroke-saturation-<amount>/color-mix', styles: 'stroke: color-mix(in oklch, ...)' },
+  { class: 'stroke-saturation-<amount>', styles: 'stroke: oklch(from var(--tw-jib--stroke-color) l calc(c * (1 - max(amt, 0 - amt)) + max(0, amt) * 0.4) h / alpha)' },
+  { class: '-stroke-saturation-<amount>', styles: 'stroke: oklch(from var(--tw-jib--stroke-color) l calc(c * (1 - max(amt, 0 - amt)) + max(0, amt) * 0.4) h / alpha)' },
+  { class: 'stroke-saturation-<amount>/oklch', styles: 'stroke: oklch(from var(--tw-jib--stroke-color) l calc(c * (1 - max(amt, 0 - amt)) + max(0, amt) * 0.4) h / alpha)' },
+  { class: 'stroke-saturation-<amount>/hsl', styles: 'stroke: hsl(from var(--tw-jib--stroke-color) h calc(s * (1 - max(amt, 0 - amt)) + max(0, amt) * 100) l / alpha)' },
+  { class: 'stroke-saturation-<amount>/color-mix', styles: 'stroke: color-mix(in oklch, var(--tw-jib--stroke-color), gray calc(max(0, 0 - amt) * 100%))' },
 ]" />
 
 ## Basic Usage

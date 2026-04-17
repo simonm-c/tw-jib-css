@@ -62,7 +62,7 @@
 
   background:
     var(--tw-jib--ripple-image) padding-box,
-    var(--tw-jib--bg-image) padding-box,
+    var(--tw-jib--background-image) padding-box,
     var(--tw-jib--border-gradient) border-box;
 
   --tw-jib--ripple-distance: 100%;

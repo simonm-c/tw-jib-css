@@ -15,10 +15,7 @@ export default defineConfig({
 
   themeConfig: {
     siteTitle: false,
-    nav: [
-      { text: 'Guide', link: '/guide/' },
-      { text: 'API', link: '/api/' },
-    ],
+    nav: [{ text: 'Guide', link: '/guide/installation' }],
 
     sidebar: [
       {

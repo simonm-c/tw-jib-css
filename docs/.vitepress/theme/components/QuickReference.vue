@@ -5,8 +5,9 @@ const props = withDefaults(
   defineProps<{
     rows: Array<{ class: string; styles: string }>;
     initialCount?: number;
+    title?: string;
   }>(),
-  { initialCount: 12 },
+  { initialCount: 12, title: '' },
 );
 
 const expanded = ref(false);
@@ -19,15 +20,21 @@ const hasMore = computed(() => props.rows.length > props.initialCount);
 </script>
 
 <template>
-  <div class="my-4 bg-white dark:bg-gray-900 border-2 border-linear-to-b border-from-gray-200 border-to-gray-300 dark:border-from-gray-700 dark:border-to-gray-600 rounded-lg overflow-hidden">
+  <div
+    class="jib-quickref my-5 overflow-hidden rounded-2xl border border-jib-brand -border-saturation-50 border-lighten-72 dark:border-darken-55 bg-jib-brand -bg-saturation-50 bg-lighten-92 dark:bg-darken-88 transition-shadow duration-200 hover:shadow-[0_0_0_2px_var(--color-jib-wind)] not-prose"
+  >
     <table class="w-full border-collapse text-sm">
       <thead>
-        <tr class="bg-gray-50 dark:bg-gray-800/50">
-          <th class="px-4 py-2.5 text-left text-xs font-semibold text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700">
-            Class
+        <tr class="bg-jib-brand -bg-saturation-60 bg-lighten-96 dark:bg-darken-92">
+          <th
+            class="border-b border-jib-wind/25 px-4 py-2.5 text-left font-mono text-[11px] uppercase tracking-[0.2em] text-a11y-aaa"
+          >
+            <span aria-hidden="true" class="mr-2">⌘</span>class
           </th>
-          <th class="px-4 py-2.5 text-left text-xs font-semibold text-gray-500 dark:text-gray-400 border-b border-gray-200 dark:border-gray-700">
-            Styles
+          <th
+            class="border-b border-jib-wind/25 px-4 py-2.5 text-left font-mono text-[11px] uppercase tracking-[0.2em] text-a11y-aaa"
+          >
+            styles
           </th>
         </tr>
       </thead>
@@ -35,12 +42,12 @@ const hasMore = computed(() => props.rows.length > props.initialCount);
         <tr
           v-for="(row, i) in visibleRows"
           :key="i"
-          class="border-b border-gray-200 dark:border-gray-700 last:border-b-0"
+          class="border-b border-jib-wind/15 last:border-b-0 transition-colors hover:bg-jib-wind/5"
         >
-          <td class="px-4 py-2 font-mono text-[13px] text-sky-600 dark:text-sky-400 whitespace-nowrap">
+          <td class="whitespace-nowrap px-4 py-2 font-mono text-[13px] text-jib-brand">
             {{ row.class }}
           </td>
-          <td class="px-4 py-2 font-mono text-[13px] text-gray-700 dark:text-gray-300 whitespace-nowrap">
+          <td class="whitespace-nowrap px-4 py-2 font-mono text-[13px] text-a11y-aa opacity-85">
             {{ row.styles }}
           </td>
         </tr>
@@ -48,14 +55,22 @@ const hasMore = computed(() => props.rows.length > props.initialCount);
     </table>
     <div
       v-if="hasMore"
-      class="flex justify-center py-2.5 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800/50"
+      class="flex justify-center border-t border-jib-wind/25 bg-jib-brand -bg-saturation-60 bg-lighten-96 dark:bg-darken-92 py-2"
     >
       <button
-        class="bg-transparent border-0 text-sky-600 dark:text-sky-400 text-[13px] font-medium cursor-pointer px-3 py-1 rounded hover:bg-sky-50 dark:hover:bg-sky-900/20 transition-colors"
+        class="rounded-full border-0 bg-jib-wind/15 bg-ripple ripple-color-jib-wind/40 ripple-position-center px-4 py-1 font-mono text-[11px] uppercase tracking-[0.18em] font-medium cursor-pointer text-a11y-aaa transition-colors hover:bg-jib-wind/25"
         @click="expanded = !expanded"
       >
-        {{ expanded ? 'Show fewer' : `Show all ${rows.length} classes` }}
+        {{ expanded ? 'Show fewer' : `Show all ${rows.length}` }}
       </button>
     </div>
   </div>
 </template>
+
+<style scoped>
+@supports (corner-shape: squircle) {
+  .jib-quickref {
+    corner-shape: squircle;
+  }
+}
+</style>

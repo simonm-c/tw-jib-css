@@ -6,67 +6,248 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-
-/* Navbar logo sizing — match Tailwind docs scale */
-.VPNavBarTitle .logo {
-  @apply h-9 w-auto;
+/* ── Brand + wind-accent tokens registered in Tailwind's theme ── */
+@theme {
+  --color-jib-brand: oklch(0.465 0.169 237);
+  --color-jib-wind: oklch(0.815 0.152 237);
 }
 
-/* ── Hero theming ── */
-:root {
-  --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: linear-gradient(120deg, var(--color-sky-800), var(--color-sky-300));
-  --vp-home-hero-image-background-image: radial-gradient(
-    circle,
-    rgba(124, 58, 237, 0.35),
-    rgba(6, 182, 212, 0.2),
-    transparent 70%
-  );
-  --vp-home-hero-image-filter: blur(68px);
-}
-.dark {
-  --vp-home-hero-name-background: linear-gradient(120deg, #a78bfa, #22d3ee);
-  --vp-home-hero-image-background-image: radial-gradient(
-    circle,
-    rgba(139, 92, 246, 0.3),
-    rgba(34, 211, 238, 0.15),
-    transparent 70%
-  );
+/* ── Registered custom properties (for animation) ── */
+@property --landing-demo-hue {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
 }
 
-/* ── Feature card gradient borders ── */
-.VPFeatures .item:nth-child(1) .VPFeature {
-  @apply border-2 transition-all duration-300 bg-[var(--vp-c-bg-soft)] border-linear-to-br border-from-pink-500 border-to-amber-500;
+/* ── Landing page keyframes ── */
+@keyframes landing-demo-hue-cycle {
+  from { --landing-demo-hue: 0; }
+  to   { --landing-demo-hue: 360; }
 }
-.VPFeatures .item:nth-child(2) .VPFeature {
-  @apply border-2 transition-all duration-300 bg-[var(--vp-c-bg-soft)] border-linear-to-br border-from-violet-500 border-to-cyan-500;
+@keyframes landing-slow-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
-.VPFeatures .item:nth-child(3) .VPFeature {
-  @apply border-2 transition-all duration-300 bg-[var(--vp-c-bg-soft)] border-linear-to-br border-from-blue-500 border-to-emerald-500;
-}
-.VPFeatures .item .VPFeature:hover {
-  @apply border-4;
-}
-
-/* ── Sidebar scrollbar ── */
-.VPSidebar {
-  @apply scrollbar-width-thin scrollbar-thumb-violet-400 scrollbar-track-[transparent];
-}
-.dark .VPSidebar {
-  @apply scrollbar-thumb-violet-600;
+@keyframes hero-logo-tilt {
+  0%, 100% { transform: perspective(1200px) rotateX(12deg) rotateY(-6deg) rotateZ(0deg); }
+  50%      { transform: perspective(1200px) rotateX(8deg)  rotateY(6deg)  rotateZ(2deg);  }
 }
 
-/* ── Ripple on brand CTA button ── */
-.VPButton.brand {
-  @apply bg-sky-500 bg-ripple ripple-color-white/25 ripple-position-center;
+/* ── Dense-cinematic scope — all variants share the deep-sky derivation ── */
+.jib-landing {
+  --color-jib-brand: oklch(from var(--color-sky-500) calc(l - 0.22) c h);
+  --color-jib-wind:  oklch(from var(--color-sky-500) calc(l + 0.13) calc(c * 0.9) h);
 }
 
-/* ── Corner shape (progressive enhancement) ── */
-@supports (corner-shape: squircle) {
+/* ── Home landing: full-bleed, sidebar hidden ── */
+.home-landing .VPDoc,
+.home-landing .VPContent,
+.home-landing .vp-doc {
+  padding: 0 !important;
+  max-width: none !important;
+}
+.home-landing .vp-doc > div:first-child {
+  padding: 0;
+}
+.home-landing main {
+  padding: 0 !important;
+}
+/* Belt + braces — hide sidebar/aside/outline even if frontmatter flags miss */
+.home-landing .VPSidebar,
+.home-landing .VPLocalNav,
+.home-landing .VPDocAside,
+.home-landing .VPDocOutline {
+  display: none !important;
+}
+.home-landing .VPDoc.has-sidebar,
+.home-landing .VPDoc.has-aside {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+.home-landing .VPDoc .container,
+.home-landing .VPDoc .content,
+.home-landing .VPDoc .content-container {
+  max-width: none !important;
+  width: 100% !important;
+  padding: 0 !important;
+}
+
+@layer utilities {
+  /* ── VitePress variable overrides — transparent so brand bg shows through ── */
+  :root {
+    --vp-c-bg: transparent;
+    --vp-c-bg-alt: transparent;
+    --vp-c-bg-soft: transparent;
+    --vp-c-bg-elv: transparent;
+    --vp-c-default-soft: transparent;
+    --vp-sidebar-bg-color: transparent;
+    --vp-nav-bg-color: oklch(from var(--color-jib-brand) calc(l + (1 - l) * 0.88) calc(c * 0.15) h);
+    --vp-c-divider: transparent;
+    --vp-c-gutter: transparent;
+    --vp-c-brand-1: var(--color-jib-brand);
+    --vp-c-brand-2: var(--color-jib-brand);
+    --vp-c-brand-3: var(--color-jib-brand);
+    --vp-c-brand-soft: transparent;
+  }
+
+  /* ── VP element overrides via @apply — feeds jib-css pipeline for ripple ── */
+  .VPDoc, .VPContent, .vp-doc {
+    @apply bg-jib-brand -bg-saturation-85 bg-lighten-96;
+  }
+  .dark .VPDoc, .dark .VPContent, .dark .vp-doc {
+    @apply bg-darken-82 -bg-saturation-50;
+  }
+  .vp-doc div[class*="language-"] {
+    @apply bg-jib-brand -bg-saturation-50 bg-darken-70;
+  }
+  .dark .vp-doc div[class*="language-"] {
+    @apply bg-darken-72;
+  }
+  .vp-doc .tip, .vp-doc .info, .vp-doc .warning, .vp-doc .danger {
+    @apply bg-jib-brand -bg-saturation-65 bg-lighten-88;
+  }
+  .dark .vp-doc .tip, .dark .vp-doc .info, .dark .vp-doc .warning, .dark .vp-doc .danger {
+    @apply bg-darken-70 -bg-saturation-40;
+  }
+  .VPLocalNav {
+    @apply bg-jib-brand -bg-saturation-80 bg-lighten-94;
+  }
+  .dark .VPLocalNav {
+    @apply bg-darken-78 -bg-saturation-50;
+  }
+
+  /* ── Hero ── */
+  :root {
+    --vp-home-hero-name-color: transparent;
+    --vp-home-hero-name-background: linear-gradient(
+      120deg, var(--color-jib-brand), oklch(from var(--color-jib-brand) calc(l + 0.2) calc(c * 0.6) h)
+    );
+    --vp-home-hero-image-background-image: radial-gradient(
+      circle, oklch(from var(--color-jib-brand) l c h / 0.3), transparent 70%
+    );
+    --vp-home-hero-image-filter: blur(68px);
+  }
+  .dark {
+    --vp-nav-bg-color: oklch(from var(--color-jib-brand) calc(l * 0.25) calc(c * 0.3) h);
+    --vp-home-hero-name-background: linear-gradient(
+      120deg, oklch(from var(--color-jib-brand) calc(l + 0.2) calc(c * 0.6) h),
+      oklch(from var(--color-jib-brand) calc(l + 0.35) calc(c * 0.3) h)
+    );
+  }
+
+  /* ── Navbar ── */
+  .VPNavBarTitle .logo {
+    @apply h-9 w-auto;
+  }
+  .VPNav, .VPNavBar, .VPNavBar.home.top, .VPNavBar.top, .VPNavBar.has-sidebar {
+    @apply bg-jib-brand -bg-saturation-60 bg-lighten-88 border-b border-jib-brand -border-saturation-60 border-lighten-75;
+  }
+  .dark .VPNav, .dark .VPNavBar, .dark .VPNavBar.home.top, .dark .VPNavBar.top, .dark .VPNavBar.has-sidebar {
+    @apply bg-darken-72 -bg-saturation-50 border-darken-50;
+  }
+
+  /* ── Page background ── */
+  body {
+    @apply bg-jib-brand -bg-saturation-85 bg-lighten-96;
+  }
+  .dark body {
+    @apply bg-darken-82 -bg-saturation-50;
+  }
+
+  /* ── Sidebar ── */
+  .VPSidebar {
+    @apply bg-jib-brand -bg-saturation-75 bg-lighten-92 scrollbar-width-thin scrollbar-thumb-jib-brand scrollbar-track-[transparent];
+  }
+  .dark .VPSidebar {
+    @apply bg-darken-76 -bg-saturation-50;
+  }
+  .VPSidebar a {
+    @apply text-a11y-aa;
+  }
+  .VPSidebar a.active {
+    @apply text-a11y-aa;
+  }
+
+  /* ── Content area ── */
+  .vp-doc {
+    @apply text-a11y-aa;
+  }
+  .vp-doc h1, .vp-doc h2 {
+    @apply text-a11y-aa-lg;
+  }
+  .vp-doc h3, .vp-doc h4 {
+    @apply text-a11y-aa;
+  }
+  .vp-doc :not(pre, h1, h2, h3, h4, h5, h6) > code {
+    @apply text-a11y-aa-lg;
+  }
+  .vp-doc a {
+    @apply text-jib-brand;
+  }
+
+  /* ── Hero tagline + description ── */
+  .VPHero .tagline, .VPHero .text {
+    @apply bg-jib-brand -bg-saturation-70 bg-lighten-92 text-a11y-aa;
+  }
+  .dark .VPHero .tagline, .dark .VPHero .text {
+    @apply bg-darken-92;
+  }
+
+  /* ── Feature cards ── */
   .VPFeature {
-    @apply corner-squircle;
+    @apply bg-jib-brand -bg-saturation-50 bg-lighten-90 text-a11y-aa border-2 border-jib-brand -border-saturation-40 border-lighten-65 transition-all duration-300 bg-ripple ripple-color-jib-brand/30 ripple-position-center;
   }
-  .VPFeatures .item .VPFeature:hover {
-    @apply corner-bevel;
+  .dark .VPFeature {
+    @apply bg-darken-90 border-darken-65;
+  }
+  .VPFeature:hover {
+    @apply border-jib-brand border-4;
+  }
+  .VPFeature .title {
+    @apply text-a11y-aa-lg;
+  }
+  .VPFeature .details {
+    @apply text-a11y-aa;
+  }
+
+  /* Card gradient borders — each card a different hue-rotated accent */
+  .VPFeatures .item:nth-child(1) .VPFeature {
+    @apply border-linear-to-br border-from-jib-brand border-to-[oklch(from_var(--color-jib-brand)_l_c_calc(h+60))];
+  }
+  .VPFeatures .item:nth-child(2) .VPFeature {
+    @apply border-linear-to-br border-from-jib-brand border-to-[oklch(from_var(--color-jib-brand)_l_c_calc(h-40))];
+  }
+  .VPFeatures .item:nth-child(3) .VPFeature {
+    @apply border-linear-to-br border-from-jib-brand border-to-[oklch(from_var(--color-jib-brand)_l_c_calc(h+150))];
+  }
+
+  /* ── CTA button (with ripple — needs own bg for pipeline) ── */
+  .VPButton.brand {
+    @apply bg-jib-brand text-a11y-aa bg-ripple ripple-color-white/25 ripple-position-center;
+  }
+  .VPButton.brand:hover {
+    @apply bg-jib-brand bg-lighten-10;
+  }
+  .dark .VPButton.brand:hover {
+    @apply bg-darken-10;
+  }
+
+  /* ── Corner shape progressive enhancement ── */
+  @supports (corner-shape: squircle) {
+    .VPFeature {
+      @apply corner-squircle;
+    }
+    .VPFeature:hover {
+      @apply corner-bevel;
+    }
+  }
+
+  /* ── Chart-paper texture for §7 ground-mode experimental ── */
+  .texture-chart {
+    background-image:
+      linear-gradient(to right, oklch(from var(--color-jib-brand) l c h / 0.04) 1px, transparent 1px),
+      linear-gradient(to bottom, oklch(from var(--color-jib-brand) l c h / 0.04) 1px, transparent 1px);
+    background-size: 24px 24px, 24px 24px;
   }
 }
+

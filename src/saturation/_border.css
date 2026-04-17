@@ -5,114 +5,114 @@
 }
 
 @theme inline {
-  --tw-jib--border-sat-interpolation-lch: lch(
+  --tw-jib--border-saturation-interpolation-lch: lch(
     from var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source))
     l
     calc(c * (1 - max(var(--tw-jib--border-saturation--amount), calc(0 - var(--tw-jib--border-saturation--amount)))) + max(0, var(--tw-jib--border-saturation--amount)) * 150)
     h / alpha
   );
-  --tw-jib--border-sat-interpolation-oklch: oklch(
+  --tw-jib--border-saturation-interpolation-oklch: oklch(
     from var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source))
     l
     calc(c * (1 - max(var(--tw-jib--border-saturation--amount), calc(0 - var(--tw-jib--border-saturation--amount)))) + max(0, var(--tw-jib--border-saturation--amount)) * 0.4)
     h / alpha
   );
-  --tw-jib--border-sat-interpolation-lab: lab(
+  --tw-jib--border-saturation-interpolation-lab: lab(
     from var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source))
     l
     calc(a * (1 + var(--tw-jib--border-saturation--amount)))
     calc(b * (1 + var(--tw-jib--border-saturation--amount)))
     / alpha
   );
-  --tw-jib--border-sat-interpolation-oklab: oklab(
+  --tw-jib--border-saturation-interpolation-oklab: oklab(
     from var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source))
     l
     calc(a * (1 + var(--tw-jib--border-saturation--amount)))
     calc(b * (1 + var(--tw-jib--border-saturation--amount)))
     / alpha
   );
-  --tw-jib--border-sat-interpolation-hsl: hsl(
+  --tw-jib--border-saturation-interpolation-hsl: hsl(
     from var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)) h
     calc(s * (1 - max(var(--tw-jib--border-saturation--amount), calc(0 - var(--tw-jib--border-saturation--amount)))) + max(0, var(--tw-jib--border-saturation--amount)) * 100)
     l / alpha
   );
-  --tw-jib--border-sat-interpolation-hwb: hwb(
+  --tw-jib--border-saturation-interpolation-hwb: hwb(
     from var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)) h
     calc(w * (1 - max(var(--tw-jib--border-saturation--amount), calc(0 - var(--tw-jib--border-saturation--amount)))) + max(0, calc(0 - var(--tw-jib--border-saturation--amount))) * 50)
     calc(b * (1 - max(var(--tw-jib--border-saturation--amount), calc(0 - var(--tw-jib--border-saturation--amount)))) + max(0, calc(0 - var(--tw-jib--border-saturation--amount))) * 50)
     / alpha
   );
-  --tw-jib--border-sat-interpolation-rgb: rgb(
+  --tw-jib--border-saturation-interpolation-rgb: rgb(
     from var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source))
     calc(r + var(--tw-jib--border-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
     calc(g + var(--tw-jib--border-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
     calc(b + var(--tw-jib--border-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
     / alpha
   );
-  --tw-jib--border-sat-interpolation-srgb: color(
+  --tw-jib--border-saturation-interpolation-srgb: color(
     from var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)) srgb
     calc(r + var(--tw-jib--border-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
     calc(g + var(--tw-jib--border-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
     calc(b + var(--tw-jib--border-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
     / alpha
   );
-  --tw-jib--border-sat-interpolation-srgb-linear: color(
+  --tw-jib--border-saturation-interpolation-srgb-linear: color(
     from var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)) srgb-linear
     calc(r + var(--tw-jib--border-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
     calc(g + var(--tw-jib--border-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
     calc(b + var(--tw-jib--border-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
     / alpha
   );
-  --tw-jib--border-sat-interpolation-display-p3: color(
+  --tw-jib--border-saturation-interpolation-display-p3: color(
     from var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)) display-p3
     calc(r + var(--tw-jib--border-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
     calc(g + var(--tw-jib--border-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
     calc(b + var(--tw-jib--border-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
     / alpha
   );
-  --tw-jib--border-sat-interpolation-a98-rgb: color(
+  --tw-jib--border-saturation-interpolation-a98-rgb: color(
     from var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)) a98-rgb
     calc(r + var(--tw-jib--border-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
     calc(g + var(--tw-jib--border-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
     calc(b + var(--tw-jib--border-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
     / alpha
   );
-  --tw-jib--border-sat-interpolation-prophoto-rgb: color(
+  --tw-jib--border-saturation-interpolation-prophoto-rgb: color(
     from var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)) prophoto-rgb
     calc(r + var(--tw-jib--border-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
     calc(g + var(--tw-jib--border-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
     calc(b + var(--tw-jib--border-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
     / alpha
   );
-  --tw-jib--border-sat-interpolation-rec2020: color(
+  --tw-jib--border-saturation-interpolation-rec2020: color(
     from var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)) rec2020
     calc(r + var(--tw-jib--border-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
     calc(g + var(--tw-jib--border-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
     calc(b + var(--tw-jib--border-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
     / alpha
   );
-  --tw-jib--border-sat-interpolation-xyz: color(
+  --tw-jib--border-saturation-interpolation-xyz: color(
     from var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)) xyz
     calc(y * 0.95047 + (x - y * 0.95047) * (1 + var(--tw-jib--border-saturation--amount)))
     y
     calc(y * 1.08883 + (z - y * 1.08883) * (1 + var(--tw-jib--border-saturation--amount)))
     / alpha
   );
-  --tw-jib--border-sat-interpolation-xyz-d50: color(
+  --tw-jib--border-saturation-interpolation-xyz-d50: color(
     from var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)) xyz-d50
     calc(y * 0.96422 + (x - y * 0.96422) * (1 + var(--tw-jib--border-saturation--amount)))
     y
     calc(y * 0.82521 + (z - y * 0.82521) * (1 + var(--tw-jib--border-saturation--amount)))
     / alpha
   );
-  --tw-jib--border-sat-interpolation-xyz-d65: color(
+  --tw-jib--border-saturation-interpolation-xyz-d65: color(
     from var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)) xyz-d65
     calc(y * 0.95047 + (x - y * 0.95047) * (1 + var(--tw-jib--border-saturation--amount)))
     y
     calc(y * 1.08883 + (z - y * 1.08883) * (1 + var(--tw-jib--border-saturation--amount)))
     / alpha
   );
-  --tw-jib--border-sat-interpolation-color-mix: inherit;
+  --tw-jib--border-saturation-interpolation-color-mix: inherit;
 }
 
 /* =========================================================================
@@ -123,7 +123,7 @@
 @utility border-saturation-* {
   &:not(._) {
     --tw-jib--border-saturation--amount: calc(--value(integer, [number]) * 0.01);
-    --tw-jib--border-color-after-saturation: --modifier(--tw-jib--border-sat-interpolation-*);
+    --tw-jib--border-color-after-saturation: --modifier(--tw-jib--border-saturation-interpolation-*);
     --tw-jib--border-color: var(--tw-jib--border-color-after-lightness, var(--tw-jib--border-color-after-saturation, var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source))));
     border-color: var(--tw-jib--border-color);
   }
@@ -132,7 +132,7 @@
 /* block 2: stable with-modifier */
 @utility border-saturation-* {
   &:not(._) {
-    --tw-jib--border-color-after-saturation: --modifier(--tw-jib--border-sat-interpolation-*);
+    --tw-jib--border-color-after-saturation: --modifier(--tw-jib--border-saturation-interpolation-*);
     --tw-jib--border-color: var(--tw-jib--border-color-after-lightness, var(--tw-jib--border-color-after-saturation, var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source))));
     border-color: var(--tw-jib--border-color);
   }
@@ -142,7 +142,7 @@
 @utility border-saturation-* {
   &:not(._) {
     @variant supports-saturation {
-      --tw-jib--border-color-after-saturation: --saturation(
+      --tw-jib--border-color-after-saturation: --tw-jib--saturation(
         var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)),
         --value(integer, [number]),
         --modifier(
@@ -171,7 +171,7 @@
 @utility border-saturation-* {
   &:not(._) {
     @variant supports-saturation {
-      --tw-jib--border-color-after-saturation: --saturation(var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)), --value(integer, [number]));
+      --tw-jib--border-color-after-saturation: --tw-jib--saturation(var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)), --value(integer, [number]));
       --tw-jib--border-color: var(--tw-jib--border-color-after-lightness, var(--tw-jib--border-color-after-saturation, var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source))));
       border-color: var(--tw-jib--border-color);
     }
@@ -186,7 +186,7 @@
 @utility -border-saturation-* {
   &:not(._) {
     --tw-jib--border-saturation--amount: calc(--value(integer, [number]) * -0.01);
-    --tw-jib--border-color-after-saturation: --modifier(--tw-jib--border-sat-interpolation-*);
+    --tw-jib--border-color-after-saturation: --modifier(--tw-jib--border-saturation-interpolation-*);
     --tw-jib--border-color: var(--tw-jib--border-color-after-lightness, var(--tw-jib--border-color-after-saturation, var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source))));
     border-color: var(--tw-jib--border-color);
   }
@@ -195,7 +195,7 @@
 /* block 2: stable with-modifier */
 @utility -border-saturation-* {
   &:not(._) {
-    --tw-jib--border-color-after-saturation: --modifier(--tw-jib--border-sat-interpolation-*);
+    --tw-jib--border-color-after-saturation: --modifier(--tw-jib--border-saturation-interpolation-*);
     --tw-jib--border-color: var(--tw-jib--border-color-after-lightness, var(--tw-jib--border-color-after-saturation, var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source))));
     border-color: var(--tw-jib--border-color);
   }
@@ -205,7 +205,7 @@
 @utility -border-saturation-* {
   &:not(._) {
     @variant supports-saturation {
-      --tw-jib--border-color-after-saturation: --saturation(
+      --tw-jib--border-color-after-saturation: --tw-jib--saturation(
         var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)),
         calc(--value(integer, [number]) * -1),
         --modifier(
@@ -234,7 +234,7 @@
 @utility -border-saturation-* {
   &:not(._) {
     @variant supports-saturation {
-      --tw-jib--border-color-after-saturation: --saturation(var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)), calc(--value(integer, [number]) * -1));
+      --tw-jib--border-color-after-saturation: --tw-jib--saturation(var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)), calc(--value(integer, [number]) * -1));
       --tw-jib--border-color: var(--tw-jib--border-color-after-lightness, var(--tw-jib--border-color-after-saturation, var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source))));
       border-color: var(--tw-jib--border-color);
     }
@@ -249,7 +249,7 @@
 @utility border-saturate-* {
   &:not(._) {
     --tw-jib--border-saturation--amount: calc(--value(integer, [number]) * 0.01);
-    --tw-jib--border-color-after-saturation: --modifier(--tw-jib--border-sat-interpolation-*);
+    --tw-jib--border-color-after-saturation: --modifier(--tw-jib--border-saturation-interpolation-*);
     --tw-jib--border-color: var(--tw-jib--border-color-after-lightness, var(--tw-jib--border-color-after-saturation, var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source))));
     border-color: var(--tw-jib--border-color);
   }
@@ -258,7 +258,7 @@
 /* block 2: stable with-modifier */
 @utility border-saturate-* {
   &:not(._) {
-    --tw-jib--border-color-after-saturation: --modifier(--tw-jib--border-sat-interpolation-*);
+    --tw-jib--border-color-after-saturation: --modifier(--tw-jib--border-saturation-interpolation-*);
     --tw-jib--border-color: var(--tw-jib--border-color-after-lightness, var(--tw-jib--border-color-after-saturation, var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source))));
     border-color: var(--tw-jib--border-color);
   }
@@ -268,7 +268,7 @@
 @utility border-saturate-* {
   &:not(._) {
     @variant supports-saturation {
-      --tw-jib--border-color-after-saturation: --saturation(
+      --tw-jib--border-color-after-saturation: --tw-jib--saturation(
         var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)),
         --value(integer, [number]),
         --modifier(
@@ -297,7 +297,7 @@
 @utility border-saturate-* {
   &:not(._) {
     @variant supports-saturation {
-      --tw-jib--border-color-after-saturation: --saturation(var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)), --value(integer, [number]));
+      --tw-jib--border-color-after-saturation: --tw-jib--saturation(var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)), --value(integer, [number]));
       --tw-jib--border-color: var(--tw-jib--border-color-after-lightness, var(--tw-jib--border-color-after-saturation, var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source))));
       border-color: var(--tw-jib--border-color);
     }
@@ -312,7 +312,7 @@
 @utility border-desaturate-* {
   &:not(._) {
     --tw-jib--border-saturation--amount: calc(--value(integer, [number]) * -0.01);
-    --tw-jib--border-color-after-saturation: --modifier(--tw-jib--border-sat-interpolation-*);
+    --tw-jib--border-color-after-saturation: --modifier(--tw-jib--border-saturation-interpolation-*);
     --tw-jib--border-color: var(--tw-jib--border-color-after-lightness, var(--tw-jib--border-color-after-saturation, var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source))));
     border-color: var(--tw-jib--border-color);
   }
@@ -321,7 +321,7 @@
 /* block 2: stable with-modifier */
 @utility border-desaturate-* {
   &:not(._) {
-    --tw-jib--border-color-after-saturation: --modifier(--tw-jib--border-sat-interpolation-*);
+    --tw-jib--border-color-after-saturation: --modifier(--tw-jib--border-saturation-interpolation-*);
     --tw-jib--border-color: var(--tw-jib--border-color-after-lightness, var(--tw-jib--border-color-after-saturation, var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source))));
     border-color: var(--tw-jib--border-color);
   }
@@ -331,7 +331,7 @@
 @utility border-desaturate-* {
   &:not(._) {
     @variant supports-saturation {
-      --tw-jib--border-color-after-saturation: --saturation(
+      --tw-jib--border-color-after-saturation: --tw-jib--saturation(
         var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)),
         calc(--value(integer, [number]) * -1),
         --modifier(
@@ -360,7 +360,7 @@
 @utility border-desaturate-* {
   &:not(._) {
     @variant supports-saturation {
-      --tw-jib--border-color-after-saturation: --saturation(var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)), calc(--value(integer, [number]) * -1));
+      --tw-jib--border-color-after-saturation: --tw-jib--saturation(var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)), calc(--value(integer, [number]) * -1));
       --tw-jib--border-color: var(--tw-jib--border-color-after-lightness, var(--tw-jib--border-color-after-saturation, var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source))));
       border-color: var(--tw-jib--border-color);
     }

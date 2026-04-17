@@ -154,7 +154,7 @@
 @utility outline-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--outline-color-after-lightness: --lightness(
+      --tw-jib--outline-color-after-lightness: --tw-jib--lightness(
         var(--tw-jib--outline-color-after-saturation, var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source))),
         --value(integer, [number]),
         --modifier(
@@ -183,7 +183,7 @@
 @utility outline-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--outline-color-after-lightness: --lightness(var(--tw-jib--outline-color-after-saturation, var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source))), --value(integer, [number]));
+      --tw-jib--outline-color-after-lightness: --tw-jib--lightness(var(--tw-jib--outline-color-after-saturation, var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source))), --value(integer, [number]));
       --tw-jib--outline-color: var(--tw-jib--outline-color-after-lightness, var(--tw-jib--outline-color-after-saturation, var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source))));
       outline-color: var(--tw-jib--outline-color);
     }
@@ -217,7 +217,7 @@
 @utility -outline-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--outline-color-after-lightness: --lightness(
+      --tw-jib--outline-color-after-lightness: --tw-jib--lightness(
         var(--tw-jib--outline-color-after-saturation, var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source))),
         calc(--value(integer, [number]) * -1),
         --modifier(
@@ -246,7 +246,7 @@
 @utility -outline-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--outline-color-after-lightness: --lightness(var(--tw-jib--outline-color-after-saturation, var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source))), calc(--value(integer, [number]) * -1));
+      --tw-jib--outline-color-after-lightness: --tw-jib--lightness(var(--tw-jib--outline-color-after-saturation, var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source))), calc(--value(integer, [number]) * -1));
       --tw-jib--outline-color: var(--tw-jib--outline-color-after-lightness, var(--tw-jib--outline-color-after-saturation, var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source))));
       outline-color: var(--tw-jib--outline-color);
     }
@@ -280,7 +280,7 @@
 @utility outline-lighten-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--outline-color-after-lightness: --lightness(
+      --tw-jib--outline-color-after-lightness: --tw-jib--lightness(
         var(--tw-jib--outline-color-after-saturation, var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source))),
         --value(integer, [number]),
         --modifier(
@@ -309,7 +309,7 @@
 @utility outline-lighten-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--outline-color-after-lightness: --lightness(var(--tw-jib--outline-color-after-saturation, var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source))), --value(integer, [number]));
+      --tw-jib--outline-color-after-lightness: --tw-jib--lightness(var(--tw-jib--outline-color-after-saturation, var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source))), --value(integer, [number]));
       --tw-jib--outline-color: var(--tw-jib--outline-color-after-lightness, var(--tw-jib--outline-color-after-saturation, var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source))));
       outline-color: var(--tw-jib--outline-color);
     }
@@ -343,7 +343,7 @@
 @utility outline-darken-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--outline-color-after-lightness: --lightness(
+      --tw-jib--outline-color-after-lightness: --tw-jib--lightness(
         var(--tw-jib--outline-color-after-saturation, var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source))),
         calc(--value(integer, [number]) * -1),
         --modifier(
@@ -372,7 +372,7 @@
 @utility outline-darken-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--outline-color-after-lightness: --lightness(var(--tw-jib--outline-color-after-saturation, var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source))), calc(--value(integer, [number]) * -1));
+      --tw-jib--outline-color-after-lightness: --tw-jib--lightness(var(--tw-jib--outline-color-after-saturation, var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source))), calc(--value(integer, [number]) * -1));
       --tw-jib--outline-color: var(--tw-jib--outline-color-after-lightness, var(--tw-jib--outline-color-after-saturation, var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source))));
       outline-color: var(--tw-jib--outline-color);
     }

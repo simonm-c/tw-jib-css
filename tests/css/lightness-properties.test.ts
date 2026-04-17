@@ -27,7 +27,7 @@ const STABLE_SPACE_MARKERS: [string, string][] = [
 ];
 
 const SUPPORTS_FUNCTION =
-  '@supports (background: if(style(--value): red)) and (background: --lightness-oklch(red, 20))';
+  '@supports (background: if(style(--value): red)) and (background: --tw-jib--oklch-lightness(red, 20))';
 
 describe.each(PROPERTIES)(
   '%s-lightness (stable path)',
@@ -126,7 +126,7 @@ describe.each(PROPERTIES)(
         async (amount) => {
           const css = await compile(`${baseClass} ${prefix}-darken-${amount}`, { experimental: true });
           expect(css).toContain(SUPPORTS_FUNCTION);
-          expect(css).toContain(`--lightness(${lightInput}, calc(${amount} * -1))`);
+          expect(css).toContain(`--tw-jib--lightness(${lightInput}, calc(${amount} * -1))`);
         },
       );
     });
@@ -137,7 +137,7 @@ describe.each(PROPERTIES)(
         async (amount) => {
           const css = await compile(`${baseClass} ${prefix}-lighten-${amount}`, { experimental: true });
           expect(css).toContain(SUPPORTS_FUNCTION);
-          expect(css).toContain(`--lightness(${lightInput}, ${amount})`);
+          expect(css).toContain(`--tw-jib--lightness(${lightInput}, ${amount})`);
         },
       );
     });
@@ -148,7 +148,7 @@ describe.each(PROPERTIES)(
         async (space) => {
           const css = await compile(`${baseClass} ${prefix}-darken-20/${space}`, { experimental: true });
           expect(css).toContain(SUPPORTS_FUNCTION);
-          expect(css).toContain('--lightness(');
+          expect(css).toContain('--tw-jib--lightness(');
           expect(css).toMatch(new RegExp(`calc\\(20 \\* -1\\),\\s+${space.replace('-', '\\-')}`));
         },
       );

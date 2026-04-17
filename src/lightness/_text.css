@@ -154,7 +154,7 @@
 @utility text-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--text-color-after-lightness: --lightness(
+      --tw-jib--text-color-after-lightness: --tw-jib--lightness(
         var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))),
         --value(integer, [number]),
         --modifier(
@@ -183,7 +183,7 @@
 @utility text-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--text-color-after-lightness: --lightness(var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))), --value(integer, [number]));
+      --tw-jib--text-color-after-lightness: --tw-jib--lightness(var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))), --value(integer, [number]));
       --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
       color: var(--tw-jib--text-color);
     }
@@ -217,7 +217,7 @@
 @utility -text-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--text-color-after-lightness: --lightness(
+      --tw-jib--text-color-after-lightness: --tw-jib--lightness(
         var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))),
         calc(--value(integer, [number]) * -1),
         --modifier(
@@ -246,7 +246,7 @@
 @utility -text-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--text-color-after-lightness: --lightness(var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))), calc(--value(integer, [number]) * -1));
+      --tw-jib--text-color-after-lightness: --tw-jib--lightness(var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))), calc(--value(integer, [number]) * -1));
       --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
       color: var(--tw-jib--text-color);
     }
@@ -280,7 +280,7 @@
 @utility text-lighten-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--text-color-after-lightness: --lightness(
+      --tw-jib--text-color-after-lightness: --tw-jib--lightness(
         var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))),
         --value(integer, [number]),
         --modifier(
@@ -309,7 +309,7 @@
 @utility text-lighten-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--text-color-after-lightness: --lightness(var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))), --value(integer, [number]));
+      --tw-jib--text-color-after-lightness: --tw-jib--lightness(var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))), --value(integer, [number]));
       --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
       color: var(--tw-jib--text-color);
     }
@@ -343,7 +343,7 @@
 @utility text-darken-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--text-color-after-lightness: --lightness(
+      --tw-jib--text-color-after-lightness: --tw-jib--lightness(
         var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))),
         calc(--value(integer, [number]) * -1),
         --modifier(
@@ -372,7 +372,7 @@
 @utility text-darken-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--text-color-after-lightness: --lightness(var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))), calc(--value(integer, [number]) * -1));
+      --tw-jib--text-color-after-lightness: --tw-jib--lightness(var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))), calc(--value(integer, [number]) * -1));
       --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
       color: var(--tw-jib--text-color);
     }

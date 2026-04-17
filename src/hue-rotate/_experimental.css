@@ -28,27 +28,27 @@
  * @function definitions — color-space-specific hue-rotate transforms
  * ========================================================================= */
 
-@function --oklch-hue-rotate(--color type(<color>): currentColor, --amount type(<number>): 0)
+@function --tw-jib--oklch-hue-rotate(--color type(<color>): currentColor, --amount type(<number>): 0)
 returns <color> {
   result: oklch(from var(--color) l c calc(h + var(--amount)) / alpha);
 }
 
-@function --lch-hue-rotate(--color type(<color>): currentColor, --amount type(<number>): 0)
+@function --tw-jib--lch-hue-rotate(--color type(<color>): currentColor, --amount type(<number>): 0)
 returns <color> {
   result: lch(from var(--color) l c calc(h + var(--amount)) / alpha);
 }
 
-@function --hsl-hue-rotate(--color type(<color>): currentColor, --amount type(<number>): 0)
+@function --tw-jib--hsl-hue-rotate(--color type(<color>): currentColor, --amount type(<number>): 0)
 returns <color> {
   result: hsl(from var(--color) calc(h + var(--amount)) s l / alpha);
 }
 
-@function --hwb-hue-rotate(--color type(<color>): currentColor, --amount type(<number>): 0)
+@function --tw-jib--hwb-hue-rotate(--color type(<color>): currentColor, --amount type(<number>): 0)
 returns <color> {
   result: hwb(from var(--color) calc(h + var(--amount)) w b / alpha);
 }
 
-@function --oklab-hue-rotate(--color type(<color>): currentColor, --amount type(<number>): 0)
+@function --tw-jib--oklab-hue-rotate(--color type(<color>): currentColor, --amount type(<number>): 0)
 returns <color> {
   result: oklab(
     from var(--color)
@@ -59,7 +59,7 @@ returns <color> {
   );
 }
 
-@function --lab-hue-rotate(--color type(<color>): currentColor, --amount type(<number>): 0)
+@function --tw-jib--lab-hue-rotate(--color type(<color>): currentColor, --amount type(<number>): 0)
 returns <color> {
   result: lab(
     from var(--color)
@@ -79,7 +79,7 @@ returns <color> {
  * Channels stay in their native range (0-255 for rgb(), 0-1 for color()).
  */
 
-@function --rgb-hue-rotate(--color type(<color>): currentColor, --amount type(<number>): 0)
+@function --tw-jib--rgb-hue-rotate(--color type(<color>): currentColor, --amount type(<number>): 0)
 returns <color> {
   result: rgb(
     from var(--color)
@@ -96,7 +96,7 @@ returns <color> {
   );
 }
 
-@function --srgb-hue-rotate(--color type(<color>): currentColor, --amount type(<number>): 0)
+@function --tw-jib--srgb-hue-rotate(--color type(<color>): currentColor, --amount type(<number>): 0)
 returns <color> {
   result: color(
     from var(--color) srgb
@@ -113,7 +113,7 @@ returns <color> {
   );
 }
 
-@function --srgb-linear-hue-rotate(--color type(<color>): currentColor, --amount type(<number>): 0)
+@function --tw-jib--srgb-linear-hue-rotate(--color type(<color>): currentColor, --amount type(<number>): 0)
 returns <color> {
   result: color(
     from var(--color) srgb-linear
@@ -130,7 +130,7 @@ returns <color> {
   );
 }
 
-@function --display-p3-hue-rotate(--color type(<color>): currentColor, --amount type(<number>): 0)
+@function --tw-jib--display-p3-hue-rotate(--color type(<color>): currentColor, --amount type(<number>): 0)
 returns <color> {
   result: color(
     from var(--color) display-p3
@@ -147,7 +147,7 @@ returns <color> {
   );
 }
 
-@function --a98-rgb-hue-rotate(--color type(<color>): currentColor, --amount type(<number>): 0)
+@function --tw-jib--a98-rgb-hue-rotate(--color type(<color>): currentColor, --amount type(<number>): 0)
 returns <color> {
   result: color(
     from var(--color) a98-rgb
@@ -164,7 +164,7 @@ returns <color> {
   );
 }
 
-@function --prophoto-rgb-hue-rotate(--color type(<color>): currentColor, --amount type(<number>): 0)
+@function --tw-jib--prophoto-rgb-hue-rotate(--color type(<color>): currentColor, --amount type(<number>): 0)
 returns <color> {
   result: color(
     from var(--color) prophoto-rgb
@@ -181,7 +181,7 @@ returns <color> {
   );
 }
 
-@function --rec-2020-hue-rotate(--color type(<color>): currentColor, --amount type(<number>): 0)
+@function --tw-jib--rec-2020-hue-rotate(--color type(<color>): currentColor, --amount type(<number>): 0)
 returns <color> {
   result: color(
     from var(--color) rec2020
@@ -208,7 +208,7 @@ returns <color> {
  * the project's "output in the requested space" contract.
  */
 
-@function --xyz-hue-rotate(--color type(<color>): currentColor, --amount type(<number>): 0)
+@function --tw-jib--xyz-hue-rotate(--color type(<color>): currentColor, --amount type(<number>): 0)
 returns <color> {
   result: color(
     from var(--color) xyz
@@ -223,7 +223,7 @@ returns <color> {
   );
 }
 
-@function --xyz-d50-hue-rotate(--color type(<color>): currentColor, --amount type(<number>): 0)
+@function --tw-jib--xyz-d50-hue-rotate(--color type(<color>): currentColor, --amount type(<number>): 0)
 returns <color> {
   result: color(
     from var(--color) xyz-d50
@@ -238,7 +238,7 @@ returns <color> {
   );
 }
 
-@function --xyz-d65-hue-rotate(--color type(<color>): currentColor, --amount type(<number>): 0)
+@function --tw-jib--xyz-d65-hue-rotate(--color type(<color>): currentColor, --amount type(<number>): 0)
 returns <color> {
   result: color(
     from var(--color) xyz-d65
@@ -257,26 +257,26 @@ returns <color> {
  * --hue-rotate() router — dispatches to the correct color-space function
  * ========================================================================= */
 
-@function --hue-rotate(--color type(<color>): currentColor, --amount type(<number>): 0, --interpolation type(<custom-ident>): oklch)
+@function --tw-jib--hue-rotate(--color type(<color>): currentColor, --amount type(<number>): 0, --interpolation type(<custom-ident>): oklch)
 returns <color> {
   result: if(
-    style(--interpolation: oklch): --oklch-hue-rotate(var(--color), var(--amount));
-    style(--interpolation: lch): --lch-hue-rotate(var(--color), var(--amount));
-    style(--interpolation: lab): --lab-hue-rotate(var(--color), var(--amount));
-    style(--interpolation: oklab): --oklab-hue-rotate(var(--color), var(--amount));
-    style(--interpolation: hsl): --hsl-hue-rotate(var(--color), var(--amount));
-    style(--interpolation: hwb): --hwb-hue-rotate(var(--color), var(--amount));
-    style(--interpolation: rgb): --rgb-hue-rotate(var(--color), var(--amount));
-    style(--interpolation: srgb): --srgb-hue-rotate(var(--color), var(--amount));
-    style(--interpolation: srgb-linear): --srgb-linear-hue-rotate(var(--color), var(--amount));
-    style(--interpolation: display-p3): --display-p3-hue-rotate(var(--color), var(--amount));
-    style(--interpolation: a98-rgb): --a98-rgb-hue-rotate(var(--color), var(--amount));
-    style(--interpolation: prophoto-rgb): --prophoto-rgb-hue-rotate(var(--color), var(--amount));
-    style(--interpolation: rec2020): --rec-2020-hue-rotate(var(--color), var(--amount));
-    style(--interpolation: xyz): --xyz-hue-rotate(var(--color), var(--amount));
-    style(--interpolation: xyz-d50): --xyz-d50-hue-rotate(var(--color), var(--amount));
-    style(--interpolation: xyz-d65): --xyz-d65-hue-rotate(var(--color), var(--amount));
-    else: --oklch-hue-rotate(var(--color), var(--amount));
+    style(--interpolation: oklch): --tw-jib--oklch-hue-rotate(var(--color), var(--amount));
+    style(--interpolation: lch): --tw-jib--lch-hue-rotate(var(--color), var(--amount));
+    style(--interpolation: lab): --tw-jib--lab-hue-rotate(var(--color), var(--amount));
+    style(--interpolation: oklab): --tw-jib--oklab-hue-rotate(var(--color), var(--amount));
+    style(--interpolation: hsl): --tw-jib--hsl-hue-rotate(var(--color), var(--amount));
+    style(--interpolation: hwb): --tw-jib--hwb-hue-rotate(var(--color), var(--amount));
+    style(--interpolation: rgb): --tw-jib--rgb-hue-rotate(var(--color), var(--amount));
+    style(--interpolation: srgb): --tw-jib--srgb-hue-rotate(var(--color), var(--amount));
+    style(--interpolation: srgb-linear): --tw-jib--srgb-linear-hue-rotate(var(--color), var(--amount));
+    style(--interpolation: display-p3): --tw-jib--display-p3-hue-rotate(var(--color), var(--amount));
+    style(--interpolation: a98-rgb): --tw-jib--a98-rgb-hue-rotate(var(--color), var(--amount));
+    style(--interpolation: prophoto-rgb): --tw-jib--prophoto-rgb-hue-rotate(var(--color), var(--amount));
+    style(--interpolation: rec2020): --tw-jib--rec-2020-hue-rotate(var(--color), var(--amount));
+    style(--interpolation: xyz): --tw-jib--xyz-hue-rotate(var(--color), var(--amount));
+    style(--interpolation: xyz-d50): --tw-jib--xyz-d50-hue-rotate(var(--color), var(--amount));
+    style(--interpolation: xyz-d65): --tw-jib--xyz-d65-hue-rotate(var(--color), var(--amount));
+    else: --tw-jib--oklch-hue-rotate(var(--color), var(--amount));
   )
 }
 
@@ -286,7 +286,7 @@ returns <color> {
 
 @custom-variant supports-hue-rotate {
   /*test for support of custom functions and if queries*/
-  @supports (background: if(style(--value): red)) and (background: --oklch-hue-rotate(red, 30)) {
+  @supports (background: if(style(--value): red)) and (background: --tw-jib--oklch-hue-rotate(red, 30)) {
     @slot;
   }
 }

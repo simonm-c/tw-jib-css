@@ -154,7 +154,7 @@
 @utility accent-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--accent-color-after-lightness: --lightness(
+      --tw-jib--accent-color-after-lightness: --tw-jib--lightness(
         var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))),
         --value(integer, [number]),
         --modifier(
@@ -183,7 +183,7 @@
 @utility accent-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--accent-color-after-lightness: --lightness(var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))), --value(integer, [number]));
+      --tw-jib--accent-color-after-lightness: --tw-jib--lightness(var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))), --value(integer, [number]));
       --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
       accent-color: var(--tw-jib--accent-color);
     }
@@ -217,7 +217,7 @@
 @utility -accent-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--accent-color-after-lightness: --lightness(
+      --tw-jib--accent-color-after-lightness: --tw-jib--lightness(
         var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))),
         calc(--value(integer, [number]) * -1),
         --modifier(
@@ -246,7 +246,7 @@
 @utility -accent-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--accent-color-after-lightness: --lightness(var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))), calc(--value(integer, [number]) * -1));
+      --tw-jib--accent-color-after-lightness: --tw-jib--lightness(var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))), calc(--value(integer, [number]) * -1));
       --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
       accent-color: var(--tw-jib--accent-color);
     }
@@ -280,7 +280,7 @@
 @utility accent-lighten-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--accent-color-after-lightness: --lightness(
+      --tw-jib--accent-color-after-lightness: --tw-jib--lightness(
         var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))),
         --value(integer, [number]),
         --modifier(
@@ -309,7 +309,7 @@
 @utility accent-lighten-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--accent-color-after-lightness: --lightness(var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))), --value(integer, [number]));
+      --tw-jib--accent-color-after-lightness: --tw-jib--lightness(var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))), --value(integer, [number]));
       --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
       accent-color: var(--tw-jib--accent-color);
     }
@@ -343,7 +343,7 @@
 @utility accent-darken-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--accent-color-after-lightness: --lightness(
+      --tw-jib--accent-color-after-lightness: --tw-jib--lightness(
         var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))),
         calc(--value(integer, [number]) * -1),
         --modifier(
@@ -372,7 +372,7 @@
 @utility accent-darken-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--accent-color-after-lightness: --lightness(var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))), calc(--value(integer, [number]) * -1));
+      --tw-jib--accent-color-after-lightness: --tw-jib--lightness(var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))), calc(--value(integer, [number]) * -1));
       --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
       accent-color: var(--tw-jib--accent-color);
     }

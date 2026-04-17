@@ -7,7 +7,7 @@
  * Ripple sits above the bg image, which sits above the border gradient.
  */
 export const BG_LAYER =
-  'var(--tw-jib--ripple-image) padding-box, var(--tw-jib--bg-image) padding-box, var(--tw-jib--border-gradient) border-box';
+  'var(--tw-jib--ripple-image) padding-box, var(--tw-jib--background-image) padding-box, var(--tw-jib--border-gradient) border-box';
 
 /**
  * Named colors used as darken base colors in palette tests.

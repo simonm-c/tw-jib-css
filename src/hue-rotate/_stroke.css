@@ -208,7 +208,7 @@
 @utility stroke-hue-rotate-* {
   &:not(._) {
     @variant supports-hue-rotate {
-      --tw-jib--stroke-color-after-hue-rotate: --hue-rotate(
+      --tw-jib--stroke-color-after-hue-rotate: --tw-jib--hue-rotate(
         var(--tw-jib--stroke-color-source),
         --value(integer, [number]),
         --modifier(
@@ -236,7 +236,7 @@
 @utility stroke-hue-rotate-* {
   &:not(._) {
     @variant supports-hue-rotate {
-      --tw-jib--stroke-color-after-hue-rotate: --hue-rotate(var(--tw-jib--stroke-color-source), --value(integer, [number]));
+      --tw-jib--stroke-color-after-hue-rotate: --tw-jib--hue-rotate(var(--tw-jib--stroke-color-source), --value(integer, [number]));
       --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
       stroke: var(--tw-jib--stroke-color);
     }
@@ -267,7 +267,7 @@
 @utility -stroke-hue-rotate-* {
   &:not(._) {
     @variant supports-hue-rotate {
-      --tw-jib--stroke-color-after-hue-rotate: --hue-rotate(
+      --tw-jib--stroke-color-after-hue-rotate: --tw-jib--hue-rotate(
         var(--tw-jib--stroke-color-source),
         calc(--value(integer, [number]) * -1),
         --modifier(
@@ -293,7 +293,7 @@
 @utility -stroke-hue-rotate-* {
   &:not(._) {
     @variant supports-hue-rotate {
-      --tw-jib--stroke-color-after-hue-rotate: --hue-rotate(var(--tw-jib--stroke-color-source), calc(--value(integer, [number]) * -1));
+      --tw-jib--stroke-color-after-hue-rotate: --tw-jib--hue-rotate(var(--tw-jib--stroke-color-source), calc(--value(integer, [number]) * -1));
       --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
       stroke: var(--tw-jib--stroke-color);
     }

@@ -11,7 +11,7 @@ import { compile } from './helpers.js';
  * hueSlug matches the --tw-jib--{hueSlug}-hue--amount / -hue-interpolation-* prefix
  */
 const PROPERTIES: [string, string, string, string, string, string, string][] = [
-  ['bg', 'background-color', '--tw-jib--bg-color', '--tw-jib--bg-color-source', 'bg-blue-500', '--color-blue-500', 'background'],
+  ['bg', 'background-color', '--tw-jib--background-color', '--tw-jib--background-color-source', 'bg-blue-500', '--color-blue-500', 'background'],
   ['text', 'color', '--tw-jib--text-color', '--tw-jib--text-color-source', 'text-blue-500', '--color-blue-500', 'text'],
   ['fill', 'fill', '--tw-jib--fill-color', '--tw-jib--fill-color-source', 'fill-blue-500', '--color-blue-500', 'fill'],
   ['stroke', 'stroke', '--tw-jib--stroke-color', '--tw-jib--stroke-color-source', 'stroke-blue-500', '--color-blue-500', 'stroke'],
@@ -34,7 +34,7 @@ const STABLE_SPACE_MARKERS: [string, string][] = [
 ];
 
 const SUPPORTS_FUNCTION =
-  '@supports (background: if(style(--value): red)) and (background: --oklch-hue-rotate(red, 30))';
+  '@supports (background: if(style(--value): red)) and (background: --tw-jib--oklch-hue-rotate(red, 30))';
 
 describe.each(PROPERTIES)(
   '%s-hue-rotate (stable path)',
@@ -121,7 +121,7 @@ describe.each(PROPERTIES)(
             { experimental: true },
           );
           expect(css).toContain(SUPPORTS_FUNCTION);
-          expect(css).toContain(`--hue-rotate(var(${sourceVar}), ${amount})`);
+          expect(css).toContain(`--tw-jib--hue-rotate(var(${sourceVar}), ${amount})`);
         },
       );
     });
@@ -135,7 +135,7 @@ describe.each(PROPERTIES)(
             { experimental: true },
           );
           expect(css).toContain(SUPPORTS_FUNCTION);
-          expect(css).toContain(`--hue-rotate(var(${sourceVar}), calc(${amount} * -1))`);
+          expect(css).toContain(`--tw-jib--hue-rotate(var(${sourceVar}), calc(${amount} * -1))`);
         },
       );
     });
@@ -149,7 +149,7 @@ describe.each(PROPERTIES)(
             { experimental: true },
           );
           expect(css).toContain(SUPPORTS_FUNCTION);
-          expect(css).toContain('--hue-rotate(');
+          expect(css).toContain('--tw-jib--hue-rotate(');
           expect(css).toMatch(new RegExp(`30,\\s+${space.replace('-', '\\-')}`));
         },
       );
@@ -157,7 +157,7 @@ describe.each(PROPERTIES)(
 
     test('color-mix modifier is NOT supported', async () => {
       // hue-rotate deliberately omits color-mix — the modifier should not match.
-      // The class compiles but without any hue-rotate output; no --hue-rotate() call.
+      // The class compiles but without any hue-rotate output; no --tw-jib--hue-rotate() call.
       const css = await compile(
         `${baseClass} ${prefix}-hue-rotate-30/color-mix`,
         { experimental: true },
@@ -168,11 +168,11 @@ describe.each(PROPERTIES)(
 );
 
 /**
- * bg-specific: must also compose with border-gradient via --tw-jib--bg-image.
+ * bg-specific: must also compose with border-gradient via --tw-jib--background-image.
  */
 describe('bg-hue-rotate composes with bg-image layer', () => {
-  test('writes --tw-jib--bg-image with the composed color', async () => {
+  test('writes --tw-jib--background-image with the composed color', async () => {
     const css = await compile('bg-blue-500 bg-hue-rotate-30');
-    expect(css).toContain('--tw-jib--bg-image: linear-gradient(var(--tw-jib--bg-color) 0 0)');
+    expect(css).toContain('--tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0)');
   });
 });

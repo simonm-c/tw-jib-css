@@ -27,7 +27,7 @@ const STABLE_SPACE_MARKERS: [string, string][] = [
 ];
 
 const SUPPORTS_FUNCTION =
-  '@supports (background: if(style(--value): red)) and (background: --saturation-oklch(red, 20))';
+  '@supports (background: if(style(--value): red)) and (background: --tw-jib--oklch-saturation(red, 20))';
 
 describe.each(PROPERTIES)(
   '%s-saturation (stable path)',
@@ -126,7 +126,7 @@ describe.each(PROPERTIES)(
         async (amount) => {
           const css = await compile(`${baseClass} ${prefix}-desaturate-${amount}`, { experimental: true });
           expect(css).toContain(SUPPORTS_FUNCTION);
-          expect(css).toContain(`--saturation(${satInput}, calc(${amount} * -1))`);
+          expect(css).toContain(`--tw-jib--saturation(${satInput}, calc(${amount} * -1))`);
         },
       );
     });
@@ -137,7 +137,7 @@ describe.each(PROPERTIES)(
         async (amount) => {
           const css = await compile(`${baseClass} ${prefix}-saturate-${amount}`, { experimental: true });
           expect(css).toContain(SUPPORTS_FUNCTION);
-          expect(css).toContain(`--saturation(${satInput}, ${amount})`);
+          expect(css).toContain(`--tw-jib--saturation(${satInput}, ${amount})`);
         },
       );
     });
@@ -148,7 +148,7 @@ describe.each(PROPERTIES)(
         async (space) => {
           const css = await compile(`${baseClass} ${prefix}-desaturate-20/${space}`, { experimental: true });
           expect(css).toContain(SUPPORTS_FUNCTION);
-          expect(css).toContain('--saturation(');
+          expect(css).toContain('--tw-jib--saturation(');
           expect(css).toMatch(new RegExp(`calc\\(20 \\* -1\\),\\s+${space.replace('-', '\\-')}`));
         },
       );

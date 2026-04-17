@@ -213,7 +213,7 @@
 @utility outline-hue-rotate-* {
   &:not(._) {
     @variant supports-hue-rotate {
-      --tw-jib--outline-color-after-hue-rotate: --hue-rotate(
+      --tw-jib--outline-color-after-hue-rotate: --tw-jib--hue-rotate(
         var(--tw-jib--outline-color-source),
         --value(integer, [number]),
         --modifier(
@@ -241,7 +241,7 @@
 @utility outline-hue-rotate-* {
   &:not(._) {
     @variant supports-hue-rotate {
-      --tw-jib--outline-color-after-hue-rotate: --hue-rotate(var(--tw-jib--outline-color-source), --value(integer, [number]));
+      --tw-jib--outline-color-after-hue-rotate: --tw-jib--hue-rotate(var(--tw-jib--outline-color-source), --value(integer, [number]));
       --tw-jib--outline-color: var(--tw-jib--outline-color-after-lightness, var(--tw-jib--outline-color-after-saturation, var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source))));
       outline-color: var(--tw-jib--outline-color);
     }
@@ -272,7 +272,7 @@
 @utility -outline-hue-rotate-* {
   &:not(._) {
     @variant supports-hue-rotate {
-      --tw-jib--outline-color-after-hue-rotate: --hue-rotate(
+      --tw-jib--outline-color-after-hue-rotate: --tw-jib--hue-rotate(
         var(--tw-jib--outline-color-source),
         calc(--value(integer, [number]) * -1),
         --modifier(
@@ -298,7 +298,7 @@
 @utility -outline-hue-rotate-* {
   &:not(._) {
     @variant supports-hue-rotate {
-      --tw-jib--outline-color-after-hue-rotate: --hue-rotate(var(--tw-jib--outline-color-source), calc(--value(integer, [number]) * -1));
+      --tw-jib--outline-color-after-hue-rotate: --tw-jib--hue-rotate(var(--tw-jib--outline-color-source), calc(--value(integer, [number]) * -1));
       --tw-jib--outline-color: var(--tw-jib--outline-color-after-lightness, var(--tw-jib--outline-color-after-saturation, var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source))));
       outline-color: var(--tw-jib--outline-color);
     }

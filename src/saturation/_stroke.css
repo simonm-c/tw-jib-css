@@ -5,114 +5,114 @@
 }
 
 @theme inline {
-  --tw-jib--stroke-sat-interpolation-lch: lch(
+  --tw-jib--stroke-saturation-interpolation-lch: lch(
     from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))
     l
     calc(c * (1 - max(var(--tw-jib--stroke-saturation--amount), calc(0 - var(--tw-jib--stroke-saturation--amount)))) + max(0, var(--tw-jib--stroke-saturation--amount)) * 150)
     h / alpha
   );
-  --tw-jib--stroke-sat-interpolation-oklch: oklch(
+  --tw-jib--stroke-saturation-interpolation-oklch: oklch(
     from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))
     l
     calc(c * (1 - max(var(--tw-jib--stroke-saturation--amount), calc(0 - var(--tw-jib--stroke-saturation--amount)))) + max(0, var(--tw-jib--stroke-saturation--amount)) * 0.4)
     h / alpha
   );
-  --tw-jib--stroke-sat-interpolation-lab: lab(
+  --tw-jib--stroke-saturation-interpolation-lab: lab(
     from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))
     l
     calc(a * (1 + var(--tw-jib--stroke-saturation--amount)))
     calc(b * (1 + var(--tw-jib--stroke-saturation--amount)))
     / alpha
   );
-  --tw-jib--stroke-sat-interpolation-oklab: oklab(
+  --tw-jib--stroke-saturation-interpolation-oklab: oklab(
     from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))
     l
     calc(a * (1 + var(--tw-jib--stroke-saturation--amount)))
     calc(b * (1 + var(--tw-jib--stroke-saturation--amount)))
     / alpha
   );
-  --tw-jib--stroke-sat-interpolation-hsl: hsl(
+  --tw-jib--stroke-saturation-interpolation-hsl: hsl(
     from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) h
     calc(s * (1 - max(var(--tw-jib--stroke-saturation--amount), calc(0 - var(--tw-jib--stroke-saturation--amount)))) + max(0, var(--tw-jib--stroke-saturation--amount)) * 100)
     l / alpha
   );
-  --tw-jib--stroke-sat-interpolation-hwb: hwb(
+  --tw-jib--stroke-saturation-interpolation-hwb: hwb(
     from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) h
     calc(w * (1 - max(var(--tw-jib--stroke-saturation--amount), calc(0 - var(--tw-jib--stroke-saturation--amount)))) + max(0, calc(0 - var(--tw-jib--stroke-saturation--amount))) * 50)
     calc(b * (1 - max(var(--tw-jib--stroke-saturation--amount), calc(0 - var(--tw-jib--stroke-saturation--amount)))) + max(0, calc(0 - var(--tw-jib--stroke-saturation--amount))) * 50)
     / alpha
   );
-  --tw-jib--stroke-sat-interpolation-rgb: rgb(
+  --tw-jib--stroke-saturation-interpolation-rgb: rgb(
     from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))
     calc(r + var(--tw-jib--stroke-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
     calc(g + var(--tw-jib--stroke-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
     calc(b + var(--tw-jib--stroke-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
     / alpha
   );
-  --tw-jib--stroke-sat-interpolation-srgb: color(
+  --tw-jib--stroke-saturation-interpolation-srgb: color(
     from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) srgb
     calc(r + var(--tw-jib--stroke-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
     calc(g + var(--tw-jib--stroke-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
     calc(b + var(--tw-jib--stroke-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
     / alpha
   );
-  --tw-jib--stroke-sat-interpolation-srgb-linear: color(
+  --tw-jib--stroke-saturation-interpolation-srgb-linear: color(
     from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) srgb-linear
     calc(r + var(--tw-jib--stroke-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
     calc(g + var(--tw-jib--stroke-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
     calc(b + var(--tw-jib--stroke-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
     / alpha
   );
-  --tw-jib--stroke-sat-interpolation-display-p3: color(
+  --tw-jib--stroke-saturation-interpolation-display-p3: color(
     from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) display-p3
     calc(r + var(--tw-jib--stroke-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
     calc(g + var(--tw-jib--stroke-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
     calc(b + var(--tw-jib--stroke-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
     / alpha
   );
-  --tw-jib--stroke-sat-interpolation-a98-rgb: color(
+  --tw-jib--stroke-saturation-interpolation-a98-rgb: color(
     from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) a98-rgb
     calc(r + var(--tw-jib--stroke-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
     calc(g + var(--tw-jib--stroke-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
     calc(b + var(--tw-jib--stroke-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
     / alpha
   );
-  --tw-jib--stroke-sat-interpolation-prophoto-rgb: color(
+  --tw-jib--stroke-saturation-interpolation-prophoto-rgb: color(
     from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) prophoto-rgb
     calc(r + var(--tw-jib--stroke-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
     calc(g + var(--tw-jib--stroke-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
     calc(b + var(--tw-jib--stroke-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
     / alpha
   );
-  --tw-jib--stroke-sat-interpolation-rec2020: color(
+  --tw-jib--stroke-saturation-interpolation-rec2020: color(
     from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) rec2020
     calc(r + var(--tw-jib--stroke-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
     calc(g + var(--tw-jib--stroke-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
     calc(b + var(--tw-jib--stroke-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
     / alpha
   );
-  --tw-jib--stroke-sat-interpolation-xyz: color(
+  --tw-jib--stroke-saturation-interpolation-xyz: color(
     from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) xyz
     calc(y * 0.95047 + (x - y * 0.95047) * (1 + var(--tw-jib--stroke-saturation--amount)))
     y
     calc(y * 1.08883 + (z - y * 1.08883) * (1 + var(--tw-jib--stroke-saturation--amount)))
     / alpha
   );
-  --tw-jib--stroke-sat-interpolation-xyz-d50: color(
+  --tw-jib--stroke-saturation-interpolation-xyz-d50: color(
     from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) xyz-d50
     calc(y * 0.96422 + (x - y * 0.96422) * (1 + var(--tw-jib--stroke-saturation--amount)))
     y
     calc(y * 0.82521 + (z - y * 0.82521) * (1 + var(--tw-jib--stroke-saturation--amount)))
     / alpha
   );
-  --tw-jib--stroke-sat-interpolation-xyz-d65: color(
+  --tw-jib--stroke-saturation-interpolation-xyz-d65: color(
     from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) xyz-d65
     calc(y * 0.95047 + (x - y * 0.95047) * (1 + var(--tw-jib--stroke-saturation--amount)))
     y
     calc(y * 1.08883 + (z - y * 1.08883) * (1 + var(--tw-jib--stroke-saturation--amount)))
     / alpha
   );
-  --tw-jib--stroke-sat-interpolation-color-mix: inherit;
+  --tw-jib--stroke-saturation-interpolation-color-mix: inherit;
 }
 
 /* =========================================================================
@@ -123,7 +123,7 @@
 @utility stroke-saturation-* {
   &:not(._) {
     --tw-jib--stroke-saturation--amount: calc(--value(integer, [number]) * 0.01);
-    --tw-jib--stroke-color-after-saturation: --modifier(--tw-jib--stroke-sat-interpolation-*);
+    --tw-jib--stroke-color-after-saturation: --modifier(--tw-jib--stroke-saturation-interpolation-*);
     --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
     stroke: var(--tw-jib--stroke-color);
   }
@@ -132,7 +132,7 @@
 /* block 2: stable with-modifier */
 @utility stroke-saturation-* {
   &:not(._) {
-    --tw-jib--stroke-color-after-saturation: --modifier(--tw-jib--stroke-sat-interpolation-*);
+    --tw-jib--stroke-color-after-saturation: --modifier(--tw-jib--stroke-saturation-interpolation-*);
     --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
     stroke: var(--tw-jib--stroke-color);
   }
@@ -142,7 +142,7 @@
 @utility stroke-saturation-* {
   &:not(._) {
     @variant supports-saturation {
-      --tw-jib--stroke-color-after-saturation: --saturation(
+      --tw-jib--stroke-color-after-saturation: --tw-jib--saturation(
         var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)),
         --value(integer, [number]),
         --modifier(
@@ -171,7 +171,7 @@
 @utility stroke-saturation-* {
   &:not(._) {
     @variant supports-saturation {
-      --tw-jib--stroke-color-after-saturation: --saturation(var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)), --value(integer, [number]));
+      --tw-jib--stroke-color-after-saturation: --tw-jib--saturation(var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)), --value(integer, [number]));
       --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
       stroke: var(--tw-jib--stroke-color);
     }
@@ -186,7 +186,7 @@
 @utility -stroke-saturation-* {
   &:not(._) {
     --tw-jib--stroke-saturation--amount: calc(--value(integer, [number]) * -0.01);
-    --tw-jib--stroke-color-after-saturation: --modifier(--tw-jib--stroke-sat-interpolation-*);
+    --tw-jib--stroke-color-after-saturation: --modifier(--tw-jib--stroke-saturation-interpolation-*);
     --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
     stroke: var(--tw-jib--stroke-color);
   }
@@ -195,7 +195,7 @@
 /* block 2: stable with-modifier */
 @utility -stroke-saturation-* {
   &:not(._) {
-    --tw-jib--stroke-color-after-saturation: --modifier(--tw-jib--stroke-sat-interpolation-*);
+    --tw-jib--stroke-color-after-saturation: --modifier(--tw-jib--stroke-saturation-interpolation-*);
     --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
     stroke: var(--tw-jib--stroke-color);
   }
@@ -205,7 +205,7 @@
 @utility -stroke-saturation-* {
   &:not(._) {
     @variant supports-saturation {
-      --tw-jib--stroke-color-after-saturation: --saturation(
+      --tw-jib--stroke-color-after-saturation: --tw-jib--saturation(
         var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)),
         calc(--value(integer, [number]) * -1),
         --modifier(
@@ -234,7 +234,7 @@
 @utility -stroke-saturation-* {
   &:not(._) {
     @variant supports-saturation {
-      --tw-jib--stroke-color-after-saturation: --saturation(var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)), calc(--value(integer, [number]) * -1));
+      --tw-jib--stroke-color-after-saturation: --tw-jib--saturation(var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)), calc(--value(integer, [number]) * -1));
       --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
       stroke: var(--tw-jib--stroke-color);
     }
@@ -249,7 +249,7 @@
 @utility stroke-saturate-* {
   &:not(._) {
     --tw-jib--stroke-saturation--amount: calc(--value(integer, [number]) * 0.01);
-    --tw-jib--stroke-color-after-saturation: --modifier(--tw-jib--stroke-sat-interpolation-*);
+    --tw-jib--stroke-color-after-saturation: --modifier(--tw-jib--stroke-saturation-interpolation-*);
     --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
     stroke: var(--tw-jib--stroke-color);
   }
@@ -258,7 +258,7 @@
 /* block 2: stable with-modifier */
 @utility stroke-saturate-* {
   &:not(._) {
-    --tw-jib--stroke-color-after-saturation: --modifier(--tw-jib--stroke-sat-interpolation-*);
+    --tw-jib--stroke-color-after-saturation: --modifier(--tw-jib--stroke-saturation-interpolation-*);
     --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
     stroke: var(--tw-jib--stroke-color);
   }
@@ -268,7 +268,7 @@
 @utility stroke-saturate-* {
   &:not(._) {
     @variant supports-saturation {
-      --tw-jib--stroke-color-after-saturation: --saturation(
+      --tw-jib--stroke-color-after-saturation: --tw-jib--saturation(
         var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)),
         --value(integer, [number]),
         --modifier(
@@ -297,7 +297,7 @@
 @utility stroke-saturate-* {
   &:not(._) {
     @variant supports-saturation {
-      --tw-jib--stroke-color-after-saturation: --saturation(var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)), --value(integer, [number]));
+      --tw-jib--stroke-color-after-saturation: --tw-jib--saturation(var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)), --value(integer, [number]));
       --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
       stroke: var(--tw-jib--stroke-color);
     }
@@ -312,7 +312,7 @@
 @utility stroke-desaturate-* {
   &:not(._) {
     --tw-jib--stroke-saturation--amount: calc(--value(integer, [number]) * -0.01);
-    --tw-jib--stroke-color-after-saturation: --modifier(--tw-jib--stroke-sat-interpolation-*);
+    --tw-jib--stroke-color-after-saturation: --modifier(--tw-jib--stroke-saturation-interpolation-*);
     --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
     stroke: var(--tw-jib--stroke-color);
   }
@@ -321,7 +321,7 @@
 /* block 2: stable with-modifier */
 @utility stroke-desaturate-* {
   &:not(._) {
-    --tw-jib--stroke-color-after-saturation: --modifier(--tw-jib--stroke-sat-interpolation-*);
+    --tw-jib--stroke-color-after-saturation: --modifier(--tw-jib--stroke-saturation-interpolation-*);
     --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
     stroke: var(--tw-jib--stroke-color);
   }
@@ -331,7 +331,7 @@
 @utility stroke-desaturate-* {
   &:not(._) {
     @variant supports-saturation {
-      --tw-jib--stroke-color-after-saturation: --saturation(
+      --tw-jib--stroke-color-after-saturation: --tw-jib--saturation(
         var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)),
         calc(--value(integer, [number]) * -1),
         --modifier(
@@ -360,7 +360,7 @@
 @utility stroke-desaturate-* {
   &:not(._) {
     @variant supports-saturation {
-      --tw-jib--stroke-color-after-saturation: --saturation(var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)), calc(--value(integer, [number]) * -1));
+      --tw-jib--stroke-color-after-saturation: --tw-jib--saturation(var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)), calc(--value(integer, [number]) * -1));
       --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
       stroke: var(--tw-jib--stroke-color);
     }

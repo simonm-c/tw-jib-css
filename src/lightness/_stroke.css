@@ -154,7 +154,7 @@
 @utility stroke-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--stroke-color-after-lightness: --lightness(
+      --tw-jib--stroke-color-after-lightness: --tw-jib--lightness(
         var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))),
         --value(integer, [number]),
         --modifier(
@@ -183,7 +183,7 @@
 @utility stroke-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--stroke-color-after-lightness: --lightness(var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))), --value(integer, [number]));
+      --tw-jib--stroke-color-after-lightness: --tw-jib--lightness(var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))), --value(integer, [number]));
       --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
       stroke: var(--tw-jib--stroke-color);
     }
@@ -217,7 +217,7 @@
 @utility -stroke-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--stroke-color-after-lightness: --lightness(
+      --tw-jib--stroke-color-after-lightness: --tw-jib--lightness(
         var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))),
         calc(--value(integer, [number]) * -1),
         --modifier(
@@ -246,7 +246,7 @@
 @utility -stroke-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--stroke-color-after-lightness: --lightness(var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))), calc(--value(integer, [number]) * -1));
+      --tw-jib--stroke-color-after-lightness: --tw-jib--lightness(var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))), calc(--value(integer, [number]) * -1));
       --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
       stroke: var(--tw-jib--stroke-color);
     }
@@ -280,7 +280,7 @@
 @utility stroke-lighten-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--stroke-color-after-lightness: --lightness(
+      --tw-jib--stroke-color-after-lightness: --tw-jib--lightness(
         var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))),
         --value(integer, [number]),
         --modifier(
@@ -309,7 +309,7 @@
 @utility stroke-lighten-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--stroke-color-after-lightness: --lightness(var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))), --value(integer, [number]));
+      --tw-jib--stroke-color-after-lightness: --tw-jib--lightness(var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))), --value(integer, [number]));
       --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
       stroke: var(--tw-jib--stroke-color);
     }
@@ -343,7 +343,7 @@
 @utility stroke-darken-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--stroke-color-after-lightness: --lightness(
+      --tw-jib--stroke-color-after-lightness: --tw-jib--lightness(
         var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))),
         calc(--value(integer, [number]) * -1),
         --modifier(
@@ -372,7 +372,7 @@
 @utility stroke-darken-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--stroke-color-after-lightness: --lightness(var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))), calc(--value(integer, [number]) * -1));
+      --tw-jib--stroke-color-after-lightness: --tw-jib--lightness(var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))), calc(--value(integer, [number]) * -1));
       --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
       stroke: var(--tw-jib--stroke-color);
     }

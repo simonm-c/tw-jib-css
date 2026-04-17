@@ -8,7 +8,7 @@
  * ========================================================================= */
 
 @custom-variant supports-wcag {
-  @supports (background: if(style(--value): red)) and (background: --linearize(red)) {
+  @supports (background: if(style(--value): red)) and (background: --tw-jib--linearize(red)) {
     @slot;
   }
 }
@@ -27,8 +27,8 @@
 /* Block A: with modifier — explicit colour space */
 @utility text-a11y-* {
   @variant supports-wcag {
-    --tw-jib--text-color: --accessible-shade(
-      var(--tw-jib--bg-color),
+    --tw-jib--text-color: --tw-jib--accessible-shade(
+      var(--tw-jib--background-color),
       --value('aa', 'aaa', 'aa-lg'),
       --modifier(
         'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
@@ -44,8 +44,8 @@
 /* Block B: no modifier — defaults to oklch */
 @utility text-a11y-* {
   @variant supports-wcag {
-    --tw-jib--text-color: --accessible-shade(
-      var(--tw-jib--bg-color),
+    --tw-jib--text-color: --tw-jib--accessible-shade(
+      var(--tw-jib--background-color),
       --value('aa', 'aaa', 'aa-lg'),
       oklch
     );
@@ -68,7 +68,7 @@
        before entering the @function chain. Without this, currentColor
        inside @function causes the renderer to crash (Error code: 5). */
     --tw-jib--wcag-badge-text: oklch(from var(--tw-jib--text-color) l c h);
-    --tw-jib--wcag-rating: --wcag-rating(var(--tw-jib--bg-color), var(--tw-jib--wcag-badge-text));
+    --tw-jib--wcag-rating: --tw-jib--wcag-rating(var(--tw-jib--background-color), var(--tw-jib--wcag-badge-text));
     position: relative;
 
     &::after {

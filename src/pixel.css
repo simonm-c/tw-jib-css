@@ -48,7 +48,7 @@
   inherits: false;
   initial-value: 1px;
 }
-@property --tw-jib--pixel--opacity {
+@property --tw-jib--pixel-opacity {
   syntax: '<number>';
   inherits: false;
   initial-value: 1;
@@ -60,22 +60,22 @@
 /* bg-pixel-* — sets the color, applies the RGB pixel pattern */
 @utility bg-pixel-* {
   --tw-jib--pixel-color: --value(--color-*, [color]);
-  --tw-jib--pixel--opacity: calc(--modifier(integer) * 0.01);
+  --tw-jib--pixel-opacity: calc(--modifier(integer) * 0.01);
 
   /* derived dimensions — width = size, height = size * 2 (1:2 aspect ratio) */
-  --tw-jib--pixel-w: var(--tw-jib--pixel-size);
-  --tw-jib--pixel-h: calc(var(--tw-jib--pixel-size) * 2);
+  --tw-jib--pixel-width: var(--tw-jib--pixel-size);
+  --tw-jib--pixel-height: calc(var(--tw-jib--pixel-size) * 2);
 
-  /* gap scales with pixel size — gap property is a multiplier applied to pixel-w */
-  --tw-jib--pixel-gap-actual: calc(var(--tw-jib--pixel-gap) * var(--tw-jib--pixel-w));
+  /* gap scales with pixel size — gap property is a multiplier applied to pixel-width */
+  --tw-jib--pixel-gap-actual: calc(var(--tw-jib--pixel-gap) * var(--tw-jib--pixel-width));
 
   /* computed cell dimensions — R|G|B are adjacent, gap separates each triplet */
-  --tw-jib--pixel-triplet-w: calc(var(--tw-jib--pixel-w) * 3);
-  --tw-jib--pixel-cell-w: calc(var(--tw-jib--pixel-triplet-w) + var(--tw-jib--pixel-gap-actual));
-  --tw-jib--pixel-cell-h: calc(var(--tw-jib--pixel-h) + var(--tw-jib--pixel-gap-actual));
+  --tw-jib--pixel-triplet-width: calc(var(--tw-jib--pixel-width) * 3);
+  --tw-jib--pixel-cell-width: calc(var(--tw-jib--pixel-triplet-width) + var(--tw-jib--pixel-gap-actual));
+  --tw-jib--pixel-cell-height: calc(var(--tw-jib--pixel-height) + var(--tw-jib--pixel-gap-actual));
 
   /*
-     Column layout per cell (w = pixel-w, b = bleed):
+     Column layout per cell (w = pixel-width, b = bleed):
        R solid:  0          → w
        R→G overlap: w - b   → w + b   (R fades out, G fades in — screen blends them)
        G solid:  w          → w*2
@@ -88,51 +88,51 @@
      At bleed>0 adjacent channels overlap via screen = additive glow.
   */
 
-  --tw-jib--bg-image:
+  --tw-jib--background-image:
     /* Row mask → multiply punches out row gaps
        White blooms outward into the gap by bleed amount on each side */
     repeating-linear-gradient(
         to bottom,
         white 0px,
-        white var(--tw-jib--pixel-h),
-        rgb(0 0 0 / var(--tw-jib--pixel--opacity)) calc(var(--tw-jib--pixel-h) + var(--tw-jib--pixel-bleed)),
-        rgb(0 0 0 / var(--tw-jib--pixel--opacity)) calc(var(--tw-jib--pixel-cell-h) - var(--tw-jib--pixel-bleed)),
-        white var(--tw-jib--pixel-cell-h)
+        white var(--tw-jib--pixel-height),
+        rgb(0 0 0 / var(--tw-jib--pixel-opacity)) calc(var(--tw-jib--pixel-height) + var(--tw-jib--pixel-bleed)),
+        rgb(0 0 0 / var(--tw-jib--pixel-opacity)) calc(var(--tw-jib--pixel-cell-height) - var(--tw-jib--pixel-bleed)),
+        white var(--tw-jib--pixel-cell-height)
       ) padding-box,
     /* Red pixel — column 0, bleeds into gap on both sides → screen */
     repeating-linear-gradient(
         to right,
-        rgb(from var(--tw-jib--pixel-color) r 0 0 / var(--tw-jib--pixel--opacity)) 0px,
-        rgb(from var(--tw-jib--pixel-color) r 0 0 / var(--tw-jib--pixel--opacity)) var(--tw-jib--pixel-w),
-        transparent calc(var(--tw-jib--pixel-w) + var(--tw-jib--pixel-bleed)),
-        transparent calc(var(--tw-jib--pixel-cell-w) - var(--tw-jib--pixel-bleed)),
-        rgb(from var(--tw-jib--pixel-color) r 0 0 / var(--tw-jib--pixel--opacity)) var(--tw-jib--pixel-cell-w)
+        rgb(from var(--tw-jib--pixel-color) r 0 0 / var(--tw-jib--pixel-opacity)) 0px,
+        rgb(from var(--tw-jib--pixel-color) r 0 0 / var(--tw-jib--pixel-opacity)) var(--tw-jib--pixel-width),
+        transparent calc(var(--tw-jib--pixel-width) + var(--tw-jib--pixel-bleed)),
+        transparent calc(var(--tw-jib--pixel-cell-width) - var(--tw-jib--pixel-bleed)),
+        rgb(from var(--tw-jib--pixel-color) r 0 0 / var(--tw-jib--pixel-opacity)) var(--tw-jib--pixel-cell-width)
       ) padding-box,
     /* Green pixel — column 1, bleeds into columns 0 and 2 → screen */
     repeating-linear-gradient(
         to right,
         transparent 0px,
-        transparent calc(var(--tw-jib--pixel-w) - var(--tw-jib--pixel-bleed)),
-        rgb(from var(--tw-jib--pixel-color) 0 g 0 / var(--tw-jib--pixel--opacity)) var(--tw-jib--pixel-w),
-        rgb(from var(--tw-jib--pixel-color) 0 g 0 / var(--tw-jib--pixel--opacity)) calc(var(--tw-jib--pixel-w) * 2),
-        transparent calc(var(--tw-jib--pixel-w) * 2 + var(--tw-jib--pixel-bleed)),
-        transparent var(--tw-jib--pixel-cell-w)
+        transparent calc(var(--tw-jib--pixel-width) - var(--tw-jib--pixel-bleed)),
+        rgb(from var(--tw-jib--pixel-color) 0 g 0 / var(--tw-jib--pixel-opacity)) var(--tw-jib--pixel-width),
+        rgb(from var(--tw-jib--pixel-color) 0 g 0 / var(--tw-jib--pixel-opacity)) calc(var(--tw-jib--pixel-width) * 2),
+        transparent calc(var(--tw-jib--pixel-width) * 2 + var(--tw-jib--pixel-bleed)),
+        transparent var(--tw-jib--pixel-cell-width)
       ) padding-box,
     /* Blue pixel — column 2, bleeds into column 1 → screen */
     repeating-linear-gradient(
         to right,
         transparent 0px,
-        transparent calc(var(--tw-jib--pixel-w) * 2 - var(--tw-jib--pixel-bleed)),
-        rgb(from var(--tw-jib--pixel-color) 0 0 b / var(--tw-jib--pixel--opacity)) calc(var(--tw-jib--pixel-w) * 2),
-        rgb(from var(--tw-jib--pixel-color) 0 0 b / var(--tw-jib--pixel--opacity)) var(--tw-jib--pixel-triplet-w),
-        transparent calc(var(--tw-jib--pixel-triplet-w) + var(--tw-jib--pixel-bleed)),
-        transparent var(--tw-jib--pixel-cell-w)
+        transparent calc(var(--tw-jib--pixel-width) * 2 - var(--tw-jib--pixel-bleed)),
+        rgb(from var(--tw-jib--pixel-color) 0 0 b / var(--tw-jib--pixel-opacity)) calc(var(--tw-jib--pixel-width) * 2),
+        rgb(from var(--tw-jib--pixel-color) 0 0 b / var(--tw-jib--pixel-opacity)) var(--tw-jib--pixel-triplet-width),
+        transparent calc(var(--tw-jib--pixel-triplet-width) + var(--tw-jib--pixel-bleed)),
+        transparent var(--tw-jib--pixel-cell-width)
       ) padding-box,
     /* Black base layer */
-    linear-gradient(rgb(0 0 0 / var(--tw-jib--pixel--opacity)) 0 0) padding-box;
+    linear-gradient(rgb(0 0 0 / var(--tw-jib--pixel-opacity)) 0 0) padding-box;
   background:
     var(--tw-jib--ripple-image) padding-box,
-    var(--tw-jib--bg-image) padding-box,
+    var(--tw-jib--background-image) padding-box,
     var(--tw-jib--border-gradient) border-box;
   background-blend-mode: normal, multiply, screen, screen, screen, normal, normal;
 }

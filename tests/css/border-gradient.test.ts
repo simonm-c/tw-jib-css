@@ -8,7 +8,7 @@ const BORDER = 'border-linear-to-r border-from-rose-500 border-to-cyan-500';
 describe('background colors with border gradient', () => {
   test('bg-blue-500', async () => {
     const css = await compile(`bg-blue-500 ${BORDER}`);
-    expect(css).toContain('--tw-jib--bg-color');
+    expect(css).toContain('--tw-jib--background-color');
     expect(css).toContain('--tw-jib--border-gradient-from');
     expect(css).toContain('border-color: transparent');
     expect(css).toContain(BG_LAYER);

@@ -208,7 +208,7 @@
 @utility text-hue-rotate-* {
   &:not(._) {
     @variant supports-hue-rotate {
-      --tw-jib--text-color-after-hue-rotate: --hue-rotate(
+      --tw-jib--text-color-after-hue-rotate: --tw-jib--hue-rotate(
         var(--tw-jib--text-color-source),
         --value(integer, [number]),
         --modifier(
@@ -236,7 +236,7 @@
 @utility text-hue-rotate-* {
   &:not(._) {
     @variant supports-hue-rotate {
-      --tw-jib--text-color-after-hue-rotate: --hue-rotate(var(--tw-jib--text-color-source), --value(integer, [number]));
+      --tw-jib--text-color-after-hue-rotate: --tw-jib--hue-rotate(var(--tw-jib--text-color-source), --value(integer, [number]));
       --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
       color: var(--tw-jib--text-color);
     }
@@ -267,7 +267,7 @@
 @utility -text-hue-rotate-* {
   &:not(._) {
     @variant supports-hue-rotate {
-      --tw-jib--text-color-after-hue-rotate: --hue-rotate(
+      --tw-jib--text-color-after-hue-rotate: --tw-jib--hue-rotate(
         var(--tw-jib--text-color-source),
         calc(--value(integer, [number]) * -1),
         --modifier(
@@ -293,7 +293,7 @@
 @utility -text-hue-rotate-* {
   &:not(._) {
     @variant supports-hue-rotate {
-      --tw-jib--text-color-after-hue-rotate: --hue-rotate(var(--tw-jib--text-color-source), calc(--value(integer, [number]) * -1));
+      --tw-jib--text-color-after-hue-rotate: --tw-jib--hue-rotate(var(--tw-jib--text-color-source), calc(--value(integer, [number]) * -1));
       --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
       color: var(--tw-jib--text-color);
     }

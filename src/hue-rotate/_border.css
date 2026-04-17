@@ -208,7 +208,7 @@
 @utility border-hue-rotate-* {
   &:not(._) {
     @variant supports-hue-rotate {
-      --tw-jib--border-color-after-hue-rotate: --hue-rotate(
+      --tw-jib--border-color-after-hue-rotate: --tw-jib--hue-rotate(
         var(--tw-jib--border-color-source),
         --value(integer, [number]),
         --modifier(
@@ -236,7 +236,7 @@
 @utility border-hue-rotate-* {
   &:not(._) {
     @variant supports-hue-rotate {
-      --tw-jib--border-color-after-hue-rotate: --hue-rotate(var(--tw-jib--border-color-source), --value(integer, [number]));
+      --tw-jib--border-color-after-hue-rotate: --tw-jib--hue-rotate(var(--tw-jib--border-color-source), --value(integer, [number]));
       --tw-jib--border-color: var(--tw-jib--border-color-after-lightness, var(--tw-jib--border-color-after-saturation, var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source))));
       border-color: var(--tw-jib--border-color);
     }
@@ -267,7 +267,7 @@
 @utility -border-hue-rotate-* {
   &:not(._) {
     @variant supports-hue-rotate {
-      --tw-jib--border-color-after-hue-rotate: --hue-rotate(
+      --tw-jib--border-color-after-hue-rotate: --tw-jib--hue-rotate(
         var(--tw-jib--border-color-source),
         calc(--value(integer, [number]) * -1),
         --modifier(
@@ -293,7 +293,7 @@
 @utility -border-hue-rotate-* {
   &:not(._) {
     @variant supports-hue-rotate {
-      --tw-jib--border-color-after-hue-rotate: --hue-rotate(var(--tw-jib--border-color-source), calc(--value(integer, [number]) * -1));
+      --tw-jib--border-color-after-hue-rotate: --tw-jib--hue-rotate(var(--tw-jib--border-color-source), calc(--value(integer, [number]) * -1));
       --tw-jib--border-color: var(--tw-jib--border-color-after-lightness, var(--tw-jib--border-color-after-saturation, var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source))));
       border-color: var(--tw-jib--border-color);
     }

@@ -19,10 +19,83 @@
   initial-value: 0;
 }
 
-/* ── Landing page keyframes ── */
+/* ── Landing page: color cycling ── */
+@property --landing-base-color {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: oklch(0.623 0.214 259); /* blue-500 */
+}
+@property --landing-tex-color {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: oklch(0.55 0.22 265); /* blue-ish */
+}
+
 @keyframes landing-demo-hue-cycle {
   from { --landing-demo-hue: 0; }
   to   { --landing-demo-hue: 360; }
+}
+
+/*
+ * Color keyframes: hold ~80% of each segment, ease ~20%.
+ * 6 colors × 3s = 18s. Alternates mid → dark → light → dark → light → mid
+ * to showcase lightness-dependent behaviors (hatch density, darken headroom, etc.)
+ */
+@keyframes landing-base-color {
+  0%, 14%  { --landing-base-color: oklch(0.623 0.214 259); }  /* blue-500 — mid */
+  17%, 30% { --landing-base-color: oklch(0.396 0.141 21); }   /* rose-800 — dark */
+  33%, 47% { --landing-base-color: oklch(0.871 0.15 85); }    /* amber-300 — light */
+  50%, 64% { --landing-base-color: oklch(0.508 0.118 165); }  /* emerald-700 — dark */
+  67%, 80% { --landing-base-color: oklch(0.811 0.111 293); }  /* violet-300 — light */
+  83%, 97% { --landing-base-color: oklch(0.645 0.246 16); }   /* rose-500 — mid */
+}
+@keyframes landing-tex-color {
+  0%, 14%  { --landing-tex-color: oklch(0.55 0.22 265); }     /* blue — mid */
+  17%, 30% { --landing-tex-color: oklch(0.37 0.12 21); }      /* dark rose */
+  33%, 47% { --landing-tex-color: oklch(0.85 0.14 85); }      /* light amber */
+  50%, 64% { --landing-tex-color: oklch(0.45 0.10 165); }     /* dark emerald */
+  67%, 80% { --landing-tex-color: oklch(0.80 0.11 293); }     /* light violet */
+  83%, 97% { --landing-tex-color: oklch(0.65 0.24 16); }      /* mid rose */
+}
+@keyframes landing-comic-params {
+  0%, 22%  { --tw-jib--comic-dot: 1px;   --tw-jib--comic-gap: 2px; }
+  25%, 47% { --tw-jib--comic-dot: 0.5px; --tw-jib--comic-gap: 1px; }
+  50%, 72% { --tw-jib--comic-dot: 2px;   --tw-jib--comic-gap: 4px; }
+  75%, 97% { --tw-jib--comic-dot: 1.5px; --tw-jib--comic-gap: 3px; }
+}
+@keyframes landing-pixel-params {
+  0%, 22%  { --tw-jib--pixel-size: 1px;   --tw-jib--pixel-bleed: 1px; }
+  25%, 47% { --tw-jib--pixel-size: 2px;   --tw-jib--pixel-bleed: 2px; }
+  50%, 72% { --tw-jib--pixel-size: 0.5px; --tw-jib--pixel-bleed: 0.5px; }
+  75%, 97% { --tw-jib--pixel-size: 1.5px; --tw-jib--pixel-bleed: 1.5px; }
+}
+@keyframes landing-hatch-params {
+  0%, 22%  { --tw-jib--hatch-angle: 35deg; --tw-jib--hatch-stroke: 3px; --tw-jib--hatch-gap: 2px; }
+  25%, 47% { --tw-jib--hatch-angle: 60deg; --tw-jib--hatch-stroke: 1px; --tw-jib--hatch-gap: 4px; }
+  50%, 72% { --tw-jib--hatch-angle: 0deg;  --tw-jib--hatch-stroke: 5px; --tw-jib--hatch-gap: 1px; }
+  75%, 97% { --tw-jib--hatch-angle: 90deg; --tw-jib--hatch-stroke: 2px; --tw-jib--hatch-gap: 3px; }
+}
+@keyframes landing-wc-params {
+  0%, 22%  { --tw-jib--wc-wash: 3; }
+  25%, 47% { --tw-jib--wc-wash: 1; }
+  50%, 72% { --tw-jib--wc-wash: 5; }
+  75%, 97% { --tw-jib--wc-wash: 2; }
+}
+
+.landing-color-cycle { animation: landing-base-color 18s ease-in-out infinite; }
+.landing-tex-cycle   { animation: landing-tex-color 18s ease-in-out infinite; }
+.landing-comic-params { animation: landing-comic-params 12s ease-in-out infinite; }
+.landing-pixel-params { animation: landing-pixel-params 12s ease-in-out infinite; }
+.landing-hatch-params { animation: landing-hatch-params 12s ease-in-out infinite; }
+.landing-wc-params    { animation: landing-wc-params 12s ease-in-out infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-color-cycle,
+  .landing-tex-cycle,
+  .landing-comic-params,
+  .landing-pixel-params,
+  .landing-hatch-params,
+  .landing-wc-params { animation: none; }
 }
 @keyframes landing-slow-spin {
   from { transform: rotate(0deg); }
@@ -72,24 +145,23 @@
   padding: 0 !important;
 }
 
-@layer utilities {
-  /* ── VitePress variable overrides — transparent so brand bg shows through ── */
-  :root {
-    --vp-c-bg: transparent;
-    --vp-c-bg-alt: transparent;
-    --vp-c-bg-soft: transparent;
-    --vp-c-bg-elv: transparent;
-    --vp-c-default-soft: transparent;
-    --vp-sidebar-bg-color: transparent;
-    --vp-nav-bg-color: oklch(from var(--color-jib-brand) calc(l + (1 - l) * 0.88) calc(c * 0.15) h);
-    --vp-c-divider: transparent;
-    --vp-c-gutter: transparent;
-    --vp-c-brand-1: var(--color-jib-brand);
-    --vp-c-brand-2: var(--color-jib-brand);
-    --vp-c-brand-3: var(--color-jib-brand);
-    --vp-c-brand-soft: transparent;
-  }
+:root {
+  --vp-c-bg: transparent;
+  --vp-c-bg-alt: transparent;
+  --vp-c-bg-soft: transparent;
+  --vp-c-bg-elv: transparent;
+  --vp-c-default-soft: transparent;
+  --vp-sidebar-bg-color: transparent;
+  --vp-nav-bg-color: transparent;
+  --vp-c-divider: transparent;
+  --vp-c-gutter: transparent;
+  --vp-c-brand-1: var(--color-jib-brand);
+  --vp-c-brand-2: var(--color-jib-brand);
+  --vp-c-brand-3: var(--color-jib-brand);
+  --vp-c-brand-soft: transparent;
+}
 
+@layer utilities {
   /* ── VP element overrides via @apply — feeds jib-css pipeline for ripple ── */
   .VPDoc, .VPContent, .vp-doc {
     @apply bg-jib-brand -bg-saturation-85 bg-lighten-96;
@@ -140,7 +212,7 @@
     @apply h-9 w-auto;
   }
   .VPNav, .VPNavBar, .VPNavBar.home.top, .VPNavBar.top, .VPNavBar.has-sidebar {
-    @apply bg-jib-brand -bg-saturation-60 bg-lighten-88 border-b border-jib-brand -border-saturation-60 border-lighten-75;
+    @apply bg-jib-brand -bg-saturation-75 bg-lighten-92 border-b border-jib-brand -border-saturation-75 border-lighten-82;
   }
   .dark .VPNav, .dark .VPNavBar, .dark .VPNavBar.home.top, .dark .VPNavBar.top, .dark .VPNavBar.has-sidebar {
     @apply bg-darken-72 -bg-saturation-50 border-darken-50;
@@ -162,24 +234,42 @@
     @apply bg-darken-76 -bg-saturation-50;
   }
   .VPSidebar a {
-    @apply text-a11y-aa;
+    @apply text-slate-900;
+  }
+  .dark .VPSidebar a {
+    @apply text-slate-200;
   }
   .VPSidebar a.active {
-    @apply text-a11y-aa;
+    @apply text-slate-900;
+  }
+  .dark .VPSidebar a.active {
+    @apply text-slate-200;
   }
 
   /* ── Content area ── */
   .vp-doc {
-    @apply text-a11y-aa;
+    @apply text-slate-900;
+  }
+  .dark .vp-doc {
+    @apply text-slate-200;
   }
   .vp-doc h1, .vp-doc h2 {
-    @apply text-a11y-aa-lg;
+    @apply text-sky-950;
+  }
+  .dark .vp-doc h1, .dark .vp-doc h2 {
+    @apply text-slate-300;
   }
   .vp-doc h3, .vp-doc h4 {
-    @apply text-a11y-aa;
+    @apply text-slate-900;
+  }
+  .dark .vp-doc h3, .dark .vp-doc h4 {
+    @apply text-slate-200;
   }
   .vp-doc :not(pre, h1, h2, h3, h4, h5, h6) > code {
-    @apply text-a11y-aa-lg;
+    @apply text-sky-950;
+  }
+  .dark .vp-doc :not(pre, h1, h2, h3, h4, h5, h6) > code {
+    @apply text-slate-300;
   }
   .vp-doc a {
     @apply text-jib-brand;
@@ -187,27 +277,33 @@
 
   /* ── Hero tagline + description ── */
   .VPHero .tagline, .VPHero .text {
-    @apply bg-jib-brand -bg-saturation-70 bg-lighten-92 text-a11y-aa;
+    @apply bg-jib-brand -bg-saturation-70 bg-lighten-92 text-slate-900;
   }
   .dark .VPHero .tagline, .dark .VPHero .text {
-    @apply bg-darken-92;
+    @apply bg-darken-92 text-slate-200;
   }
 
   /* ── Feature cards ── */
   .VPFeature {
-    @apply bg-jib-brand -bg-saturation-50 bg-lighten-90 text-a11y-aa border-2 border-jib-brand -border-saturation-40 border-lighten-65 transition-all duration-300 bg-ripple ripple-color-jib-brand/30 ripple-position-center;
+    @apply bg-jib-brand -bg-saturation-50 bg-lighten-90 text-slate-900 border-2 border-jib-brand -border-saturation-40 border-lighten-65 transition-all duration-300 bg-ripple ripple-color-jib-brand/30 ripple-position-center;
   }
   .dark .VPFeature {
-    @apply bg-darken-90 border-darken-65;
+    @apply bg-darken-90 border-darken-65 text-slate-200;
   }
   .VPFeature:hover {
     @apply border-jib-brand border-4;
   }
   .VPFeature .title {
-    @apply text-a11y-aa-lg;
+    @apply text-sky-950;
+  }
+  .dark .VPFeature .title {
+    @apply text-slate-300;
   }
   .VPFeature .details {
-    @apply text-a11y-aa;
+    @apply text-slate-900;
+  }
+  .dark .VPFeature .details {
+    @apply text-slate-200;
   }
 
   /* Card gradient borders — each card a different hue-rotated accent */
@@ -223,7 +319,7 @@
 
   /* ── CTA button (with ripple — needs own bg for pipeline) ── */
   .VPButton.brand {
-    @apply bg-jib-brand text-a11y-aa bg-ripple ripple-color-white/25 ripple-position-center;
+    @apply bg-jib-brand text-slate-100 bg-ripple ripple-color-white/25 ripple-position-center;
   }
   .VPButton.brand:hover {
     @apply bg-jib-brand bg-lighten-10;

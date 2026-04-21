@@ -66,7 +66,7 @@ All using `bg-comic-blue-500`. Gap scales at spacing/4: comic-gap-1=1px, comic-g
     <p class="text-xs font-mono text-center mt-1">gap-2 (2px)</p>
   </div>
   <div>
-    <div data-test="gap-4" class="bg-comic-blue-500 comic-gap-4 h-28 rounded-lg"></div>
+    <div data-test="gap-4" class="bg-comic-blue-500 h-28 rounded-lg"></div>
     <p class="text-xs font-mono text-center mt-1">gap-4 (4px)</p>
   </div>
   <div>
@@ -203,7 +203,7 @@ Verifies the white background becomes transparent, letting underlying content sh
 
 <div class="grid grid-cols-3 gap-3 my-6">
   <div>
-    <div data-test="arbitrary-color" class="bg-comic-[#ff6600] comic-gap-4 h-28 rounded-lg"></div>
+    <div data-test="arbitrary-color" class="bg-comic-[#ff6600] h-28 rounded-lg"></div>
     <p class="text-xs font-mono text-center mt-1">bg-comic-[#ff6600]</p>
   </div>
   <div>
@@ -324,19 +324,19 @@ Ben Day dots composing with border-gradient utilities on the same element.
 
 <div class="grid grid-cols-4 gap-3 my-6">
   <div>
-    <div data-test="border-linear-r" class="bg-comic-blue-500 comic-gap-4 h-28 rounded-lg border-4 border-linear-to-r border-from-rose-500 border-to-cyan-500"></div>
+    <div data-test="border-linear-r" class="bg-comic-blue-500 h-28 rounded-lg border-4 border-linear-to-r border-from-rose-500 border-to-cyan-500"></div>
     <p class="text-xs font-mono text-center mt-1">border-linear-to-r</p>
   </div>
   <div>
-    <div data-test="border-linear-b" class="bg-comic-red-500 comic-gap-4 h-28 rounded-lg border-4 border-linear-to-b border-from-amber-400 border-to-emerald-500"></div>
+    <div data-test="border-linear-b" class="bg-comic-red-500 h-28 rounded-lg border-4 border-linear-to-b border-from-amber-400 border-to-emerald-500"></div>
     <p class="text-xs font-mono text-center mt-1">border-linear-to-b</p>
   </div>
   <div>
-    <div data-test="border-linear-br" class="bg-comic-emerald-500 comic-gap-4 h-28 rounded-lg border-4 border-linear-to-br border-from-pink-500 border-to-violet-500"></div>
+    <div data-test="border-linear-br" class="bg-comic-emerald-500 h-28 rounded-lg border-4 border-linear-to-br border-from-pink-500 border-to-violet-500"></div>
     <p class="text-xs font-mono text-center mt-1">border-linear-to-br</p>
   </div>
   <div>
-    <div data-test="border-linear-angle" class="bg-comic-purple-500 comic-gap-4 h-28 rounded-lg border-4 border-linear-45 border-from-sky-400 border-to-indigo-600"></div>
+    <div data-test="border-linear-angle" class="bg-comic-purple-500 h-28 rounded-lg border-4 border-linear-45 border-from-sky-400 border-to-indigo-600"></div>
     <p class="text-xs font-mono text-center mt-1">border-linear-45</p>
   </div>
 </div>
@@ -345,15 +345,15 @@ Ben Day dots composing with border-gradient utilities on the same element.
 
 <div class="grid grid-cols-3 gap-4 my-6">
   <div>
-    <div data-test="border-radial" class="bg-comic-blue-500 comic-gap-4 h-28 rounded-lg border-4 border-radial border-from-rose-500 border-to-cyan-500"></div>
+    <div data-test="border-radial" class="bg-comic-blue-500 h-28 rounded-lg border-4 border-radial border-from-rose-500 border-to-cyan-500"></div>
     <p class="text-xs font-mono text-center mt-1">border-radial</p>
   </div>
   <div>
-    <div data-test="border-radial-at" class="bg-comic-red-500 comic-gap-4 h-28 rounded-lg border-4 border-radial-[at_25%_25%] border-from-amber-400 border-to-purple-500"></div>
+    <div data-test="border-radial-at" class="bg-comic-red-500 h-28 rounded-lg border-4 border-radial-[at_25%_25%] border-from-amber-400 border-to-purple-500"></div>
     <p class="text-xs font-mono text-center mt-1">border-radial [at 25% 25%]</p>
   </div>
   <div>
-    <div data-test="border-radial-top" class="bg-comic-emerald-500 comic-gap-4 h-28 rounded-lg border-4 border-radial-[at_top] border-from-emerald-400 border-to-blue-600"></div>
+    <div data-test="border-radial-top" class="bg-comic-emerald-500 h-28 rounded-lg border-4 border-radial-[at_top] border-from-emerald-400 border-to-blue-600"></div>
     <p class="text-xs font-mono text-center mt-1">border-radial [at top]</p>
   </div>
 </div>
@@ -362,19 +362,19 @@ Ben Day dots composing with border-gradient utilities on the same element.
 
 <div class="grid grid-cols-4 gap-3 my-6">
   <div>
-    <div data-test="border-conic-0" class="bg-comic-cyan-500 comic-gap-4 h-28 rounded-lg border-4 border-conic-0 border-from-rose-500 border-via-yellow-400 border-to-cyan-500"></div>
+    <div data-test="border-conic-0" class="bg-comic-cyan-500 h-28 rounded-lg border-4 border-conic-0 border-from-rose-500 border-via-yellow-400 border-to-cyan-500"></div>
     <p class="text-xs font-mono text-center mt-1">border-conic-0</p>
   </div>
   <div>
-    <div data-test="border-conic-90" class="bg-comic-fuchsia-500 comic-gap-4 h-28 rounded-lg border-4 border-conic-90 border-from-pink-500 border-via-orange-400 border-to-violet-500"></div>
+    <div data-test="border-conic-90" class="bg-comic-fuchsia-500 h-28 rounded-lg border-4 border-conic-90 border-from-pink-500 border-via-orange-400 border-to-violet-500"></div>
     <p class="text-xs font-mono text-center mt-1">border-conic-90</p>
   </div>
   <div>
-    <div data-test="border-conic-180" class="bg-comic-yellow-500 comic-gap-4 h-28 rounded-lg border-4 border-conic-180 border-from-emerald-400 border-via-sky-400 border-to-purple-500"></div>
+    <div data-test="border-conic-180" class="bg-comic-yellow-500 h-28 rounded-lg border-4 border-conic-180 border-from-emerald-400 border-via-sky-400 border-to-purple-500"></div>
     <p class="text-xs font-mono text-center mt-1">border-conic-180</p>
   </div>
   <div>
-    <div data-test="border-conic-neg" class="bg-comic-orange-500 comic-gap-4 h-28 rounded-lg border-4 -border-conic-45 border-from-amber-400 border-via-red-500 border-to-indigo-500"></div>
+    <div data-test="border-conic-neg" class="bg-comic-orange-500 h-28 rounded-lg border-4 -border-conic-45 border-from-amber-400 border-via-red-500 border-to-indigo-500"></div>
     <p class="text-xs font-mono text-center mt-1">-border-conic-45</p>
   </div>
 </div>
@@ -383,19 +383,19 @@ Ben Day dots composing with border-gradient utilities on the same element.
 
 <div class="grid grid-cols-4 gap-3 my-6">
   <div>
-    <div data-test="border-spin-default" class="bg-comic-blue-500 comic-gap-4 h-28 rounded-lg border-4 border-conic-0 border-spin border-from-rose-500 border-via-yellow-400 border-to-cyan-500"></div>
+    <div data-test="border-spin-default" class="bg-comic-blue-500 h-28 rounded-lg border-4 border-conic-0 border-spin border-from-rose-500 border-via-yellow-400 border-to-cyan-500"></div>
     <p class="text-xs font-mono text-center mt-1">border-spin</p>
   </div>
   <div>
-    <div data-test="border-spin-fast" class="bg-comic-red-500 comic-gap-4 h-28 rounded-lg border-4 border-conic-0 border-spin border-spin-duration-[500ms] border-from-pink-500 border-to-violet-500"></div>
+    <div data-test="border-spin-fast" class="bg-comic-red-500 h-28 rounded-lg border-4 border-conic-0 border-spin border-spin-duration-[500ms] border-from-pink-500 border-to-violet-500"></div>
     <p class="text-xs font-mono text-center mt-1">spin 500ms</p>
   </div>
   <div>
-    <div data-test="border-spin-slow" class="bg-comic-emerald-500 comic-gap-4 h-28 rounded-lg border-4 border-conic-0 border-spin border-spin-duration-3 border-from-emerald-400 border-to-blue-500"></div>
+    <div data-test="border-spin-slow" class="bg-comic-emerald-500 h-28 rounded-lg border-4 border-conic-0 border-spin border-spin-duration-3 border-from-emerald-400 border-to-blue-500"></div>
     <p class="text-xs font-mono text-center mt-1">spin 3s</p>
   </div>
   <div>
-    <div data-test="border-spin-longer" class="bg-comic-purple-500 comic-gap-4 h-28 rounded-lg border-4 border-conic/longer border-conic-0 border-spin border-from-red-500 border-to-blue-500"></div>
+    <div data-test="border-spin-longer" class="bg-comic-purple-500 h-28 rounded-lg border-4 border-conic/longer border-conic-0 border-spin border-from-red-500 border-to-blue-500"></div>
     <p class="text-xs font-mono text-center mt-1">spin /longer</p>
   </div>
 </div>
@@ -404,15 +404,15 @@ Ben Day dots composing with border-gradient utilities on the same element.
 
 <div class="grid grid-cols-3 gap-4 my-6">
   <div>
-    <div data-test="border-via-linear" class="bg-comic-blue-500 comic-gap-4 h-28 rounded-lg border-4 border-linear-to-r border-from-rose-500 border-via-yellow-400 border-to-cyan-500"></div>
+    <div data-test="border-via-linear" class="bg-comic-blue-500 h-28 rounded-lg border-4 border-linear-to-r border-from-rose-500 border-via-yellow-400 border-to-cyan-500"></div>
     <p class="text-xs font-mono text-center mt-1">linear from/via/to</p>
   </div>
   <div>
-    <div data-test="border-via-conic" class="bg-comic-red-500 comic-gap-4 h-28 rounded-lg border-4 border-conic-0 border-from-indigo-500 border-via-pink-500 border-to-amber-400"></div>
+    <div data-test="border-via-conic" class="bg-comic-red-500 h-28 rounded-lg border-4 border-conic-0 border-from-indigo-500 border-via-pink-500 border-to-amber-400"></div>
     <p class="text-xs font-mono text-center mt-1">conic from/via/to</p>
   </div>
   <div>
-    <div data-test="border-via-radial" class="bg-comic-emerald-500 comic-gap-4 h-28 rounded-lg border-4 border-radial border-from-emerald-400 border-via-purple-500 border-to-orange-400"></div>
+    <div data-test="border-via-radial" class="bg-comic-emerald-500 h-28 rounded-lg border-4 border-radial border-from-emerald-400 border-via-purple-500 border-to-orange-400"></div>
     <p class="text-xs font-mono text-center mt-1">radial from/via/to</p>
   </div>
 </div>
@@ -421,19 +421,19 @@ Ben Day dots composing with border-gradient utilities on the same element.
 
 <div class="grid grid-cols-4 gap-3 my-6">
   <div>
-    <div data-test="border-interp-oklch" class="bg-comic-blue-500 comic-gap-4 h-28 rounded-lg border-4 border-linear-to-r/oklch border-from-red-500 border-to-blue-500"></div>
+    <div data-test="border-interp-oklch" class="bg-comic-blue-500 h-28 rounded-lg border-4 border-linear-to-r/oklch border-from-red-500 border-to-blue-500"></div>
     <p class="text-xs font-mono text-center mt-1">/oklch</p>
   </div>
   <div>
-    <div data-test="border-interp-hsl" class="bg-comic-red-500 comic-gap-4 h-28 rounded-lg border-4 border-linear-to-r/hsl border-from-red-500 border-to-blue-500"></div>
+    <div data-test="border-interp-hsl" class="bg-comic-red-500 h-28 rounded-lg border-4 border-linear-to-r/hsl border-from-red-500 border-to-blue-500"></div>
     <p class="text-xs font-mono text-center mt-1">/hsl</p>
   </div>
   <div>
-    <div data-test="border-interp-longer" class="bg-comic-emerald-500 comic-gap-4 h-28 rounded-lg border-4 border-linear-to-r/longer border-from-red-500 border-to-blue-500"></div>
+    <div data-test="border-interp-longer" class="bg-comic-emerald-500 h-28 rounded-lg border-4 border-linear-to-r/longer border-from-red-500 border-to-blue-500"></div>
     <p class="text-xs font-mono text-center mt-1">/longer</p>
   </div>
   <div>
-    <div data-test="border-interp-shorter" class="bg-comic-purple-500 comic-gap-4 h-28 rounded-lg border-4 border-linear-to-r/shorter border-from-red-500 border-to-blue-500"></div>
+    <div data-test="border-interp-shorter" class="bg-comic-purple-500 h-28 rounded-lg border-4 border-linear-to-r/shorter border-from-red-500 border-to-blue-500"></div>
     <p class="text-xs font-mono text-center mt-1">/shorter</p>
   </div>
 </div>
@@ -457,7 +457,7 @@ Different dot sizes and bleed settings with border gradients.
   </div>
 </div>
 
-## Side-by-side: Solid vs Ben Day — All Tailwind Colors (comic-gap-4)
+## Side-by-side: Solid vs Ben Day — All Tailwind Colors
 
 <div class="grid grid-cols-[auto_1fr_1fr] gap-x-3 gap-y-1 items-center my-6">
   <p class="text-xs font-mono font-bold">Color</p>
@@ -466,94 +466,94 @@ Different dot sizes and bleed settings with border gradients.
 
   <p class="text-xs font-mono">slate-500</p>
   <div class="h-16 rounded-lg bg-slate-500"></div>
-  <div data-test="compare-slate" class="bg-comic-slate-500 comic-gap-4 h-16 rounded-lg"></div>
+  <div data-test="compare-slate" class="bg-comic-slate-500 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">gray-500</p>
   <div class="h-16 rounded-lg bg-gray-500"></div>
-  <div data-test="compare-gray" class="bg-comic-gray-500 comic-gap-4 h-16 rounded-lg"></div>
+  <div data-test="compare-gray" class="bg-comic-gray-500 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">zinc-500</p>
   <div class="h-16 rounded-lg bg-zinc-500"></div>
-  <div data-test="compare-zinc" class="bg-comic-zinc-500 comic-gap-4 h-16 rounded-lg"></div>
+  <div data-test="compare-zinc" class="bg-comic-zinc-500 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">neutral-500</p>
   <div class="h-16 rounded-lg bg-neutral-500"></div>
-  <div data-test="compare-neutral" class="bg-comic-neutral-500 comic-gap-4 h-16 rounded-lg"></div>
+  <div data-test="compare-neutral" class="bg-comic-neutral-500 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">stone-500</p>
   <div class="h-16 rounded-lg bg-stone-500"></div>
-  <div data-test="compare-stone" class="bg-comic-stone-500 comic-gap-4 h-16 rounded-lg"></div>
+  <div data-test="compare-stone" class="bg-comic-stone-500 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">red-500</p>
   <div class="h-16 rounded-lg bg-red-500"></div>
-  <div data-test="compare-red" class="bg-comic-red-500 comic-gap-4 h-16 rounded-lg"></div>
+  <div data-test="compare-red" class="bg-comic-red-500 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">orange-500</p>
   <div class="h-16 rounded-lg bg-orange-500"></div>
-  <div data-test="compare-orange" class="bg-comic-orange-500 comic-gap-4 h-16 rounded-lg"></div>
+  <div data-test="compare-orange" class="bg-comic-orange-500 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">amber-500</p>
   <div class="h-16 rounded-lg bg-amber-500"></div>
-  <div data-test="compare-amber" class="bg-comic-amber-500 comic-gap-4 h-16 rounded-lg"></div>
+  <div data-test="compare-amber" class="bg-comic-amber-500 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">yellow-500</p>
   <div class="h-16 rounded-lg bg-yellow-500"></div>
-  <div data-test="compare-yellow" class="bg-comic-yellow-500 comic-gap-4 h-16 rounded-lg"></div>
+  <div data-test="compare-yellow" class="bg-comic-yellow-500 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">lime-500</p>
   <div class="h-16 rounded-lg bg-lime-500"></div>
-  <div data-test="compare-lime" class="bg-comic-lime-500 comic-gap-4 h-16 rounded-lg"></div>
+  <div data-test="compare-lime" class="bg-comic-lime-500 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">green-500</p>
   <div class="h-16 rounded-lg bg-green-500"></div>
-  <div data-test="compare-green" class="bg-comic-green-500 comic-gap-4 h-16 rounded-lg"></div>
+  <div data-test="compare-green" class="bg-comic-green-500 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">emerald-500</p>
   <div class="h-16 rounded-lg bg-emerald-500"></div>
-  <div data-test="compare-emerald" class="bg-comic-emerald-500 comic-gap-4 h-16 rounded-lg"></div>
+  <div data-test="compare-emerald" class="bg-comic-emerald-500 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">teal-500</p>
   <div class="h-16 rounded-lg bg-teal-500"></div>
-  <div data-test="compare-teal" class="bg-comic-teal-500 comic-gap-4 h-16 rounded-lg"></div>
+  <div data-test="compare-teal" class="bg-comic-teal-500 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">cyan-500</p>
   <div class="h-16 rounded-lg bg-cyan-500"></div>
-  <div data-test="compare-cyan" class="bg-comic-cyan-500 comic-gap-4 h-16 rounded-lg"></div>
+  <div data-test="compare-cyan" class="bg-comic-cyan-500 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">sky-500</p>
   <div class="h-16 rounded-lg bg-sky-500"></div>
-  <div data-test="compare-sky" class="bg-comic-sky-500 comic-gap-4 h-16 rounded-lg"></div>
+  <div data-test="compare-sky" class="bg-comic-sky-500 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">blue-500</p>
   <div class="h-16 rounded-lg bg-blue-500"></div>
-  <div data-test="compare-blue" class="bg-comic-blue-500 comic-gap-4 h-16 rounded-lg"></div>
+  <div data-test="compare-blue" class="bg-comic-blue-500 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">indigo-500</p>
   <div class="h-16 rounded-lg bg-indigo-500"></div>
-  <div data-test="compare-indigo" class="bg-comic-indigo-500 comic-gap-4 h-16 rounded-lg"></div>
+  <div data-test="compare-indigo" class="bg-comic-indigo-500 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">violet-500</p>
   <div class="h-16 rounded-lg bg-violet-500"></div>
-  <div data-test="compare-violet" class="bg-comic-violet-500 comic-gap-4 h-16 rounded-lg"></div>
+  <div data-test="compare-violet" class="bg-comic-violet-500 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">purple-500</p>
   <div class="h-16 rounded-lg bg-purple-500"></div>
-  <div data-test="compare-purple" class="bg-comic-purple-500 comic-gap-4 h-16 rounded-lg"></div>
+  <div data-test="compare-purple" class="bg-comic-purple-500 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">fuchsia-500</p>
   <div class="h-16 rounded-lg bg-fuchsia-500"></div>
-  <div data-test="compare-fuchsia" class="bg-comic-fuchsia-500 comic-gap-4 h-16 rounded-lg"></div>
+  <div data-test="compare-fuchsia" class="bg-comic-fuchsia-500 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">pink-500</p>
   <div class="h-16 rounded-lg bg-pink-500"></div>
-  <div data-test="compare-pink" class="bg-comic-pink-500 comic-gap-4 h-16 rounded-lg"></div>
+  <div data-test="compare-pink" class="bg-comic-pink-500 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">rose-500</p>
   <div class="h-16 rounded-lg bg-rose-500"></div>
-  <div data-test="compare-rose" class="bg-comic-rose-500 comic-gap-4 h-16 rounded-lg"></div>
+  <div data-test="compare-rose" class="bg-comic-rose-500 h-16 rounded-lg"></div>
 </div>
 
-## Full Scale: Blue 50–950 (comic-gap-4)
+## Full Scale: Blue 50–950
 
 <div class="grid grid-cols-[auto_1fr_1fr] gap-x-3 gap-y-1 items-center my-6">
   <p class="text-xs font-mono font-bold">Shade</p>
@@ -562,45 +562,45 @@ Different dot sizes and bleed settings with border gradients.
 
   <p class="text-xs font-mono">50</p>
   <div class="h-16 rounded-lg bg-blue-50"></div>
-  <div data-test="blue-50" class="bg-comic-blue-50 comic-gap-4 h-16 rounded-lg"></div>
+  <div data-test="blue-50" class="bg-comic-blue-50 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">100</p>
   <div class="h-16 rounded-lg bg-blue-100"></div>
-  <div data-test="blue-100" class="bg-comic-blue-100 comic-gap-4 h-16 rounded-lg"></div>
+  <div data-test="blue-100" class="bg-comic-blue-100 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">200</p>
   <div class="h-16 rounded-lg bg-blue-200"></div>
-  <div data-test="blue-200" class="bg-comic-blue-200 comic-gap-4 h-16 rounded-lg"></div>
+  <div data-test="blue-200" class="bg-comic-blue-200 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">300</p>
   <div class="h-16 rounded-lg bg-blue-300"></div>
-  <div data-test="blue-300" class="bg-comic-blue-300 comic-gap-4 h-16 rounded-lg"></div>
+  <div data-test="blue-300" class="bg-comic-blue-300 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">400</p>
   <div class="h-16 rounded-lg bg-blue-400"></div>
-  <div data-test="blue-400" class="bg-comic-blue-400 comic-gap-4 h-16 rounded-lg"></div>
+  <div data-test="blue-400" class="bg-comic-blue-400 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">500</p>
   <div class="h-16 rounded-lg bg-blue-500"></div>
-  <div data-test="blue-500" class="bg-comic-blue-500 comic-gap-4 h-16 rounded-lg"></div>
+  <div data-test="blue-500" class="bg-comic-blue-500 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">600</p>
   <div class="h-16 rounded-lg bg-blue-600"></div>
-  <div data-test="blue-600" class="bg-comic-blue-600 comic-gap-4 h-16 rounded-lg"></div>
+  <div data-test="blue-600" class="bg-comic-blue-600 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">700</p>
   <div class="h-16 rounded-lg bg-blue-700"></div>
-  <div data-test="blue-700" class="bg-comic-blue-700 comic-gap-4 h-16 rounded-lg"></div>
+  <div data-test="blue-700" class="bg-comic-blue-700 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">800</p>
   <div class="h-16 rounded-lg bg-blue-800"></div>
-  <div data-test="blue-800" class="bg-comic-blue-800 comic-gap-4 h-16 rounded-lg"></div>
+  <div data-test="blue-800" class="bg-comic-blue-800 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">900</p>
   <div class="h-16 rounded-lg bg-blue-900"></div>
-  <div data-test="blue-900" class="bg-comic-blue-900 comic-gap-4 h-16 rounded-lg"></div>
+  <div data-test="blue-900" class="bg-comic-blue-900 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">950</p>
   <div class="h-16 rounded-lg bg-blue-950"></div>
-  <div data-test="blue-950" class="bg-comic-blue-950 comic-gap-4 h-16 rounded-lg"></div>
+  <div data-test="blue-950" class="bg-comic-blue-950 h-16 rounded-lg"></div>
 </div>

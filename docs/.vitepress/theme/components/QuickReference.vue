@@ -27,12 +27,12 @@ const hasMore = computed(() => props.rows.length > props.initialCount);
       <thead>
         <tr class="bg-jib-brand -bg-saturation-60 bg-lighten-96 dark:bg-darken-92">
           <th
-            class="border-b border-jib-wind/25 px-4 py-2.5 text-left font-mono text-[11px] uppercase tracking-[0.2em] text-a11y-aaa"
+            class="border-b border-jib-wind/25 px-4 py-2.5 text-left font-mono text-[11px] uppercase tracking-[0.2em] text-slate-900 dark:text-slate-200"
           >
-            <span aria-hidden="true" class="mr-2">⌘</span>class
+            class
           </th>
           <th
-            class="border-b border-jib-wind/25 px-4 py-2.5 text-left font-mono text-[11px] uppercase tracking-[0.2em] text-a11y-aaa"
+            class="border-b border-jib-wind/25 px-4 py-2.5 text-left font-mono text-[11px] uppercase tracking-[0.2em] text-slate-900 dark:text-slate-200"
           >
             styles
           </th>
@@ -47,7 +47,7 @@ const hasMore = computed(() => props.rows.length > props.initialCount);
           <td class="whitespace-nowrap px-4 py-2 font-mono text-[13px] text-jib-brand">
             {{ row.class }}
           </td>
-          <td class="whitespace-nowrap px-4 py-2 font-mono text-[13px] text-a11y-aa opacity-85">
+          <td class="whitespace-nowrap px-4 py-2 font-mono text-[13px] text-slate-900 dark:text-slate-200 opacity-85">
             {{ row.styles }}
           </td>
         </tr>
@@ -58,7 +58,7 @@ const hasMore = computed(() => props.rows.length > props.initialCount);
       class="flex justify-center border-t border-jib-wind/25 bg-jib-brand -bg-saturation-60 bg-lighten-96 dark:bg-darken-92 py-2"
     >
       <button
-        class="rounded-full border-0 bg-jib-wind/15 bg-ripple ripple-color-jib-wind/40 ripple-position-center px-4 py-1 font-mono text-[11px] uppercase tracking-[0.18em] font-medium cursor-pointer text-a11y-aaa transition-colors hover:bg-jib-wind/25"
+        class="rounded-full border-0 bg-jib-wind/15 bg-ripple ripple-color-jib-wind/40 ripple-position-center px-4 py-1 font-mono text-[11px] uppercase tracking-[0.18em] font-medium cursor-pointer text-slate-900 dark:text-slate-200 transition-colors hover:bg-jib-wind/25"
         @click="expanded = !expanded"
       >
         {{ expanded ? 'Show fewer' : `Show all ${rows.length}` }}

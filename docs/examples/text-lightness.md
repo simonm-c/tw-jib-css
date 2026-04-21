@@ -217,15 +217,15 @@ Verify lightness transforms work across different base colors.
 
 <div class="grid grid-cols-4 gap-3 my-6">
   <div data-test="text-red-darken" class="h-20 rounded-lg flex items-center justify-center bg-gray-100 text-red-500 text-darken-20">
-    <span class="text-lg font-bold font-mono">red</span>
+    <span class="text-lg font-bold font-mono">red-500</span>
   </div>
   <div data-test="text-green-darken" class="h-20 rounded-lg flex items-center justify-center bg-gray-100 text-green-500 text-darken-20">
-    <span class="text-lg font-bold font-mono">green</span>
+    <span class="text-lg font-bold font-mono">green-500</span>
   </div>
   <div data-test="text-amber-darken" class="h-20 rounded-lg flex items-center justify-center bg-gray-100 text-amber-500 text-darken-20">
-    <span class="text-lg font-bold font-mono">amber</span>
+    <span class="text-lg font-bold font-mono">amber-500</span>
   </div>
   <div data-test="text-purple-darken" class="h-20 rounded-lg flex items-center justify-center bg-gray-100 text-purple-500 text-darken-20">
-    <span class="text-lg font-bold font-mono">purple</span>
+    <span class="text-lg font-bold font-mono">purple-500</span>
   </div>
 </div>

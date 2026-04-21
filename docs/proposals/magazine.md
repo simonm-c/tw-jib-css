@@ -21,18 +21,67 @@ title: Variant A — Magazine Spread
 
 <MagazineSlide :index="1">
 <div class="space-y-3 w-full max-w-sm">
-<div class="flex gap-1"><div v-for="n in [0,10,20,30,40,50,60,70]" :key="n" :class="['flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500', n > 0 ? `bg-lighten-${n}` : '']"></div></div>
-<div class="flex gap-1"><div v-for="n in [0,10,20,30,40,50,60,70]" :key="n" :class="['flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500', n > 0 ? `bg-darken-${n}` : '']"></div></div>
-<div class="flex gap-1"><div v-for="h in [0,45,90,135,180,225,270,315]" :key="h" :class="['flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500', `bg-hue-rotate-${h}`]"></div></div>
-<div class="flex gap-1"><div v-for="s in [0,10,20,30,40,50,60,70]" :key="s" :class="['flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500', s > 0 ? `-bg-saturation-${s}` : '']"></div></div>
+<div class="flex gap-1">
+  <div class="flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500"></div>
+  <div class="flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500 bg-lighten-10"></div>
+  <div class="flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500 bg-lighten-20"></div>
+  <div class="flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500 bg-lighten-30"></div>
+  <div class="flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500 bg-lighten-40"></div>
+  <div class="flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500 bg-lighten-50"></div>
+  <div class="flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500 bg-lighten-60"></div>
+  <div class="flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500 bg-lighten-70"></div>
+</div>
+<div class="flex gap-1">
+  <div class="flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500"></div>
+  <div class="flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500 bg-darken-10"></div>
+  <div class="flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500 bg-darken-20"></div>
+  <div class="flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500 bg-darken-30"></div>
+  <div class="flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500 bg-darken-40"></div>
+  <div class="flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500 bg-darken-50"></div>
+  <div class="flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500 bg-darken-60"></div>
+  <div class="flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500 bg-darken-70"></div>
+</div>
+<div class="flex gap-1">
+  <div class="flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500 bg-hue-rotate-0"></div>
+  <div class="flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500 bg-hue-rotate-45"></div>
+  <div class="flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500 bg-hue-rotate-90"></div>
+  <div class="flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500 bg-hue-rotate-135"></div>
+  <div class="flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500 bg-hue-rotate-180"></div>
+  <div class="flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500 bg-hue-rotate-225"></div>
+  <div class="flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500 bg-hue-rotate-270"></div>
+  <div class="flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500 bg-hue-rotate-315"></div>
+</div>
+<div class="flex gap-1">
+  <div class="flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500"></div>
+  <div class="flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500 -bg-saturation-10"></div>
+  <div class="flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500 -bg-saturation-20"></div>
+  <div class="flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500 -bg-saturation-30"></div>
+  <div class="flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500 -bg-saturation-40"></div>
+  <div class="flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500 -bg-saturation-50"></div>
+  <div class="flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500 -bg-saturation-60"></div>
+  <div class="flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-blue-500 -bg-saturation-70"></div>
+</div>
 </div>
 </MagazineSlide>
 
 <MagazineSlide :index="2">
 <div class="grid grid-cols-4 gap-2 w-full max-w-md">
-<div v-for="sp in ['oklch','hsl','lab','lch','oklab','hwb','rgb','srgb','srgb-linear','display-p3','a98-rgb','prophoto-rgb','rec2020','xyz','xyz-d50','xyz-d65']" :key="sp" :class="['aspect-[4/3] rounded-lg bg-red-500 p-2 flex items-end', `bg-lighten-40/${sp}`]">
-<span class="font-mono text-[9px] text-a11y-aa opacity-80">/{{ sp }}</span>
-</div>
+  <div class="aspect-[4/3] rounded-lg bg-red-500 p-2 flex items-end bg-lighten-40/oklch"><span class="font-mono text-[9px] text-gray-900 opacity-80">/oklch</span></div>
+  <div class="aspect-[4/3] rounded-lg bg-red-500 p-2 flex items-end bg-lighten-40/hsl"><span class="font-mono text-[9px] text-gray-900 opacity-80">/hsl</span></div>
+  <div class="aspect-[4/3] rounded-lg bg-red-500 p-2 flex items-end bg-lighten-40/lab"><span class="font-mono text-[9px] text-gray-900 opacity-80">/lab</span></div>
+  <div class="aspect-[4/3] rounded-lg bg-red-500 p-2 flex items-end bg-lighten-40/lch"><span class="font-mono text-[9px] text-gray-900 opacity-80">/lch</span></div>
+  <div class="aspect-[4/3] rounded-lg bg-red-500 p-2 flex items-end bg-lighten-40/oklab"><span class="font-mono text-[9px] text-gray-900 opacity-80">/oklab</span></div>
+  <div class="aspect-[4/3] rounded-lg bg-red-500 p-2 flex items-end bg-lighten-40/hwb"><span class="font-mono text-[9px] text-gray-900 opacity-80">/hwb</span></div>
+  <div class="aspect-[4/3] rounded-lg bg-red-500 p-2 flex items-end bg-lighten-40/rgb"><span class="font-mono text-[9px] text-gray-900 opacity-80">/rgb</span></div>
+  <div class="aspect-[4/3] rounded-lg bg-red-500 p-2 flex items-end bg-lighten-40/srgb"><span class="font-mono text-[9px] text-gray-900 opacity-80">/srgb</span></div>
+  <div class="aspect-[4/3] rounded-lg bg-red-500 p-2 flex items-end bg-lighten-40/srgb-linear"><span class="font-mono text-[9px] text-gray-900 opacity-80">/srgb-linear</span></div>
+  <div class="aspect-[4/3] rounded-lg bg-red-500 p-2 flex items-end bg-lighten-40/display-p3"><span class="font-mono text-[9px] text-gray-900 opacity-80">/display-p3</span></div>
+  <div class="aspect-[4/3] rounded-lg bg-red-500 p-2 flex items-end bg-lighten-40/a98-rgb"><span class="font-mono text-[9px] text-gray-900 opacity-80">/a98-rgb</span></div>
+  <div class="aspect-[4/3] rounded-lg bg-red-500 p-2 flex items-end bg-lighten-40/prophoto-rgb"><span class="font-mono text-[9px] text-gray-900 opacity-80">/prophoto-rgb</span></div>
+  <div class="aspect-[4/3] rounded-lg bg-red-500 p-2 flex items-end bg-lighten-40/rec2020"><span class="font-mono text-[9px] text-gray-900 opacity-80">/rec2020</span></div>
+  <div class="aspect-[4/3] rounded-lg bg-red-500 p-2 flex items-end bg-lighten-40/xyz"><span class="font-mono text-[9px] text-gray-900 opacity-80">/xyz</span></div>
+  <div class="aspect-[4/3] rounded-lg bg-red-500 p-2 flex items-end bg-lighten-40/xyz-d50"><span class="font-mono text-[9px] text-gray-900 opacity-80">/xyz-d50</span></div>
+  <div class="aspect-[4/3] rounded-lg bg-red-500 p-2 flex items-end bg-lighten-40/xyz-d65"><span class="font-mono text-[9px] text-gray-900 opacity-80">/xyz-d65</span></div>
 </div>
 </MagazineSlide>
 
@@ -48,8 +97,8 @@ title: Variant A — Magazine Spread
 <MagazineSlide :index="4">
 <div class="grid grid-cols-2 gap-4 w-full max-w-lg">
 <div class="space-y-2">
-<div class="aspect-square rounded-xl bg-comic-blue-500 comic-dot-1 comic-gap-4 comic-bleed-0.5"></div>
-<div class="aspect-square rounded-xl bg-comic-rose-500 comic-dot-1 comic-gap-4 comic-bleed-0.5"></div>
+<div class="aspect-square rounded-xl bg-comic-blue-500"></div>
+<div class="aspect-square rounded-xl bg-comic-rose-500"></div>
 </div>
 <div class="space-y-2">
 <div class="aspect-square rounded-xl bg-pixel-blue-500 pixel-size-1 pixel-gap-1 pixel-bleed-0.5"></div>

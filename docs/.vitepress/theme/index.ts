@@ -19,6 +19,7 @@ import MagazineSlide from './components/landing/magazine/MagazineSlide.vue';
 import MagazineHero from './components/landing/magazine/MagazineHero.vue';
 import MagazineExperimentalBreak from './components/landing/magazine/MagazineExperimentalBreak.vue';
 import MagazineFinale from './components/landing/magazine/MagazineFinale.vue';
+import MagazineAlsoIncluded from './components/landing/magazine/MagazineAlsoIncluded.vue';
 
 // B · Card Stack
 import CardStackRoot from './components/landing/cardstack/CardStackRoot.vue';
@@ -61,6 +62,7 @@ export default {
     app.component('MagazineHero', MagazineHero);
     app.component('MagazineExperimentalBreak', MagazineExperimentalBreak);
     app.component('MagazineFinale', MagazineFinale);
+    app.component('MagazineAlsoIncluded', MagazineAlsoIncluded);
 
     // B
     app.component('CardStackRoot', CardStackRoot);

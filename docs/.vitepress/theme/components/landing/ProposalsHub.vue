@@ -35,15 +35,15 @@ const variants = [
 
 <template>
   <section class="not-prose mx-auto max-w-5xl px-6 py-16 md:py-24">
-    <p class="mb-4 font-mono text-[11px] uppercase tracking-[0.18em] opacity-75 text-a11y-aaa">
+    <p class="mb-4 font-mono text-[11px] uppercase tracking-[0.18em] opacity-75 text-slate-900 dark:text-slate-200">
       jibcss · landing variants
     </p>
 
-    <h1 class="text-4xl md:text-5xl font-black tracking-[-0.03em] leading-[0.9] text-a11y-aaa">
+    <h1 class="text-4xl md:text-5xl font-black tracking-[-0.03em] leading-[0.9] text-slate-900 dark:text-slate-200">
       Three layouts. Same direction.
     </h1>
 
-    <p class="mt-4 max-w-[52ch] text-base opacity-80 text-a11y-aa leading-relaxed">
+    <p class="mt-4 max-w-[52ch] text-base opacity-80 text-slate-900 dark:text-slate-200 leading-relaxed">
       Dense cinematic slides, reference-card palette, visible markup, accessible shade as the finale showstopper. Three different ways to arrange it.
     </p>
 

@@ -6,7 +6,11 @@ title: Border Spin
 
 # Border Spin
 
-Animate gradient borders with a continuous rotation effect. Add `border-spin` to any element with a border gradient to spin it. Uses `@property` to make the gradient angle animatable via CSS `@keyframes`.
+Animated rotating gradient borders. Add `border-spin` to any element with a border gradient to spin it continuously.
+
+::: info Browser Support
+Chrome 85+, Safari 15.4+, Firefox 128+. Requires CSS `@property` for animated angle. Respects `prefers-reduced-motion`.
+:::
 
 ::: tip Import
 Included in `@import 'tw-jib-css'`. To import individually:

@@ -1,146 +1,106 @@
 ---
-title: Background Saturation
+title: Saturation
 ---
 
-<!-- llm-context: bg-saturation / -bg-saturation utility — adjusts background colour saturation/chroma using CSS relative colour syntax across 17 colour spaces. bg-saturation-{n} to saturate, -bg-saturation-{n} to desaturate, with optional /{color-space} modifier. bg-saturate-{n} and bg-desaturate-{n} are user-friendly aliases. -->
+<!-- llm-context: saturation utility — adjusts colour saturation/chroma using CSS relative colour syntax across 17 colour spaces. {surface}-saturation-{n} to saturate, -{surface}-saturation-{n} to desaturate, with optional /{color-space} modifier. Works on background, text, fill, stroke, outline, accent, and border surfaces. -->
 
-# Background Saturation
+# Saturation
 
-Adjust the saturation (chroma) of any background colour using CSS relative colour syntax. Use `bg-saturation-{amount}` to saturate and `-bg-saturation-{amount}` to desaturate. Works across 17 colour spaces with a simple slash modifier.
-
-Saturation utilities are also available for [text](/guide/text-saturation), [fill](/guide/fill-saturation), [stroke](/guide/stroke-saturation), [outline](/guide/outline-saturation), [accent](/guide/accent-saturation), and [border](/guide/border-saturation).
+Adjust the saturation (chroma) of any colour. Positive values increase saturation, negative values desaturate. Works across all colour-accepting properties and all 17 colour spaces.
 
 ::: tip Import
-Included in `@import 'tw-jib-css'`. To import individually:
+Included in `@import 'tw-jib-css'`. Individual import:
 ```css
 @import 'tw-jib-css/saturation';
 ```
 :::
 
+## Syntax
+
+```
+{surface}-saturation-{amount}        saturate
+-{surface}-saturation-{amount}       desaturate
+{surface}-saturation-{amount}/{space} saturate in a specific colour space
+```
+
+Amount is 0–100. `bg-saturation-50` moves halfway to full saturation. `-bg-saturation-100` reaches greyscale.
+
+## Surfaces
+
+| Surface | Saturate | Desaturate |
+| --- | --- | --- |
+| Background | `bg-saturation-{n}` | `-bg-saturation-{n}` |
+| Text | `text-saturation-{n}` | `-text-saturation-{n}` |
+| Fill | `fill-saturation-{n}` | `-fill-saturation-{n}` |
+| Stroke | `stroke-saturation-{n}` | `-stroke-saturation-{n}` |
+| Outline | `outline-saturation-{n}` | `-outline-saturation-{n}` |
+| Accent | `accent-saturation-{n}` | `-accent-saturation-{n}` |
+| Border | `border-saturation-{n}` | `-border-saturation-{n}` |
+
 ## Quick Reference
 
-<!-- llm-context: In the formulas below, `amt` is shorthand for `var(--tw-jib--background-saturation--amount)`, set to `<amount> × 0.01` (saturate) or `<amount> × −0.01` (desaturate). `gray` = `0.213 * r + 0.715 * g + 0.072 * b` (relative luminance). -->
-
-Formulas use `amt` for `var(--tw-jib--background-saturation--amount)` — set to `<amount> × 0.01` (saturate) or `<amount> × −0.01` (desaturate). In RGB formulas, `gray` = `0.213r + 0.715g + 0.072b`.
-
 <QuickReference :rows="[
-  { class: 'bg-saturation-<amount>', styles: '--tw-jib--background-saturation--amount: calc(<amount> * 0.01); background-color: oklch(from var(--tw-jib--background-color) l calc(c * (1 - max(amt, 0 - amt)) + max(0, amt) * 0.4) h / alpha)' },
-  { class: '-bg-saturation-<amount>', styles: '--tw-jib--background-saturation--amount: calc(<amount> * -0.01); background-color: oklch(from var(--tw-jib--background-color) l calc(c * (1 - max(amt, 0 - amt)) + max(0, amt) * 0.4) h / alpha)' },
-  { class: 'bg-saturation-<amount>/oklch', styles: 'background-color: oklch(from var(--tw-jib--background-color) l calc(c * (1 - max(amt, 0 - amt)) + max(0, amt) * 0.4) h / alpha)' },
-  { class: 'bg-saturation-<amount>/lch', styles: 'background-color: lch(from var(--tw-jib--background-color) l calc(c * (1 - max(amt, 0 - amt)) + max(0, amt) * 150) h / alpha)' },
-  { class: 'bg-saturation-<amount>/hsl', styles: 'background-color: hsl(from var(--tw-jib--background-color) h calc(s * (1 - max(amt, 0 - amt)) + max(0, amt) * 100) l / alpha)' },
-  { class: 'bg-saturation-<amount>/oklab', styles: 'background-color: oklab(from var(--tw-jib--background-color) l calc(a * (1 - max(amt, 0 - amt)) + max(0, amt) * 0.4 * sign(a)) calc(b * (1 - max(amt, 0 - amt)) + max(0, amt) * 0.4 * sign(b)) / alpha)' },
-  { class: 'bg-saturation-<amount>/lab', styles: 'background-color: lab(from var(--tw-jib--background-color) l calc(a * (1 - max(amt, 0 - amt)) + max(0, amt) * 125 * sign(a)) calc(b * (1 - max(amt, 0 - amt)) + max(0, amt) * 125 * sign(b)) / alpha)' },
-  { class: 'bg-saturation-<amount>/rgb', styles: 'background-color: rgb(from var(--tw-jib--background-color) calc(r * (1 - max(amt, 0 - amt)) + max(0, amt) * clamp(0, sign(r - gray), 1) * 255 + max(0, 0 - amt) * gray) calc(g ...) calc(b ...) / alpha)' },
-  { class: 'bg-saturation-<amount>/color-mix', styles: 'background-color: color-mix(in oklch, var(--tw-jib--background-color), gray calc(max(0, 0 - amt) * 100%))' },
+  { class: 'bg-saturation-{n}', styles: 'Increase background saturation by n%' },
+  { class: '-bg-saturation-{n}', styles: 'Decrease background saturation by n%' },
+  { class: 'bg-saturation-{n}/{space}', styles: 'Saturate in a specific colour space' },
+  { class: '-bg-saturation-{n}/{space}', styles: 'Desaturate in a specific colour space' },
+  { class: 'bg-saturate-{n}', styles: 'Alias for bg-saturation-{n}' },
+  { class: 'bg-desaturate-{n}', styles: 'Alias for -bg-saturation-{n}' },
+  { class: 'text-saturation-{n}', styles: 'Adjust text colour saturation' },
+  { class: 'fill-saturation-{n}', styles: 'Adjust SVG fill saturation' },
+  { class: 'stroke-saturation-{n}', styles: 'Adjust SVG stroke saturation' },
+  { class: 'outline-saturation-{n}', styles: 'Adjust outline colour saturation' },
+  { class: 'accent-saturation-{n}', styles: 'Adjust accent colour saturation' },
+  { class: 'border-saturation-{n}', styles: 'Adjust border colour saturation' },
 ]" />
 
-## Basic Usage
+Amount is 0–100. All surfaces support the same negative prefix and `/{space}` modifier.
 
-### Saturate
+## Examples
 
-Set a base background colour with `bg-{color}`, then increase saturation with `bg-saturation-{amount}`. Start with a desaturated colour to see the full effect:
+### Saturate and desaturate
+
+Start with a muted colour to see the full range:
 
 <Example stretch>
   <div class="flex gap-1">
     <div class="flex-1 bg-slate-400 p-6 text-center text-white text-sm font-medium">base</div>
     <div class="flex-1 bg-slate-400 bg-saturation-20 p-6 text-center text-white text-sm">+20</div>
     <div class="flex-1 bg-slate-400 bg-saturation-40 p-6 text-center text-white text-sm">+40</div>
-  </div>
-</Example>
-
-### Desaturate
-
-Use `-bg-saturation-{amount}` to decrease saturation:
-
-<Example stretch>
-  <div class="flex gap-1">
     <div class="flex-1 bg-blue-500 p-6 text-center text-white text-sm font-medium">base</div>
-    <div class="flex-1 bg-blue-500 -bg-saturation-20 p-6 text-center text-white text-sm">-20</div>
-    <div class="flex-1 bg-blue-500 -bg-saturation-40 p-6 text-center text-white text-sm">-40</div>
-  </div>
-</Example>
-
-## On hover
-
-The saturation amount is a registered `@property` variable, so it composes with Tailwind's `hover:` prefix and animates smoothly when paired with `transition`:
-
-<Example stretch>
-  <div class="flex gap-3">
-    <div class="flex-1 bg-blue-500 hover:-bg-saturation-80 transition duration-700 p-6 rounded text-center text-white text-sm font-medium cursor-pointer">hover to desaturate</div>
-    <div class="flex-1 bg-slate-400 hover:bg-saturation-60 transition duration-700 p-6 rounded text-center text-white text-sm font-medium cursor-pointer">hover to saturate</div>
-    <div class="flex-1 bg-blue-500 hover:-bg-saturation-100 transition duration-700 p-6 rounded text-center text-white text-sm font-medium cursor-pointer">hover to grey</div>
+    <div class="flex-1 bg-blue-500 -bg-saturation-30 p-6 text-center text-white text-sm">−30</div>
+    <div class="flex-1 bg-blue-500 -bg-saturation-60 p-6 text-center text-white text-sm">−60</div>
   </div>
 </Example>
 
 ```html
-<div class="bg-blue-500 hover:-bg-saturation-80 transition duration-700">
+<div class="bg-slate-400 bg-saturation-40">more vivid</div>
+<div class="bg-blue-500 -bg-saturation-60">muted</div>
+```
+
+### Desaturate text
+
+```html
+<span class="text-red-500 -text-saturation-40">muted red text</span>
+```
+
+### Animate on hover
+
+The saturation amount is a registered `@property` variable. Transitions work:
+
+```html
+<div class="bg-blue-500 hover:-bg-saturation-50 transition duration-700">
   hover to desaturate
 </div>
 ```
 
-## Scale
-
-Use increasing values to create consistent saturation and desaturation scales from a single base colour:
-
-### Saturate scale
+### Full desaturation scale
 
 <Example stretch>
   <div class="flex gap-1">
     <div class="flex-1 text-center">
-      <div class="bg-slate-400 bg-saturation-0 h-12"></div>
-      <div class="text-[10px] text-gray-400 mt-0.5">0</div>
-    </div>
-    <div class="flex-1 text-center">
-      <div class="bg-slate-400 bg-saturation-10 h-12"></div>
-      <div class="text-[10px] text-gray-400 mt-0.5">10</div>
-    </div>
-    <div class="flex-1 text-center">
-      <div class="bg-slate-400 bg-saturation-20 h-12"></div>
-      <div class="text-[10px] text-gray-400 mt-0.5">20</div>
-    </div>
-    <div class="flex-1 text-center">
-      <div class="bg-slate-400 bg-saturation-30 h-12"></div>
-      <div class="text-[10px] text-gray-400 mt-0.5">30</div>
-    </div>
-    <div class="flex-1 text-center">
-      <div class="bg-slate-400 bg-saturation-40 h-12"></div>
-      <div class="text-[10px] text-gray-400 mt-0.5">40</div>
-    </div>
-    <div class="flex-1 text-center">
-      <div class="bg-slate-400 bg-saturation-50 h-12"></div>
-      <div class="text-[10px] text-gray-400 mt-0.5">50</div>
-    </div>
-    <div class="flex-1 text-center">
-      <div class="bg-slate-400 bg-saturation-60 h-12"></div>
-      <div class="text-[10px] text-gray-400 mt-0.5">60</div>
-    </div>
-    <div class="flex-1 text-center">
-      <div class="bg-slate-400 bg-saturation-70 h-12"></div>
-      <div class="text-[10px] text-gray-400 mt-0.5">70</div>
-    </div>
-    <div class="flex-1 text-center">
-      <div class="bg-slate-400 bg-saturation-80 h-12"></div>
-      <div class="text-[10px] text-gray-400 mt-0.5">80</div>
-    </div>
-    <div class="flex-1 text-center">
-      <div class="bg-slate-400 bg-saturation-90 h-12"></div>
-      <div class="text-[10px] text-gray-400 mt-0.5">90</div>
-    </div>
-    <div class="flex-1 text-center">
-      <div class="bg-slate-400 bg-saturation-100 h-12"></div>
-      <div class="text-[10px] text-gray-400 mt-0.5">100</div>
-    </div>
-  </div>
-</Example>
-
-### Desaturate scale
-
-<Example stretch>
-  <div class="flex gap-1">
-    <div class="flex-1 text-center">
-      <div class="bg-blue-500 -bg-saturation-0 h-12"></div>
-      <div class="text-[10px] text-gray-400 mt-0.5">0</div>
+      <div class="bg-blue-500 h-12"></div>
+      <div class="text-[10px] text-gray-400 mt-0.5">base</div>
     </div>
     <div class="flex-1 text-center">
       <div class="bg-blue-500 -bg-saturation-10 h-12"></div>
@@ -178,599 +138,99 @@ Use increasing values to create consistent saturation and desaturation scales fr
       <div class="bg-blue-500 -bg-saturation-90 h-12"></div>
       <div class="text-[10px] text-gray-400 mt-0.5">90</div>
     </div>
-    <div class="flex-1 text-center">
-      <div class="bg-blue-500 -bg-saturation-100 h-12"></div>
-      <div class="text-[10px] text-gray-400 mt-0.5">100</div>
+  </div>
+</Example>
+
+## Colour Space Support
+
+Append a modifier: `bg-saturation-30/oklch`, `-bg-saturation-50/hsl`, etc. Default is oklch.
+
+<Example stretch>
+  <div class="flex flex-col gap-1">
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/oklch</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-20/oklch h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-40/oklch h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-60/oklch h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-80/oklch h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/hsl</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-20/hsl h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-40/hsl h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-60/hsl h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-80/hsl h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/lab</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-20/lab h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-40/lab h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-60/lab h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-80/lab h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/color-mix</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-20/color-mix h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-40/color-mix h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-60/color-mix h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-80/color-mix h-8"></div>
+      </div>
     </div>
   </div>
 </Example>
+
+Available spaces: oklch (default), lch, oklab, lab, hsl, hwb, rgb, srgb, srgb-linear, display-p3, a98-rgb, prophoto-rgb, rec2020, xyz, xyz-d50, xyz-d65, color-mix. See the [Colour Spaces reference](/guide/colour-spaces) for the full comparison.
+
+::: info How scaling works
+**oklch, lch** — Chroma interpolates toward the maximum (saturate) or 0 (desaturate). Lightness is held constant.
+
+**oklab, lab** — Both chromatic axes (a, b) scale toward their theoretical maxima or toward 0.
+
+**HSL** — S interpolates toward 100% or 0%.
+
+**RGB-family** — Each channel moves toward or away from its greyscale luma value (`0.213r + 0.715g + 0.072b`).
+
+**colour-mix** — Desaturation blends toward grey via `color-mix()` in oklch. Saturation increase is not supported in colour-mix mode.
+:::
 
 ## Aliases
 
-`bg-saturate-{amount}` and `bg-desaturate-{amount}` are user-friendly aliases:
+`{surface}-saturate-*` and `{surface}-desaturate-*` are convenience aliases:
+
+| Alias | Equivalent |
+| --- | --- |
+| `bg-saturate-{n}` | `bg-saturation-{n}` |
+| `bg-desaturate-{n}` | `-bg-saturation-{n}` |
+
+The same pattern applies to text, fill, stroke, outline, accent, and border.
 
 ```html
-<!-- These are equivalent -->
-<div class="bg-slate-400 bg-saturation-20">...</div>
-<div class="bg-blue-500 bg-saturate-20">...</div>
-
-<!-- These are equivalent -->
-<div class="bg-blue-500 -bg-saturation-20">...</div>
-<div class="bg-blue-500 bg-desaturate-20">...</div>
+<!-- equivalent -->
+<div class="bg-blue-500 -bg-saturation-30">...</div>
+<div class="bg-blue-500 bg-desaturate-30">...</div>
 ```
 
-## Colour Spaces
+## Applying Conditionally
 
-Use the slash modifier to select a colour space. Different spaces produce visually distinct results. For background on each colour space, see the [Colour Spaces guide](/guide/colour-spaces).
+Every saturation utility works with Tailwind's variant prefixes:
 
-### Saturate across colour spaces
+```html
+<div class="bg-blue-500 hover:-bg-saturation-50 transition duration-300">
+<div class="bg-blue-500 dark:-bg-saturation-30">
+<div class="bg-blue-500 md:bg-saturation-20">
+```
 
-<Example stretch>
-  <div class="flex flex-col gap-1">
-    <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/oklch</span>
-      <div class="flex flex-1">
-        <div class="flex-1 bg-slate-400 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-10/oklch h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-20/oklch h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-30/oklch h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-40/oklch h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-50/oklch h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-60/oklch h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-70/oklch h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-80/oklch h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-90/oklch h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-100/oklch h-8"></div>
-      </div>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/lch</span>
-      <div class="flex flex-1">
-        <div class="flex-1 bg-slate-400 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-10/lch h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-20/lch h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-30/lch h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-40/lch h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-50/lch h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-60/lch h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-70/lch h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-80/lch h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-90/lch h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-100/lch h-8"></div>
-      </div>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/oklab</span>
-      <div class="flex flex-1">
-        <div class="flex-1 bg-slate-400 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-10/oklab h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-20/oklab h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-30/oklab h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-40/oklab h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-50/oklab h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-60/oklab h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-70/oklab h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-80/oklab h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-90/oklab h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-100/oklab h-8"></div>
-      </div>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/lab</span>
-      <div class="flex flex-1">
-        <div class="flex-1 bg-slate-400 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-10/lab h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-20/lab h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-30/lab h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-40/lab h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-50/lab h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-60/lab h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-70/lab h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-80/lab h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-90/lab h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-100/lab h-8"></div>
-      </div>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/hsl</span>
-      <div class="flex flex-1">
-        <div class="flex-1 bg-slate-400 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-10/hsl h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-20/hsl h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-30/hsl h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-40/hsl h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-50/hsl h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-60/hsl h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-70/hsl h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-80/hsl h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-90/hsl h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-100/hsl h-8"></div>
-      </div>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/hwb</span>
-      <div class="flex flex-1">
-        <div class="flex-1 bg-slate-400 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-10/hwb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-20/hwb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-30/hwb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-40/hwb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-50/hwb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-60/hwb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-70/hwb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-80/hwb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-90/hwb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-100/hwb h-8"></div>
-      </div>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/rgb</span>
-      <div class="flex flex-1">
-        <div class="flex-1 bg-slate-400 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-10/rgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-20/rgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-30/rgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-40/rgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-50/rgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-60/rgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-70/rgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-80/rgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-90/rgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-100/rgb h-8"></div>
-      </div>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/srgb</span>
-      <div class="flex flex-1">
-        <div class="flex-1 bg-slate-400 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-10/srgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-20/srgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-30/srgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-40/srgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-50/srgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-60/srgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-70/srgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-80/srgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-90/srgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-100/srgb h-8"></div>
-      </div>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/srgb-linear</span>
-      <div class="flex flex-1">
-        <div class="flex-1 bg-slate-400 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-10/srgb-linear h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-20/srgb-linear h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-30/srgb-linear h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-40/srgb-linear h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-50/srgb-linear h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-60/srgb-linear h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-70/srgb-linear h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-80/srgb-linear h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-90/srgb-linear h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-100/srgb-linear h-8"></div>
-      </div>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/display-p3</span>
-      <div class="flex flex-1">
-        <div class="flex-1 bg-slate-400 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-10/display-p3 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-20/display-p3 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-30/display-p3 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-40/display-p3 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-50/display-p3 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-60/display-p3 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-70/display-p3 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-80/display-p3 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-90/display-p3 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-100/display-p3 h-8"></div>
-      </div>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/a98-rgb</span>
-      <div class="flex flex-1">
-        <div class="flex-1 bg-slate-400 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-10/a98-rgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-20/a98-rgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-30/a98-rgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-40/a98-rgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-50/a98-rgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-60/a98-rgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-70/a98-rgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-80/a98-rgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-90/a98-rgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-100/a98-rgb h-8"></div>
-      </div>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/prophoto-rgb</span>
-      <div class="flex flex-1">
-        <div class="flex-1 bg-slate-400 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-10/prophoto-rgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-20/prophoto-rgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-30/prophoto-rgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-40/prophoto-rgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-50/prophoto-rgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-60/prophoto-rgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-70/prophoto-rgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-80/prophoto-rgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-90/prophoto-rgb h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-100/prophoto-rgb h-8"></div>
-      </div>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/rec2020</span>
-      <div class="flex flex-1">
-        <div class="flex-1 bg-slate-400 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-10/rec2020 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-20/rec2020 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-30/rec2020 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-40/rec2020 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-50/rec2020 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-60/rec2020 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-70/rec2020 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-80/rec2020 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-90/rec2020 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-100/rec2020 h-8"></div>
-      </div>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/xyz</span>
-      <div class="flex flex-1">
-        <div class="flex-1 bg-slate-400 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-10/xyz h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-20/xyz h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-30/xyz h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-40/xyz h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-50/xyz h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-60/xyz h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-70/xyz h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-80/xyz h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-90/xyz h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-100/xyz h-8"></div>
-      </div>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/xyz-d50</span>
-      <div class="flex flex-1">
-        <div class="flex-1 bg-slate-400 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-10/xyz-d50 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-20/xyz-d50 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-30/xyz-d50 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-40/xyz-d50 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-50/xyz-d50 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-60/xyz-d50 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-70/xyz-d50 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-80/xyz-d50 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-90/xyz-d50 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-100/xyz-d50 h-8"></div>
-      </div>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/xyz-d65</span>
-      <div class="flex flex-1">
-        <div class="flex-1 bg-slate-400 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-10/xyz-d65 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-20/xyz-d65 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-30/xyz-d65 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-40/xyz-d65 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-50/xyz-d65 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-60/xyz-d65 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-70/xyz-d65 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-80/xyz-d65 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-90/xyz-d65 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-100/xyz-d65 h-8"></div>
-      </div>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/color-mix</span>
-      <div class="flex flex-1">
-        <div class="flex-1 bg-slate-400 h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-10/color-mix h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-20/color-mix h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-30/color-mix h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-40/color-mix h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-50/color-mix h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-60/color-mix h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-70/color-mix h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-80/color-mix h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-90/color-mix h-8"></div>
-        <div class="flex-1 bg-slate-400 bg-saturation-100/color-mix h-8"></div>
-      </div>
-    </div>
-  </div>
-</Example>
+## Browser Support
 
-### Desaturate across colour spaces
-
-<Example stretch>
-  <div class="flex flex-col gap-1">
-    <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/oklch</span>
-      <div class="flex flex-1">
-        <div class="flex-1 bg-blue-500 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-10/oklch h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-20/oklch h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-30/oklch h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-40/oklch h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-50/oklch h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-60/oklch h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-70/oklch h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-80/oklch h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-90/oklch h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-100/oklch h-8"></div>
-      </div>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/lch</span>
-      <div class="flex flex-1">
-        <div class="flex-1 bg-blue-500 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-10/lch h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-20/lch h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-30/lch h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-40/lch h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-50/lch h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-60/lch h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-70/lch h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-80/lch h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-90/lch h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-100/lch h-8"></div>
-      </div>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/oklab</span>
-      <div class="flex flex-1">
-        <div class="flex-1 bg-blue-500 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-10/oklab h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-20/oklab h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-30/oklab h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-40/oklab h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-50/oklab h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-60/oklab h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-70/oklab h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-80/oklab h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-90/oklab h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-100/oklab h-8"></div>
-      </div>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/lab</span>
-      <div class="flex flex-1">
-        <div class="flex-1 bg-blue-500 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-10/lab h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-20/lab h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-30/lab h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-40/lab h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-50/lab h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-60/lab h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-70/lab h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-80/lab h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-90/lab h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-100/lab h-8"></div>
-      </div>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/hsl</span>
-      <div class="flex flex-1">
-        <div class="flex-1 bg-blue-500 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-10/hsl h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-20/hsl h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-30/hsl h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-40/hsl h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-50/hsl h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-60/hsl h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-70/hsl h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-80/hsl h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-90/hsl h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-100/hsl h-8"></div>
-      </div>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/hwb</span>
-      <div class="flex flex-1">
-        <div class="flex-1 bg-blue-500 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-10/hwb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-20/hwb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-30/hwb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-40/hwb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-50/hwb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-60/hwb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-70/hwb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-80/hwb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-90/hwb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-100/hwb h-8"></div>
-      </div>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/rgb</span>
-      <div class="flex flex-1">
-        <div class="flex-1 bg-blue-500 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-10/rgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-20/rgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-30/rgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-40/rgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-50/rgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-60/rgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-70/rgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-80/rgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-90/rgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-100/rgb h-8"></div>
-      </div>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/srgb</span>
-      <div class="flex flex-1">
-        <div class="flex-1 bg-blue-500 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-10/srgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-20/srgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-30/srgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-40/srgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-50/srgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-60/srgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-70/srgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-80/srgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-90/srgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-100/srgb h-8"></div>
-      </div>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/srgb-linear</span>
-      <div class="flex flex-1">
-        <div class="flex-1 bg-blue-500 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-10/srgb-linear h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-20/srgb-linear h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-30/srgb-linear h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-40/srgb-linear h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-50/srgb-linear h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-60/srgb-linear h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-70/srgb-linear h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-80/srgb-linear h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-90/srgb-linear h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-100/srgb-linear h-8"></div>
-      </div>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/display-p3</span>
-      <div class="flex flex-1">
-        <div class="flex-1 bg-blue-500 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-10/display-p3 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-20/display-p3 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-30/display-p3 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-40/display-p3 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-50/display-p3 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-60/display-p3 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-70/display-p3 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-80/display-p3 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-90/display-p3 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-100/display-p3 h-8"></div>
-      </div>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/a98-rgb</span>
-      <div class="flex flex-1">
-        <div class="flex-1 bg-blue-500 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-10/a98-rgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-20/a98-rgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-30/a98-rgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-40/a98-rgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-50/a98-rgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-60/a98-rgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-70/a98-rgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-80/a98-rgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-90/a98-rgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-100/a98-rgb h-8"></div>
-      </div>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/prophoto-rgb</span>
-      <div class="flex flex-1">
-        <div class="flex-1 bg-blue-500 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-10/prophoto-rgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-20/prophoto-rgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-30/prophoto-rgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-40/prophoto-rgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-50/prophoto-rgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-60/prophoto-rgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-70/prophoto-rgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-80/prophoto-rgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-90/prophoto-rgb h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-100/prophoto-rgb h-8"></div>
-      </div>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/rec2020</span>
-      <div class="flex flex-1">
-        <div class="flex-1 bg-blue-500 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-10/rec2020 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-20/rec2020 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-30/rec2020 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-40/rec2020 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-50/rec2020 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-60/rec2020 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-70/rec2020 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-80/rec2020 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-90/rec2020 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-100/rec2020 h-8"></div>
-      </div>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/xyz</span>
-      <div class="flex flex-1">
-        <div class="flex-1 bg-blue-500 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-10/xyz h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-20/xyz h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-30/xyz h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-40/xyz h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-50/xyz h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-60/xyz h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-70/xyz h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-80/xyz h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-90/xyz h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-100/xyz h-8"></div>
-      </div>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/xyz-d50</span>
-      <div class="flex flex-1">
-        <div class="flex-1 bg-blue-500 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-10/xyz-d50 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-20/xyz-d50 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-30/xyz-d50 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-40/xyz-d50 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-50/xyz-d50 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-60/xyz-d50 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-70/xyz-d50 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-80/xyz-d50 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-90/xyz-d50 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-100/xyz-d50 h-8"></div>
-      </div>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/xyz-d65</span>
-      <div class="flex flex-1">
-        <div class="flex-1 bg-blue-500 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-10/xyz-d65 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-20/xyz-d65 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-30/xyz-d65 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-40/xyz-d65 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-50/xyz-d65 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-60/xyz-d65 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-70/xyz-d65 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-80/xyz-d65 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-90/xyz-d65 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-100/xyz-d65 h-8"></div>
-      </div>
-    </div>
-    <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/color-mix</span>
-      <div class="flex flex-1">
-        <div class="flex-1 bg-blue-500 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-10/color-mix h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-20/color-mix h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-30/color-mix h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-40/color-mix h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-50/color-mix h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-60/color-mix h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-70/color-mix h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-80/color-mix h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-90/color-mix h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-100/color-mix h-8"></div>
-      </div>
-    </div>
-  </div>
-</Example>
-
-
-## How Scaling Works
-
-Saturation scaling varies by colour space:
-
-- **oklch / lch** — modifies the chroma (`c`) channel directly. At `saturate-100`, chroma moves to the maximum (0.4 for oklch, 150 for lch). At `desaturate-100`, chroma drops to 0 (greyscale).
-- **hsl** — modifies the saturation (`s`) channel directly. Scale 0–100%.
-- **oklab / lab** — scales both `a` and `b` chrominance axes by the same factor, preserving hue angle.
-- **hwb** — drives whiteness and blackness toward 0 (saturate) or 50/50 (desaturate).
-- **rgb / srgb / display-p3 / etc.** — lerps each channel toward or away from the average grey `(r+g+b)/3`.
-- **xyz / xyz-d50 / xyz-d65** — scales x and z toward or away from the achromatic axis while preserving luminance (y).
-- **color-mix** — mixes with a zero-chroma or max-chroma variant in oklch (experimental only).
-
+Requires CSS relative colour syntax: Chrome 111+, Safari 16.4+, Firefox 128+.

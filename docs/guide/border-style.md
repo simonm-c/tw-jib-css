@@ -6,7 +6,7 @@ title: Border Style
 
 # Border Style
 
-Set border styles on individual sides. TailwindCSS v4 provides `border-solid`, `border-dashed`, etc. for all four sides at once, but doesn't expose per-side control — this module fills that gap.
+Per-side border styles. Set `border-t-dashed`, `border-b-dotted`, or any combination that TailwindCSS v4 doesn't expose natively.
 
 ::: tip Import
 Included in `@import 'tw-jib-css'`. To import individually:

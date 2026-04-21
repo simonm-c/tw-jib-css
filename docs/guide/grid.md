@@ -6,7 +6,7 @@ title: Grid
 
 # Grid
 
-Utilities for CSS Grid named template areas. TailwindCSS v4 provides `grid-cols-*` and `grid-rows-*` but doesn't expose `grid-template-areas` — this module adds that.
+CSS Grid named template areas. Set `grid-template-areas` and `grid-area` via utility classes.
 
 ::: tip Import
 Included in `@import 'tw-jib-css'`. To import individually:
@@ -104,5 +104,5 @@ For CSS variables, you can also use the `grid-area-(--custom-property)` syntax:
   </div>
 </Example>
 
-This is just a shorthand for `grid-area-[var(--hero-area)]` that adds the `var()` function for you automatically.
+This is shorthand for `grid-area-[var(--hero-area)]` — it adds the `var()` wrapper automatically.
 

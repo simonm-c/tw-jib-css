@@ -6,7 +6,11 @@ title: Ripple
 
 # Ripple
 
-Material-style ripple effect triggered on click — pure CSS, no JavaScript. Uses `@property` transitions to expand a radial gradient outward from the click point. The ripple always completes its full duration, even if the click is released early.
+Material-style ripple effect triggered on click — pure CSS, no JavaScript. The ripple always completes its full duration, even if the click is released early.
+
+::: info Browser Support
+Chrome 85+, Safari 15.4+, Firefox 128+. Requires CSS `@property` for animated transitions.
+:::
 
 ::: tip Import
 Included in `@import 'tw-jib-css'`. To import individually:

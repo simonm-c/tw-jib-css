@@ -19,9 +19,30 @@ export default defineConfig({
 
     sidebar: [
       {
-        text: 'Guide',
+        text: 'Getting Started',
         items: [
           { text: 'Installation', link: '/guide/installation' },
+          { text: 'What Jibcss Adds', link: '/guide/what-jibcss-adds' },
+        ],
+      },
+      {
+        text: 'Core Concepts',
+        items: [
+          { text: 'Color Transforms', link: '/guide/color-transforms' },
+          { text: 'Color Spaces', link: '/guide/color-spaces' },
+          { text: 'Print Textures', link: '/guide/print-textures' },
+          { text: 'Gradient Borders', link: '/guide/gradient-borders' },
+          { text: 'Ripples', link: '/guide/ripples' },
+          { text: 'Accessible Color', link: '/guide/accessible-color' },
+          { text: 'Composition', link: '/guide/composition' },
+        ],
+      },
+      {
+        text: 'Color',
+        items: [
+          { text: 'Lightness', link: '/guide/lightness' },
+          { text: 'Saturation', link: '/guide/saturation' },
+          { text: 'Hue Rotate', link: '/guide/hue-rotate' },
           { text: 'Colour Spaces', link: '/guide/colour-spaces' },
         ],
       },
@@ -36,53 +57,18 @@ export default defineConfig({
       {
         text: 'Backgrounds',
         items: [
-          { text: 'Comic Dots', link: '/guide/comic' },
+          { text: 'Comic', link: '/guide/comic' },
           { text: 'Pixel', link: '/guide/pixel' },
+          { text: 'Hatch', link: '/guide/hatch' },
+          { text: 'Watercolor', link: '/guide/watercolor' },
           { text: 'Ripple', link: '/guide/ripple' },
         ],
       },
       {
-        text: 'Color Transforms',
+        text: 'Accessibility',
         items: [
-          {
-            text: 'Lightness',
-            collapsed: false,
-            items: [
-              { text: 'Background', link: '/guide/lightness' },
-              { text: 'Text', link: '/guide/text-lightness' },
-              { text: 'Fill', link: '/guide/fill-lightness' },
-              { text: 'Stroke', link: '/guide/stroke-lightness' },
-              { text: 'Outline', link: '/guide/outline-lightness' },
-              { text: 'Accent', link: '/guide/accent-lightness' },
-              { text: 'Border', link: '/guide/border-lightness' },
-            ],
-          },
-          {
-            text: 'Saturation',
-            collapsed: false,
-            items: [
-              { text: 'Background', link: '/guide/saturation' },
-              { text: 'Text', link: '/guide/text-saturation' },
-              { text: 'Fill', link: '/guide/fill-saturation' },
-              { text: 'Stroke', link: '/guide/stroke-saturation' },
-              { text: 'Outline', link: '/guide/outline-saturation' },
-              { text: 'Accent', link: '/guide/accent-saturation' },
-              { text: 'Border', link: '/guide/border-saturation' },
-            ],
-          },
-          {
-            text: 'Hue Rotate',
-            collapsed: false,
-            items: [
-              { text: 'Background', link: '/guide/hue-rotate' },
-              { text: 'Text', link: '/guide/text-hue-rotate' },
-              { text: 'Fill', link: '/guide/fill-hue-rotate' },
-              { text: 'Stroke', link: '/guide/stroke-hue-rotate' },
-              { text: 'Outline', link: '/guide/outline-hue-rotate' },
-              { text: 'Accent', link: '/guide/accent-hue-rotate' },
-              { text: 'Border', link: '/guide/border-hue-rotate' },
-            ],
-          },
+          { text: 'Accessible Shade', link: '/guide/wcag' },
+          { text: 'WCAG Badge', link: '/guide/wcag-badge' },
         ],
       },
       {
@@ -98,8 +84,6 @@ export default defineConfig({
           { text: 'Corner Shape', link: '/guide/corner' },
           { text: 'Interpolate Size', link: '/guide/interpolate' },
           { text: 'Base Select Picker', link: '/guide/picker' },
-          { text: 'Accessible Shade', link: '/guide/wcag' },
-          { text: 'WCAG Badge', link: '/guide/wcag-badge' },
         ],
       },
     ],

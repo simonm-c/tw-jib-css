@@ -6,7 +6,7 @@ title: Pixel
 
 # Pixel
 
-LCD/CRT-style RGB pixel backgrounds. Any colour is decomposed into three rectangular columns — red, green, and blue — using additive colour mixing via CSS relative colour syntax and `background-blend-mode: screen`.
+RGB pixel column backgrounds for any Tailwind colour. LCD or CRT phosphor look, pure CSS.
 
 ::: tip Import
 Included in `@import 'tw-jib-css'`. To import individually:
@@ -25,12 +25,12 @@ Requires CSS relative colour syntax (`rgb(from ... r 0 0)`). Chrome 111+, Safari
   { class: 'bg-pixel-<color>', styles: 'Sets colour and applies RGB pixel pattern with background-blend-mode: screen' },
   { class: 'bg-pixel-<color>/<opacity>', styles: 'Same with opacity modifier' },
   { class: 'bg-pixel-[<value>]', styles: 'Arbitrary colour value' },
-  { class: 'pixel-size-<number>', styles: '--pixel-size: --spacing(<number>) / 4 — pixel size (width = size, height = size * 2)' },
-  { class: 'pixel-size-[<value>]', styles: '--pixel-size: <value>' },
-  { class: 'pixel-gap-<number>', styles: '--pixel-gap: <number> — gap multiplier of pixel width' },
-  { class: 'pixel-gap-[number:<value>]', styles: '--pixel-gap: <value>' },
-  { class: 'pixel-bleed-<number>', styles: '--pixel-bleed: --spacing(<number>) / 4 — edge softness' },
-  { class: 'pixel-bleed-[<value>]', styles: '--pixel-bleed: <value>' },
+  { class: 'pixel-size-<number>', styles: '--tw-jib--pixel-size: --spacing(<number>) / 4 — pixel size (width = size, height = size × 2)' },
+  { class: 'pixel-size-[<value>]', styles: '--tw-jib--pixel-size: <value>' },
+  { class: 'pixel-gap-<number>', styles: '--tw-jib--pixel-gap: <number> — gap multiplier of pixel width' },
+  { class: 'pixel-gap-[<value>]', styles: '--tw-jib--pixel-gap: <value>' },
+  { class: 'pixel-bleed-<number>', styles: '--tw-jib--pixel-bleed: --spacing(<number>) / 4 — edge softness' },
+  { class: 'pixel-bleed-[<value>]', styles: '--tw-jib--pixel-bleed: <value>' },
 ]" />
 
 ## How it works
@@ -416,7 +416,3 @@ All `bg-pixel-*` and `pixel-*` utilities support Tailwind's variant syntax:
   Larger pixels on medium screens
 </div>
 ```
-
-## Test Fixtures
-
-See the [Sub-Pixel Test Fixtures](/examples/pixel) page for comprehensive visual tests across all Tailwind colours and parameter combinations.

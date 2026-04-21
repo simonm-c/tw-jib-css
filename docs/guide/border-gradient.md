@@ -6,7 +6,11 @@ title: Border Gradient
 
 # Border Gradient
 
-Apply gradient borders using CSS background clipping — no pseudo-elements or JavaScript. Supports linear, radial, and conic gradients with colour stop positions and 8 interpolation modes. For animated spinning borders, see [Border Spin](/guide/border-spin).
+Linear, radial, and conic gradient borders — same grammar as Tailwind's `bg-linear-*`, applied to borders. 8 interpolation modes. For animated spinning borders, see [Border Spin](/guide/border-spin).
+
+::: info Browser Support
+Chrome 111+, Safari 16.4+, Firefox 128+. Interpolation modes (`/shorter`, `/longer`, etc.) require Chrome 111+, Safari 16.4+.
+:::
 
 ::: tip Import
 Included in `@import 'tw-jib-css'`. To import individually:
@@ -314,85 +318,7 @@ Control how colours blend using the slash modifier on the gradient type. The def
   </div>
 </Example>
 
-### Radial
-
-<Example>
-  <div class="grid grid-cols-4 gap-3 w-full max-w-2xl">
-    <div class="flex flex-col items-center gap-2">
-      <div class="border-8 border-radial/srgb border-from-red-500 border-to-cyan-500 rounded-full size-24 bg-white"></div>
-      <span class="font-mono text-[11px] text-gray-500">/srgb</span>
-    </div>
-    <div class="flex flex-col items-center gap-2">
-      <div class="border-8 border-radial/hsl border-from-red-500 border-to-cyan-500 rounded-full size-24 bg-white"></div>
-      <span class="font-mono text-[11px] text-gray-500">/hsl</span>
-    </div>
-    <div class="flex flex-col items-center gap-2">
-      <div class="border-8 border-radial/oklab border-from-red-500 border-to-cyan-500 rounded-full size-24 bg-white"></div>
-      <span class="font-mono text-[11px] text-gray-500">/oklab</span>
-    </div>
-    <div class="flex flex-col items-center gap-2">
-      <div class="border-8 border-radial/oklch border-from-red-500 border-to-cyan-500 rounded-full size-24 bg-white"></div>
-      <span class="font-mono text-[11px] text-gray-500">/oklch</span>
-    </div>
-    <div class="flex flex-col items-center gap-2">
-      <div class="border-8 border-radial/longer border-from-red-500 border-to-cyan-500 rounded-full size-24 bg-white"></div>
-      <span class="font-mono text-[11px] text-gray-500">/longer</span>
-    </div>
-    <div class="flex flex-col items-center gap-2">
-      <div class="border-8 border-radial/shorter border-from-red-500 border-to-cyan-500 rounded-full size-24 bg-white"></div>
-      <span class="font-mono text-[11px] text-gray-500">/shorter</span>
-    </div>
-    <div class="flex flex-col items-center gap-2">
-      <div class="border-8 border-radial/increasing border-from-red-500 border-to-cyan-500 rounded-full size-24 bg-white"></div>
-      <span class="font-mono text-[11px] text-gray-500">/increasing</span>
-    </div>
-    <div class="flex flex-col items-center gap-2">
-      <div class="border-8 border-radial/decreasing border-from-red-500 border-to-cyan-500 rounded-full size-24 bg-white"></div>
-      <span class="font-mono text-[11px] text-gray-500">/decreasing</span>
-    </div>
-  </div>
-</Example>
-
-### Conic
-
-<Example>
-  <div class="grid grid-cols-4 gap-3 w-full max-w-2xl">
-    <div class="flex flex-col items-center gap-2">
-      <div class="border-8 border-conic/srgb border-from-red-500 border-to-cyan-500 rounded-full size-24 bg-white"></div>
-      <span class="font-mono text-[11px] text-gray-500">/srgb</span>
-    </div>
-    <div class="flex flex-col items-center gap-2">
-      <div class="border-8 border-conic/hsl border-from-red-500 border-to-cyan-500 rounded-full size-24 bg-white"></div>
-      <span class="font-mono text-[11px] text-gray-500">/hsl</span>
-    </div>
-    <div class="flex flex-col items-center gap-2">
-      <div class="border-8 border-conic/oklab border-from-red-500 border-to-cyan-500 rounded-full size-24 bg-white"></div>
-      <span class="font-mono text-[11px] text-gray-500">/oklab</span>
-    </div>
-    <div class="flex flex-col items-center gap-2">
-      <div class="border-8 border-conic/oklch border-from-red-500 border-to-cyan-500 rounded-full size-24 bg-white"></div>
-      <span class="font-mono text-[11px] text-gray-500">/oklch</span>
-    </div>
-    <div class="flex flex-col items-center gap-2">
-      <div class="border-8 border-conic/longer border-from-red-500 border-to-cyan-500 rounded-full size-24 bg-white"></div>
-      <span class="font-mono text-[11px] text-gray-500">/longer</span>
-    </div>
-    <div class="flex flex-col items-center gap-2">
-      <div class="border-8 border-conic/shorter border-from-red-500 border-to-cyan-500 rounded-full size-24 bg-white"></div>
-      <span class="font-mono text-[11px] text-gray-500">/shorter</span>
-    </div>
-    <div class="flex flex-col items-center gap-2">
-      <div class="border-8 border-conic/increasing border-from-red-500 border-to-cyan-500 rounded-full size-24 bg-white"></div>
-      <span class="font-mono text-[11px] text-gray-500">/increasing</span>
-    </div>
-    <div class="flex flex-col items-center gap-2">
-      <div class="border-8 border-conic/decreasing border-from-red-500 border-to-cyan-500 rounded-full size-24 bg-white"></div>
-      <span class="font-mono text-[11px] text-gray-500">/decreasing</span>
-    </div>
-  </div>
-</Example>
-
-Available modifiers: `/srgb`, `/hsl`, `/oklab`, `/oklch`, `/longer`, `/shorter`, `/increasing`, `/decreasing`
+The same 8 modifiers apply to `border-radial` and `border-conic` gradients: `border-radial/oklch`, `border-conic/longer`, etc.
 
 ### Choosing an interpolation mode
 
@@ -480,11 +406,16 @@ The gradient fills whatever border width you set. Thicker borders show more of t
 
 ## Border Style and Border Colour
 
-The border-gradient technique renders the gradient as a background layer clipped to `border-box` and sets `border-color: transparent` by default. The gradient is always present underneath — what you see depends on how `border-color` and `border-style` combine to paint over it.
+The gradient is rendered as a background layer clipped to `border-box` with `border-color: transparent`. What you see depends on how `border-color` and `border-style` paint over it.
+
+**Short version:** with `border-color: transparent` (default), all border styles show the gradient. A solid `border-color` hides it. A semi-transparent `border-color` tints it. Dashed/dotted/double styles show the gradient in their gaps.
+
+<details>
+<summary>Detailed interaction examples</summary>
 
 ### Default (transparent border colour)
 
-With `border-color: transparent` (the default), all border styles look identical — the gradient shows through the entire border area because nothing is painted on top of it:
+With `border-color: transparent`, all border styles look identical — the gradient shows through everywhere:
 
 <Example stretch>
   <div class="grid grid-cols-4 gap-3 w-full">
@@ -492,16 +423,10 @@ With `border-color: transparent` (the default), all border styles look identical
     <div class="border-8 border-dashed border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">dashed</div>
     <div class="border-8 border-dotted border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">dotted</div>
     <div class="border-8 border-double border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">double</div>
-    <div class="border-8 border-groove border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">groove</div>
-    <div class="border-8 border-ridge border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">ridge</div>
-    <div class="border-8 border-inset border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">inset</div>
-    <div class="border-8 border-outset border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">outset</div>
   </div>
 </Example>
 
 ### Solid border colour hides the gradient
-
-Setting a solid `border-color` with a Tailwind colour class (e.g. `border-amber-500`) or a custom property (e.g. `border-(color:--var)`) paints over the gradient completely. The border colour is drawn on top of the gradient background layer, so with `border-solid` the gradient is fully hidden:
 
 <Example stretch>
   <div class="grid grid-cols-4 gap-3 w-full">
@@ -509,18 +434,10 @@ Setting a solid `border-color` with a Tailwind colour class (e.g. `border-amber-
     <div class="border-8 border-amber-500 border-dashed border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">dashed</div>
     <div class="border-8 border-amber-500 border-dotted border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">dotted</div>
     <div class="border-8 border-amber-500 border-double border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">double</div>
-    <div class="border-8 border-amber-500 border-groove border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">groove</div>
-    <div class="border-8 border-amber-500 border-ridge border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">ridge</div>
-    <div class="border-8 border-amber-500 border-inset border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">inset</div>
-    <div class="border-8 border-amber-500 border-outset border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">outset</div>
   </div>
 </Example>
 
-With `dashed`, `dotted`, and `double`, the solid colour only covers the painted segments — the gradient shows through the gaps between dashes, dots, and double lines. The `groove`, `ridge`, `inset`, and `outset` styles derive their 3D shading from the border colour, so the gradient peeks through where the browser lightens or darkens the colour.
-
-### Semi-transparent border colour
-
-A semi-transparent border colour (e.g. `border-amber-500/50`) tints the gradient where the colour is painted, and the gradient shows through at full strength in the gaps:
+### Semi-transparent border colour tints the gradient
 
 <Example stretch>
   <div class="grid grid-cols-4 gap-3 w-full">
@@ -528,12 +445,10 @@ A semi-transparent border colour (e.g. `border-amber-500/50`) tints the gradient
     <div class="border-8 border-amber-500/50 border-dashed border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">dashed</div>
     <div class="border-8 border-amber-500/50 border-dotted border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">dotted</div>
     <div class="border-8 border-amber-500/50 border-double border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">double</div>
-    <div class="border-8 border-amber-500/50 border-groove border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">groove</div>
-    <div class="border-8 border-amber-500/50 border-ridge border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">ridge</div>
-    <div class="border-8 border-amber-500/50 border-inset border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">inset</div>
-    <div class="border-8 border-amber-500/50 border-outset border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">outset</div>
   </div>
 </Example>
+
+</details>
 
 ## How It Works
 

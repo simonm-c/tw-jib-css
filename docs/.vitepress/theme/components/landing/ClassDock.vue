@@ -72,15 +72,15 @@ async function onCopy() {
       <div
         class="flex items-center gap-3 rounded-full border border-jib-wind/50 bg-jib-brand -bg-saturation-60 bg-darken-88 backdrop-blur px-4 py-2 shadow-lg"
       >
-        <span class="shrink-0 font-mono text-[11px] uppercase tracking-[0.14em] opacity-80 text-a11y-aa">
+        <span class="shrink-0 font-mono text-[11px] uppercase tracking-[0.14em] opacity-80 text-slate-200">
           {{ registry[activeId].label }}
         </span>
         <code
-          class="flex-1 min-w-0 overflow-x-auto font-mono text-[12px] whitespace-nowrap text-a11y-aa opacity-90"
+          class="flex-1 min-w-0 overflow-x-auto font-mono text-[12px] whitespace-nowrap text-slate-200 opacity-90"
         >{{ registry[activeId].classes }}</code>
         <button
           type="button"
-          class="shrink-0 rounded-full border-0 bg-jib-wind/20 hover:bg-jib-wind/30 bg-ripple ripple-color-jib-wind/50 ripple-position-center px-3 py-1 text-xs font-semibold cursor-pointer text-a11y-aa"
+          class="shrink-0 rounded-full border-0 bg-jib-wind/20 hover:bg-jib-wind/30 bg-ripple ripple-color-jib-wind/50 ripple-position-center px-3 py-1 text-xs font-semibold cursor-pointer text-slate-200"
           @click="onCopy"
         >{{ copied ? 'Copied' : 'Copy' }}</button>
       </div>

@@ -55,9 +55,36 @@ title: Variant B — Card Stack
     </div>
     <DemoCard title="live swatches" :rotate="1" :z="20" :large="true">
       <div class="space-y-2">
-        <div class="flex gap-1"><div v-for="n in [0,10,20,30,40,50,60,70]" :key="n" :class="['flex-1 h-8 first:rounded-l last:rounded-r bg-blue-500', n > 0 ? `bg-lighten-${n}` : '']"></div></div>
-        <div class="flex gap-1"><div v-for="n in [0,10,20,30,40,50,60,70]" :key="n" :class="['flex-1 h-8 first:rounded-l last:rounded-r bg-blue-500', n > 0 ? `bg-darken-${n}` : '']"></div></div>
-        <div class="flex gap-1"><div v-for="h in [0,45,90,135,180,225,270,315]" :key="h" :class="['flex-1 h-8 first:rounded-l last:rounded-r bg-blue-500', `bg-hue-rotate-${h}`]"></div></div>
+        <div class="flex gap-1">
+          <div class="flex-1 h-8 first:rounded-l last:rounded-r bg-blue-500"></div>
+          <div class="flex-1 h-8 first:rounded-l last:rounded-r bg-blue-500 bg-lighten-10"></div>
+          <div class="flex-1 h-8 first:rounded-l last:rounded-r bg-blue-500 bg-lighten-20"></div>
+          <div class="flex-1 h-8 first:rounded-l last:rounded-r bg-blue-500 bg-lighten-30"></div>
+          <div class="flex-1 h-8 first:rounded-l last:rounded-r bg-blue-500 bg-lighten-40"></div>
+          <div class="flex-1 h-8 first:rounded-l last:rounded-r bg-blue-500 bg-lighten-50"></div>
+          <div class="flex-1 h-8 first:rounded-l last:rounded-r bg-blue-500 bg-lighten-60"></div>
+          <div class="flex-1 h-8 first:rounded-l last:rounded-r bg-blue-500 bg-lighten-70"></div>
+        </div>
+        <div class="flex gap-1">
+          <div class="flex-1 h-8 first:rounded-l last:rounded-r bg-blue-500"></div>
+          <div class="flex-1 h-8 first:rounded-l last:rounded-r bg-blue-500 bg-darken-10"></div>
+          <div class="flex-1 h-8 first:rounded-l last:rounded-r bg-blue-500 bg-darken-20"></div>
+          <div class="flex-1 h-8 first:rounded-l last:rounded-r bg-blue-500 bg-darken-30"></div>
+          <div class="flex-1 h-8 first:rounded-l last:rounded-r bg-blue-500 bg-darken-40"></div>
+          <div class="flex-1 h-8 first:rounded-l last:rounded-r bg-blue-500 bg-darken-50"></div>
+          <div class="flex-1 h-8 first:rounded-l last:rounded-r bg-blue-500 bg-darken-60"></div>
+          <div class="flex-1 h-8 first:rounded-l last:rounded-r bg-blue-500 bg-darken-70"></div>
+        </div>
+        <div class="flex gap-1">
+          <div class="flex-1 h-8 first:rounded-l last:rounded-r bg-blue-500 bg-hue-rotate-0"></div>
+          <div class="flex-1 h-8 first:rounded-l last:rounded-r bg-blue-500 bg-hue-rotate-45"></div>
+          <div class="flex-1 h-8 first:rounded-l last:rounded-r bg-blue-500 bg-hue-rotate-90"></div>
+          <div class="flex-1 h-8 first:rounded-l last:rounded-r bg-blue-500 bg-hue-rotate-135"></div>
+          <div class="flex-1 h-8 first:rounded-l last:rounded-r bg-blue-500 bg-hue-rotate-180"></div>
+          <div class="flex-1 h-8 first:rounded-l last:rounded-r bg-blue-500 bg-hue-rotate-225"></div>
+          <div class="flex-1 h-8 first:rounded-l last:rounded-r bg-blue-500 bg-hue-rotate-270"></div>
+          <div class="flex-1 h-8 first:rounded-l last:rounded-r bg-blue-500 bg-hue-rotate-315"></div>
+        </div>
       </div>
     </DemoCard>
   </div>
@@ -68,9 +95,22 @@ title: Variant B — Card Stack
   <div class="grid md:grid-cols-[1.3fr_1fr] gap-6 items-start">
     <DemoCard title="16 spaces, same syntax" :rotate="-1" :z="20" :large="true">
       <div class="grid grid-cols-4 gap-1.5">
-        <div v-for="sp in ['oklch','hsl','lab','lch','oklab','hwb','rgb','srgb','srgb-linear','display-p3','a98-rgb','prophoto-rgb','rec2020','xyz','xyz-d50','xyz-d65']" :key="sp" :class="['aspect-[4/3] rounded bg-red-500 p-1.5 flex items-end', `bg-lighten-40/${sp}`]">
-          <span class="font-mono text-[8px] text-a11y-aa opacity-75">/{{ sp }}</span>
-        </div>
+        <div class="aspect-[4/3] rounded bg-red-500 p-1.5 flex items-end bg-lighten-40/oklch"><span class="font-mono text-[8px] text-gray-900 opacity-75">/oklch</span></div>
+        <div class="aspect-[4/3] rounded bg-red-500 p-1.5 flex items-end bg-lighten-40/hsl"><span class="font-mono text-[8px] text-gray-900 opacity-75">/hsl</span></div>
+        <div class="aspect-[4/3] rounded bg-red-500 p-1.5 flex items-end bg-lighten-40/lab"><span class="font-mono text-[8px] text-gray-900 opacity-75">/lab</span></div>
+        <div class="aspect-[4/3] rounded bg-red-500 p-1.5 flex items-end bg-lighten-40/lch"><span class="font-mono text-[8px] text-gray-900 opacity-75">/lch</span></div>
+        <div class="aspect-[4/3] rounded bg-red-500 p-1.5 flex items-end bg-lighten-40/oklab"><span class="font-mono text-[8px] text-gray-900 opacity-75">/oklab</span></div>
+        <div class="aspect-[4/3] rounded bg-red-500 p-1.5 flex items-end bg-lighten-40/hwb"><span class="font-mono text-[8px] text-gray-900 opacity-75">/hwb</span></div>
+        <div class="aspect-[4/3] rounded bg-red-500 p-1.5 flex items-end bg-lighten-40/rgb"><span class="font-mono text-[8px] text-gray-900 opacity-75">/rgb</span></div>
+        <div class="aspect-[4/3] rounded bg-red-500 p-1.5 flex items-end bg-lighten-40/srgb"><span class="font-mono text-[8px] text-gray-900 opacity-75">/srgb</span></div>
+        <div class="aspect-[4/3] rounded bg-red-500 p-1.5 flex items-end bg-lighten-40/srgb-linear"><span class="font-mono text-[8px] text-gray-900 opacity-75">/srgb-linear</span></div>
+        <div class="aspect-[4/3] rounded bg-red-500 p-1.5 flex items-end bg-lighten-40/display-p3"><span class="font-mono text-[8px] text-gray-900 opacity-75">/display-p3</span></div>
+        <div class="aspect-[4/3] rounded bg-red-500 p-1.5 flex items-end bg-lighten-40/a98-rgb"><span class="font-mono text-[8px] text-gray-900 opacity-75">/a98-rgb</span></div>
+        <div class="aspect-[4/3] rounded bg-red-500 p-1.5 flex items-end bg-lighten-40/prophoto-rgb"><span class="font-mono text-[8px] text-gray-900 opacity-75">/prophoto-rgb</span></div>
+        <div class="aspect-[4/3] rounded bg-red-500 p-1.5 flex items-end bg-lighten-40/rec2020"><span class="font-mono text-[8px] text-gray-900 opacity-75">/rec2020</span></div>
+        <div class="aspect-[4/3] rounded bg-red-500 p-1.5 flex items-end bg-lighten-40/xyz"><span class="font-mono text-[8px] text-gray-900 opacity-75">/xyz</span></div>
+        <div class="aspect-[4/3] rounded bg-red-500 p-1.5 flex items-end bg-lighten-40/xyz-d50"><span class="font-mono text-[8px] text-gray-900 opacity-75">/xyz-d50</span></div>
+        <div class="aspect-[4/3] rounded bg-red-500 p-1.5 flex items-end bg-lighten-40/xyz-d65"><span class="font-mono text-[8px] text-gray-900 opacity-75">/xyz-d65</span></div>
       </div>
     </DemoCard>
     <div class="space-y-3">
@@ -110,8 +150,8 @@ title: Variant B — Card Stack
   <div class="grid md:grid-cols-2 gap-6 items-start">
     <DemoCard title="any color → CMYK halftone" :rotate="-1" :z="20" :large="true">
       <div class="space-y-3">
-        <div class="h-24 rounded-xl bg-comic-blue-500 comic-dot-1 comic-gap-4 comic-bleed-0.5"></div>
-        <div class="h-24 rounded-xl bg-comic-rose-500 comic-dot-1 comic-gap-4 comic-bleed-0.5"></div>
+        <div class="h-24 rounded-xl bg-comic-blue-500"></div>
+        <div class="h-24 rounded-xl bg-comic-rose-500"></div>
       </div>
       <p class="text-xs font-mono mt-3 opacity-60">bg-comic-{color} converts any colour to dots</p>
     </DemoCard>

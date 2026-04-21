@@ -13,7 +13,7 @@ const slide = computed<MagazineSlideData>(() => slides[props.index]);
       slide.dark ? 'bg-gray-950 text-gray-100 dark:bg-white dark:text-gray-900' : 'bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100',
     ]"
   >
-    <span class="absolute top-6 left-6 font-mono text-[11px] opacity-40">{{ slide.slideNumber }}</span>
+
 
     <div
       :class="[

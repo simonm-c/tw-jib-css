@@ -148,7 +148,7 @@ For CSS variables, you can also use the `scrollbar-thumb-(--custom-property)` sy
   </div>
 </Example>
 
-This is just a shorthand for `scrollbar-thumb-[var(--brand-color)]` that adds the `var()` function for you automatically.
+This is shorthand for `scrollbar-thumb-[var(--brand-color)]` — it adds the `var()` wrapper automatically.
 
 ## Applying conditionally
 

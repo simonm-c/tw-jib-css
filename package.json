@@ -77,9 +77,17 @@
       "style": "./src/comic.css",
       "default": "./src/comic.css"
     },
+    "./hatch": {
+      "style": "./src/hatch.css",
+      "default": "./src/hatch.css"
+    },
     "./pixel": {
       "style": "./src/pixel.css",
       "default": "./src/pixel.css"
+    },
+    "./watercolor": {
+      "style": "./src/watercolor.css",
+      "default": "./src/watercolor.css"
     },
     "./experimental/corner": {
       "style": "./src/experimental/corner.css",

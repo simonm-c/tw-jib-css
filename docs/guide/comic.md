@@ -6,7 +6,7 @@ title: Comic Dots
 
 # Comic Dots
 
-Comic-book style CMYK halftone dot backgrounds. Any colour is decomposed into four overlapping dot grids — cyan, magenta, yellow, and black — using proper CMYK conversion via CSS relative colour syntax.
+CMYK halftone dot backgrounds for any Tailwind colour. Pure CSS, no images.
 
 ::: tip Import
 Included in `@import 'tw-jib-css'`. To import individually:
@@ -25,12 +25,12 @@ Uses CSS relative colour syntax with `max()` inside `rgb(from ...)`. Supported i
   { class: 'bg-comic-<color>', styles: 'Sets colour and applies CMYK dot pattern with background-blend-mode: multiply' },
   { class: 'bg-comic-<color>/<opacity>', styles: 'Same with opacity modifier' },
   { class: 'bg-comic-[<value>]', styles: 'Arbitrary colour value' },
-  { class: 'comic-dot-<number>', styles: '--comic-dot: --spacing(<number>) — dot radius' },
-  { class: 'comic-dot-[<value>]', styles: '--comic-dot: <value>' },
-  { class: 'comic-bleed-<number>', styles: '--comic-bleed: --spacing(<number>) — dot edge softness' },
-  { class: 'comic-bleed-[<value>]', styles: '--comic-bleed: <value>' },
-  { class: 'comic-gap-<number>', styles: '--comic-gap: --spacing(<number>) / 4 — space between dots' },
-  { class: 'comic-gap-[<value>]', styles: '--comic-gap: <value>' },
+  { class: 'comic-dot-<number>', styles: '--tw-jib--comic-dot: --spacing(<number>) — dot radius' },
+  { class: 'comic-dot-[<value>]', styles: '--tw-jib--comic-dot: <value>' },
+  { class: 'comic-bleed-<number>', styles: '--tw-jib--comic-bleed: --spacing(<number>) / 4 — dot edge softness' },
+  { class: 'comic-bleed-[<value>]', styles: '--tw-jib--comic-bleed: <value>' },
+  { class: 'comic-gap-<number>', styles: '--tw-jib--comic-gap: --spacing(<number>) / 4 — space between dots' },
+  { class: 'comic-gap-[<value>]', styles: '--tw-jib--comic-gap: <value>' },
 ]" />
 
 ## How it works
@@ -514,7 +514,7 @@ Use the arbitrary value syntax for colours not in the Tailwind palette:
 All `bg-comic-*` and `comic-*` utilities support Tailwind's variant syntax:
 
 ```html
-<div class="bg-blue-500 hover:bg-comic-blue-500 comic-gap-4">
+<div class="bg-blue-500 hover:bg-comic-blue-500">
   Dots on hover
 </div>
 

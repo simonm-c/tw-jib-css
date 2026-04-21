@@ -208,7 +208,7 @@ For CSS variables, you can also use the `corner-(--custom-property)` syntax:
   </div>
 </Example>
 
-This is just a shorthand for `corner-[var(--brand-roundness)]` that adds the `var()` function for you automatically.
+This is shorthand for `corner-[var(--brand-roundness)]` — it adds the `var()` wrapper automatically.
 
 ## Applying conditionally
 

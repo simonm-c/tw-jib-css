@@ -84,15 +84,15 @@ Default ripple (white 20% opacity, 400ms, center).
 
 <div class="grid grid-cols-3 gap-4 my-6">
   <div>
-    <div data-test="comic-blue" class="bg-comic-blue-500 comic-gap-4 bg-ripple h-32 rounded-lg cursor-pointer"></div>
+    <div data-test="comic-blue" class="bg-comic-blue-500 bg-ripple h-32 rounded-lg cursor-pointer"></div>
     <p class="text-xs font-mono text-center mt-1">bg-comic-blue-500</p>
   </div>
   <div>
-    <div data-test="comic-red" class="bg-comic-red-500 comic-gap-4 bg-ripple h-32 rounded-lg cursor-pointer"></div>
+    <div data-test="comic-red" class="bg-comic-red-500 bg-ripple h-32 rounded-lg cursor-pointer"></div>
     <p class="text-xs font-mono text-center mt-1">bg-comic-red-500</p>
   </div>
   <div>
-    <div data-test="comic-emerald" class="bg-comic-emerald-500 comic-gap-4 bg-ripple h-32 rounded-lg cursor-pointer"></div>
+    <div data-test="comic-emerald" class="bg-comic-emerald-500 bg-ripple h-32 rounded-lg cursor-pointer"></div>
     <p class="text-xs font-mono text-center mt-1">bg-comic-emerald-500</p>
   </div>
   <div>
@@ -108,15 +108,15 @@ Default ripple (white 20% opacity, 400ms, center).
     <p class="text-xs font-mono text-center mt-1">soft bleed + colored ripple</p>
   </div>
   <div>
-    <div data-test="comic-border-linear" class="bg-comic-blue-500 comic-gap-4 bg-ripple h-32 rounded-lg border-4 border-linear-to-r border-from-rose-500 border-to-cyan-500 cursor-pointer"></div>
+    <div data-test="comic-border-linear" class="bg-comic-blue-500 bg-ripple h-32 rounded-lg border-4 border-linear-to-r border-from-rose-500 border-to-cyan-500 cursor-pointer"></div>
     <p class="text-xs font-mono text-center mt-1">dots + border-linear</p>
   </div>
   <div>
-    <div data-test="comic-border-radial" class="bg-comic-red-500 comic-gap-4 bg-ripple h-32 rounded-lg border-4 border-radial border-from-amber-400 border-to-purple-500 cursor-pointer"></div>
+    <div data-test="comic-border-radial" class="bg-comic-red-500 bg-ripple h-32 rounded-lg border-4 border-radial border-from-amber-400 border-to-purple-500 cursor-pointer"></div>
     <p class="text-xs font-mono text-center mt-1">dots + border-radial</p>
   </div>
   <div>
-    <div data-test="comic-border-conic" class="bg-comic-emerald-500 comic-gap-4 bg-ripple h-32 rounded-lg border-4 border-conic-0 border-from-pink-500 border-via-yellow-400 border-to-cyan-500 cursor-pointer"></div>
+    <div data-test="comic-border-conic" class="bg-comic-emerald-500 bg-ripple h-32 rounded-lg border-4 border-conic-0 border-from-pink-500 border-via-yellow-400 border-to-cyan-500 cursor-pointer"></div>
     <p class="text-xs font-mono text-center mt-1">dots + border-conic</p>
   </div>
   <div>
@@ -448,15 +448,15 @@ Custom ripple-color, ripple-duration, and ripple-fade with border gradients.
 
 <div class="grid grid-cols-3 gap-4 my-6">
   <div>
-    <div data-test="comic-border-linear" class="bg-comic-blue-500 comic-gap-4 bg-ripple h-32 rounded-lg border-4 border-linear-to-r border-from-rose-500 border-to-cyan-500 cursor-pointer"></div>
+    <div data-test="comic-border-linear" class="bg-comic-blue-500 bg-ripple h-32 rounded-lg border-4 border-linear-to-r border-from-rose-500 border-to-cyan-500 cursor-pointer"></div>
     <p class="text-xs font-mono text-center mt-1">comic + border-linear</p>
   </div>
   <div>
-    <div data-test="comic-border-conic" class="bg-comic-purple-500 comic-gap-4 bg-ripple h-32 rounded-lg border-4 border-conic-0 border-from-amber-400 border-via-pink-500 border-to-amber-400 cursor-pointer"></div>
+    <div data-test="comic-border-conic" class="bg-comic-purple-500 bg-ripple h-32 rounded-lg border-4 border-conic-0 border-from-amber-400 border-via-pink-500 border-to-amber-400 cursor-pointer"></div>
     <p class="text-xs font-mono text-center mt-1">comic + border-conic</p>
   </div>
   <div>
-    <div data-test="comic-border-spin" class="bg-comic-emerald-500 comic-gap-4 bg-ripple h-32 rounded-lg border-4 border-conic-0 border-spin border-from-sky-400 border-via-violet-500 border-to-sky-400 cursor-pointer"></div>
+    <div data-test="comic-border-spin" class="bg-comic-emerald-500 bg-ripple h-32 rounded-lg border-4 border-conic-0 border-spin border-from-sky-400 border-via-violet-500 border-to-sky-400 cursor-pointer"></div>
     <p class="text-xs font-mono text-center mt-1">comic + border-spin</p>
   </div>
 </div>
@@ -519,7 +519,7 @@ Same ripple settings (`ripple-color-white ripple-duration-60 ripple-fade`) acros
     <p class="text-xs font-mono text-center mt-1">Gradient</p>
   </div>
   <div>
-    <div data-test="compare-comic" class="bg-comic-indigo-500 comic-gap-4 bg-ripple ripple-color-white ripple-duration-60 ripple-fade h-36 rounded-lg cursor-pointer"></div>
+    <div data-test="compare-comic" class="bg-comic-indigo-500 bg-ripple ripple-color-white ripple-duration-60 ripple-fade h-36 rounded-lg cursor-pointer"></div>
     <p class="text-xs font-mono text-center mt-1">Ben Day</p>
   </div>
   <div>

@@ -1,0 +1,424 @@
+/* ==========================================================================
+   Hatch — TailwindCSS utilities
+   Renders a color as pen-and-ink hatching on white paper using multiply
+   blending — mimics the mechanical-hatching tradition of woodcut, steel
+   engraving, and vector illustration.
+
+   Mechanism — three directional ink-stroke layers, each with multiple
+   slot positions whose per-slot alpha is L-range gated:
+
+     PRIMARY gradient (12-slot cell at --tw-jib--hatch-angle):
+       pA (slots 0, 6)        — always on
+       pD (slots 3, 9)        — ramps 0.97 → 0.85  (reaches peak at l ≤ 0.85)
+       pC (slots 2, 4, 8, 10) — ramps 0.93 → 0.70
+       pB (slots 1, 5, 7, 11) — ramps 0.88 → 0.55
+       → By l ≈ 0.55 all 12 slots fire at peak.
+
+     CROSS gradient (6-slot cell at angle + 90°):
+       c0 (slot 0)            — ramps 0.95 → 0.65
+       c3 (slot 3)            — ramps 0.85 → 0.55
+       c900 (slots 1,2,4,5)   — ramps 0.75 → 0.45
+       → By l ≈ 0.45 all 6 cross slots fire at peak.
+
+     THIRD gradient (6-slot cell at angle + 45°) — dark-end only:
+       t0 (slot 0)            — ramps 0.45 → 0.20
+       t3 (slot 3)            — ramps 0.30 → 0.10
+       t900 (slots 1,2,4,5)   — ramps 0.15 → 0
+       → By l ≈ 0, three-way hatch saturates the paper.
+
+   Alpha floor of 0.35 on all PRIMARY slots guarantees baseline coverage at
+   very light inputs — every slot fires at least faintly, so shade 50 reads
+   as a colored paper rather than a near-empty surface. Cross and third stay
+   fully L-gated (no floor) so they only appear where genuine mid-to-dark
+   tones warrant additional directions of strokes.
+
+   Press-curve modulation reduces peak alpha for lighter inputs, simulating
+   lighter pen pressure:
+     peak = 0.95 − 0.3 × l
+
+   Ink color is derived from the input:
+     - Lightness squared (l * l) — light inputs produce light-tinted ink,
+       dark inputs darken aggressively; avoids gray wash at light shades
+     - Chroma doubled (c * 2) — saturated ink, degrades to gray for neutral
+       inputs, stays near gamut
+     - Hue preserved from input
+
+   Hatching angles:
+     - Primary at 35° (off-axis reads hand-placed; exact 45° reads digital)
+     - Cross at primary + 90° (Dürer / Doré crosshatch tradition)
+     - Third at primary + 45° (classical 3-way engraving bisector)
+
+   Paper is white — places the module in the pen-and-ink tradition.
+
+   Usage:
+     bg-hatch-red-500       — red-500 as hatching on white paper
+     bg-hatch-[#ff6600]     — arbitrary color
+     bg-hatch-red-500/50    — 50% overall opacity
+     hatch-angle-30         — rotate primary angle (cross & third follow)
+     hatch-stroke-2         — line thickness (spacing / 4)
+     hatch-gap-4            — whitespace between strokes (spacing / 4)
+   ========================================================================== */
+
+
+/* --- Custom properties ----------------------------------------------------- */
+
+@property --tw-jib--hatch-color {
+  syntax: '<color>';
+  inherits: false;
+  initial-value: black;
+}
+@property --tw-jib--hatch-opacity {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 1;
+}
+
+/* Primary hatching angle. Cross and third derive from this. */
+@property --tw-jib--hatch-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 35deg;
+}
+
+/* Stroke thickness in pixels. Default 3px (never sub-pixel — sub-pixel
+   strokes anti-alias inconsistently across browsers). */
+@property --tw-jib--hatch-stroke {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 3px;
+}
+
+/* Whitespace between strokes in pixels. Default 2px.
+   Full cycle = stroke + gap (e.g. 3px stroke + 2px gap = 5px cycle). */
+@property --tw-jib--hatch-gap {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 2px;
+}
+
+
+/* --- Utilities ------------------------------------------------------------- */
+
+/* bg-hatch-* — sets input color and renders the three-way hatch pattern on
+   white paper. Three gradient layers (primary + cross + third) composite
+   via multiply, each with L-range-gated per-slot alpha. */
+
+@utility bg-hatch-* {
+  --tw-jib--hatch-color: --value(--color-*, [color]);
+  --tw-jib--hatch-opacity: calc(--modifier(integer) * 0.01);
+
+  /* Cross perpendicular to primary; third at 45° bisector. */
+  --tw-jib--hatch-angle-cross: calc(var(--tw-jib--hatch-angle) + 90deg);
+  --tw-jib--hatch-angle-third: calc(var(--tw-jib--hatch-angle) + 45deg);
+
+  /* Derived geometry — full cycle unit and per-gradient cell sizes.
+     MUST live inside this @utility rule, not at a shared level. CSS
+     custom properties only evaluate calc() expressions in the context
+     where they're declared; if these lived at :root they'd capture
+     :root-level stroke/gap even when a descendant overrides them. */
+  --tw-jib--hatch-unit: calc(var(--tw-jib--hatch-stroke) + var(--tw-jib--hatch-gap));
+  --tw-jib--hatch-cell-primary: calc(var(--tw-jib--hatch-unit) * 12);
+  --tw-jib--hatch-cell-cross: calc(var(--tw-jib--hatch-unit) * 6);
+
+  /*
+    Per-slot inks — PRIMARY gradient (12-slot cell).
+    Four unique ink patterns shared via symmetry:
+      Slot 0, 6:       pA (always on, just peak alpha)
+      Slot 3, 9:       pD (ramps in first — lightest shades)
+      Slot 2, 4, 8, 10: pC (ramps in second)
+      Slot 1, 5, 7, 11: pB (ramps in last — mid shades)
+
+    Alpha formula:
+      peak  = 0.95 − 0.3 × l                              (press-curve modulation)
+      ramp  = clamp(0, (start_l − l) / span, 1)           (L-range gate)
+      alpha = max(0.35, peak × ramp) × opacity            (floor keeps light inputs visible)
+  */
+
+  /* pA (slots 0, 6) — always on; alpha = max(0.35, peak) */
+  --tw-jib--hatch-ink-pA: oklch(
+          from var(--tw-jib--hatch-color)
+          calc(l * l) calc(c * 2) h
+    / calc(max(0.35, 0.95 - 0.3 * l) * var(--tw-jib--hatch-opacity))
+  );
+
+  /* pB (slots 1, 5, 7, 11) — ramp 0.88 → 0.55 (span 0.33) */
+  --tw-jib--hatch-ink-pB: oklch(
+          from var(--tw-jib--hatch-color)
+          calc(l * l) calc(c * 2) h
+    / calc(
+                  max(
+                  0.35,
+                  (0.95 - 0.3 * l) * clamp(0, (0.88 - l) / 0.33, 1)
+                  ) * var(--tw-jib--hatch-opacity)
+          )
+  );
+
+  /* pC (slots 2, 4, 8, 10) — ramp 0.93 → 0.70 (span 0.23) */
+  --tw-jib--hatch-ink-pC: oklch(
+          from var(--tw-jib--hatch-color)
+          calc(l * l) calc(c * 2) h
+    / calc(
+                  max(
+                  0.35,
+                  (0.95 - 0.3 * l) * clamp(0, (0.93 - l) / 0.23, 1)
+                  ) * var(--tw-jib--hatch-opacity)
+          )
+  );
+
+  /* pD (slots 3, 9) — ramp 0.97 → 0.85 (span 0.12) */
+  --tw-jib--hatch-ink-pD: oklch(
+          from var(--tw-jib--hatch-color)
+          calc(l * l) calc(c * 2) h
+    / calc(
+                  max(
+                  0.35,
+                  (0.95 - 0.3 * l) * clamp(0, (0.97 - l) / 0.12, 1)
+                  ) * var(--tw-jib--hatch-opacity)
+          )
+  );
+
+  /*
+    Per-slot inks — CROSS gradient (6-slot cell). No alpha floor —
+    cross only fires where L genuinely warrants a second direction.
+  */
+
+  /* c0 (slot 0) — ramp 0.95 → 0.65 */
+  --tw-jib--hatch-ink-c0: oklch(
+          from var(--tw-jib--hatch-color)
+          calc(l * l) calc(c * 2) h
+    / calc(
+                  (0.95 - 0.3 * l) * clamp(0, (0.95 - l) / 0.30, 1)
+                  * var(--tw-jib--hatch-opacity)
+          )
+  );
+
+  /* c3 (slot 3) — ramp 0.85 → 0.55 */
+  --tw-jib--hatch-ink-c3: oklch(
+          from var(--tw-jib--hatch-color)
+          calc(l * l) calc(c * 2) h
+    / calc(
+                  (0.95 - 0.3 * l) * clamp(0, (0.85 - l) / 0.30, 1)
+                  * var(--tw-jib--hatch-opacity)
+          )
+  );
+
+  /* c900 (slots 1, 2, 4, 5) — ramp 0.75 → 0.45 */
+  --tw-jib--hatch-ink-c900: oklch(
+          from var(--tw-jib--hatch-color)
+          calc(l * l) calc(c * 2) h
+    / calc(
+                  (0.95 - 0.3 * l) * clamp(0, (0.75 - l) / 0.30, 1)
+                  * var(--tw-jib--hatch-opacity)
+          )
+  );
+
+  /*
+    Per-slot inks — THIRD gradient (6-slot cell, 45° bisector).
+    Activates only at dark inputs; no alpha floor.
+  */
+
+  /* t0 (slot 0) — ramp 0.45 → 0.20 */
+  --tw-jib--hatch-ink-t0: oklch(
+          from var(--tw-jib--hatch-color)
+          calc(l * l) calc(c * 2) h
+    / calc(
+                  (0.95 - 0.3 * l) * clamp(0, (0.45 - l) / 0.25, 1)
+                  * var(--tw-jib--hatch-opacity)
+          )
+  );
+
+  /* t3 (slot 3) — ramp 0.30 → 0.10 */
+  --tw-jib--hatch-ink-t3: oklch(
+          from var(--tw-jib--hatch-color)
+          calc(l * l) calc(c * 2) h
+    / calc(
+                  (0.95 - 0.3 * l) * clamp(0, (0.30 - l) / 0.20, 1)
+                  * var(--tw-jib--hatch-opacity)
+          )
+  );
+
+  /* t900 (slots 1, 2, 4, 5) — ramp 0.15 → 0 */
+  --tw-jib--hatch-ink-t900: oklch(
+          from var(--tw-jib--hatch-color)
+          calc(l * l) calc(c * 2) h
+    / calc(
+                  (0.95 - 0.3 * l) * clamp(0, (0.15 - l) / 0.15, 1)
+                  * var(--tw-jib--hatch-opacity)
+          )
+  );
+
+  /*
+    Layer stack — three hatching gradients plus paper.
+
+    Each slot's stops: ink → ink → transparent → transparent → ink (next).
+    Slot → ink mapping:
+      PRIMARY (12 slots):  0=pA  1=pB  2=pC  3=pD  4=pC  5=pB
+                           6=pA  7=pB  8=pC  9=pD 10=pC 11=pB
+      CROSS   (6 slots):   0=c0  1=c900  2=c900  3=c3  4=c900  5=c900
+      THIRD   (6 slots):   0=t0  1=t900  2=t900  3=t3  4=t900  5=t900
+  */
+  --tw-jib--background-image:
+    /* THIRD direction — 6-slot cell at angle + 45° */
+          repeating-linear-gradient(
+                  var(--tw-jib--hatch-angle-third),
+                  var(--tw-jib--hatch-ink-t0) 0,
+                  var(--tw-jib--hatch-ink-t0) var(--tw-jib--hatch-stroke),
+                  transparent var(--tw-jib--hatch-stroke),
+                  transparent calc(var(--tw-jib--hatch-unit) * 1),
+                  var(--tw-jib--hatch-ink-t900) calc(var(--tw-jib--hatch-unit) * 1),
+                  var(--tw-jib--hatch-ink-t900) calc(var(--tw-jib--hatch-unit) * 1 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 1 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 2),
+                  var(--tw-jib--hatch-ink-t900) calc(var(--tw-jib--hatch-unit) * 2),
+                  var(--tw-jib--hatch-ink-t900) calc(var(--tw-jib--hatch-unit) * 2 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 2 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 3),
+                  var(--tw-jib--hatch-ink-t3) calc(var(--tw-jib--hatch-unit) * 3),
+                  var(--tw-jib--hatch-ink-t3) calc(var(--tw-jib--hatch-unit) * 3 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 3 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 4),
+                  var(--tw-jib--hatch-ink-t900) calc(var(--tw-jib--hatch-unit) * 4),
+                  var(--tw-jib--hatch-ink-t900) calc(var(--tw-jib--hatch-unit) * 4 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 4 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 5),
+                  var(--tw-jib--hatch-ink-t900) calc(var(--tw-jib--hatch-unit) * 5),
+                  var(--tw-jib--hatch-ink-t900) calc(var(--tw-jib--hatch-unit) * 5 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 5 + var(--tw-jib--hatch-stroke)),
+                  transparent var(--tw-jib--hatch-cell-cross)
+          ) padding-box,
+
+            /* CROSS direction — 6-slot cell at angle + 90° */
+          repeating-linear-gradient(
+                  var(--tw-jib--hatch-angle-cross),
+                  var(--tw-jib--hatch-ink-c0) 0,
+                  var(--tw-jib--hatch-ink-c0) var(--tw-jib--hatch-stroke),
+                  transparent var(--tw-jib--hatch-stroke),
+                  transparent calc(var(--tw-jib--hatch-unit) * 1),
+                  var(--tw-jib--hatch-ink-c900) calc(var(--tw-jib--hatch-unit) * 1),
+                  var(--tw-jib--hatch-ink-c900) calc(var(--tw-jib--hatch-unit) * 1 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 1 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 2),
+                  var(--tw-jib--hatch-ink-c900) calc(var(--tw-jib--hatch-unit) * 2),
+                  var(--tw-jib--hatch-ink-c900) calc(var(--tw-jib--hatch-unit) * 2 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 2 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 3),
+                  var(--tw-jib--hatch-ink-c3) calc(var(--tw-jib--hatch-unit) * 3),
+                  var(--tw-jib--hatch-ink-c3) calc(var(--tw-jib--hatch-unit) * 3 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 3 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 4),
+                  var(--tw-jib--hatch-ink-c900) calc(var(--tw-jib--hatch-unit) * 4),
+                  var(--tw-jib--hatch-ink-c900) calc(var(--tw-jib--hatch-unit) * 4 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 4 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 5),
+                  var(--tw-jib--hatch-ink-c900) calc(var(--tw-jib--hatch-unit) * 5),
+                  var(--tw-jib--hatch-ink-c900) calc(var(--tw-jib--hatch-unit) * 5 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 5 + var(--tw-jib--hatch-stroke)),
+                  transparent var(--tw-jib--hatch-cell-cross)
+          ) padding-box,
+
+            /* PRIMARY direction — 12-slot cell */
+          repeating-linear-gradient(
+                  var(--tw-jib--hatch-angle),
+                  var(--tw-jib--hatch-ink-pA) 0,
+                  var(--tw-jib--hatch-ink-pA) var(--tw-jib--hatch-stroke),
+                  transparent var(--tw-jib--hatch-stroke),
+                  transparent calc(var(--tw-jib--hatch-unit) * 1),
+                  var(--tw-jib--hatch-ink-pB) calc(var(--tw-jib--hatch-unit) * 1),
+                  var(--tw-jib--hatch-ink-pB) calc(var(--tw-jib--hatch-unit) * 1 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 1 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 2),
+                  var(--tw-jib--hatch-ink-pC) calc(var(--tw-jib--hatch-unit) * 2),
+                  var(--tw-jib--hatch-ink-pC) calc(var(--tw-jib--hatch-unit) * 2 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 2 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 3),
+                  var(--tw-jib--hatch-ink-pD) calc(var(--tw-jib--hatch-unit) * 3),
+                  var(--tw-jib--hatch-ink-pD) calc(var(--tw-jib--hatch-unit) * 3 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 3 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 4),
+                  var(--tw-jib--hatch-ink-pC) calc(var(--tw-jib--hatch-unit) * 4),
+                  var(--tw-jib--hatch-ink-pC) calc(var(--tw-jib--hatch-unit) * 4 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 4 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 5),
+                  var(--tw-jib--hatch-ink-pB) calc(var(--tw-jib--hatch-unit) * 5),
+                  var(--tw-jib--hatch-ink-pB) calc(var(--tw-jib--hatch-unit) * 5 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 5 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 6),
+                  var(--tw-jib--hatch-ink-pA) calc(var(--tw-jib--hatch-unit) * 6),
+                  var(--tw-jib--hatch-ink-pA) calc(var(--tw-jib--hatch-unit) * 6 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 6 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 7),
+                  var(--tw-jib--hatch-ink-pB) calc(var(--tw-jib--hatch-unit) * 7),
+                  var(--tw-jib--hatch-ink-pB) calc(var(--tw-jib--hatch-unit) * 7 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 7 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 8),
+                  var(--tw-jib--hatch-ink-pC) calc(var(--tw-jib--hatch-unit) * 8),
+                  var(--tw-jib--hatch-ink-pC) calc(var(--tw-jib--hatch-unit) * 8 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 8 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 9),
+                  var(--tw-jib--hatch-ink-pD) calc(var(--tw-jib--hatch-unit) * 9),
+                  var(--tw-jib--hatch-ink-pD) calc(var(--tw-jib--hatch-unit) * 9 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 9 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 10),
+                  var(--tw-jib--hatch-ink-pC) calc(var(--tw-jib--hatch-unit) * 10),
+                  var(--tw-jib--hatch-ink-pC) calc(var(--tw-jib--hatch-unit) * 10 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 10 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 11),
+                  var(--tw-jib--hatch-ink-pB) calc(var(--tw-jib--hatch-unit) * 11),
+                  var(--tw-jib--hatch-ink-pB) calc(var(--tw-jib--hatch-unit) * 11 + var(--tw-jib--hatch-stroke)),
+                  transparent calc(var(--tw-jib--hatch-unit) * 11 + var(--tw-jib--hatch-stroke)),
+                  transparent var(--tw-jib--hatch-cell-primary)
+          ) padding-box,
+
+            /* White paper base */
+          linear-gradient(
+                  rgb(255 255 255 / var(--tw-jib--hatch-opacity)) 0 0
+          ) padding-box;
+
+  background:
+          var(--tw-jib--ripple-image) padding-box,
+          var(--tw-jib--background-image) padding-box,
+          var(--tw-jib--border-gradient) border-box;
+
+  /* Layer count for background-blend-mode (7 total):
+       1  ripple           → normal
+       1  third direction  → multiply
+       1  cross direction  → multiply
+       1  primary direction → multiply
+       1  white paper base → normal
+       1  border gradient  → normal */
+  background-blend-mode:
+          normal,
+          multiply, multiply, multiply,
+          normal,
+          normal;
+}
+
+
+/* --- Knob utilities -------------------------------------------------------- */
+
+/* hatch-angle-* — primary hatching angle. Cross and third derive from this
+   (+90° and +45° respectively). Values follow Tailwind's rotate-* convention:
+   degree numbers directly (hatch-angle-30 = 30deg), or arbitrary [angle]. */
+@utility hatch-angle-* {
+  --tw-jib--hatch-angle: calc(--value(number) * 1deg);
+  --tw-jib--hatch-angle: --value([angle]);
+}
+
+/* hatch-stroke-* — line thickness. Spacing / 4 so hatch-stroke-1 = 1px
+   (very fine engraving), hatch-stroke-2 = 2px, hatch-stroke-3 = 3px
+   (default, pencil-like), hatch-stroke-4 = 4px (charcoal), hatch-stroke-5
+   and above approach solid fill. Strokes should not be sub-pixel — browsers
+   anti-alias inconsistently below 1px. */
+@utility hatch-stroke-* {
+  --tw-jib--hatch-stroke: calc(--spacing(--value(number)) / 4);
+  --tw-jib--hatch-stroke: --value([length]);
+}
+
+/* hatch-gap-* — whitespace between strokes. Spacing / 4 for fine control.
+   hatch-gap-1 = 1px (dense mesh), hatch-gap-2 = 2px (default),
+   hatch-gap-4 = 4px (airier), hatch-gap-8+ = sparse pen-drawn look.
+   Wide gaps (16px+) produce classical engraving-plate sparse hatching. */
+@utility hatch-gap-* {
+  --tw-jib--hatch-gap: calc(--spacing(--value(number)) / 4);
+  --tw-jib--hatch-gap: --value([length]);
+}

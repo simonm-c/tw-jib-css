@@ -132,22 +132,16 @@
    Contemporary defaults here; watercolor-traditional overrides all 8 for
    earlier, earth-dominant, sepia-pervasive historical darkening. */
 
-/* Darkness ramp — how early shadows appear, how sharply they onset.
-   threshold: lightness at which shadow activation begins (higher = earlier onset)
-   curve: pow exponent (1 = linear, 2 = gentler onset, 0.5 = aggressive onset) */
+/* Darkness ramp — lightness at which shadow activation begins.
+   Higher = earlier onset (traditional 0.65, eastern 0.75). */
 @property --tw-jib--wc-shadow-threshold { syntax: '<number>'; inherits: true; initial-value: 0.55; }
-@property --tw-jib--wc-shadow-curve     { syntax: '<number>'; inherits: true; initial-value: 2;    }
 
-/* Slot 1 (warm earth / sienna) chromatic-path bias:
-   activation = base + mod × (1 - warmth)   (biases toward cool chromatic inputs)
-   Higher base = earth pigment active across more hues. */
-@property --tw-jib--wc-s1-bias-base { syntax: '<number>'; inherits: true; initial-value: 0.40; }
-@property --tw-jib--wc-s1-bias-mod  { syntax: '<number>'; inherits: true; initial-value: 0.30; }
-
-/* Slot 2 (cool dark / ultramarine) chromatic-path bias:
-   activation = base + mod × warmth         (biases toward warm chromatic inputs) */
-@property --tw-jib--wc-s2-bias-base { syntax: '<number>'; inherits: true; initial-value: 0.40; }
-@property --tw-jib--wc-s2-bias-mod  { syntax: '<number>'; inherits: true; initial-value: 0.30; }
+/* Slot 1/2 chromatic-path bias: activation = base + mod × warmth_factor.
+   s1 biases toward cool inputs (1 - warmth), s2 toward warm (warmth).
+   Base is per-slot; mod is shared (always equal between s1 and s2). */
+@property --tw-jib--wc-s1-bias-base  { syntax: '<number>'; inherits: true; initial-value: 0.40; }
+@property --tw-jib--wc-s2-bias-base  { syntax: '<number>'; inherits: true; initial-value: 0.40; }
+@property --tw-jib--wc-shadow-bias-mod { syntax: '<number>'; inherits: true; initial-value: 0.30; }
 
 /* Slot 3 (warm-deep accent) activation:
    activation = max(0, warmth - threshold) × strength
@@ -208,7 +202,8 @@
                           * clamp(0.12, (1 - l) * 1.8 + 0.08, 1)
                           * var(--tw-jib--wc-wash-density)
                           * var(--tw-jib--wc-opacity))) 0%,
-          transparent 100%),
+          transparent 100%)
+          padding-box,
           radial-gradient(ellipse var(--tw-jib--wc-wash-ex) var(--tw-jib--wc-wash-ey) at 60% 25%,
           oklch(from var(--tw-jib--wc-color)
                   var(--tw-jib--wc-p1-l) var(--tw-jib--wc-p1-c) var(--tw-jib--wc-p1-h) /
@@ -230,7 +225,8 @@
                           * clamp(0.12, (1 - l) * 1.8 + 0.08, 1)
                           * var(--tw-jib--wc-wash-density)
                           * var(--tw-jib--wc-opacity))) 0%,
-          transparent 100%),
+          transparent 100%)
+          padding-box,
           radial-gradient(ellipse var(--tw-jib--wc-wash-ex) var(--tw-jib--wc-wash-ey) at 65% 95%,
           oklch(from var(--tw-jib--wc-color)
                   var(--tw-jib--wc-p2-l) var(--tw-jib--wc-p2-c) var(--tw-jib--wc-p2-h) /
@@ -252,7 +248,8 @@
                           * clamp(0.12, (1 - l) * 1.8 + 0.08, 1)
                           * var(--tw-jib--wc-wash-density)
                           * var(--tw-jib--wc-opacity))) 0%,
-          transparent 100%),
+          transparent 100%)
+          padding-box,
           radial-gradient(ellipse var(--tw-jib--wc-wash-ex) var(--tw-jib--wc-wash-ey) at 90% 42%,
           oklch(from var(--tw-jib--wc-color)
                   var(--tw-jib--wc-p3-l) var(--tw-jib--wc-p3-c) var(--tw-jib--wc-p3-h) /
@@ -274,7 +271,8 @@
                           * clamp(0.12, (1 - l) * 1.8 + 0.08, 1)
                           * var(--tw-jib--wc-wash-density)
                           * var(--tw-jib--wc-opacity))) 0%,
-          transparent 100%),
+          transparent 100%)
+          padding-box,
           radial-gradient(ellipse var(--tw-jib--wc-wash-ex) var(--tw-jib--wc-wash-ey) at 30% 78%,
           oklch(from var(--tw-jib--wc-color)
                   var(--tw-jib--wc-p4-l) var(--tw-jib--wc-p4-c) var(--tw-jib--wc-p4-h) /
@@ -296,7 +294,8 @@
                           * clamp(0.12, (1 - l) * 1.8 + 0.08, 1)
                           * var(--tw-jib--wc-wash-density)
                           * var(--tw-jib--wc-opacity))) 0%,
-          transparent 100%),
+          transparent 100%)
+          padding-box,
           radial-gradient(ellipse var(--tw-jib--wc-wash-ex) var(--tw-jib--wc-wash-ey) at 90% 78%,
           oklch(from var(--tw-jib--wc-color)
                   var(--tw-jib--wc-p5-l) var(--tw-jib--wc-p5-c) var(--tw-jib--wc-p5-h) /
@@ -318,7 +317,8 @@
                           * clamp(0.12, (1 - l) * 1.8 + 0.08, 1)
                           * var(--tw-jib--wc-wash-density)
                           * var(--tw-jib--wc-opacity))) 0%,
-          transparent 100%),
+          transparent 100%)
+          padding-box,
           radial-gradient(ellipse var(--tw-jib--wc-wash-ex) var(--tw-jib--wc-wash-ey) at 30% 42%,
           oklch(from var(--tw-jib--wc-color)
                   var(--tw-jib--wc-p6-l) var(--tw-jib--wc-p6-c) var(--tw-jib--wc-p6-h) /
@@ -336,29 +336,30 @@
                   var(--tw-jib--wc-s1-l) var(--tw-jib--wc-s1-c) var(--tw-jib--wc-s1-h) /
         calc(var(--tw-jib--wc-s1-peak)
                           * (
-                          pow(clamp(0, (var(--tw-jib--wc-shadow-threshold) - l) / 0.35, 1), var(--tw-jib--wc-shadow-curve))
-                          * (var(--tw-jib--wc-s1-bias-base) + var(--tw-jib--wc-s1-bias-mod) * (1 - (cos((h - 60) * 1deg) + 1) / 2))
+                          clamp(0, (var(--tw-jib--wc-shadow-threshold) - l) / 0.35, 1) * clamp(0, (var(--tw-jib--wc-shadow-threshold) - l) / 0.35, 1)
+                          * (var(--tw-jib--wc-s1-bias-base) + var(--tw-jib--wc-shadow-bias-mod) * (1 - max(0, 1 - min(abs(h - 60), 360 - abs(h - 60)) / 180)))
                           * ((1 - var(--tw-jib--wc-shadow-chroma-strength)) + var(--tw-jib--wc-shadow-chroma-strength) * min(1, c / 0.12))
                           +
                           max(0, 1 - c / 0.05)
                           * clamp(0, (1 - l) * 1.2, 1)
-                          * (0.45 + 0.30 * (0.5 + ((cos((h - 60) * 1deg) + 1) / 2 - 0.5) * min(1, c / 0.03)))
+                          * 0.60
                           )
                           * var(--tw-jib--wc-wash-density)
                           * var(--tw-jib--wc-opacity))) 0%,
-          transparent 100%),
+          transparent 100%)
+          padding-box,
           radial-gradient(ellipse var(--tw-jib--wc-wash-ex) var(--tw-jib--wc-wash-ey) at 55% 55%,
           oklch(from var(--tw-jib--wc-color)
                   var(--tw-jib--wc-s1-l) var(--tw-jib--wc-s1-c) var(--tw-jib--wc-s1-h) /
         calc(var(--tw-jib--wc-s1-peak)
                           * (
-                          pow(clamp(0, (var(--tw-jib--wc-shadow-threshold) - l) / 0.35, 1), var(--tw-jib--wc-shadow-curve))
-                          * (var(--tw-jib--wc-s1-bias-base) + var(--tw-jib--wc-s1-bias-mod) * (1 - (cos((h - 60) * 1deg) + 1) / 2))
+                          clamp(0, (var(--tw-jib--wc-shadow-threshold) - l) / 0.35, 1) * clamp(0, (var(--tw-jib--wc-shadow-threshold) - l) / 0.35, 1)
+                          * (var(--tw-jib--wc-s1-bias-base) + var(--tw-jib--wc-shadow-bias-mod) * (1 - max(0, 1 - min(abs(h - 60), 360 - abs(h - 60)) / 180)))
                           * ((1 - var(--tw-jib--wc-shadow-chroma-strength)) + var(--tw-jib--wc-shadow-chroma-strength) * min(1, c / 0.12))
                           +
                           max(0, 1 - c / 0.05)
                           * clamp(0, (1 - l) * 1.2, 1)
-                          * (0.45 + 0.30 * (0.5 + ((cos((h - 60) * 1deg) + 1) / 2 - 0.5) * min(1, c / 0.03)))
+                          * 0.60
                           )
                           * var(--tw-jib--wc-wash-density)
                           * var(--tw-jib--wc-opacity))) 0%,
@@ -370,29 +371,30 @@
                   var(--tw-jib--wc-s2-l) var(--tw-jib--wc-s2-c) var(--tw-jib--wc-s2-h) /
         calc(var(--tw-jib--wc-s2-peak)
                           * (
-                          pow(clamp(0, (var(--tw-jib--wc-shadow-threshold) - l) / 0.35, 1), var(--tw-jib--wc-shadow-curve))
-                          * (var(--tw-jib--wc-s2-bias-base) + var(--tw-jib--wc-s2-bias-mod) * (cos((h - 60) * 1deg) + 1) / 2)
+                          clamp(0, (var(--tw-jib--wc-shadow-threshold) - l) / 0.35, 1) * clamp(0, (var(--tw-jib--wc-shadow-threshold) - l) / 0.35, 1)
+                          * (var(--tw-jib--wc-s2-bias-base) + var(--tw-jib--wc-shadow-bias-mod) * max(0, 1 - min(abs(h - 60), 360 - abs(h - 60)) / 180))
                           * ((1 - var(--tw-jib--wc-shadow-chroma-strength)) + var(--tw-jib--wc-shadow-chroma-strength) * min(1, c / 0.12))
                           +
                           max(0, 1 - c / 0.05)
                           * clamp(0, (1 - l) * 1.2, 1)
-                          * (0.70 - 0.30 * (0.5 + ((cos((h - 60) * 1deg) + 1) / 2 - 0.5) * min(1, c / 0.03)))
+                          * 0.55
                           )
                           * var(--tw-jib--wc-wash-density)
                           * var(--tw-jib--wc-opacity))) 0%,
-          transparent 100%),
+          transparent 100%)
+          padding-box,
           radial-gradient(ellipse var(--tw-jib--wc-wash-ex) var(--tw-jib--wc-wash-ey) at 45% 65%,
           oklch(from var(--tw-jib--wc-color)
                   var(--tw-jib--wc-s2-l) var(--tw-jib--wc-s2-c) var(--tw-jib--wc-s2-h) /
         calc(var(--tw-jib--wc-s2-peak)
                           * (
-                          pow(clamp(0, (var(--tw-jib--wc-shadow-threshold) - l) / 0.35, 1), var(--tw-jib--wc-shadow-curve))
-                          * (var(--tw-jib--wc-s2-bias-base) + var(--tw-jib--wc-s2-bias-mod) * (cos((h - 60) * 1deg) + 1) / 2)
+                          clamp(0, (var(--tw-jib--wc-shadow-threshold) - l) / 0.35, 1) * clamp(0, (var(--tw-jib--wc-shadow-threshold) - l) / 0.35, 1)
+                          * (var(--tw-jib--wc-s2-bias-base) + var(--tw-jib--wc-shadow-bias-mod) * max(0, 1 - min(abs(h - 60), 360 - abs(h - 60)) / 180))
                           * ((1 - var(--tw-jib--wc-shadow-chroma-strength)) + var(--tw-jib--wc-shadow-chroma-strength) * min(1, c / 0.12))
                           +
                           max(0, 1 - c / 0.05)
                           * clamp(0, (1 - l) * 1.2, 1)
-                          * (0.70 - 0.30 * (0.5 + ((cos((h - 60) * 1deg) + 1) / 2 - 0.5) * min(1, c / 0.03)))
+                          * 0.55
                           )
                           * var(--tw-jib--wc-wash-density)
                           * var(--tw-jib--wc-opacity))) 0%,
@@ -403,18 +405,19 @@
           oklch(from var(--tw-jib--wc-color)
                   var(--tw-jib--wc-s3-l) var(--tw-jib--wc-s3-c) var(--tw-jib--wc-s3-h) /
         calc(var(--tw-jib--wc-s3-peak)
-                          * pow(clamp(0, (var(--tw-jib--wc-shadow-threshold) - l) / 0.35, 1), var(--tw-jib--wc-shadow-curve))
-                          * max(0, (cos((h - 60) * 1deg) + 1) / 2 - var(--tw-jib--wc-s3-threshold)) * var(--tw-jib--wc-s3-strength)
+                          * clamp(0, (var(--tw-jib--wc-shadow-threshold) - l) / 0.35, 1) * clamp(0, (var(--tw-jib--wc-shadow-threshold) - l) / 0.35, 1)
+                          * max(0, max(0, 1 - min(abs(h - 60), 360 - abs(h - 60)) / 180) - var(--tw-jib--wc-s3-threshold)) * var(--tw-jib--wc-s3-strength)
                           * ((1 - var(--tw-jib--wc-shadow-chroma-strength)) + var(--tw-jib--wc-shadow-chroma-strength) * min(1, c / 0.12))
                           * var(--tw-jib--wc-wash-density)
                           * var(--tw-jib--wc-opacity))) 0%,
-          transparent 100%),
+          transparent 100%)
+          padding-box,
           radial-gradient(ellipse var(--tw-jib--wc-wash-ex) var(--tw-jib--wc-wash-ey) at 30% 35%,
           oklch(from var(--tw-jib--wc-color)
                   var(--tw-jib--wc-s3-l) var(--tw-jib--wc-s3-c) var(--tw-jib--wc-s3-h) /
         calc(var(--tw-jib--wc-s3-peak)
-                          * pow(clamp(0, (var(--tw-jib--wc-shadow-threshold) - l) / 0.35, 1), var(--tw-jib--wc-shadow-curve))
-                          * max(0, (cos((h - 60) * 1deg) + 1) / 2 - var(--tw-jib--wc-s3-threshold)) * var(--tw-jib--wc-s3-strength)
+                          * clamp(0, (var(--tw-jib--wc-shadow-threshold) - l) / 0.35, 1) * clamp(0, (var(--tw-jib--wc-shadow-threshold) - l) / 0.35, 1)
+                          * max(0, max(0, 1 - min(abs(h - 60), 360 - abs(h - 60)) / 180) - var(--tw-jib--wc-s3-threshold)) * var(--tw-jib--wc-s3-strength)
                           * ((1 - var(--tw-jib--wc-shadow-chroma-strength)) + var(--tw-jib--wc-shadow-chroma-strength) * min(1, c / 0.12))
                           * var(--tw-jib--wc-wash-density)
                           * var(--tw-jib--wc-opacity))) 0%,
@@ -469,9 +472,8 @@
      narrow warm accent. Chromatic-dark modern practice: shadows are
      pigment ACCENTS (chroma-strength=1 fully gates on chroma). */
   --tw-jib--wc-shadow-threshold: 0.55;
-  --tw-jib--wc-shadow-curve: 2;
-  --tw-jib--wc-s1-bias-base: 0.40; --tw-jib--wc-s1-bias-mod: 0.30;
-  --tw-jib--wc-s2-bias-base: 0.40; --tw-jib--wc-s2-bias-mod: 0.30;
+  --tw-jib--wc-s1-bias-base: 0.40; --tw-jib--wc-s2-bias-base: 0.40;
+  --tw-jib--wc-shadow-bias-mod: 0.30;
   --tw-jib--wc-s3-threshold: 0.4;  --tw-jib--wc-s3-strength: 1.5;
   --tw-jib--wc-shadow-chroma-strength: 1;
 }
@@ -512,9 +514,8 @@
      vs 1.5). Shadows still chroma-gate as accents (strength=1). This gives
      traditional the Turner/Homer "atmospheric earth shadow" signature. */
   --tw-jib--wc-shadow-threshold: 0.65;
-  --tw-jib--wc-shadow-curve: 1.5;
-  --tw-jib--wc-s1-bias-base: 0.55; --tw-jib--wc-s1-bias-mod: 0.20;
-  --tw-jib--wc-s2-bias-base: 0.35; --tw-jib--wc-s2-bias-mod: 0.20;
+  --tw-jib--wc-s1-bias-base: 0.55; --tw-jib--wc-s2-bias-base: 0.35;
+  --tw-jib--wc-shadow-bias-mod: 0.20;
   --tw-jib--wc-s3-threshold: 0.15; --tw-jib--wc-s3-strength: 0.8;
   --tw-jib--wc-shadow-chroma-strength: 1;
 }
@@ -569,9 +570,8 @@
      heavier ink on warmer subjects. Chroma-strength 0.2 ensures sumi fills
      the chromatic-but-low-chroma dead zone at dark stops. */
   --tw-jib--wc-shadow-threshold: 0.75;
-  --tw-jib--wc-shadow-curve: 1.2;
-  --tw-jib--wc-s1-bias-base: 0.55; --tw-jib--wc-s1-bias-mod: 0.15;
-  --tw-jib--wc-s2-bias-base: 0.60; --tw-jib--wc-s2-bias-mod: 0.15;
+  --tw-jib--wc-s1-bias-base: 0.55; --tw-jib--wc-s2-bias-base: 0.60;
+  --tw-jib--wc-shadow-bias-mod: 0.15;
   --tw-jib--wc-s3-threshold: 0.15; --tw-jib--wc-s3-strength: 1.2;
   --tw-jib--wc-shadow-chroma-strength: 0.2;
 }

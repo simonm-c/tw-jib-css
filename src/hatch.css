@@ -7,12 +7,13 @@
    Mechanism — three directional ink-stroke layers, each with multiple
    slot positions whose per-slot alpha is L-range gated:
 
-     PRIMARY gradient (12-slot cell at --tw-jib--hatch-angle):
-       pA (slots 0, 6)        — always on
-       pD (slots 3, 9)        — ramps 0.97 → 0.85  (reaches peak at l ≤ 0.85)
-       pC (slots 2, 4, 8, 10) — ramps 0.93 → 0.70
-       pB (slots 1, 5, 7, 11) — ramps 0.88 → 0.55
-       → By l ≈ 0.55 all 12 slots fire at peak.
+     PRIMARY gradient (6-slot cell at --tw-jib--hatch-angle):
+       pA (slot 0)    — always on
+       pD (slot 3)    — ramps 0.97 → 0.85  (reaches peak at l ≤ 0.85)
+       pC (slots 2, 4) — ramps 0.93 → 0.70
+       pB (slots 1, 5) — ramps 0.88 → 0.55
+       → By l ≈ 0.55 all 6 slots fire at peak. Cell repeats via
+         repeating-linear-gradient for seamless tiling.
 
      CROSS gradient (6-slot cell at angle + 90°):
        c0 (slot 0)            — ramps 0.95 → 0.65
@@ -111,22 +112,21 @@
   --tw-jib--hatch-angle-cross: calc(var(--tw-jib--hatch-angle) + 90deg);
   --tw-jib--hatch-angle-third: calc(var(--tw-jib--hatch-angle) + 45deg);
 
-  /* Derived geometry — full cycle unit and per-gradient cell sizes.
+  /* Derived geometry — full cycle unit and 6-slot cell size.
      MUST live inside this @utility rule, not at a shared level. CSS
      custom properties only evaluate calc() expressions in the context
      where they're declared; if these lived at :root they'd capture
      :root-level stroke/gap even when a descendant overrides them. */
   --tw-jib--hatch-unit: calc(var(--tw-jib--hatch-stroke) + var(--tw-jib--hatch-gap));
-  --tw-jib--hatch-cell-primary: calc(var(--tw-jib--hatch-unit) * 12);
-  --tw-jib--hatch-cell-cross: calc(var(--tw-jib--hatch-unit) * 6);
+  --tw-jib--hatch-cell: calc(var(--tw-jib--hatch-unit) * 6);
 
   /*
-    Per-slot inks — PRIMARY gradient (12-slot cell).
-    Four unique ink patterns shared via symmetry:
-      Slot 0, 6:       pA (always on, just peak alpha)
-      Slot 3, 9:       pD (ramps in first — lightest shades)
-      Slot 2, 4, 8, 10: pC (ramps in second)
-      Slot 1, 5, 7, 11: pB (ramps in last — mid shades)
+    Per-slot inks — PRIMARY gradient (6-slot cell, repeats via repeating-linear-gradient).
+    Four unique ink patterns:
+      Slot 0:    pA (always on, just peak alpha)
+      Slot 3:    pD (ramps in first — lightest shades)
+      Slot 2, 4: pC (ramps in second)
+      Slot 1, 5: pB (ramps in last — mid shades)
 
     Alpha formula:
       peak  = 0.95 − 0.3 × l                              (press-curve modulation)
@@ -251,11 +251,10 @@
     Layer stack — three hatching gradients plus paper.
 
     Each slot's stops: ink → ink → transparent → transparent → ink (next).
-    Slot → ink mapping:
-      PRIMARY (12 slots):  0=pA  1=pB  2=pC  3=pD  4=pC  5=pB
-                           6=pA  7=pB  8=pC  9=pD 10=pC 11=pB
-      CROSS   (6 slots):   0=c0  1=c900  2=c900  3=c3  4=c900  5=c900
-      THIRD   (6 slots):   0=t0  1=t900  2=t900  3=t3  4=t900  5=t900
+    Slot → ink mapping (all 6-slot cells, repeating):
+      PRIMARY:  0=pA  1=pB  2=pC  3=pD  4=pC  5=pB
+      CROSS:    0=c0  1=c900  2=c900  3=c3  4=c900  5=c900
+      THIRD:    0=t0  1=t900  2=t900  3=t3  4=t900  5=t900
   */
   --tw-jib--background-image:
     /* THIRD direction — 6-slot cell at angle + 45° */
@@ -284,7 +283,7 @@
                   var(--tw-jib--hatch-ink-t900) calc(var(--tw-jib--hatch-unit) * 5),
                   var(--tw-jib--hatch-ink-t900) calc(var(--tw-jib--hatch-unit) * 5 + var(--tw-jib--hatch-stroke)),
                   transparent calc(var(--tw-jib--hatch-unit) * 5 + var(--tw-jib--hatch-stroke)),
-                  transparent var(--tw-jib--hatch-cell-cross)
+                  transparent var(--tw-jib--hatch-cell)
           ) padding-box,
 
             /* CROSS direction — 6-slot cell at angle + 90° */
@@ -313,10 +312,10 @@
                   var(--tw-jib--hatch-ink-c900) calc(var(--tw-jib--hatch-unit) * 5),
                   var(--tw-jib--hatch-ink-c900) calc(var(--tw-jib--hatch-unit) * 5 + var(--tw-jib--hatch-stroke)),
                   transparent calc(var(--tw-jib--hatch-unit) * 5 + var(--tw-jib--hatch-stroke)),
-                  transparent var(--tw-jib--hatch-cell-cross)
+                  transparent var(--tw-jib--hatch-cell)
           ) padding-box,
 
-            /* PRIMARY direction — 12-slot cell */
+            /* PRIMARY direction — 6-slot cell */
           repeating-linear-gradient(
                   var(--tw-jib--hatch-angle),
                   var(--tw-jib--hatch-ink-pA) 0,
@@ -342,31 +341,7 @@
                   var(--tw-jib--hatch-ink-pB) calc(var(--tw-jib--hatch-unit) * 5),
                   var(--tw-jib--hatch-ink-pB) calc(var(--tw-jib--hatch-unit) * 5 + var(--tw-jib--hatch-stroke)),
                   transparent calc(var(--tw-jib--hatch-unit) * 5 + var(--tw-jib--hatch-stroke)),
-                  transparent calc(var(--tw-jib--hatch-unit) * 6),
-                  var(--tw-jib--hatch-ink-pA) calc(var(--tw-jib--hatch-unit) * 6),
-                  var(--tw-jib--hatch-ink-pA) calc(var(--tw-jib--hatch-unit) * 6 + var(--tw-jib--hatch-stroke)),
-                  transparent calc(var(--tw-jib--hatch-unit) * 6 + var(--tw-jib--hatch-stroke)),
-                  transparent calc(var(--tw-jib--hatch-unit) * 7),
-                  var(--tw-jib--hatch-ink-pB) calc(var(--tw-jib--hatch-unit) * 7),
-                  var(--tw-jib--hatch-ink-pB) calc(var(--tw-jib--hatch-unit) * 7 + var(--tw-jib--hatch-stroke)),
-                  transparent calc(var(--tw-jib--hatch-unit) * 7 + var(--tw-jib--hatch-stroke)),
-                  transparent calc(var(--tw-jib--hatch-unit) * 8),
-                  var(--tw-jib--hatch-ink-pC) calc(var(--tw-jib--hatch-unit) * 8),
-                  var(--tw-jib--hatch-ink-pC) calc(var(--tw-jib--hatch-unit) * 8 + var(--tw-jib--hatch-stroke)),
-                  transparent calc(var(--tw-jib--hatch-unit) * 8 + var(--tw-jib--hatch-stroke)),
-                  transparent calc(var(--tw-jib--hatch-unit) * 9),
-                  var(--tw-jib--hatch-ink-pD) calc(var(--tw-jib--hatch-unit) * 9),
-                  var(--tw-jib--hatch-ink-pD) calc(var(--tw-jib--hatch-unit) * 9 + var(--tw-jib--hatch-stroke)),
-                  transparent calc(var(--tw-jib--hatch-unit) * 9 + var(--tw-jib--hatch-stroke)),
-                  transparent calc(var(--tw-jib--hatch-unit) * 10),
-                  var(--tw-jib--hatch-ink-pC) calc(var(--tw-jib--hatch-unit) * 10),
-                  var(--tw-jib--hatch-ink-pC) calc(var(--tw-jib--hatch-unit) * 10 + var(--tw-jib--hatch-stroke)),
-                  transparent calc(var(--tw-jib--hatch-unit) * 10 + var(--tw-jib--hatch-stroke)),
-                  transparent calc(var(--tw-jib--hatch-unit) * 11),
-                  var(--tw-jib--hatch-ink-pB) calc(var(--tw-jib--hatch-unit) * 11),
-                  var(--tw-jib--hatch-ink-pB) calc(var(--tw-jib--hatch-unit) * 11 + var(--tw-jib--hatch-stroke)),
-                  transparent calc(var(--tw-jib--hatch-unit) * 11 + var(--tw-jib--hatch-stroke)),
-                  transparent var(--tw-jib--hatch-cell-primary)
+                  transparent var(--tw-jib--hatch-cell)
           ) padding-box,
 
             /* White paper base */

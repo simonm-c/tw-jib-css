@@ -21,7 +21,7 @@ const slide = computed<MagazineSlideData>(() => slides[props.index]);
         slide.flipped ? 'md:grid-cols-[1fr_1.4fr]' : 'md:grid-cols-[1.4fr_1fr]',
       ]"
     >
-      <div :class="['min-h-[300px] flex items-center justify-center rounded-2xl overflow-hidden', slide.flipped ? 'md:order-2' : '']">
+      <div :class="['min-h-[300px] flex items-center justify-center rounded-2xl', slide.flipped ? 'md:order-2' : '']">
         <slot />
       </div>
 

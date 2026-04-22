@@ -84,6 +84,13 @@
 
 .landing-color-cycle { animation: landing-base-color 18s ease-in-out infinite; }
 .landing-tex-cycle   { animation: landing-tex-color 18s ease-in-out infinite; }
+.landing-fn-cycle    { animation: landing-base-color 18s ease-in-out infinite; }
+
+@property --bg { syntax: '<color>'; inherits: true; initial-value: white; }
+@property --fg { syntax: '<color>'; inherits: true; initial-value: black; }
+.jib-wcag-rating-label::before {
+  content: --tw-jib--wcag-rating(var(--bg), var(--fg));
+}
 .landing-comic-params { animation: landing-comic-params 12s ease-in-out infinite; }
 .landing-pixel-params { animation: landing-pixel-params 12s ease-in-out infinite; }
 .landing-hatch-params { animation: landing-hatch-params 12s ease-in-out infinite; }

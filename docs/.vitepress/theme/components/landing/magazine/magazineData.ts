@@ -67,4 +67,21 @@ export const slides: MagazineSlideData[] = [
     dark: true,
     flipped: true,
   },
+  {
+    kicker: '@function',
+    headline: 'Beyond the Class Syntax.',
+    body: "Utilities own the single-property case: bg, text, border. But a gradient stop, a layered shadow, an SVG fill, a text-decoration colour — the class syntax can't reach in there. The @functions can. Call --tw-jib--lightness, --tw-jib--saturation, --tw-jib--hue-rotate anywhere a <color> fits, on a theme token that has nothing to do with the element's own background.",
+    code: `/* text in brand, underline a lighter derivative */\nstyle="color: var(--brand);\n  text-decoration: underline wavy;\n  text-decoration-color:\n    --tw-jib--lightness(var(--brand), 35)"\n\n/* bg in brand, ring + drop shadow darker */\nstyle="background: var(--brand);\n  box-shadow:\n    0 0 0 3px --tw-jib--lightness(var(--brand), -30),\n    0 16px 32px --tw-jib--lightness(var(--brand), -40)"\n\n/* SVG: brand fill, darker stroke */\n<circle style="fill: var(--brand);\n  stroke: --tw-jib--lightness(var(--brand), -35)" />\n\n/* gradient: brand → muted version */\nbackground: linear-gradient(135deg,\n  var(--brand),\n  --tw-jib--saturation(var(--brand), -60))`,
+    stat: '71',
+    statCaption: 'CSS @functions',
+    dark: true,
+  },
+  {
+    kicker: '@function',
+    headline: 'Accessible Shades, On Any Property.',
+    body: "--tw-jib--accessible-shade-aaa picks a passing tone for a given background; --tw-jib--wcag-rating returns the rating as a <string>. The class form only paints text colour. The functions paint borders, SVG strokes, gradient stops, ::before content — anywhere a value fits, derived from a theme token you pass in.",
+    code: `/* bg + auto-contrasting text & border */\nstyle="background: var(--brand);\n  color: --tw-jib--accessible-shade-aaa(\n    var(--brand), var(--brand));\n  border-left-color: same(...)"\n\n/* SVG stroke from the same token */\n<path style="stroke:\n  --tw-jib--accessible-shade-aaa(\n    var(--brand), var(--brand))" />\n\n/* live rating as a content string */\n.label::before { content:\n  --tw-jib--wcag-rating(var(--bg), var(--fg)) }\n\n/* gradient stop picks its own contrast */\nbackground: linear-gradient(90deg,\n  var(--brand),\n  --tw-jib--accessible-shade-aaa(\n    var(--brand), var(--brand)))`,
+    dark: true,
+    flipped: true,
+  },
 ];

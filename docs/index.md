@@ -120,6 +120,8 @@ title: Jibcss
 </div>
 </MagazineSlide>
 
+<MagazineExperimentalBreak />
+
 <MagazineFinale />
 
 <MagazineSlide :index="6">
@@ -128,6 +130,68 @@ title: Jibcss
 <div class="rounded-xl bg-blue-600 text-white wcag-badge p-5 min-h-25 flex items-end"><span class="text-sm font-bold">White on blue</span></div>
 <div class="rounded-xl bg-orange-400 text-orange-900 wcag-badge p-5 min-h-25 flex items-end"><span class="text-sm font-bold">Borderline</span></div>
 <div class="rounded-xl bg-yellow-200 text-yellow-400 wcag-badge p-5 min-h-25 flex items-end"><span class="text-sm font-bold">Poor contrast</span></div>
+</div>
+</MagazineSlide>
+
+<MagazineSlide :index="7">
+<div class="landing-fn-cycle grid grid-cols-2 gap-3 w-full max-w-md">
+
+  <!-- text colored in theme, underline is a lightened derivative -->
+  <div class="aspect-[4/3] rounded-xl p-4 flex flex-col justify-center bg-gray-950">
+    <span class="font-mono text-[9px] opacity-60 text-white mb-2">text + text-decoration</span>
+    <span class="font-mono text-base font-bold" style="color: var(--landing-base-color); text-decoration: underline wavy; text-decoration-color: --tw-jib--lightness(var(--landing-base-color), 35); text-decoration-thickness: 2px; text-underline-offset: 4px;">color: base<br>underline: +35</span>
+  </div>
+
+  <!-- bg is theme, box-shadow is a darker derivative -->
+  <div class="aspect-[4/3] rounded-xl p-3 flex items-center justify-center bg-gray-950">
+    <div class="w-20 h-20 rounded-lg flex items-center justify-center font-mono text-[9px] font-bold text-white/80" style="background: var(--landing-base-color); box-shadow: 0 0 0 3px --tw-jib--lightness(var(--landing-base-color), -30), 0 16px 32px -4px --tw-jib--lightness(var(--landing-base-color), -40);">bg: base<br>ring: −30</div>
+  </div>
+
+  <!-- SVG: base fill, derived stroke on same shape -->
+  <div class="aspect-[4/3] rounded-xl p-3 flex items-center justify-center bg-gray-950">
+    <svg viewBox="0 0 48 48" class="w-24 h-24">
+      <circle cx="24" cy="24" r="16" stroke-width="4" style="fill: var(--landing-base-color); stroke: --tw-jib--lightness(var(--landing-base-color), -35);" />
+      <text x="24" y="22" text-anchor="middle" font-family="monospace" font-size="5" fill="white" opacity="0.85">fill: base</text>
+      <text x="24" y="29" text-anchor="middle" font-family="monospace" font-size="5" fill="white" opacity="0.85">stroke: −35</text>
+    </svg>
+  </div>
+
+  <!-- gradient: base → desaturated derivative of itself -->
+  <div class="aspect-[4/3] rounded-xl p-3 flex flex-col gap-2 bg-gray-950">
+    <span class="font-mono text-[9px] opacity-60 text-white">linear-gradient stops</span>
+    <div class="flex-1 rounded-md flex items-center justify-center font-mono text-[9px] font-bold text-white" style="background: linear-gradient(135deg, var(--landing-base-color), --tw-jib--saturation(var(--landing-base-color), -60));">base → sat(−60)</div>
+  </div>
+
+</div>
+</MagazineSlide>
+
+<MagazineSlide :index="8">
+<div class="landing-fn-cycle grid grid-cols-2 gap-3 w-full max-w-md">
+  <div class="aspect-[4/3] rounded-xl p-3 flex flex-col justify-between" style="background: var(--landing-base-color); color: --tw-jib--accessible-shade-aaa(var(--landing-base-color), var(--landing-base-color));">
+    <span class="font-mono text-[9px] opacity-80">button border + text</span>
+    <button class="rounded-md px-3 py-1.5 font-semibold text-xs cursor-pointer bg-transparent self-start border-2" style="border-color: --tw-jib--accessible-shade-aaa(var(--landing-base-color), var(--landing-base-color)); color: --tw-jib--accessible-shade-aaa(var(--landing-base-color), var(--landing-base-color));">
+      Continue →
+    </button>
+  </div>
+  <div class="aspect-[4/3] rounded-xl flex items-center justify-center bg-gray-100 dark:bg-gray-900">
+    <svg viewBox="0 0 48 48" class="w-20 h-20">
+      <rect x="6" y="6" width="36" height="36" rx="6" style="fill: var(--landing-base-color);" />
+      <path d="M16 25 L22 31 L34 17" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" style="stroke: --tw-jib--accessible-shade-aaa(var(--landing-base-color), var(--landing-base-color));" />
+    </svg>
+  </div>
+  <div class="aspect-[4/3] rounded-xl p-3 flex flex-col justify-between bg-gray-100 dark:bg-gray-900">
+    <span class="font-mono text-[9px] opacity-80">::before content string</span>
+    <div class="font-mono text-xs flex items-center gap-2">
+      <span class="inline-block w-4 h-4 rounded" style="background: var(--landing-base-color);"></span>
+      <span class="font-bold uppercase tracking-wider jib-wcag-rating-label text-gray-900 dark:text-gray-100" style="--bg: var(--landing-base-color); --fg: --tw-jib--accessible-shade-aaa(var(--landing-base-color), var(--landing-base-color));"></span>
+    </div>
+  </div>
+  <div class="aspect-[4/3] rounded-xl p-3 flex flex-col justify-between bg-gray-100 dark:bg-gray-900">
+    <span class="font-mono text-[9px] opacity-80">gradient stops, auto-contrast</span>
+    <div class="rounded-md h-10 flex items-center justify-center" style="background: linear-gradient(90deg, var(--landing-base-color), --tw-jib--accessible-shade-aaa(var(--landing-base-color), var(--landing-base-color)));">
+      <span class="font-mono text-[10px] font-bold" style="color: --tw-jib--accessible-shade-aaa(var(--landing-base-color), var(--landing-base-color));">AAA</span>
+    </div>
+  </div>
 </div>
 </MagazineSlide>
 

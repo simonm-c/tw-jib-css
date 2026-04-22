@@ -72,12 +72,14 @@ Gradient borders via `background: padding-box/border-box` clipping. Linear, radi
 </div>
 ```
 
-### Color Transforms (Lighten/Darken)
+### Color Transforms
 
-Relative color transforms across 16 color spaces including oklch, hsl, and color-mix.
+Relative color transforms — lightness, saturation, and hue rotation — across 17 colour spaces including oklch, hsl, and color-mix.
 
 ```html
 <div class="bg-blue-500 bg-darken-20/oklch">20% darker in oklch</div>
+<div class="bg-red-500 bg-desaturate-30/oklch">30% less saturated</div>
+<div class="bg-emerald-500 bg-hue-rotate-45/oklch">Hue shifted 45deg</div>
 ```
 
 ### Ripple
@@ -87,6 +89,17 @@ Material-style ripple effect — pure CSS, no JavaScript. Radial gradient animat
 ```html
 <button class="bg-ripple ripple-color-blue-500">Click me</button>
 ```
+
+### Print Textures
+
+Pure CSS print-inspired texture effects via layered gradient composition.
+
+| Module     | Import                  | Description                                             |
+| ---------- | ----------------------- | ------------------------------------------------------- |
+| Comic      | `tw-jib-css/comic`      | CMYK halftone dots via radial gradient + multiply       |
+| Hatch      | `tw-jib-css/hatch`      | Pen-and-ink crosshatching via repeating linear gradient |
+| Pixel      | `tw-jib-css/pixel`      | RGB LCD/CRT columns via repeating linear gradient       |
+| Watercolor | `tw-jib-css/watercolor` | Pigment pools via radial gradient with 3 palettes       |
 
 ### Supporting Modules
 
@@ -98,11 +111,12 @@ Material-style ripple effect — pure CSS, no JavaScript. Radial gradient animat
 
 ### Experimental Modules
 
-| Module             | Import                                | Browser Support      |
-| ------------------ | ------------------------------------- | -------------------- |
-| Corner Shape       | `tw-jib-css/experimental/corner`      | ~68% (Chrome 139+)   |
-| Interpolate Size   | `tw-jib-css/experimental/interpolate` | ~48% (Chromium only) |
-| Base Select Picker | `tw-jib-css/experimental/picker`      | Chromium only        |
+| Module             | Import                                | Browser Support               |
+| ------------------ | ------------------------------------- | ----------------------------- |
+| Corner Shape       | `tw-jib-css/experimental/corner`      | ~68% (Chrome 139+)            |
+| Interpolate Size   | `tw-jib-css/experimental/interpolate` | ~48% (Chromium only)          |
+| Base Select Picker | `tw-jib-css/experimental/picker`      | Chromium only                 |
+| WCAG Shade         | `tw-jib-css/experimental/wcag`        | Chromium only (CSS @function) |
 
 ## Documentation
 

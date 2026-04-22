@@ -36,7 +36,7 @@ describe.each(PROPERTIES)(
     const satInput = `var(${captureVar}-after-hue-rotate, var(${sourceVar}))`;
 
     function stableOklch(av: string) {
-      return `oklch(from ${satInput} l calc(c * (1 - max(var(${av}), calc(0 - var(${av})))) + max(0, var(${av})) * 0.4) h / alpha)`;
+      return `oklch(from ${satInput} l calc(c * (1 - abs(var(${av}))) + max(0, var(${av})) * 0.4) h / alpha)`;
     }
 
     const OKLCH = stableOklch(amountVar);

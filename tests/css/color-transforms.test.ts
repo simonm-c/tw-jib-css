@@ -14,7 +14,7 @@ const SUPPORTS_FUNCTION =
 const BG_LIGHT_INPUT = 'var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source)))';
 
 const STABLE_OKLCH =
-  `oklch(from ${BG_LIGHT_INPUT} calc(l * (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) + max(0, var(--tw-jib--background-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--background-lightness--amount), calc(0 - var(--tw-jib--background-lightness--amount)))) * 5)) h / alpha)`;
+  `oklch(from ${BG_LIGHT_INPUT} calc(l * (1 - abs(var(--tw-jib--background-lightness--amount))) + max(0, var(--tw-jib--background-lightness--amount))) calc(c * min(1, (1 - abs(var(--tw-jib--background-lightness--amount))) * 5)) h / alpha)`;
 
 /**
  * Map of color space → stable relative-color substring marker.
@@ -85,9 +85,9 @@ describe('stable path (relative color syntax)', () => {
       },
     );
 
-    test('bg-darken-20/color-mix (inherit fallback)', async () => {
+    test('bg-darken-20/color-mix', async () => {
       const css = await compile('bg-blue-500 bg-darken-20/color-mix');
-      expect(css).toContain('--tw-jib--background-color-after-lightness: inherit');
+      expect(css).toContain('color-mix(');
       expect(css).toContain('--tw-jib--background-lightness--amount: calc(20 * -0.01)');
     });
   });
@@ -102,9 +102,9 @@ describe('stable path (relative color syntax)', () => {
       },
     );
 
-    test('bg-lighten-20/color-mix (inherit fallback)', async () => {
+    test('bg-lighten-20/color-mix', async () => {
       const css = await compile('bg-blue-500 bg-lighten-20/color-mix');
-      expect(css).toContain('--tw-jib--background-color-after-lightness: inherit');
+      expect(css).toContain('color-mix(');
       expect(css).toContain('--tw-jib--background-lightness--amount: calc(20 * 0.01)');
     });
   });
@@ -1151,5 +1151,72 @@ describe('experimental path (@function + @supports)', () => {
       expect(css).toMatch(/20,\s+oklab/);
       expect(css).toContain(BG_LAYER);
     });
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Experimental inline function usage (arbitrary values)
+// ---------------------------------------------------------------------------
+
+describe('experimental inline function usage', () => {
+  test('bg-[...] with lightness router function', async () => {
+    const css = await compile('bg-[--tw-jib--lightness(var(--color-blue-500),60)]', { experimental: true });
+    expect(css).toContain('--tw-jib--lightness(');
+    expect(css).toContain('background-color:');
+  });
+
+  test('bg-[...] with negative amount (darken)', async () => {
+    const css = await compile('bg-[--tw-jib--lightness(var(--color-blue-500),-60)]', { experimental: true });
+    expect(css).toContain('--tw-jib--lightness(');
+    expect(css).toContain('-60');
+  });
+
+  test('bg-[...] with color space argument', async () => {
+    const css = await compile('bg-[--tw-jib--lightness(var(--color-blue-500),30,hsl)]', { experimental: true });
+    expect(css).toContain('--tw-jib--lightness(');
+    expect(css).toContain('hsl');
+  });
+
+  test('from-[...] gradient stop with lightness', async () => {
+    const css = await compile('bg-linear-to-r from-[--tw-jib--lightness(var(--color-blue-500),60)] to-blue-500', { experimental: true });
+    expect(css).toContain('--tw-jib--lightness(');
+    expect(css).toContain('--tw-gradient-from:');
+  });
+
+  test('to-[...] gradient stop with darkened lightness', async () => {
+    const css = await compile('bg-linear-to-r from-blue-500 to-[--tw-jib--lightness(var(--color-blue-500),-60)]', { experimental: true });
+    expect(css).toContain('--tw-jib--lightness(');
+    expect(css).toContain('--tw-gradient-to:');
+  });
+
+  test('from-[...] + to-[...] both using lightness functions', async () => {
+    const css = await compile('bg-linear-to-r from-[--tw-jib--lightness(var(--color-blue-500),60)] to-[--tw-jib--lightness(var(--color-blue-500),-60)]', { experimental: true });
+    expect(css).toContain('--tw-gradient-from:');
+    expect(css).toContain('--tw-gradient-to:');
+    // Both stops should reference the lightness function
+    const matches = css.match(/--tw-jib--lightness\(/g);
+    expect(matches?.length).toBeGreaterThanOrEqual(2);
+  });
+
+  test('from-[...] + via-[...] + to-[...] all with lightness functions', async () => {
+    const css = await compile(
+      'bg-linear-to-r from-[--tw-jib--lightness(var(--color-blue-500),60)] via-[--tw-jib--lightness(var(--color-blue-500),0)] to-[--tw-jib--lightness(var(--color-blue-500),-60)]',
+      { experimental: true },
+    );
+    expect(css).toContain('--tw-gradient-from:');
+    expect(css).toContain('--tw-gradient-via:');
+    expect(css).toContain('--tw-gradient-to:');
+  });
+
+  test('bg-[...] with CSS variable as color', async () => {
+    const css = await compile('bg-[--tw-jib--lightness(var(--brand-primary),60)]', { experimental: true });
+    expect(css).toContain('--tw-jib--lightness(');
+    expect(css).toContain('--brand-primary');
+  });
+
+  test('nested composition: lightness wrapping hue-rotate', async () => {
+    const css = await compile('bg-[--tw-jib--lightness(--tw-jib--hue-rotate(var(--color-red-500),120),30)]', { experimental: true });
+    expect(css).toContain('--tw-jib--lightness(');
+    expect(css).toContain('--tw-jib--hue-rotate(');
   });
 });

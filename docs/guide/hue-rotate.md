@@ -130,7 +130,9 @@ The hue amount is a registered `@property` variable. Transitions work:
 
 ## Colour Space Support
 
-Append a modifier: `bg-hue-rotate-90/oklch`, `bg-hue-rotate-90/hsl`, etc. Default is oklch.
+Append a modifier: `bg-hue-rotate-90/oklch`, `bg-hue-rotate-90/hsl`, etc. Default is oklch. Each column below shows base → +60° → +120° → +180° → +240° → +300°.
+
+### Perceptual polar
 
 <Example stretch>
   <div class="flex flex-col gap-1">
@@ -146,14 +148,32 @@ Append a modifier: `bg-hue-rotate-90/oklch`, `bg-hue-rotate-90/hsl`, etc. Defaul
       </div>
     </div>
     <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/hsl</span>
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/lch</span>
       <div class="flex flex-1">
         <div class="flex-1 bg-blue-500 h-8"></div>
-        <div class="flex-1 bg-blue-500 bg-hue-rotate-60/hsl h-8"></div>
-        <div class="flex-1 bg-blue-500 bg-hue-rotate-120/hsl h-8"></div>
-        <div class="flex-1 bg-blue-500 bg-hue-rotate-180/hsl h-8"></div>
-        <div class="flex-1 bg-blue-500 bg-hue-rotate-240/hsl h-8"></div>
-        <div class="flex-1 bg-blue-500 bg-hue-rotate-300/hsl h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-60/lch h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-120/lch h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-180/lch h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-240/lch h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-300/lch h-8"></div>
+      </div>
+    </div>
+  </div>
+</Example>
+
+### Perceptual rectangular
+
+<Example stretch>
+  <div class="flex flex-col gap-1">
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/oklab</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-60/oklab h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-120/oklab h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-180/oklab h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-240/oklab h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-300/oklab h-8"></div>
       </div>
     </div>
     <div class="flex items-center gap-3">
@@ -167,6 +187,42 @@ Append a modifier: `bg-hue-rotate-90/oklch`, `bg-hue-rotate-90/hsl`, etc. Defaul
         <div class="flex-1 bg-blue-500 bg-hue-rotate-300/lab h-8"></div>
       </div>
     </div>
+  </div>
+</Example>
+
+### Legacy
+
+<Example stretch>
+  <div class="flex flex-col gap-1">
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/hsl</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-60/hsl h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-120/hsl h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-180/hsl h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-240/hsl h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-300/hsl h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/hwb</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-60/hwb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-120/hwb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-180/hwb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-240/hwb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-300/hwb h-8"></div>
+      </div>
+    </div>
+  </div>
+</Example>
+
+### RGB family
+
+<Example stretch>
+  <div class="flex flex-col gap-1">
     <div class="flex items-center gap-3">
       <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/rgb</span>
       <div class="flex flex-1">
@@ -178,10 +234,116 @@ Append a modifier: `bg-hue-rotate-90/oklch`, `bg-hue-rotate-90/hsl`, etc. Defaul
         <div class="flex-1 bg-blue-500 bg-hue-rotate-300/rgb h-8"></div>
       </div>
     </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/srgb</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-60/srgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-120/srgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-180/srgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-240/srgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-300/srgb h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/srgb-linear</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-60/srgb-linear h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-120/srgb-linear h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-180/srgb-linear h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-240/srgb-linear h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-300/srgb-linear h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/display-p3</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-60/display-p3 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-120/display-p3 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-180/display-p3 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-240/display-p3 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-300/display-p3 h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/a98-rgb</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-60/a98-rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-120/a98-rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-180/a98-rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-240/a98-rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-300/a98-rgb h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/prophoto-rgb</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-60/prophoto-rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-120/prophoto-rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-180/prophoto-rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-240/prophoto-rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-300/prophoto-rgb h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/rec2020</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-60/rec2020 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-120/rec2020 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-180/rec2020 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-240/rec2020 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-300/rec2020 h-8"></div>
+      </div>
+    </div>
   </div>
 </Example>
 
-Available spaces: oklch (default), lch, oklab, lab, hsl, hwb, rgb, srgb, srgb-linear, display-p3, a98-rgb, prophoto-rgb, rec2020, xyz, xyz-d50, xyz-d65. No color-mix modifier — hue rotation has no honest two-colour interpolation form.
+### Device-independent
+
+<Example stretch>
+  <div class="flex flex-col gap-1">
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/xyz</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-60/xyz h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-120/xyz h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-180/xyz h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-240/xyz h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-300/xyz h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/xyz-d50</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-60/xyz-d50 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-120/xyz-d50 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-180/xyz-d50 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-240/xyz-d50 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-300/xyz-d50 h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/xyz-d65</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-60/xyz-d65 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-120/xyz-d65 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-180/xyz-d65 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-240/xyz-d65 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-300/xyz-d65 h-8"></div>
+      </div>
+    </div>
+  </div>
+</Example>
+
+No color-mix modifier — hue rotation has no honest two-colour interpolation form. See the [Colour Spaces reference](/guide/colour-spaces) for what each space is and when to choose one.
 
 ::: info How rotation works per space
 **Polar spaces (oklch, lch, hsl, hwb)** — Adds degrees to the hue channel directly. The simplest and most predictable.
@@ -206,3 +368,7 @@ Every hue-rotate utility works with Tailwind's variant prefixes:
 ## Browser Support
 
 Requires CSS relative colour syntax: Chrome 111+, Safari 16.4+, Firefox 128+. Lab-space trig functions (`cos()`, `sin()`) require Chrome 125+.
+
+::: info Rendering paths
+Hue-rotate utilities use two CSS rendering paths — a stable path (relative colour syntax, all modern browsers) and an experimental path (CSS `@function`, Chromium only). The browser selects automatically via `@supports`. With the experimental import, transforms are also available as CSS functions callable in arbitrary values: `from-[--tw-jib--hue-rotate(var(--color-red-500),120)]`. See [How It Works](/guide/color-transforms#how-it-works-stable-and-experimental-paths) for details.
+:::

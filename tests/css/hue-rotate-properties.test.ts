@@ -176,3 +176,35 @@ describe('bg-hue-rotate composes with bg-image layer', () => {
     expect(css).toContain('--tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0)');
   });
 });
+
+// ---------------------------------------------------------------------------
+// Experimental inline function usage (arbitrary values)
+// ---------------------------------------------------------------------------
+
+describe('experimental inline function usage', () => {
+  test('bg-[...] with hue-rotate router function', async () => {
+    const css = await compile('bg-[--tw-jib--hue-rotate(var(--color-red-500),180)]', { experimental: true });
+    expect(css).toContain('--tw-jib--hue-rotate(');
+    expect(css).toContain('background-color:');
+  });
+
+  test('bg-[...] with color space argument', async () => {
+    const css = await compile('bg-[--tw-jib--hue-rotate(var(--color-red-500),120,oklch)]', { experimental: true });
+    expect(css).toContain('--tw-jib--hue-rotate(');
+    expect(css).toContain('oklch');
+  });
+
+  test('from-[...] gradient stop with hue-rotated color', async () => {
+    const css = await compile('bg-linear-to-r from-[--tw-jib--hue-rotate(var(--color-red-500),120)] to-red-500', { experimental: true });
+    expect(css).toContain('--tw-jib--hue-rotate(');
+    expect(css).toContain('--tw-gradient-from:');
+  });
+
+  test('from-[...] + to-[...] hue-rotated gradient', async () => {
+    const css = await compile('bg-linear-to-r from-[--tw-jib--hue-rotate(var(--color-red-500),60)] to-[--tw-jib--hue-rotate(var(--color-red-500),180)]', { experimental: true });
+    expect(css).toContain('--tw-gradient-from:');
+    expect(css).toContain('--tw-gradient-to:');
+    const matches = css.match(/--tw-jib--hue-rotate\(/g);
+    expect(matches?.length).toBeGreaterThanOrEqual(2);
+  });
+});

@@ -8,111 +8,122 @@
   --tw-jib--stroke-saturation-interpolation-lch: lch(
     from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))
     l
-    calc(c * (1 - max(var(--tw-jib--stroke-saturation--amount), calc(0 - var(--tw-jib--stroke-saturation--amount)))) + max(0, var(--tw-jib--stroke-saturation--amount)) * 150)
+    calc(c * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * 150)
     h / alpha
   );
   --tw-jib--stroke-saturation-interpolation-oklch: oklch(
     from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))
     l
-    calc(c * (1 - max(var(--tw-jib--stroke-saturation--amount), calc(0 - var(--tw-jib--stroke-saturation--amount)))) + max(0, var(--tw-jib--stroke-saturation--amount)) * 0.4)
+    calc(c * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * 0.4)
     h / alpha
   );
   --tw-jib--stroke-saturation-interpolation-lab: lab(
     from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))
     l
-    calc(a * (1 + var(--tw-jib--stroke-saturation--amount)))
-    calc(b * (1 + var(--tw-jib--stroke-saturation--amount)))
+    calc(a * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * 125 * sign(a))
+    calc(b * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * 125 * sign(b))
     / alpha
   );
   --tw-jib--stroke-saturation-interpolation-oklab: oklab(
     from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))
     l
-    calc(a * (1 + var(--tw-jib--stroke-saturation--amount)))
-    calc(b * (1 + var(--tw-jib--stroke-saturation--amount)))
+    calc(a * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * 0.4 * sign(a))
+    calc(b * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * 0.4 * sign(b))
     / alpha
   );
   --tw-jib--stroke-saturation-interpolation-hsl: hsl(
     from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) h
-    calc(s * (1 - max(var(--tw-jib--stroke-saturation--amount), calc(0 - var(--tw-jib--stroke-saturation--amount)))) + max(0, var(--tw-jib--stroke-saturation--amount)) * 100)
+    calc(s * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * 100)
     l / alpha
   );
   --tw-jib--stroke-saturation-interpolation-hwb: hwb(
     from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) h
-    calc(w * (1 - max(var(--tw-jib--stroke-saturation--amount), calc(0 - var(--tw-jib--stroke-saturation--amount)))) + max(0, calc(0 - var(--tw-jib--stroke-saturation--amount))) * 50)
-    calc(b * (1 - max(var(--tw-jib--stroke-saturation--amount), calc(0 - var(--tw-jib--stroke-saturation--amount)))) + max(0, calc(0 - var(--tw-jib--stroke-saturation--amount))) * 50)
+    calc(w * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, calc(0 - var(--tw-jib--stroke-saturation--amount))) * 50)
+    calc(b * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, calc(0 - var(--tw-jib--stroke-saturation--amount))) * 50)
     / alpha
   );
   --tw-jib--stroke-saturation-interpolation-rgb: rgb(
     from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))
-    calc(r + var(--tw-jib--stroke-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
-    calc(g + var(--tw-jib--stroke-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
-    calc(b + var(--tw-jib--stroke-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(r * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * clamp(0, sign(r - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 255 + max(0, calc(0 - var(--tw-jib--stroke-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(g * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * clamp(0, sign(g - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 255 + max(0, calc(0 - var(--tw-jib--stroke-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(b * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * clamp(0, sign(b - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 255 + max(0, calc(0 - var(--tw-jib--stroke-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
     / alpha
   );
   --tw-jib--stroke-saturation-interpolation-srgb: color(
     from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) srgb
-    calc(r + var(--tw-jib--stroke-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
-    calc(g + var(--tw-jib--stroke-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
-    calc(b + var(--tw-jib--stroke-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(r * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * clamp(0, sign(r - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--stroke-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(g * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * clamp(0, sign(g - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--stroke-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(b * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * clamp(0, sign(b - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--stroke-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
     / alpha
   );
   --tw-jib--stroke-saturation-interpolation-srgb-linear: color(
     from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) srgb-linear
-    calc(r + var(--tw-jib--stroke-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
-    calc(g + var(--tw-jib--stroke-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
-    calc(b + var(--tw-jib--stroke-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(r * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * clamp(0, sign(r - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--stroke-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(g * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * clamp(0, sign(g - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--stroke-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(b * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * clamp(0, sign(b - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--stroke-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
     / alpha
   );
   --tw-jib--stroke-saturation-interpolation-display-p3: color(
     from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) display-p3
-    calc(r + var(--tw-jib--stroke-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
-    calc(g + var(--tw-jib--stroke-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
-    calc(b + var(--tw-jib--stroke-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(r * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * clamp(0, sign(r - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--stroke-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(g * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * clamp(0, sign(g - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--stroke-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(b * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * clamp(0, sign(b - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--stroke-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
     / alpha
   );
   --tw-jib--stroke-saturation-interpolation-a98-rgb: color(
     from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) a98-rgb
-    calc(r + var(--tw-jib--stroke-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
-    calc(g + var(--tw-jib--stroke-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
-    calc(b + var(--tw-jib--stroke-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(r * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * clamp(0, sign(r - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--stroke-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(g * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * clamp(0, sign(g - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--stroke-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(b * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * clamp(0, sign(b - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--stroke-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
     / alpha
   );
   --tw-jib--stroke-saturation-interpolation-prophoto-rgb: color(
     from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) prophoto-rgb
-    calc(r + var(--tw-jib--stroke-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
-    calc(g + var(--tw-jib--stroke-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
-    calc(b + var(--tw-jib--stroke-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(r * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * clamp(0, sign(r - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--stroke-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(g * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * clamp(0, sign(g - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--stroke-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(b * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * clamp(0, sign(b - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--stroke-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
     / alpha
   );
   --tw-jib--stroke-saturation-interpolation-rec2020: color(
     from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) rec2020
-    calc(r + var(--tw-jib--stroke-saturation--amount) * (r - (0.213 * r + 0.715 * g + 0.072 * b)))
-    calc(g + var(--tw-jib--stroke-saturation--amount) * (g - (0.213 * r + 0.715 * g + 0.072 * b)))
-    calc(b + var(--tw-jib--stroke-saturation--amount) * (b - (0.213 * r + 0.715 * g + 0.072 * b)))
+    calc(r * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * clamp(0, sign(r - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--stroke-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(g * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * clamp(0, sign(g - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--stroke-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
+    calc(b * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * clamp(0, sign(b - (0.213 * r + 0.715 * g + 0.072 * b)), 1) * 1 + max(0, calc(0 - var(--tw-jib--stroke-saturation--amount))) * (0.213 * r + 0.715 * g + 0.072 * b))
     / alpha
   );
   --tw-jib--stroke-saturation-interpolation-xyz: color(
     from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) xyz
-    calc(y * 0.95047 + (x - y * 0.95047) * (1 + var(--tw-jib--stroke-saturation--amount)))
+    calc(x * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * sign(x - y * 0.95047) + max(0, calc(0 - var(--tw-jib--stroke-saturation--amount))) * y * 0.95047)
     y
-    calc(y * 1.08883 + (z - y * 1.08883) * (1 + var(--tw-jib--stroke-saturation--amount)))
+    calc(z * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * sign(z - y * 1.08883) + max(0, calc(0 - var(--tw-jib--stroke-saturation--amount))) * y * 1.08883)
     / alpha
   );
   --tw-jib--stroke-saturation-interpolation-xyz-d50: color(
     from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) xyz-d50
-    calc(y * 0.96422 + (x - y * 0.96422) * (1 + var(--tw-jib--stroke-saturation--amount)))
+    calc(x * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * sign(x - y * 0.96422) + max(0, calc(0 - var(--tw-jib--stroke-saturation--amount))) * y * 0.96422)
     y
-    calc(y * 0.82521 + (z - y * 0.82521) * (1 + var(--tw-jib--stroke-saturation--amount)))
+    calc(z * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * sign(z - y * 0.82521) + max(0, calc(0 - var(--tw-jib--stroke-saturation--amount))) * y * 0.82521)
     / alpha
   );
   --tw-jib--stroke-saturation-interpolation-xyz-d65: color(
     from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) xyz-d65
-    calc(y * 0.95047 + (x - y * 0.95047) * (1 + var(--tw-jib--stroke-saturation--amount)))
+    calc(x * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * sign(x - y * 0.95047) + max(0, calc(0 - var(--tw-jib--stroke-saturation--amount))) * y * 0.95047)
     y
-    calc(y * 1.08883 + (z - y * 1.08883) * (1 + var(--tw-jib--stroke-saturation--amount)))
+    calc(z * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * sign(z - y * 1.08883) + max(0, calc(0 - var(--tw-jib--stroke-saturation--amount))) * y * 1.08883)
     / alpha
   );
-  --tw-jib--stroke-saturation-interpolation-color-mix: inherit;
+  --tw-jib--stroke-saturation-interpolation-color-mix: color-mix(
+    in oklch,
+    var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))
+      clamp(0%, calc((1 - abs(var(--tw-jib--stroke-saturation--amount))) * 200%), 100%),
+    oklch(
+      from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))
+      l
+      calc(max(0, sign(var(--tw-jib--stroke-saturation--amount))) * 0.4)
+      h / alpha
+    )
+      clamp(0%, calc(abs(var(--tw-jib--stroke-saturation--amount)) * 200%), 100%)
+  );
 }
 
 /* =========================================================================
@@ -161,7 +172,7 @@
 /* block 4: stable no-modifier default — oklch */
 @utility stroke-saturation-* {
   &:not(._) {
-    --tw-jib--stroke-color-after-saturation: oklch(from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) l calc(c * (1 - max(var(--tw-jib--stroke-saturation--amount), calc(0 - var(--tw-jib--stroke-saturation--amount)))) + max(0, var(--tw-jib--stroke-saturation--amount)) * 0.4) h / alpha);
+    --tw-jib--stroke-color-after-saturation: oklch(from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) l calc(c * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * 0.4) h / alpha);
     --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
     stroke: var(--tw-jib--stroke-color);
   }
@@ -224,7 +235,7 @@
 /* block 4: stable no-modifier default — oklch */
 @utility -stroke-saturation-* {
   &:not(._) {
-    --tw-jib--stroke-color-after-saturation: oklch(from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) l calc(c * (1 - max(var(--tw-jib--stroke-saturation--amount), calc(0 - var(--tw-jib--stroke-saturation--amount)))) + max(0, var(--tw-jib--stroke-saturation--amount)) * 0.4) h / alpha);
+    --tw-jib--stroke-color-after-saturation: oklch(from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) l calc(c * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * 0.4) h / alpha);
     --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
     stroke: var(--tw-jib--stroke-color);
   }
@@ -287,7 +298,7 @@
 /* block 4: stable no-modifier default — oklch */
 @utility stroke-saturate-* {
   &:not(._) {
-    --tw-jib--stroke-color-after-saturation: oklch(from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) l calc(c * (1 - max(var(--tw-jib--stroke-saturation--amount), calc(0 - var(--tw-jib--stroke-saturation--amount)))) + max(0, var(--tw-jib--stroke-saturation--amount)) * 0.4) h / alpha);
+    --tw-jib--stroke-color-after-saturation: oklch(from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) l calc(c * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * 0.4) h / alpha);
     --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
     stroke: var(--tw-jib--stroke-color);
   }
@@ -350,7 +361,7 @@
 /* block 4: stable no-modifier default — oklch */
 @utility stroke-desaturate-* {
   &:not(._) {
-    --tw-jib--stroke-color-after-saturation: oklch(from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) l calc(c * (1 - max(var(--tw-jib--stroke-saturation--amount), calc(0 - var(--tw-jib--stroke-saturation--amount)))) + max(0, var(--tw-jib--stroke-saturation--amount)) * 0.4) h / alpha);
+    --tw-jib--stroke-color-after-saturation: oklch(from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) l calc(c * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * 0.4) h / alpha);
     --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
     stroke: var(--tw-jib--stroke-color);
   }

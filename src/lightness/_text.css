@@ -7,28 +7,28 @@
 @theme inline {
   --tw-jib--text-color-interpolation-lch: lch(
     from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source)))
-    calc(l * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)) * 100)
-    calc(c * min(1, (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) * 5))
+    calc(l * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)) * 100)
+    calc(c * min(1, (1 - abs(var(--tw-jib--text-lightness--amount))) * 5))
     h / alpha
   );
   --tw-jib--text-color-interpolation-oklch: oklch(
     from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source)))
-    calc(l * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
-    calc(c * min(1, (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) * 5))
+    calc(l * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)))
+    calc(c * min(1, (1 - abs(var(--tw-jib--text-lightness--amount))) * 5))
     h / alpha
   );
   --tw-jib--text-color-interpolation-lab: lab(
     from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source)))
-    calc(l * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)) * 100)
-    calc(a * min(1, (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) * 5))
-    calc(b * min(1, (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) * 5))
+    calc(l * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)) * 100)
+    calc(a * min(1, (1 - abs(var(--tw-jib--text-lightness--amount))) * 5))
+    calc(b * min(1, (1 - abs(var(--tw-jib--text-lightness--amount))) * 5))
     / alpha
   );
   --tw-jib--text-color-interpolation-oklab: oklab(
     from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source)))
-    calc(l * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
-    calc(a * min(1, (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) * 5))
-    calc(b * min(1, (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) * 5))
+    calc(l * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)))
+    calc(a * min(1, (1 - abs(var(--tw-jib--text-lightness--amount))) * 5))
+    calc(b * min(1, (1 - abs(var(--tw-jib--text-lightness--amount))) * 5))
     / alpha
   );
   --tw-jib--text-color-interpolation-hsl: hsl(
@@ -38,93 +38,103 @@
           min(l, calc(100 - l))
           / max(
               min(
-                calc(l * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)) * 100),
-                calc(100 - (l * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)) * 100))
+                calc(l * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)) * 100),
+                calc(100 - (l * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)) * 100))
               ),
               0.5
             )
         )
     )
-    calc(l * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)) * 100)
+    calc(l * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)) * 100)
     / alpha
   );
   --tw-jib--text-color-interpolation-hwb: hwb(
     from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) h
-    calc(w * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)) * 100)
-    calc(b * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, calc(0 - var(--tw-jib--text-lightness--amount))) * 100)
+    calc(w * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)) * 100)
+    calc(b * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, calc(0 - var(--tw-jib--text-lightness--amount))) * 100)
     / alpha
   );
   --tw-jib--text-color-interpolation-rgb: rgb(
     from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source)))
-    calc(r * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)) * 255)
-    calc(g * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)) * 255)
-    calc(b * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)) * 255)
+    calc(r * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)) * 255)
+    calc(g * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)) * 255)
+    calc(b * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)) * 255)
     / alpha
   );
   --tw-jib--text-color-interpolation-srgb: color(
     from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) srgb
-    calc(r * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
-    calc(g * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
-    calc(b * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
+    calc(r * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)))
+    calc(g * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)))
+    calc(b * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)))
     / alpha
   );
   --tw-jib--text-color-interpolation-srgb-linear: color(
     from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) srgb-linear
-    calc(r * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
-    calc(g * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
-    calc(b * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
+    calc(r * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)))
+    calc(g * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)))
+    calc(b * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)))
     / alpha
   );
   --tw-jib--text-color-interpolation-display-p3: color(
     from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) display-p3
-    calc(r * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
-    calc(g * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
-    calc(b * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
+    calc(r * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)))
+    calc(g * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)))
+    calc(b * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)))
     / alpha
   );
   --tw-jib--text-color-interpolation-a98-rgb: color(
     from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) a98-rgb
-    calc(r * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
-    calc(g * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
-    calc(b * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
+    calc(r * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)))
+    calc(g * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)))
+    calc(b * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)))
     / alpha
   );
   --tw-jib--text-color-interpolation-prophoto-rgb: color(
     from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) prophoto-rgb
-    calc(r * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
-    calc(g * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
-    calc(b * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
+    calc(r * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)))
+    calc(g * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)))
+    calc(b * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)))
     / alpha
   );
   --tw-jib--text-color-interpolation-rec2020: color(
     from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) rec2020
-    calc(r * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
-    calc(g * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
-    calc(b * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
+    calc(r * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)))
+    calc(g * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)))
+    calc(b * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)))
     / alpha
   );
   --tw-jib--text-color-interpolation-xyz: color(
     from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) xyz
-    calc(x * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
-    calc(y * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
-    calc(z * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
+    calc(x * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)))
+    calc(y * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)))
+    calc(z * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)))
     / alpha
   );
   --tw-jib--text-color-interpolation-xyz-d50: color(
     from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) xyz-d50
-    calc(x * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
-    calc(y * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
-    calc(z * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
+    calc(x * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)))
+    calc(y * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)))
+    calc(z * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)))
     / alpha
   );
   --tw-jib--text-color-interpolation-xyz-d65: color(
     from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) xyz-d65
-    calc(x * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
-    calc(y * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
-    calc(z * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount)))
+    calc(x * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)))
+    calc(y * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)))
+    calc(z * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount)))
     / alpha
   );
-  --tw-jib--text-color-interpolation-color-mix: inherit;
+  --tw-jib--text-color-interpolation-color-mix: color-mix(
+    in oklab,
+    var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source)))
+      clamp(0%, calc((1 - abs(var(--tw-jib--text-lightness--amount))) * 200%), 100%),
+    rgb(
+      calc(max(0, sign(var(--tw-jib--text-lightness--amount))) * 255)
+      calc(max(0, sign(var(--tw-jib--text-lightness--amount))) * 255)
+      calc(max(0, sign(var(--tw-jib--text-lightness--amount))) * 255)
+    )
+      clamp(0%, calc(abs(var(--tw-jib--text-lightness--amount)) * 200%), 100%)
+  );
 }
 
 /* =========================================================================
@@ -173,7 +183,7 @@
 /* block 4: stable no-modifier default — oklch */
 @utility text-lightness-* {
   &:not(._) {
-    --tw-jib--text-color-after-lightness: oklch(from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) calc(l * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) * 5)) h / alpha);
+    --tw-jib--text-color-after-lightness: oklch(from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) calc(l * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount))) calc(c * min(1, (1 - abs(var(--tw-jib--text-lightness--amount))) * 5)) h / alpha);
     --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
     color: var(--tw-jib--text-color);
   }
@@ -236,7 +246,7 @@
 /* block 4: stable no-modifier default — oklch */
 @utility -text-lightness-* {
   &:not(._) {
-    --tw-jib--text-color-after-lightness: oklch(from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) calc(l * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) * 5)) h / alpha);
+    --tw-jib--text-color-after-lightness: oklch(from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) calc(l * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount))) calc(c * min(1, (1 - abs(var(--tw-jib--text-lightness--amount))) * 5)) h / alpha);
     --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
     color: var(--tw-jib--text-color);
   }
@@ -299,7 +309,7 @@
 /* block 4: stable no-modifier default — oklch */
 @utility text-lighten-* {
   &:not(._) {
-    --tw-jib--text-color-after-lightness: oklch(from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) calc(l * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) * 5)) h / alpha);
+    --tw-jib--text-color-after-lightness: oklch(from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) calc(l * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount))) calc(c * min(1, (1 - abs(var(--tw-jib--text-lightness--amount))) * 5)) h / alpha);
     --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
     color: var(--tw-jib--text-color);
   }
@@ -362,7 +372,7 @@
 /* block 4: stable no-modifier default — oklch */
 @utility text-darken-* {
   &:not(._) {
-    --tw-jib--text-color-after-lightness: oklch(from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) calc(l * (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) + max(0, var(--tw-jib--text-lightness--amount))) calc(c * min(1, (1 - max(var(--tw-jib--text-lightness--amount), calc(0 - var(--tw-jib--text-lightness--amount)))) * 5)) h / alpha);
+    --tw-jib--text-color-after-lightness: oklch(from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) calc(l * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount))) calc(c * min(1, (1 - abs(var(--tw-jib--text-lightness--amount))) * 5)) h / alpha);
     --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
     color: var(--tw-jib--text-color);
   }

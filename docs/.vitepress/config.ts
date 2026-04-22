@@ -86,6 +86,10 @@ export default defineConfig({
           { text: 'Base Select Picker', link: '/guide/picker' },
         ],
       },
+      {
+        text: 'Showcase',
+        items: [{ text: 'Texture Showcase', link: '/examples/showcase' }],
+      },
     ],
 
     socialLinks: [{ icon: 'github', link: 'https://github.com/simonm-c/tw-jib-css' }],

@@ -23,6 +23,18 @@
     "lighten",
     "darken",
     "ripple",
+    "saturation",
+    "hue-rotate",
+    "hatch",
+    "watercolor",
+    "comic",
+    "pixel",
+    "print-texture",
+    "scrollbar",
+    "grid",
+    "border-style",
+    "accessible-color",
+    "wcag",
     "v4",
     "css-first"
   ],
@@ -107,6 +119,9 @@
     }
   },
   "packageManager": "pnpm@10.32.1",
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "test": "vitest run",
     "test:css": "vitest run tests/css",
@@ -115,6 +130,7 @@
     "build:docs": "vitepress build docs",
     "build:llm-docs": "tsx scripts/build-llm-docs.ts",
     "lint": "eslint .",
+    "prepack": "pnpm test:css && pnpm lint",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
   },

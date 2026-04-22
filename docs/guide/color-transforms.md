@@ -72,6 +72,82 @@ Every transform defaults to oklch. Append a modifier to pick a different space:
 
 Different spaces produce visually different results from the same input. See [Color Spaces](/guide/color-spaces) for when this matters.
 
+## How it works: stable and experimental paths
+
+Every colour transform utility emits CSS through **two rendering paths** simultaneously. The browser picks the best one automatically via `@supports`. You write the same classes either way — there is nothing to configure for the stable path.
+
+### Stable path
+
+Uses CSS relative colour syntax — each colour space has a pre-computed expression built at compile time via Tailwind's `@theme inline`. Works in **Chrome 111+, Safari 16.4+, Firefox 128+**.
+
+```css
+@import 'tw-jib-css';
+```
+
+The stable path powers the 7 surface utilities (`bg-`, `text-`, `fill-`, `stroke-`, `outline-`, `accent-`, `border-`). When you write `bg-lightness-30/hsl`, the `--modifier()` resolves to the pre-built HSL relative colour expression.
+
+### Experimental path
+
+Uses CSS `@function` definitions with an `if(style())` dispatcher that routes to per-space functions at paint time. Requires **CSS `@function` support** (Chromium only as of April 2026).
+
+```css
+@import 'tw-jib-css';
+@import 'tw-jib-css/experimental';
+```
+
+The second import activates `@custom-variant` gates (`supports-lightness`, `supports-saturation`, `supports-hue-rotate`) that wrap the experimental blocks. Without it, the experimental path is inert.
+
+In supporting browsers, the experimental blocks override the stable blocks via `@supports` — the same classes produce the same visual result through a different mechanism.
+
+### Why use experimental?
+
+The experimental path exposes three CSS functions callable from **anywhere a `<color>` value is accepted**, including Tailwind's arbitrary value syntax:
+
+```
+--tw-jib--lightness(color, amount, space?)
+--tw-jib--saturation(color, amount, space?)
+--tw-jib--hue-rotate(color, amount, space?)
+```
+
+This unlocks use cases the class-based API can't reach:
+
+**Gradient stops** — the class API has no way to apply transforms to `from-*`/`via-*`/`to-*`:
+
+```html
+<div class="bg-linear-to-r
+  from-[--tw-jib--lightness(var(--color-blue-500),60)]
+  to-[--tw-jib--lightness(var(--color-blue-500),-60)]">
+```
+
+**Arbitrary properties** — shadows, carets, any CSS property that takes a colour:
+
+```html
+<div class="shadow-lg [--tw-shadow-color:--tw-jib--lightness(var(--color-blue-500),-30)]">
+```
+
+**Theme tokens and CSS variables** — no Tailwind colour class needed as the source:
+
+```html
+<div class="bg-[--tw-jib--saturation(var(--brand-primary),-40,oklch)]">
+```
+
+**Composing transforms** — nest calls to chain lightness + hue-rotate in one value:
+
+```html
+<div class="bg-[--tw-jib--lightness(--tw-jib--hue-rotate(var(--color-red-500),120),30)]">
+```
+
+### Comparison
+
+|  | Stable | Experimental |
+| --- | --- | --- |
+| Browser support | Chrome 111+, Safari 16.4+, Firefox 128+ | Chromium only (CSS `@function`) |
+| Import | `tw-jib-css` | `tw-jib-css` + `tw-jib-css/experimental` |
+| Surface utilities | All 7 surfaces | All 7 surfaces (auto-upgraded) |
+| Arbitrary values | — | Callable anywhere a `<color>` is accepted |
+| Gradient stops | — | `from-[--tw-jib--lightness(...)]` etc. |
+| Nested composition | — | Chain multiple transforms in one expression |
+
 ## Reference pages
 
 Each transform type has a full reference page with the complete class list, formulas, and all 17 colour spaces compared:

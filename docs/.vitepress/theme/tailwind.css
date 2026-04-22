@@ -151,7 +151,6 @@
   --vp-c-bg-soft: transparent;
   --vp-c-bg-elv: transparent;
   --vp-c-default-soft: transparent;
-  --vp-sidebar-bg-color: transparent;
   --vp-nav-bg-color: transparent;
   --vp-c-divider: transparent;
   --vp-c-gutter: transparent;
@@ -228,10 +227,11 @@
 
   /* ── Sidebar ── */
   .VPSidebar {
-    @apply bg-jib-brand -bg-saturation-75 bg-lighten-92 scrollbar-width-thin scrollbar-thumb-jib-brand scrollbar-track-[transparent];
+    --vp-sidebar-bg-color: oklch(from var(--color-jib-brand) calc(l + 0.92 * (1 - l)) calc(c * 0.25) h);
+    @apply scrollbar-width-thin scrollbar-thumb-jib-brand scrollbar-track-[transparent];
   }
   .dark .VPSidebar {
-    @apply bg-darken-76 -bg-saturation-50;
+    --vp-sidebar-bg-color: oklch(from var(--color-jib-brand) calc(l * 0.24) calc(c * 0.5) h);
   }
   .VPSidebar a {
     @apply text-slate-900;

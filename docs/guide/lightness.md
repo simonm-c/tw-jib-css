@@ -175,7 +175,9 @@ The lightness amount is a registered `@property` variable. It composes with Tail
 
 ## Colour Space Support
 
-Append a modifier to select the interpolation space: `bg-lightness-30/oklch`, `bg-lightness-30/hsl`, etc. Default is oklch.
+Append a modifier to select the interpolation space: `bg-lightness-30/oklch`, `bg-lightness-30/hsl`, etc. Default is oklch. Each column below shows base → +20 → +40 → +60 → +80.
+
+### Perceptual polar
 
 <Example stretch>
   <div class="flex flex-col gap-1">
@@ -190,13 +192,30 @@ Append a modifier to select the interpolation space: `bg-lightness-30/oklch`, `b
       </div>
     </div>
     <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/hsl</span>
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/lch</span>
       <div class="flex flex-1">
         <div class="flex-1 bg-blue-500 h-8"></div>
-        <div class="flex-1 bg-blue-500 bg-lightness-20/hsl h-8"></div>
-        <div class="flex-1 bg-blue-500 bg-lightness-40/hsl h-8"></div>
-        <div class="flex-1 bg-blue-500 bg-lightness-60/hsl h-8"></div>
-        <div class="flex-1 bg-blue-500 bg-lightness-80/hsl h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-20/lch h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-40/lch h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-60/lch h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-80/lch h-8"></div>
+      </div>
+    </div>
+  </div>
+</Example>
+
+### Perceptual rectangular
+
+<Example stretch>
+  <div class="flex flex-col gap-1">
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/oklab</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-20/oklab h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-40/oklab h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-60/oklab h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-80/oklab h-8"></div>
       </div>
     </div>
     <div class="flex items-center gap-3">
@@ -207,6 +226,70 @@ Append a modifier to select the interpolation space: `bg-lightness-30/oklch`, `b
         <div class="flex-1 bg-blue-500 bg-lightness-40/lab h-8"></div>
         <div class="flex-1 bg-blue-500 bg-lightness-60/lab h-8"></div>
         <div class="flex-1 bg-blue-500 bg-lightness-80/lab h-8"></div>
+      </div>
+    </div>
+  </div>
+</Example>
+
+### Legacy
+
+<Example stretch>
+  <div class="flex flex-col gap-1">
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/hsl</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-20/hsl h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-40/hsl h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-60/hsl h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-80/hsl h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/hwb</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-20/hwb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-40/hwb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-60/hwb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-80/hwb h-8"></div>
+      </div>
+    </div>
+  </div>
+</Example>
+
+### RGB family
+
+<Example stretch>
+  <div class="flex flex-col gap-1">
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/rgb</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-20/rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-40/rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-60/rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-80/rgb h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/srgb</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-20/srgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-40/srgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-60/srgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-80/srgb h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/srgb-linear</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-20/srgb-linear h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-40/srgb-linear h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-60/srgb-linear h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-80/srgb-linear h-8"></div>
       </div>
     </div>
     <div class="flex items-center gap-3">
@@ -220,6 +303,80 @@ Append a modifier to select the interpolation space: `bg-lightness-30/oklch`, `b
       </div>
     </div>
     <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/a98-rgb</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-20/a98-rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-40/a98-rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-60/a98-rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-80/a98-rgb h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/prophoto-rgb</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-20/prophoto-rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-40/prophoto-rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-60/prophoto-rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-80/prophoto-rgb h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/rec2020</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-20/rec2020 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-40/rec2020 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-60/rec2020 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-80/rec2020 h-8"></div>
+      </div>
+    </div>
+  </div>
+</Example>
+
+### Device-independent
+
+<Example stretch>
+  <div class="flex flex-col gap-1">
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/xyz</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-20/xyz h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-40/xyz h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-60/xyz h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-80/xyz h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/xyz-d50</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-20/xyz-d50 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-40/xyz-d50 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-60/xyz-d50 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-80/xyz-d50 h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/xyz-d65</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-20/xyz-d65 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-40/xyz-d65 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-60/xyz-d65 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-80/xyz-d65 h-8"></div>
+      </div>
+    </div>
+  </div>
+</Example>
+
+### Colour-mix
+
+<Example stretch>
+  <div class="flex flex-col gap-1">
+    <div class="flex items-center gap-3">
       <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/color-mix</span>
       <div class="flex flex-1">
         <div class="flex-1 bg-blue-500 h-8"></div>
@@ -232,7 +389,7 @@ Append a modifier to select the interpolation space: `bg-lightness-30/oklch`, `b
   </div>
 </Example>
 
-Available spaces: oklch (default), lch, oklab, lab, hsl, hwb, rgb, srgb, srgb-linear, display-p3, a98-rgb, prophoto-rgb, rec2020, xyz, xyz-d50, xyz-d65, color-mix. See the [Colour Spaces reference](/guide/colour-spaces) for the full comparison.
+See the [Colour Spaces reference](/guide/colour-spaces) for what each space is and when to choose one.
 
 ::: info How scaling works
 Values 0–100 represent a **percentage of the distance** to white or black — not a fixed channel offset. `bg-lightness-50` moves halfway to white; `bg-lightness-100` reaches white exactly, regardless of where the colour started. Each colour space family handles this differently:
@@ -284,3 +441,7 @@ Every lightness utility works with Tailwind's variant prefixes:
 ## Browser Support
 
 Requires CSS relative colour syntax: Chrome 111+, Safari 16.4+, Firefox 128+.
+
+::: info Rendering paths
+Lightness utilities use two CSS rendering paths — a stable path (relative colour syntax, all modern browsers) and an experimental path (CSS `@function`, Chromium only). The browser selects automatically via `@supports`. With the experimental import, transforms are also available as CSS functions callable in arbitrary values: `from-[--tw-jib--lightness(var(--color-blue-500),60)]`. See [How It Works](/guide/color-transforms#how-it-works-stable-and-experimental-paths) for details.
+:::

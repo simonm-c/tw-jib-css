@@ -178,8 +178,6 @@ test.describe('stable path (all browsers)', () => {
 
       for (const sp of ALL_SPACES) {
         const id = `darken-${sp}`;
-        // color-mix stable fallback is `inherit` → transparent on browsers without @function
-        if (sp === 'color-mix') continue;
         const prefix = EXPECTED_SPACE_PREFIX[sp];
         expect(s[id].backgroundColor, `${id} should be in ${sp} color space`).toContain(prefix);
         expect(s[id].alpha, `${id} should not be transparent`).toBeGreaterThan(0.5);
@@ -197,7 +195,6 @@ test.describe('stable path (all browsers)', () => {
 
       for (const sp of ALL_SPACES) {
         const id = `lighten-${sp}`;
-        if (sp === 'color-mix') continue;
         const prefix = EXPECTED_SPACE_PREFIX[sp];
         expect(s[id].backgroundColor, `${id} should be in ${sp} color space`).toContain(prefix);
         expect(s[id].alpha, `${id} should not be transparent`).toBeGreaterThan(0.5);
@@ -342,9 +339,8 @@ test.describe('stable path (all browsers)', () => {
       for (const id of ids) {
         expect(s[id].alpha, `${id} should preserve ~50% opacity`).toBeCloseTo(0.5, 1);
       }
-      // color-mix stable fallback is `inherit` → may not preserve opacity
       const cmix = await extractStyles(page, ['opacity-50-darken-color-mix']);
-      expect(cmix['opacity-50-darken-color-mix'].backgroundColor).toBeDefined();
+      expect(cmix['opacity-50-darken-color-mix'].alpha, 'color-mix should preserve ~50% opacity').toBeCloseTo(0.5, 1);
     });
 
     test('lighten with explicit space preserves opacity', async ({ page }) => {
@@ -616,29 +612,30 @@ test.describe('stable fallback path (browsers without CSS @function)', () => {
     test.skip(supports, 'Browser supports CSS @function — stable fallback not active');
   });
 
-  test.describe('color-mix space falls back to inherit', () => {
-    test('darken-20/color-mix falls back to transparent (inherit)', async ({ page }) => {
-      const s = await extractStyles(page, ['darken-color-mix', 'lighten-color-mix']);
-      // Stable path uses `inherit` for color-mix → transparent on the test page
-      expect(s['darken-color-mix'].alpha, 'color-mix stable fallback should be transparent').toBeLessThan(0.05);
-      expect(s['lighten-color-mix'].alpha, 'color-mix stable fallback should be transparent').toBeLessThan(0.05);
+  test.describe('color-mix space renders via stable path', () => {
+    test('darken-20/color-mix produces a real darkened color', async ({ page }) => {
+      const s = await extractStyles(page, ['darken-0', 'darken-color-mix', 'lighten-color-mix']);
+      const baseLum = s['darken-0'].luminance;
+      expect(s['darken-color-mix'].alpha, 'color-mix darken should not be transparent').toBeGreaterThan(0.5);
+      expect(s['darken-color-mix'].luminance, 'color-mix darken should be darker than base').toBeLessThan(baseLum + 0.02);
+      expect(s['lighten-color-mix'].alpha, 'color-mix lighten should not be transparent').toBeGreaterThan(0.5);
+      expect(s['lighten-color-mix'].luminance, 'color-mix lighten should be lighter than base').toBeGreaterThan(baseLum - 0.02);
     });
 
-    test('opacity-50 + darken/color-mix falls back to transparent', async ({ page }) => {
+    test('opacity-50 + darken/color-mix preserves opacity', async ({ page }) => {
       const s = await extractStyles(page, ['opacity-50-darken-color-mix', 'opacity-50-lighten-color-mix']);
-      expect(s['opacity-50-darken-color-mix'].alpha).toBeLessThan(0.05);
-      expect(s['opacity-50-lighten-color-mix'].alpha).toBeLessThan(0.05);
+      expect(s['opacity-50-darken-color-mix'].alpha, 'color-mix should preserve ~50% opacity').toBeCloseTo(0.5, 1);
+      expect(s['opacity-50-lighten-color-mix'].alpha, 'color-mix should preserve ~50% opacity').toBeCloseTo(0.5, 1);
     });
   });
 
-  test.describe('all 16 non-color-mix spaces render via relative color syntax', () => {
-    test('darken-20 across 16 spaces returns correct computed format', async ({ page }) => {
-      const nonMixSpaces = ALL_SPACES.filter((sp) => sp !== 'color-mix');
-      const darkenIds = nonMixSpaces.map((sp) => `darken-${sp}`);
+  test.describe('all 17 spaces render via relative color syntax', () => {
+    test('darken-20 across all spaces returns correct computed format', async ({ page }) => {
+      const darkenIds = ALL_SPACES.map((sp) => `darken-${sp}`);
       const s = await extractStyles(page, ['darken-0', ...darkenIds]);
       const baseLum = s['darken-0'].luminance;
 
-      for (const sp of nonMixSpaces) {
+      for (const sp of ALL_SPACES) {
         const id = `darken-${sp}`;
         const prefix = EXPECTED_SPACE_PREFIX[sp];
         expect(s[id].backgroundColor, `${id} should be in ${sp} color space`).toContain(prefix);
@@ -647,13 +644,12 @@ test.describe('stable fallback path (browsers without CSS @function)', () => {
       }
     });
 
-    test('lighten-20 across 16 spaces returns correct computed format', async ({ page }) => {
-      const nonMixSpaces = ALL_SPACES.filter((sp) => sp !== 'color-mix');
-      const lightenIds = nonMixSpaces.map((sp) => `lighten-${sp}`);
+    test('lighten-20 across all spaces returns correct computed format', async ({ page }) => {
+      const lightenIds = ALL_SPACES.map((sp) => `lighten-${sp}`);
       const s = await extractStyles(page, ['lighten-0', ...lightenIds]);
       const baseLum = s['lighten-0'].luminance;
 
-      for (const sp of nonMixSpaces) {
+      for (const sp of ALL_SPACES) {
         const id = `lighten-${sp}`;
         const prefix = EXPECTED_SPACE_PREFIX[sp];
         expect(s[id].backgroundColor, `${id} should be in ${sp} color space`).toContain(prefix);
@@ -940,11 +936,8 @@ test.describe('stable fallback path (browsers without CSS @function)', () => {
       }
     });
 
-    test('mid base (green-500) works across all 16 non-color-mix colour spaces', async ({ page }) => {
-      // color-mix space requires CSS @function — falls back to inherit/transparent
-      // in this describe block (browsers without @function support).
-      const nonMixSpaces = ALL_SPACES.filter((sp) => sp !== 'color-mix');
-      const ids = nonMixSpaces.map((sp) => `matrix-green-500-darken-50-${sp}`);
+    test('mid base (green-500) works across all 17 colour spaces', async ({ page }) => {
+      const ids = ALL_SPACES.map((sp) => `matrix-green-500-darken-50-${sp}`);
       const s = await extractStyles(page, ids);
 
       for (const id of ids) {

@@ -36,7 +36,7 @@ describe.each(PROPERTIES)(
     const lightInput = `var(${captureVar}-after-saturation, var(${captureVar}-after-hue-rotate, var(${sourceVar})))`;
 
     function stableOklch(av: string) {
-      return `oklch(from ${lightInput} calc(l * (1 - max(var(${av}), calc(0 - var(${av})))) + max(0, var(${av}))) calc(c * min(1, (1 - max(var(${av}), calc(0 - var(${av})))) * 5)) h / alpha)`;
+      return `oklch(from ${lightInput} calc(l * (1 - abs(var(${av}))) + max(0, var(${av}))) calc(c * min(1, (1 - abs(var(${av}))) * 5)) h / alpha)`;
     }
 
     const OKLCH = stableOklch(amountVar);

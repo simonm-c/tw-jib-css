@@ -45,13 +45,19 @@ Set a background colour. Add a `text-a11y-*` class. The CSS computes a text colo
 
 ## How it works
 
-Powered by CSS `@function` and relative colour syntax. The WCAG ratio formula inverts to give a target luminance, and a colour with that luminance, the background's hue and the background's chroma is built in one relative-colour expression — so the shade is solved outright rather than searched for. All at render time, no JavaScript, no build step.
+Powered by relative colour syntax. The WCAG ratio formula inverts to give a target luminance, and a colour with that luminance, the background's hue and the background's chroma is built in one relative-colour expression — so the shade is solved outright rather than searched for. All at render time, no JavaScript, no build step.
 
-The [WCAG Badge](/guide/wcag-badge) is the other half of the module: this utility *constructs* a colour at a known ratio, the badge *measures* whatever pair it is given. They share the same CSS-only approach but no machinery — measurement stays useful because it also works on colours this utility did not pick.
+Because it is solved rather than searched, the whole thing also expresses without `@function` or `if(style())` — so the utility ships two implementations: CSS `@function` where the browser has it, and a nested relative-colour fallback where it does not. Either way you get the same colour, in Chromium, Firefox and Safari alike. Ships from the main entry:
+
+```css
+@import 'tw-jib-css';
+```
+
+The [WCAG Badge](/guide/wcag-badge) is the other half of the module: this utility *constructs* a colour at a known ratio, the badge *measures* whatever pair it is given. They share the same CSS-only approach but no machinery — measurement stays useful because it also works on colours this utility did not pick. The badge does need `if(style())`, so unlike the shade it is Chromium-only and lives in the experimental entry.
 
 ## Pairs with the WCAG badge
 
-Want to verify the contrast ratio of any element? Drop on a `wcag-badge`:
+Want to verify the contrast ratio of any element? Drop on a `wcag-badge` — Chromium only, from `tw-jib-css/experimental`:
 
 ```html
 <div class="bg-blue-600 text-a11y-aa wcag-badge">

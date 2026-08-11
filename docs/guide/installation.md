@@ -59,6 +59,7 @@ Add the experimental entry point for cutting-edge CSS features with limited brow
 | Lightness | `tw-jib-css/lightness` | Stable |
 | Saturation | `tw-jib-css/saturation` | Stable |
 | Hue Rotate | `tw-jib-css/hue-rotate` | Stable |
+| Accessible Shade | `tw-jib-css/accessible-shade` | Stable |
 | Ripple | `tw-jib-css/ripple` | Stable |
 | Comic Dots | `tw-jib-css/comic` | Stable |
 | Pixel | `tw-jib-css/pixel` | Stable |
@@ -67,9 +68,13 @@ Add the experimental entry point for cutting-edge CSS features with limited brow
 | Corner Shape | `tw-jib-css/experimental/corner` | Experimental |
 | Interpolate Size | `tw-jib-css/experimental/interpolate` | Experimental |
 | Base Select Picker | `tw-jib-css/experimental/picker` | Experimental |
-| Accessible Shade | `tw-jib-css/experimental/wcag` | Experimental |
+| WCAG Badge | `tw-jib-css/experimental/wcag` | Experimental |
 
 ## Requirements
 
 - **TailwindCSS v4.0+** — tw-jib-css uses the CSS-first `@utility`, `@custom-variant`, `@theme`, and `@property` syntax introduced in v4.
 - **Modern browser** — CSS relative color syntax, `@property`, and `color-mix()` are used throughout. All major browsers support these features.
+
+## What the experimental entry costs you
+
+Only the experimental entry has features that go missing in some browsers, and each is wrapped in `@supports` so it degrades rather than breaks. One case is worth calling out because the module is split across both entries: **accessible shades ship stable, the WCAG badge does not.** Import the main entry and `text-a11y-*` works everywhere; `wcag-badge` needs `tw-jib-css/experimental` and a Chromium browser, and renders nothing elsewhere. See [Accessible Shade](/guide/wcag).

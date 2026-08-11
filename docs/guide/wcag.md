@@ -2,7 +2,7 @@
 title: Accessible Shade
 ---
 
-<!-- llm-context: wcag accessible shade module (experimental) — text-a11y-{aa,aaa,aa-lg} solves in closed form for a same-hue text colour whose WCAG 2.x contrast ratio against the background equals the requested ratio exactly. No candidate search, no verification pass. Optional /{colour-space} modifier for all 17 colour spaces selects the aesthetic path only; correctness is owned by a shared final stage. All computation happens in CSS via @function at render time — no JS. Chromium only. -->
+<!-- llm-context: wcag accessible shade module (stable, ships from the core entry) — text-a11y-{aa,aaa,aa-lg} solves in closed form for a same-hue text colour whose WCAG 2.x contrast ratio against the background equals the requested ratio exactly. No candidate search, no verification pass. Optional /{colour-space} modifier for all 17 colour spaces selects the aesthetic path only; correctness is owned by a shared final stage. All computation happens in CSS relative colour syntax at render time — no JS, no @function. Verified exact on Chromium, Firefox and WebKit. Levels are themeable via the --tw-jib--a11y-ratio-* namespace. The separate wcag-badge utility is Chromium-only. -->
 
 # Accessible Shade
 
@@ -10,19 +10,24 @@ title: Accessible Shade
 
 The shade is not searched for, it is **solved**. WCAG 2's contrast ratio constrains exactly one quantity — relative luminance — and luminance is a linear function of linear-light RGB. Invert the ratio formula for the target luminance, then build a colour with that luminance, the background's hue and the background's chroma, in a single relative-colour expression. The achieved ratio equals the requested ratio by construction: no candidate bracket, no verification pass, no convergence tolerance.
 
+Solving instead of searching is also what makes the utility portable. A search needed `@function` to call itself and `if(style())` to pick the candidate that passed; the closed form needs neither, so it is built from `calc`, `clamp`, `min`, `max` and relative colour syntax — and works everywhere.
+
 ::: warning The ratio is exact, which cuts both ways
 Because the utilities target the ratio *exactly* rather than overshooting it, the result can land a hair either side of the named threshold — around ±2 × 10⁻⁵ in practice. [`wcag-badge`](/guide/wcag-badge) accounts for this and reports the level you asked for. A third-party checker doing a bare `ratio >= 7` may not, and can report `text-a11y-aaa` as AA. That is arithmetic on a tie, not a contrast failure: the pair is at 7:1 to four decimal places. If you need an external report to read AAA unambiguously, ask for a slightly higher ratio than the level you need.
 :::
 
-::: warning Browser Support
-CSS `@function` and `if(style())` are required. Currently supported in Chromium browsers only. All utilities are wrapped in `@supports` and will be silently ignored in unsupported browsers.
+::: tip Browser Support
+Works in Chromium, Firefox and Safari. Every engine gets the requested ratio exactly — verified against all 242 Tailwind colours at all three levels on each. The only per-engine difference is cosmetic; see [Colour Spaces](#colour-spaces) below.
+
+`text-a11y-*` needs only relative colour syntax and `@property`, both of which have been baseline for some time. The [`wcag-badge`](/guide/wcag-badge) that pairs with it is a different matter — it stays Chromium-only, because turning a colour into a rating *string* needs `if(style())`.
 :::
 
 ::: tip Import
-Included in `@import 'tw-jib-css/experimental'`. To import individually:
+Included in `@import 'tw-jib-css'`. To import individually:
 ```css
-@import 'tw-jib-css/experimental/wcag';
+@import 'tw-jib-css/accessible-shade';
 ```
+The badge is separate and experimental: `@import 'tw-jib-css/experimental/wcag'`.
 :::
 
 ## Quick Reference
@@ -33,6 +38,22 @@ Included in `@import 'tw-jib-css/experimental'`. To import individually:
   { class: 'text-a11y-aa-lg', styles: 'color: same-hue shade at exactly WCAG AA Large (3:1)' },
   { class: 'text-a11y-aa/<space>', styles: 'color: AA shade, chroma shaped by the given colour space' },
 ]" />
+
+### Levels are themeable
+
+The three levels are not hard-coded — they are entries in the `--tw-jib--a11y-ratio-*` theme namespace. Add a key and you get a working utility:
+
+```css
+@theme {
+  --tw-jib--a11y-ratio-aa-plus: 5;
+}
+```
+
+```html
+<div class="bg-indigo-700 text-a11y-aa-plus">Solved for exactly 5:1</div>
+```
+
+Useful for the "AAA but let an external checker round in my favour" case in the warning above. The `/<space>` modifiers work on custom levels too. What a custom level does *not* get is a `wcag-badge` **Max** state, since the badge only knows the three named levels.
 
 ## Basic Usage
 
@@ -362,7 +383,7 @@ Every default TW colour at all shade values, with `text-a11y-aa` automatically p
 
 ## Colour Spaces
 
-The modifier selects the **aesthetic path** of the shade — how chroma and perceptual hue travel between the background and the output. It does not affect the ratio: a single shared final stage owns correctness for every space, so all seventeen land on the same contrast ratio and differ only in how colourful the result is. Default is oklch.
+The modifier selects the **aesthetic path** of the shade — how chroma and perceptual hue travel between the background and the output. It does not affect the ratio: a single shared final stage owns correctness for every space, so all seventeen land on the same contrast ratio and differ only in how colourful the result is. Default is oklch, as it is for every colour transform in this library.
 
 <Example>
   <div class="grid grid-cols-3 gap-3">
@@ -393,6 +414,17 @@ They fall into three groups by how their lightness relates to luminance:
 
 `oklab` and `lab` route through the same pipelines as `oklch` and `lch` — identical seeds, only the channel notation differs.
 
+### One per-engine difference, in chroma only
+
+`/oklch`, `/oklab`, `/lch` and `/lab` derive their seed lightness with a cube root. Firefox parses `pow()` but rejects a colour *channel keyword* as its argument, so on Firefox these four are seeded linearly instead, behind an `@supports` gate. Chrome and Safari both get the cube root — Chrome through the `@function` path, Safari through the fallback.
+
+The consequence is worth being precise about, because it is smaller than it sounds:
+
+- **The ratio is unaffected.** The seed governs aesthetics; a shared final stage owns correctness. All four are exact on Firefox, same as everywhere else.
+- **The chroma differs slightly.** A linear seed is less perceptually even, so `text-a11y-aa/oklch` on Firefox can be a touch more or less colourful than the same class in Chrome or Safari. Same hue, same contrast.
+
+If you need the four to match pixel-for-pixel across engines, use a Class 1 space — `/srgb` and its ten siblings have no seed, so they are identical everywhere. Asking for `/oklch` and getting the linear seed is still strictly better than the alternative of ignoring your modifier and silently handing you the core.
+
 ## Typographic Hierarchy
 
 Use different levels for different text sizes — heading at AA Large, body at AA, fine print at AAA:
@@ -415,6 +447,10 @@ Use different levels for different text sizes — heading at AA Large, body at A
 ## Combining with wcag-badge
 
 `text-a11y-*` and `wcag-badge` work together on the same element. The accessible shade utility picks the text colour, and the badge verifies the actual contrast ratio — all in CSS at render time.
+
+::: warning The badge needs the experimental entry, and Chromium
+Everything in this section requires `@import 'tw-jib-css/experimental'` and a Chromium browser. In Firefox and Safari the shade still works and the badge simply renders nothing. That is the intended trade: the badge is a design-time instrument, the shade is what ships.
+:::
 
 <Example>
   <div class="grid grid-cols-3 gap-3">
@@ -457,9 +493,12 @@ Because both utilities read CSS custom properties, they update live when the bac
 
 ## How It Works
 
-Two independent layers of composable CSS `@function` definitions. Measuring and constructing are separate problems and neither depends on the other.
+Measuring and constructing are separate problems and neither depends on the other, so they are separate layers — and they ship differently. Construction is the stable utility. Measurement is the Chromium-only badge.
 
 ### Measuring — what is this pair's rating?
+
+<!-- llm-context: the measuring layer is Chromium-only @function code; it powers wcag-badge and is not needed by text-a11y-*. -->
+
 
 1. **`--tw-jib--linearize()`** — converts to `srgb-linear`, letting the engine perform the sRGB transfer. Asking for the conversion rather than reimplementing it with `pow()` inherits the browser's own exactness, including the linear segment below 0.04045, and leaves out-of-gamut channels un-clamped so an oklch origin outside sRGB keeps its true luminance.
 2. **`--tw-jib--luminance-packed()`** — packs `L` into R and `1−L` into G in a single colour, so the next step can treat luminance subtraction as a `color-mix()`.
@@ -482,8 +521,23 @@ The WCAG ratio `(Y_lighter + 0.05) / (Y_darker + 0.05)` inverts directly, giving
 
 Because the caps act on whatever vector they are handed, they double as a gamut mapper that preserves WCAG luminance — something neither clipping nor generic chroma reduction can promise.
 
+### The same construction, without `@function`
+
+`text-a11y-*` has two implementations, arranged exactly as [`bg-lightness-*`](/guide/lightness) and its siblings are. Where CSS `@function` exists, the utility calls the six functions above — that is the preferred path, and the one to reach for. Where it does not, the utility falls back to a form built from the same algebra with no function calls in it, so the shade still works instead of disappearing.
+
+The fallback renders the whole solve as one nested relative-colour expression, chained through **unregistered custom properties**. That substitution is the trick: an unregistered custom property's computed value is a token stream, so `var()` splices it in textually rather than evaluating it — which is exactly the local binding a function body would have given you. Half a dozen small declarations collapse into one nested expression the engine evaluates in a single step at `color:`.
+
+Both paths compute the same closed form and were measured landing on the same colour to serialisation precision, so which one your browser runs is not something you can see. An integration test asserts that, side by side, on every release.
+
+Two details of the fallback are load-bearing rather than stylistic:
+
+- **The links must stay unregistered.** Registering one as `syntax: '<color>'` forces the engine to evaluate it into a colour value, and Gecko stores that at reduced precision. The damage lands hardest on the carrier, whose alpha channel *is* the target luminance, so a 1/255 step of alpha is roughly 0.04 of contrast ratio. Measured over 27 cells, Firefox falls from 23 exact to 9. Unregistered, all three engines are exact.
+- **The colour-space modifier is a theme lookup, not a branch.** `@theme inline` holds one expression per space and the utility declares its result twice — oklch inline as the default, then again as `--modifier(--tw-jib--a11y-shade-interpolation-*)`, which Tailwind emits only when a modifier is present. That is the same dispatch the [lightness](/guide/lightness) and [saturation](/guide/saturation) modules use, and it does the job `if(style())` does on the `@function` path.
+
+Either way, `--tw-jib--accessible-shade()` stays callable directly — for borders, SVG strokes and gradient stops, which no `text-*` utility can express.
+
 ### When the target is impossible
 
 The most any background can offer is `max((Y + 0.05)/0.05, 1.05/(Y + 0.05))`, which bottoms out at `√21 ≈ 4.583` at the pivot. So 3:1 and 4.5:1 are reachable from *every* background, but 7:1 is mathematically unreachable for backgrounds with luminance between roughly 0.10 and 0.30, and for many vivid mid-tones. There the target luminance clamps, the output saturates at pure black or white, and the achieved ratio is the best physics allows. `text-a11y-aaa` on `bg-indigo-600` tops out at 6.44:1. Pair it with [`wcag-badge`](/guide/wcag-badge) to see when you are in that band: the badge reads the level you asked for and displays **Max** instead of the achieved rating, so "AAA was impossible here" is distinguishable from "this pair is merely short".
 
-All functions are defined in `wcag/_functions.css` and can be imported independently for use in custom CSS.
+The fallback lives in `wcag/_stable.css` and ships from the core entry. The `@function` definitions live in `wcag/_functions.css`, with the `@function` form of the utility in `wcag/_utilities.css`; both come in via `tw-jib-css/experimental/wcag`, and the functions can be called directly from your own CSS.

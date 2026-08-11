@@ -2,14 +2,16 @@
 title: WCAG Badge
 ---
 
-<!-- llm-context: wcag badge module (experimental) — wcag-badge overlays a ::after pseudo-element showing the WCAG 2.x contrast rating (AAA/AA/AA Large/Fail, plus Max) for the element's bg + text colour combination. Badge background is green/yellow/orange/red using TW colour tokens; Max shares Fail's red. Max appears only when text-a11y-* is on the same element and the level it requested is physically unreachable from that background. Badge text is black on yellow (AA), white on all others. All computation in CSS via @function + if(style()). Chromium only. -->
+<!-- llm-context: wcag badge module (experimental) — wcag-badge overlays a ::after pseudo-element showing the WCAG 2.x contrast rating (AAA/AA/AA Large/Fail, plus Max) for the element's bg + text colour combination. Badge background is green/yellow/orange/red using TW colour tokens; Max shares Fail's red. Max appears only when text-a11y-* is on the same element and the level it requested is physically unreachable from that background. Badge text is black on yellow (AA), white on all others. All computation in CSS via @function + if(style()). Chromium only, and unlike text-a11y-* it cannot be made portable: colour-to-string needs if(style()). Ships from tw-jib-css/experimental; text-a11y-* ships from the main entry. -->
 
 # WCAG Badge
 
 `wcag-badge` overlays a live WCAG contrast rating on any element with a background and text colour. The badge shows AAA, AA, AA Large, or Fail — all computed in CSS at render time. Paired with `text-a11y-*` it adds a fifth state, Max, for a level the background cannot physically reach.
 
 ::: warning Browser Support
-CSS `@function` and `if(style())` are required. Currently supported in Chromium browsers only. All utilities are wrapped in `@supports` and will be silently ignored in unsupported browsers.
+CSS `@function` and `if(style())` are required. Currently supported in Chromium browsers only. The utility is wrapped in `@supports` and renders nothing in unsupported browsers.
+
+This does **not** apply to its partner [`text-a11y-*`](/guide/wcag), which is stable and works everywhere. The badge is the half of the module that cannot follow: reading a rating out means turning a colour into a *string*, and `if(style())` is the only way CSS can do that. So an element carrying both utilities gets an accessible shade in every browser and a badge only in Chromium.
 :::
 
 ::: tip Import
@@ -17,6 +19,7 @@ Included in `@import 'tw-jib-css/experimental'`. To import individually:
 ```css
 @import 'tw-jib-css/experimental/wcag';
 ```
+The accessible shade is separate and stable: `@import 'tw-jib-css'`.
 :::
 
 ## Quick Reference

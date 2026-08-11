@@ -90,6 +90,21 @@ Material-style ripple effect — pure CSS, no JavaScript. Radial gradient animat
 <button class="bg-ripple ripple-color-blue-500">Click me</button>
 ```
 
+### Accessible Shade
+
+A text colour whose WCAG contrast against the background equals the ratio you asked
+for — solved in closed form from the ratio formula, not searched for. Works in
+Chromium, Firefox and Safari.
+
+```html
+<div class="bg-violet-600 text-a11y-aa">Exactly 4.5:1</div>
+<div class="bg-amber-300 text-a11y-aaa">Exactly 7:1</div>
+<div class="bg-teal-800 text-a11y-aa/oklch">4.5:1, chroma shaped in oklch</div>
+```
+
+The matching `wcag-badge`, which *measures* a pair and prints its rating, needs
+`if(style())` and so stays experimental and Chromium-only.
+
 ### Print Textures
 
 Pure CSS print-inspired texture effects via layered gradient composition.
@@ -103,8 +118,9 @@ Pure CSS print-inspired texture effects via layered gradient composition.
 
 | Module       | Import                    | Description                                              |
 | ------------ | ------------------------- | -------------------------------------------------------- |
-| Border Style | `tw-jib-css/border-style` | Per-side border styles (`border-t-dashed`, etc.)         |
-| Grid         | `tw-jib-css/grid`         | Grid template areas and named grid areas                 |
+| Border Style     | `tw-jib-css/border-style`     | Per-side border styles (`border-t-dashed`, etc.) |
+| Grid             | `tw-jib-css/grid`             | Grid template areas and named grid areas         |
+| Accessible Shade | `tw-jib-css/accessible-shade` | `text-a11y-*` WCAG-exact text colours            |
 
 ### Experimental Modules
 
@@ -113,7 +129,10 @@ Pure CSS print-inspired texture effects via layered gradient composition.
 | Corner Shape       | `tw-jib-css/experimental/corner`      | ~68% (Chrome 139+)            |
 | Interpolate Size   | `tw-jib-css/experimental/interpolate` | ~48% (Chromium only)          |
 | Base Select Picker | `tw-jib-css/experimental/picker`      | Chromium only                 |
-| WCAG Shade         | `tw-jib-css/experimental/wcag`        | Chromium only (CSS @function) |
+| WCAG Badge         | `tw-jib-css/experimental/wcag`        | Chromium only (CSS @function) |
+
+The WCAG module is split across both entries: the accessible shade is stable, the
+measuring badge is not. See below.
 
 ## Documentation
 

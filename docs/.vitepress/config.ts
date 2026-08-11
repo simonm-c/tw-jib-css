@@ -66,7 +66,7 @@ export default defineConfig({
         text: 'Accessibility',
         items: [
           { text: 'Accessible Shade', link: '/guide/wcag' },
-          { text: 'WCAG Badge', link: '/guide/wcag-badge' },
+          { text: 'WCAG Badge (experimental)', link: '/guide/wcag-badge' },
         ],
       },
       {

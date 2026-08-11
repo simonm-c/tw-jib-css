@@ -10,9 +10,9 @@ async function copy() {
 </script>
 
 <template>
-  <section class="magazine-slide relative min-h-screen scroll-snap-align-start flex flex-col items-center justify-center px-6 py-16">
+  <section class="relative min-h-screen snap-start flex flex-col items-center justify-center px-6 py-16">
     <div class="flex flex-col items-center gap-8 text-center max-w-3xl">
-      <JibLogo id="mag-hero-logo" style="width: min(36vw, 320px); height: auto; filter: drop-shadow(0 12px 24px oklch(0.5 0.15 237 / 0.4));" />
+      <JibLogo id="mag-hero-logo" class="w-[min(36vw,320px)] h-auto drop-shadow-[0_12px_24px_oklch(0.5_0.15_237/0.4)]" />
 
       <h1 class="text-4xl md:text-5xl font-black tracking-tight leading-tight">
         The colour layer for Tailwind v4.
@@ -43,7 +43,3 @@ async function copy() {
     </div>
   </section>
 </template>
-
-<style scoped>
-.magazine-slide { scroll-snap-align: start; }
-</style>

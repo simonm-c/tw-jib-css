@@ -38,7 +38,7 @@ const ratios = [
 </script>
 
 <template>
-  <section class="magazine-finale relative min-h-screen scroll-snap-align-start flex items-center bg-gray-950 text-gray-100 dark:bg-white dark:text-gray-900 px-6 md:px-12 py-20">
+  <section class="relative min-h-screen snap-start flex items-center bg-gray-950 text-gray-100 dark:bg-white dark:text-gray-900 px-6 md:px-12 py-20">
     <div class="mx-auto w-full max-w-[1300px] space-y-10">
       <div class="grid md:grid-cols-[1fr_1fr] gap-8 items-start">
         <div class="space-y-4 max-w-[56ch]">
@@ -69,7 +69,7 @@ const ratios = [
       </div>
 
       <!-- 3 ratio rows, each with 6 cards using real TW colours + bg-hue-rotate animated -->
-      <div class="finale-hue-stage space-y-6">
+      <div class="space-y-6 animate-[landing-demo-hue-cycle_12s_linear_infinite] motion-reduce:animate-none">
         <div v-for="r in ratios" :key="r.level" class="space-y-2">
           <p class="font-mono text-[11px] uppercase tracking-wider text-sky-400/80">text-a11y-{{ r.level }}</p>
           <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
@@ -77,7 +77,7 @@ const ratios = [
               v-for="col in columns"
               :key="col.hue"
               :class="[
-                'finale-card rounded-xl p-4 min-h-35 flex items-end',
+                'relative overflow-hidden rounded-xl p-4 min-h-35 flex items-end',
                 col.darkClass,
                 'bg-hue-rotate-(number:--landing-demo-hue)',
                 r.cls,
@@ -93,12 +93,3 @@ const ratios = [
     </div>
   </section>
 </template>
-
-<style scoped>
-.magazine-finale { scroll-snap-align: start; }
-.finale-hue-stage { animation: landing-demo-hue-cycle 12s linear infinite; }
-.finale-card { position: relative; overflow: hidden; }
-@media (prefers-reduced-motion: reduce) {
-  .finale-hue-stage { animation: none; }
-}
-</style>

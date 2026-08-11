@@ -148,10 +148,10 @@ For CSS variables, use the typed bare-value syntax `ripple-color-(color:--var)`.
 
 <Example>
   <div class="flex gap-3">
-    <button class="bg-ripple ripple-color-(color:--theme-ripple) bg-gray-800 text-white px-8 py-4 rounded-lg font-medium cursor-pointer" style="--theme-ripple: #bada55">
+    <button class="bg-ripple ripple-color-(color:--theme-ripple) bg-gray-800 text-white px-8 py-4 rounded-lg font-medium cursor-pointer [--theme-ripple:#bada55]">
       ripple-color-(color:--theme-ripple)
     </button>
-    <button class="bg-ripple ripple-color-(color:--theme-ripple) bg-white text-gray-800 border border-gray-200 px-8 py-4 rounded-lg font-medium cursor-pointer" style="--theme-ripple: #6366f1">
+    <button class="bg-ripple ripple-color-(color:--theme-ripple) bg-white text-gray-800 border border-gray-200 px-8 py-4 rounded-lg font-medium cursor-pointer [--theme-ripple:#6366f1]">
       ripple-color-(color:--theme-ripple)
     </button>
   </div>
@@ -160,7 +160,7 @@ For CSS variables, use the typed bare-value syntax `ripple-color-(color:--var)`.
 The same pattern works for all ripple properties. For position, use the `position` type hint:
 
 ```html
-<div class="bg-ripple ripple-position-(position:--ripple-pos)" style="--ripple-pos: 25% 75%">
+<div class="bg-ripple ripple-position-(position:--ripple-pos) [--ripple-pos:25%_75%]">
 ```
 
 ### Cursor-tracking ripple

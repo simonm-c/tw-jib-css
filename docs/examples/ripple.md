@@ -484,7 +484,7 @@ Using `ripple-position-(position:--ripple-pos)` with JavaScript to make the ripp
 
 <div class="grid grid-cols-3 gap-4 my-6">
   <div>
-    <div data-test="var-pos-static" class="bg-blue-600 bg-ripple ripple-position-(position:--ripple-pos) h-32 rounded-lg cursor-pointer" style="--ripple-pos: 25% 75%"></div>
+    <div data-test="var-pos-static" class="bg-blue-600 bg-ripple ripple-position-(position:--ripple-pos) h-32 rounded-lg cursor-pointer [--ripple-pos:25%_75%]"></div>
     <p class="text-xs font-mono text-center mt-1">static 25% 75%</p>
   </div>
   <div>

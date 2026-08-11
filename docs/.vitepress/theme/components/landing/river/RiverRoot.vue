@@ -1,9 +1,5 @@
 <template>
-  <div class="jib-landing river-root">
+  <div class="jib-landing">
     <slot />
   </div>
 </template>
-
-<style scoped>
-.river-root { /* continuous scroll — no snap */ }
-</style>

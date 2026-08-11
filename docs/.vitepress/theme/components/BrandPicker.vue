@@ -73,7 +73,7 @@ onMounted(() => {
         :title="preset.name"
         :class="[
           preset.css,
-          'jib-brandpicker-chip size-4 rounded-full border-0 cursor-pointer shrink-0 transition-shadow bg-ripple ripple-color-white/40 ripple-position-center',
+          'size-4 rounded-full corner-squircle border-0 cursor-pointer shrink-0 transition-shadow bg-ripple ripple-color-white/40 ripple-position-center',
           active === preset.name
             ? 'ring-2 ring-[var(--color-jib-wind)] ring-offset-1 ring-offset-gray-900'
             : 'hover:ring-1 hover:ring-white/50',
@@ -82,7 +82,7 @@ onMounted(() => {
       />
       <label
         :class="[
-          'jib-brandpicker-chip relative size-4 overflow-hidden rounded-full border border-jib-wind/40 cursor-pointer shrink-0',
+          'relative size-4 overflow-hidden rounded-full corner-squircle border border-jib-wind/40 cursor-pointer shrink-0',
           active === '__custom'
             ? 'ring-2 ring-[var(--color-jib-wind)] ring-offset-1 ring-offset-gray-900'
             : '',
@@ -99,11 +99,3 @@ onMounted(() => {
     </div>
   </div>
 </template>
-
-<style scoped>
-@supports (corner-shape: squircle) {
-  .jib-brandpicker-chip {
-    corner-shape: squircle;
-  }
-}
-</style>

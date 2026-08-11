@@ -6,12 +6,20 @@
       <p class="text-xl opacity-80 leading-relaxed text-center max-w-[56ch] mx-auto">
         Generate perfect colour contrast every time. Pick a desired WCAG ratio — AA, AAA, or AA Large — and the CSS does the rest. Bold titles that match your brand, small text guaranteed to pass, whatever your needs. No fuss, no JavaScript, updates automatically when the background changes.
       </p>
-      <div class="finale-hue-stage grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mt-8">
-        <div v-for="off in [0,60,120,180,240,300]" :key="off"
-          class="text-a11y-aa wcag-badge rounded-xl p-5 min-h-[160px] flex flex-col justify-end"
-          :style="{ '--tw-jib--background-color-source': `oklch(0.55 0.2 calc(var(--landing-demo-hue,0)*1deg+${off}deg))`, '--tw-jib--background-color': `oklch(0.55 0.2 calc(var(--landing-demo-hue,0)*1deg+${off}deg))`, background: `oklch(0.55 0.2 calc(var(--landing-demo-hue,0)*1deg+${off}deg))` }"
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3 mt-8 animate-[landing-demo-hue-cycle_18s_linear_infinite] motion-reduce:animate-none">
+        <div
+          v-for="card in [
+            { cls: 'bg-red-500',     label: 'Red' },
+            { cls: 'bg-orange-500',  label: 'Orange' },
+            { cls: 'bg-green-500',   label: 'Green' },
+            { cls: 'bg-cyan-500',    label: 'Cyan' },
+            { cls: 'bg-blue-500',    label: 'Blue' },
+            { cls: 'bg-fuchsia-500', label: 'Fuchsia' },
+          ]"
+          :key="card.label"
+          :class="[card.cls, 'bg-hue-rotate-(number:--landing-demo-hue) text-a11y-aa wcag-badge rounded-xl p-5 min-h-[160px] flex flex-col justify-end']"
         >
-          <span class="text-xs font-mono opacity-80">+{{ off }}°</span>
+          <span class="text-xs font-mono opacity-80">{{ card.label }}</span>
           <span class="text-xl font-bold mt-1">Auto contrast</span>
         </div>
       </div>
@@ -36,8 +44,3 @@
     </div>
   </div>
 </template>
-
-<style scoped>
-.finale-hue-stage { animation: landing-demo-hue-cycle 18s linear infinite; }
-@media (prefers-reduced-motion: reduce) { .finale-hue-stage { animation: none; } }
-</style>

@@ -1,5 +1,5 @@
 <template>
-  <section class="magazine-slide relative min-h-[60vh] scroll-snap-align-start flex items-center bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100 px-6 md:px-12 py-16">
+  <section class="relative min-h-[60vh] snap-start flex items-center bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100 px-6 md:px-12 py-16">
     <div class="mx-auto w-full max-w-[1300px] space-y-10">
       <div class="space-y-2">
         <h2 class="text-3xl md:text-4xl font-black tracking-tight">Also Included.</h2>
@@ -51,7 +51,3 @@
     </div>
   </section>
 </template>
-
-<style scoped>
-.magazine-slide { scroll-snap-align: start; }
-</style>

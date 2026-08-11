@@ -64,10 +64,15 @@ async function onCopy() {
 </script>
 
 <template>
-  <Transition name="dock">
+  <Transition
+    enter-active-class="transition-[transform,opacity] duration-300 ease-[ease]"
+    leave-active-class="transition-[transform,opacity] duration-300 ease-[ease]"
+    enter-from-class="translate-y-[20%] opacity-0"
+    leave-to-class="translate-y-[20%] opacity-0"
+  >
     <div
       v-if="activeId && registry[activeId]"
-      class="class-dock fixed bottom-4 left-1/2 z-50 -translate-x-1/2 max-w-[min(90vw,820px)]"
+      class="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 max-w-[min(90vw,820px)]"
     >
       <div
         class="flex items-center gap-3 rounded-full border border-jib-wind/50 bg-jib-brand -bg-saturation-60 bg-darken-88 backdrop-blur px-4 py-2 shadow-lg"
@@ -87,15 +92,3 @@ async function onCopy() {
     </div>
   </Transition>
 </template>
-
-<style scoped>
-.dock-enter-active,
-.dock-leave-active {
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-.dock-enter-from,
-.dock-leave-to {
-  transform: translate(-50%, 20%);
-  opacity: 0;
-}
-</style>

@@ -1,16 +1,5 @@
 <template>
-  <div class="jib-landing cardstack-root">
+  <div class="jib-landing snap-y snap-mandatory overflow-y-auto h-screen motion-reduce:snap-none">
     <slot />
   </div>
 </template>
-
-<style scoped>
-.cardstack-root {
-  scroll-snap-type: y mandatory;
-  overflow-y: auto;
-  height: 100vh;
-}
-@media (prefers-reduced-motion: reduce) {
-  .cardstack-root { scroll-snap-type: none; }
-}
-</style>

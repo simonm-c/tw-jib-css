@@ -3,7 +3,7 @@ import CompassRose from '../CompassRose.vue';
 </script>
 
 <template>
-  <section class="magazine-slide relative min-h-[60vh] scroll-snap-align-start flex items-center justify-center bg-gray-950 text-gray-100 dark:bg-white dark:text-gray-900 border-y-2 border-sky-400/30">
+  <section class="relative min-h-[60vh] snap-start flex items-center justify-center bg-gray-950 text-gray-100 dark:bg-white dark:text-gray-900 border-y-2 border-sky-400/30">
     <div class="pointer-events-none absolute inset-0 flex items-center justify-center opacity-[0.04]">
       <CompassRose :size="280" class="text-sky-400" />
     </div>
@@ -17,7 +17,3 @@ import CompassRose from '../CompassRose.vue';
     </div>
   </section>
 </template>
-
-<style scoped>
-.magazine-slide { scroll-snap-align: start; }
-</style>

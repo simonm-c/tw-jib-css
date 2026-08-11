@@ -203,7 +203,7 @@ Use the `corner-[<value>]` syntax to set the corner shape based on a completely 
 For CSS variables, you can also use the `corner-(--custom-property)` syntax:
 
 <Example>
-  <div class="rounded-2xl corner-(--brand-roundness) bg-blue-500 p-8 text-white text-sm text-center max-w-xs mx-auto" style="--brand-roundness: squircle">
+  <div class="rounded-2xl corner-(--brand-roundness) bg-blue-500 p-8 text-white text-sm text-center max-w-xs mx-auto [--brand-roundness:squircle]">
     corner-(--brand-roundness)
   </div>
 </Example>

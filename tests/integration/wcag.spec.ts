@@ -306,8 +306,49 @@ async function extractBadgeResults(
   );
 }
 
+/**
+ * Whether this engine supports CSS @function + if(style()).
+ *
+ * Gates the BADGE ONLY. text-a11y-* has a stable rendering path (no @function,
+ * no if(style())) and must hit its ratio on every engine, so the shade specs
+ * deliberately do not consult this — skipping them here is what hid the whole
+ * module from Firefox and WebKit in the first place.
+ */
 async function detectSupport(page: Page): Promise<boolean> {
   return page.evaluate((q) => CSS.supports(q), SUPPORTS_WCAG);
+}
+
+/** Whether this engine accepts a channel keyword inside pow(). False on Gecko. */
+async function detectChannelPow(page: Page): Promise<boolean> {
+  return page.evaluate(() =>
+    CSS.supports('color', 'oklch(from red calc(pow(alpha, 0.5)) c h)'),
+  );
+}
+
+/**
+ * Read an element's computed colour alongside its parent's, so a test can tell
+ * "the declaration applied" from "the declaration was dropped and colour fell
+ * back to inherited".
+ */
+async function extractColorVsInherited(
+  page: Page,
+  ids: string[],
+): Promise<Record<string, { color: string; inherited: string }>> {
+  return page.evaluate((sels) => {
+    const out: Record<string, { color: string; inherited: string }> = {};
+    for (const sel of sels) {
+      const el = document.querySelector(`[data-test="${sel}"]`);
+      if (!el) {
+        out[sel] = { color: '', inherited: '' };
+        continue;
+      }
+      out[sel] = {
+        color: getComputedStyle(el).color,
+        inherited: el.parentElement ? getComputedStyle(el.parentElement).color : '',
+      };
+    }
+    return out;
+  }, ids);
 }
 
 // ---------------------------------------------------------------------------
@@ -433,8 +474,6 @@ function channelSpread(str: string): number | null {
 test.describe('text-a11y-aa — exact ratio verification', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(A11Y_PAGE, { waitUntil: 'networkidle' });
-    const supports = await detectSupport(page);
-    test.skip(!supports, 'Browser does not support CSS @function');
   });
 
   test('all 242 TW colours land exactly on 4.5:1', async ({ page }) => {
@@ -469,8 +508,6 @@ test.describe('text-a11y-aa — exact ratio verification', () => {
 test.describe('text-a11y-aaa — exact ratio verification', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(A11Y_PAGE, { waitUntil: 'networkidle' });
-    const supports = await detectSupport(page);
-    test.skip(!supports, 'Browser does not support CSS @function');
   });
 
   test('all 242 TW colours land exactly on 7:1, or at their physical ceiling', async ({ page }) => {
@@ -492,8 +529,6 @@ test.describe('text-a11y-aaa — exact ratio verification', () => {
 test.describe('text-a11y-aa-lg — exact ratio verification', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(A11Y_PAGE, { waitUntil: 'networkidle' });
-    const supports = await detectSupport(page);
-    test.skip(!supports, 'Browser does not support CSS @function');
   });
 
   test('all 242 TW colours land exactly on 3:1', async ({ page }) => {
@@ -531,8 +566,6 @@ const A11Y_EDGE_IDS = {
 test.describe('text-a11y — threshold edge cases', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(A11Y_PAGE, { waitUntil: 'networkidle' });
-    const supports = await detectSupport(page);
-    test.skip(!supports, 'Browser does not support CSS @function');
   });
 
   test('lands on target (or the ceiling) near each threshold boundary', async ({ page }) => {
@@ -585,8 +618,6 @@ const FROZEN_EXPECT_CAPPED = new Set(['frozen-capped-grey', 'frozen-capped-indig
 test.describe('text-a11y — frozen regression cases', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(A11Y_PAGE, { waitUntil: 'networkidle' });
-    const supports = await detectSupport(page);
-    test.skip(!supports, 'Browser does not support CSS @function');
   });
 
   test('every frozen case grades as expected', async ({ page }) => {
@@ -668,6 +699,11 @@ test.describe('text-a11y — frozen regression cases', () => {
 // through the alpha channel of a nested relative colour, so any quantisation of
 // alpha in that nest shows up here as a divergence. This is the test that
 // catches carrier breakage.
+//
+// Asserted PER ENGINE, never between engines. Gecko rejects a channel keyword
+// inside pow() and so seeds oklch/oklab/lch/lab linearly instead of by cube
+// root; the ratio is exact either way but the chroma differs, so a
+// cross-engine comparison of these four would fail by design.
 // ---------------------------------------------------------------------------
 
 const INVARIANT_SPACES = [
@@ -680,8 +716,6 @@ const INVARIANT_SPACES = [
 test.describe('text-a11y — cross-pipeline invariance', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(A11Y_PAGE, { waitUntil: 'networkidle' });
-    const supports = await detectSupport(page);
-    test.skip(!supports, 'Browser does not support CSS @function');
   });
 
   for (const bg of ['violet', 'grey'] as const) {
@@ -708,6 +742,178 @@ test.describe('text-a11y — cross-pipeline invariance', () => {
       expect(failures, `${failures.length} spaces off target:\n${failures.join('\n')}`).toHaveLength(0);
     });
   }
+});
+
+// ---------------------------------------------------------------------------
+// The pow() gate
+//
+// Gecko parses pow() but rejects a CHANNEL KEYWORD as its argument, which
+// invalidates the cube-root seeds for oklch/oklab/lch/lab. The failure mode is
+// nastier than it sounds: a custom property holding an invalid expression still
+// parses as a token stream, so nothing breaks until `color: var(…)`, where it
+// becomes invalid at computed-value time — and `color` then falls back to
+// INHERITED, not to the previous declaration. Ungated, text-a11y-aa/oklch would
+// silently render inherited body text in Firefox: no error, no fallback shade,
+// just a contrast failure that looks like the utility was never applied.
+//
+// So the gate is load-bearing, and this is its guard.
+// ---------------------------------------------------------------------------
+
+/** The four spaces whose precise seed needs a cube root. */
+const POW_SEEDED_SPACES = ['oklch', 'oklab', 'lch', 'lab'] as const;
+
+test.describe('text-a11y — the pow() gate', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto(A11Y_PAGE, { waitUntil: 'networkidle' });
+  });
+
+  for (const bg of ['violet', 'grey'] as const) {
+    test(`no cube-root-seeded space falls back to inherited text on ${bg}`, async ({ page }) => {
+      const ids = POW_SEEDED_SPACES.map((s) => `invariant-${bg}-${s}`);
+      const results = await extractColorVsInherited(page, ids);
+      const broken: string[] = [];
+
+      for (const id of ids) {
+        const r = results[id];
+        if (!r?.color) {
+          broken.push(`${id}: element not found`);
+          continue;
+        }
+        if (r.color === r.inherited) {
+          broken.push(
+            `${id}: colour is identical to the inherited value "${r.inherited}" — the shade declaration was dropped, so the pow() seed is reaching an engine that rejects it`,
+          );
+        }
+      }
+
+      expect(broken, `${broken.length} spaces fell back to inherited:\n${broken.join('\n')}`).toHaveLength(0);
+    });
+  }
+
+  test('the gate agrees with what the engine actually accepts', async ({ page }) => {
+    // If this ever disagrees, the @supports query in wcag/_stable.css has
+    // drifted from the construct it is meant to detect and the guard above
+    // stops guarding anything.
+    const gate = await detectChannelPow(page);
+    const accepts = await page.evaluate(() =>
+      CSS.supports('color', 'oklch(from red calc(pow(alpha, 0.333333)) c h / alpha)'),
+    );
+    expect(
+      gate,
+      `supports-channel-pow reports ${gate} but the shipped cube-root seed is ${accepts ? 'accepted' : 'rejected'}`,
+    ).toBe(accepts);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// @function / stable-path agreement
+//
+// text-a11y-* has two implementations: the @function dispatcher, which wins
+// wherever CSS @function exists, and the nested relative-colour chain that
+// engines without it fall back to. Nothing in the code forces them to compute
+// the same thing, so this is what does.
+//
+// Three readouts per case, on Chromium where both paths are live:
+//   util    whatever the cascade picked — the @function override
+//   fn      --tw-jib--accessible-shade() called directly
+//   stable  a child reading --tw-jib--a11y--shade, the chain's own result, which
+//           block A computes on every engine even when @function wins `color:`
+//
+// fn vs stable is the load-bearing pair: the two paths, measured side by side in
+// one engine. util vs fn additionally checks the utility is really wired to the
+// dispatcher where it claims to be.
+//
+// Chromium only, because `fn` IS the @function path. Its absence elsewhere is
+// the whole reason the stable path exists.
+// ---------------------------------------------------------------------------
+
+const AGREEMENT_CASES = ['violet', 'grey', 'teal'].flatMap((bg) =>
+  [
+    ['aa', 'oklch'],
+    ['aa', 'srgb'],
+    ['aa', 'hsl'],
+    ['aaa', 'lch'],
+    ['aa', 'hwb'],
+  ].map(([lvl, sp]) => `${bg}-${lvl}-${sp}`),
+);
+
+test.describe('text-a11y — the utility and the @function API agree', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto(A11Y_PAGE, { waitUntil: 'networkidle' });
+    const supports = await detectSupport(page);
+    test.skip(!supports, 'Browser does not support CSS @function');
+  });
+
+  test('every level/space pair lands on the same colour by both routes', async ({ page }) => {
+    const ids = AGREEMENT_CASES.flatMap((c) => [
+      `agree-util-${c}`,
+      `agree-fn-${c}`,
+      `agree-stable-${c}`,
+    ]);
+    const results = await extractA11yResults(page, ids);
+    const drifted: string[] = [];
+
+    // Compare on luminance rather than channel triples: that is the quantity
+    // both routes solve for, and it is what a contrast checker will read.
+    // Serialisation rounding alone accounts for ~1e-6 here.
+    const TOLERANCE = 1e-4;
+
+    for (const c of AGREEMENT_CASES) {
+      const util = results[`agree-util-${c}`];
+      const fn = results[`agree-fn-${c}`];
+      const stable = results[`agree-stable-${c}`];
+      if (!util || !fn || !stable) {
+        drifted.push(`${c}: fixture missing`);
+        continue;
+      }
+      for (const [aName, a, bName, b] of [
+        ['@function', fn, 'stable chain', stable],
+        ['utility', util, '@function', fn],
+      ] as const) {
+        const delta = Math.abs(a.fgLum - b.fgLum);
+        if (delta > TOLERANCE) {
+          drifted.push(
+            `${c}: ${aName} "${a.fgColor}" (Y=${a.fgLum.toFixed(6)}) vs ${bName} "${b.fgColor}" (Y=${b.fgLum.toFixed(6)}), ΔY=${delta.toExponential(3)}`,
+          );
+        }
+      }
+    }
+
+    expect(
+      drifted,
+      `${drifted.length} disagreements across ${AGREEMENT_CASES.length} cases — the two implementations have drifted apart:\n${drifted.join('\n')}`,
+    ).toHaveLength(0);
+  });
+
+  test('the stable readout is reading a real chain, not inheriting a colour', async ({ page }) => {
+    // Guards the guard. The readout is a child reading --tw-jib--a11y--shade; if
+    // that property never reached the child, `color` would fall back to
+    // inherited — and inherited is the parent's shade, which on Chromium is the
+    // @function result the test above compares against. The agreement test would
+    // then pass by comparing a value to itself.
+    //
+    // Comparing colours cannot detect that, precisely because the two paths do
+    // agree. So check the property instead: the chain has to be present on the
+    // child as a token stream, with the final stage's srgb-linear form intact.
+    const ids = AGREEMENT_CASES.map((c) => `agree-stable-${c}`);
+    const chains = await page.evaluate(
+      (sels) =>
+        Object.fromEntries(
+          sels.map((sel) => {
+            const el = document.querySelector(`[data-test="${sel}"]`);
+            return [sel, el ? getComputedStyle(el).getPropertyValue('--tw-jib--a11y--shade').trim() : ''];
+          }),
+        ),
+      ids,
+    );
+    const broken = ids.filter((id) => !chains[id]?.includes('srgb-linear'));
+    expect(
+      broken,
+      `${broken.length} readouts have no chain to read — --tw-jib--a11y--shade did not reach the child, so the agreement test is comparing the @function path against itself:\n${broken
+        .map((id) => `${id}: "${chains[id]}"`)
+        .join('\n')}`,
+    ).toHaveLength(0);
+  });
 });
 
 // ---------------------------------------------------------------------------

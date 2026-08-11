@@ -66,6 +66,10 @@
       "style": "./src/hue-rotate.css",
       "default": "./src/hue-rotate.css"
     },
+    "./accessible-shade": {
+      "style": "./src/accessible-shade.css",
+      "default": "./src/accessible-shade.css"
+    },
     "./ripple": {
       "style": "./src/ripple.css",
       "default": "./src/ripple.css"

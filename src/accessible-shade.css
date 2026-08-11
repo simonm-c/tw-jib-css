@@ -1,0 +1,10 @@
+/* tw-jib-css — accessible shade (stable)
+ *
+ * text-a11y-{aa,aaa,aa-lg} with the 17-space modifier map, on every engine.
+ *
+ * The contrast BADGE is a separate, experimental module: it needs
+ * if(style()) to turn a colour into a rating string, which has no stable
+ * equivalent. See tw-jib-css/experimental/wcag.
+ */
+
+@import './wcag/_stable.css';

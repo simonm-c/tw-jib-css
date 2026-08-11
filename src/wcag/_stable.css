@@ -1,0 +1,395 @@
+/*
+ * Accessible shade — stable path. No @function, no if(style()).
+ *
+ * text-a11y-* on every engine. Same closed form as wcag/_functions.css,
+ * rendered with the three mechanisms the lightness/saturation/hue-rotate
+ * modules already use (see src/lightness/_bg.css):
+ *
+ *   1. a registered @property carries the scalar parameter
+ *      (--tw-jib--a11y--ratio, as --tw-jib--background-lightness--amount does)
+ *   2. @theme inline holds one complete expression per colour space
+ *      (--tw-jib--a11y-shade-interpolation-*)
+ *   3. the utility declares the result twice — inline default, then again as
+ *      --modifier(--namespace-*), which Tailwind emits ONLY when a modifier is
+ *      present, so it overrides the default. That is the space dispatch, and it
+ *      replaces if(style()) entirely.
+ *
+ * Nothing here is new machinery; only the expression installed into it is.
+ *
+ * WHY IT WORKS WITHOUT @function. The closed-form solver needs no candidate
+ * search (nothing to branch on) and no function-calling-function (the level's
+ * ratio is a constant per utility). What @function supplied that the cascade
+ * has to supply instead is LOCAL BINDINGS, and an unregistered custom property
+ * is exactly that: its computed value is a token stream, so var() substitutes
+ * it textually and the chain collapses into one nested relative-colour
+ * expression evaluated in a single step at `color:`. Each authored declaration
+ * stays small; the thing the engine evaluates is the full nest.
+ *
+ * ── NORMATIVE: no intermediate may be a registered <color> ──
+ *
+ * Every link below (--tw-jib--a11y--carrier, --core, --target, --oklch,
+ * --oklch-precise, --vector, --shade) is DELIBERATELY unregistered. Registering one as syntax:'<color>'
+ * forces the engine to evaluate that link into a colour value, and Gecko stores
+ * it at reduced precision. The error then compounds through the chain — worst
+ * of all through the carrier, whose alpha channel is the target luminance, so a
+ * 1/255 step of alpha is ~0.04 of contrast ratio. Measured over 27 cells with
+ * carrier/target/vector registered as <color>: Firefox falls from 23 exact to
+ * 9, Chromium and WebKit are unaffected. Left unregistered, all three engines
+ * are exact.
+ *
+ * The registered <number> (--tw-jib--a11y--ratio) is unaffected and required.
+ * A registered <color> ORIGIN is also fine — --tw-jib--background-color is one,
+ * and literal / unregistered-var() / registered-var() origins measure
+ * identically on Chromium, Firefox and WebKit.
+ *
+ * `color:` reads --tw-jib--a11y--shade rather than --tw-jib--text-color, which
+ * is registered <color> in core.css for the bg/text transform pipeline. That
+ * last hop measured exact on all three engines, so this is not a fix for a live
+ * bug — it keeps the delivered colour off a registered <color> entirely, one
+ * hop away from where registration demonstrably does destroy the ratio.
+ * --tw-jib--text-color is still written, for wcag-badge to measure.
+ *
+ * ── KNOWN LIMIT: the intermediates are element-scoped ──
+ *
+ * @function bindings are function-local; these are not. Every text-a11y-*
+ * element writes the same seven names, which is fine for one family but means a
+ * second family sharing this file (a hypothetical border-a11y-*) would collide
+ * on the same element. Namespace per family if that ever happens.
+ *
+ * ── THIS FILE IS THE FALLBACK, NOT THE ONLY PATH ──
+ *
+ * The @function form of text-a11y-* lives in wcag/_utilities.css and is the
+ * preferred one; it is imported after this file, so wherever CSS @function is
+ * supported it wins on source order. Everything here exists so the engines
+ * without it get an exact shade instead of nothing — the same stable/@function
+ * arrangement as lightness, saturation and hue-rotate.
+ *
+ * Consequence: the two must agree, including on the DEFAULT colour space (oklch,
+ * set in block A and by --default(oklch) over there). A divergence would show up
+ * as a bare text-a11y-aa that looks different per browser.
+ */
+
+/* =========================================================================
+ * Feature detection
+ * ========================================================================= */
+
+/* Firefox parses pow() but rejects a CHANNEL KEYWORD as its argument, which
+ * invalidates the cube-root seeds for oklch/oklab/lch/lab. Isolated precisely:
+ * pow(0.5, 0.333333) is accepted, calc(alpha) used cross-channel is accepted,
+ * pow(alpha, 0.333333) is rejected and the declaration dropped.
+ *
+ * It has to be gated rather than left to fail. A custom property holding an
+ * invalid expression still parses as a token stream, so the failure surfaces
+ * only at `color: var(…)` — as invalid at computed-value time, which makes
+ * `color` fall back to INHERITED, not to the previous declaration. Ungated,
+ * text-a11y-aa/oklch would render inherited text in Firefox.
+ *
+ * Measured true on Chromium and WebKit, false on Firefox. */
+@custom-variant supports-channel-pow {
+  @supports (color: oklch(from red calc(pow(alpha, 0.5)) c h)) {
+    @slot;
+  }
+}
+
+/* =========================================================================
+ * Parameters
+ * ========================================================================= */
+
+/* The requested contrast ratio. Non-inheriting, so a nested text-a11y-* cannot
+ * pick up an ancestor's ratio. */
+@property --tw-jib--a11y--ratio {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 4.5;
+}
+
+/* Level → ratio. Plain @theme, not inline: these are scalars the utility reads
+ * with --value(--tw-jib--a11y-ratio-*).
+ *
+ * Consequence, and deliberate: LEVELS ARE THEMEABLE. A consumer adding
+ * --tw-jib--a11y-ratio-aa-plus: 5 gets a working text-a11y-aa-plus. Nothing
+ * that consults this map may hard-code the three names — which is why the
+ * --tw-jib--a11y-level record (whose allowed values ARE enumerated, for the
+ * badge's benefit) sits in its own @utility blocks below. A --value() that
+ * fails to resolve drops its whole block, so keeping them together would make
+ * every themed level silently non-existent. Verified: with the split,
+ * text-a11y-aa-plus compiles to the full chain reading
+ * var(--tw-jib--a11y-ratio-aa-plus). */
+@theme {
+  --tw-jib--a11y-ratio-aa: 4.5;
+  --tw-jib--a11y-ratio-aaa: 7;
+  --tw-jib--a11y-ratio-aa-lg: 3;
+}
+
+/* =========================================================================
+ * Shade expression map
+ *
+ * SYMBOLIC SOURCE OF TRUTH (the reviewable form; the CSS is this expanded
+ * inline, and there is no generator):
+ *
+ *   Y      = 0.2126·r + 0.7152·g + 0.0722·b        background luminance
+ *   S      = clamp(0, (0.1791 − alpha) · 10⁶, 1)   1 → lighten, 0 → darken
+ *   Yt     = clamp(0, (1−S)·((alpha+0.05)/R − 0.05)
+ *                    +   S ·(R·(alpha+0.05) − 0.05), 1)
+ *   U_c    = Yt · (c − alpha) / max(alpha, 10⁻⁶)   core: pre-scaled chroma vector
+ *   V_c    = c − Yc                                space: candidate chroma vector
+ *   caps   = min(1, (1−alpha)/max(c, 10⁻³), alpha/max(−c, 10⁻³)) over all channels
+ *   out_c  = alpha + caps · c
+ *
+ * R is var(--tw-jib--a11y--ratio). The pivot MUST stay 0.1791 to at least four
+ * significant figures — it is √0.0525 − 0.05, the luminance where headroom
+ * toward black equals headroom toward white. Both epsilons are division guards
+ * only; the scale is bounded by min(1, …), so float residue cannot be
+ * amplified. Full derivation in wcag/_functions.css.
+ *
+ * The chain is  lift( vector( seed( target( carrier(BG) ) ) ) )  and only the
+ * middle varies by colour space, so carrier / target / lift are written once in
+ * the utility and this map holds vectors. Three vectors are element-scoped links
+ * rather than map text: the core, because eleven Class-1 keys would otherwise be
+ * eleven identical copies, and the two oklch seeds, because oklch is the default
+ * space and so is needed with no modifier present too.
+ *
+ * The shared links have to be ELEMENT-SCOPED, not :root. A :root custom
+ * property has its var()s substituted against :root's own values, so
+ * var(--tw-jib--background-color) would resolve to the initial `canvas` and
+ * var(--tw-jib--a11y--ratio) to 4.5 for every element — the same trap that
+ * rules out --default(var(--interp-map-key)) in the lightness maps. Declared by
+ * the utility, they substitute on the element that has the class.
+ *
+ * All 17 keys MUST exist in the interpolation namespace. A missing key makes
+ * --modifier() fail to resolve and Tailwind drops the whole utility, so
+ * text-a11y-aa/srgb would silently stop existing (verified).
+ * ========================================================================= */
+
+@theme inline {
+  /* ── Class 1: linear-light and RGB-family ──
+   * Eleven linear transforms of linear-light RGB. Per-space differences are
+   * visually negligible and the projection is luma-exact in all of them, so
+   * the core IS the shade path for each. */
+  --tw-jib--a11y-shade-interpolation-rgb: var(--tw-jib--a11y--core);
+  --tw-jib--a11y-shade-interpolation-srgb: var(--tw-jib--a11y--core);
+  --tw-jib--a11y-shade-interpolation-srgb-linear: var(--tw-jib--a11y--core);
+  --tw-jib--a11y-shade-interpolation-display-p3: var(--tw-jib--a11y--core);
+  --tw-jib--a11y-shade-interpolation-a98-rgb: var(--tw-jib--a11y--core);
+  --tw-jib--a11y-shade-interpolation-prophoto-rgb: var(--tw-jib--a11y--core);
+  --tw-jib--a11y-shade-interpolation-rec2020: var(--tw-jib--a11y--core);
+  --tw-jib--a11y-shade-interpolation-xyz: var(--tw-jib--a11y--core);
+  --tw-jib--a11y-shade-interpolation-xyz-d50: var(--tw-jib--a11y--core);
+  --tw-jib--a11y-shade-interpolation-xyz-d65: var(--tw-jib--a11y--core);
+  --tw-jib--a11y-shade-interpolation-color-mix: var(--tw-jib--a11y--core);
+
+  /* ── Class 2/3: seed a candidate in the requested space, then reduce it to
+   * its zero-luminance chroma vector (c − Yc) for the lift.
+   *
+   * Every seed reads the TARGET luminance off alpha — that is what the carrier
+   * is for. The seed governs aesthetics only; the lift owns the ratio. So the
+   * portable seeds below are exact, merely less perceptually even than the
+   * cube-root ones in the precise namespace.
+   *
+   * oklab and lab alias their polar twins: identical seeds, only the channel
+   * notation differs. ── */
+
+  /* oklch/oklab, portable seed: L = Yt.
+   * These point at the element-scoped link rather than repeating it because
+   * oklch is also the utility's DEFAULT space, so the same expression is needed
+   * with and without a modifier. */
+  --tw-jib--a11y-shade-interpolation-oklch: var(--tw-jib--a11y--oklch);
+  --tw-jib--a11y-shade-interpolation-oklab: var(--tw-jib--a11y--oklch);
+
+  /* lch/lab, portable seed: L* = 100·Yt. */
+  --tw-jib--a11y-shade-interpolation-lch: color(from lch(from var(--tw-jib--a11y--target) calc(alpha * 100) c h / alpha) srgb-linear
+    calc(r - (0.2126 * r + 0.7152 * g + 0.0722 * b))
+    calc(g - (0.2126 * r + 0.7152 * g + 0.0722 * b))
+    calc(b - (0.2126 * r + 0.7152 * g + 0.0722 * b))
+    / alpha);
+  --tw-jib--a11y-shade-interpolation-lab: color(from lch(from var(--tw-jib--a11y--target) calc(alpha * 100) c h / alpha) srgb-linear
+    calc(r - (0.2126 * r + 0.7152 * g + 0.0722 * b))
+    calc(g - (0.2126 * r + 0.7152 * g + 0.0722 * b))
+    calc(b - (0.2126 * r + 0.7152 * g + 0.0722 * b))
+    / alpha);
+
+  /* hsl: l = Yt, deliberately crude — HSL lightness barely correlates with
+   * luminance, so the lift does the work. Saturation is kept, which means the
+   * seed washes out at extreme targets and the output is less chromatic than
+   * the core's. That is the honest HSL answer. */
+  --tw-jib--a11y-shade-interpolation-hsl: color(from hsl(from var(--tw-jib--a11y--target) h s calc(alpha * 100%) / alpha) srgb-linear
+    calc(r - (0.2126 * r + 0.7152 * g + 0.0722 * b))
+    calc(g - (0.2126 * r + 0.7152 * g + 0.0722 * b))
+    calc(b - (0.2126 * r + 0.7152 * g + 0.0722 * b))
+    / alpha);
+
+  /* hwb: split the input's existing w + b budget by the target rather than
+   * setting w and b from it directly. The obvious seed (w = Yt, b = 1 − Yt)
+   * sums to exactly 100%, and HWB is achromatic whenever w + b >= 100%, which
+   * would make /hwb a greyscale mode for every input. Preserving w + b keeps
+   * the input's chroma budget while the w:b split tracks the target. */
+  --tw-jib--a11y-shade-interpolation-hwb: color(from hwb(from var(--tw-jib--a11y--target) h calc(alpha * (w + b)) calc((1 - alpha) * (w + b)) / alpha) srgb-linear
+    calc(r - (0.2126 * r + 0.7152 * g + 0.0722 * b))
+    calc(g - (0.2126 * r + 0.7152 * g + 0.0722 * b))
+    calc(b - (0.2126 * r + 0.7152 * g + 0.0722 * b))
+    / alpha);
+}
+
+/* Precise namespace — the perceptually even cube-root seeds, for engines that
+ * accept a channel keyword inside pow(). Only the four affected spaces need an
+ * entry: the other thirteen are seed-free or already exact, so their
+ * --modifier() lookup here fails, block C is dropped for them, and block A's
+ * declaration stands. Verified that dropping block C leaves block A intact. */
+@theme inline {
+  /* oklch/oklab: L = Yt^(1/3) — exact for achromatic colours, chromatic error
+   * corrected by the lift. Element-scoped for the same reason as the portable
+   * pair above: oklch is the default space, so block D needs this expression
+   * with no modifier present. */
+  --tw-jib--a11y-shade-precise-oklch: var(--tw-jib--a11y--oklch-precise);
+  --tw-jib--a11y-shade-precise-oklab: var(--tw-jib--a11y--oklch-precise);
+
+  /* lch/lab: the CIE L* transfer, branchless piecewise at the 0.008856 knee.
+   * Exact up to D50 adaptation. */
+  --tw-jib--a11y-shade-precise-lch: color(from lch(from var(--tw-jib--a11y--target) calc(clamp(0, (alpha - 0.008856) * 1000000, 1) * (116 * pow(alpha, 0.333333) - 16) + (1 - clamp(0, (alpha - 0.008856) * 1000000, 1)) * (903.3 * alpha)) c h / alpha) srgb-linear
+    calc(r - (0.2126 * r + 0.7152 * g + 0.0722 * b))
+    calc(g - (0.2126 * r + 0.7152 * g + 0.0722 * b))
+    calc(b - (0.2126 * r + 0.7152 * g + 0.0722 * b))
+    / alpha);
+  --tw-jib--a11y-shade-precise-lab: color(from lch(from var(--tw-jib--a11y--target) calc(clamp(0, (alpha - 0.008856) * 1000000, 1) * (116 * pow(alpha, 0.333333) - 16) + (1 - clamp(0, (alpha - 0.008856) * 1000000, 1)) * (903.3 * alpha)) c h / alpha) srgb-linear
+    calc(r - (0.2126 * r + 0.7152 * g + 0.0722 * b))
+    calc(g - (0.2126 * r + 0.7152 * g + 0.0722 * b))
+    calc(b - (0.2126 * r + 0.7152 * g + 0.0722 * b))
+    / alpha);
+}
+
+/* =========================================================================
+ * Utilities
+ *
+ * Five stacked same-name blocks. They emit independently and never merge:
+ *   A  — the shade (11 declarations)
+ *   B1 — the level record, bare candidates (1 declaration)
+ *   B2 — the level record, modified candidates (2 declarations)
+ *   C  — the precise seed for a modified candidate, gated (2 declarations)
+ *   D  — the precise seed for a bare candidate, gated (2 declarations)
+ * Tailwind sorts same-name blocks most-declarations-first, so C and D land after
+ * A and their --tw-jib--a11y--vector wins where the gate holds.
+ *
+ * A SIXTH definition lives in wcag/_utilities.css: the @function dispatcher,
+ * which is the preferred path and overrides all of this wherever CSS @function
+ * is supported. Everything here is the fallback for engines without it.
+ * ========================================================================= */
+
+/* A — the shade. */
+@utility text-a11y-* {
+  --tw-jib--a11y--ratio: --value(--tw-jib--a11y-ratio-*);
+
+  /* Luminance carrier: the background's linear channels, its WCAG luminance
+   * smuggled into alpha. Relative colour syntax admits one origin per
+   * expression, so this is how a candidate built in oklch can still see the
+   * background's luminance — alpha is a float in [0, 1], exactly a luminance's
+   * range, and it is inert to colour-space conversion. */
+  --tw-jib--a11y--carrier: color(from var(--tw-jib--background-color) srgb-linear r g b / calc(0.2126 * r + 0.7152 * g + 0.0722 * b));
+
+  /* Core chroma vector: channels become Yt·(c − Y)/Y, alpha becomes Yt.
+   * Pre-scaling by Yt/Y is what makes the shade origin-faithful — at scale 1
+   * the output reproduces the background's exact chromaticity — and lets the
+   * lift use a fixed ceiling of 1 for the core and the space seeds alike. */
+  --tw-jib--a11y--core: color(from var(--tw-jib--a11y--carrier) srgb-linear
+    calc(clamp(0, (1 - clamp(0, (0.1791 - alpha) * 1000000, 1)) * ((alpha + 0.05) / var(--tw-jib--a11y--ratio) - 0.05) + clamp(0, (0.1791 - alpha) * 1000000, 1) * (var(--tw-jib--a11y--ratio) * (alpha + 0.05) - 0.05), 1) * (r - alpha) / max(alpha, 0.000001))
+    calc(clamp(0, (1 - clamp(0, (0.1791 - alpha) * 1000000, 1)) * ((alpha + 0.05) / var(--tw-jib--a11y--ratio) - 0.05) + clamp(0, (0.1791 - alpha) * 1000000, 1) * (var(--tw-jib--a11y--ratio) * (alpha + 0.05) - 0.05), 1) * (g - alpha) / max(alpha, 0.000001))
+    calc(clamp(0, (1 - clamp(0, (0.1791 - alpha) * 1000000, 1)) * ((alpha + 0.05) / var(--tw-jib--a11y--ratio) - 0.05) + clamp(0, (0.1791 - alpha) * 1000000, 1) * (var(--tw-jib--a11y--ratio) * (alpha + 0.05) - 0.05), 1) * (b - alpha) / max(alpha, 0.000001))
+    / calc(clamp(0, (1 - clamp(0, (0.1791 - alpha) * 1000000, 1)) * ((alpha + 0.05) / var(--tw-jib--a11y--ratio) - 0.05) + clamp(0, (0.1791 - alpha) * 1000000, 1) * (var(--tw-jib--a11y--ratio) * (alpha + 0.05) - 0.05), 1)));
+
+  /* Retargeted carrier for the space seeds: channels pass through, alpha
+   * becomes Yt. Unused by Class 1, which reads Yt out of --core directly. */
+  --tw-jib--a11y--target: color(from var(--tw-jib--a11y--carrier) srgb-linear r g b
+    / calc(clamp(0, (1 - clamp(0, (0.1791 - alpha) * 1000000, 1)) * ((alpha + 0.05) / var(--tw-jib--a11y--ratio) - 0.05) + clamp(0, (0.1791 - alpha) * 1000000, 1) * (var(--tw-jib--a11y--ratio) * (alpha + 0.05) - 0.05), 1)));
+
+  /* The oklch candidate. oklch is the module's default space — as it is for
+   * every colour transform in this library, and as it is for Tailwind 4 itself —
+   * so this expression is needed with no modifier present, which is why it is an
+   * element-scoped link rather than theme-map text.
+   *
+   * Its cube-root twin lives in blocks C and D instead of here, so that
+   * pow(alpha, …) never appears outside an @supports gate. Harmless if it did —
+   * an unregistered custom property is only a token stream and its validity is
+   * never tested until something substitutes it — but keeping it gated means the
+   * emitted CSS says what it means, and the unit tests can assert that a space
+   * needing no cube root carries no reference to one. */
+  --tw-jib--a11y--oklch: color(from oklch(from var(--tw-jib--a11y--target) calc(alpha) c h / alpha) srgb-linear
+    calc(r - (0.2126 * r + 0.7152 * g + 0.0722 * b))
+    calc(g - (0.2126 * r + 0.7152 * g + 0.0722 * b))
+    calc(b - (0.2126 * r + 0.7152 * g + 0.0722 * b))
+    / alpha);
+
+  /* Space dispatch: oklch is the default, --modifier() overrides it and is
+   * emitted only when a modifier is present. */
+  --tw-jib--a11y--vector: var(--tw-jib--a11y--oklch);
+  --tw-jib--a11y--vector: --modifier(--tw-jib--a11y-shade-interpolation-*);
+
+  /* Shared final stage: out_c = alpha + min(1, caps) · c.
+   * The input channels are a zero-luminance chroma vector and the input alpha
+   * is the target luminance, so the output's luminance is the target
+   * identically, for every value the min() takes. The leading 1 expresses the
+   * preference: keep the vector when it fits, shrink only as far as the gamut
+   * demands. One expression therefore sets luminance exactly, gamut-maps at
+   * constant luminance, and is a no-op on a vector that already fits. */
+  --tw-jib--a11y--shade: color(from var(--tw-jib--a11y--vector) srgb-linear
+    calc(alpha + min(1, (1 - alpha) / max(r, 0.001), alpha / max((0 - r), 0.001), (1 - alpha) / max(g, 0.001), alpha / max((0 - g), 0.001), (1 - alpha) / max(b, 0.001), alpha / max((0 - b), 0.001)) * r)
+    calc(alpha + min(1, (1 - alpha) / max(r, 0.001), alpha / max((0 - r), 0.001), (1 - alpha) / max(g, 0.001), alpha / max((0 - g), 0.001), (1 - alpha) / max(b, 0.001), alpha / max((0 - b), 0.001)) * g)
+    calc(alpha + min(1, (1 - alpha) / max(r, 0.001), alpha / max((0 - r), 0.001), (1 - alpha) / max(g, 0.001), alpha / max((0 - g), 0.001), (1 - alpha) / max(b, 0.001), alpha / max((0 - b), 0.001)) * b)
+    / 1);
+
+  color: var(--tw-jib--a11y--shade);
+  --tw-jib--text-color: var(--tw-jib--a11y--shade);
+}
+
+/* B1/B2 — record the requested level so wcag-badge on the same element can
+ * tell "this is the best the background physically allows" from "this pair is
+ * simply short". Nothing on the stable path reads it (the badge is
+ * Chromium-only), but it costs one declaration and keeps the two paths
+ * behaviourally identical.
+ *
+ * Two blocks because a Tailwind block that does not consume a modifier never
+ * matches a candidate that has one. B2 consumes it into a property nothing
+ * reads; the space names are a closed set, unlike the themeable level names. */
+@utility text-a11y-* {
+  --tw-jib--a11y-level: --value('aa', 'aaa', 'aa-lg');
+}
+
+@utility text-a11y-* {
+  --tw-jib--a11y-level: --value('aa', 'aaa', 'aa-lg');
+  --tw-jib--a11y--level-space: --modifier('oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb', 'srgb', 'srgb-linear', 'display-p3', 'a98-rgb', 'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65', 'color-mix');
+}
+
+/* C — swap in the perceptually even cube-root seed where pow() accepts a
+ * channel keyword. Only oklch/oklab/lch/lab have a precise entry, so this
+ * block simply does not match the other thirteen modifiers.
+ *
+ * Defaulting the ungated path to the portable seed rather than gating the whole
+ * modifier is deliberate: a Firefox reader asking for /oklch gets an
+ * exact-ratio shade whose chroma is shaped in oklch, just seeded differently.
+ * Gating would hand them the core and silently ignore the modifier. */
+@utility text-a11y-* {
+  --tw-jib--a11y--ratio: --value(--tw-jib--a11y-ratio-*);
+  @variant supports-channel-pow {
+    --tw-jib--a11y--oklch-precise: color(from oklch(from var(--tw-jib--a11y--target) calc(pow(alpha, 0.333333)) c h / alpha) srgb-linear
+      calc(r - (0.2126 * r + 0.7152 * g + 0.0722 * b))
+      calc(g - (0.2126 * r + 0.7152 * g + 0.0722 * b))
+      calc(b - (0.2126 * r + 0.7152 * g + 0.0722 * b))
+      / alpha);
+    --tw-jib--a11y--vector: --modifier(--tw-jib--a11y-shade-precise-*);
+  }
+}
+
+/* D — the same swap for the bare candidate, where the default space is oklch.
+ * Block C cannot cover it: --modifier() is what makes C match, and the precise
+ * expression is far too long to pass through --default(), whose argument has all
+ * its whitespace stripped. So this block carries no --modifier() at all, which
+ * is precisely what limits it to candidates that have none. */
+@utility text-a11y-* {
+  --tw-jib--a11y--ratio: --value(--tw-jib--a11y-ratio-*);
+  @variant supports-channel-pow {
+    --tw-jib--a11y--oklch-precise: color(from oklch(from var(--tw-jib--a11y--target) calc(pow(alpha, 0.333333)) c h / alpha) srgb-linear
+      calc(r - (0.2126 * r + 0.7152 * g + 0.0722 * b))
+      calc(g - (0.2126 * r + 0.7152 * g + 0.0722 * b))
+      calc(b - (0.2126 * r + 0.7152 * g + 0.0722 * b))
+      / alpha);
+    --tw-jib--a11y--vector: var(--tw-jib--a11y--oklch-precise);
+  }
+}

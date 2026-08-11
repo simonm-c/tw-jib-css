@@ -59,8 +59,6 @@ export default defineConfig({
         items: [
           { text: 'Comic', link: '/guide/comic' },
           { text: 'Pixel', link: '/guide/pixel' },
-          { text: 'Hatch', link: '/guide/hatch' },
-          { text: 'Watercolor', link: '/guide/watercolor' },
           { text: 'Ripple', link: '/guide/ripple' },
         ],
       },
@@ -74,7 +72,6 @@ export default defineConfig({
       {
         text: 'Supporting',
         items: [
-          { text: 'Scrollbar', link: '/guide/scrollbar' },
           { text: 'Grid', link: '/guide/grid' },
         ],
       },

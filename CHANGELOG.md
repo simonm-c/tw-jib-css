@@ -24,10 +24,8 @@ Initial release.
 
 ### Print Textures
 
-- **Hatch** — pen-and-ink crosshatching via 3-directional repeating gradients
-- **Watercolor** — pigment pool simulation via 18-layer radial gradient stack with 3 palettes
-- **Pixel** — RGB column rendering via 5-layer repeating gradients with screen blending
 - **Comic** — CMYK halftone dots via 5-layer radial gradients with multiply blending
+- **Pixel** — RGB column rendering via 5-layer repeating gradients with screen blending
 
 ### Ripple
 
@@ -37,7 +35,6 @@ Initial release.
 ### Supporting
 
 - **Border Style** — per-side border styles (`border-t-dashed`, etc.)
-- **Scrollbar** — `scrollbar-color`, `scrollbar-width`, `scrollbar-gutter`
 - **Grid** — `grid-template-areas-*`, `grid-area-*`
 
 ### Experimental (separate import)

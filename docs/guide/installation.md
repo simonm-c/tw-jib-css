@@ -63,7 +63,6 @@ Add the experimental entry point for cutting-edge CSS features with limited brow
 | Comic Dots | `tw-jib-css/comic` | Stable |
 | Pixel | `tw-jib-css/pixel` | Stable |
 | Border Style | `tw-jib-css/border-style` | Stable |
-| Scrollbar | `tw-jib-css/scrollbar` | Stable |
 | Grid | `tw-jib-css/grid` | Stable |
 | Corner Shape | `tw-jib-css/experimental/corner` | Experimental |
 | Interpolate Size | `tw-jib-css/experimental/interpolate` | Experimental |

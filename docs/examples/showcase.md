@@ -35,20 +35,4 @@ aside: false
       <span class="text-gray-900 text-sm font-medium mt-4 inline-block underline underline-offset-4 group-hover:underline-offset-8 transition-all">View showcase →</span>
     </div>
   </a>
-  <a href="/tw-jib-css/examples/showcase-watercolor" class="block no-underline group">
-    <div class="bg-watercolor-sky-400 watercolor-contemporary watercolor-wash-3 p-10 min-h-70 flex flex-col justify-end transition-all group-hover:brightness-105">
-      <p class="text-sky-800 text-xs uppercase tracking-widest m-0">Creative Studio</p>
-      <p class="text-3xl font-extrabold text-gray-900 mt-2 mb-0">Watercolor</p>
-      <p class="text-gray-800 text-sm mt-2 mb-0">Nine-pigment washes in three palette traditions. Contemporary, Turner-era, and East Asian ink. Artistic, organic, nature-inspired.</p>
-      <span class="text-gray-900 text-sm font-medium mt-4 inline-block underline underline-offset-4 group-hover:underline-offset-8 transition-all">View showcase →</span>
-    </div>
-  </a>
-  <a href="/tw-jib-css/examples/showcase-hatch" class="block no-underline group">
-    <div class="bg-hatch-slate-600 hatch-stroke-2 hatch-gap-2 p-10 min-h-70 flex flex-col justify-end transition-all group-hover:brightness-110">
-      <p class="text-slate-200 text-xs uppercase tracking-widest m-0">Architecture Firm</p>
-      <p class="text-3xl font-extrabold text-white mt-2 mb-0">Hatch</p>
-      <p class="text-slate-200 text-sm mt-2 mb-0">Crosshatch ink strokes with automatic density gating. Stroke complexity follows input lightness. Technical, architectural, editorial.</p>
-      <span class="text-white text-sm font-medium mt-4 inline-block underline underline-offset-4 group-hover:underline-offset-8 transition-all">View showcase →</span>
-    </div>
-  </a>
 </div>

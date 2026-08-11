@@ -84,12 +84,6 @@ title: Jibcss
   <div class="aspect-square rounded-xl bg-pixel-(color:--landing-tex-color) relative">
     <span class="absolute bottom-2 left-2 font-mono text-[9px] text-white opacity-60">pixel</span>
   </div>
-  <div class="aspect-square rounded-xl bg-hatch-(color:--landing-tex-color) relative">
-    <span class="absolute bottom-2 left-2 font-mono text-[9px] opacity-60">hatch</span>
-  </div>
-  <div class="aspect-square rounded-xl bg-watercolor-(color:--landing-tex-color) relative">
-    <span class="absolute bottom-2 left-2 font-mono text-[9px] opacity-60">watercolor</span>
-  </div>
 </div>
 </MagazineSlide>
 
@@ -97,8 +91,6 @@ title: Jibcss
 <div class="grid grid-cols-2 gap-4 w-full max-w-md">
   <div class="aspect-square rounded-xl landing-comic-params bg-comic-indigo-600"></div>
   <div class="aspect-square rounded-xl landing-pixel-params bg-pixel-indigo-600"></div>
-  <div class="aspect-square rounded-xl landing-hatch-params bg-hatch-indigo-600"></div>
-  <div class="aspect-square rounded-xl landing-wc-params bg-watercolor-indigo-600"></div>
 </div>
 </MagazineSlide>
 

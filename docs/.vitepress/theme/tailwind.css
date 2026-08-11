@@ -39,7 +39,7 @@
 /*
  * Color keyframes: hold ~80% of each segment, ease ~20%.
  * 6 colors × 3s = 18s. Alternates mid → dark → light → dark → light → mid
- * to showcase lightness-dependent behaviors (hatch density, darken headroom, etc.)
+ * to showcase lightness-dependent behaviors (comic dot density, pixel bloom, darken headroom, etc.)
  */
 @keyframes landing-base-color {
   0%, 14%  { --landing-base-color: oklch(0.623 0.214 259); }  /* blue-500 — mid */
@@ -235,7 +235,7 @@
   /* ── Sidebar ── */
   .VPSidebar {
     --vp-sidebar-bg-color: oklch(from var(--color-jib-brand) calc(l + 0.92 * (1 - l)) calc(c * 0.25) h);
-    @apply scrollbar-width-thin scrollbar-thumb-jib-brand scrollbar-track-[transparent];
+    @apply scrollbar-thin scrollbar-thumb-jib-brand scrollbar-track-transparent;
   }
   .dark .VPSidebar {
     --vp-sidebar-bg-color: oklch(from var(--color-jib-brand) calc(l * 0.24) calc(c * 0.5) h);

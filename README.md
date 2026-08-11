@@ -94,19 +94,16 @@ Material-style ripple effect — pure CSS, no JavaScript. Radial gradient animat
 
 Pure CSS print-inspired texture effects via layered gradient composition.
 
-| Module     | Import                  | Description                                             |
-| ---------- | ----------------------- | ------------------------------------------------------- |
-| Comic      | `tw-jib-css/comic`      | CMYK halftone dots via radial gradient + multiply       |
-| Hatch      | `tw-jib-css/hatch`      | Pen-and-ink crosshatching via repeating linear gradient |
-| Pixel      | `tw-jib-css/pixel`      | RGB LCD/CRT columns via repeating linear gradient       |
-| Watercolor | `tw-jib-css/watercolor` | Pigment pools via radial gradient with 3 palettes       |
+| Module | Import             | Description                                       |
+| ------ | ------------------ | ------------------------------------------------- |
+| Comic  | `tw-jib-css/comic` | CMYK halftone dots via radial gradient + multiply |
+| Pixel  | `tw-jib-css/pixel` | RGB LCD/CRT columns via repeating linear gradient |
 
 ### Supporting Modules
 
 | Module       | Import                    | Description                                              |
 | ------------ | ------------------------- | -------------------------------------------------------- |
 | Border Style | `tw-jib-css/border-style` | Per-side border styles (`border-t-dashed`, etc.)         |
-| Scrollbar    | `tw-jib-css/scrollbar`    | `scrollbar-color`, `scrollbar-width`, `scrollbar-gutter` |
 | Grid         | `tw-jib-css/grid`         | Grid template areas and named grid areas                 |
 
 ### Experimental Modules

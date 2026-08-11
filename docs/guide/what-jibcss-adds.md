@@ -7,22 +7,22 @@ title: What Jibcss Adds
 One element, three layers that plain Tailwind can't do:
 
 <Example>
-  <div class="bg-watercolor-indigo-600
+  <div class="bg-comic-indigo-600
     border-4 border-linear-to-br border-from-indigo-300 border-to-cyan-300
     text-white
     rounded-xl p-6 max-w-sm">
     <h3 class="text-lg font-bold">Event name</h3>
-    <p class="text-sm mt-1 opacity-90">A card with a watercolour background, a gradient border, and auto-contrasted text. All CSS, no JavaScript.</p>
+    <p class="text-sm mt-1 opacity-90">A card with a comic halftone background, a gradient border, and auto-contrasted text. All CSS, no JavaScript.</p>
   </div>
 </Example>
 
 ```html
-<div class="bg-watercolor-indigo-600
+<div class="bg-comic-indigo-600
   border-4 border-linear-to-br border-from-indigo-300 border-to-cyan-300
   text-a11y-aa
   rounded-xl p-6">
   <h3>Event name</h3>
-  <p>A card with a watercolour background, a gradient border,
+  <p>A card with a comic halftone background, a gradient border,
      and auto-contrasted text.</p>
 </div>
 ```
@@ -31,9 +31,9 @@ Every class in that snippet either comes from stock Tailwind (`rounded-xl`, `p-6
 
 ## The background is a texture, not an image
 
-`bg-watercolor-indigo-600` takes `indigo-600` and renders it as a nine-pigment watercolour wash — pure CSS gradients with multiply blending. Change the colour to `bg-watercolor-rose-500` and the pigment pools recalculate.
+`bg-comic-indigo-600` takes `indigo-600` and renders it as CMYK halftone dots — pure CSS gradients with multiply blending. Change the colour to `bg-comic-rose-500` and the dot layers recalculate.
 
-Four textures are available: comic (CMYK halftone), pixel (CRT phosphors), hatch (pen-and-ink), and watercolour. See [Print Textures](/guide/print-textures).
+Two textures are available: comic (CMYK halftone) and pixel (CRT phosphors). See [Print Textures](/guide/print-textures).
 
 ## The text colour is computed from the background
 

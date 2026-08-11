@@ -25,12 +25,9 @@
     "ripple",
     "saturation",
     "hue-rotate",
-    "hatch",
-    "watercolor",
     "comic",
     "pixel",
     "print-texture",
-    "scrollbar",
     "grid",
     "border-style",
     "accessible-color",
@@ -77,10 +74,6 @@
       "style": "./src/border-style.css",
       "default": "./src/border-style.css"
     },
-    "./scrollbar": {
-      "style": "./src/scrollbar.css",
-      "default": "./src/scrollbar.css"
-    },
     "./grid": {
       "style": "./src/grid.css",
       "default": "./src/grid.css"
@@ -89,17 +82,9 @@
       "style": "./src/comic.css",
       "default": "./src/comic.css"
     },
-    "./hatch": {
-      "style": "./src/hatch.css",
-      "default": "./src/hatch.css"
-    },
     "./pixel": {
       "style": "./src/pixel.css",
       "default": "./src/pixel.css"
-    },
-    "./watercolor": {
-      "style": "./src/watercolor.css",
-      "default": "./src/watercolor.css"
     },
     "./experimental/corner": {
       "style": "./src/experimental/corner.css",

@@ -151,15 +151,15 @@ Default ripple (white 20% opacity, 400ms, center).
     <p class="text-xs font-mono text-center mt-1">bg-pixel-red-500</p>
   </div>
   <div>
-    <div data-test="pixel-large" class="bg-pixel-emerald-400 pixel-size-4 pixel-gap-2 pixel-bleed-1 bg-ripple ripple-color-emerald-200 h-32 rounded-lg cursor-pointer"></div>
+    <div data-test="pixel-large" class="bg-pixel-emerald-400 pixel-size-4 pixel-gap-2 pixel-bloom-1 bg-ripple ripple-color-emerald-200 h-32 rounded-lg cursor-pointer"></div>
     <p class="text-xs font-mono text-center mt-1">large pixels + colored ripple</p>
   </div>
   <div>
-    <div data-test="pixel-crisp" class="bg-pixel-amber-400 pixel-size-1 pixel-gap-1 pixel-bleed-0 bg-ripple h-32 rounded-lg cursor-pointer"></div>
+    <div data-test="pixel-crisp" class="bg-pixel-amber-400 pixel-size-1 pixel-gap-1 pixel-bloom-0 bg-ripple h-32 rounded-lg cursor-pointer"></div>
     <p class="text-xs font-mono text-center mt-1">crisp tiny pixels</p>
   </div>
   <div>
-    <div data-test="pixel-glow" class="bg-pixel-fuchsia-400 pixel-size-3 pixel-gap-1 pixel-bleed-2 bg-ripple ripple-color-fuchsia-200 h-32 rounded-lg cursor-pointer"></div>
+    <div data-test="pixel-glow" class="bg-pixel-fuchsia-400 pixel-size-3 pixel-gap-1 pixel-bloom-2 bg-ripple ripple-color-fuchsia-200 h-32 rounded-lg cursor-pointer"></div>
     <p class="text-xs font-mono text-center mt-1">CRT glow + colored ripple</p>
   </div>
   <div>
@@ -175,15 +175,15 @@ Default ripple (white 20% opacity, 400ms, center).
     <p class="text-xs font-mono text-center mt-1">pixels + border-conic</p>
   </div>
   <div>
-    <div data-test="pixel-border-spin" class="bg-pixel-emerald-400 pixel-size-4 pixel-gap-2 pixel-bleed-1 bg-ripple ripple-color-emerald-200 h-32 rounded-lg border-4 border-conic-0 border-spin border-from-emerald-400 border-via-cyan-400 border-to-emerald-400 cursor-pointer"></div>
+    <div data-test="pixel-border-spin" class="bg-pixel-emerald-400 pixel-size-4 pixel-gap-2 pixel-bloom-1 bg-ripple ripple-color-emerald-200 h-32 rounded-lg border-4 border-conic-0 border-spin border-from-emerald-400 border-via-cyan-400 border-to-emerald-400 cursor-pointer"></div>
     <p class="text-xs font-mono text-center mt-1">large pixels + border-spin</p>
   </div>
   <div>
-    <div data-test="pixel-border-via" class="bg-pixel-amber-400 pixel-size-1 pixel-gap-1 pixel-bleed-0 bg-ripple h-32 rounded-lg border-4 border-linear-to-br border-from-rose-500 border-via-amber-400 border-to-indigo-500 cursor-pointer"></div>
+    <div data-test="pixel-border-via" class="bg-pixel-amber-400 pixel-size-1 pixel-gap-1 pixel-bloom-0 bg-ripple h-32 rounded-lg border-4 border-linear-to-br border-from-rose-500 border-via-amber-400 border-to-indigo-500 cursor-pointer"></div>
     <p class="text-xs font-mono text-center mt-1">crisp pixels + border via</p>
   </div>
   <div>
-    <div data-test="pixel-border-interp" class="bg-pixel-fuchsia-400 pixel-size-3 pixel-gap-1 pixel-bleed-2 bg-ripple ripple-color-fuchsia-200 h-32 rounded-lg border-4 border-linear-to-r/longer border-from-red-500 border-to-blue-500 cursor-pointer"></div>
+    <div data-test="pixel-border-interp" class="bg-pixel-fuchsia-400 pixel-size-3 pixel-gap-1 pixel-bloom-2 bg-ripple ripple-color-fuchsia-200 h-32 rounded-lg border-4 border-linear-to-r/longer border-from-red-500 border-to-blue-500 cursor-pointer"></div>
     <p class="text-xs font-mono text-center mt-1">CRT glow + border /longer</p>
   </div>
 </div>
@@ -473,7 +473,7 @@ Custom ripple-color, ripple-duration, and ripple-fade with border gradients.
     <p class="text-xs font-mono text-center mt-1">pixel + border-radial</p>
   </div>
   <div>
-    <div data-test="pixel-border-spin" class="bg-pixel-fuchsia-400 pixel-size-3 pixel-gap-1 pixel-bleed-2 bg-ripple h-32 rounded-lg border-4 border-conic-0 border-spin border-from-emerald-400 border-via-cyan-400 border-to-emerald-400 cursor-pointer"></div>
+    <div data-test="pixel-border-spin" class="bg-pixel-fuchsia-400 pixel-size-3 pixel-gap-1 pixel-bloom-2 bg-ripple h-32 rounded-lg border-4 border-conic-0 border-spin border-from-emerald-400 border-via-cyan-400 border-to-emerald-400 cursor-pointer"></div>
     <p class="text-xs font-mono text-center mt-1">pixel CRT + border-spin</p>
   </div>
 </div>

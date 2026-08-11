@@ -60,15 +60,15 @@ describe('pixel utilities', () => {
     });
   });
 
-  describe('pixel-bleed-*', () => {
-    test('pixel-bleed-1 sets bleed with spacing/4 scaling', async () => {
-      const css = await compile('pixel-bleed-1');
-      expect(css).toContain('--tw-jib--pixel-bleed');
+  describe('pixel-bloom-*', () => {
+    test('pixel-bloom-1 sets bloom with spacing/4 scaling', async () => {
+      const css = await compile('pixel-bloom-1');
+      expect(css).toContain('--tw-jib--pixel-bloom');
     });
 
-    test('pixel-bleed-[2px] accepts arbitrary length', async () => {
-      const css = await compile('pixel-bleed-[2px]');
-      expect(css).toContain('--tw-jib--pixel-bleed: 2px');
+    test('pixel-bloom-[2px] accepts arbitrary length', async () => {
+      const css = await compile('pixel-bloom-[2px]');
+      expect(css).toContain('--tw-jib--pixel-bloom: 2px');
     });
   });
 });

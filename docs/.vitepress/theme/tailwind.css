@@ -64,22 +64,10 @@
   75%, 97% { --tw-jib--comic-dot: 1.5px; --tw-jib--comic-gap: 3px; }
 }
 @keyframes landing-pixel-params {
-  0%, 22%  { --tw-jib--pixel-size: 1px;   --tw-jib--pixel-bleed: 1px; }
-  25%, 47% { --tw-jib--pixel-size: 2px;   --tw-jib--pixel-bleed: 2px; }
-  50%, 72% { --tw-jib--pixel-size: 0.5px; --tw-jib--pixel-bleed: 0.5px; }
-  75%, 97% { --tw-jib--pixel-size: 1.5px; --tw-jib--pixel-bleed: 1.5px; }
-}
-@keyframes landing-hatch-params {
-  0%, 22%  { --tw-jib--hatch-angle: 35deg; --tw-jib--hatch-stroke: 3px; --tw-jib--hatch-gap: 2px; }
-  25%, 47% { --tw-jib--hatch-angle: 60deg; --tw-jib--hatch-stroke: 1px; --tw-jib--hatch-gap: 4px; }
-  50%, 72% { --tw-jib--hatch-angle: 0deg;  --tw-jib--hatch-stroke: 5px; --tw-jib--hatch-gap: 1px; }
-  75%, 97% { --tw-jib--hatch-angle: 90deg; --tw-jib--hatch-stroke: 2px; --tw-jib--hatch-gap: 3px; }
-}
-@keyframes landing-wc-params {
-  0%, 22%  { --tw-jib--wc-wash: 3; }
-  25%, 47% { --tw-jib--wc-wash: 1; }
-  50%, 72% { --tw-jib--wc-wash: 5; }
-  75%, 97% { --tw-jib--wc-wash: 2; }
+  0%, 22%  { --tw-jib--pixel-size: 1px;   --tw-jib--pixel-bloom: 1px; }
+  25%, 47% { --tw-jib--pixel-size: 2px;   --tw-jib--pixel-bloom: 2px; }
+  50%, 72% { --tw-jib--pixel-size: 0.5px; --tw-jib--pixel-bloom: 0.5px; }
+  75%, 97% { --tw-jib--pixel-size: 1.5px; --tw-jib--pixel-bloom: 1.5px; }
 }
 
 .landing-color-cycle { animation: landing-base-color 18s ease-in-out infinite; }

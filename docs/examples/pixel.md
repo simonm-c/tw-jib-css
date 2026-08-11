@@ -11,7 +11,7 @@ RGB pixel columns on black background with `screen` blend mode (additive mixing)
 
 ## Utility Classes — Primary & Secondary Colors
 
-Defaults: size 1 (width=1px, height=2px), gap 1, bleed 1px.
+Defaults: size 1 (width=1px, height=2px), gap 1, bloom 1px.
 
 <div class="grid grid-cols-4 gap-4 my-6">
   <div>
@@ -106,273 +106,273 @@ Using `bg-pixel-red-500`. Size sets width (spacing/4, so size-1 = 1px); height i
   </div>
 </div>
 
-## Bleed (pixel-bleed-*)
+## Bloom (pixel-bloom-*)
 
-Using `bg-pixel-white`. From crisp LCD to CRT phosphor glow.
+Using `bg-pixel-white`. From crisp LCD through CRT phosphor glow to saturation.
 
 <div class="grid grid-cols-5 gap-3 my-6">
   <div>
-    <div data-test="bleed-0" class="bg-pixel-white pixel-bleed-0 h-28 rounded-lg"></div>
-    <p class="text-xs font-mono text-center mt-1">bleed-0 (crisp)</p>
+    <div data-test="bloom-0" class="bg-pixel-white pixel-bloom-0 h-28 rounded-lg"></div>
+    <p class="text-xs font-mono text-center mt-1">bloom-0 (crisp)</p>
   </div>
   <div>
-    <div data-test="bleed-0.5" class="bg-pixel-white pixel-bleed-0.5 h-28 rounded-lg"></div>
-    <p class="text-xs font-mono text-center mt-1">bleed-0.5</p>
+    <div data-test="bloom-1" class="bg-pixel-white pixel-bloom-1 h-28 rounded-lg"></div>
+    <p class="text-xs font-mono text-center mt-1">bloom-1</p>
   </div>
   <div>
-    <div data-test="bleed-1" class="bg-pixel-white pixel-bleed-1 h-28 rounded-lg"></div>
-    <p class="text-xs font-mono text-center mt-1">bleed-1</p>
+    <div data-test="bloom-2" class="bg-pixel-white pixel-bloom-2 h-28 rounded-lg"></div>
+    <p class="text-xs font-mono text-center mt-1">bloom-2</p>
   </div>
   <div>
-    <div data-test="bleed-1.5" class="bg-pixel-white pixel-bleed-1.5 h-28 rounded-lg"></div>
-    <p class="text-xs font-mono text-center mt-1">bleed-1.5</p>
+    <div data-test="bloom-3" class="bg-pixel-white pixel-bloom-3 h-28 rounded-lg"></div>
+    <p class="text-xs font-mono text-center mt-1">bloom-3</p>
   </div>
   <div>
-    <div data-test="bleed-2" class="bg-pixel-white pixel-bleed-2 h-28 rounded-lg"></div>
-    <p class="text-xs font-mono text-center mt-1">bleed-2</p>
+    <div data-test="bloom-4" class="bg-pixel-white pixel-bloom-4 h-28 rounded-lg"></div>
+    <p class="text-xs font-mono text-center mt-1">bloom-4</p>
   </div>
 </div>
 
-### Bleed — All Tailwind Colors (bleed-1)
+### Bloom — All Tailwind Colors (bloom-1)
 
 <div class="grid grid-cols-[auto_1fr_1fr] gap-x-3 gap-y-1 items-center my-6">
   <p class="text-xs font-mono font-bold">Color</p>
-  <p class="text-xs font-mono font-bold text-center">bleed-0</p>
-  <p class="text-xs font-mono font-bold text-center">bleed-1</p>
+  <p class="text-xs font-mono font-bold text-center">bloom-0</p>
+  <p class="text-xs font-mono font-bold text-center">bloom-1</p>
 
   <p class="text-xs font-mono">red-500</p>
-  <div data-test="bleed-color-red-0" class="bg-pixel-red-500 pixel-bleed-0 h-16 rounded-lg"></div>
-  <div data-test="bleed-color-red-1" class="bg-pixel-red-500 pixel-bleed-1 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-red-0" class="bg-pixel-red-500 pixel-bloom-0 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-red-1" class="bg-pixel-red-500 pixel-bloom-1 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">orange-500</p>
-  <div data-test="bleed-color-orange-0" class="bg-pixel-orange-500 pixel-bleed-0 h-16 rounded-lg"></div>
-  <div data-test="bleed-color-orange-1" class="bg-pixel-orange-500 pixel-bleed-1 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-orange-0" class="bg-pixel-orange-500 pixel-bloom-0 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-orange-1" class="bg-pixel-orange-500 pixel-bloom-1 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">amber-500</p>
-  <div data-test="bleed-color-amber-0" class="bg-pixel-amber-500 pixel-bleed-0 h-16 rounded-lg"></div>
-  <div data-test="bleed-color-amber-1" class="bg-pixel-amber-500 pixel-bleed-1 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-amber-0" class="bg-pixel-amber-500 pixel-bloom-0 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-amber-1" class="bg-pixel-amber-500 pixel-bloom-1 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">yellow-500</p>
-  <div data-test="bleed-color-yellow-0" class="bg-pixel-yellow-500 pixel-bleed-0 h-16 rounded-lg"></div>
-  <div data-test="bleed-color-yellow-1" class="bg-pixel-yellow-500 pixel-bleed-1 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-yellow-0" class="bg-pixel-yellow-500 pixel-bloom-0 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-yellow-1" class="bg-pixel-yellow-500 pixel-bloom-1 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">lime-500</p>
-  <div data-test="bleed-color-lime-0" class="bg-pixel-lime-500 pixel-bleed-0 h-16 rounded-lg"></div>
-  <div data-test="bleed-color-lime-1" class="bg-pixel-lime-500 pixel-bleed-1 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-lime-0" class="bg-pixel-lime-500 pixel-bloom-0 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-lime-1" class="bg-pixel-lime-500 pixel-bloom-1 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">green-500</p>
-  <div data-test="bleed-color-green-0" class="bg-pixel-green-500 pixel-bleed-0 h-16 rounded-lg"></div>
-  <div data-test="bleed-color-green-1" class="bg-pixel-green-500 pixel-bleed-1 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-green-0" class="bg-pixel-green-500 pixel-bloom-0 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-green-1" class="bg-pixel-green-500 pixel-bloom-1 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">emerald-500</p>
-  <div data-test="bleed-color-emerald-0" class="bg-pixel-emerald-500 pixel-bleed-0 h-16 rounded-lg"></div>
-  <div data-test="bleed-color-emerald-1" class="bg-pixel-emerald-500 pixel-bleed-1 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-emerald-0" class="bg-pixel-emerald-500 pixel-bloom-0 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-emerald-1" class="bg-pixel-emerald-500 pixel-bloom-1 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">teal-500</p>
-  <div data-test="bleed-color-teal-0" class="bg-pixel-teal-500 pixel-bleed-0 h-16 rounded-lg"></div>
-  <div data-test="bleed-color-teal-1" class="bg-pixel-teal-500 pixel-bleed-1 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-teal-0" class="bg-pixel-teal-500 pixel-bloom-0 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-teal-1" class="bg-pixel-teal-500 pixel-bloom-1 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">cyan-500</p>
-  <div data-test="bleed-color-cyan-0" class="bg-pixel-cyan-500 pixel-bleed-0 h-16 rounded-lg"></div>
-  <div data-test="bleed-color-cyan-1" class="bg-pixel-cyan-500 pixel-bleed-1 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-cyan-0" class="bg-pixel-cyan-500 pixel-bloom-0 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-cyan-1" class="bg-pixel-cyan-500 pixel-bloom-1 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">sky-500</p>
-  <div data-test="bleed-color-sky-0" class="bg-pixel-sky-500 pixel-bleed-0 h-16 rounded-lg"></div>
-  <div data-test="bleed-color-sky-1" class="bg-pixel-sky-500 pixel-bleed-1 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-sky-0" class="bg-pixel-sky-500 pixel-bloom-0 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-sky-1" class="bg-pixel-sky-500 pixel-bloom-1 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">blue-500</p>
-  <div data-test="bleed-color-blue-0" class="bg-pixel-blue-500 pixel-bleed-0 h-16 rounded-lg"></div>
-  <div data-test="bleed-color-blue-1" class="bg-pixel-blue-500 pixel-bleed-1 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-blue-0" class="bg-pixel-blue-500 pixel-bloom-0 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-blue-1" class="bg-pixel-blue-500 pixel-bloom-1 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">indigo-500</p>
-  <div data-test="bleed-color-indigo-0" class="bg-pixel-indigo-500 pixel-bleed-0 h-16 rounded-lg"></div>
-  <div data-test="bleed-color-indigo-1" class="bg-pixel-indigo-500 pixel-bleed-1 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-indigo-0" class="bg-pixel-indigo-500 pixel-bloom-0 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-indigo-1" class="bg-pixel-indigo-500 pixel-bloom-1 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">violet-500</p>
-  <div data-test="bleed-color-violet-0" class="bg-pixel-violet-500 pixel-bleed-0 h-16 rounded-lg"></div>
-  <div data-test="bleed-color-violet-1" class="bg-pixel-violet-500 pixel-bleed-1 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-violet-0" class="bg-pixel-violet-500 pixel-bloom-0 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-violet-1" class="bg-pixel-violet-500 pixel-bloom-1 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">purple-500</p>
-  <div data-test="bleed-color-purple-0" class="bg-pixel-purple-500 pixel-bleed-0 h-16 rounded-lg"></div>
-  <div data-test="bleed-color-purple-1" class="bg-pixel-purple-500 pixel-bleed-1 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-purple-0" class="bg-pixel-purple-500 pixel-bloom-0 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-purple-1" class="bg-pixel-purple-500 pixel-bloom-1 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">fuchsia-500</p>
-  <div data-test="bleed-color-fuchsia-0" class="bg-pixel-fuchsia-500 pixel-bleed-0 h-16 rounded-lg"></div>
-  <div data-test="bleed-color-fuchsia-1" class="bg-pixel-fuchsia-500 pixel-bleed-1 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-fuchsia-0" class="bg-pixel-fuchsia-500 pixel-bloom-0 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-fuchsia-1" class="bg-pixel-fuchsia-500 pixel-bloom-1 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">pink-500</p>
-  <div data-test="bleed-color-pink-0" class="bg-pixel-pink-500 pixel-bleed-0 h-16 rounded-lg"></div>
-  <div data-test="bleed-color-pink-1" class="bg-pixel-pink-500 pixel-bleed-1 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-pink-0" class="bg-pixel-pink-500 pixel-bloom-0 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-pink-1" class="bg-pixel-pink-500 pixel-bloom-1 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">rose-500</p>
-  <div data-test="bleed-color-rose-0" class="bg-pixel-rose-500 pixel-bleed-0 h-16 rounded-lg"></div>
-  <div data-test="bleed-color-rose-1" class="bg-pixel-rose-500 pixel-bleed-1 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-rose-0" class="bg-pixel-rose-500 pixel-bloom-0 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-rose-1" class="bg-pixel-rose-500 pixel-bloom-1 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">slate-500</p>
-  <div data-test="bleed-color-slate-0" class="bg-pixel-slate-500 pixel-bleed-0 h-16 rounded-lg"></div>
-  <div data-test="bleed-color-slate-1" class="bg-pixel-slate-500 pixel-bleed-1 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-slate-0" class="bg-pixel-slate-500 pixel-bloom-0 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-slate-1" class="bg-pixel-slate-500 pixel-bloom-1 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">gray-500</p>
-  <div data-test="bleed-color-gray-0" class="bg-pixel-gray-500 pixel-bleed-0 h-16 rounded-lg"></div>
-  <div data-test="bleed-color-gray-1" class="bg-pixel-gray-500 pixel-bleed-1 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-gray-0" class="bg-pixel-gray-500 pixel-bloom-0 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-gray-1" class="bg-pixel-gray-500 pixel-bloom-1 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">white</p>
-  <div data-test="bleed-color-white-0" class="bg-pixel-white pixel-bleed-0 h-16 rounded-lg"></div>
-  <div data-test="bleed-color-white-1" class="bg-pixel-white pixel-bleed-1 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-white-0" class="bg-pixel-white pixel-bloom-0 h-16 rounded-lg"></div>
+  <div data-test="bloom-color-white-1" class="bg-pixel-white pixel-bloom-1 h-16 rounded-lg"></div>
 
   <p class="text-xs font-mono">black</p>
-  <div data-test="bleed-color-black-0" class="bg-pixel-black pixel-bleed-0 h-16 rounded-lg border border-gray-700"></div>
-  <div data-test="bleed-color-black-1" class="bg-pixel-black pixel-bleed-1 h-16 rounded-lg border border-gray-700"></div>
+  <div data-test="bloom-color-black-0" class="bg-pixel-black pixel-bloom-0 h-16 rounded-lg border border-gray-700"></div>
+  <div data-test="bloom-color-black-1" class="bg-pixel-black pixel-bloom-1 h-16 rounded-lg border border-gray-700"></div>
 </div>
 
-### Bleed + Size Combinations (color: white)
+### Bloom + Size Combinations (color: white)
 
 <div class="my-6">
   <h3 class="text-sm font-mono mb-2">size-1 (1px)</h3>
   <div class="grid grid-cols-5 gap-3 mb-6">
     <div>
-      <div data-test="bleed-size1-b0" class="bg-pixel-white pixel-size-1 pixel-bleed-0 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">bleed-0</p>
+      <div data-test="bloom-size1-b0" class="bg-pixel-white pixel-size-1 pixel-bloom-0 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">bloom-0</p>
     </div>
     <div>
-      <div data-test="bleed-size1-b05" class="bg-pixel-white pixel-size-1 pixel-bleed-0.5 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">bleed-0.5</p>
+      <div data-test="bloom-size1-b1" class="bg-pixel-white pixel-size-1 pixel-bloom-1 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">bloom-1</p>
     </div>
     <div>
-      <div data-test="bleed-size1-b1" class="bg-pixel-white pixel-size-1 pixel-bleed-1 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">bleed-1</p>
+      <div data-test="bloom-size1-b2" class="bg-pixel-white pixel-size-1 pixel-bloom-2 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">bloom-2</p>
     </div>
     <div>
-      <div data-test="bleed-size1-b15" class="bg-pixel-white pixel-size-1 pixel-bleed-1.5 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">bleed-1.5</p>
+      <div data-test="bloom-size1-b3" class="bg-pixel-white pixel-size-1 pixel-bloom-3 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">bloom-3</p>
     </div>
     <div>
-      <div data-test="bleed-size1-b2" class="bg-pixel-white pixel-size-1 pixel-bleed-2 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">bleed-2</p>
+      <div data-test="bloom-size1-b4" class="bg-pixel-white pixel-size-1 pixel-bloom-4 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">bloom-4</p>
     </div>
   </div>
 
   <h3 class="text-sm font-mono mb-2">size-2 (2px)</h3>
   <div class="grid grid-cols-5 gap-3 mb-6">
     <div>
-      <div data-test="bleed-size2-b0" class="bg-pixel-white pixel-size-2 pixel-bleed-0 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">bleed-0</p>
+      <div data-test="bloom-size2-b0" class="bg-pixel-white pixel-size-2 pixel-bloom-0 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">bloom-0</p>
     </div>
     <div>
-      <div data-test="bleed-size2-b05" class="bg-pixel-white pixel-size-2 pixel-bleed-0.5 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">bleed-0.5</p>
+      <div data-test="bloom-size2-b1" class="bg-pixel-white pixel-size-2 pixel-bloom-1 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">bloom-1</p>
     </div>
     <div>
-      <div data-test="bleed-size2-b1" class="bg-pixel-white pixel-size-2 pixel-bleed-1 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">bleed-1</p>
+      <div data-test="bloom-size2-b2" class="bg-pixel-white pixel-size-2 pixel-bloom-2 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">bloom-2</p>
     </div>
     <div>
-      <div data-test="bleed-size2-b15" class="bg-pixel-white pixel-size-2 pixel-bleed-1.5 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">bleed-1.5</p>
+      <div data-test="bloom-size2-b3" class="bg-pixel-white pixel-size-2 pixel-bloom-3 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">bloom-3</p>
     </div>
     <div>
-      <div data-test="bleed-size2-b2" class="bg-pixel-white pixel-size-2 pixel-bleed-2 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">bleed-2</p>
+      <div data-test="bloom-size2-b4" class="bg-pixel-white pixel-size-2 pixel-bloom-4 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">bloom-4</p>
     </div>
   </div>
 
   <h3 class="text-sm font-mono mb-2">size-3 (3px)</h3>
   <div class="grid grid-cols-5 gap-3 mb-6">
     <div>
-      <div data-test="bleed-size3-b0" class="bg-pixel-white pixel-size-3 pixel-bleed-0 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">bleed-0</p>
+      <div data-test="bloom-size3-b0" class="bg-pixel-white pixel-size-3 pixel-bloom-0 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">bloom-0</p>
     </div>
     <div>
-      <div data-test="bleed-size3-b05" class="bg-pixel-white pixel-size-3 pixel-bleed-0.5 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">bleed-0.5</p>
+      <div data-test="bloom-size3-b1" class="bg-pixel-white pixel-size-3 pixel-bloom-1 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">bloom-1</p>
     </div>
     <div>
-      <div data-test="bleed-size3-b1" class="bg-pixel-white pixel-size-3 pixel-bleed-1 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">bleed-1</p>
+      <div data-test="bloom-size3-b2" class="bg-pixel-white pixel-size-3 pixel-bloom-2 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">bloom-2</p>
     </div>
     <div>
-      <div data-test="bleed-size3-b15" class="bg-pixel-white pixel-size-3 pixel-bleed-1.5 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">bleed-1.5</p>
+      <div data-test="bloom-size3-b3" class="bg-pixel-white pixel-size-3 pixel-bloom-3 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">bloom-3</p>
     </div>
     <div>
-      <div data-test="bleed-size3-b2" class="bg-pixel-white pixel-size-3 pixel-bleed-2 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">bleed-2</p>
+      <div data-test="bloom-size3-b4" class="bg-pixel-white pixel-size-3 pixel-bloom-4 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">bloom-4</p>
     </div>
   </div>
 </div>
 
-### Bleed + Gap Combinations (color: white, size default)
+### Bloom + Gap Combinations (color: white, size default)
 
 <div class="my-6">
   <h3 class="text-sm font-mono mb-2">gap-0.5</h3>
   <div class="grid grid-cols-5 gap-3 mb-6">
     <div>
-      <div data-test="bleed-gap05-b0" class="bg-pixel-white pixel-gap-0.5 pixel-bleed-0 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">bleed-0</p>
+      <div data-test="bloom-gap05-b0" class="bg-pixel-white pixel-gap-0.5 pixel-bloom-0 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">bloom-0</p>
     </div>
     <div>
-      <div data-test="bleed-gap05-b05" class="bg-pixel-white pixel-gap-0.5 pixel-bleed-0.5 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">bleed-0.5</p>
+      <div data-test="bloom-gap05-b1" class="bg-pixel-white pixel-gap-0.5 pixel-bloom-1 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">bloom-1</p>
     </div>
     <div>
-      <div data-test="bleed-gap05-b1" class="bg-pixel-white pixel-gap-0.5 pixel-bleed-1 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">bleed-1</p>
+      <div data-test="bloom-gap05-b2" class="bg-pixel-white pixel-gap-0.5 pixel-bloom-2 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">bloom-2</p>
     </div>
     <div>
-      <div data-test="bleed-gap05-b15" class="bg-pixel-white pixel-gap-0.5 pixel-bleed-1.5 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">bleed-1.5</p>
+      <div data-test="bloom-gap05-b3" class="bg-pixel-white pixel-gap-0.5 pixel-bloom-3 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">bloom-3</p>
     </div>
     <div>
-      <div data-test="bleed-gap05-b2" class="bg-pixel-white pixel-gap-0.5 pixel-bleed-2 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">bleed-2</p>
+      <div data-test="bloom-gap05-b4" class="bg-pixel-white pixel-gap-0.5 pixel-bloom-4 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">bloom-4</p>
     </div>
   </div>
 
   <h3 class="text-sm font-mono mb-2">gap-1</h3>
   <div class="grid grid-cols-5 gap-3 mb-6">
     <div>
-      <div data-test="bleed-gap1-b0" class="bg-pixel-white pixel-gap-1 pixel-bleed-0 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">bleed-0</p>
+      <div data-test="bloom-gap1-b0" class="bg-pixel-white pixel-gap-1 pixel-bloom-0 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">bloom-0</p>
     </div>
     <div>
-      <div data-test="bleed-gap1-b05" class="bg-pixel-white pixel-gap-1 pixel-bleed-0.5 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">bleed-0.5</p>
+      <div data-test="bloom-gap1-b1" class="bg-pixel-white pixel-gap-1 pixel-bloom-1 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">bloom-1</p>
     </div>
     <div>
-      <div data-test="bleed-gap1-b1" class="bg-pixel-white pixel-gap-1 pixel-bleed-1 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">bleed-1</p>
+      <div data-test="bloom-gap1-b2" class="bg-pixel-white pixel-gap-1 pixel-bloom-2 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">bloom-2</p>
     </div>
     <div>
-      <div data-test="bleed-gap1-b15" class="bg-pixel-white pixel-gap-1 pixel-bleed-1.5 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">bleed-1.5</p>
+      <div data-test="bloom-gap1-b3" class="bg-pixel-white pixel-gap-1 pixel-bloom-3 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">bloom-3</p>
     </div>
     <div>
-      <div data-test="bleed-gap1-b2" class="bg-pixel-white pixel-gap-1 pixel-bleed-2 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">bleed-2</p>
+      <div data-test="bloom-gap1-b4" class="bg-pixel-white pixel-gap-1 pixel-bloom-4 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">bloom-4</p>
     </div>
   </div>
 
   <h3 class="text-sm font-mono mb-2">gap-2</h3>
   <div class="grid grid-cols-5 gap-3 mb-6">
     <div>
-      <div data-test="bleed-gap2-b0" class="bg-pixel-white pixel-gap-2 pixel-bleed-0 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">bleed-0</p>
+      <div data-test="bloom-gap2-b0" class="bg-pixel-white pixel-gap-2 pixel-bloom-0 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">bloom-0</p>
     </div>
     <div>
-      <div data-test="bleed-gap2-b05" class="bg-pixel-white pixel-gap-2 pixel-bleed-0.5 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">bleed-0.5</p>
+      <div data-test="bloom-gap2-b1" class="bg-pixel-white pixel-gap-2 pixel-bloom-1 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">bloom-1</p>
     </div>
     <div>
-      <div data-test="bleed-gap2-b1" class="bg-pixel-white pixel-gap-2 pixel-bleed-1 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">bleed-1</p>
+      <div data-test="bloom-gap2-b2" class="bg-pixel-white pixel-gap-2 pixel-bloom-2 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">bloom-2</p>
     </div>
     <div>
-      <div data-test="bleed-gap2-b15" class="bg-pixel-white pixel-gap-2 pixel-bleed-1.5 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">bleed-1.5</p>
+      <div data-test="bloom-gap2-b3" class="bg-pixel-white pixel-gap-2 pixel-bloom-3 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">bloom-3</p>
     </div>
     <div>
-      <div data-test="bleed-gap2-b2" class="bg-pixel-white pixel-gap-2 pixel-bleed-2 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">bleed-2</p>
+      <div data-test="bloom-gap2-b4" class="bg-pixel-white pixel-gap-2 pixel-bloom-4 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">bloom-4</p>
     </div>
   </div>
 </div>
@@ -455,8 +455,8 @@ Verifies the black background becomes transparent, letting underlying content sh
     <p class="text-xs font-mono text-center mt-1">pixel-size-[3px]</p>
   </div>
   <div>
-    <div data-test="arbitrary-bleed" class="bg-pixel-blue-500 pixel-bleed-[0.7rem] h-28 rounded-lg"></div>
-    <p class="text-xs font-mono text-center mt-1">pixel-bleed-[0.7rem]</p>
+    <div data-test="arbitrary-bloom" class="bg-pixel-blue-500 pixel-bloom-[0.7rem] h-28 rounded-lg"></div>
+    <p class="text-xs font-mono text-center mt-1">pixel-bloom-[0.7rem]</p>
   </div>
 </div>
 
@@ -672,19 +672,19 @@ Sub-pixel patterns composing with border-gradient utilities on the same element.
 
 ### Pixel Variations + Border Gradients
 
-Different pixel sizes and bleed settings with border gradients.
+Different pixel sizes and bloom settings with border gradients.
 
 <div class="grid grid-cols-3 gap-4 my-6">
   <div>
-    <div data-test="crisp-pixels-border" class="bg-pixel-amber-400 pixel-size-1 pixel-gap-1 pixel-bleed-0 h-28 rounded-lg border-4 border-linear-to-br border-from-rose-500 border-via-amber-400 border-to-emerald-500"></div>
+    <div data-test="crisp-pixels-border" class="bg-pixel-amber-400 pixel-size-1 pixel-gap-1 pixel-bloom-0 h-28 rounded-lg border-4 border-linear-to-br border-from-rose-500 border-via-amber-400 border-to-emerald-500"></div>
     <p class="text-xs font-mono text-center mt-1">crisp tiny + border via</p>
   </div>
   <div>
-    <div data-test="large-pixels-border" class="bg-pixel-emerald-400 pixel-size-4 pixel-gap-2 pixel-bleed-1 h-28 rounded-lg border-4 border-conic-0 border-spin border-from-sky-400 border-via-violet-500 border-to-sky-400"></div>
+    <div data-test="large-pixels-border" class="bg-pixel-emerald-400 pixel-size-4 pixel-gap-2 pixel-bloom-1 h-28 rounded-lg border-4 border-conic-0 border-spin border-from-sky-400 border-via-violet-500 border-to-sky-400"></div>
     <p class="text-xs font-mono text-center mt-1">large pixels + border-spin</p>
   </div>
   <div>
-    <div data-test="glow-pixels-border" class="bg-pixel-fuchsia-400 pixel-size-3 pixel-gap-1 pixel-bleed-2 h-28 rounded-lg border-4 border-radial border-from-pink-500 border-to-indigo-500"></div>
+    <div data-test="glow-pixels-border" class="bg-pixel-fuchsia-400 pixel-size-3 pixel-gap-1 pixel-bloom-2 h-28 rounded-lg border-4 border-radial border-from-pink-500 border-to-indigo-500"></div>
     <p class="text-xs font-mono text-center mt-1">CRT glow + border-radial</p>
   </div>
 </div>

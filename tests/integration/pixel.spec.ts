@@ -148,22 +148,22 @@ test.describe('pixel-gap — gap variations', () => {
 });
 
 // ---------------------------------------------------------------------------
-// Bleed variations
+// Bloom variations
 // ---------------------------------------------------------------------------
 
-test.describe('pixel-bleed — bleed variations', () => {
-  test('all bleed variants render', async ({ page }) => {
+test.describe('pixel-bloom — bloom variations', () => {
+  test('all bloom variants render', async ({ page }) => {
     await gotoPage(page);
-    const ids = ['bleed-0', 'bleed-0.5', 'bleed-1', 'bleed-1.5', 'bleed-2'];
+    const ids = ['bloom-0', 'bloom-1', 'bloom-2', 'bloom-3', 'bloom-4'];
     const s = await extractStyles(page, ids);
     for (const id of ids) {
       expect(s[id].exists, `${id} should exist`).toBe(true);
     }
   });
 
-  test('bleed + size combinations render', async ({ page }) => {
+  test('bloom + size combinations render', async ({ page }) => {
     await gotoPage(page);
-    const ids = ['bleed-size1-b0', 'bleed-size1-b1', 'bleed-size2-b0', 'bleed-size2-b1', 'bleed-size3-b0', 'bleed-size3-b1'];
+    const ids = ['bloom-size1-b0', 'bloom-size1-b1', 'bloom-size2-b0', 'bloom-size2-b1', 'bloom-size3-b0', 'bloom-size3-b1'];
     const s = await extractStyles(page, ids);
     for (const id of ids) {
       expect(s[id].exists, `${id} should exist`).toBe(true);
@@ -234,10 +234,10 @@ test.describe('pixel + border gradient composition', () => {
 // ---------------------------------------------------------------------------
 
 test.describe('pixel — colour scales', () => {
-  test('bleed colour comparison — representative colours render', async ({ page }) => {
+  test('bloom colour comparison — representative colours render', async ({ page }) => {
     await gotoPage(page);
     const colors = ['red', 'blue', 'green', 'amber', 'cyan', 'violet', 'pink', 'slate'];
-    const ids = colors.flatMap((c) => [`bleed-color-${c}-0`, `bleed-color-${c}-1`]);
+    const ids = colors.flatMap((c) => [`bloom-color-${c}-0`, `bloom-color-${c}-1`]);
     const s = await extractStyles(page, ids);
     for (const id of ids) {
       expect(s[id].exists, `${id} should exist`).toBe(true);

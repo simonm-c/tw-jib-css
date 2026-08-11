@@ -29,8 +29,8 @@ Requires CSS relative colour syntax (`rgb(from ... r 0 0)`). Chrome 111+, Safari
   { class: 'pixel-size-[<value>]', styles: '--tw-jib--pixel-size: <value>' },
   { class: 'pixel-gap-<number>', styles: '--tw-jib--pixel-gap: <number> — gap multiplier of pixel width' },
   { class: 'pixel-gap-[<value>]', styles: '--tw-jib--pixel-gap: <value>' },
-  { class: 'pixel-bleed-<number>', styles: '--tw-jib--pixel-bleed: --spacing(<number>) / 4 — edge softness' },
-  { class: 'pixel-bleed-[<value>]', styles: '--tw-jib--pixel-bleed: <value>' },
+  { class: 'pixel-bloom-<number>', styles: '--tw-jib--pixel-bloom: --spacing(<number>) / 4 — phosphor bloom (unbounded; saturates to solid)' },
+  { class: 'pixel-bloom-[<value>]', styles: '--tw-jib--pixel-bloom: <value>' },
 ]" />
 
 ## How it works
@@ -50,7 +50,7 @@ Four background layers are composited — each channel needs its own layer for `
 3. **Green column** — same, at column position 1. Blended with `screen`.
 4. **Blue column** — same, at column position 2. Blended with `screen`.
 
-Over a black `background-color`. The `screen` blend mode adds the channels together (additive mixing), creating tall rectangular pixels arranged in R|G|B triplets — just like a real LCD panel. When `pixel-bleed` > 0, the colour bleeds outward into the black gaps, and adjacent channels overlap to produce secondary colours (yellow, cyan, magenta) — mimicking CRT phosphor glow.
+Over a black `background-color`. The `screen` blend mode adds the channels together (additive mixing), creating tall rectangular pixels arranged in R|G|B triplets — just like a real LCD panel. When `pixel-bloom` > 0, each channel's column widens outward and adjacent channels overlap to produce secondary colours (yellow, cyan, magenta) — mimicking CRT phosphor glow. The dial is unbounded: at high values every channel saturates and the pattern dissolves into solid colour.
 
 ## Basic Usage
 
@@ -95,21 +95,22 @@ Control the pixel size with `pixel-size-{number}`. Scales at spacing/4 so `pixel
   </div>
 </Example>
 
-## Bleed
+## Bloom
 
-Control the edge softness with `pixel-bleed-{number}`. Scales at spacing/4 so `pixel-bleed-1` = 1px. This spreads the colour into the black gaps to create a glow effect. The default is 1px.
+Control the phosphor bloom with `pixel-bloom-{number}`. Scales at spacing/4 so `pixel-bloom-1` = 1px. This widens each channel outward so adjacent columns overlap additively — the CRT glow effect. The dial is unbounded; at high values every channel saturates and the pixel structure dissolves into solid colour. The default is 1px.
 
-- `pixel-bleed-0` — crisp hard-edged rectangles (LCD look)
-- `pixel-bleed-1` — slight softness (default)
-- Larger values — increasingly soft edges (CRT phosphor glow)
+- `pixel-bloom-0` — crisp hard-edged rectangles (LCD look)
+- `pixel-bloom-1` — slight glow (default)
+- `pixel-bloom-2` — adjacent channels fully meet
+- Larger — saturation regime; structure fades into colour
 
 <Example>
   <div class="flex gap-3">
-    <div class="bg-pixel-white pixel-bleed-0 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">bleed-0</span></div>
-    <div class="bg-pixel-white pixel-bleed-0.5 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">bleed-0.5</span></div>
-    <div class="bg-pixel-white pixel-bleed-1 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">bleed-1</span></div>
-    <div class="bg-pixel-white pixel-bleed-1.5 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">bleed-1.5</span></div>
-    <div class="bg-pixel-white pixel-bleed-2 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">bleed-2</span></div>
+    <div class="bg-pixel-white pixel-bloom-0 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">bloom-0</span></div>
+    <div class="bg-pixel-white pixel-bloom-1 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">bloom-1</span></div>
+    <div class="bg-pixel-white pixel-bloom-2 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">bloom-2</span></div>
+    <div class="bg-pixel-white pixel-bloom-3 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">bloom-3</span></div>
+    <div class="bg-pixel-white pixel-bloom-4 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">bloom-4</span></div>
   </div>
 </Example>
 

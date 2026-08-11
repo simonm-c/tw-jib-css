@@ -126,7 +126,7 @@ describe.each(PROPERTIES)(
         async (amount) => {
           const css = await compile(`${baseClass} ${prefix}-darken-${amount}`, { experimental: true });
           expect(css).toContain(SUPPORTS_FUNCTION);
-          expect(css).toContain(`--tw-jib--lightness(${lightInput}, calc(${amount} * -1))`);
+          expect(css).toContain(`--tw-jib--lightness(${lightInput}, calc(${amount} * -1), oklch)`);
         },
       );
     });
@@ -137,7 +137,7 @@ describe.each(PROPERTIES)(
         async (amount) => {
           const css = await compile(`${baseClass} ${prefix}-lighten-${amount}`, { experimental: true });
           expect(css).toContain(SUPPORTS_FUNCTION);
-          expect(css).toContain(`--tw-jib--lightness(${lightInput}, ${amount})`);
+          expect(css).toContain(`--tw-jib--lightness(${lightInput}, ${amount}, oklch)`);
         },
       );
     });

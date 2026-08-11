@@ -126,7 +126,7 @@ describe.each(PROPERTIES)(
         async (amount) => {
           const css = await compile(`${baseClass} ${prefix}-desaturate-${amount}`, { experimental: true });
           expect(css).toContain(SUPPORTS_FUNCTION);
-          expect(css).toContain(`--tw-jib--saturation(${satInput}, calc(${amount} * -1))`);
+          expect(css).toContain(`--tw-jib--saturation(${satInput}, calc(${amount} * -1), oklch)`);
         },
       );
     });
@@ -137,7 +137,7 @@ describe.each(PROPERTIES)(
         async (amount) => {
           const css = await compile(`${baseClass} ${prefix}-saturate-${amount}`, { experimental: true });
           expect(css).toContain(SUPPORTS_FUNCTION);
-          expect(css).toContain(`--tw-jib--saturation(${satInput}, ${amount})`);
+          expect(css).toContain(`--tw-jib--saturation(${satInput}, ${amount}, oklch)`);
         },
       );
     });

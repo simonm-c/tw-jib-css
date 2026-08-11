@@ -96,34 +96,23 @@
   );
 }
 
+@utility ripple-color-current {
+  --tw-jib--ripple-color: currentColor;
+}
+
 @utility ripple-duration-* {
   --tw-jib--ripple-duration: calc(--value(integer) * 10ms);
   --tw-jib--ripple-duration: --value([*]);
 }
 
-@utility ripple-color-current {
-  --tw-jib--ripple-color: currentColor;
-}
-
-@utility ripple-color-* {
-  --tw-jib--ripple-color: --value('inherit', --color-*, [color], var(--color));
-  --tw-jib--ripple-color: color-mix(
-    in oklch,
-    --value(--color-*, [color], var(--color)) calc(--modifier(integer, [number]) * 1%),
-    transparent
-  );
-}
-
 @utility ripple-position-* {
   --tw-jib--ripple-position: --value('top', 'left', 'right', 'bottom', 'center', [position]);
-}
-@utility ripple-fade {
-  --tw-jib--ripple-fade-amount: 100%;
 }
 @utility ripple-fade-none {
   --tw-jib--ripple-fade-amount: 0%;
 }
 
+/* bare ripple-fade defaults to a full fade (100%) */
 @utility ripple-fade-* {
-  --tw-jib--ripple-fade-amount: calc(--value(integer) * 1%);
+  --tw-jib--ripple-fade-amount: calc(--value(integer, --default(100)) * 1%);
 }

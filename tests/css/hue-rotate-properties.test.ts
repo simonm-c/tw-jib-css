@@ -121,7 +121,7 @@ describe.each(PROPERTIES)(
             { experimental: true },
           );
           expect(css).toContain(SUPPORTS_FUNCTION);
-          expect(css).toContain(`--tw-jib--hue-rotate(var(${sourceVar}), ${amount})`);
+          expect(css).toContain(`--tw-jib--hue-rotate(var(${sourceVar}), ${amount}, oklch)`);
         },
       );
     });
@@ -135,7 +135,7 @@ describe.each(PROPERTIES)(
             { experimental: true },
           );
           expect(css).toContain(SUPPORTS_FUNCTION);
-          expect(css).toContain(`--tw-jib--hue-rotate(var(${sourceVar}), calc(${amount} * -1))`);
+          expect(css).toContain(`--tw-jib--hue-rotate(var(${sourceVar}), calc(${amount} * -1), oklch)`);
         },
       );
     });

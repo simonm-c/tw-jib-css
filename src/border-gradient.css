@@ -139,17 +139,9 @@
     var(--tw-jib--border-gradient) border-box;
   border-color: transparent;
 }
-@utility border-radial {
-  --tw-jib--border-gradient-position: var(--tw-jib--gradient-interpolation);
-  background:
-    var(--tw-jib--ripple-image) padding-box,
-    var(--tw-jib--background-image) padding-box,
-    var(--tw-jib--border-gradient) border-box;
-  border-color: transparent;
-}
-
+/* bare border-radial defaults the position to the interpolation hint alone */
 @utility border-radial-* {
-  --tw-jib--border-gradient-position: --value([*]);
+  --tw-jib--border-gradient-position: --value([*], --default(var(--tw-jib--gradient-interpolation)));
   --tw-jib--border-gradient: radial-gradient(var(--tw-jib--border-gradient-stops));
   background:
     var(--tw-jib--ripple-image) padding-box,

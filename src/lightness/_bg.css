@@ -138,14 +138,12 @@
 }
 
 /*
- * bg-lightness / -bg-lightness: 5 same-name @utility blocks each — all required.
- * TW4 sorts by property count (more props → earlier in CSS) and modifier-only
- * blocks don't resolve when no modifier is given. This creates two independent
- * resolution chains: with-modifier and without-modifier.
- *
- * Block order matters: experimental blocks (3,5) must be interleaved between
- * stable blocks (1,2,4) — not appended after — for TW4's complexity-based
- * resolution to work correctly.
+ * bg-lightness / -bg-lightness: 2 same-name @utility blocks each (TW 4.3+).
+ * Stable block: sets the amount, then the inline oklch default, then the
+ * --modifier() override — later declarations win, so a /modifier replaces the
+ * default in the same block. Experimental block: the @function dispatcher with
+ * --modifier(..., --default(oklch)) so no-modifier candidates route to oklch.
+ * Stable must precede experimental so the @supports-gated block wins in cascade.
  *
  * bg-lighten / bg-darken are user-friendly aliases for the same utilities.
  *
@@ -157,63 +155,23 @@
  * PRIMARY: bg-lightness-* (positive lightness — lighten)
  * ========================================================================= */
 
-/* block 1: 2 props → sorted first. Sets amount; bg-color overridden by later blocks */
+/* stable path: sets amount; oklch default overridden by --modifier when a color space is given */
 @utility bg-lightness-* {
   &:not(._) {
     --tw-jib--background-lightness--amount: calc(--value(integer, [number]) * 0.01);
-    --tw-jib--background-color-after-lightness: --modifier(--tw-jib--background-color-interpolation-*);
-    --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
-    background-color: var(--tw-jib--background-color);
-    --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
-  }
-}
-
-/* block 2: stable with-modifier path (non-@function browsers) */
-@utility bg-lightness-* {
-  &:not(._) {
-    --tw-jib--background-color-after-lightness: --modifier(--tw-jib--background-color-interpolation-*);
-    --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
-    background-color: var(--tw-jib--background-color);
-    --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
-  }
-}
-
-/* block 3: experimental with-modifier path — overrides above where @function supported */
-@utility bg-lightness-* {
-  &:not(._) {
-    @variant supports-lightness {
-      --tw-jib--background-color-after-lightness: --tw-jib--lightness(
-        var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))),
-        --value(integer, [number]),
-        --modifier(
-          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
-          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
-          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
-          'color-mix'
-        )
-      );
-      --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
-      background-color: var(--tw-jib--background-color);
-      --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
-    }
-  }
-}
-
-/* block 4: stable no-modifier default — oklch */
-@utility bg-lightness-* {
-  &:not(._) {
     --tw-jib--background-color-after-lightness: oklch(from var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))) calc(l * (1 - abs(var(--tw-jib--background-lightness--amount))) + max(0, var(--tw-jib--background-lightness--amount))) calc(c * min(1, (1 - abs(var(--tw-jib--background-lightness--amount))) * 5)) h / alpha);
+    --tw-jib--background-color-after-lightness: --modifier(--tw-jib--background-color-interpolation-*);
     --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
     background-color: var(--tw-jib--background-color);
     --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
   }
 }
 
-/* block 5: experimental no-modifier default — overrides above where @function supported */
+/* experimental @function path — overrides stable where supported */
 @utility bg-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--background-color-after-lightness: --tw-jib--lightness(var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))), --value(integer, [number]));
+      --tw-jib--background-color-after-lightness: --tw-jib--lightness(var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))), --value(integer, [number]), --modifier('oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb', 'srgb', 'srgb-linear', 'display-p3', 'a98-rgb', 'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65', 'color-mix', --default(oklch)));
       --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
       background-color: var(--tw-jib--background-color);
       --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
@@ -225,58 +183,23 @@
  * PRIMARY: -bg-lightness-* (negative lightness — darken)
  * ========================================================================= */
 
+/* stable path: sets amount; oklch default overridden by --modifier when a color space is given */
 @utility -bg-lightness-* {
   &:not(._) {
     --tw-jib--background-lightness--amount: calc(--value(integer, [number]) * -0.01);
-    --tw-jib--background-color-after-lightness: --modifier(--tw-jib--background-color-interpolation-*);
-    --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
-    background-color: var(--tw-jib--background-color);
-    --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
-  }
-}
-
-@utility -bg-lightness-* {
-  &:not(._) {
-    --tw-jib--background-color-after-lightness: --modifier(--tw-jib--background-color-interpolation-*);
-    --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
-    background-color: var(--tw-jib--background-color);
-    --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
-  }
-}
-
-@utility -bg-lightness-* {
-  &:not(._) {
-    @variant supports-lightness {
-      --tw-jib--background-color-after-lightness: --tw-jib--lightness(
-        var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))),
-        calc(--value(integer, [number]) * -1),
-        --modifier(
-          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
-          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
-          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
-          'color-mix'
-        )
-      );
-      --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
-      background-color: var(--tw-jib--background-color);
-      --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
-    }
-  }
-}
-
-@utility -bg-lightness-* {
-  &:not(._) {
     --tw-jib--background-color-after-lightness: oklch(from var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))) calc(l * (1 - abs(var(--tw-jib--background-lightness--amount))) + max(0, var(--tw-jib--background-lightness--amount))) calc(c * min(1, (1 - abs(var(--tw-jib--background-lightness--amount))) * 5)) h / alpha);
+    --tw-jib--background-color-after-lightness: --modifier(--tw-jib--background-color-interpolation-*);
     --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
     background-color: var(--tw-jib--background-color);
     --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
   }
 }
 
+/* experimental @function path — overrides stable where supported */
 @utility -bg-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--background-color-after-lightness: --tw-jib--lightness(var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))), calc(--value(integer, [number]) * -1));
+      --tw-jib--background-color-after-lightness: --tw-jib--lightness(var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))), calc(--value(integer, [number]) * -1), --modifier('oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb', 'srgb', 'srgb-linear', 'display-p3', 'a98-rgb', 'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65', 'color-mix', --default(oklch)));
       --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
       background-color: var(--tw-jib--background-color);
       --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
@@ -288,58 +211,23 @@
  * ALIAS: bg-lighten-*
  * ========================================================================= */
 
+/* stable path: sets amount; oklch default overridden by --modifier when a color space is given */
 @utility bg-lighten-* {
   &:not(._) {
     --tw-jib--background-lightness--amount: calc(--value(integer, [number]) * 0.01);
-    --tw-jib--background-color-after-lightness: --modifier(--tw-jib--background-color-interpolation-*);
-    --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
-    background-color: var(--tw-jib--background-color);
-    --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
-  }
-}
-
-@utility bg-lighten-* {
-  &:not(._) {
-    --tw-jib--background-color-after-lightness: --modifier(--tw-jib--background-color-interpolation-*);
-    --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
-    background-color: var(--tw-jib--background-color);
-    --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
-  }
-}
-
-@utility bg-lighten-* {
-  &:not(._) {
-    @variant supports-lightness {
-      --tw-jib--background-color-after-lightness: --tw-jib--lightness(
-        var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))),
-        --value(integer, [number]),
-        --modifier(
-          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
-          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
-          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
-          'color-mix'
-        )
-      );
-      --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
-      background-color: var(--tw-jib--background-color);
-      --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
-    }
-  }
-}
-
-@utility bg-lighten-* {
-  &:not(._) {
     --tw-jib--background-color-after-lightness: oklch(from var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))) calc(l * (1 - abs(var(--tw-jib--background-lightness--amount))) + max(0, var(--tw-jib--background-lightness--amount))) calc(c * min(1, (1 - abs(var(--tw-jib--background-lightness--amount))) * 5)) h / alpha);
+    --tw-jib--background-color-after-lightness: --modifier(--tw-jib--background-color-interpolation-*);
     --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
     background-color: var(--tw-jib--background-color);
     --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
   }
 }
 
+/* experimental @function path — overrides stable where supported */
 @utility bg-lighten-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--background-color-after-lightness: --tw-jib--lightness(var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))), --value(integer, [number]));
+      --tw-jib--background-color-after-lightness: --tw-jib--lightness(var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))), --value(integer, [number]), --modifier('oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb', 'srgb', 'srgb-linear', 'display-p3', 'a98-rgb', 'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65', 'color-mix', --default(oklch)));
       --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
       background-color: var(--tw-jib--background-color);
       --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
@@ -351,58 +239,23 @@
  * ALIAS: bg-darken-*
  * ========================================================================= */
 
+/* stable path: sets amount; oklch default overridden by --modifier when a color space is given */
 @utility bg-darken-* {
   &:not(._) {
     --tw-jib--background-lightness--amount: calc(--value(integer, [number]) * -0.01);
-    --tw-jib--background-color-after-lightness: --modifier(--tw-jib--background-color-interpolation-*);
-    --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
-    background-color: var(--tw-jib--background-color);
-    --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
-  }
-}
-
-@utility bg-darken-* {
-  &:not(._) {
-    --tw-jib--background-color-after-lightness: --modifier(--tw-jib--background-color-interpolation-*);
-    --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
-    background-color: var(--tw-jib--background-color);
-    --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
-  }
-}
-
-@utility bg-darken-* {
-  &:not(._) {
-    @variant supports-lightness {
-      --tw-jib--background-color-after-lightness: --tw-jib--lightness(
-        var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))),
-        calc(--value(integer, [number]) * -1),
-        --modifier(
-          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
-          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
-          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
-          'color-mix'
-        )
-      );
-      --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
-      background-color: var(--tw-jib--background-color);
-      --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
-    }
-  }
-}
-
-@utility bg-darken-* {
-  &:not(._) {
     --tw-jib--background-color-after-lightness: oklch(from var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))) calc(l * (1 - abs(var(--tw-jib--background-lightness--amount))) + max(0, var(--tw-jib--background-lightness--amount))) calc(c * min(1, (1 - abs(var(--tw-jib--background-lightness--amount))) * 5)) h / alpha);
+    --tw-jib--background-color-after-lightness: --modifier(--tw-jib--background-color-interpolation-*);
     --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
     background-color: var(--tw-jib--background-color);
     --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
   }
 }
 
+/* experimental @function path — overrides stable where supported */
 @utility bg-darken-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--background-color-after-lightness: --tw-jib--lightness(var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))), calc(--value(integer, [number]) * -1));
+      --tw-jib--background-color-after-lightness: --tw-jib--lightness(var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))), calc(--value(integer, [number]) * -1), --modifier('oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb', 'srgb', 'srgb-linear', 'display-p3', 'a98-rgb', 'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65', 'color-mix', --default(oklch)));
       --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
       background-color: var(--tw-jib--background-color);
       --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);

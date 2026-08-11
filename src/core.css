@@ -170,15 +170,17 @@
   --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
 }
 
-@utility bg-linear {
-  --tw-jib--background-image: linear-gradient(var(--tw-gradient-stops));
-  background:
-          var(--tw-jib--ripple-image) padding-box,
-          var(--tw-jib--background-image) padding-box,
-          var(--tw-jib--border-gradient) border-box;
-}
+/*
+ * Stacking overrides for TW's gradient utilities: layer the gradient into the
+ * ripple/background/border-gradient background shorthand pipeline.
+ * TW 4.3 requires a resolving --value() for a functional block to match, so the
+ * --tw-jib--noop --value() line mirrors every candidate shape TW core accepts;
+ * --default() makes the same block cover the bare utility (bg-linear etc).
+ * The --modifier() noop keeps the block matching interpolation modifiers.
+ */
 @utility bg-linear-* {
   --tw-jib--background-image: linear-gradient(var(--tw-gradient-stops));
+  --tw-jib--noop: --value(number, 'to-r', 'to-l', 'to-t', 'to-b', 'to-tr', 'to-tl', 'to-br', 'to-bl', [*], --default(none));
   --tw-jib--noop: --modifier('srgb', 'hsl', 'oklab', 'oklch', 'longer', 'shorter', 'increasing', 'decreasing');
   background:
           var(--tw-jib--ripple-image) padding-box,
@@ -187,14 +189,7 @@
 }
 @utility -bg-linear-* {
   --tw-jib--background-image: linear-gradient(var(--tw-gradient-stops));
-  --tw-jib--noop: --modifier('srgb', 'hsl', 'oklab', 'oklch', 'longer', 'shorter', 'increasing', 'decreasing');
-  background:
-          var(--tw-jib--ripple-image) padding-box,
-          var(--tw-jib--background-image) padding-box,
-          var(--tw-jib--border-gradient) border-box;
-}
-@utility bg-radial {
-  --tw-jib--background-image: radial-gradient(var(--tw-gradient-stops));
+  --tw-jib--noop: --value(number, [*]);
   --tw-jib--noop: --modifier('srgb', 'hsl', 'oklab', 'oklch', 'longer', 'shorter', 'increasing', 'decreasing');
   background:
           var(--tw-jib--ripple-image) padding-box,
@@ -203,6 +198,7 @@
 }
 @utility bg-radial-* {
   --tw-jib--background-image: radial-gradient(var(--tw-gradient-stops));
+  --tw-jib--noop: --value([*], --default(none));
   --tw-jib--noop: --modifier('srgb', 'hsl', 'oklab', 'oklch', 'longer', 'shorter', 'increasing', 'decreasing');
   background:
           var(--tw-jib--ripple-image) padding-box,
@@ -211,14 +207,7 @@
 }
 @utility -bg-radial-* {
   --tw-jib--background-image: radial-gradient(var(--tw-gradient-stops));
-  --tw-jib--noop: --modifier('srgb', 'hsl', 'oklab', 'oklch', 'longer', 'shorter', 'increasing', 'decreasing');
-  background:
-          var(--tw-jib--ripple-image) padding-box,
-          var(--tw-jib--background-image) padding-box,
-          var(--tw-jib--border-gradient) border-box;
-}
-@utility bg-conic {
-  --tw-jib--background-image: conic-gradient(var(--tw-gradient-stops));
+  --tw-jib--noop: --value([*]);
   --tw-jib--noop: --modifier('srgb', 'hsl', 'oklab', 'oklch', 'longer', 'shorter', 'increasing', 'decreasing');
   background:
           var(--tw-jib--ripple-image) padding-box,
@@ -227,6 +216,7 @@
 }
 @utility bg-conic-* {
   --tw-jib--background-image: conic-gradient(var(--tw-gradient-stops));
+  --tw-jib--noop: --value(number, [*], --default(none));
   --tw-jib--noop: --modifier('srgb', 'hsl', 'oklab', 'oklch', 'longer', 'shorter', 'increasing', 'decreasing');
   background:
           var(--tw-jib--ripple-image) padding-box,
@@ -235,6 +225,7 @@
 }
 @utility -bg-conic-* {
   --tw-jib--background-image: conic-gradient(var(--tw-gradient-stops));
+  --tw-jib--noop: --value(number, [*]);
   --tw-jib--noop: --modifier('srgb', 'hsl', 'oklab', 'oklch', 'longer', 'shorter', 'increasing', 'decreasing');
   background:
           var(--tw-jib--ripple-image) padding-box,

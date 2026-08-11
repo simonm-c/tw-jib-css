@@ -141,59 +141,22 @@
  * PRIMARY: stroke-lightness-* (positive lightness — lighten)
  * ========================================================================= */
 
-/* block 1: sets amount + color via modifier */
+/* stable path: sets amount; oklch default overridden by --modifier when a color space is given */
 @utility stroke-lightness-* {
   &:not(._) {
     --tw-jib--stroke-lightness--amount: calc(--value(integer, [number]) * 0.01);
-    --tw-jib--stroke-color-after-lightness: --modifier(--tw-jib--stroke-color-interpolation-*);
-    --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
-    stroke: var(--tw-jib--stroke-color);
-  }
-}
-
-/* block 2: stable with-modifier */
-@utility stroke-lightness-* {
-  &:not(._) {
-    --tw-jib--stroke-color-after-lightness: --modifier(--tw-jib--stroke-color-interpolation-*);
-    --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
-    stroke: var(--tw-jib--stroke-color);
-  }
-}
-
-/* block 3: experimental with-modifier */
-@utility stroke-lightness-* {
-  &:not(._) {
-    @variant supports-lightness {
-      --tw-jib--stroke-color-after-lightness: --tw-jib--lightness(
-        var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))),
-        --value(integer, [number]),
-        --modifier(
-          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
-          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
-          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
-          'color-mix'
-        )
-      );
-      --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
-      stroke: var(--tw-jib--stroke-color);
-    }
-  }
-}
-
-/* block 4: stable no-modifier default — oklch */
-@utility stroke-lightness-* {
-  &:not(._) {
     --tw-jib--stroke-color-after-lightness: oklch(from var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))) calc(l * (1 - abs(var(--tw-jib--stroke-lightness--amount))) + max(0, var(--tw-jib--stroke-lightness--amount))) calc(c * min(1, (1 - abs(var(--tw-jib--stroke-lightness--amount))) * 5)) h / alpha);
+    --tw-jib--stroke-color-after-lightness: --modifier(--tw-jib--stroke-color-interpolation-*);
     --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
     stroke: var(--tw-jib--stroke-color);
   }
 }
 
-/* block 5: experimental no-modifier default */
+/* experimental @function path — overrides stable where supported */
 @utility stroke-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--stroke-color-after-lightness: --tw-jib--lightness(var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))), --value(integer, [number]));
+      --tw-jib--stroke-color-after-lightness: --tw-jib--lightness(var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))), --value(integer, [number]), --modifier('oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb', 'srgb', 'srgb-linear', 'display-p3', 'a98-rgb', 'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65', 'color-mix', --default(oklch)));
       --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
       stroke: var(--tw-jib--stroke-color);
     }
@@ -204,59 +167,22 @@
  * PRIMARY: -stroke-lightness-* (negative lightness — darken)
  * ========================================================================= */
 
-/* block 1: sets amount + color via modifier */
+/* stable path: sets amount; oklch default overridden by --modifier when a color space is given */
 @utility -stroke-lightness-* {
   &:not(._) {
     --tw-jib--stroke-lightness--amount: calc(--value(integer, [number]) * -0.01);
-    --tw-jib--stroke-color-after-lightness: --modifier(--tw-jib--stroke-color-interpolation-*);
-    --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
-    stroke: var(--tw-jib--stroke-color);
-  }
-}
-
-/* block 2: stable with-modifier */
-@utility -stroke-lightness-* {
-  &:not(._) {
-    --tw-jib--stroke-color-after-lightness: --modifier(--tw-jib--stroke-color-interpolation-*);
-    --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
-    stroke: var(--tw-jib--stroke-color);
-  }
-}
-
-/* block 3: experimental with-modifier */
-@utility -stroke-lightness-* {
-  &:not(._) {
-    @variant supports-lightness {
-      --tw-jib--stroke-color-after-lightness: --tw-jib--lightness(
-        var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))),
-        calc(--value(integer, [number]) * -1),
-        --modifier(
-          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
-          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
-          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
-          'color-mix'
-        )
-      );
-      --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
-      stroke: var(--tw-jib--stroke-color);
-    }
-  }
-}
-
-/* block 4: stable no-modifier default — oklch */
-@utility -stroke-lightness-* {
-  &:not(._) {
     --tw-jib--stroke-color-after-lightness: oklch(from var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))) calc(l * (1 - abs(var(--tw-jib--stroke-lightness--amount))) + max(0, var(--tw-jib--stroke-lightness--amount))) calc(c * min(1, (1 - abs(var(--tw-jib--stroke-lightness--amount))) * 5)) h / alpha);
+    --tw-jib--stroke-color-after-lightness: --modifier(--tw-jib--stroke-color-interpolation-*);
     --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
     stroke: var(--tw-jib--stroke-color);
   }
 }
 
-/* block 5: experimental no-modifier default */
+/* experimental @function path — overrides stable where supported */
 @utility -stroke-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--stroke-color-after-lightness: --tw-jib--lightness(var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))), calc(--value(integer, [number]) * -1));
+      --tw-jib--stroke-color-after-lightness: --tw-jib--lightness(var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))), calc(--value(integer, [number]) * -1), --modifier('oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb', 'srgb', 'srgb-linear', 'display-p3', 'a98-rgb', 'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65', 'color-mix', --default(oklch)));
       --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
       stroke: var(--tw-jib--stroke-color);
     }
@@ -267,59 +193,22 @@
  * ALIAS: stroke-lighten-*
  * ========================================================================= */
 
-/* block 1: sets amount + color via modifier */
+/* stable path: sets amount; oklch default overridden by --modifier when a color space is given */
 @utility stroke-lighten-* {
   &:not(._) {
     --tw-jib--stroke-lightness--amount: calc(--value(integer, [number]) * 0.01);
-    --tw-jib--stroke-color-after-lightness: --modifier(--tw-jib--stroke-color-interpolation-*);
-    --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
-    stroke: var(--tw-jib--stroke-color);
-  }
-}
-
-/* block 2: stable with-modifier */
-@utility stroke-lighten-* {
-  &:not(._) {
-    --tw-jib--stroke-color-after-lightness: --modifier(--tw-jib--stroke-color-interpolation-*);
-    --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
-    stroke: var(--tw-jib--stroke-color);
-  }
-}
-
-/* block 3: experimental with-modifier */
-@utility stroke-lighten-* {
-  &:not(._) {
-    @variant supports-lightness {
-      --tw-jib--stroke-color-after-lightness: --tw-jib--lightness(
-        var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))),
-        --value(integer, [number]),
-        --modifier(
-          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
-          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
-          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
-          'color-mix'
-        )
-      );
-      --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
-      stroke: var(--tw-jib--stroke-color);
-    }
-  }
-}
-
-/* block 4: stable no-modifier default — oklch */
-@utility stroke-lighten-* {
-  &:not(._) {
     --tw-jib--stroke-color-after-lightness: oklch(from var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))) calc(l * (1 - abs(var(--tw-jib--stroke-lightness--amount))) + max(0, var(--tw-jib--stroke-lightness--amount))) calc(c * min(1, (1 - abs(var(--tw-jib--stroke-lightness--amount))) * 5)) h / alpha);
+    --tw-jib--stroke-color-after-lightness: --modifier(--tw-jib--stroke-color-interpolation-*);
     --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
     stroke: var(--tw-jib--stroke-color);
   }
 }
 
-/* block 5: experimental no-modifier default */
+/* experimental @function path — overrides stable where supported */
 @utility stroke-lighten-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--stroke-color-after-lightness: --tw-jib--lightness(var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))), --value(integer, [number]));
+      --tw-jib--stroke-color-after-lightness: --tw-jib--lightness(var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))), --value(integer, [number]), --modifier('oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb', 'srgb', 'srgb-linear', 'display-p3', 'a98-rgb', 'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65', 'color-mix', --default(oklch)));
       --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
       stroke: var(--tw-jib--stroke-color);
     }
@@ -330,59 +219,22 @@
  * ALIAS: stroke-darken-*
  * ========================================================================= */
 
-/* block 1: sets amount + color via modifier */
+/* stable path: sets amount; oklch default overridden by --modifier when a color space is given */
 @utility stroke-darken-* {
   &:not(._) {
     --tw-jib--stroke-lightness--amount: calc(--value(integer, [number]) * -0.01);
-    --tw-jib--stroke-color-after-lightness: --modifier(--tw-jib--stroke-color-interpolation-*);
-    --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
-    stroke: var(--tw-jib--stroke-color);
-  }
-}
-
-/* block 2: stable with-modifier */
-@utility stroke-darken-* {
-  &:not(._) {
-    --tw-jib--stroke-color-after-lightness: --modifier(--tw-jib--stroke-color-interpolation-*);
-    --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
-    stroke: var(--tw-jib--stroke-color);
-  }
-}
-
-/* block 3: experimental with-modifier */
-@utility stroke-darken-* {
-  &:not(._) {
-    @variant supports-lightness {
-      --tw-jib--stroke-color-after-lightness: --tw-jib--lightness(
-        var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))),
-        calc(--value(integer, [number]) * -1),
-        --modifier(
-          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
-          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
-          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
-          'color-mix'
-        )
-      );
-      --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
-      stroke: var(--tw-jib--stroke-color);
-    }
-  }
-}
-
-/* block 4: stable no-modifier default — oklch */
-@utility stroke-darken-* {
-  &:not(._) {
     --tw-jib--stroke-color-after-lightness: oklch(from var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))) calc(l * (1 - abs(var(--tw-jib--stroke-lightness--amount))) + max(0, var(--tw-jib--stroke-lightness--amount))) calc(c * min(1, (1 - abs(var(--tw-jib--stroke-lightness--amount))) * 5)) h / alpha);
+    --tw-jib--stroke-color-after-lightness: --modifier(--tw-jib--stroke-color-interpolation-*);
     --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
     stroke: var(--tw-jib--stroke-color);
   }
 }
 
-/* block 5: experimental no-modifier default */
+/* experimental @function path — overrides stable where supported */
 @utility stroke-darken-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--stroke-color-after-lightness: --tw-jib--lightness(var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))), calc(--value(integer, [number]) * -1));
+      --tw-jib--stroke-color-after-lightness: --tw-jib--lightness(var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))), calc(--value(integer, [number]) * -1), --modifier('oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb', 'srgb', 'srgb-linear', 'display-p3', 'a98-rgb', 'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65', 'color-mix', --default(oklch)));
       --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
       stroke: var(--tw-jib--stroke-color);
     }

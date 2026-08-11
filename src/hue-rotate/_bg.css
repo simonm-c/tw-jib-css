@@ -166,14 +166,12 @@
 }
 
 /*
- * bg-hue-rotate / -bg-hue-rotate: 5 same-name @utility blocks each — all required.
- * TW4 sorts by property count (more props → earlier in CSS) and modifier-only
- * blocks don't resolve when no modifier is given. This creates two independent
- * resolution chains: with-modifier and without-modifier.
- *
- * Block order matters: experimental blocks (3, 5) must be interleaved between
- * stable blocks (1, 2, 4) — not appended after — for TW4's complexity-based
- * resolution to work correctly.
+ * bg-hue-rotate / -bg-hue-rotate: 2 same-name @utility blocks each (TW 4.3+).
+ * Stable block: sets the amount, then the inline oklch default, then the
+ * --modifier() override — later declarations win, so a /modifier replaces the
+ * default in the same block. Experimental block: the @function dispatcher with
+ * --modifier(..., --default(oklch)) so no-modifier candidates route to oklch.
+ * Stable must precede experimental so the @supports-gated block wins in cascade.
  *
  * Amount is in degrees (positive = clockwise). No modifier defaults to oklch.
  *
@@ -190,62 +188,23 @@
  * from the composed value, so chaining and WCAG consumers Just Work.
  * ========================================================================= */
 
-/* block 1: most props → sorted first. Sets amount; stage var overridden by later blocks */
+/* stable path: sets amount; oklch default overridden by --modifier when a color space is given */
 @utility bg-hue-rotate-* {
   &:not(._) {
     --tw-jib--background-hue--amount: --value(integer, [number]);
-    --tw-jib--background-color-after-hue-rotate: --modifier(--tw-jib--background-hue-interpolation-*);
-    --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
-    background-color: var(--tw-jib--background-color);
-    --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
-  }
-}
-
-/* block 2: stable with-modifier path (non-@function browsers) */
-@utility bg-hue-rotate-* {
-  &:not(._) {
-    --tw-jib--background-color-after-hue-rotate: --modifier(--tw-jib--background-hue-interpolation-*);
-    --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
-    background-color: var(--tw-jib--background-color);
-    --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
-  }
-}
-
-/* block 3: experimental with-modifier path — overrides above where @function supported */
-@utility bg-hue-rotate-* {
-  &:not(._) {
-    @variant supports-hue-rotate {
-      --tw-jib--background-color-after-hue-rotate: --tw-jib--hue-rotate(
-        var(--tw-jib--background-color-source),
-        --value(integer, [number]),
-        --modifier(
-          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
-          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
-          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65'
-        )
-      );
-      --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
-      background-color: var(--tw-jib--background-color);
-      --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
-    }
-  }
-}
-
-/* block 4: stable no-modifier default — oklch */
-@utility bg-hue-rotate-* {
-  &:not(._) {
     --tw-jib--background-color-after-hue-rotate: oklch(from var(--tw-jib--background-color-source) l c calc(h + var(--tw-jib--background-hue--amount)) / alpha);
+    --tw-jib--background-color-after-hue-rotate: --modifier(--tw-jib--background-hue-interpolation-*);
     --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
     background-color: var(--tw-jib--background-color);
     --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
   }
 }
 
-/* block 5: experimental no-modifier default — overrides above where @function supported */
+/* experimental @function path — overrides stable where supported */
 @utility bg-hue-rotate-* {
   &:not(._) {
     @variant supports-hue-rotate {
-      --tw-jib--background-color-after-hue-rotate: --tw-jib--hue-rotate(var(--tw-jib--background-color-source), --value(integer, [number]));
+      --tw-jib--background-color-after-hue-rotate: --tw-jib--hue-rotate(var(--tw-jib--background-color-source), --value(integer, [number]), --modifier('oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb', 'srgb', 'srgb-linear', 'display-p3', 'a98-rgb', 'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65', --default(oklch)));
       --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
       background-color: var(--tw-jib--background-color);
       --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
@@ -257,57 +216,23 @@
  * NEGATIVE: -bg-hue-rotate-* (counterclockwise)
  * ========================================================================= */
 
+/* stable path: sets amount; oklch default overridden by --modifier when a color space is given */
 @utility -bg-hue-rotate-* {
   &:not(._) {
     --tw-jib--background-hue--amount: calc(--value(integer, [number]) * -1);
-    --tw-jib--background-color-after-hue-rotate: --modifier(--tw-jib--background-hue-interpolation-*);
-    --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
-    background-color: var(--tw-jib--background-color);
-    --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
-  }
-}
-
-@utility -bg-hue-rotate-* {
-  &:not(._) {
-    --tw-jib--background-color-after-hue-rotate: --modifier(--tw-jib--background-hue-interpolation-*);
-    --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
-    background-color: var(--tw-jib--background-color);
-    --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
-  }
-}
-
-@utility -bg-hue-rotate-* {
-  &:not(._) {
-    @variant supports-hue-rotate {
-      --tw-jib--background-color-after-hue-rotate: --tw-jib--hue-rotate(
-        var(--tw-jib--background-color-source),
-        calc(--value(integer, [number]) * -1),
-        --modifier(
-          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
-          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
-          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65'
-        )
-      );
-      --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
-      background-color: var(--tw-jib--background-color);
-      --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
-    }
-  }
-}
-
-@utility -bg-hue-rotate-* {
-  &:not(._) {
     --tw-jib--background-color-after-hue-rotate: oklch(from var(--tw-jib--background-color-source) l c calc(h + var(--tw-jib--background-hue--amount)) / alpha);
+    --tw-jib--background-color-after-hue-rotate: --modifier(--tw-jib--background-hue-interpolation-*);
     --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
     background-color: var(--tw-jib--background-color);
     --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
   }
 }
 
+/* experimental @function path — overrides stable where supported */
 @utility -bg-hue-rotate-* {
   &:not(._) {
     @variant supports-hue-rotate {
-      --tw-jib--background-color-after-hue-rotate: --tw-jib--hue-rotate(var(--tw-jib--background-color-source), calc(--value(integer, [number]) * -1));
+      --tw-jib--background-color-after-hue-rotate: --tw-jib--hue-rotate(var(--tw-jib--background-color-source), calc(--value(integer, [number]) * -1), --modifier('oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb', 'srgb', 'srgb-linear', 'display-p3', 'a98-rgb', 'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65', --default(oklch)));
       --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
       background-color: var(--tw-jib--background-color);
       --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);

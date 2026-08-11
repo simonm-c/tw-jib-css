@@ -130,59 +130,22 @@
  * PRIMARY: accent-saturation-* (positive saturation — saturate)
  * ========================================================================= */
 
-/* block 1: sets amount + color via modifier */
+/* stable path: sets amount; oklch default overridden by --modifier when a color space is given */
 @utility accent-saturation-* {
   &:not(._) {
     --tw-jib--accent-saturation--amount: calc(--value(integer, [number]) * 0.01);
-    --tw-jib--accent-color-after-saturation: --modifier(--tw-jib--accent-saturation-interpolation-*);
-    --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
-    accent-color: var(--tw-jib--accent-color);
-  }
-}
-
-/* block 2: stable with-modifier */
-@utility accent-saturation-* {
-  &:not(._) {
-    --tw-jib--accent-color-after-saturation: --modifier(--tw-jib--accent-saturation-interpolation-*);
-    --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
-    accent-color: var(--tw-jib--accent-color);
-  }
-}
-
-/* block 3: experimental with-modifier */
-@utility accent-saturation-* {
-  &:not(._) {
-    @variant supports-saturation {
-      --tw-jib--accent-color-after-saturation: --tw-jib--saturation(
-        var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source)),
-        --value(integer, [number]),
-        --modifier(
-          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
-          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
-          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
-          'color-mix'
-        )
-      );
-      --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
-      accent-color: var(--tw-jib--accent-color);
-    }
-  }
-}
-
-/* block 4: stable no-modifier default — oklch */
-@utility accent-saturation-* {
-  &:not(._) {
     --tw-jib--accent-color-after-saturation: oklch(from var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source)) l calc(c * (1 - abs(var(--tw-jib--accent-saturation--amount))) + max(0, var(--tw-jib--accent-saturation--amount)) * 0.4) h / alpha);
+    --tw-jib--accent-color-after-saturation: --modifier(--tw-jib--accent-saturation-interpolation-*);
     --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
     accent-color: var(--tw-jib--accent-color);
   }
 }
 
-/* block 5: experimental no-modifier default */
+/* experimental @function path — overrides stable where supported */
 @utility accent-saturation-* {
   &:not(._) {
     @variant supports-saturation {
-      --tw-jib--accent-color-after-saturation: --tw-jib--saturation(var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source)), --value(integer, [number]));
+      --tw-jib--accent-color-after-saturation: --tw-jib--saturation(var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source)), --value(integer, [number]), --modifier('oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb', 'srgb', 'srgb-linear', 'display-p3', 'a98-rgb', 'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65', 'color-mix', --default(oklch)));
       --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
       accent-color: var(--tw-jib--accent-color);
     }
@@ -193,59 +156,22 @@
  * PRIMARY: -accent-saturation-* (negative saturation — desaturate)
  * ========================================================================= */
 
-/* block 1: sets amount + color via modifier */
+/* stable path: sets amount; oklch default overridden by --modifier when a color space is given */
 @utility -accent-saturation-* {
   &:not(._) {
     --tw-jib--accent-saturation--amount: calc(--value(integer, [number]) * -0.01);
-    --tw-jib--accent-color-after-saturation: --modifier(--tw-jib--accent-saturation-interpolation-*);
-    --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
-    accent-color: var(--tw-jib--accent-color);
-  }
-}
-
-/* block 2: stable with-modifier */
-@utility -accent-saturation-* {
-  &:not(._) {
-    --tw-jib--accent-color-after-saturation: --modifier(--tw-jib--accent-saturation-interpolation-*);
-    --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
-    accent-color: var(--tw-jib--accent-color);
-  }
-}
-
-/* block 3: experimental with-modifier */
-@utility -accent-saturation-* {
-  &:not(._) {
-    @variant supports-saturation {
-      --tw-jib--accent-color-after-saturation: --tw-jib--saturation(
-        var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source)),
-        calc(--value(integer, [number]) * -1),
-        --modifier(
-          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
-          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
-          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
-          'color-mix'
-        )
-      );
-      --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
-      accent-color: var(--tw-jib--accent-color);
-    }
-  }
-}
-
-/* block 4: stable no-modifier default — oklch */
-@utility -accent-saturation-* {
-  &:not(._) {
     --tw-jib--accent-color-after-saturation: oklch(from var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source)) l calc(c * (1 - abs(var(--tw-jib--accent-saturation--amount))) + max(0, var(--tw-jib--accent-saturation--amount)) * 0.4) h / alpha);
+    --tw-jib--accent-color-after-saturation: --modifier(--tw-jib--accent-saturation-interpolation-*);
     --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
     accent-color: var(--tw-jib--accent-color);
   }
 }
 
-/* block 5: experimental no-modifier default */
+/* experimental @function path — overrides stable where supported */
 @utility -accent-saturation-* {
   &:not(._) {
     @variant supports-saturation {
-      --tw-jib--accent-color-after-saturation: --tw-jib--saturation(var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source)), calc(--value(integer, [number]) * -1));
+      --tw-jib--accent-color-after-saturation: --tw-jib--saturation(var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source)), calc(--value(integer, [number]) * -1), --modifier('oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb', 'srgb', 'srgb-linear', 'display-p3', 'a98-rgb', 'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65', 'color-mix', --default(oklch)));
       --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
       accent-color: var(--tw-jib--accent-color);
     }
@@ -256,59 +182,22 @@
  * ALIAS: accent-saturate-*
  * ========================================================================= */
 
-/* block 1: sets amount + color via modifier */
+/* stable path: sets amount; oklch default overridden by --modifier when a color space is given */
 @utility accent-saturate-* {
   &:not(._) {
     --tw-jib--accent-saturation--amount: calc(--value(integer, [number]) * 0.01);
-    --tw-jib--accent-color-after-saturation: --modifier(--tw-jib--accent-saturation-interpolation-*);
-    --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
-    accent-color: var(--tw-jib--accent-color);
-  }
-}
-
-/* block 2: stable with-modifier */
-@utility accent-saturate-* {
-  &:not(._) {
-    --tw-jib--accent-color-after-saturation: --modifier(--tw-jib--accent-saturation-interpolation-*);
-    --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
-    accent-color: var(--tw-jib--accent-color);
-  }
-}
-
-/* block 3: experimental with-modifier */
-@utility accent-saturate-* {
-  &:not(._) {
-    @variant supports-saturation {
-      --tw-jib--accent-color-after-saturation: --tw-jib--saturation(
-        var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source)),
-        --value(integer, [number]),
-        --modifier(
-          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
-          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
-          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
-          'color-mix'
-        )
-      );
-      --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
-      accent-color: var(--tw-jib--accent-color);
-    }
-  }
-}
-
-/* block 4: stable no-modifier default — oklch */
-@utility accent-saturate-* {
-  &:not(._) {
     --tw-jib--accent-color-after-saturation: oklch(from var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source)) l calc(c * (1 - abs(var(--tw-jib--accent-saturation--amount))) + max(0, var(--tw-jib--accent-saturation--amount)) * 0.4) h / alpha);
+    --tw-jib--accent-color-after-saturation: --modifier(--tw-jib--accent-saturation-interpolation-*);
     --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
     accent-color: var(--tw-jib--accent-color);
   }
 }
 
-/* block 5: experimental no-modifier default */
+/* experimental @function path — overrides stable where supported */
 @utility accent-saturate-* {
   &:not(._) {
     @variant supports-saturation {
-      --tw-jib--accent-color-after-saturation: --tw-jib--saturation(var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source)), --value(integer, [number]));
+      --tw-jib--accent-color-after-saturation: --tw-jib--saturation(var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source)), --value(integer, [number]), --modifier('oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb', 'srgb', 'srgb-linear', 'display-p3', 'a98-rgb', 'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65', 'color-mix', --default(oklch)));
       --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
       accent-color: var(--tw-jib--accent-color);
     }
@@ -319,59 +208,22 @@
  * ALIAS: accent-desaturate-*
  * ========================================================================= */
 
-/* block 1: sets amount + color via modifier */
+/* stable path: sets amount; oklch default overridden by --modifier when a color space is given */
 @utility accent-desaturate-* {
   &:not(._) {
     --tw-jib--accent-saturation--amount: calc(--value(integer, [number]) * -0.01);
-    --tw-jib--accent-color-after-saturation: --modifier(--tw-jib--accent-saturation-interpolation-*);
-    --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
-    accent-color: var(--tw-jib--accent-color);
-  }
-}
-
-/* block 2: stable with-modifier */
-@utility accent-desaturate-* {
-  &:not(._) {
-    --tw-jib--accent-color-after-saturation: --modifier(--tw-jib--accent-saturation-interpolation-*);
-    --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
-    accent-color: var(--tw-jib--accent-color);
-  }
-}
-
-/* block 3: experimental with-modifier */
-@utility accent-desaturate-* {
-  &:not(._) {
-    @variant supports-saturation {
-      --tw-jib--accent-color-after-saturation: --tw-jib--saturation(
-        var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source)),
-        calc(--value(integer, [number]) * -1),
-        --modifier(
-          'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
-          'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
-          'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
-          'color-mix'
-        )
-      );
-      --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
-      accent-color: var(--tw-jib--accent-color);
-    }
-  }
-}
-
-/* block 4: stable no-modifier default — oklch */
-@utility accent-desaturate-* {
-  &:not(._) {
     --tw-jib--accent-color-after-saturation: oklch(from var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source)) l calc(c * (1 - abs(var(--tw-jib--accent-saturation--amount))) + max(0, var(--tw-jib--accent-saturation--amount)) * 0.4) h / alpha);
+    --tw-jib--accent-color-after-saturation: --modifier(--tw-jib--accent-saturation-interpolation-*);
     --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
     accent-color: var(--tw-jib--accent-color);
   }
 }
 
-/* block 5: experimental no-modifier default */
+/* experimental @function path — overrides stable where supported */
 @utility accent-desaturate-* {
   &:not(._) {
     @variant supports-saturation {
-      --tw-jib--accent-color-after-saturation: --tw-jib--saturation(var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source)), calc(--value(integer, [number]) * -1));
+      --tw-jib--accent-color-after-saturation: --tw-jib--saturation(var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source)), calc(--value(integer, [number]) * -1), --modifier('oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb', 'srgb', 'srgb-linear', 'display-p3', 'a98-rgb', 'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65', 'color-mix', --default(oklch)));
       --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
       accent-color: var(--tw-jib--accent-color);
     }

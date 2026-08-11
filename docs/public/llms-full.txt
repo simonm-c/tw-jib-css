@@ -60,7 +60,6 @@ Add the experimental entry point for cutting-edge CSS features with limited brow
 | Comic Dots | `tw-jib-css/comic` | Stable |
 | Pixel | `tw-jib-css/pixel` | Stable |
 | Border Style | `tw-jib-css/border-style` | Stable |
-| Scrollbar | `tw-jib-css/scrollbar` | Stable |
 | Grid | `tw-jib-css/grid` | Stable |
 | Corner Shape | `tw-jib-css/experimental/corner` | Experimental |
 | Interpolate Size | `tw-jib-css/experimental/interpolate` | Experimental |
@@ -82,23 +81,23 @@ One element, three layers that plain Tailwind can't do:
 
 
 ```html
-  <div class="bg-watercolor-indigo-600
+  <div class="bg-comic-indigo-600
     border-4 border-linear-to-br border-from-indigo-300 border-to-cyan-300
     text-white
     rounded-xl p-6 max-w-sm">
     <h3 class="text-lg font-bold">Event name</h3>
-    <p class="text-sm mt-1 opacity-90">A card with a watercolour background, a gradient border, and auto-contrasted text. All CSS, no JavaScript.</p>
+    <p class="text-sm mt-1 opacity-90">A card with a comic halftone background, a gradient border, and auto-contrasted text. All CSS, no JavaScript.</p>
   </div>
 ```
 
 
 ```html
-<div class="bg-watercolor-indigo-600
+<div class="bg-comic-indigo-600
   border-4 border-linear-to-br border-from-indigo-300 border-to-cyan-300
   text-a11y-aa
   rounded-xl p-6">
   <h3>Event name</h3>
-  <p>A card with a watercolour background, a gradient border,
+  <p>A card with a comic halftone background, a gradient border,
      and auto-contrasted text.</p>
 </div>
 ```
@@ -107,9 +106,9 @@ Every class in that snippet either comes from stock Tailwind (`rounded-xl`, `p-6
 
 ## The background is a texture, not an image
 
-`bg-watercolor-indigo-600` takes `indigo-600` and renders it as a nine-pigment watercolour wash — pure CSS gradients with multiply blending. Change the colour to `bg-watercolor-rose-500` and the pigment pools recalculate.
+`bg-comic-indigo-600` takes `indigo-600` and renders it as CMYK halftone dots — pure CSS gradients with multiply blending. Change the colour to `bg-comic-rose-500` and the dot layers recalculate.
 
-Four textures are available: comic (CMYK halftone), pixel (CRT phosphors), hatch (pen-and-ink), and watercolour. See [Print Textures](/guide/print-textures).
+Two textures are available: comic (CMYK halftone) and pixel (CRT phosphors). See [Print Textures](/guide/print-textures).
 
 ## The text colour is computed from the background
 
@@ -295,6 +294,8 @@ If you are working with colours outside the sRGB gamut, using a wide gamut space
 ## Where colour spaces appear in tw-jib-css
 
 - **[Lightness](/guide/lightness)** — All 17 spaces available via the `/modifier` syntax (e.g. `bg-lightness-20/oklch`, `-bg-lightness-20/oklch`). Also available as `bg-lighten-*` and `bg-darken-*` aliases.
+- **[Saturation](/guide/saturation)** — All 17 spaces available via the `/modifier` syntax (e.g. `bg-saturation-20/oklch`, `-bg-saturation-40/oklch`). Also available as `bg-saturate-*` and `bg-desaturate-*` aliases.
+- **[Hue Rotate](/guide/hue-rotate)** — 16 spaces available via the `/modifier` syntax (e.g. `bg-hue-rotate-90/oklch`). No color-mix — hue rotation has no honest two-colour form.
 - **[Border Gradient](/guide/border-gradient)** — Interpolation modes control which space gradients blend through (sRGB, HSL, OKLab, OKLCh with hue direction modifiers).
 - **[Ripple](/guide/ripple)** — Uses `color-mix(in oklch)` internally for opacity blending.
 
@@ -342,7 +343,7 @@ The lightness shift interpolates in oklch, the hue rotation in hsl. Each utility
 Print textures and gradient borders coexist on the same element:
 
 ```html
-<div class="bg-hatch-indigo-600
+<div class="bg-comic-indigo-600
   border-4 border-linear-to-br
   border-from-indigo-300 border-to-purple-300
   rounded-xl p-6">
@@ -355,8 +356,8 @@ The texture occupies the background. The gradient border occupies the border are
 `text-a11y-*` reads the computed background colour. It works on solid colours, transformed colours, and textures:
 
 ```html
-<div class="bg-watercolor-violet-600 text-a11y-aa p-6">
-  Readable text on a watercolour background.
+<div class="bg-comic-violet-600 text-a11y-aa p-6">
+  Readable text on a comic halftone background.
 </div>
 ```
 
@@ -365,7 +366,7 @@ The texture occupies the background. The gradient border occupies the border are
 A card with a texture background, auto-contrast text, a gradient border, and a lightened accent:
 
 ```html
-<div class="bg-watercolor-indigo-600
+<div class="bg-comic-indigo-600
   border-4 border-linear-to-br
   border-from-indigo-300 border-to-cyan-300
   text-a11y-aa
@@ -388,22 +389,20 @@ Every utility speaks the same grammar. That's the system.
 
 # Print Textures
 
-Comic halftone, CRT pixel, hatch, and watercolour textures. Any colour in, textured surface out.
+Comic halftone and CRT pixel textures. Any colour in, textured surface out.
 
 ## The grammar
 
-All four textures follow the same pattern: `bg-{texture}-{color}` plus modifier classes for grain, spacing, and bleed.
+Both textures follow the same pattern: `bg-{texture}-{color}` plus modifier classes for grain, spacing, and edge softness (`bleed` for comic, `bloom` for pixel).
 
 ```html
 <div class="bg-comic-blue-500">
 <div class="bg-pixel-blue-500 pixel-size-1 pixel-gap-1">
-<div class="bg-hatch-blue-500 hatch-angle-60">
-<div class="bg-watercolor-blue-500 watercolor-traditional">
 ```
 
 Pass a Tailwind colour, get a textured surface. Change the colour, the texture updates — no images, no SVG, no JavaScript.
 
-## Four rendering engines
+## Two rendering engines
 
 
 ```html
@@ -411,14 +410,8 @@ Pass a Tailwind colour, get a textured surface. Change the colour, the texture u
     <div class="aspect-square rounded-xl bg-comic-indigo-600 relative">
       <span class="absolute bottom-2 left-2 font-mono text-[9px] opacity-60">comic</span>
     </div>
-    <div class="aspect-square rounded-xl bg-pixel-indigo-600 pixel-size-1 pixel-gap-1 pixel-bleed-0.5 relative">
+    <div class="aspect-square rounded-xl bg-pixel-indigo-600 pixel-size-1 pixel-gap-1 pixel-bloom-0.5 relative">
       <span class="absolute bottom-2 left-2 font-mono text-[9px] text-white opacity-60">pixel</span>
-    </div>
-    <div class="aspect-square rounded-xl bg-hatch-indigo-600 relative">
-      <span class="absolute bottom-2 left-2 font-mono text-[9px] opacity-60">hatch</span>
-    </div>
-    <div class="aspect-square rounded-xl bg-watercolor-indigo-600 relative">
-      <span class="absolute bottom-2 left-2 font-mono text-[9px] opacity-60">watercolor</span>
     </div>
   </div>
 ```
@@ -428,19 +421,15 @@ Pass a Tailwind colour, get a textured surface. Change the colour, the texture u
 
 **Pixel** splits the input into RGB column triplets with additive (screen) blending — mimics CRT and LCD phosphor displays.
 
-**Hatch** renders three directional crosshatch stroke layers with multiply blending. Input lightness drives stroke density: light inputs get sparse lines, dark inputs build to full crosshatch.
-
-**Watercolour** blends nine pigment pools (six primary, three shadow) via multiply. Three palette modes: contemporary, traditional (Turner-era earth tones), and eastern (sumi ink and mineral pigments).
-
 ## They compose with the rest of the library
 
 Textures play nicely with gradient borders, colour transforms, and auto-contrast text:
 
 ```html
-<div class="bg-watercolor-violet-600
+<div class="bg-comic-violet-600
   border-4 border-linear-to-br border-from-violet-300 border-to-pink-300
   text-a11y-aa p-6 rounded-xl">
-  Watercolour background, gradient border, accessible text.
+  Comic halftone background, gradient border, accessible text.
 </div>
 ```
 
@@ -450,8 +439,6 @@ Each texture has a full reference with the complete modifier list, formulas, and
 
 - [Comic](/guide/comic) — CMYK halftone dots
 - [Pixel](/guide/pixel) — RGB pixel columns
-- [Hatch](/guide/hatch) — pen-and-ink crosshatch
-- [Watercolor](/guide/watercolor) — multi-pigment wash
 
 ---
 
@@ -528,6 +515,82 @@ Every transform defaults to oklch. Append a modifier to pick a different space:
 ```
 
 Different spaces produce visually different results from the same input. See [Color Spaces](/guide/color-spaces) for when this matters.
+
+## How it works: stable and experimental paths
+
+Every colour transform utility emits CSS through **two rendering paths** simultaneously. The browser picks the best one automatically via `@supports`. You write the same classes either way — there is nothing to configure for the stable path.
+
+### Stable path
+
+Uses CSS relative colour syntax — each colour space has a pre-computed expression built at compile time via Tailwind's `@theme inline`. Works in **Chrome 111+, Safari 16.4+, Firefox 128+**.
+
+```css
+@import 'tw-jib-css';
+```
+
+The stable path powers the 7 surface utilities (`bg-`, `text-`, `fill-`, `stroke-`, `outline-`, `accent-`, `border-`). When you write `bg-lightness-30/hsl`, the `--modifier()` resolves to the pre-built HSL relative colour expression.
+
+### Experimental path
+
+Uses CSS `@function` definitions with an `if(style())` dispatcher that routes to per-space functions at paint time. Requires **CSS `@function` support** (Chromium only as of April 2026).
+
+```css
+@import 'tw-jib-css';
+@import 'tw-jib-css/experimental';
+```
+
+The second import activates `@custom-variant` gates (`supports-lightness`, `supports-saturation`, `supports-hue-rotate`) that wrap the experimental blocks. Without it, the experimental path is inert.
+
+In supporting browsers, the experimental blocks override the stable blocks via `@supports` — the same classes produce the same visual result through a different mechanism.
+
+### Why use experimental?
+
+The experimental path exposes three CSS functions callable from **anywhere a `<color>` value is accepted**, including Tailwind's arbitrary value syntax:
+
+```
+--tw-jib--lightness(color, amount, space?)
+--tw-jib--saturation(color, amount, space?)
+--tw-jib--hue-rotate(color, amount, space?)
+```
+
+This unlocks use cases the class-based API can't reach:
+
+**Gradient stops** — the class API has no way to apply transforms to `from-*`/`via-*`/`to-*`:
+
+```html
+<div class="bg-linear-to-r
+  from-[--tw-jib--lightness(var(--color-blue-500),60)]
+  to-[--tw-jib--lightness(var(--color-blue-500),-60)]">
+```
+
+**Arbitrary properties** — shadows, carets, any CSS property that takes a colour:
+
+```html
+<div class="shadow-lg [--tw-shadow-color:--tw-jib--lightness(var(--color-blue-500),-30)]">
+```
+
+**Theme tokens and CSS variables** — no Tailwind colour class needed as the source:
+
+```html
+<div class="bg-[--tw-jib--saturation(var(--brand-primary),-40,oklch)]">
+```
+
+**Composing transforms** — nest calls to chain lightness + hue-rotate in one value:
+
+```html
+<div class="bg-[--tw-jib--lightness(--tw-jib--hue-rotate(var(--color-red-500),120),30)]">
+```
+
+### Comparison
+
+|  | Stable | Experimental |
+| --- | --- | --- |
+| Browser support | Chrome 111+, Safari 16.4+, Firefox 128+ | Chromium only (CSS `@function`) |
+| Import | `tw-jib-css` | `tw-jib-css` + `tw-jib-css/experimental` |
+| Surface utilities | All 7 surfaces | All 7 surfaces (auto-upgraded) |
+| Arbitrary values | — | Callable anywhere a `<color>` is accepted |
+| Gradient stops | — | `from-[--tw-jib--lightness(...)]` etc. |
+| Nested composition | — | Chain multiple transforms in one expression |
 
 ## Reference pages
 
@@ -924,7 +987,7 @@ Reference CSS custom properties with the typed bare-value syntax `(type:--var)`.
 
 
 ```html
-  <div class="border-4 border-linear-to-r border-from-(color:--brand-from) border-to-(color:--brand-to) rounded-xl p-6 bg-white text-center font-mono text-xs text-gray-500" style="--brand-from: #ff6b35; --brand-to: #6366f1">
+  <div class="border-4 border-linear-to-r border-from-(color:--brand-from) border-to-(color:--brand-to) rounded-xl p-6 bg-white text-center font-mono text-xs text-gray-500 [--brand-from:#ff6b35] [--brand-to:#6366f1]">
     border-from-(color:--brand-from) border-to-(color:--brand-to)
   </div>
 ```
@@ -1377,7 +1440,9 @@ The lightness amount is a registered `@property` variable. It composes with Tail
 
 ## Colour Space Support
 
-Append a modifier to select the interpolation space: `bg-lightness-30/oklch`, `bg-lightness-30/hsl`, etc. Default is oklch.
+Append a modifier to select the interpolation space: `bg-lightness-30/oklch`, `bg-lightness-30/hsl`, etc. Default is oklch. Each column below shows base → +20 → +40 → +60 → +80.
+
+### Perceptual polar
 
 
 ```html
@@ -1393,13 +1458,32 @@ Append a modifier to select the interpolation space: `bg-lightness-30/oklch`, `b
       </div>
     </div>
     <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/hsl</span>
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/lch</span>
       <div class="flex flex-1">
         <div class="flex-1 bg-blue-500 h-8"></div>
-        <div class="flex-1 bg-blue-500 bg-lightness-20/hsl h-8"></div>
-        <div class="flex-1 bg-blue-500 bg-lightness-40/hsl h-8"></div>
-        <div class="flex-1 bg-blue-500 bg-lightness-60/hsl h-8"></div>
-        <div class="flex-1 bg-blue-500 bg-lightness-80/hsl h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-20/lch h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-40/lch h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-60/lch h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-80/lch h-8"></div>
+      </div>
+    </div>
+  </div>
+```
+
+
+### Perceptual rectangular
+
+
+```html
+  <div class="flex flex-col gap-1">
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/oklab</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-20/oklab h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-40/oklab h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-60/oklab h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-80/oklab h-8"></div>
       </div>
     </div>
     <div class="flex items-center gap-3">
@@ -1412,6 +1496,74 @@ Append a modifier to select the interpolation space: `bg-lightness-30/oklch`, `b
         <div class="flex-1 bg-blue-500 bg-lightness-80/lab h-8"></div>
       </div>
     </div>
+  </div>
+```
+
+
+### Legacy
+
+
+```html
+  <div class="flex flex-col gap-1">
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/hsl</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-20/hsl h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-40/hsl h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-60/hsl h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-80/hsl h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/hwb</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-20/hwb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-40/hwb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-60/hwb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-80/hwb h-8"></div>
+      </div>
+    </div>
+  </div>
+```
+
+
+### RGB family
+
+
+```html
+  <div class="flex flex-col gap-1">
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/rgb</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-20/rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-40/rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-60/rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-80/rgb h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/srgb</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-20/srgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-40/srgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-60/srgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-80/srgb h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/srgb-linear</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-20/srgb-linear h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-40/srgb-linear h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-60/srgb-linear h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-80/srgb-linear h-8"></div>
+      </div>
+    </div>
     <div class="flex items-center gap-3">
       <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/display-p3</span>
       <div class="flex flex-1">
@@ -1422,6 +1574,84 @@ Append a modifier to select the interpolation space: `bg-lightness-30/oklch`, `b
         <div class="flex-1 bg-blue-500 bg-lightness-80/display-p3 h-8"></div>
       </div>
     </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/a98-rgb</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-20/a98-rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-40/a98-rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-60/a98-rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-80/a98-rgb h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/prophoto-rgb</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-20/prophoto-rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-40/prophoto-rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-60/prophoto-rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-80/prophoto-rgb h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/rec2020</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-20/rec2020 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-40/rec2020 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-60/rec2020 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-80/rec2020 h-8"></div>
+      </div>
+    </div>
+  </div>
+```
+
+
+### Device-independent
+
+
+```html
+  <div class="flex flex-col gap-1">
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/xyz</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-20/xyz h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-40/xyz h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-60/xyz h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-80/xyz h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/xyz-d50</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-20/xyz-d50 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-40/xyz-d50 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-60/xyz-d50 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-80/xyz-d50 h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/xyz-d65</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-20/xyz-d65 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-40/xyz-d65 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-60/xyz-d65 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-lightness-80/xyz-d65 h-8"></div>
+      </div>
+    </div>
+  </div>
+```
+
+
+### Colour-mix
+
+
+```html
+  <div class="flex flex-col gap-1">
     <div class="flex items-center gap-3">
       <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/color-mix</span>
       <div class="flex flex-1">
@@ -1436,7 +1666,7 @@ Append a modifier to select the interpolation space: `bg-lightness-30/oklch`, `b
 ```
 
 
-Available spaces: oklch (default), lch, oklab, lab, hsl, hwb, rgb, srgb, srgb-linear, display-p3, a98-rgb, prophoto-rgb, rec2020, xyz, xyz-d50, xyz-d65, color-mix. See the [Colour Spaces reference](/guide/colour-spaces) for the full comparison.
+See the [Colour Spaces reference](/guide/colour-spaces) for what each space is and when to choose one.
 
 **How scaling works**
 Values 0–100 represent a **percentage of the distance** to white or black — not a fixed channel offset. `bg-lightness-50` moves halfway to white; `bg-lightness-100` reaches white exactly, regardless of where the colour started. Each colour space family handles this differently:
@@ -1487,6 +1717,9 @@ Every lightness utility works with Tailwind's variant prefixes:
 ## Browser Support
 
 Requires CSS relative colour syntax: Chrome 111+, Safari 16.4+, Firefox 128+.
+
+**Rendering paths**
+Lightness utilities use two CSS rendering paths — a stable path (relative colour syntax, all modern browsers) and an experimental path (CSS `@function`, Chromium only). The browser selects automatically via `@supports`. With the experimental import, transforms are also available as CSS functions callable in arbitrary values: `from-[--tw-jib--lightness(var(--color-blue-500),60)]`. See [How It Works](/guide/color-transforms#how-it-works-stable-and-experimental-paths) for details.
 
 ---
 
@@ -1637,7 +1870,9 @@ The saturation amount is a registered `@property` variable. Transitions work:
 
 ## Colour Space Support
 
-Append a modifier: `bg-saturation-30/oklch`, `-bg-saturation-50/hsl`, etc. Default is oklch.
+Append a modifier: `bg-saturation-30/oklch`, `-bg-saturation-50/hsl`, etc. Default is oklch. Each column below shows base → −20 → −40 → −60 → −80.
+
+### Perceptual polar
 
 
 ```html
@@ -1653,13 +1888,32 @@ Append a modifier: `bg-saturation-30/oklch`, `-bg-saturation-50/hsl`, etc. Defau
       </div>
     </div>
     <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/hsl</span>
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/lch</span>
       <div class="flex flex-1">
         <div class="flex-1 bg-blue-500 h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-20/hsl h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-40/hsl h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-60/hsl h-8"></div>
-        <div class="flex-1 bg-blue-500 -bg-saturation-80/hsl h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-20/lch h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-40/lch h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-60/lch h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-80/lch h-8"></div>
+      </div>
+    </div>
+  </div>
+```
+
+
+### Perceptual rectangular
+
+
+```html
+  <div class="flex flex-col gap-1">
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/oklab</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-20/oklab h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-40/oklab h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-60/oklab h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-80/oklab h-8"></div>
       </div>
     </div>
     <div class="flex items-center gap-3">
@@ -1672,6 +1926,162 @@ Append a modifier: `bg-saturation-30/oklch`, `-bg-saturation-50/hsl`, etc. Defau
         <div class="flex-1 bg-blue-500 -bg-saturation-80/lab h-8"></div>
       </div>
     </div>
+  </div>
+```
+
+
+### Legacy
+
+
+```html
+  <div class="flex flex-col gap-1">
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/hsl</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-20/hsl h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-40/hsl h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-60/hsl h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-80/hsl h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/hwb</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-20/hwb h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-40/hwb h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-60/hwb h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-80/hwb h-8"></div>
+      </div>
+    </div>
+  </div>
+```
+
+
+### RGB family
+
+
+```html
+  <div class="flex flex-col gap-1">
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/rgb</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-20/rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-40/rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-60/rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-80/rgb h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/srgb</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-20/srgb h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-40/srgb h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-60/srgb h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-80/srgb h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/srgb-linear</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-20/srgb-linear h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-40/srgb-linear h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-60/srgb-linear h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-80/srgb-linear h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/display-p3</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-20/display-p3 h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-40/display-p3 h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-60/display-p3 h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-80/display-p3 h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/a98-rgb</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-20/a98-rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-40/a98-rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-60/a98-rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-80/a98-rgb h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/prophoto-rgb</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-20/prophoto-rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-40/prophoto-rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-60/prophoto-rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-80/prophoto-rgb h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/rec2020</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-20/rec2020 h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-40/rec2020 h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-60/rec2020 h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-80/rec2020 h-8"></div>
+      </div>
+    </div>
+  </div>
+```
+
+
+### Device-independent
+
+
+```html
+  <div class="flex flex-col gap-1">
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/xyz</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-20/xyz h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-40/xyz h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-60/xyz h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-80/xyz h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/xyz-d50</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-20/xyz-d50 h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-40/xyz-d50 h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-60/xyz-d50 h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-80/xyz-d50 h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/xyz-d65</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-20/xyz-d65 h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-40/xyz-d65 h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-60/xyz-d65 h-8"></div>
+        <div class="flex-1 bg-blue-500 -bg-saturation-80/xyz-d65 h-8"></div>
+      </div>
+    </div>
+  </div>
+```
+
+
+### Fallback
+
+
+```html
+  <div class="flex flex-col gap-1">
     <div class="flex items-center gap-3">
       <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/color-mix</span>
       <div class="flex flex-1">
@@ -1686,7 +2096,7 @@ Append a modifier: `bg-saturation-30/oklch`, `-bg-saturation-50/hsl`, etc. Defau
 ```
 
 
-Available spaces: oklch (default), lch, oklab, lab, hsl, hwb, rgb, srgb, srgb-linear, display-p3, a98-rgb, prophoto-rgb, rec2020, xyz, xyz-d50, xyz-d65, color-mix. See the [Colour Spaces reference](/guide/colour-spaces) for the full comparison.
+See the [Colour Spaces reference](/guide/colour-spaces) for what each space is and when to choose one.
 
 **How scaling works**
 **oklch, lch** — Chroma interpolates toward the maximum (saturate) or 0 (desaturate). Lightness is held constant.
@@ -1697,7 +2107,7 @@ Available spaces: oklch (default), lch, oklab, lab, hsl, hwb, rgb, srgb, srgb-li
 
 **RGB-family** — Each channel moves toward or away from its greyscale luma value (`0.213r + 0.715g + 0.072b`).
 
-**colour-mix** — Desaturation blends toward grey via `color-mix()` in oklch. Saturation increase is not supported in colour-mix mode.
+**colour-mix** — Blends toward grey (desaturation) or maximum chroma (saturation) via `color-mix()` in oklch.
 
 ## Aliases
 
@@ -1729,6 +2139,9 @@ Every saturation utility works with Tailwind's variant prefixes:
 ## Browser Support
 
 Requires CSS relative colour syntax: Chrome 111+, Safari 16.4+, Firefox 128+.
+
+**Rendering paths**
+Saturation utilities use two CSS rendering paths — a stable path (relative colour syntax, all modern browsers) and an experimental path (CSS `@function`, Chromium only). The browser selects automatically via `@supports`. With the experimental import, transforms are also available as CSS functions callable in arbitrary values: `bg-[--tw-jib--saturation(var(--color-blue-500),-40,oklch)]`. See [How It Works](/guide/color-transforms#how-it-works-stable-and-experimental-paths) for details.
 
 ---
 
@@ -1866,7 +2279,9 @@ The hue amount is a registered `@property` variable. Transitions work:
 
 ## Colour Space Support
 
-Append a modifier: `bg-hue-rotate-90/oklch`, `bg-hue-rotate-90/hsl`, etc. Default is oklch.
+Append a modifier: `bg-hue-rotate-90/oklch`, `bg-hue-rotate-90/hsl`, etc. Default is oklch. Each column below shows base → +60° → +120° → +180° → +240° → +300°.
+
+### Perceptual polar
 
 
 ```html
@@ -1883,14 +2298,34 @@ Append a modifier: `bg-hue-rotate-90/oklch`, `bg-hue-rotate-90/hsl`, etc. Defaul
       </div>
     </div>
     <div class="flex items-center gap-3">
-      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/hsl</span>
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/lch</span>
       <div class="flex flex-1">
         <div class="flex-1 bg-blue-500 h-8"></div>
-        <div class="flex-1 bg-blue-500 bg-hue-rotate-60/hsl h-8"></div>
-        <div class="flex-1 bg-blue-500 bg-hue-rotate-120/hsl h-8"></div>
-        <div class="flex-1 bg-blue-500 bg-hue-rotate-180/hsl h-8"></div>
-        <div class="flex-1 bg-blue-500 bg-hue-rotate-240/hsl h-8"></div>
-        <div class="flex-1 bg-blue-500 bg-hue-rotate-300/hsl h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-60/lch h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-120/lch h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-180/lch h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-240/lch h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-300/lch h-8"></div>
+      </div>
+    </div>
+  </div>
+```
+
+
+### Perceptual rectangular
+
+
+```html
+  <div class="flex flex-col gap-1">
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/oklab</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-60/oklab h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-120/oklab h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-180/oklab h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-240/oklab h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-300/oklab h-8"></div>
       </div>
     </div>
     <div class="flex items-center gap-3">
@@ -1904,6 +2339,46 @@ Append a modifier: `bg-hue-rotate-90/oklch`, `bg-hue-rotate-90/hsl`, etc. Defaul
         <div class="flex-1 bg-blue-500 bg-hue-rotate-300/lab h-8"></div>
       </div>
     </div>
+  </div>
+```
+
+
+### Legacy
+
+
+```html
+  <div class="flex flex-col gap-1">
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/hsl</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-60/hsl h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-120/hsl h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-180/hsl h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-240/hsl h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-300/hsl h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/hwb</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-60/hwb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-120/hwb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-180/hwb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-240/hwb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-300/hwb h-8"></div>
+      </div>
+    </div>
+  </div>
+```
+
+
+### RGB family
+
+
+```html
+  <div class="flex flex-col gap-1">
     <div class="flex items-center gap-3">
       <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/rgb</span>
       <div class="flex flex-1">
@@ -1915,11 +2390,119 @@ Append a modifier: `bg-hue-rotate-90/oklch`, `bg-hue-rotate-90/hsl`, etc. Defaul
         <div class="flex-1 bg-blue-500 bg-hue-rotate-300/rgb h-8"></div>
       </div>
     </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/srgb</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-60/srgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-120/srgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-180/srgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-240/srgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-300/srgb h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/srgb-linear</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-60/srgb-linear h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-120/srgb-linear h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-180/srgb-linear h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-240/srgb-linear h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-300/srgb-linear h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/display-p3</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-60/display-p3 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-120/display-p3 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-180/display-p3 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-240/display-p3 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-300/display-p3 h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/a98-rgb</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-60/a98-rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-120/a98-rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-180/a98-rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-240/a98-rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-300/a98-rgb h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/prophoto-rgb</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-60/prophoto-rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-120/prophoto-rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-180/prophoto-rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-240/prophoto-rgb h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-300/prophoto-rgb h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/rec2020</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-60/rec2020 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-120/rec2020 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-180/rec2020 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-240/rec2020 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-300/rec2020 h-8"></div>
+      </div>
+    </div>
   </div>
 ```
 
 
-Available spaces: oklch (default), lch, oklab, lab, hsl, hwb, rgb, srgb, srgb-linear, display-p3, a98-rgb, prophoto-rgb, rec2020, xyz, xyz-d50, xyz-d65. No color-mix modifier — hue rotation has no honest two-colour interpolation form.
+### Device-independent
+
+
+```html
+  <div class="flex flex-col gap-1">
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/xyz</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-60/xyz h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-120/xyz h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-180/xyz h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-240/xyz h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-300/xyz h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/xyz-d50</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-60/xyz-d50 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-120/xyz-d50 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-180/xyz-d50 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-240/xyz-d50 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-300/xyz-d50 h-8"></div>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <span class="w-28 text-xs text-gray-500 text-right font-mono shrink-0">/xyz-d65</span>
+      <div class="flex flex-1">
+        <div class="flex-1 bg-blue-500 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-60/xyz-d65 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-120/xyz-d65 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-180/xyz-d65 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-240/xyz-d65 h-8"></div>
+        <div class="flex-1 bg-blue-500 bg-hue-rotate-300/xyz-d65 h-8"></div>
+      </div>
+    </div>
+  </div>
+```
+
+
+No color-mix modifier — hue rotation has no honest two-colour interpolation form. See the [Colour Spaces reference](/guide/colour-spaces) for what each space is and when to choose one.
 
 **How rotation works per space**
 **Polar spaces (oklch, lch, hsl, hwb)** — Adds degrees to the hue channel directly. The simplest and most predictable.
@@ -1943,6 +2526,9 @@ Every hue-rotate utility works with Tailwind's variant prefixes:
 ## Browser Support
 
 Requires CSS relative colour syntax: Chrome 111+, Safari 16.4+, Firefox 128+. Lab-space trig functions (`cos()`, `sin()`) require Chrome 125+.
+
+**Rendering paths**
+Hue-rotate utilities use two CSS rendering paths — a stable path (relative colour syntax, all modern browsers) and an experimental path (CSS `@function`, Chromium only). The browser selects automatically via `@supports`. With the experimental import, transforms are also available as CSS functions callable in arbitrary values: `from-[--tw-jib--hue-rotate(var(--color-red-500),120)]`. See [How It Works](/guide/color-transforms#how-it-works-stable-and-experimental-paths) for details.
 
 ---
 
@@ -2110,10 +2696,10 @@ For CSS variables, use the typed bare-value syntax `ripple-color-(color:--var)`.
 
 ```html
   <div class="flex gap-3">
-    <button class="bg-ripple ripple-color-(color:--theme-ripple) bg-gray-800 text-white px-8 py-4 rounded-lg font-medium cursor-pointer" style="--theme-ripple: #bada55">
+    <button class="bg-ripple ripple-color-(color:--theme-ripple) bg-gray-800 text-white px-8 py-4 rounded-lg font-medium cursor-pointer [--theme-ripple:#bada55]">
       ripple-color-(color:--theme-ripple)
     </button>
-    <button class="bg-ripple ripple-color-(color:--theme-ripple) bg-white text-gray-800 border border-gray-200 px-8 py-4 rounded-lg font-medium cursor-pointer" style="--theme-ripple: #6366f1">
+    <button class="bg-ripple ripple-color-(color:--theme-ripple) bg-white text-gray-800 border border-gray-200 px-8 py-4 rounded-lg font-medium cursor-pointer [--theme-ripple:#6366f1]">
       ripple-color-(color:--theme-ripple)
     </button>
   </div>
@@ -2123,7 +2709,7 @@ For CSS variables, use the typed bare-value syntax `ripple-color-(color:--var)`.
 The same pattern works for all ripple properties. For position, use the `position` type hint:
 
 ```html
-<div class="bg-ripple ripple-position-(position:--ripple-pos)" style="--ripple-pos: 25% 75%">
+<div class="bg-ripple ripple-position-(position:--ripple-pos) [--ripple-pos:25%_75%]">
 ```
 
 ### Cursor-tracking ripple
@@ -2260,784 +2846,6 @@ Add `bg-ripple` to any element. On `:active`, a radial gradient expands outward 
 ## Reference
 
 See the [Ripple reference](/guide/ripple) for the full class list, custom values, and cursor-tracking implementation.
-
----
-
-# Hatch
-
-> hatch module — pencil-hatching backgrounds. Converts any colour to three directional hatching layers (primary 12-slot, cross 6-slot, third 6-slot) using oklch relative colour syntax and repeating linear gradients with multiply blend mode. Per-slot alpha is L-range gated with smooth ramps and press-curve modulation (peak = 0.95 − 0.3 × l). Primary slots have alpha floor of 0.35 for baseline coverage. Cross and third are purely L-gated (no floor). Classical hatching angles (35deg primary, +90deg cross, +45deg third). Ink derived from input colour: L squared, C doubled, H preserved. White paper base. Knob utilities: hatch-angle, hatch-stroke, hatch-gap.
-
-# Hatch
-
-Pencil-hatching backgrounds for any Tailwind colour. Three directional stroke layers mimic the look of hand-drawn crosshatching. Pure CSS, no images.
-
-**Import**
-Included in `@import 'tw-jib-css'`. To import individually:
-```css
-@import 'tw-jib-css/hatch';
-```
-
-**Browser Support**
-Uses CSS relative colour syntax with `oklch(from ...)` and `clamp()` inside alpha channels. Chrome 111+, Safari 16.4+, Firefox 128+.
-
-## Quick Reference
-
-| Class | CSS |
-|---|---|
-| `bg-hatch-<color>` | `Sets colour and applies 3-direction hatching pattern with background-blend-mode: multiply` |
-| `bg-hatch-<color>/<opacity>` | `Same with opacity modifier (0–100)` |
-| `bg-hatch-[<value>]` | `Arbitrary colour value` |
-| `hatch-angle-<number>` | `--tw-jib--hatch-angle: <number>deg — primary hatching angle` |
-| `hatch-angle-[<angle>]` | `--tw-jib--hatch-angle: <angle>` |
-| `hatch-stroke-<number>` | `--tw-jib--hatch-stroke: --spacing(<number>) / 4 — line thickness` |
-| `hatch-stroke-[<length>]` | `--tw-jib--hatch-stroke: <length>` |
-| `hatch-gap-<number>` | `--tw-jib--hatch-gap: --spacing(<number>) / 4 — whitespace between strokes` |
-| `hatch-gap-[<length>]` | `--tw-jib--hatch-gap: <length>` |
-
-
-## How it works
-
-Three directional hatching layers are composited with `background-blend-mode: multiply` over a white paper base. Each layer is a `repeating-linear-gradient` whose per-slot alpha ramps smoothly with the input colour's oklch lightness.
-
-### Three directions
-
-| Direction | Cell size | Slots | Angle | Activation |
-|-----------|----------|-------|-------|------------|
-| **Primary** | 12-slot | pA (0,6), pB (1,5,7,11), pC (2,4,8,10), pD (3,9) | 35&deg; | Always on (alpha floor 0.35) |
-| **Cross** | 6-slot | c0 (0), c3 (3), c900 (1,2,4,5) | +90&deg; | Mid-to-dark inputs only (no floor) |
-| **Third** | 6-slot | t0 (0), t3 (3), t900 (1,2,4,5) | +45&deg; | Dark inputs only (no floor) |
-
-Each slot's ink uses a different L-range ramp threshold — primary slots activate progressively from light to dark, cross slots fire at mid-tones, and third-direction slots only appear at the darkest inputs. All transitions are smooth alpha ramps, not hard snaps.
-
-### Alpha formula
-
-Each slot's alpha is computed as:
-
-```
-peak  = 0.95 − 0.3 × l                    (press-curve modulation)
-ramp  = clamp(0, (start_l − l) / span, 1)  (L-range gate)
-alpha = max(0.35, peak × ramp) × opacity    (primary slots — floor keeps light inputs visible)
-alpha = peak × ramp × opacity               (cross & third slots — no floor)
-```
-
-### Ink derivation
-
-All slots share the same ink colour, derived from the input:
-
-- **Hue** preserved from input
-- **Chroma** doubled (`c * 2`) for vivid ink; stays near sRGB gamut
-- **Lightness** squared (`l * l`) — light inputs stay light and chromatic, dark inputs darken aggressively
-
-## Basic Usage
-
-Add `bg-hatch-{color}` to any element:
-
-
-```html
-  <div class="flex gap-4">
-    <div class="bg-hatch-red-500 size-24 rounded-lg"></div>
-    <div class="bg-hatch-blue-500 size-24 rounded-lg"></div>
-    <div class="bg-hatch-emerald-500 size-24 rounded-lg"></div>
-    <div class="bg-hatch-amber-500 size-24 rounded-lg"></div>
-  </div>
-```
-
-
-Darker colours produce denser hatching — the same lightness-based tier system an illustrator would use:
-
-
-```html
-  <div class="flex gap-3">
-    <div class="bg-hatch-blue-100 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono">blue-100</span></div>
-    <div class="bg-hatch-blue-300 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono">blue-300</span></div>
-    <div class="bg-hatch-blue-500 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">blue-500</span></div>
-    <div class="bg-hatch-blue-700 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">blue-700</span></div>
-    <div class="bg-hatch-blue-900 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">blue-900</span></div>
-  </div>
-```
-
-
-## Angle
-
-Control the primary hatching angle with `hatch-angle-{number}`. The value is in degrees. Cross and triple angles derive automatically (+90&deg; and +60&deg; respectively). The default is 35&deg; — slightly off-axis feels hand-placed; exact 45&deg; reads digital.
-
-
-```html
-  <div class="flex gap-3">
-    <div class="bg-hatch-blue-500 hatch-angle-0 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">0</span></div>
-    <div class="bg-hatch-blue-500 hatch-angle-35 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">35</span></div>
-    <div class="bg-hatch-blue-500 hatch-angle-45 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">45</span></div>
-    <div class="bg-hatch-blue-500 hatch-angle-90 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">90</span></div>
-    <div class="bg-hatch-blue-500 hatch-angle-135 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">135</span></div>
-  </div>
-```
-
-
-## Stroke
-
-Control the line thickness with `hatch-stroke-{number}`. Scales at `--spacing / 4` for fine control (hatch-stroke-1 = 1px, hatch-stroke-4 = 4px). Strokes should not be sub-pixel — browsers anti-alias inconsistently below 1px. The default is 3px.
-
-
-```html
-  <div class="flex gap-3">
-    <div class="bg-hatch-red-500 hatch-stroke-1 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">stroke-1</span></div>
-    <div class="bg-hatch-red-500 hatch-stroke-2 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">stroke-2</span></div>
-    <div class="bg-hatch-red-500 hatch-stroke-3 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">stroke-3</span></div>
-    <div class="bg-hatch-red-500 hatch-stroke-4 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">stroke-4</span></div>
-    <div class="bg-hatch-red-500 hatch-stroke-6 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">stroke-6</span></div>
-  </div>
-```
-
-
-## Gap
-
-Control the whitespace between strokes with `hatch-gap-{number}`. Scales at `--spacing / 4` for fine control (hatch-gap-1 = 1px, hatch-gap-4 = 4px). The default is 2px.
-
-
-```html
-  <div class="flex gap-3">
-    <div class="bg-hatch-blue-500 hatch-gap-1 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">gap-1</span></div>
-    <div class="bg-hatch-blue-500 hatch-gap-2 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">gap-2</span></div>
-    <div class="bg-hatch-blue-500 hatch-gap-4 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">gap-4</span></div>
-    <div class="bg-hatch-blue-500 hatch-gap-8 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">gap-8</span></div>
-    <div class="bg-hatch-blue-500 hatch-gap-12 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">gap-12</span></div>
-  </div>
-```
-
-
-Gap is additive to stroke — the full cycle is `stroke + gap`. Changing either automatically rescales all three direction cell sizes.
-
-## Opacity
-
-Add an opacity modifier with the `/` syntax to fade the entire pattern — all six hatching layers and the white paper base. The value is a percentage (0–100).
-
-
-```html
-  <div class="flex gap-3">
-    <div class="bg-hatch-red-500 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">100%</span></div>
-    <div class="bg-hatch-red-500/75 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">/75</span></div>
-    <div class="bg-hatch-red-500/50 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono">/50</span></div>
-    <div class="bg-hatch-red-500/25 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono">/25</span></div>
-    <div class="bg-hatch-red-500/10 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono">/10</span></div>
-  </div>
-```
-
-
-This scales ink alpha proportionally and makes the white paper semi-transparent, so the pattern can be layered over other content.
-
-
-```html
-  <div class="flex gap-3">
-    <div class="relative size-24 rounded-lg overflow-hidden">
-      <div class="absolute inset-0 bg-linear-to-br from-sky-400 to-indigo-600"></div>
-      <div class="absolute inset-0 bg-hatch-black/50"></div>
-      <span class="relative text-xs font-mono text-white flex items-center justify-center h-full">over gradient</span>
-    </div>
-    <div class="relative size-24 rounded-lg overflow-hidden">
-      <div class="absolute inset-0 bg-linear-to-br from-amber-400 to-rose-500"></div>
-      <div class="absolute inset-0 bg-hatch-blue-500/40"></div>
-      <span class="relative text-xs font-mono text-white flex items-center justify-center h-full">over gradient</span>
-    </div>
-  </div>
-```
-
-
-## Tonal Response
-
-Every Tailwind colour at every shade, rendered as hatching. Light colours produce sparse single-direction lines. Mid-tones switch to medium density. Dark colours add crosshatch and triple hatch for maximum coverage. Very light inputs get broken dashes as a textural overlay.
-
-<div class="space-y-4 my-6">
-  <div>
-    <p class="text-xs font-mono font-semibold mb-1">Slate</p>
-    <div class="grid grid-cols-11 gap-0.5">
-      <div class="bg-hatch-slate-50 h-10 rounded-sm" title="slate-50"></div>
-      <div class="bg-hatch-slate-100 h-10 rounded-sm" title="slate-100"></div>
-      <div class="bg-hatch-slate-200 h-10 rounded-sm" title="slate-200"></div>
-      <div class="bg-hatch-slate-300 h-10 rounded-sm" title="slate-300"></div>
-      <div class="bg-hatch-slate-400 h-10 rounded-sm" title="slate-400"></div>
-      <div class="bg-hatch-slate-500 h-10 rounded-sm" title="slate-500"></div>
-      <div class="bg-hatch-slate-600 h-10 rounded-sm" title="slate-600"></div>
-      <div class="bg-hatch-slate-700 h-10 rounded-sm" title="slate-700"></div>
-      <div class="bg-hatch-slate-800 h-10 rounded-sm" title="slate-800"></div>
-      <div class="bg-hatch-slate-900 h-10 rounded-sm" title="slate-900"></div>
-      <div class="bg-hatch-slate-950 h-10 rounded-sm" title="slate-950"></div>
-    </div>
-  </div>
-  <div>
-    <p class="text-xs font-mono font-semibold mb-1">Red</p>
-    <div class="grid grid-cols-11 gap-0.5">
-      <div class="bg-hatch-red-50 h-10 rounded-sm" title="red-50"></div>
-      <div class="bg-hatch-red-100 h-10 rounded-sm" title="red-100"></div>
-      <div class="bg-hatch-red-200 h-10 rounded-sm" title="red-200"></div>
-      <div class="bg-hatch-red-300 h-10 rounded-sm" title="red-300"></div>
-      <div class="bg-hatch-red-400 h-10 rounded-sm" title="red-400"></div>
-      <div class="bg-hatch-red-500 h-10 rounded-sm" title="red-500"></div>
-      <div class="bg-hatch-red-600 h-10 rounded-sm" title="red-600"></div>
-      <div class="bg-hatch-red-700 h-10 rounded-sm" title="red-700"></div>
-      <div class="bg-hatch-red-800 h-10 rounded-sm" title="red-800"></div>
-      <div class="bg-hatch-red-900 h-10 rounded-sm" title="red-900"></div>
-      <div class="bg-hatch-red-950 h-10 rounded-sm" title="red-950"></div>
-    </div>
-  </div>
-  <div>
-    <p class="text-xs font-mono font-semibold mb-1">Orange</p>
-    <div class="grid grid-cols-11 gap-0.5">
-      <div class="bg-hatch-orange-50 h-10 rounded-sm" title="orange-50"></div>
-      <div class="bg-hatch-orange-100 h-10 rounded-sm" title="orange-100"></div>
-      <div class="bg-hatch-orange-200 h-10 rounded-sm" title="orange-200"></div>
-      <div class="bg-hatch-orange-300 h-10 rounded-sm" title="orange-300"></div>
-      <div class="bg-hatch-orange-400 h-10 rounded-sm" title="orange-400"></div>
-      <div class="bg-hatch-orange-500 h-10 rounded-sm" title="orange-500"></div>
-      <div class="bg-hatch-orange-600 h-10 rounded-sm" title="orange-600"></div>
-      <div class="bg-hatch-orange-700 h-10 rounded-sm" title="orange-700"></div>
-      <div class="bg-hatch-orange-800 h-10 rounded-sm" title="orange-800"></div>
-      <div class="bg-hatch-orange-900 h-10 rounded-sm" title="orange-900"></div>
-      <div class="bg-hatch-orange-950 h-10 rounded-sm" title="orange-950"></div>
-    </div>
-  </div>
-  <div>
-    <p class="text-xs font-mono font-semibold mb-1">Amber</p>
-    <div class="grid grid-cols-11 gap-0.5">
-      <div class="bg-hatch-amber-50 h-10 rounded-sm" title="amber-50"></div>
-      <div class="bg-hatch-amber-100 h-10 rounded-sm" title="amber-100"></div>
-      <div class="bg-hatch-amber-200 h-10 rounded-sm" title="amber-200"></div>
-      <div class="bg-hatch-amber-300 h-10 rounded-sm" title="amber-300"></div>
-      <div class="bg-hatch-amber-400 h-10 rounded-sm" title="amber-400"></div>
-      <div class="bg-hatch-amber-500 h-10 rounded-sm" title="amber-500"></div>
-      <div class="bg-hatch-amber-600 h-10 rounded-sm" title="amber-600"></div>
-      <div class="bg-hatch-amber-700 h-10 rounded-sm" title="amber-700"></div>
-      <div class="bg-hatch-amber-800 h-10 rounded-sm" title="amber-800"></div>
-      <div class="bg-hatch-amber-900 h-10 rounded-sm" title="amber-900"></div>
-      <div class="bg-hatch-amber-950 h-10 rounded-sm" title="amber-950"></div>
-    </div>
-  </div>
-  <div>
-    <p class="text-xs font-mono font-semibold mb-1">Green</p>
-    <div class="grid grid-cols-11 gap-0.5">
-      <div class="bg-hatch-green-50 h-10 rounded-sm" title="green-50"></div>
-      <div class="bg-hatch-green-100 h-10 rounded-sm" title="green-100"></div>
-      <div class="bg-hatch-green-200 h-10 rounded-sm" title="green-200"></div>
-      <div class="bg-hatch-green-300 h-10 rounded-sm" title="green-300"></div>
-      <div class="bg-hatch-green-400 h-10 rounded-sm" title="green-400"></div>
-      <div class="bg-hatch-green-500 h-10 rounded-sm" title="green-500"></div>
-      <div class="bg-hatch-green-600 h-10 rounded-sm" title="green-600"></div>
-      <div class="bg-hatch-green-700 h-10 rounded-sm" title="green-700"></div>
-      <div class="bg-hatch-green-800 h-10 rounded-sm" title="green-800"></div>
-      <div class="bg-hatch-green-900 h-10 rounded-sm" title="green-900"></div>
-      <div class="bg-hatch-green-950 h-10 rounded-sm" title="green-950"></div>
-    </div>
-  </div>
-  <div>
-    <p class="text-xs font-mono font-semibold mb-1">Cyan</p>
-    <div class="grid grid-cols-11 gap-0.5">
-      <div class="bg-hatch-cyan-50 h-10 rounded-sm" title="cyan-50"></div>
-      <div class="bg-hatch-cyan-100 h-10 rounded-sm" title="cyan-100"></div>
-      <div class="bg-hatch-cyan-200 h-10 rounded-sm" title="cyan-200"></div>
-      <div class="bg-hatch-cyan-300 h-10 rounded-sm" title="cyan-300"></div>
-      <div class="bg-hatch-cyan-400 h-10 rounded-sm" title="cyan-400"></div>
-      <div class="bg-hatch-cyan-500 h-10 rounded-sm" title="cyan-500"></div>
-      <div class="bg-hatch-cyan-600 h-10 rounded-sm" title="cyan-600"></div>
-      <div class="bg-hatch-cyan-700 h-10 rounded-sm" title="cyan-700"></div>
-      <div class="bg-hatch-cyan-800 h-10 rounded-sm" title="cyan-800"></div>
-      <div class="bg-hatch-cyan-900 h-10 rounded-sm" title="cyan-900"></div>
-      <div class="bg-hatch-cyan-950 h-10 rounded-sm" title="cyan-950"></div>
-    </div>
-  </div>
-  <div>
-    <p class="text-xs font-mono font-semibold mb-1">Blue</p>
-    <div class="grid grid-cols-11 gap-0.5">
-      <div class="bg-hatch-blue-50 h-10 rounded-sm" title="blue-50"></div>
-      <div class="bg-hatch-blue-100 h-10 rounded-sm" title="blue-100"></div>
-      <div class="bg-hatch-blue-200 h-10 rounded-sm" title="blue-200"></div>
-      <div class="bg-hatch-blue-300 h-10 rounded-sm" title="blue-300"></div>
-      <div class="bg-hatch-blue-400 h-10 rounded-sm" title="blue-400"></div>
-      <div class="bg-hatch-blue-500 h-10 rounded-sm" title="blue-500"></div>
-      <div class="bg-hatch-blue-600 h-10 rounded-sm" title="blue-600"></div>
-      <div class="bg-hatch-blue-700 h-10 rounded-sm" title="blue-700"></div>
-      <div class="bg-hatch-blue-800 h-10 rounded-sm" title="blue-800"></div>
-      <div class="bg-hatch-blue-900 h-10 rounded-sm" title="blue-900"></div>
-      <div class="bg-hatch-blue-950 h-10 rounded-sm" title="blue-950"></div>
-    </div>
-  </div>
-  <div>
-    <p class="text-xs font-mono font-semibold mb-1">Violet</p>
-    <div class="grid grid-cols-11 gap-0.5">
-      <div class="bg-hatch-violet-50 h-10 rounded-sm" title="violet-50"></div>
-      <div class="bg-hatch-violet-100 h-10 rounded-sm" title="violet-100"></div>
-      <div class="bg-hatch-violet-200 h-10 rounded-sm" title="violet-200"></div>
-      <div class="bg-hatch-violet-300 h-10 rounded-sm" title="violet-300"></div>
-      <div class="bg-hatch-violet-400 h-10 rounded-sm" title="violet-400"></div>
-      <div class="bg-hatch-violet-500 h-10 rounded-sm" title="violet-500"></div>
-      <div class="bg-hatch-violet-600 h-10 rounded-sm" title="violet-600"></div>
-      <div class="bg-hatch-violet-700 h-10 rounded-sm" title="violet-700"></div>
-      <div class="bg-hatch-violet-800 h-10 rounded-sm" title="violet-800"></div>
-      <div class="bg-hatch-violet-900 h-10 rounded-sm" title="violet-900"></div>
-      <div class="bg-hatch-violet-950 h-10 rounded-sm" title="violet-950"></div>
-    </div>
-  </div>
-  <div>
-    <p class="text-xs font-mono font-semibold mb-1">Pink</p>
-    <div class="grid grid-cols-11 gap-0.5">
-      <div class="bg-hatch-pink-50 h-10 rounded-sm" title="pink-50"></div>
-      <div class="bg-hatch-pink-100 h-10 rounded-sm" title="pink-100"></div>
-      <div class="bg-hatch-pink-200 h-10 rounded-sm" title="pink-200"></div>
-      <div class="bg-hatch-pink-300 h-10 rounded-sm" title="pink-300"></div>
-      <div class="bg-hatch-pink-400 h-10 rounded-sm" title="pink-400"></div>
-      <div class="bg-hatch-pink-500 h-10 rounded-sm" title="pink-500"></div>
-      <div class="bg-hatch-pink-600 h-10 rounded-sm" title="pink-600"></div>
-      <div class="bg-hatch-pink-700 h-10 rounded-sm" title="pink-700"></div>
-      <div class="bg-hatch-pink-800 h-10 rounded-sm" title="pink-800"></div>
-      <div class="bg-hatch-pink-900 h-10 rounded-sm" title="pink-900"></div>
-      <div class="bg-hatch-pink-950 h-10 rounded-sm" title="pink-950"></div>
-    </div>
-  </div>
-</div>
-
-## Using a custom value
-
-Use the arbitrary value syntax for colours not in the Tailwind palette:
-
-
-```html
-  <div class="flex gap-3">
-    <div class="bg-hatch-[#ff6600] size-24 rounded-lg"></div>
-    <div class="bg-hatch-[rgb(128,0,255)] size-24 rounded-lg"></div>
-    <div class="bg-hatch-[oklch(0.7_0.15_200)] size-24 rounded-lg"></div>
-  </div>
-```
-
-
-## Applying conditionally
-
-All `bg-hatch-*` and `hatch-*` utilities support Tailwind's variant syntax:
-
-```html
-<div class="bg-blue-500 hover:bg-hatch-blue-500">
-  Hatching on hover
-</div>
-
-<div class="bg-hatch-red-500 md:hatch-gap-8">
-  Wider gap on medium screens
-</div>
-```
-
----
-
-# Watercolor
-
-> watercolor module — multi-pigment watercolor wash backgrounds. Converts any colour to a 9-slot pigment palette (6 primary + 3 shadow) using oklch relative colour syntax and radial gradients with multiply blend mode. Per-pigment alpha computed from hue-distance falloff, chroma weighting, and dilution. Three palettes: contemporary (modern chromatic), traditional (Turner/Homer aged), eastern (sumi ink-and-wash). Wash control 1–5 scales pool size and density.
-
-# Watercolor
-
-Multi-pigment watercolour wash backgrounds for any Tailwind colour. Three palette traditions — contemporary, Turner-era, and East Asian. Pure CSS, no images.
-
-**Import**
-Included in `@import 'tw-jib-css'`. To import individually:
-```css
-@import 'tw-jib-css/watercolor';
-```
-
-**Browser Support**
-Uses CSS relative colour syntax with `oklch(from ...)`, `pow()`, `cos()`, and `clamp()` inside alpha channels. Chrome 125+, Safari 18.2+, Firefox 128+.
-
-## Quick Reference
-
-| Class | CSS |
-|---|---|
-| `bg-watercolor-<color>` | `Sets colour and applies 9-pigment watercolor wash with background-blend-mode: multiply` |
-| `bg-watercolor-<color>/<opacity>` | `Same with opacity modifier (0–100)` |
-| `bg-watercolor-[<value>]` | `Arbitrary colour value` |
-| `watercolor-wash-<number>` | `--tw-jib--wc-wash: <number> — water amount (1 = dry, 3 = balanced, 5 = wet)` |
-| `watercolor-wash-[<value>]` | `--tw-jib--wc-wash: <value>` |
-| `watercolor-contemporary` | `Contemporary palette — modern pigments, chromatic shadows (default)` |
-| `watercolor-traditional` | `Traditional palette — Turner/Homer aged pigments, earth-dominant shadows` |
-| `watercolor-eastern` | `Eastern palette — East Asian ink-and-wash, sumi ink shadows` |
-
-
-## How it works
-
-The input colour's oklch channels (lightness, chroma, hue) drive per-pigment alpha computation. Each of the 9 palette slots is a pair of overlapping radial-gradient pools positioned at fixed coordinates. Every pool's alpha is computed inside the gradient's colour stop using relative colour syntax:
-
-```
-alpha = peak × hue_weight × chroma × dilution × wash_density × opacity
-```
-
-Where:
-- **hue_weight** — `max(0, 1 - hue_distance / 90)` — pigments near the input hue activate strongly; distant pigments fade to zero
-- **chroma** — `min(1, c / 0.12)` — low-chroma (grey) inputs suppress colour pigments
-- **dilution** — `clamp(0.12, (1 - l) * 1.8 + 0.08, 1)` — lighter inputs produce more dilute washes
-- **peak** — per-pigment maximum opacity, tuned per palette
-
-Shadow pigments (slots 7–9) use a dual-activation model: a chromatic path (darkness-gated, hue-biased) and a neutrality path (low-chroma Jane's Grey mixing). This gives each palette genuinely different darkening character.
-
-### Palette slots
-
-| Slot | Role | Contemporary | Traditional | Eastern |
-|------|------|-------------|-------------|---------|
-| 1 | Cool red / magenta | Quinacridone Rose | Rose Madder | Carmine 胭脂 |
-| 2 | Warm red / orange | Pyrrol Scarlet | Vermilion | Cinnabar 朱砂 |
-| 3 | Yellow | Hansa Yellow | Gamboge | Gamboge 藤黃 |
-| 4 | Green | Phthalo Green BS | Viridian | Malachite 石綠 |
-| 5 | Cool blue | Phthalo Blue GS | Prussian Blue | Indigo 花青 |
-| 6 | Warm blue | Ultramarine | Ultramarine | Azurite 石青 |
-| 7 | Warm earth shadow | Burnt Sienna | Burnt Sienna | Sumi ink 墨 |
-| 8 | Cool dark shadow | Ultramarine Dark | Indigo | Sumi ink 墨 |
-| 9 | Warm deep shadow | Quin Rose warm | Sepia | Sumi ink 墨 |
-
-## Basic Usage
-
-Add `bg-watercolor-{color}` to any element:
-
-
-```html
-  <div class="flex gap-4">
-    <div class="bg-watercolor-red-500 size-24 rounded-lg"></div>
-    <div class="bg-watercolor-blue-500 size-24 rounded-lg"></div>
-    <div class="bg-watercolor-emerald-500 size-24 rounded-lg"></div>
-    <div class="bg-watercolor-amber-500 size-24 rounded-lg"></div>
-  </div>
-```
-
-
-Darker colours produce more pigment and activate shadow layers:
-
-
-```html
-  <div class="flex gap-3">
-    <div class="bg-watercolor-blue-100 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono">blue-100</span></div>
-    <div class="bg-watercolor-blue-300 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono">blue-300</span></div>
-    <div class="bg-watercolor-blue-500 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">blue-500</span></div>
-    <div class="bg-watercolor-blue-700 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">blue-700</span></div>
-    <div class="bg-watercolor-blue-900 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">blue-900</span></div>
-  </div>
-```
-
-
-## Palettes
-
-**Palette inheritance**
-Unlike most properties in this library, palette and shadow tuning properties **inherit from parent elements**. Set the palette once on a container and every `bg-watercolor-*` child uses the same mode — no need to repeat `watercolor-traditional` or `watercolor-eastern` on each element.
-
-```html
-<section class="watercolor-traditional">
-  <div class="bg-watercolor-red-500"><!-- traditional --></div>
-  <div class="bg-watercolor-blue-500"><!-- traditional --></div>
-  <div class="bg-watercolor-amber-500"><!-- traditional --></div>
-</section>
-```
-
-A child can still override to a different palette locally — `watercolor-contemporary` on a single element wins over the inherited parent palette.
-
-### Contemporary (default)
-
-Modern pigments with full chroma. Shadows are chromatic accents — they only activate on chromatic inputs (chroma-strength = 1). Gentle shadow onset, hue-selective earth tones, narrow warm accent.
-
-
-```html
-  <div class="flex gap-3">
-    <div class="bg-watercolor-yellow-500 watercolor-contemporary size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono">yellow-500</span></div>
-    <div class="bg-watercolor-red-700 watercolor-contemporary size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">red-700</span></div>
-    <div class="bg-watercolor-teal-500 watercolor-contemporary size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">teal-500</span></div>
-    <div class="bg-watercolor-slate-500 watercolor-contemporary size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">slate-500</span></div>
-  </div>
-```
-
-
-### Traditional
-
-Historical palette with differential aging baked in. Fugitive organic pigments (rose madder, gamboge) drift lower-chroma and warmer; stable inorganic pigments (ultramarine, vermilion, viridian) hold. Earlier shadow onset, earth-dominant sienna, pervasive sepia warm-earth note — the Turner/Homer "old watercolour" signature.
-
-
-```html
-  <div class="flex gap-3">
-    <div class="bg-watercolor-yellow-500 watercolor-traditional size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono">yellow-500</span></div>
-    <div class="bg-watercolor-red-700 watercolor-traditional size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">red-700</span></div>
-    <div class="bg-watercolor-teal-500 watercolor-traditional size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">teal-500</span></div>
-    <div class="bg-watercolor-slate-500 watercolor-traditional size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">slate-500</span></div>
-  </div>
-```
-
-
-### Eastern
-
-East Asian ink-and-wash tradition. Sumi ink is the structural dominant — all three shadow slots share identical ink values with different activation curves. Mineral pigments (cinnabar, malachite, azurite) at lower chroma but higher peak. Shadow chroma-gating nearly disabled (chroma-strength = 0.2), so ink tracks darkness regardless of source chroma.
-
-
-```html
-  <div class="flex gap-3">
-    <div class="bg-watercolor-yellow-500 watercolor-eastern size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono">yellow-500</span></div>
-    <div class="bg-watercolor-red-700 watercolor-eastern size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">red-700</span></div>
-    <div class="bg-watercolor-teal-500 watercolor-eastern size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">teal-500</span></div>
-    <div class="bg-watercolor-slate-500 watercolor-eastern size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">slate-500</span></div>
-  </div>
-```
-
-
-### Palette comparison
-
-The same colours across all three palettes:
-
-
-```html
-  <div class="grid grid-cols-4 gap-3">
-    <p class="text-xs font-mono font-semibold col-span-4">Contemporary</p>
-    <div class="bg-watercolor-yellow-500 h-20 rounded-lg"></div>
-    <div class="bg-watercolor-red-700 h-20 rounded-lg"></div>
-    <div class="bg-watercolor-teal-500 h-20 rounded-lg"></div>
-    <div class="bg-watercolor-slate-500 h-20 rounded-lg"></div>
-    <p class="text-xs font-mono font-semibold col-span-4">Traditional</p>
-    <div class="bg-watercolor-yellow-500 watercolor-traditional h-20 rounded-lg"></div>
-    <div class="bg-watercolor-red-700 watercolor-traditional h-20 rounded-lg"></div>
-    <div class="bg-watercolor-teal-500 watercolor-traditional h-20 rounded-lg"></div>
-    <div class="bg-watercolor-slate-500 watercolor-traditional h-20 rounded-lg"></div>
-    <p class="text-xs font-mono font-semibold col-span-4">Eastern</p>
-    <div class="bg-watercolor-yellow-500 watercolor-eastern h-20 rounded-lg"></div>
-    <div class="bg-watercolor-red-700 watercolor-eastern h-20 rounded-lg"></div>
-    <div class="bg-watercolor-teal-500 watercolor-eastern h-20 rounded-lg"></div>
-    <div class="bg-watercolor-slate-500 watercolor-eastern h-20 rounded-lg"></div>
-  </div>
-```
-
-
-## Wash
-
-Control the water amount with `watercolor-wash-{number}`. The scale runs 1–5 where:
-
-- **1** — dry brush: tight pools, heavy pigment
-- **3** — balanced wash (default)
-- **5** — wet: diffuse pools, pale pigment
-
-Wash affects both pool spread (ellipse scale 0.75x–1.6x) and per-pigment density (alpha multiplier 1.2x–0.65x).
-
-
-```html
-  <div class="flex gap-3">
-    <div class="bg-watercolor-blue-500 watercolor-wash-1 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">wash-1</span></div>
-    <div class="bg-watercolor-blue-500 watercolor-wash-2 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">wash-2</span></div>
-    <div class="bg-watercolor-blue-500 watercolor-wash-3 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">wash-3</span></div>
-    <div class="bg-watercolor-blue-500 watercolor-wash-4 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">wash-4</span></div>
-    <div class="bg-watercolor-blue-500 watercolor-wash-5 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">wash-5</span></div>
-  </div>
-```
-
-
-## Opacity
-
-Add an opacity modifier with the `/` syntax to fade the entire pattern — all nine pigment layers and the white paper base. The value is a percentage (0–100).
-
-
-```html
-  <div class="flex gap-3">
-    <div class="bg-watercolor-red-500 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">100%</span></div>
-    <div class="bg-watercolor-red-500/75 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">/75</span></div>
-    <div class="bg-watercolor-red-500/50 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono">/50</span></div>
-    <div class="bg-watercolor-red-500/25 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono">/25</span></div>
-    <div class="bg-watercolor-red-500/10 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono">/10</span></div>
-  </div>
-```
-
-
-This scales ink alpha proportionally and makes the white paper semi-transparent, so the pattern can be layered over other content.
-
-
-```html
-  <div class="flex gap-3">
-    <div class="relative size-24 rounded-lg overflow-hidden">
-      <div class="absolute inset-0 bg-linear-to-br from-sky-400 to-indigo-600"></div>
-      <div class="absolute inset-0 bg-watercolor-black/50"></div>
-      <span class="relative text-xs font-mono text-white flex items-center justify-center h-full">over gradient</span>
-    </div>
-    <div class="relative size-24 rounded-lg overflow-hidden">
-      <div class="absolute inset-0 bg-linear-to-br from-amber-400 to-rose-500"></div>
-      <div class="absolute inset-0 bg-watercolor-blue-500/40"></div>
-      <span class="relative text-xs font-mono text-white flex items-center justify-center h-full">over gradient</span>
-    </div>
-  </div>
-```
-
-
-## Pigment Response
-
-Every Tailwind colour at every shade, rendered as watercolour. Light colours produce dilute transparent washes. Saturated mid-tones show the strongest pigment activation. Dark colours bring in shadow layers.
-
-<div class="space-y-4 my-6">
-  <div>
-    <p class="text-xs font-mono font-semibold mb-1">Slate</p>
-    <div class="grid grid-cols-11 gap-0.5">
-      <div class="bg-watercolor-slate-50 h-10 rounded-sm" title="slate-50"></div>
-      <div class="bg-watercolor-slate-100 h-10 rounded-sm" title="slate-100"></div>
-      <div class="bg-watercolor-slate-200 h-10 rounded-sm" title="slate-200"></div>
-      <div class="bg-watercolor-slate-300 h-10 rounded-sm" title="slate-300"></div>
-      <div class="bg-watercolor-slate-400 h-10 rounded-sm" title="slate-400"></div>
-      <div class="bg-watercolor-slate-500 h-10 rounded-sm" title="slate-500"></div>
-      <div class="bg-watercolor-slate-600 h-10 rounded-sm" title="slate-600"></div>
-      <div class="bg-watercolor-slate-700 h-10 rounded-sm" title="slate-700"></div>
-      <div class="bg-watercolor-slate-800 h-10 rounded-sm" title="slate-800"></div>
-      <div class="bg-watercolor-slate-900 h-10 rounded-sm" title="slate-900"></div>
-      <div class="bg-watercolor-slate-950 h-10 rounded-sm" title="slate-950"></div>
-    </div>
-  </div>
-  <div>
-    <p class="text-xs font-mono font-semibold mb-1">Red</p>
-    <div class="grid grid-cols-11 gap-0.5">
-      <div class="bg-watercolor-red-50 h-10 rounded-sm" title="red-50"></div>
-      <div class="bg-watercolor-red-100 h-10 rounded-sm" title="red-100"></div>
-      <div class="bg-watercolor-red-200 h-10 rounded-sm" title="red-200"></div>
-      <div class="bg-watercolor-red-300 h-10 rounded-sm" title="red-300"></div>
-      <div class="bg-watercolor-red-400 h-10 rounded-sm" title="red-400"></div>
-      <div class="bg-watercolor-red-500 h-10 rounded-sm" title="red-500"></div>
-      <div class="bg-watercolor-red-600 h-10 rounded-sm" title="red-600"></div>
-      <div class="bg-watercolor-red-700 h-10 rounded-sm" title="red-700"></div>
-      <div class="bg-watercolor-red-800 h-10 rounded-sm" title="red-800"></div>
-      <div class="bg-watercolor-red-900 h-10 rounded-sm" title="red-900"></div>
-      <div class="bg-watercolor-red-950 h-10 rounded-sm" title="red-950"></div>
-    </div>
-  </div>
-  <div>
-    <p class="text-xs font-mono font-semibold mb-1">Orange</p>
-    <div class="grid grid-cols-11 gap-0.5">
-      <div class="bg-watercolor-orange-50 h-10 rounded-sm" title="orange-50"></div>
-      <div class="bg-watercolor-orange-100 h-10 rounded-sm" title="orange-100"></div>
-      <div class="bg-watercolor-orange-200 h-10 rounded-sm" title="orange-200"></div>
-      <div class="bg-watercolor-orange-300 h-10 rounded-sm" title="orange-300"></div>
-      <div class="bg-watercolor-orange-400 h-10 rounded-sm" title="orange-400"></div>
-      <div class="bg-watercolor-orange-500 h-10 rounded-sm" title="orange-500"></div>
-      <div class="bg-watercolor-orange-600 h-10 rounded-sm" title="orange-600"></div>
-      <div class="bg-watercolor-orange-700 h-10 rounded-sm" title="orange-700"></div>
-      <div class="bg-watercolor-orange-800 h-10 rounded-sm" title="orange-800"></div>
-      <div class="bg-watercolor-orange-900 h-10 rounded-sm" title="orange-900"></div>
-      <div class="bg-watercolor-orange-950 h-10 rounded-sm" title="orange-950"></div>
-    </div>
-  </div>
-  <div>
-    <p class="text-xs font-mono font-semibold mb-1">Amber</p>
-    <div class="grid grid-cols-11 gap-0.5">
-      <div class="bg-watercolor-amber-50 h-10 rounded-sm" title="amber-50"></div>
-      <div class="bg-watercolor-amber-100 h-10 rounded-sm" title="amber-100"></div>
-      <div class="bg-watercolor-amber-200 h-10 rounded-sm" title="amber-200"></div>
-      <div class="bg-watercolor-amber-300 h-10 rounded-sm" title="amber-300"></div>
-      <div class="bg-watercolor-amber-400 h-10 rounded-sm" title="amber-400"></div>
-      <div class="bg-watercolor-amber-500 h-10 rounded-sm" title="amber-500"></div>
-      <div class="bg-watercolor-amber-600 h-10 rounded-sm" title="amber-600"></div>
-      <div class="bg-watercolor-amber-700 h-10 rounded-sm" title="amber-700"></div>
-      <div class="bg-watercolor-amber-800 h-10 rounded-sm" title="amber-800"></div>
-      <div class="bg-watercolor-amber-900 h-10 rounded-sm" title="amber-900"></div>
-      <div class="bg-watercolor-amber-950 h-10 rounded-sm" title="amber-950"></div>
-    </div>
-  </div>
-  <div>
-    <p class="text-xs font-mono font-semibold mb-1">Green</p>
-    <div class="grid grid-cols-11 gap-0.5">
-      <div class="bg-watercolor-green-50 h-10 rounded-sm" title="green-50"></div>
-      <div class="bg-watercolor-green-100 h-10 rounded-sm" title="green-100"></div>
-      <div class="bg-watercolor-green-200 h-10 rounded-sm" title="green-200"></div>
-      <div class="bg-watercolor-green-300 h-10 rounded-sm" title="green-300"></div>
-      <div class="bg-watercolor-green-400 h-10 rounded-sm" title="green-400"></div>
-      <div class="bg-watercolor-green-500 h-10 rounded-sm" title="green-500"></div>
-      <div class="bg-watercolor-green-600 h-10 rounded-sm" title="green-600"></div>
-      <div class="bg-watercolor-green-700 h-10 rounded-sm" title="green-700"></div>
-      <div class="bg-watercolor-green-800 h-10 rounded-sm" title="green-800"></div>
-      <div class="bg-watercolor-green-900 h-10 rounded-sm" title="green-900"></div>
-      <div class="bg-watercolor-green-950 h-10 rounded-sm" title="green-950"></div>
-    </div>
-  </div>
-  <div>
-    <p class="text-xs font-mono font-semibold mb-1">Cyan</p>
-    <div class="grid grid-cols-11 gap-0.5">
-      <div class="bg-watercolor-cyan-50 h-10 rounded-sm" title="cyan-50"></div>
-      <div class="bg-watercolor-cyan-100 h-10 rounded-sm" title="cyan-100"></div>
-      <div class="bg-watercolor-cyan-200 h-10 rounded-sm" title="cyan-200"></div>
-      <div class="bg-watercolor-cyan-300 h-10 rounded-sm" title="cyan-300"></div>
-      <div class="bg-watercolor-cyan-400 h-10 rounded-sm" title="cyan-400"></div>
-      <div class="bg-watercolor-cyan-500 h-10 rounded-sm" title="cyan-500"></div>
-      <div class="bg-watercolor-cyan-600 h-10 rounded-sm" title="cyan-600"></div>
-      <div class="bg-watercolor-cyan-700 h-10 rounded-sm" title="cyan-700"></div>
-      <div class="bg-watercolor-cyan-800 h-10 rounded-sm" title="cyan-800"></div>
-      <div class="bg-watercolor-cyan-900 h-10 rounded-sm" title="cyan-900"></div>
-      <div class="bg-watercolor-cyan-950 h-10 rounded-sm" title="cyan-950"></div>
-    </div>
-  </div>
-  <div>
-    <p class="text-xs font-mono font-semibold mb-1">Blue</p>
-    <div class="grid grid-cols-11 gap-0.5">
-      <div class="bg-watercolor-blue-50 h-10 rounded-sm" title="blue-50"></div>
-      <div class="bg-watercolor-blue-100 h-10 rounded-sm" title="blue-100"></div>
-      <div class="bg-watercolor-blue-200 h-10 rounded-sm" title="blue-200"></div>
-      <div class="bg-watercolor-blue-300 h-10 rounded-sm" title="blue-300"></div>
-      <div class="bg-watercolor-blue-400 h-10 rounded-sm" title="blue-400"></div>
-      <div class="bg-watercolor-blue-500 h-10 rounded-sm" title="blue-500"></div>
-      <div class="bg-watercolor-blue-600 h-10 rounded-sm" title="blue-600"></div>
-      <div class="bg-watercolor-blue-700 h-10 rounded-sm" title="blue-700"></div>
-      <div class="bg-watercolor-blue-800 h-10 rounded-sm" title="blue-800"></div>
-      <div class="bg-watercolor-blue-900 h-10 rounded-sm" title="blue-900"></div>
-      <div class="bg-watercolor-blue-950 h-10 rounded-sm" title="blue-950"></div>
-    </div>
-  </div>
-  <div>
-    <p class="text-xs font-mono font-semibold mb-1">Violet</p>
-    <div class="grid grid-cols-11 gap-0.5">
-      <div class="bg-watercolor-violet-50 h-10 rounded-sm" title="violet-50"></div>
-      <div class="bg-watercolor-violet-100 h-10 rounded-sm" title="violet-100"></div>
-      <div class="bg-watercolor-violet-200 h-10 rounded-sm" title="violet-200"></div>
-      <div class="bg-watercolor-violet-300 h-10 rounded-sm" title="violet-300"></div>
-      <div class="bg-watercolor-violet-400 h-10 rounded-sm" title="violet-400"></div>
-      <div class="bg-watercolor-violet-500 h-10 rounded-sm" title="violet-500"></div>
-      <div class="bg-watercolor-violet-600 h-10 rounded-sm" title="violet-600"></div>
-      <div class="bg-watercolor-violet-700 h-10 rounded-sm" title="violet-700"></div>
-      <div class="bg-watercolor-violet-800 h-10 rounded-sm" title="violet-800"></div>
-      <div class="bg-watercolor-violet-900 h-10 rounded-sm" title="violet-900"></div>
-      <div class="bg-watercolor-violet-950 h-10 rounded-sm" title="violet-950"></div>
-    </div>
-  </div>
-  <div>
-    <p class="text-xs font-mono font-semibold mb-1">Pink</p>
-    <div class="grid grid-cols-11 gap-0.5">
-      <div class="bg-watercolor-pink-50 h-10 rounded-sm" title="pink-50"></div>
-      <div class="bg-watercolor-pink-100 h-10 rounded-sm" title="pink-100"></div>
-      <div class="bg-watercolor-pink-200 h-10 rounded-sm" title="pink-200"></div>
-      <div class="bg-watercolor-pink-300 h-10 rounded-sm" title="pink-300"></div>
-      <div class="bg-watercolor-pink-400 h-10 rounded-sm" title="pink-400"></div>
-      <div class="bg-watercolor-pink-500 h-10 rounded-sm" title="pink-500"></div>
-      <div class="bg-watercolor-pink-600 h-10 rounded-sm" title="pink-600"></div>
-      <div class="bg-watercolor-pink-700 h-10 rounded-sm" title="pink-700"></div>
-      <div class="bg-watercolor-pink-800 h-10 rounded-sm" title="pink-800"></div>
-      <div class="bg-watercolor-pink-900 h-10 rounded-sm" title="pink-900"></div>
-      <div class="bg-watercolor-pink-950 h-10 rounded-sm" title="pink-950"></div>
-    </div>
-  </div>
-</div>
-
-## Using a custom value
-
-Use the arbitrary value syntax for colours not in the Tailwind palette:
-
-
-```html
-  <div class="flex gap-3">
-    <div class="bg-watercolor-[#ff6600] size-24 rounded-lg"></div>
-    <div class="bg-watercolor-[rgb(128,0,255)] size-24 rounded-lg"></div>
-    <div class="bg-watercolor-[oklch(0.7_0.15_200)] size-24 rounded-lg"></div>
-  </div>
-```
-
-
-## Applying conditionally
-
-All `bg-watercolor-*` and `watercolor-*` utilities support Tailwind's variant syntax:
-
-```html
-<div class="bg-blue-500 hover:bg-watercolor-blue-500">
-  Watercolour on hover
-</div>
-
-<div class="bg-watercolor-red-500 md:watercolor-wash-5">
-  Wetter wash on medium screens
-</div>
-
-<div class="bg-watercolor-blue-500 hover:watercolor-traditional transition-all duration-300 cursor-pointer">
-  Traditional palette on hover
-</div>
-```
 
 ---
 
@@ -3607,8 +3415,8 @@ Requires CSS relative colour syntax (`rgb(from ... r 0 0)`). Chrome 111+, Safari
 | `pixel-size-[<value>]` | `--tw-jib--pixel-size: <value>` |
 | `pixel-gap-<number>` | `--tw-jib--pixel-gap: <number> — gap multiplier of pixel width` |
 | `pixel-gap-[<value>]` | `--tw-jib--pixel-gap: <value>` |
-| `pixel-bleed-<number>` | `--tw-jib--pixel-bleed: --spacing(<number>) / 4 — edge softness` |
-| `pixel-bleed-[<value>]` | `--tw-jib--pixel-bleed: <value>` |
+| `pixel-bloom-<number>` | `--tw-jib--pixel-bloom: --spacing(<number>) / 4 — phosphor bloom (unbounded; saturates to solid)` |
+| `pixel-bloom-[<value>]` | `--tw-jib--pixel-bloom: <value>` |
 
 
 ## How it works
@@ -3628,7 +3436,7 @@ Four background layers are composited — each channel needs its own layer for `
 3. **Green column** — same, at column position 1. Blended with `screen`.
 4. **Blue column** — same, at column position 2. Blended with `screen`.
 
-Over a black `background-color`. The `screen` blend mode adds the channels together (additive mixing), creating tall rectangular pixels arranged in R|G|B triplets — just like a real LCD panel. When `pixel-bleed` > 0, the colour bleeds outward into the black gaps, and adjacent channels overlap to produce secondary colours (yellow, cyan, magenta) — mimicking CRT phosphor glow.
+Over a black `background-color`. The `screen` blend mode adds the channels together (additive mixing), creating tall rectangular pixels arranged in R|G|B triplets — just like a real LCD panel. When `pixel-bloom` > 0, each channel's column widens outward and adjacent channels overlap to produce secondary colours (yellow, cyan, magenta) — mimicking CRT phosphor glow. The dial is unbounded: at high values every channel saturates and the pattern dissolves into solid colour.
 
 ## Basic Usage
 
@@ -3679,22 +3487,23 @@ Control the pixel size with `pixel-size-{number}`. Scales at spacing/4 so `pixel
 ```
 
 
-## Bleed
+## Bloom
 
-Control the edge softness with `pixel-bleed-{number}`. Scales at spacing/4 so `pixel-bleed-1` = 1px. This spreads the colour into the black gaps to create a glow effect. The default is 1px.
+Control the phosphor bloom with `pixel-bloom-{number}`. Scales at spacing/4 so `pixel-bloom-1` = 1px. This widens each channel outward so adjacent columns overlap additively — the CRT glow effect. The dial is unbounded; at high values every channel saturates and the pixel structure dissolves into solid colour. The default is 1px.
 
-- `pixel-bleed-0` — crisp hard-edged rectangles (LCD look)
-- `pixel-bleed-1` — slight softness (default)
-- Larger values — increasingly soft edges (CRT phosphor glow)
+- `pixel-bloom-0` — crisp hard-edged rectangles (LCD look)
+- `pixel-bloom-1` — slight glow (default)
+- `pixel-bloom-2` — adjacent channels fully meet
+- Larger — saturation regime; structure fades into colour
 
 
 ```html
   <div class="flex gap-3">
-    <div class="bg-pixel-white pixel-bleed-0 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">bleed-0</span></div>
-    <div class="bg-pixel-white pixel-bleed-0.5 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">bleed-0.5</span></div>
-    <div class="bg-pixel-white pixel-bleed-1 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">bleed-1</span></div>
-    <div class="bg-pixel-white pixel-bleed-1.5 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">bleed-1.5</span></div>
-    <div class="bg-pixel-white pixel-bleed-2 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">bleed-2</span></div>
+    <div class="bg-pixel-white pixel-bloom-0 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">bloom-0</span></div>
+    <div class="bg-pixel-white pixel-bloom-1 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">bloom-1</span></div>
+    <div class="bg-pixel-white pixel-bloom-2 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">bloom-2</span></div>
+    <div class="bg-pixel-white pixel-bloom-3 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">bloom-3</span></div>
+    <div class="bg-pixel-white pixel-bloom-4 size-24 rounded-lg flex items-center justify-center"><span class="text-xs font-mono text-white">bloom-4</span></div>
   </div>
 ```
 
@@ -4143,186 +3952,6 @@ Prefix a border style utility with a state variant like `hover:*` to only apply 
 
 ---
 
-# Scrollbar
-
-> scrollbar module — standard scrollbar-color, scrollbar-width, and scrollbar-gutter CSS properties via utility classes. No vendor-specific pseudo-elements.
-
-# Scrollbar
-
-Style scrollbars using the CSS standard `scrollbar-color`, `scrollbar-width`, and `scrollbar-gutter` properties. Works across all major browsers without vendor-specific pseudo-elements.
-
-**Import**
-Included in `@import 'tw-jib-css'`. To import individually:
-```css
-@import 'tw-jib-css/scrollbar';
-```
-
-## Quick Reference
-
-| Class | CSS |
-|---|---|
-| `scrollbar-auto` | `scrollbar-color: auto` |
-| `scrollbar-thumb-<color>` | `--tw-jib--scrollbar-thumb: <color>; scrollbar-color: var(--tw-jib--scrollbar-thumb) var(--tw-jib--scrollbar-track)` |
-| `scrollbar-thumb-<color>/<opacity>` | `--tw-jib--scrollbar-thumb: --alpha(<color> / calc(<opacity> * 1%))` |
-| `scrollbar-track-<color>` | `--tw-jib--scrollbar-track: <color>; scrollbar-color: var(--tw-jib--scrollbar-thumb) var(--tw-jib--scrollbar-track)` |
-| `scrollbar-track-<color>/<opacity>` | `--tw-jib--scrollbar-track: --alpha(<color> / calc(<opacity> * 1%))` |
-| `scrollbar-width-auto` | `scrollbar-width: auto` |
-| `scrollbar-width-thin` | `scrollbar-width: thin` |
-| `scrollbar-width-none` | `scrollbar-width: none` |
-| `scrollbar-gutter-auto` | `scrollbar-gutter: auto` |
-| `scrollbar-gutter-stable` | `scrollbar-gutter: stable` |
-| `scrollbar-gutter-stable-both` | `scrollbar-gutter: stable both-edges` |
-
-
-## Basic Usage
-
-Add scrollbar styling to any scrollable container:
-
-
-```html
-  <div class="overflow-y-auto h-48 scrollbar-thumb-blue-500 scrollbar-track-gray-200 scrollbar-width-thin rounded-lg border border-gray-200 bg-white p-4">
-    <p class="mb-4 text-sm text-gray-600">Scroll this container to see the styled scrollbar.</p>
-    <p class="mb-4 text-sm text-gray-600">The thumb is blue and the track is light gray.</p>
-    <p class="mb-4 text-sm text-gray-600">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-    <p class="mb-4 text-sm text-gray-600">Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
-    <p class="mb-4 text-sm text-gray-600">Ut enim ad minim veniam, quis nostrud exercitation ullamco.</p>
-    <p class="mb-4 text-sm text-gray-600">Duis aute irure dolor in reprehenderit in voluptate velit esse.</p>
-    <p class="mb-4 text-sm text-gray-600">Excepteur sint occaecat cupidatat non proident.</p>
-    <p class="text-sm text-gray-600">Sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-  </div>
-```
-
-
-## Thumb and Track Colours
-
-Set the thumb (draggable handle) and track (background rail) colours independently:
-
-
-```html
-  <div class="grid grid-cols-2 gap-4">
-    <div class="overflow-y-auto h-36 scrollbar-thumb-indigo-500 scrollbar-track-indigo-100 rounded-lg border border-gray-200 bg-white p-3">
-      <p class="text-xs text-gray-600 mb-3">Indigo thumb + track</p>
-      <div class="h-64"></div>
-    </div>
-    <div class="overflow-y-auto h-36 scrollbar-thumb-gray-700 rounded-lg border border-gray-200 bg-white p-3">
-      <p class="text-xs text-gray-600 mb-3">Dark thumb, transparent track</p>
-      <div class="h-64"></div>
-    </div>
-  </div>
-```
-
-
-The default thumb colour is `#7d7d7d` and the default track is `transparent`.
-
-## Opacity
-
-Control thumb and track opacity with the slash modifier:
-
-
-```html
-  <div class="grid grid-cols-3 gap-4">
-    <div class="overflow-y-auto h-36 scrollbar-thumb-blue-500/100 scrollbar-track-blue-100 scrollbar-width-thin rounded-lg border border-gray-200 bg-white p-3">
-      <p class="text-xs text-gray-600 mb-3">thumb /100</p>
-      <div class="h-64"></div>
-    </div>
-    <div class="overflow-y-auto h-36 scrollbar-thumb-blue-500/50 scrollbar-track-blue-100 scrollbar-width-thin rounded-lg border border-gray-200 bg-white p-3">
-      <p class="text-xs text-gray-600 mb-3">thumb /50</p>
-      <div class="h-64"></div>
-    </div>
-    <div class="overflow-y-auto h-36 scrollbar-thumb-blue-500/25 scrollbar-track-blue-100/50 scrollbar-width-thin rounded-lg border border-gray-200 bg-white p-3">
-      <p class="text-xs text-gray-600 mb-3">thumb /25 track /50</p>
-      <div class="h-64"></div>
-    </div>
-  </div>
-```
-
-
-## Width
-
-Control scrollbar thickness:
-
-
-```html
-  <div class="grid grid-cols-3 gap-4">
-    <div class="overflow-y-auto h-36 scrollbar-thumb-gray-400 scrollbar-width-auto rounded-lg border border-gray-200 bg-white p-3">
-      <p class="text-xs text-gray-600 mb-3">auto</p>
-      <div class="h-64"></div>
-    </div>
-    <div class="overflow-y-auto h-36 scrollbar-thumb-gray-400 scrollbar-width-thin rounded-lg border border-gray-200 bg-white p-3">
-      <p class="text-xs text-gray-600 mb-3">thin</p>
-      <div class="h-64"></div>
-    </div>
-    <div class="overflow-y-auto h-36 scrollbar-thumb-gray-400 scrollbar-width-none rounded-lg border border-gray-200 bg-white p-3">
-      <p class="text-xs text-gray-600 mb-3">none (still scrollable)</p>
-      <div class="h-64"></div>
-    </div>
-  </div>
-```
-
-
-## Gutter
-
-Reserve space for the scrollbar to prevent layout shifts when content becomes scrollable:
-
-
-```html
-  <div class="grid grid-cols-2 gap-4">
-    <div class="overflow-auto h-36 scrollbar-gutter-stable scrollbar-thumb-gray-400 scrollbar-width-thin rounded-lg border border-gray-200 bg-white p-3">
-      <p class="text-xs text-gray-600">scrollbar-gutter-stable</p>
-      <p class="text-xs text-gray-400 mt-2">Space reserved even with no overflow.</p>
-    </div>
-    <div class="overflow-auto h-36 scrollbar-gutter-stable-both scrollbar-thumb-gray-400 scrollbar-width-thin rounded-lg border border-gray-200 bg-white p-3">
-      <p class="text-xs text-gray-600">scrollbar-gutter-stable-both</p>
-      <p class="text-xs text-gray-400 mt-2">Space on both sides for symmetry.</p>
-    </div>
-  </div>
-```
-
-
-## Using a custom value
-
-Use the `scrollbar-thumb-[<value>]` syntax to set scrollbar colours based on a completely custom value:
-
-
-```html
-  <div class="overflow-y-auto h-36 scrollbar-thumb-[#ff6b35] scrollbar-track-[oklch(0.95_0_0)] scrollbar-width-thin rounded-lg border border-gray-200 bg-white p-4">
-    <p class="text-sm text-gray-600 mb-4">Custom scrollbar colours via arbitrary values.</p>
-    <div class="h-64"></div>
-  </div>
-```
-
-
-## Using a custom variable
-
-For CSS variables, you can also use the `scrollbar-thumb-(--custom-property)` syntax:
-
-
-```html
-  <div class="overflow-y-auto h-36 scrollbar-thumb-(--brand-color) scrollbar-track-(--brand-track) scrollbar-width-thin rounded-lg border border-gray-200 bg-white p-4" style="--brand-color: #6366f1; --brand-track: #e0e7ff">
-    <p class="text-sm text-gray-600 mb-4">Thumb and track colours from CSS variables.</p>
-    <div class="h-64"></div>
-  </div>
-```
-
-
-This is shorthand for `scrollbar-thumb-[var(--brand-color)]` — it adds the `var()` wrapper automatically.
-
-## Applying conditionally
-
-### Hover and focus states
-
-Prefix a scrollbar utility with a state variant like `hover:*` to only apply it in that state:
-
-
-```html
-  <div class="overflow-y-auto h-36 scrollbar-thumb-gray-400 hover:scrollbar-thumb-blue-600 scrollbar-width-thin rounded-lg border border-gray-200 bg-white p-4 transition-colors cursor-pointer">
-    <p class="text-sm text-gray-600 mb-4">Hover to change thumb colour.</p>
-    <div class="h-64"></div>
-  </div>
-```
-
----
-
 # Grid
 
 > grid module — CSS Grid template-areas and grid-area utilities. TailwindCSS v4 provides grid-cols and grid-rows but not grid-template-areas.
@@ -4431,7 +4060,7 @@ For CSS variables, you can also use the `grid-area-(--custom-property)` syntax:
 
 ```html
   <div class="grid grid-cols-3 gap-2">
-    <div class="grid-area-(--hero-area) bg-blue-500 rounded-lg p-3 text-white text-sm text-center" style="--hero-area: span 2 / span 3">
+    <div class="grid-area-(--hero-area) bg-blue-500 rounded-lg p-3 text-white text-sm text-center [--hero-area:span_2_/_span_3]">
       grid-area-(--hero-area)
     </div>
     <div class="bg-gray-200 rounded-lg p-3 text-gray-700 text-sm text-center">auto</div>
@@ -4729,7 +4358,7 @@ For CSS variables, you can also use the `corner-(--custom-property)` syntax:
 
 
 ```html
-  <div class="rounded-2xl corner-(--brand-roundness) bg-blue-500 p-8 text-white text-sm text-center max-w-xs mx-auto" style="--brand-roundness: squircle">
+  <div class="rounded-2xl corner-(--brand-roundness) bg-blue-500 p-8 text-white text-sm text-center max-w-xs mx-auto [--brand-roundness:squircle]">
     corner-(--brand-roundness)
   </div>
 ```

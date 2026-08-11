@@ -1,52 +1,66 @@
 /*
  * WCAG 2.x contrast functions — CSS @function + if(style()) required.
  *
- * Layer 1: Core WCAG functions (self-contained, no external deps)
- *   --tw-jib--linearize, --tw-jib--luminance-packed, --tw-jib--luminance-threshold,
- *   --tw-jib--get-wcag-luminance, --tw-jib--saturation-test,
+ * Layer 1: Contrast measurement (self-contained, no external deps)
+ *   --tw-jib--linearize, --tw-jib--luminance-packed,
  *   --tw-jib--contrast-test-directed, --tw-jib--contrast-test-all,
- *   --tw-jib--extract-channel-red/-green/-blue, --tw-jib--wcag-rating
+ *   --tw-jib--wcag-rating
  *
- * Layer 2: Shade finder functions (depend on --tw-jib--lightness() router)
- *   --tw-jib--shade-passes-large/-aa/-aaa,
- *   --tw-jib--accessible-shade-large/-aa/-aaa, --tw-jib--accessible-shade
+ * Layer 2: Accessible shade construction (self-contained)
+ *   --tw-jib--wcag-carrier, --tw-jib--wcag-target,
+ *   --tw-jib--wcag-core-vector, --tw-jib--wcag-chroma-vector,
+ *   --tw-jib--wcag-lift,
+ *   --tw-jib--accessible-shade-core/-oklch/-lch/-hsl/-hwb,
+ *   --tw-jib--accessible-shade
  *
- * The contrast pipeline is mathematically exact: packed luminance + a
- * multi-channel color-mix() encode all three WCAG thresholds (3, 4.5, 7)
- * into a single rgb result whose channels read as pass/fail bits.
- * No quantization, no safety margins, no uncertainty bands.
+ * Layer 1 measures: given two colours, what is their rating? The packed
+ * luminance + multi-channel color-mix() encode all three WCAG thresholds
+ * (3, 4.5, 7) into a single rgb result whose channels read as pass/fail
+ * bits. No quantization, no safety margins, no uncertainty bands.
+ *
+ * Layer 2 constructs: given a background and a ratio, what colour hits it?
+ * This is solved in closed form — no candidate search, no verification.
+ * See the derivation block above Layer 2.
+ *
+ * The two layers are independent. Layer 1 exists for the badge, which must
+ * keep measuring precisely because Layer 2's guarantees apply to declared
+ * colours only — not to images, gradients, or alpha compositing.
  *
  * These functions are importable independently — any module can
  * @import './wcag/_functions.css' to reuse luminance/contrast.
  */
 
-@import '../lightness/_experimental.css';
-
 /* =========================================================================
- * Layer 1: Core WCAG functions
+ * Layer 1: Contrast measurement
  * ========================================================================= */
 
 /* Undo sRGB gamma encoding → linear light.
- * Full sRGB spec has a linear branch for |c| <= 0.04045; we skip it —
- * no clean per-channel conditional inside relative colour, and the
- * error is negligible for WCAG purposes.
  *
- * Negative-channel handling: relative-colour syntax against an
- * out-of-sRGB-gamut oklch input (e.g. high-chroma red shades where g
- * goes slightly negative) gives r/g/b channel values outside [0, 255].
- * The pow() inside calc() is undefined for a negative base with a
- * fractional exponent, so we apply pow() to |c| and re-attach the
- * sign with sign() — preserving the negative contribution to luminance
- * the way an un-clamped reference implementation would compute it. */
+ * The browser already performs the sRGB transfer whenever a colour is
+ * expressed in srgb-linear, so we ask for the conversion rather than
+ * reimplementing it. That inherits the engine's own exactness, including
+ * the linear branch below 0.04045 that a pow()-only approximation has to
+ * skip, and it keeps out-of-gamut channels un-clamped (an oklch origin
+ * outside sRGB legitimately yields r > 1 or g < 0, and clamping those
+ * would shift luminance).
+ *
+ * Do NOT route this through the legacy rgb() function. Relative colour
+ * syntax with rgb() round-trips via gamma-encoded sRGB, and that encode/
+ * decode is not exact — it loses 1e-5 to 6e-5 of absolute precision,
+ * always signed so the darker colour of a pair measures darker. That
+ * biased every contrast verdict toward the lower level by 5e-4 to 9e-4 in
+ * ratio terms, which is invisible on a typical pair but decides the
+ * verdict for a pair sitting on a threshold — exactly what the shade
+ * utilities now produce. Staying in srgb-linear is exact.
+ *
+ * Everything downstream therefore works in the 0..1 domain rather than
+ * 0..255, which also keeps every intermediate channel inside [0, 1] so
+ * color-mix() cannot gamut-map them. */
 @function --tw-jib--linearize(--color type(<color>): black) returns <color> {
-  result: rgb(from var(--color)
-    calc(sign(r) * pow((abs(r) / 255 + 0.055) / 1.055, 2.4) * 255)
-    calc(sign(g) * pow((abs(g) / 255 + 0.055) / 1.055, 2.4) * 255)
-    calc(sign(b) * pow((abs(b) / 255 + 0.055) / 1.055, 2.4) * 255)
-  );
+  result: color(from var(--color) srgb-linear r g b);
 }
 
-/* Packed relative luminance: R = L, G = 255 − L, B = 0.
+/* Packed relative luminance: R = L, G = 1 − L, B = 0.
  * ITU-R BT.709 weights: 0.2126R + 0.7152G + 0.0722B.
  * Packing both L and its complement avoids a separate invert step
  * later — the multi-channel contrast tester reads R from the lighter
@@ -55,76 +69,10 @@
  * we read its channels. */
 @function --tw-jib--luminance-packed(--color type(<color>): black) returns <color> {
   --tw-jib--linearized: --tw-jib--linearize(var(--color));
-  result: rgb(from var(--tw-jib--linearized)
+  result: color(from var(--tw-jib--linearized) srgb-linear
     calc(0.2126 * r + 0.7152 * g + 0.0722 * b)
-    calc(255 - (0.2126 * r + 0.7152 * g + 0.0722 * b))
+    calc(1 - (0.2126 * r + 0.7152 * g + 0.0722 * b))
     0
-  );
-}
-
-/* Binary luminance test at threshold (0..1).
- * Returns white if luminance >= threshold, black if < threshold.
- * Reads R from --tw-jib--luminance-packed (which holds L). The clamp()/multiply
- * trick forces a continuous value into binary: any positive difference
- * blows up to 255, any negative clamps to 0. */
-@function --tw-jib--luminance-threshold(--color type(<color>): black, --threshold type(<number>): 0.5) returns <color> {
-  --tw-jib--packed: --tw-jib--luminance-packed(var(--color));
-  result: rgb(from var(--tw-jib--packed)
-    clamp(0, (r - var(--threshold) * 255) * 10000, 255)
-    clamp(0, (r - var(--threshold) * 255) * 10000, 255)
-    clamp(0, (r - var(--threshold) * 255) * 10000, 255)
-  );
-}
-
-/* Approximate numeric luminance via banded thresholds.
- * 14 bands: 10% steps at the extremes, 5% steps in the 0.20–0.30 range,
- * tighter steps below 0.10 where the WCAG denominator is small.
- * Used only to seed the shade-finder's direct-target computation —
- * never on the contrast hot path (which is exact via color-mix). */
-@function --tw-jib--get-wcag-luminance(--color type(<color>): black) returns <number> {
-  --tw-jib--threshold-90: --tw-jib--luminance-threshold(var(--color), 0.90);
-  --tw-jib--threshold-80: --tw-jib--luminance-threshold(var(--color), 0.80);
-  --tw-jib--threshold-70: --tw-jib--luminance-threshold(var(--color), 0.70);
-  --tw-jib--threshold-60: --tw-jib--luminance-threshold(var(--color), 0.60);
-  --tw-jib--threshold-50: --tw-jib--luminance-threshold(var(--color), 0.50);
-  --tw-jib--threshold-40: --tw-jib--luminance-threshold(var(--color), 0.40);
-  --tw-jib--threshold-30: --tw-jib--luminance-threshold(var(--color), 0.30);
-  --tw-jib--threshold-20: --tw-jib--luminance-threshold(var(--color), 0.20);
-  --tw-jib--threshold-15: --tw-jib--luminance-threshold(var(--color), 0.15);
-  --tw-jib--threshold-10: --tw-jib--luminance-threshold(var(--color), 0.10);
-  --tw-jib--threshold-07: --tw-jib--luminance-threshold(var(--color), 0.07);
-  --tw-jib--threshold-05: --tw-jib--luminance-threshold(var(--color), 0.05);
-  --tw-jib--threshold-03: --tw-jib--luminance-threshold(var(--color), 0.03);
-  --tw-jib--threshold-01: --tw-jib--luminance-threshold(var(--color), 0.01);
-  result: if(
-    style(--tw-jib--threshold-90: color(srgb 1 1 1)): 0.95;
-    style(--tw-jib--threshold-80: color(srgb 1 1 1)): 0.85;
-    style(--tw-jib--threshold-70: color(srgb 1 1 1)): 0.75;
-    style(--tw-jib--threshold-60: color(srgb 1 1 1)): 0.65;
-    style(--tw-jib--threshold-50: color(srgb 1 1 1)): 0.55;
-    style(--tw-jib--threshold-40: color(srgb 1 1 1)): 0.45;
-    style(--tw-jib--threshold-30: color(srgb 1 1 1)): 0.35;
-    style(--tw-jib--threshold-20: color(srgb 1 1 1)): 0.225;
-    style(--tw-jib--threshold-15: color(srgb 1 1 1)): 0.175;
-    style(--tw-jib--threshold-10: color(srgb 1 1 1)): 0.125;
-    style(--tw-jib--threshold-07: color(srgb 1 1 1)): 0.085;
-    style(--tw-jib--threshold-05: color(srgb 1 1 1)): 0.06;
-    style(--tw-jib--threshold-03: color(srgb 1 1 1)): 0.04;
-    style(--tw-jib--threshold-01: color(srgb 1 1 1)): 0.02;
-    else: 0.005
-  );
-}
-
-/* Saturation test in linear sRGB. Returns white if (max − min*scale) > 0
- * at the given threshold, black otherwise. Used by the shade finder's
- * chroma-correction factor to bracket how far the seed amount needs
- * pushing for highly saturated brand colours. */
-@function --tw-jib--saturation-test(--color type(<color>): black, --threshold type(<number>): 0.9) returns <color> {
-  --tw-jib--linearized: --tw-jib--linearize(var(--color));
-  result: rgb(from var(--tw-jib--linearized)
-    clamp(0, (max(r, g, b) * (1 - var(--threshold)) - min(r, g, b)) * 10000, 255)
-    clamp(0, (max(r, g, b) * (1 - var(--threshold)) - min(r, g, b)) * 10000, 255)
-    clamp(0, (max(r, g, b) * (1 - var(--threshold)) - min(r, g, b)) * 10000, 255)
   );
 }
 
@@ -133,23 +81,32 @@
  * The WCAG comparison (L_lighter + 0.05) / (L_darker + 0.05) >= T
  * rearranges to L_lighter − T·L_darker >= 0.05·(T−1), expressed as a
  * single color-mix between the lighter colour's R (=L) and the darker
- * colour's G (=255−L). Scaling each output channel by a different T
+ * colour's G (=1−L). Scaling each output channel by a different T
  * before the mix lets one color-mix() test all three WCAG thresholds:
  *
- *   R channel: T = 3   (AA Large)
- *   G channel: T = 4.5 (AA)
- *   B channel: T = 7   (AAA)
+ *   R channel: T = 3   (AA Large), threshold 0.3875
+ *   G channel: T = 4.5 (AA),       threshold 0.425
+ *   B channel: T = 7   (AAA),      threshold 0.45625
  *
  * Each result channel resolves to white on pass, black on fail.
- * Inputs must be --tw-jib--luminance-packed colours. */
+ * Inputs must be --tw-jib--luminance-packed colours.
+ *
+ * THE EPSILON. WCAG asks for a ratio of *at least* T, but a step function
+ * built on clamp(0, x·10000, 1) returns 0 when x is exactly 0 — so a pair
+ * landing precisely on a threshold reads as a failure. That never mattered
+ * while shades were found by search and overshot; the closed-form shade
+ * lands ON the threshold every time, making exact equality the common case
+ * rather than a curiosity. 1e-6 in this domain is ~4.7e-4 in ratio terms:
+ * comfortably above both float dust and the shade's own ~2e-5 spread, and
+ * far below any difference a reader could perceive or a bucket could show. */
 @function --tw-jib--contrast-test-directed(--lighter type(<color>): white, --darker type(<color>): black) returns <color> {
-  --tw-jib--scaled-lighter: rgb(from var(--lighter) calc(r / 4) calc(r / 5.5) calc(r / 8));
-  --tw-jib--scaled-darker: rgb(from var(--darker) calc(g * 3 / 4) calc(g * 4.5 / 5.5) calc(g * 7 / 8));
-  --tw-jib--mixed: color-mix(in srgb, var(--tw-jib--scaled-lighter) 50%, var(--tw-jib--scaled-darker) 50%);
-  result: rgb(from var(--tw-jib--mixed)
-    clamp(0, (r - 98.8125) * 10000, 255)
-    clamp(0, (g - 108.375) * 10000, 255)
-    clamp(0, (b - 116.34375) * 10000, 255)
+  --tw-jib--scaled-lighter: color(from var(--lighter) srgb-linear calc(r / 4) calc(r / 5.5) calc(r / 8));
+  --tw-jib--scaled-darker: color(from var(--darker) srgb-linear calc(g * 3 / 4) calc(g * 4.5 / 5.5) calc(g * 7 / 8));
+  --tw-jib--mixed: color-mix(in srgb-linear, var(--tw-jib--scaled-lighter) 50%, var(--tw-jib--scaled-darker) 50%);
+  result: color(from var(--tw-jib--mixed) srgb-linear
+    clamp(0, (r - 0.3875 + 0.000001) * 10000, 1)
+    clamp(0, (g - 0.425 + 0.000001) * 10000, 1)
+    clamp(0, (b - 0.45625 + 0.000001) * 10000, 1)
   );
 }
 
@@ -157,36 +114,22 @@
  * Runs the directed test in both orderings (either input might be the
  * lighter), mixes the two results and clamps. The output colour IS the
  * rating:
- *   color(srgb 1 1 1)  AAA      (all three pass)
- *   color(srgb 1 1 0)  AA       (R + G pass)
- *   color(srgb 1 0 0)  AA Large (only R passes)
- *   color(srgb 0 0 0)  Fail     (nothing passes)
+ *   color(srgb-linear 1 1 1)  AAA      (all three pass)
+ *   color(srgb-linear 1 1 0)  AA       (R + G pass)
+ *   color(srgb-linear 1 0 0)  AA Large (only R passes)
+ *   color(srgb-linear 0 0 0)  Fail     (nothing passes)
  * AAA implies AA implies AA Large, so no other states are reachable. */
 @function --tw-jib--contrast-test-all(--color-1 type(<color>): black, --color-2 type(<color>): white) returns <color> {
   --tw-jib--packed-1: --tw-jib--luminance-packed(var(--color-1));
   --tw-jib--packed-2: --tw-jib--luminance-packed(var(--color-2));
   --tw-jib--test-1-lighter: --tw-jib--contrast-test-directed(var(--tw-jib--packed-1), var(--tw-jib--packed-2));
   --tw-jib--test-2-lighter: --tw-jib--contrast-test-directed(var(--tw-jib--packed-2), var(--tw-jib--packed-1));
-  --tw-jib--combined: color-mix(in srgb, var(--tw-jib--test-1-lighter) 50%, var(--tw-jib--test-2-lighter) 50%);
-  result: rgb(from var(--tw-jib--combined)
-    clamp(0, r * 10000, 255)
-    clamp(0, g * 10000, 255)
-    clamp(0, b * 10000, 255)
+  --tw-jib--combined: color-mix(in srgb-linear, var(--tw-jib--test-1-lighter) 50%, var(--tw-jib--test-2-lighter) 50%);
+  result: color(from var(--tw-jib--combined) srgb-linear
+    clamp(0, r * 10000, 1)
+    clamp(0, g * 10000, 1)
+    clamp(0, b * 10000, 1)
   );
-}
-
-/* Per-channel extractors. Used by the shade finder to project the
- * --tw-jib--contrast-test-all result onto a single WCAG level (R=AA Lg, G=AA,
- * B=AAA), turning the three-channel rating colour into a binary
- * white/black that style() can match. */
-@function --tw-jib--extract-channel-red(--color type(<color>): black) returns <color> {
-  result: rgb(from var(--color) r r r);
-}
-@function --tw-jib--extract-channel-green(--color type(<color>): black) returns <color> {
-  result: rgb(from var(--color) g g g);
-}
-@function --tw-jib--extract-channel-blue(--color type(<color>): black) returns <color> {
-  result: rgb(from var(--color) b b b);
 }
 
 /* WCAG rating classification.
@@ -196,275 +139,268 @@
 @function --tw-jib--wcag-rating(--color-1 type(<color>): black, --color-2 type(<color>): white) returns <string> {
   --tw-jib--result: --tw-jib--contrast-test-all(var(--color-1), var(--color-2));
   result: if(
-    style(--tw-jib--result: color(srgb 1 1 1)): "AAA";
-    style(--tw-jib--result: color(srgb 1 1 0)): "AA";
-    style(--tw-jib--result: color(srgb 1 0 0)): "AA Large";
+    style(--tw-jib--result: color(srgb-linear 1 1 1)): "AAA";
+    style(--tw-jib--result: color(srgb-linear 1 1 0)): "AA";
+    style(--tw-jib--result: color(srgb-linear 1 0 0)): "AA Large";
     else: "Fail"
   );
 }
 
 /* =========================================================================
- * Layer 2: Shade finder functions
- * Uses --tw-jib--lightness() router from lightness/_experimental.css so all 16
- * colour spaces are available via the interpolation parameter.
+ * Layer 2: Accessible shade construction — closed form
  *
- * The direct-target seed math (oklch L = pow(luminance, 1/3)) and the
- * chroma-correction factor are tuned for oklch — for non-oklch
- * interpolations the seed amount is approximate, but the [-3, 0, +5]
- * bracket plus the ±100 extremes still reliably produce a passing
- * shade across all 16 spaces.
+ * WCAG 2's ratio constrains exactly one quantity, relative luminance, and
+ * luminance is LINEAR in linear-light RGB. Both facts together make the
+ * shade solvable algebraically: invert the ratio for a target luminance,
+ * then build a colour with that luminance, the background's hue and the
+ * background's chroma. The achieved ratio equals the requested ratio by
+ * construction — no candidate bracket, no verification, no tolerance.
+ *
+ * SYMBOLIC DEFINITIONS (the reviewable source of truth; the CSS below is
+ * these macros expanded inline, because CSS has no local bindings inside a
+ * colour function):
+ *
+ *   Y     = 0.2126·r + 0.7152·g + 0.0722·b        background luminance
+ *   S     = clamp(0, (0.1791 − Y) · 10⁶, 1)       1 → lighten, 0 → darken
+ *   Yt    = clamp(0, (1−S)·((Y+0.05)/R − 0.05)
+ *                   +   S ·(R·(Y+0.05) − 0.05), 1)   target luminance
+ *   U_c   = Yt · (c − Y) / Y                      chroma vector, pre-scaled
+ *   caps  = min over channels of (1−Yt)/U_c and Yt/(−U_c)
+ *   out_c = Yt + min(1, caps) · U_c
+ *
+ * WHY THE PIVOT IS 0.1791: light backgrounds take darker text, dark take
+ * lighter. The crossover sits where headroom toward black equals headroom
+ * toward white: (Y+0.05)/0.05 = 1.05/(Y+0.05) → Y = √0.0525 − 0.05 =
+ * 0.179128…  Choosing the side with more headroom is optimal — no other
+ * pivot can reach a target this one cannot. Do not round it to 0.18.
+ *
+ * WHY IT IS EXACT FOR ANY CHROMA: (c − Y) is a zero-luminance direction
+ * (the luma weights sum to 1, so subtracting the grey of equal luminance
+ * leaves a vector contributing no luminance). Adding any multiple of it
+ * moves colour without moving luminance. Chroma is therefore free, and we
+ * spend it on matching the background: min(1, caps) = 1 reproduces the
+ * background's exact chromaticity — grey in, lighter grey out — and caps
+ * bind only when the gamut cannot hold that much chroma at the target
+ * luminance.
+ *
+ * WHY THE CAPS ARE ALSO A GAMUT MAPPER: each cap term is the largest
+ * scale for which one channel stays inside [0, 1]; the min over all six
+ * makes every channel simultaneously valid. Because they act on whatever
+ * vector they are given, they also pull out-of-gamut candidates (§ the
+ * space pipelines) back into gamut ALONG the constant-luminance plane —
+ * no other CSS-available gamut mapping preserves WCAG luminance.
+ *
+ * FEASIBILITY: maxCR(Y) = max((Y+0.05)/0.05, 1.05/(Y+0.05)), which bottoms
+ * out at √21 ≈ 4.583 at the pivot. 3:1 and 4.5:1 are reachable from every
+ * background; 7:1 is mathematically unreachable for Y ∈ (0.10, 0.30). There
+ * Yt clamps to 0 or 1, the output saturates at black or white, and the
+ * achieved ratio equals maxCR — the best physics allows. That is correct
+ * degradation, not failure.
+ *
+ * THE TWO EPSILONS: 10⁻⁶ guards the Yt/Y division for near-black
+ * backgrounds. 10⁻³ guards the cap divisions. Both are pure division
+ * guards and only ever make a cap LARGER, i.e. non-binding — which is
+ * right, because a vector too small to reach the floor is also too small
+ * to overflow the gamut. Note the scale is bounded by min(1, …), so float
+ * residue in (c − Y) can never be amplified: on a mathematically exact
+ * grey the luma weights leave a uniform residual of order 10⁻⁷ in every
+ * channel, and it stays that size in the output.
+ *
+ * Each layer is bound to a local custom property before its channels are
+ * read. This is required, not stylistic — see the currentColor note in
+ * _utilities.css and --tw-jib--luminance-packed above.
  * ========================================================================= */
 
-/* Per-level pass probes. Run --tw-jib--contrast-test-all then project onto the
- * channel that encodes the requested WCAG level. */
-@function --tw-jib--shade-passes-large(--background type(<color>): black, --candidate type(<color>): white) returns <color> {
-  --tw-jib--test: --tw-jib--contrast-test-all(var(--background), var(--candidate));
-  result: --tw-jib--extract-channel-red(var(--tw-jib--test));
-}
-@function --tw-jib--shade-passes-aa(--background type(<color>): black, --candidate type(<color>): white) returns <color> {
-  --tw-jib--test: --tw-jib--contrast-test-all(var(--background), var(--candidate));
-  result: --tw-jib--extract-channel-green(var(--tw-jib--test));
-}
-@function --tw-jib--shade-passes-aaa(--background type(<color>): black, --candidate type(<color>): white) returns <color> {
-  --tw-jib--test: --tw-jib--contrast-test-all(var(--background), var(--candidate));
-  result: --tw-jib--extract-channel-blue(var(--tw-jib--test));
-}
-
-/* AA Large (3:1) — direct-target seed, [-3, 0, +5] bracket both
- * directions, ±100 extremes as fallback. */
-@function --tw-jib--accessible-shade-large(--background type(<color>): white, --brand type(<color>): currentColor, --interpolation type(<custom-ident>): oklch) returns <color> {
-  --tw-jib--background-luminance: --tw-jib--get-wcag-luminance(var(--background));
-  --tw-jib--brand-luminance: --tw-jib--get-wcag-luminance(var(--brand));
-  --tw-jib--brand-oklch-lightness: calc(pow(var(--tw-jib--brand-luminance), 0.3333));
-
-  /* Chroma-correction factor: highly-saturated brands need extra push
-   * because the oklch-lightness chroma taper drops chroma at extremes. */
-  --tw-jib--saturation-0: --tw-jib--saturation-test(var(--brand), 0.95);
-  --tw-jib--saturation-1: --tw-jib--saturation-test(var(--brand), 0.90);
-  --tw-jib--saturation-2: --tw-jib--saturation-test(var(--brand), 0.80);
-  --tw-jib--factor: if(
-    style(--tw-jib--saturation-0: color(srgb 1 1 1)): 1.30;
-    style(--tw-jib--saturation-1: color(srgb 1 1 1)): 1.15;
-    style(--tw-jib--saturation-2: color(srgb 1 1 1)): 1.08;
-    else: 1.03
-  );
-
-  /* Lighter direction: target_lum = T · (L_bg + 0.05) − 0.05 */
-  --tw-jib--target-luminance-up: calc(3 * (var(--tw-jib--background-luminance) + 0.05) - 0.05);
-  --tw-jib--target-oklch-up: calc(pow(max(0.001, var(--tw-jib--target-luminance-up)), 0.3333));
-  --tw-jib--amount-up-raw: calc((var(--tw-jib--target-oklch-up) - var(--tw-jib--brand-oklch-lightness)) / max(0.001, 1 - var(--tw-jib--brand-oklch-lightness)) * 100);
-  --tw-jib--amount-up: clamp(0, calc(var(--tw-jib--amount-up-raw) * var(--tw-jib--factor)), 100);
-
-  /* Darker direction: target_lum = (L_bg + 0.05) / T − 0.05 */
-  --tw-jib--target-luminance-down: calc((var(--tw-jib--background-luminance) + 0.05) / 3 - 0.05);
-  --tw-jib--target-oklch-down: calc(pow(max(0.001, var(--tw-jib--target-luminance-down)), 0.3333));
-  --tw-jib--amount-down-raw: calc((var(--tw-jib--target-oklch-down) - var(--tw-jib--brand-oklch-lightness)) / max(0.001, var(--tw-jib--brand-oklch-lightness)) * 100);
-  --tw-jib--amount-down: clamp(-100, calc(var(--tw-jib--amount-down-raw) * var(--tw-jib--factor)), 0);
-
-  /* Crossover: dark bg → try lighter first, light bg → try darker first.
-   * Threshold 0.18 (≈ sRGB 50%). */
-  --tw-jib--crossover: --tw-jib--luminance-threshold(var(--background), 0.18);
-
-  /* Tight bracket around each seed: lower edge at seed−3, the seed,
-   * upper edge at seed+5 (asymmetric: more upside than downside since
-   * the seed slightly under-shoots). */
-  --tw-jib--up-low:  --tw-jib--lightness(var(--brand), calc(var(--tw-jib--amount-up) - 3), var(--interpolation));
-  --tw-jib--up-zero: --tw-jib--lightness(var(--brand), var(--tw-jib--amount-up), var(--interpolation));
-  --tw-jib--up-high: --tw-jib--lightness(var(--brand), calc(var(--tw-jib--amount-up) + 5), var(--interpolation));
-  --tw-jib--down-low:  --tw-jib--lightness(var(--brand), calc(var(--tw-jib--amount-down) + 3), var(--interpolation));
-  --tw-jib--down-zero: --tw-jib--lightness(var(--brand), var(--tw-jib--amount-down), var(--interpolation));
-  --tw-jib--down-high: --tw-jib--lightness(var(--brand), calc(var(--tw-jib--amount-down) - 5), var(--interpolation));
-  --tw-jib--extreme-up:   --tw-jib--lightness(var(--brand), 100, var(--interpolation));
-  --tw-jib--extreme-down: --tw-jib--lightness(var(--brand), -100, var(--interpolation));
-
-  --tw-jib--pass-up-low:  --tw-jib--shade-passes-large(var(--background), var(--tw-jib--up-low));
-  --tw-jib--pass-up-zero: --tw-jib--shade-passes-large(var(--background), var(--tw-jib--up-zero));
-  --tw-jib--pass-up-high: --tw-jib--shade-passes-large(var(--background), var(--tw-jib--up-high));
-  --tw-jib--pass-down-low:  --tw-jib--shade-passes-large(var(--background), var(--tw-jib--down-low));
-  --tw-jib--pass-down-zero: --tw-jib--shade-passes-large(var(--background), var(--tw-jib--down-zero));
-  --tw-jib--pass-down-high: --tw-jib--shade-passes-large(var(--background), var(--tw-jib--down-high));
-  --tw-jib--pass-extreme-up:   --tw-jib--shade-passes-large(var(--background), var(--tw-jib--extreme-up));
-  --tw-jib--pass-extreme-down: --tw-jib--shade-passes-large(var(--background), var(--tw-jib--extreme-down));
-
-  result: if(
-    style(--tw-jib--crossover: color(srgb 0 0 0)): if(
-      style(--tw-jib--pass-up-low: color(srgb 1 1 1)): var(--tw-jib--up-low);
-      style(--tw-jib--pass-up-zero: color(srgb 1 1 1)): var(--tw-jib--up-zero);
-      style(--tw-jib--pass-up-high: color(srgb 1 1 1)): var(--tw-jib--up-high);
-      style(--tw-jib--pass-down-low: color(srgb 1 1 1)): var(--tw-jib--down-low);
-      style(--tw-jib--pass-down-zero: color(srgb 1 1 1)): var(--tw-jib--down-zero);
-      style(--tw-jib--pass-down-high: color(srgb 1 1 1)): var(--tw-jib--down-high);
-      style(--tw-jib--pass-extreme-up: color(srgb 1 1 1)): var(--tw-jib--extreme-up);
-      style(--tw-jib--pass-extreme-down: color(srgb 1 1 1)): var(--tw-jib--extreme-down);
-      else: white
-    );
-    else: if(
-      style(--tw-jib--pass-down-low: color(srgb 1 1 1)): var(--tw-jib--down-low);
-      style(--tw-jib--pass-down-zero: color(srgb 1 1 1)): var(--tw-jib--down-zero);
-      style(--tw-jib--pass-down-high: color(srgb 1 1 1)): var(--tw-jib--down-high);
-      style(--tw-jib--pass-up-low: color(srgb 1 1 1)): var(--tw-jib--up-low);
-      style(--tw-jib--pass-up-zero: color(srgb 1 1 1)): var(--tw-jib--up-zero);
-      style(--tw-jib--pass-up-high: color(srgb 1 1 1)): var(--tw-jib--up-high);
-      style(--tw-jib--pass-extreme-down: color(srgb 1 1 1)): var(--tw-jib--extreme-down);
-      style(--tw-jib--pass-extreme-up: color(srgb 1 1 1)): var(--tw-jib--extreme-up);
-      else: black
-    )
-  );
+/* Luminance carrier: background's linear channels preserved, WCAG
+ * luminance smuggled into alpha.
+ *
+ * Relative colour syntax admits one origin colour per expression, so a
+ * candidate built in oklch cannot also see the background's luminance —
+ * unless the luminance travels inside the colour. Alpha is the only
+ * channel available for it, and two properties make it work: alpha is a
+ * float in [0, 1], which is exactly the range of a luminance, and alpha is
+ * inert to colour-space conversion, so it survives an oklch/lch/hsl round
+ * trip untouched. Verified in Chromium to ~10⁻⁷ through five nested
+ * layers; the cross-pipeline invariance test guards it. */
+@function --tw-jib--wcag-carrier(--color type(<color>): white) returns <color> {
+  result: color(from var(--color) srgb-linear r g b / calc(0.2126 * r + 0.7152 * g + 0.0722 * b));
 }
 
-/* AA (4.5:1) — same structure as --tw-jib--accessible-shade-large with T=4.5. */
-@function --tw-jib--accessible-shade-aa(--background type(<color>): white, --brand type(<color>): currentColor, --interpolation type(<custom-ident>): oklch) returns <color> {
-  --tw-jib--background-luminance: --tw-jib--get-wcag-luminance(var(--background));
-  --tw-jib--brand-luminance: --tw-jib--get-wcag-luminance(var(--brand));
-  --tw-jib--brand-oklch-lightness: calc(pow(var(--tw-jib--brand-luminance), 0.3333));
-
-  --tw-jib--saturation-0: --tw-jib--saturation-test(var(--brand), 0.95);
-  --tw-jib--saturation-1: --tw-jib--saturation-test(var(--brand), 0.90);
-  --tw-jib--saturation-2: --tw-jib--saturation-test(var(--brand), 0.80);
-  --tw-jib--factor: if(
-    style(--tw-jib--saturation-0: color(srgb 1 1 1)): 1.30;
-    style(--tw-jib--saturation-1: color(srgb 1 1 1)): 1.15;
-    style(--tw-jib--saturation-2: color(srgb 1 1 1)): 1.08;
-    else: 1.03
-  );
-
-  --tw-jib--target-luminance-up: calc(4.5 * (var(--tw-jib--background-luminance) + 0.05) - 0.05);
-  --tw-jib--target-oklch-up: calc(pow(max(0.001, var(--tw-jib--target-luminance-up)), 0.3333));
-  --tw-jib--amount-up-raw: calc((var(--tw-jib--target-oklch-up) - var(--tw-jib--brand-oklch-lightness)) / max(0.001, 1 - var(--tw-jib--brand-oklch-lightness)) * 100);
-  --tw-jib--amount-up: clamp(0, calc(var(--tw-jib--amount-up-raw) * var(--tw-jib--factor)), 100);
-
-  --tw-jib--target-luminance-down: calc((var(--tw-jib--background-luminance) + 0.05) / 4.5 - 0.05);
-  --tw-jib--target-oklch-down: calc(pow(max(0.001, var(--tw-jib--target-luminance-down)), 0.3333));
-  --tw-jib--amount-down-raw: calc((var(--tw-jib--target-oklch-down) - var(--tw-jib--brand-oklch-lightness)) / max(0.001, var(--tw-jib--brand-oklch-lightness)) * 100);
-  --tw-jib--amount-down: clamp(-100, calc(var(--tw-jib--amount-down-raw) * var(--tw-jib--factor)), 0);
-
-  --tw-jib--crossover: --tw-jib--luminance-threshold(var(--background), 0.18);
-
-  --tw-jib--up-low:  --tw-jib--lightness(var(--brand), calc(var(--tw-jib--amount-up) - 3), var(--interpolation));
-  --tw-jib--up-zero: --tw-jib--lightness(var(--brand), var(--tw-jib--amount-up), var(--interpolation));
-  --tw-jib--up-high: --tw-jib--lightness(var(--brand), calc(var(--tw-jib--amount-up) + 5), var(--interpolation));
-  --tw-jib--down-low:  --tw-jib--lightness(var(--brand), calc(var(--tw-jib--amount-down) + 3), var(--interpolation));
-  --tw-jib--down-zero: --tw-jib--lightness(var(--brand), var(--tw-jib--amount-down), var(--interpolation));
-  --tw-jib--down-high: --tw-jib--lightness(var(--brand), calc(var(--tw-jib--amount-down) - 5), var(--interpolation));
-  --tw-jib--extreme-up:   --tw-jib--lightness(var(--brand), 100, var(--interpolation));
-  --tw-jib--extreme-down: --tw-jib--lightness(var(--brand), -100, var(--interpolation));
-
-  --tw-jib--pass-up-low:  --tw-jib--shade-passes-aa(var(--background), var(--tw-jib--up-low));
-  --tw-jib--pass-up-zero: --tw-jib--shade-passes-aa(var(--background), var(--tw-jib--up-zero));
-  --tw-jib--pass-up-high: --tw-jib--shade-passes-aa(var(--background), var(--tw-jib--up-high));
-  --tw-jib--pass-down-low:  --tw-jib--shade-passes-aa(var(--background), var(--tw-jib--down-low));
-  --tw-jib--pass-down-zero: --tw-jib--shade-passes-aa(var(--background), var(--tw-jib--down-zero));
-  --tw-jib--pass-down-high: --tw-jib--shade-passes-aa(var(--background), var(--tw-jib--down-high));
-  --tw-jib--pass-extreme-up:   --tw-jib--shade-passes-aa(var(--background), var(--tw-jib--extreme-up));
-  --tw-jib--pass-extreme-down: --tw-jib--shade-passes-aa(var(--background), var(--tw-jib--extreme-down));
-
-  result: if(
-    style(--tw-jib--crossover: color(srgb 0 0 0)): if(
-      style(--tw-jib--pass-up-low: color(srgb 1 1 1)): var(--tw-jib--up-low);
-      style(--tw-jib--pass-up-zero: color(srgb 1 1 1)): var(--tw-jib--up-zero);
-      style(--tw-jib--pass-up-high: color(srgb 1 1 1)): var(--tw-jib--up-high);
-      style(--tw-jib--pass-down-low: color(srgb 1 1 1)): var(--tw-jib--down-low);
-      style(--tw-jib--pass-down-zero: color(srgb 1 1 1)): var(--tw-jib--down-zero);
-      style(--tw-jib--pass-down-high: color(srgb 1 1 1)): var(--tw-jib--down-high);
-      style(--tw-jib--pass-extreme-up: color(srgb 1 1 1)): var(--tw-jib--extreme-up);
-      style(--tw-jib--pass-extreme-down: color(srgb 1 1 1)): var(--tw-jib--extreme-down);
-      else: white
-    );
-    else: if(
-      style(--tw-jib--pass-down-low: color(srgb 1 1 1)): var(--tw-jib--down-low);
-      style(--tw-jib--pass-down-zero: color(srgb 1 1 1)): var(--tw-jib--down-zero);
-      style(--tw-jib--pass-down-high: color(srgb 1 1 1)): var(--tw-jib--down-high);
-      style(--tw-jib--pass-up-low: color(srgb 1 1 1)): var(--tw-jib--up-low);
-      style(--tw-jib--pass-up-zero: color(srgb 1 1 1)): var(--tw-jib--up-zero);
-      style(--tw-jib--pass-up-high: color(srgb 1 1 1)): var(--tw-jib--up-high);
-      style(--tw-jib--pass-extreme-down: color(srgb 1 1 1)): var(--tw-jib--extreme-down);
-      style(--tw-jib--pass-extreme-up: color(srgb 1 1 1)): var(--tw-jib--extreme-up);
-      else: black
-    )
-  );
+/* Retarget the carrier: channels pass through, alpha becomes Yt.
+ * Input alpha is Y. Used by the space pipelines, whose seeds read the
+ * target luminance out of alpha. */
+@function --tw-jib--wcag-target(--carrier type(<color>): white, --ratio type(<number>): 4.5) returns <color> {
+  result: color(from var(--carrier) srgb-linear r g b
+    / calc(clamp(0,
+        (1 - clamp(0, (0.1791 - alpha) * 1000000, 1)) * ((alpha + 0.05) / var(--ratio) - 0.05)
+      + clamp(0, (0.1791 - alpha) * 1000000, 1) * (var(--ratio) * (alpha + 0.05) - 0.05),
+      1)));
 }
 
-/* AAA (7:1) — same structure as --tw-jib--accessible-shade-large with T=7. */
-@function --tw-jib--accessible-shade-aaa(--background type(<color>): white, --brand type(<color>): currentColor, --interpolation type(<custom-ident>): oklch) returns <color> {
-  --tw-jib--background-luminance: --tw-jib--get-wcag-luminance(var(--background));
-  --tw-jib--brand-luminance: --tw-jib--get-wcag-luminance(var(--brand));
-  --tw-jib--brand-oklch-lightness: calc(pow(var(--tw-jib--brand-luminance), 0.3333));
+/* Core chroma vector: channels become Yt·(c − Y)/Y, alpha becomes Yt.
+ * Input alpha is Y. Pre-scaling by Yt/Y is what makes the shade
+ * origin-faithful — at scale 1 the output reproduces the background's
+ * exact chromaticity — and lets --tw-jib--wcag-lift() use a fixed
+ * ceiling of 1 for both this and the space pipelines. */
+@function --tw-jib--wcag-core-vector(--carrier type(<color>): white, --ratio type(<number>): 4.5) returns <color> {
+  result: color(from var(--carrier) srgb-linear
+    calc(clamp(0, (1 - clamp(0, (0.1791 - alpha) * 1000000, 1)) * ((alpha + 0.05) / var(--ratio) - 0.05)
+       + clamp(0, (0.1791 - alpha) * 1000000, 1) * (var(--ratio) * (alpha + 0.05) - 0.05), 1)
+       * (r - alpha) / max(alpha, 0.000001))
+    calc(clamp(0, (1 - clamp(0, (0.1791 - alpha) * 1000000, 1)) * ((alpha + 0.05) / var(--ratio) - 0.05)
+       + clamp(0, (0.1791 - alpha) * 1000000, 1) * (var(--ratio) * (alpha + 0.05) - 0.05), 1)
+       * (g - alpha) / max(alpha, 0.000001))
+    calc(clamp(0, (1 - clamp(0, (0.1791 - alpha) * 1000000, 1)) * ((alpha + 0.05) / var(--ratio) - 0.05)
+       + clamp(0, (0.1791 - alpha) * 1000000, 1) * (var(--ratio) * (alpha + 0.05) - 0.05), 1)
+       * (b - alpha) / max(alpha, 0.000001))
+    / calc(clamp(0, (1 - clamp(0, (0.1791 - alpha) * 1000000, 1)) * ((alpha + 0.05) / var(--ratio) - 0.05)
+       + clamp(0, (0.1791 - alpha) * 1000000, 1) * (var(--ratio) * (alpha + 0.05) - 0.05), 1)));
+}
 
-  --tw-jib--saturation-0: --tw-jib--saturation-test(var(--brand), 0.95);
-  --tw-jib--saturation-1: --tw-jib--saturation-test(var(--brand), 0.90);
-  --tw-jib--saturation-2: --tw-jib--saturation-test(var(--brand), 0.80);
-  --tw-jib--factor: if(
-    style(--tw-jib--saturation-0: color(srgb 1 1 1)): 1.30;
-    style(--tw-jib--saturation-1: color(srgb 1 1 1)): 1.15;
-    style(--tw-jib--saturation-2: color(srgb 1 1 1)): 1.08;
-    else: 1.03
-  );
+/* Candidate chroma vector: channels become c − Yc, alpha passes through.
+ * Input is a seed colour whose alpha already carries Yt. Splitting this
+ * out of the lift stage keeps the luminance dot product written three
+ * times instead of nine. */
+@function --tw-jib--wcag-chroma-vector(--candidate type(<color>): white) returns <color> {
+  result: color(from var(--candidate) srgb-linear
+    calc(r - (0.2126 * r + 0.7152 * g + 0.0722 * b))
+    calc(g - (0.2126 * r + 0.7152 * g + 0.0722 * b))
+    calc(b - (0.2126 * r + 0.7152 * g + 0.0722 * b))
+    / alpha);
+}
 
-  --tw-jib--target-luminance-up: calc(7 * (var(--tw-jib--background-luminance) + 0.05) - 0.05);
-  --tw-jib--target-oklch-up: calc(pow(max(0.001, var(--tw-jib--target-luminance-up)), 0.3333));
-  --tw-jib--amount-up-raw: calc((var(--tw-jib--target-oklch-up) - var(--tw-jib--brand-oklch-lightness)) / max(0.001, 1 - var(--tw-jib--brand-oklch-lightness)) * 100);
-  --tw-jib--amount-up: clamp(0, calc(var(--tw-jib--amount-up-raw) * var(--tw-jib--factor)), 100);
+/* Shared final stage: out_c = alpha + min(1, caps) · c
+ *
+ * Input channels are a zero-luminance chroma vector and input alpha is the
+ * target luminance, so the output's luminance is the target identically,
+ * for every value the min() takes. The leading 1 expresses the preference:
+ * keep the vector exactly when it fits, shrink only as far as the gamut
+ * demands. This single expression therefore (a) sets luminance exactly,
+ * (b) gamut-maps at constant luminance, and (c) is a no-op on a vector
+ * that already fits. Alpha is reset to 1. */
+@function --tw-jib--wcag-lift(--vector type(<color>): white) returns <color> {
+  result: color(from var(--vector) srgb-linear
+    calc(alpha + min(1,
+      (1 - alpha) / max(r, 0.001), alpha / max((0 - r), 0.001),
+      (1 - alpha) / max(g, 0.001), alpha / max((0 - g), 0.001),
+      (1 - alpha) / max(b, 0.001), alpha / max((0 - b), 0.001)) * r)
+    calc(alpha + min(1,
+      (1 - alpha) / max(r, 0.001), alpha / max((0 - r), 0.001),
+      (1 - alpha) / max(g, 0.001), alpha / max((0 - g), 0.001),
+      (1 - alpha) / max(b, 0.001), alpha / max((0 - b), 0.001)) * g)
+    calc(alpha + min(1,
+      (1 - alpha) / max(r, 0.001), alpha / max((0 - r), 0.001),
+      (1 - alpha) / max(g, 0.001), alpha / max((0 - g), 0.001),
+      (1 - alpha) / max(b, 0.001), alpha / max((0 - b), 0.001)) * b)
+    / 1);
+}
 
-  --tw-jib--target-luminance-down: calc((var(--tw-jib--background-luminance) + 0.05) / 7 - 0.05);
-  --tw-jib--target-oklch-down: calc(pow(max(0.001, var(--tw-jib--target-luminance-down)), 0.3333));
-  --tw-jib--amount-down-raw: calc((var(--tw-jib--target-oklch-down) - var(--tw-jib--brand-oklch-lightness)) / max(0.001, var(--tw-jib--brand-oklch-lightness)) * 100);
-  --tw-jib--amount-down: clamp(-100, calc(var(--tw-jib--amount-down-raw) * var(--tw-jib--factor)), 0);
+/* -------------------------------------------------------------------------
+ * Shade pipelines
+ *
+ * The colour-space modifier selects the AESTHETIC PATH of the shade — how
+ * chroma and perceptual hue behave between background and output — while
+ * --tw-jib--wcag-lift() owns correctness for every space uniformly. Same
+ * division of labour as the previous implementation, where the verify step
+ * also owned correctness for all spaces; the verify is now algebra.
+ *
+ * Class 1 — linear-light and RGB-family (srgb, srgb-linear, rgb, xyz*,
+ *   display-p3, a98-rgb, prophoto-rgb, rec2020, color-mix): the core IS
+ *   the shade path. Every space here is a linear transform of linear-light
+ *   RGB, so per-space differences are visually negligible while the
+ *   projection is luma-exact in all of them.
+ *
+ * Class 2 — CIE Lab family (lab, lch): L* is an invertible pure function
+ *   of luminance, so these admit an exact closed-form seed. CSS lab()/lch()
+ *   are D50-adapted, so L* tracks chromatically adapted luminance and
+ *   deviates a little from WCAG's D65 — absorbed entirely by the lift.
+ *
+ * Class 3 — perceptual-OK and legacy (oklab, oklch, hsl, hwb): lightness
+ *   is not a pure function of luminance, so the seed is approximate and the
+ *   lift corrects it. Measured oklch seed drift without the lift, on this
+ *   library's own test colours: −0.30 to +0.16 in ratio terms (one
+ *   undershoot would silently fail compliance, one overshoot silently
+ *   wastes chroma). With the lift: exact.
+ * ------------------------------------------------------------------------- */
 
-  --tw-jib--crossover: --tw-jib--luminance-threshold(var(--background), 0.18);
+/* Class 1 — the workhorse. carrier → core vector → lift. */
+@function --tw-jib--accessible-shade-core(--background type(<color>): white, --ratio type(<number>): 4.5) returns <color> {
+  --tw-jib--carrier: --tw-jib--wcag-carrier(var(--background));
+  --tw-jib--vector: --tw-jib--wcag-core-vector(var(--tw-jib--carrier), var(--ratio));
+  result: --tw-jib--wcag-lift(var(--tw-jib--vector));
+}
 
-  --tw-jib--up-low:  --tw-jib--lightness(var(--brand), calc(var(--tw-jib--amount-up) - 3), var(--interpolation));
-  --tw-jib--up-zero: --tw-jib--lightness(var(--brand), var(--tw-jib--amount-up), var(--interpolation));
-  --tw-jib--up-high: --tw-jib--lightness(var(--brand), calc(var(--tw-jib--amount-up) + 5), var(--interpolation));
-  --tw-jib--down-low:  --tw-jib--lightness(var(--brand), calc(var(--tw-jib--amount-down) + 3), var(--interpolation));
-  --tw-jib--down-zero: --tw-jib--lightness(var(--brand), var(--tw-jib--amount-down), var(--interpolation));
-  --tw-jib--down-high: --tw-jib--lightness(var(--brand), calc(var(--tw-jib--amount-down) - 5), var(--interpolation));
-  --tw-jib--extreme-up:   --tw-jib--lightness(var(--brand), 100, var(--interpolation));
-  --tw-jib--extreme-down: --tw-jib--lightness(var(--brand), -100, var(--interpolation));
+/* oklch / oklab — L = Yt^(1/3), exact for achromatic colours, chromatic
+ * error corrected by the lift. */
+@function --tw-jib--accessible-shade-oklch(--background type(<color>): white, --ratio type(<number>): 4.5) returns <color> {
+  --tw-jib--carrier: --tw-jib--wcag-carrier(var(--background));
+  --tw-jib--target: --tw-jib--wcag-target(var(--tw-jib--carrier), var(--ratio));
+  --tw-jib--seed: oklch(from var(--tw-jib--target) calc(pow(alpha, 0.333333)) c h / alpha);
+  --tw-jib--vector: --tw-jib--wcag-chroma-vector(var(--tw-jib--seed));
+  result: --tw-jib--wcag-lift(var(--tw-jib--vector));
+}
 
-  --tw-jib--pass-up-low:  --tw-jib--shade-passes-aaa(var(--background), var(--tw-jib--up-low));
-  --tw-jib--pass-up-zero: --tw-jib--shade-passes-aaa(var(--background), var(--tw-jib--up-zero));
-  --tw-jib--pass-up-high: --tw-jib--shade-passes-aaa(var(--background), var(--tw-jib--up-high));
-  --tw-jib--pass-down-low:  --tw-jib--shade-passes-aaa(var(--background), var(--tw-jib--down-low));
-  --tw-jib--pass-down-zero: --tw-jib--shade-passes-aaa(var(--background), var(--tw-jib--down-zero));
-  --tw-jib--pass-down-high: --tw-jib--shade-passes-aaa(var(--background), var(--tw-jib--down-high));
-  --tw-jib--pass-extreme-up:   --tw-jib--shade-passes-aaa(var(--background), var(--tw-jib--extreme-up));
-  --tw-jib--pass-extreme-down: --tw-jib--shade-passes-aaa(var(--background), var(--tw-jib--extreme-down));
+/* lch / lab — the CIE L* transfer, branchless piecewise at the 0.008856
+ * knee. Exact up to D50 adaptation. */
+@function --tw-jib--accessible-shade-lch(--background type(<color>): white, --ratio type(<number>): 4.5) returns <color> {
+  --tw-jib--carrier: --tw-jib--wcag-carrier(var(--background));
+  --tw-jib--target: --tw-jib--wcag-target(var(--tw-jib--carrier), var(--ratio));
+  --tw-jib--seed: lch(from var(--tw-jib--target)
+    calc(clamp(0, (alpha - 0.008856) * 1000000, 1) * (116 * pow(alpha, 0.333333) - 16)
+       + (1 - clamp(0, (alpha - 0.008856) * 1000000, 1)) * (903.3 * alpha))
+    c h / alpha);
+  --tw-jib--vector: --tw-jib--wcag-chroma-vector(var(--tw-jib--seed));
+  result: --tw-jib--wcag-lift(var(--tw-jib--vector));
+}
 
-  result: if(
-    style(--tw-jib--crossover: color(srgb 0 0 0)): if(
-      style(--tw-jib--pass-up-low: color(srgb 1 1 1)): var(--tw-jib--up-low);
-      style(--tw-jib--pass-up-zero: color(srgb 1 1 1)): var(--tw-jib--up-zero);
-      style(--tw-jib--pass-up-high: color(srgb 1 1 1)): var(--tw-jib--up-high);
-      style(--tw-jib--pass-down-low: color(srgb 1 1 1)): var(--tw-jib--down-low);
-      style(--tw-jib--pass-down-zero: color(srgb 1 1 1)): var(--tw-jib--down-zero);
-      style(--tw-jib--pass-down-high: color(srgb 1 1 1)): var(--tw-jib--down-high);
-      style(--tw-jib--pass-extreme-up: color(srgb 1 1 1)): var(--tw-jib--extreme-up);
-      style(--tw-jib--pass-extreme-down: color(srgb 1 1 1)): var(--tw-jib--extreme-down);
-      else: white
-    );
-    else: if(
-      style(--tw-jib--pass-down-low: color(srgb 1 1 1)): var(--tw-jib--down-low);
-      style(--tw-jib--pass-down-zero: color(srgb 1 1 1)): var(--tw-jib--down-zero);
-      style(--tw-jib--pass-down-high: color(srgb 1 1 1)): var(--tw-jib--down-high);
-      style(--tw-jib--pass-up-low: color(srgb 1 1 1)): var(--tw-jib--up-low);
-      style(--tw-jib--pass-up-zero: color(srgb 1 1 1)): var(--tw-jib--up-zero);
-      style(--tw-jib--pass-up-high: color(srgb 1 1 1)): var(--tw-jib--up-high);
-      style(--tw-jib--pass-extreme-down: color(srgb 1 1 1)): var(--tw-jib--extreme-down);
-      style(--tw-jib--pass-extreme-up: color(srgb 1 1 1)): var(--tw-jib--extreme-up);
-      else: black
-    )
-  );
+/* hsl — l = Yt, deliberately crude; HSL lightness barely correlates with
+ * luminance, so the lift does the work. Saturation is kept, which means
+ * the seed washes out at extreme targets and the output is less chromatic
+ * than the core's. That is the honest HSL answer. */
+@function --tw-jib--accessible-shade-hsl(--background type(<color>): white, --ratio type(<number>): 4.5) returns <color> {
+  --tw-jib--carrier: --tw-jib--wcag-carrier(var(--background));
+  --tw-jib--target: --tw-jib--wcag-target(var(--tw-jib--carrier), var(--ratio));
+  --tw-jib--seed: hsl(from var(--tw-jib--target) h s calc(alpha * 100%) / alpha);
+  --tw-jib--vector: --tw-jib--wcag-chroma-vector(var(--tw-jib--seed));
+  result: --tw-jib--wcag-lift(var(--tw-jib--vector));
+}
+
+/* hwb — split the input's greyness budget (w + b) by the target instead of
+ * setting w and b from it directly.
+ *
+ * HWB is achromatic whenever w + b >= 100%, so the obvious seed
+ * (w = Yt, b = 1 − Yt) sums to exactly 100% and would return grey for
+ * EVERY input, making the modifier indistinguishable from a greyscale
+ * mode. Keeping b and driving only w is worse: on a neutral background
+ * the hue channel is arbitrary, and a pure grey came out saturated red.
+ * Preserving w + b keeps the input's chroma budget — a grey has
+ * w + b = 100% and stays grey — while the w:b split tracks the target. */
+@function --tw-jib--accessible-shade-hwb(--background type(<color>): white, --ratio type(<number>): 4.5) returns <color> {
+  --tw-jib--carrier: --tw-jib--wcag-carrier(var(--background));
+  --tw-jib--target: --tw-jib--wcag-target(var(--tw-jib--carrier), var(--ratio));
+  --tw-jib--seed: hwb(from var(--tw-jib--target) h calc(alpha * (w + b)) calc((1 - alpha) * (w + b)) / alpha);
+  --tw-jib--vector: --tw-jib--wcag-chroma-vector(var(--tw-jib--seed));
+  result: --tw-jib--wcag-lift(var(--tw-jib--vector));
 }
 
 /* Public dispatcher — preserves the existing utility API.
- * The utility only has one input colour (the captured bg), so the same
- * value is passed for both --background and --brand — the brand seed becomes
- * the bg itself, and the per-level function searches outwards from
- * there for a passing shade. */
+ * Maps the WCAG level to its ratio once, then routes to the pipeline for
+ * the requested colour space. oklab and lab alias their polar twins: the
+ * seeds are identical, only the channel notation differs. The else branch
+ * catches all eleven Class-1 spaces. */
 @function --tw-jib--accessible-shade(--background type(<color>): white, --level type(<custom-ident>): aa, --interpolation type(<custom-ident>): oklch) returns <color> {
+  --tw-jib--ratio: if(
+    style(--level: aaa): 7;
+    style(--level: aa-lg): 3;
+    else: 4.5
+  );
   result: if(
-    style(--level: aaa): --tw-jib--accessible-shade-aaa(var(--background), var(--background), var(--interpolation));
-    style(--level: aa-lg): --tw-jib--accessible-shade-large(var(--background), var(--background), var(--interpolation));
-    else: --tw-jib--accessible-shade-aa(var(--background), var(--background), var(--interpolation))
+    style(--interpolation: oklch): --tw-jib--accessible-shade-oklch(var(--background), var(--tw-jib--ratio));
+    style(--interpolation: oklab): --tw-jib--accessible-shade-oklch(var(--background), var(--tw-jib--ratio));
+    style(--interpolation: lch): --tw-jib--accessible-shade-lch(var(--background), var(--tw-jib--ratio));
+    style(--interpolation: lab): --tw-jib--accessible-shade-lch(var(--background), var(--tw-jib--ratio));
+    style(--interpolation: hsl): --tw-jib--accessible-shade-hsl(var(--background), var(--tw-jib--ratio));
+    style(--interpolation: hwb): --tw-jib--accessible-shade-hwb(var(--background), var(--tw-jib--ratio));
+    else: --tw-jib--accessible-shade-core(var(--background), var(--tw-jib--ratio))
   );
 }

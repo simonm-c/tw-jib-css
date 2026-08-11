@@ -15,7 +15,7 @@ Set a background colour. Add a `text-a11y-*` class. The CSS computes a text colo
     <div class="bg-violet-600 text-a11y-aa p-4 rounded text-sm">AA on violet</div>
     <div class="bg-amber-400 text-a11y-aa p-4 rounded text-sm">AA on amber</div>
     <div class="bg-emerald-700 text-a11y-aa p-4 rounded text-sm">AA on emerald</div>
-    <div class="bg-rose-500 text-a11y-aaa p-4 rounded text-sm">AAA on rose</div>
+    <div class="bg-rose-900 text-a11y-aaa p-4 rounded text-sm">AAA on rose</div>
     <div class="bg-sky-200 text-a11y-aaa p-4 rounded text-sm">AAA on sky</div>
     <div class="bg-gray-800 text-a11y-aa-lg p-4 rounded text-sm font-bold">AA-lg on gray</div>
   </div>
@@ -45,9 +45,9 @@ Set a background colour. Add a `text-a11y-*` class. The CSS computes a text colo
 
 ## How it works
 
-Powered by CSS `@function` and relative colour syntax. The library computes WCAG 2.x luminance from the background colour, tests candidate text shades against the target ratio, and returns the closest passing shade — all at render time, no JavaScript, no build step.
+Powered by CSS `@function` and relative colour syntax. The WCAG ratio formula inverts to give a target luminance, and a colour with that luminance, the background's hue and the background's chroma is built in one relative-colour expression — so the shade is solved outright rather than searched for. All at render time, no JavaScript, no build step.
 
-This is the same underlying technique used by the [WCAG Badge](/guide/wcag-badge) for contrast verification.
+The [WCAG Badge](/guide/wcag-badge) is the other half of the module: this utility *constructs* a colour at a known ratio, the badge *measures* whatever pair it is given. They share the same CSS-only approach but no machinery — measurement stays useful because it also works on colours this utility did not pick.
 
 ## Pairs with the WCAG badge
 

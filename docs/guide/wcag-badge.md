@@ -146,4 +146,6 @@ The badge reads the captured `--tw-jib--background-color` and `--tw-jib--text-co
 4. **`::after` pseudo-element** — `content: var(--tw-jib--wcag-rating)` displays the rating.
 5. **Conditional badge colour** — `if(style())` maps the rating to green/yellow/orange/red using TW colour tokens; badge text is black on yellow (AA), white on all others.
 
-Because the comparison stays in colour space the whole way through — no numeric luminance is ever extracted — there is no quantization error, no safety margin, and no uncertainty band.
+Because the comparison stays in colour space the whole way through — no numeric luminance is ever extracted — there is no quantization error and no uncertainty band. Every step works in `srgb-linear`; routing the luminance through the legacy `rgb()` function instead costs 10⁻⁵-scale precision, always signed so the darker colour of a pair measures darker, which is enough to decide a verdict for a pair sitting on a threshold.
+
+There is one deliberate tolerance. WCAG asks for a ratio of *at least* the threshold, so a pair landing exactly on 4.5:1 is AA — but a step function returns "fail" at exactly zero. The thresholds therefore carry a 10⁻⁶ epsilon, about 5 × 10⁻⁴ in ratio terms, so an exact tie resolves in favour of passing. This matters because [`text-a11y-*`](/guide/accessible-color) produces exact ties by design; without it the badge would contradict the class beside it on every element.

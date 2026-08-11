@@ -159,29 +159,29 @@ title: Jibcss
 
 <MagazineSlide :index="8">
 <div class="landing-fn-cycle grid grid-cols-2 gap-3 w-full max-w-md">
-  <div class="aspect-[4/3] rounded-xl p-3 flex flex-col justify-between bg-(--landing-base-color) text-[--tw-jib--accessible-shade-aaa(var(--landing-base-color),var(--landing-base-color))]">
+  <div class="aspect-[4/3] rounded-xl p-3 flex flex-col justify-between bg-(--landing-base-color) text-[--tw-jib--accessible-shade(var(--landing-base-color),aaa,oklch)]">
     <span class="font-mono text-[9px] opacity-80">button border + text</span>
-    <button class="rounded-md px-3 py-1.5 font-semibold text-xs cursor-pointer bg-transparent self-start border-2 border-[--tw-jib--accessible-shade-aaa(var(--landing-base-color),var(--landing-base-color))] text-[--tw-jib--accessible-shade-aaa(var(--landing-base-color),var(--landing-base-color))]">
+    <button class="rounded-md px-3 py-1.5 font-semibold text-xs cursor-pointer bg-transparent self-start border-2 border-[--tw-jib--accessible-shade(var(--landing-base-color),aaa,oklch)] text-[--tw-jib--accessible-shade(var(--landing-base-color),aaa,oklch)]">
       Continue →
     </button>
   </div>
   <div class="aspect-[4/3] rounded-xl flex items-center justify-center bg-gray-100 dark:bg-gray-900">
     <svg viewBox="0 0 48 48" class="w-20 h-20">
       <rect x="6" y="6" width="36" height="36" rx="6" class="fill-(--landing-base-color)" />
-      <path d="M16 25 L22 31 L34 17" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="stroke-[--tw-jib--accessible-shade-aaa(var(--landing-base-color),var(--landing-base-color))]" />
+      <path d="M16 25 L22 31 L34 17" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="stroke-[--tw-jib--accessible-shade(var(--landing-base-color),aaa,oklch)]" />
     </svg>
   </div>
   <div class="aspect-[4/3] rounded-xl p-3 flex flex-col justify-between bg-gray-100 dark:bg-gray-900">
     <span class="font-mono text-[9px] opacity-80">::before content string</span>
     <div class="font-mono text-xs flex items-center gap-2">
       <span class="inline-block w-4 h-4 rounded bg-(--landing-base-color)"></span>
-      <span class="font-bold uppercase tracking-wider jib-wcag-rating-label text-gray-900 dark:text-gray-100 [--bg:var(--landing-base-color)] [--fg:--tw-jib--accessible-shade-aaa(var(--landing-base-color),var(--landing-base-color))]"></span>
+      <span class="font-bold uppercase tracking-wider jib-wcag-rating-label text-gray-900 dark:text-gray-100 [--bg:var(--landing-base-color)] [--fg:--tw-jib--accessible-shade(var(--landing-base-color),aaa,oklch)]"></span>
     </div>
   </div>
   <div class="aspect-[4/3] rounded-xl p-3 flex flex-col justify-between bg-gray-100 dark:bg-gray-900">
     <span class="font-mono text-[9px] opacity-80">gradient stops, auto-contrast</span>
-    <div class="rounded-md h-10 flex items-center justify-center bg-[linear-gradient(90deg,var(--landing-base-color),--tw-jib--accessible-shade-aaa(var(--landing-base-color),var(--landing-base-color)))]">
-      <span class="font-mono text-[10px] font-bold text-[--tw-jib--accessible-shade-aaa(var(--landing-base-color),var(--landing-base-color))]">AAA</span>
+    <div class="rounded-md h-10 flex items-center justify-center bg-[linear-gradient(90deg,var(--landing-base-color),--tw-jib--accessible-shade(var(--landing-base-color),aaa,oklch))]">
+      <span class="font-mono text-[10px] font-bold text-[--tw-jib--accessible-shade(var(--landing-base-color),aaa,oklch)]">AAA</span>
     </div>
   </div>
 </div>

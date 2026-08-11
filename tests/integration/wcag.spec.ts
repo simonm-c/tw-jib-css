@@ -749,9 +749,16 @@ test.describe('text-a11y + wcag-badge — the badge must agree with the class', 
           continue;
         }
         // Where the level is physically unreachable the shade parks at the
-        // background's ceiling and the badge is right to report lower.
+        // background's ceiling. The badge must say so explicitly rather than
+        // reporting the achieved level, which would read as "you asked for
+        // AAA and got AA" with no hint that AAA was impossible.
         if (maxContrastAgainst(r.bgLum) < target) {
           unreachable++;
+          if (r.cssRating !== 'Max') {
+            failures.push(
+              `${id}: ${group.level} unreachable (ceiling ${maxContrastAgainst(r.bgLum).toFixed(2)}), badge should say "Max" but says "${r.cssRating}"`,
+            );
+          }
           continue;
         }
         const got = RATING_RANK[r.cssRating as keyof typeof RATING_RANK] ?? -1;
@@ -764,10 +771,21 @@ test.describe('text-a11y + wcag-badge — the badge must agree with the class', 
 
       expect(
         failures,
-        `${failures.length} of ${ids.length - unreachable} reachable fixtures disagree with their class:\n${failures.join('\n')}`,
+        `${failures.length} fixtures disagree with their class (${unreachable} of ${ids.length} were unreachable):\n${failures.join('\n')}`,
       ).toHaveLength(0);
     });
   }
+
+  test('a bare wcag-badge never reports Max', async ({ page }) => {
+    // Max describes a shortfall against a REQUESTED level. With no
+    // text-a11y-* on the element there is no requested level, so the badge
+    // must fall back to plain measurement — otherwise it would be inventing
+    // an intent the author never expressed.
+    await page.goto(BADGE_PAGE, { waitUntil: 'networkidle' });
+    const results = await extractBadgeResults(page, BADGE_IDS);
+    const spurious = BADGE_IDS.filter((id) => results[id]?.cssRating === 'Max');
+    expect(spurious, `badge reported Max without a requested level:\n${spurious.join(', ')}`).toHaveLength(0);
+  });
 });
 
 // ---------------------------------------------------------------------------

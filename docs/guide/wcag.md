@@ -484,6 +484,6 @@ Because the caps act on whatever vector they are handed, they double as a gamut 
 
 ### When the target is impossible
 
-The most any background can offer is `max((Y + 0.05)/0.05, 1.05/(Y + 0.05))`, which bottoms out at `√21 ≈ 4.583` at the pivot. So 3:1 and 4.5:1 are reachable from *every* background, but 7:1 is mathematically unreachable for backgrounds with luminance between roughly 0.10 and 0.30, and for many vivid mid-tones. There the target luminance clamps, the output saturates at pure black or white, and the achieved ratio is the best physics allows. `text-a11y-aaa` on `bg-indigo-600` tops out at 6.44:1 — pair it with `wcag-badge` if you need to know when you are in that band.
+The most any background can offer is `max((Y + 0.05)/0.05, 1.05/(Y + 0.05))`, which bottoms out at `√21 ≈ 4.583` at the pivot. So 3:1 and 4.5:1 are reachable from *every* background, but 7:1 is mathematically unreachable for backgrounds with luminance between roughly 0.10 and 0.30, and for many vivid mid-tones. There the target luminance clamps, the output saturates at pure black or white, and the achieved ratio is the best physics allows. `text-a11y-aaa` on `bg-indigo-600` tops out at 6.44:1. Pair it with [`wcag-badge`](/guide/wcag-badge) to see when you are in that band: the badge reads the level you asked for and displays **Max** instead of the achieved rating, so "AAA was impossible here" is distinguishable from "this pair is merely short".
 
 All functions are defined in `wcag/_functions.css` and can be imported independently for use in custom CSS.

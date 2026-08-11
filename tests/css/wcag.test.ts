@@ -117,6 +117,46 @@ describe('wcag-badge utility', () => {
 
   test('badge text uses if(style()) for colour', async () => {
     const css = await compile('bg-blue-500 text-white wcag-badge', { experimental: true });
-    expect(css).toContain('style(--tw-jib--wcag-rating: "AA")');
+    expect(css).toContain('style(--tw-jib--wcag-display: "AA")');
+  });
+
+  describe('Max state', () => {
+    test('text-a11y-* records the requested level for the badge to read', async () => {
+      for (const level of LEVELS) {
+        const css = await compile(`bg-blue-500 text-a11y-${level}`, { experimental: true });
+        expect(css).toContain('--tw-jib--a11y-level:');
+        expect(css).toContain(level);
+      }
+    });
+
+    test('--tw-jib--a11y-level is registered as non-inheriting', async () => {
+      const css = await compile('bg-blue-500 text-a11y-aa', { experimental: true });
+      expect(css).toContain('@property --tw-jib--a11y-level');
+      expect(css).toContain('inherits: false');
+    });
+
+    test('badge derives a shortfall from the requested level', async () => {
+      const css = await compile('bg-blue-500 text-white wcag-badge', { experimental: true });
+      expect(css).toContain('--tw-jib--wcag-shortfall');
+      expect(css).toContain('style(--tw-jib--a11y-level: aaa)');
+      expect(css).toContain('"Max"');
+    });
+
+    test('badge displays the shortfall-aware value, not the raw rating', async () => {
+      const css = await compile('bg-blue-500 text-white wcag-badge', { experimental: true });
+      expect(css).toContain('content: var(--tw-jib--wcag-display)');
+    });
+
+    // The style()-compared properties must not carry the newline+indent that a
+    // multi-line if() leaves inside the computed value — style() compares token
+    // streams, so trailing whitespace makes every match silently fail.
+    test('style()-compared properties have no trailing whitespace', async () => {
+      const css = await compile('bg-blue-500 text-white wcag-badge', { experimental: true });
+      for (const prop of ['--tw-jib--wcag-shortfall', '--tw-jib--wcag-display']) {
+        const decl = css.match(new RegExp(`${prop}:[\\s\\S]*?;`))?.[0];
+        expect(decl, `${prop} declaration not found`).toBeTruthy();
+        expect(decl, `${prop} has whitespace before its closing paren`).not.toMatch(/\s\);$/);
+      }
+    });
   });
 });

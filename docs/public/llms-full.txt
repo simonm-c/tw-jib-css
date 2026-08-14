@@ -29,52 +29,32 @@ bun add -D tw-jib-css
 
 ## Import
 
-### All stable utilities
-
-Import the main entry point alongside TailwindCSS:
+Import it alongside TailwindCSS:
 
 ```css
 @import 'tailwindcss';
 @import 'tw-jib-css';
-```
-
-### Stable + experimental
-
-Add the experimental entry point for cutting-edge CSS features with limited browser support:
-
-```css
-@import 'tailwindcss';
-@import 'tw-jib-css';
-@import 'tw-jib-css/experimental';
 ```
 
 ## Available Modules
 
-| Module | Import Path | Stability |
-| --- | --- | --- |
-| Border Gradient | `tw-jib-css/border-gradient` | Stable |
-| Lightness | `tw-jib-css/lightness` | Stable |
-| Saturation | `tw-jib-css/saturation` | Stable |
-| Hue Rotate | `tw-jib-css/hue-rotate` | Stable |
-| Accessible Shade | `tw-jib-css/accessible-shade` | Stable |
-| Ripple | `tw-jib-css/ripple` | Stable |
-| Comic Dots | `tw-jib-css/comic` | Stable |
-| Pixel | `tw-jib-css/pixel` | Stable |
-| Border Style | `tw-jib-css/border-style` | Stable |
-| Grid | `tw-jib-css/grid` | Stable |
-| Corner Shape | `tw-jib-css/experimental/corner` | Experimental |
-| Interpolate Size | `tw-jib-css/experimental/interpolate` | Experimental |
-| Base Select Picker | `tw-jib-css/experimental/picker` | Experimental |
-| WCAG Badge | `tw-jib-css/experimental/wcag` | Experimental |
+| Module           | Import Path                   |
+| ---------------- | ----------------------------- |
+| Border Gradient  | `tw-jib-css/border-gradient`  |
+| Lightness        | `tw-jib-css/lightness`        |
+| Saturation       | `tw-jib-css/saturation`       |
+| Hue Rotate       | `tw-jib-css/hue-rotate`       |
+| Accessible Shade | `tw-jib-css/accessible-shade` |
+| Ripple           | `tw-jib-css/ripple`           |
+| Comic Dots       | `tw-jib-css/comic`            |
+| Pixel            | `tw-jib-css/pixel`            |
+| Border Style     | `tw-jib-css/border-style`     |
+| Grid             | `tw-jib-css/grid`             |
 
 ## Requirements
 
 - **TailwindCSS v4.0+** — tw-jib-css uses the CSS-first `@utility`, `@custom-variant`, `@theme`, and `@property` syntax introduced in v4.
 - **Modern browser** — CSS relative color syntax, `@property`, and `color-mix()` are used throughout. All major browsers support these features.
-
-## What the experimental entry costs you
-
-Only the experimental entry has features that go missing in some browsers, and each is wrapped in `@supports` so it degrades rather than breaks. One case is worth calling out because the module is split across both entries: **accessible shades ship stable, the WCAG badge does not.** Import the main entry and `text-a11y-*` works everywhere; `wcag-badge` needs `tw-jib-css/experimental` and a Chromium browser, and renders nothing elsewhere. See [Accessible Shade](/guide/wcag).
 
 ---
 
@@ -330,50 +310,30 @@ Set a background colour. Add a `text-a11y-*` class. The CSS computes a text colo
 
 
 ```html
-<div class="bg-violet-600 text-a11y-aa">
-  Auto-contrasted text
-</div>
+<div class="bg-violet-600 text-a11y-aa">Auto-contrasted text</div>
 
-<div class="bg-amber-400 text-a11y-aaa">
-  Stricter AAA contrast
-</div>
+<div class="bg-amber-400 text-a11y-aaa">Stricter AAA contrast</div>
 
-<div class="bg-emerald-700 text-a11y-aa-lg">
-  Large-text ratio
-</div>
+<div class="bg-emerald-700 text-a11y-aa-lg">Large-text ratio</div>
 ```
 
 ## Three WCAG levels
 
-| Class | Ratio | Best for |
-| --- | --- | --- |
-| `text-a11y-aa-lg` | 3:1 | Bold headings and large text (18pt+) |
-| `text-a11y-aa` | 4.5:1 | Standard body copy |
-| `text-a11y-aaa` | 7:1 | Small text, maximum readability |
+| Class             | Ratio | Best for                             |
+| ----------------- | ----- | ------------------------------------ |
+| `text-a11y-aa-lg` | 3:1   | Bold headings and large text (18pt+) |
+| `text-a11y-aa`    | 4.5:1 | Standard body copy                   |
+| `text-a11y-aaa`   | 7:1   | Small text, maximum readability      |
 
 ## How it works
 
 Powered by relative colour syntax. The WCAG ratio formula inverts to give a target luminance, and a colour with that luminance, the background's hue and the background's chroma is built in one relative-colour expression — so the shade is solved outright rather than searched for. All at render time, no JavaScript, no build step.
 
-Because it is solved rather than searched, the whole thing also expresses without `@function` or `if(style())` — so the utility ships two implementations: CSS `@function` where the browser has it, and a nested relative-colour fallback where it does not. Either way you get the same colour, in Chromium, Firefox and Safari alike. Ships from the main entry:
+Because it is solved rather than searched, the whole thing expresses in plain relative colour syntax — `calc`, `clamp`, `min`, `max` and one nested colour expression. You get the same colour in Chromium, Firefox and Safari alike. Ships from the main entry:
 
 ```css
 @import 'tw-jib-css';
 ```
-
-The [WCAG Badge](/guide/wcag-badge) is the other half of the module: this utility *constructs* a colour at a known ratio, the badge *measures* whatever pair it is given. They share the same CSS-only approach but no machinery — measurement stays useful because it also works on colours this utility did not pick. The badge does need `if(style())`, so unlike the shade it is Chromium-only and lives in the experimental entry.
-
-## Pairs with the WCAG badge
-
-Want to verify the contrast ratio of any element? Drop on a `wcag-badge` — Chromium only, from `tw-jib-css/experimental`:
-
-```html
-<div class="bg-blue-600 text-a11y-aa wcag-badge">
-  Badge shows: AAA / AA / AA Large / Fail
-</div>
-```
-
-The badge displays the live WCAG rating. Use it while designing, remove it before shipping.
 
 ## Reference
 
@@ -533,7 +493,7 @@ Lighten, darken, saturate, desaturate, or hue-shift any Tailwind colour with a u
 Set a base colour with a standard Tailwind class, then stack a transform:
 
 ```html
-<div class="bg-blue-500 bg-lighten-30">
+<div class="bg-blue-500 bg-lighten-30"></div>
 ```
 
 The transform operates on the colour you set. Change the base colour, the transform follows.
@@ -556,9 +516,12 @@ The transform operates on the colour you set. Change the base colour, the transf
 
 ```html
 <div class="bg-blue-500 bg-lighten-30">
-<div class="bg-blue-500 bg-darken-30">
-<div class="bg-blue-500 bg-hue-rotate-90">
-<div class="bg-blue-500 -bg-saturation-40">
+  <div class="bg-blue-500 bg-darken-30">
+    <div class="bg-blue-500 bg-hue-rotate-90">
+      <div class="bg-blue-500 -bg-saturation-40"></div>
+    </div>
+  </div>
+</div>
 ```
 
 Lightness and saturation support positive and negative values. Prefix with `-` to reverse: `-bg-lightness-30` darkens, `-bg-saturation-30` desaturates.
@@ -568,7 +531,7 @@ Lightness and saturation support positive and negative values. Prefix with `-` t
 Stack multiple transforms on the same element:
 
 ```html
-<div class="bg-blue-500 bg-lighten-20 bg-hue-rotate-45 -bg-saturation-20">
+<div class="bg-blue-500 bg-lighten-20 bg-hue-rotate-45 -bg-saturation-20"></div>
 ```
 
 Order in the class list doesn't matter. Each transform reads the same base colour and applies independently.
@@ -591,86 +554,26 @@ Every transform defaults to oklch. Append a modifier to pick a different space:
 
 ```html
 <div class="bg-red-500 bg-lighten-40/hsl">
-<div class="bg-red-500 bg-lighten-40/display-p3">
+  <div class="bg-red-500 bg-lighten-40/display-p3"></div>
+</div>
 ```
 
 Different spaces produce visually different results from the same input. See [Color Spaces](/guide/color-spaces) for when this matters.
 
-## How it works: stable and experimental paths
+## How it works
 
-Every colour transform utility emits CSS through **two rendering paths** simultaneously. The browser picks the best one automatically via `@supports`. You write the same classes either way — there is nothing to configure for the stable path.
+Every transform is CSS relative colour syntax. Each colour space has a pre-computed
+expression built at compile time via Tailwind's `@theme inline`, so a modifier is a
+theme lookup rather than a branch: writing `bg-lightness-30/hsl` resolves
+`--modifier()` to the pre-built HSL expression.
 
-### Stable path
-
-Uses CSS relative colour syntax — each colour space has a pre-computed expression built at compile time via Tailwind's `@theme inline`. Works in **Chrome 111+, Safari 16.4+, Firefox 128+**.
-
-```css
-@import 'tw-jib-css';
-```
-
-The stable path powers the 7 surface utilities (`bg-`, `text-`, `fill-`, `stroke-`, `outline-`, `accent-`, `border-`). When you write `bg-lightness-30/hsl`, the `--modifier()` resolves to the pre-built HSL relative colour expression.
-
-### Experimental path
-
-Uses CSS `@function` definitions with an `if(style())` dispatcher that routes to per-space functions at paint time. Requires **CSS `@function` support** (Chromium only as of April 2026).
+That is the whole mechanism, and it runs on **Chrome 111+, Safari 16.4+, Firefox 128+**.
+There is no JavaScript, no build step beyond Tailwind itself, and nothing to detect —
+the same expression evaluates on every engine.
 
 ```css
 @import 'tw-jib-css';
-@import 'tw-jib-css/experimental';
 ```
-
-The second import activates `@custom-variant` gates (`supports-lightness`, `supports-saturation`, `supports-hue-rotate`) that wrap the experimental blocks. Without it, the experimental path is inert.
-
-In supporting browsers, the experimental blocks override the stable blocks via `@supports` — the same classes produce the same visual result through a different mechanism.
-
-### Why use experimental?
-
-The experimental path exposes three CSS functions callable from **anywhere a `<color>` value is accepted**, including Tailwind's arbitrary value syntax:
-
-```
---tw-jib--lightness(color, amount, space?)
---tw-jib--saturation(color, amount, space?)
---tw-jib--hue-rotate(color, amount, space?)
-```
-
-This unlocks use cases the class-based API can't reach:
-
-**Gradient stops** — the class API has no way to apply transforms to `from-*`/`via-*`/`to-*`:
-
-```html
-<div class="bg-linear-to-r
-  from-[--tw-jib--lightness(var(--color-blue-500),60)]
-  to-[--tw-jib--lightness(var(--color-blue-500),-60)]">
-```
-
-**Arbitrary properties** — shadows, carets, any CSS property that takes a colour:
-
-```html
-<div class="shadow-lg [--tw-shadow-color:--tw-jib--lightness(var(--color-blue-500),-30)]">
-```
-
-**Theme tokens and CSS variables** — no Tailwind colour class needed as the source:
-
-```html
-<div class="bg-[--tw-jib--saturation(var(--brand-primary),-40,oklch)]">
-```
-
-**Composing transforms** — nest calls to chain lightness + hue-rotate in one value:
-
-```html
-<div class="bg-[--tw-jib--lightness(--tw-jib--hue-rotate(var(--color-red-500),120),30)]">
-```
-
-### Comparison
-
-|  | Stable | Experimental |
-| --- | --- | --- |
-| Browser support | Chrome 111+, Safari 16.4+, Firefox 128+ | Chromium only (CSS `@function`) |
-| Import | `tw-jib-css` | `tw-jib-css` + `tw-jib-css/experimental` |
-| Surface utilities | All 7 surfaces | All 7 surfaces (auto-upgraded) |
-| Arbitrary values | — | Callable anywhere a `<color>` is accepted |
-| Gradient stops | — | `from-[--tw-jib--lightness(...)]` etc. |
-| Nested composition | — | Chain multiple transforms in one expression |
 
 ## Reference pages
 
@@ -684,7 +587,7 @@ Each transform type has a full reference page with the complete class list, form
 
 # Accessible Shade
 
-> wcag accessible shade module (stable, ships from the core entry) — text-a11y-{aa,aaa,aa-lg} solves in closed form for a same-hue text colour whose WCAG 2.x contrast ratio against the background equals the requested ratio exactly. No candidate search, no verification pass. Optional /{colour-space} modifier for all 17 colour spaces selects the aesthetic path only; correctness is owned by a shared final stage. All computation happens in CSS relative colour syntax at render time — no JS, no @function. Verified exact on Chromium, Firefox and WebKit. Levels are themeable via the --tw-jib--a11y-ratio-* namespace. The separate wcag-badge utility is Chromium-only.
+> wcag accessible shade module (stable, ships from the core entry) — text-a11y-{aa,aaa,aa-lg} solves in closed form for a same-hue text colour whose WCAG 2.x contrast ratio against the background equals the requested ratio exactly. No candidate search, no verification pass. Optional /{colour-space} modifier for all 17 colour spaces selects the aesthetic path only; correctness is owned by a shared final stage. All computation happens in CSS relative colour syntax at render time — no JS. Verified exact on Chromium, Firefox and WebKit. Levels are themeable via the --tw-jib--a11y-ratio-* namespace.
 
 # Accessible Shade
 
@@ -692,22 +595,23 @@ Each transform type has a full reference page with the complete class list, form
 
 The shade is not searched for, it is **solved**. WCAG 2's contrast ratio constrains exactly one quantity — relative luminance — and luminance is a linear function of linear-light RGB. Invert the ratio formula for the target luminance, then build a colour with that luminance, the background's hue and the background's chroma, in a single relative-colour expression. The achieved ratio equals the requested ratio by construction: no candidate bracket, no verification pass, no convergence tolerance.
 
-Solving instead of searching is also what makes the utility portable. A search needed `@function` to call itself and `if(style())` to pick the candidate that passed; the closed form needs neither, so it is built from `calc`, `clamp`, `min`, `max` and relative colour syntax — and works everywhere.
+Solving instead of searching is also what makes the utility portable. A search would need a way to call itself and a way to pick the candidate that passed; the closed form needs neither, so it is built from `calc`, `clamp`, `min`, `max` and relative colour syntax — and works everywhere.
 
 **The ratio is exact, which cuts both ways**
-Because the utilities target the ratio *exactly* rather than overshooting it, the result can land a hair either side of the named threshold — around ±2 × 10⁻⁵ in practice. [`wcag-badge`](/guide/wcag-badge) accounts for this and reports the level you asked for. A third-party checker doing a bare `ratio >= 7` may not, and can report `text-a11y-aaa` as AA. That is arithmetic on a tie, not a contrast failure: the pair is at 7:1 to four decimal places. If you need an external report to read AAA unambiguously, ask for a slightly higher ratio than the level you need.
+Because the utilities target the ratio _exactly_ rather than overshooting it, the result can land a hair either side of the named threshold — around ±2 × 10⁻⁵ in practice. A third-party checker doing a bare `ratio >= 7` may not, and can report `text-a11y-aaa` as AA. That is arithmetic on a tie, not a contrast failure: the pair is at 7:1 to four decimal places. If you need an external report to read AAA unambiguously, ask for a slightly higher ratio than the level you need.
 
 **Browser Support**
 Works in Chromium, Firefox and Safari. Every engine gets the requested ratio exactly — verified against all 242 Tailwind colours at all three levels on each. The only per-engine difference is cosmetic; see [Colour Spaces](#colour-spaces) below.
 
-`text-a11y-*` needs only relative colour syntax and `@property`, both of which have been baseline for some time. The [`wcag-badge`](/guide/wcag-badge) that pairs with it is a different matter — it stays Chromium-only, because turning a colour into a rating *string* needs `if(style())`.
+`text-a11y-*` needs only relative colour syntax and `@property`, both of which have been baseline for some time.
 
 **Import**
 Included in `@import 'tw-jib-css'`. To import individually:
+
 ```css
 @import 'tw-jib-css/accessible-shade';
 ```
-The badge is separate and experimental: `@import 'tw-jib-css/experimental/wcag'`.
+
 
 ## Quick Reference
 
@@ -733,7 +637,7 @@ The three levels are not hard-coded — they are entries in the `--tw-jib--a11y-
 <div class="bg-indigo-700 text-a11y-aa-plus">Solved for exactly 5:1</div>
 ```
 
-Useful for the "AAA but let an external checker round in my favour" case in the warning above. The `/<space>` modifiers work on custom levels too. What a custom level does *not* get is a `wcag-badge` **Max** state, since the badge only knows the three named levels.
+Useful for the "AAA but let an external checker round in my favour" case in the warning above. The `/<space>` modifiers work on custom levels too.
 
 ## Basic Usage
 
@@ -762,11 +666,11 @@ The result is a lighter or darker shade of the background colour, landing on the
 
 ### WCAG Levels
 
-| Utility | Ratio | Use case |
-| --- | --- | --- |
-| `text-a11y-aa-lg` | 3:1 | Headings, bold text above 14pt |
-| `text-a11y-aa` | 4.5:1 | Body text, standard UI labels |
-| `text-a11y-aaa` | 7:1 | Fine print, captions, small text |
+| Utility           | Ratio | Use case                         |
+| ----------------- | ----- | -------------------------------- |
+| `text-a11y-aa-lg` | 3:1   | Headings, bold text above 14pt   |
+| `text-a11y-aa`    | 4.5:1 | Body text, standard UI labels    |
+| `text-a11y-aaa`   | 7:1   | Fine print, captions, small text |
 
 ### Every Tailwind Colour
 
@@ -1092,17 +996,17 @@ All 17 colour spaces are supported: `oklch`, `lch`, `lab`, `oklab`, `hsl`, `hwb`
 
 They fall into three groups by how their lightness relates to luminance:
 
-| Group | Spaces | Behaviour |
-| --- | --- | --- |
-| Linear-light and RGB-family | `srgb`, `srgb-linear`, `rgb`, `xyz`, `xyz-d50`, `xyz-d65`, `display-p3`, `a98-rgb`, `prophoto-rgb`, `rec2020`, `color-mix` | The closed form *is* the shade path. Each is a linear transform of linear-light RGB, so differences within the group are visually negligible. Output matches the background's chromaticity exactly. |
-| CIE Lab family | `lab`, `lch` | L\* is an invertible function of luminance, so the seed is exact in closed form. CSS `lab()`/`lch()` are D50-adapted, so L\* tracks chromatically adapted luminance; the final stage absorbs the difference. |
-| Perceptual-OK and legacy | `oklab`, `oklch`, `hsl`, `hwb` | Lightness is *not* a pure function of luminance, so the seed is approximate and the final stage corrects it. `hsl` keeps saturation and so washes out at extreme targets; `hwb` splits the input's whiteness/blackness budget by the target. |
+| Group                       | Spaces                                                                                                                     | Behaviour                                                                                                                                                                                                                                    |
+| --------------------------- | -------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Linear-light and RGB-family | `srgb`, `srgb-linear`, `rgb`, `xyz`, `xyz-d50`, `xyz-d65`, `display-p3`, `a98-rgb`, `prophoto-rgb`, `rec2020`, `color-mix` | The closed form _is_ the shade path. Each is a linear transform of linear-light RGB, so differences within the group are visually negligible. Output matches the background's chromaticity exactly.                                          |
+| CIE Lab family              | `lab`, `lch`                                                                                                               | L\* is an invertible function of luminance, so the seed is exact in closed form. CSS `lab()`/`lch()` are D50-adapted, so L\* tracks chromatically adapted luminance; the final stage absorbs the difference.                                 |
+| Perceptual-OK and legacy    | `oklab`, `oklch`, `hsl`, `hwb`                                                                                             | Lightness is _not_ a pure function of luminance, so the seed is approximate and the final stage corrects it. `hsl` keeps saturation and so washes out at extreme targets; `hwb` splits the input's whiteness/blackness budget by the target. |
 
 `oklab` and `lab` route through the same pipelines as `oklch` and `lch` — identical seeds, only the channel notation differs.
 
 ### One per-engine difference, in chroma only
 
-`/oklch`, `/oklab`, `/lch` and `/lab` derive their seed lightness with a cube root. Firefox parses `pow()` but rejects a colour *channel keyword* as its argument, so on Firefox these four are seeded linearly instead, behind an `@supports` gate. Chrome and Safari both get the cube root — Chrome through the `@function` path, Safari through the fallback.
+`/oklch`, `/oklab`, `/lch` and `/lab` derive their seed lightness with a cube root. Firefox parses `pow()` but rejects a colour _channel keyword_ as its argument, so on Firefox these four are seeded linearly instead, behind an `@supports` gate. Chrome and Safari both get the cube root.
 
 The consequence is worth being precise about, because it is smaller than it sounds:
 
@@ -1132,105 +1036,49 @@ Use different levels for different text sizes — heading at AA Large, body at A
 ```
 
 
-## Combining with wcag-badge
-
-`text-a11y-*` and `wcag-badge` work together on the same element. The accessible shade utility picks the text colour, and the badge verifies the actual contrast ratio — all in CSS at render time.
-
-**The badge needs the experimental entry, and Chromium**
-Everything in this section requires `@import 'tw-jib-css/experimental'` and a Chromium browser. In Firefox and Safari the shade still works and the badge simply renders nothing. That is the intended trade: the badge is a design-time instrument, the shade is what ships.
-
-```html
-  <div class="grid grid-cols-3 gap-3">
-    <div class="rounded-lg p-6 bg-indigo-600 text-a11y-aa wcag-badge text-center relative">
-      <div class="font-bold">AA on Indigo 600</div>
-    </div>
-    <div class="rounded-lg p-6 bg-amber-300 text-a11y-aaa wcag-badge text-center relative">
-      <div class="font-bold">AAA on Amber 300</div>
-    </div>
-    <div class="rounded-lg p-6 bg-emerald-700 text-a11y-aa-lg wcag-badge text-center relative">
-      <div class="font-bold">AA Large on Emerald 700</div>
-    </div>
-  </div>
-```
-
-
-The badge reads the text colour set by `text-a11y-*`, so the badge rating always reflects the actual contrast between the background and the accessible shade — not a guess.
-
-### Real-time updates on hover
-
-Because both utilities read CSS custom properties, they update live when the background changes. Hover the cards below — the text colour and badge rating recompute instantly:
-
-
-```html
-  <div class="grid grid-cols-3 gap-3">
-    <div class="rounded-lg p-6 bg-sky-100 hover:bg-sky-800 text-a11y-aa wcag-badge text-center relative transition-colors duration-300">
-      <div class="font-bold">Sky 100 → 800</div>
-      <div class="text-xs mt-1">Hover to flip</div>
-    </div>
-    <div class="rounded-lg p-6 bg-rose-800 hover:bg-rose-200 text-a11y-aa wcag-badge text-center relative transition-colors duration-300">
-      <div class="font-bold">Rose 800 → 200</div>
-      <div class="text-xs mt-1">Hover to flip</div>
-    </div>
-    <div class="rounded-lg p-6 bg-emerald-200 hover:bg-emerald-900 text-a11y-aaa wcag-badge text-center relative transition-colors duration-300">
-      <div class="font-bold">Emerald 200 → 900</div>
-      <div class="text-xs mt-1">Hover to flip</div>
-    </div>
-  </div>
-```
-
-
-> text-a11y-* sets --tw-jib--text-color so wcag-badge can read the actual accessible shade. Both utilities update live when bg changes (e.g. hover).
-
 ## How It Works
 
-Measuring and constructing are separate problems and neither depends on the other, so they are separate layers — and they ship differently. Construction is the stable utility. Measurement is the Chromium-only badge.
+Constructing a colour at a known ratio is the whole job here, and it is solved rather than searched. What follows is the solve, stage by stage.
 
-### Measuring — what is this pair's rating?
-
-> the measuring layer is Chromium-only @function code; it powers wcag-badge and is not needed by text-a11y-*.
-
-
-1. **`--tw-jib--linearize()`** — converts to `srgb-linear`, letting the engine perform the sRGB transfer. Asking for the conversion rather than reimplementing it with `pow()` inherits the browser's own exactness, including the linear segment below 0.04045, and leaves out-of-gamut channels un-clamped so an oklch origin outside sRGB keeps its true luminance.
-2. **`--tw-jib--luminance-packed()`** — packs `L` into R and `1−L` into G in a single colour, so the next step can treat luminance subtraction as a `color-mix()`.
-3. **`--tw-jib--contrast-test-directed()`** — multi-channel `color-mix()` that scales each output channel by a different WCAG threshold (R=3, G=4.5, B=7), testing all three levels in one operation.
-4. **`--tw-jib--contrast-test-all()`** — runs the directed test in both orderings and combines them; the output colour _is_ the rating (white = AAA, yellow = AA, red = AA Large, black = Fail).
-5. **`--tw-jib--wcag-rating()`** — matches the result colour and returns a `<string>` for `content:` / `style()` use.
-
-No number is ever extracted from a colour, so there is no quantization error, no safety margin, and no uncertainty band. This layer powers [`wcag-badge`](/guide/wcag-badge), which stays useful precisely because the construction layer's guarantees apply to *declared* colours only — not to background images, gradients, or alpha compositing over unknown ancestors.
-
-### Constructing — which colour hits this ratio?
+### Which colour hits this ratio?
 
 The WCAG ratio `(Y_lighter + 0.05) / (Y_darker + 0.05)` inverts directly, giving the target luminance `Yt` for a requested ratio `R`. Any colour with luminance `Yt` achieves `R` against the background exactly, whatever its hue or chroma — one degree of freedom is constrained, two are free, and the free ones are spent on matching the background's colour.
 
-1. **`--tw-jib--wcag-carrier()`** — computes the background's luminance and smuggles it into the alpha channel. Relative colour syntax allows one origin colour per expression, so this is how a candidate built in oklch can still see the background's luminance: alpha is a float in `[0, 1]`, exactly a luminance's range, and it survives colour-space conversion untouched.
-2. **`--tw-jib--wcag-target()`** / **`--tw-jib--wcag-core-vector()`** — solve for `Yt`. The direction (lighten vs darken) is chosen branchlessly at the `0.1791` pivot, the luminance where headroom toward black equals headroom toward white — `√0.0525 − 0.05`. Picking the side with more headroom is optimal.
+1. **The carrier** — computes the background's luminance and smuggles it into the alpha channel. Relative colour syntax allows one origin colour per expression, so this is how a candidate built in oklch can still see the background's luminance: alpha is a float in `[0, 1]`, exactly a luminance's range, and it survives colour-space conversion untouched.
+2. **The target** — solves for `Yt`. The direction (lighten vs darken) is chosen branchlessly at the `0.1791` pivot, the luminance where headroom toward black equals headroom toward white — `√0.0525 − 0.05`. Picking the side with more headroom is optimal.
 3. **The seed** — for Class 2/3 spaces, a candidate in the requested space with its lightness derived from `Yt` and the background's chroma and hue kept.
-4. **`--tw-jib--wcag-chroma-vector()`** — reduces a candidate to its zero-luminance chroma vector, `c − Yc`.
-5. **`--tw-jib--wcag-lift()`** — the shared final stage: `out = Yt + min(1, caps) · vector`. Because the vector contributes no luminance, the output's luminance is `Yt` identically. The `caps` are the largest scale keeping every channel inside `[0, 1]`, so this one expression sets luminance exactly, gamut-maps at constant luminance, and is a no-op on a candidate that already fits.
-6. **`--tw-jib--accessible-shade()`** — maps the level to its ratio and routes to the pipeline for the requested colour space.
+4. **The chroma vector** — reduces a candidate to its zero-luminance chroma vector, `c − Yc`.
+5. **The lift** — the shared final stage: `out = Yt + min(1, caps) · vector`. Because the vector contributes no luminance, the output's luminance is `Yt` identically. The `caps` are the largest scale keeping every channel inside `[0, 1]`, so this one expression sets luminance exactly, gamut-maps at constant luminance, and is a no-op on a candidate that already fits.
+6. **The dispatch** — maps the level to its ratio and routes to the pipeline for the requested colour space.
 
 Because the caps act on whatever vector they are handed, they double as a gamut mapper that preserves WCAG luminance — something neither clipping nor generic chroma reduction can promise.
 
-### The same construction, without `@function`
+### How the solve is expressed
 
-`text-a11y-*` has two implementations, arranged exactly as [`bg-lightness-*`](/guide/lightness) and its siblings are. Where CSS `@function` exists, the utility calls the six functions above — that is the preferred path, and the one to reach for. Where it does not, the utility falls back to a form built from the same algebra with no function calls in it, so the shade still works instead of disappearing.
+The whole thing renders as one nested relative-colour expression, chained through
+**unregistered custom properties**. That substitution is the trick: an unregistered custom
+property's computed value is a token stream, so `var()` splices it in textually rather than
+evaluating it — which gives the algebra above the local bindings it needs. Half a dozen small
+declarations collapse into one nested expression the engine evaluates in a single step at
+`color:`.
 
-The fallback renders the whole solve as one nested relative-colour expression, chained through **unregistered custom properties**. That substitution is the trick: an unregistered custom property's computed value is a token stream, so `var()` splices it in textually rather than evaluating it — which is exactly the local binding a function body would have given you. Half a dozen small declarations collapse into one nested expression the engine evaluates in a single step at `color:`.
+Two details of that arrangement are load-bearing rather than stylistic:
 
-Both paths compute the same closed form and were measured landing on the same colour to serialisation precision, so which one your browser runs is not something you can see. An integration test asserts that, side by side, on every release.
-
-Two details of the fallback are load-bearing rather than stylistic:
-
-- **The links must stay unregistered.** Registering one as `syntax: '<color>'` forces the engine to evaluate it into a colour value, and Gecko stores that at reduced precision. The damage lands hardest on the carrier, whose alpha channel *is* the target luminance, so a 1/255 step of alpha is roughly 0.04 of contrast ratio. Measured over 27 cells, Firefox falls from 23 exact to 9. Unregistered, all three engines are exact.
-- **The colour-space modifier is a theme lookup, not a branch.** `@theme inline` holds one expression per space and the utility declares its result twice — oklch inline as the default, then again as `--modifier(--tw-jib--a11y-shade-interpolation-*)`, which Tailwind emits only when a modifier is present. That is the same dispatch the [lightness](/guide/lightness) and [saturation](/guide/saturation) modules use, and it does the job `if(style())` does on the `@function` path.
-
-Either way, `--tw-jib--accessible-shade()` stays callable directly — for borders, SVG strokes and gradient stops, which no `text-*` utility can express.
+- **The links must stay unregistered.** Registering one as `syntax: '<color>'` forces the engine
+  to evaluate it into a colour value, and Gecko stores that at reduced precision. The damage
+  lands hardest on the carrier, whose alpha channel _is_ the target luminance, so a 1/255 step of
+  alpha is roughly 0.04 of contrast ratio. Measured over 27 cells, Firefox falls from 23 exact to 9. Unregistered, all three engines are exact.
+- **The colour-space modifier is a theme lookup, not a branch.** `@theme inline` holds one
+  expression per space and the utility declares its result twice — oklch inline as the default,
+  then again as `--modifier(--tw-jib--a11y-shade-interpolation-*)`, which Tailwind emits only when
+  a modifier is present. That is the same dispatch the [lightness](/guide/lightness) and
+  [saturation](/guide/saturation) modules use.
 
 ### When the target is impossible
 
-The most any background can offer is `max((Y + 0.05)/0.05, 1.05/(Y + 0.05))`, which bottoms out at `√21 ≈ 4.583` at the pivot. So 3:1 and 4.5:1 are reachable from *every* background, but 7:1 is mathematically unreachable for backgrounds with luminance between roughly 0.10 and 0.30, and for many vivid mid-tones. There the target luminance clamps, the output saturates at pure black or white, and the achieved ratio is the best physics allows. `text-a11y-aaa` on `bg-indigo-600` tops out at 6.44:1. Pair it with [`wcag-badge`](/guide/wcag-badge) to see when you are in that band: the badge reads the level you asked for and displays **Max** instead of the achieved rating, so "AAA was impossible here" is distinguishable from "this pair is merely short".
+The most any background can offer is `max((Y + 0.05)/0.05, 1.05/(Y + 0.05))`, which bottoms out at `√21 ≈ 4.583` at the pivot. So 3:1 and 4.5:1 are reachable from _every_ background, but 7:1 is mathematically unreachable for backgrounds with luminance between roughly 0.10 and 0.30, and for many vivid mid-tones. There the target luminance clamps, the output saturates at pure black or white, and the achieved ratio is the best physics allows. `text-a11y-aaa` on `bg-indigo-600` tops out at 6.44:1.
 
-The fallback lives in `wcag/_stable.css` and ships from the core entry. The `@function` definitions live in `wcag/_functions.css`, with the `@function` form of the utility in `wcag/_utilities.css`; both come in via `tw-jib-css/experimental/wcag`, and the functions can be called directly from your own CSS.
+The implementation lives in `wcag/_stable.css` and ships from the main entry.
 
 ---
 
@@ -1897,9 +1745,11 @@ Adjust the lightness of any colour. Positive values lighten, negative values dar
 
 **Import**
 Included in `@import 'tw-jib-css'`. Individual import:
+
 ```css
 @import 'tw-jib-css/lightness';
 ```
+
 
 ## Syntax
 
@@ -1915,15 +1765,15 @@ Amount is 0–100, representing the percentage distance to white (lighten) or bl
 
 The same utility works across every colour-accepting property. Swap the prefix:
 
-| Surface | Lighten | Darken |
-| --- | --- | --- |
-| Background | `bg-lightness-{n}` | `-bg-lightness-{n}` |
-| Text | `text-lightness-{n}` | `-text-lightness-{n}` |
-| Fill | `fill-lightness-{n}` | `-fill-lightness-{n}` |
-| Stroke | `stroke-lightness-{n}` | `-stroke-lightness-{n}` |
-| Outline | `outline-lightness-{n}` | `-outline-lightness-{n}` |
-| Accent | `accent-lightness-{n}` | `-accent-lightness-{n}` |
-| Border | `border-lightness-{n}` | `-border-lightness-{n}` |
+| Surface    | Lighten                 | Darken                   |
+| ---------- | ----------------------- | ------------------------ |
+| Background | `bg-lightness-{n}`      | `-bg-lightness-{n}`      |
+| Text       | `text-lightness-{n}`    | `-text-lightness-{n}`    |
+| Fill       | `fill-lightness-{n}`    | `-fill-lightness-{n}`    |
+| Stroke     | `stroke-lightness-{n}`  | `-stroke-lightness-{n}`  |
+| Outline    | `outline-lightness-{n}` | `-outline-lightness-{n}` |
+| Accent     | `accent-lightness-{n}`  | `-accent-lightness-{n}`  |
+| Border     | `border-lightness-{n}`  | `-border-lightness-{n}`  |
 
 ## Quick Reference
 
@@ -2016,9 +1866,7 @@ The lightness amount is a registered `@property` variable. It composes with Tail
 
 
 ```html
-<div class="bg-blue-500 hover:bg-lightness-40 transition duration-700">
-  hover to lighten
-</div>
+<div class="bg-blue-500 hover:bg-lightness-40 transition duration-700">hover to lighten</div>
 ```
 
 ### Full scale
@@ -2317,12 +2165,12 @@ Values 0–100 represent a **percentage of the distance** to white or black — 
 
 `{surface}-lighten-*` and `{surface}-darken-*` are convenience aliases:
 
-| Alias | Equivalent |
-| --- | --- |
-| `bg-lighten-{n}` | `bg-lightness-{n}` |
-| `bg-darken-{n}` | `-bg-lightness-{n}` |
-| `text-lighten-{n}` | `text-lightness-{n}` |
-| `text-darken-{n}` | `-text-lightness-{n}` |
+| Alias              | Equivalent            |
+| ------------------ | --------------------- |
+| `bg-lighten-{n}`   | `bg-lightness-{n}`    |
+| `bg-darken-{n}`    | `-bg-lightness-{n}`   |
+| `text-lighten-{n}` | `text-lightness-{n}`  |
+| `text-darken-{n}`  | `-text-lightness-{n}` |
 
 The same pattern applies to fill, stroke, outline, accent, and border. Both forms produce identical CSS.
 
@@ -2342,8 +2190,10 @@ Every lightness utility works with Tailwind's variant prefixes:
 
 ```html
 <div class="bg-blue-500 hover:bg-lightness-40 transition duration-300">
-<div class="bg-blue-500 dark:bg-lightness-20">
-<div class="bg-blue-500 md:bg-lightness-30">
+  <div class="bg-blue-500 dark:bg-lightness-20">
+    <div class="bg-blue-500 md:bg-lightness-30"></div>
+  </div>
+</div>
 ```
 
 ## Browser Support
@@ -2351,7 +2201,7 @@ Every lightness utility works with Tailwind's variant prefixes:
 Requires CSS relative colour syntax: Chrome 111+, Safari 16.4+, Firefox 128+.
 
 **Rendering paths**
-Lightness utilities use two CSS rendering paths — a stable path (relative colour syntax, all modern browsers) and an experimental path (CSS `@function`, Chromium only). The browser selects automatically via `@supports`. With the experimental import, transforms are also available as CSS functions callable in arbitrary values: `from-[--tw-jib--lightness(var(--color-blue-500),60)]`. See [How It Works](/guide/color-transforms#how-it-works-stable-and-experimental-paths) for details.
+Lightness utilities are CSS relative colour syntax, evaluated at render time in every modern browser. See [How It Works](/guide/color-transforms#how-it-works) for the mechanism.
 
 ---
 
@@ -2365,9 +2215,11 @@ Adjust the saturation (chroma) of any colour. Positive values increase saturatio
 
 **Import**
 Included in `@import 'tw-jib-css'`. Individual import:
+
 ```css
 @import 'tw-jib-css/saturation';
 ```
+
 
 ## Syntax
 
@@ -2381,15 +2233,15 @@ Amount is 0–100. `bg-saturation-50` moves halfway to full saturation. `-bg-sat
 
 ## Surfaces
 
-| Surface | Saturate | Desaturate |
-| --- | --- | --- |
-| Background | `bg-saturation-{n}` | `-bg-saturation-{n}` |
-| Text | `text-saturation-{n}` | `-text-saturation-{n}` |
-| Fill | `fill-saturation-{n}` | `-fill-saturation-{n}` |
-| Stroke | `stroke-saturation-{n}` | `-stroke-saturation-{n}` |
-| Outline | `outline-saturation-{n}` | `-outline-saturation-{n}` |
-| Accent | `accent-saturation-{n}` | `-accent-saturation-{n}` |
-| Border | `border-saturation-{n}` | `-border-saturation-{n}` |
+| Surface    | Saturate                 | Desaturate                |
+| ---------- | ------------------------ | ------------------------- |
+| Background | `bg-saturation-{n}`      | `-bg-saturation-{n}`      |
+| Text       | `text-saturation-{n}`    | `-text-saturation-{n}`    |
+| Fill       | `fill-saturation-{n}`    | `-fill-saturation-{n}`    |
+| Stroke     | `stroke-saturation-{n}`  | `-stroke-saturation-{n}`  |
+| Outline    | `outline-saturation-{n}` | `-outline-saturation-{n}` |
+| Accent     | `accent-saturation-{n}`  | `-accent-saturation-{n}`  |
+| Border     | `border-saturation-{n}`  | `-border-saturation-{n}`  |
 
 ## Quick Reference
 
@@ -2446,9 +2298,7 @@ Start with a muted colour to see the full range:
 The saturation amount is a registered `@property` variable. Transitions work:
 
 ```html
-<div class="bg-blue-500 hover:-bg-saturation-50 transition duration-700">
-  hover to desaturate
-</div>
+<div class="bg-blue-500 hover:-bg-saturation-50 transition duration-700">hover to desaturate</div>
 ```
 
 ### Full desaturation scale
@@ -2745,9 +2595,9 @@ See the [Colour Spaces reference](/guide/colour-spaces) for what each space is a
 
 `{surface}-saturate-*` and `{surface}-desaturate-*` are convenience aliases:
 
-| Alias | Equivalent |
-| --- | --- |
-| `bg-saturate-{n}` | `bg-saturation-{n}` |
+| Alias               | Equivalent           |
+| ------------------- | -------------------- |
+| `bg-saturate-{n}`   | `bg-saturation-{n}`  |
 | `bg-desaturate-{n}` | `-bg-saturation-{n}` |
 
 The same pattern applies to text, fill, stroke, outline, accent, and border.
@@ -2764,8 +2614,10 @@ Every saturation utility works with Tailwind's variant prefixes:
 
 ```html
 <div class="bg-blue-500 hover:-bg-saturation-50 transition duration-300">
-<div class="bg-blue-500 dark:-bg-saturation-30">
-<div class="bg-blue-500 md:bg-saturation-20">
+  <div class="bg-blue-500 dark:-bg-saturation-30">
+    <div class="bg-blue-500 md:bg-saturation-20"></div>
+  </div>
+</div>
 ```
 
 ## Browser Support
@@ -2773,7 +2625,7 @@ Every saturation utility works with Tailwind's variant prefixes:
 Requires CSS relative colour syntax: Chrome 111+, Safari 16.4+, Firefox 128+.
 
 **Rendering paths**
-Saturation utilities use two CSS rendering paths — a stable path (relative colour syntax, all modern browsers) and an experimental path (CSS `@function`, Chromium only). The browser selects automatically via `@supports`. With the experimental import, transforms are also available as CSS functions callable in arbitrary values: `bg-[--tw-jib--saturation(var(--color-blue-500),-40,oklch)]`. See [How It Works](/guide/color-transforms#how-it-works-stable-and-experimental-paths) for details.
+Saturation utilities are CSS relative colour syntax, evaluated at render time in every modern browser. See [How It Works](/guide/color-transforms#how-it-works) for the mechanism.
 
 ---
 
@@ -2787,9 +2639,11 @@ Rotate the hue of any colour by a number of degrees. Positive values rotate cloc
 
 **Import**
 Included in `@import 'tw-jib-css'`. Individual import:
+
 ```css
 @import 'tw-jib-css/hue-rotate';
 ```
+
 
 ## Syntax
 
@@ -2803,15 +2657,15 @@ Amount is 0–360. `bg-hue-rotate-180` rotates to the complementary colour.
 
 ## Surfaces
 
-| Surface | Clockwise | Counterclockwise |
-| --- | --- | --- |
-| Background | `bg-hue-rotate-{deg}` | `-bg-hue-rotate-{deg}` |
-| Text | `text-hue-rotate-{deg}` | `-text-hue-rotate-{deg}` |
-| Fill | `fill-hue-rotate-{deg}` | `-fill-hue-rotate-{deg}` |
-| Stroke | `stroke-hue-rotate-{deg}` | `-stroke-hue-rotate-{deg}` |
-| Outline | `outline-hue-rotate-{deg}` | `-outline-hue-rotate-{deg}` |
-| Accent | `accent-hue-rotate-{deg}` | `-accent-hue-rotate-{deg}` |
-| Border | `border-hue-rotate-{deg}` | `-border-hue-rotate-{deg}` |
+| Surface    | Clockwise                  | Counterclockwise            |
+| ---------- | -------------------------- | --------------------------- |
+| Background | `bg-hue-rotate-{deg}`      | `-bg-hue-rotate-{deg}`      |
+| Text       | `text-hue-rotate-{deg}`    | `-text-hue-rotate-{deg}`    |
+| Fill       | `fill-hue-rotate-{deg}`    | `-fill-hue-rotate-{deg}`    |
+| Stroke     | `stroke-hue-rotate-{deg}`  | `-stroke-hue-rotate-{deg}`  |
+| Outline    | `outline-hue-rotate-{deg}` | `-outline-hue-rotate-{deg}` |
+| Accent     | `accent-hue-rotate-{deg}`  | `-accent-hue-rotate-{deg}`  |
+| Border     | `border-hue-rotate-{deg}`  | `-border-hue-rotate-{deg}`  |
 
 ## Quick Reference
 
@@ -2863,9 +2717,7 @@ Amount is 0–360 degrees. All surfaces support the same negative prefix and `/{
 The hue amount is a registered `@property` variable. Transitions work:
 
 ```html
-<div class="bg-blue-500 hover:bg-hue-rotate-180 transition duration-700">
-  hover to shift
-</div>
+<div class="bg-blue-500 hover:bg-hue-rotate-180 transition duration-700">hover to shift</div>
 ```
 
 ### Full rotation
@@ -3151,8 +3003,10 @@ Every hue-rotate utility works with Tailwind's variant prefixes:
 
 ```html
 <div class="bg-red-500 hover:bg-hue-rotate-180 transition duration-300">
-<div class="bg-blue-500 dark:bg-hue-rotate-30">
-<div class="bg-blue-500 md:bg-hue-rotate-90">
+  <div class="bg-blue-500 dark:bg-hue-rotate-30">
+    <div class="bg-blue-500 md:bg-hue-rotate-90"></div>
+  </div>
+</div>
 ```
 
 ## Browser Support
@@ -3160,7 +3014,7 @@ Every hue-rotate utility works with Tailwind's variant prefixes:
 Requires CSS relative colour syntax: Chrome 111+, Safari 16.4+, Firefox 128+. Lab-space trig functions (`cos()`, `sin()`) require Chrome 125+.
 
 **Rendering paths**
-Hue-rotate utilities use two CSS rendering paths — a stable path (relative colour syntax, all modern browsers) and an experimental path (CSS `@function`, Chromium only). The browser selects automatically via `@supports`. With the experimental import, transforms are also available as CSS functions callable in arbitrary values: `from-[--tw-jib--hue-rotate(var(--color-red-500),120)]`. See [How It Works](/guide/color-transforms#how-it-works-stable-and-experimental-paths) for details.
+Hue-rotate utilities are CSS relative colour syntax, evaluated at render time in every modern browser. See [How It Works](/guide/color-transforms#how-it-works) for the mechanism.
 
 ---
 
@@ -4701,604 +4555,3 @@ For CSS variables, you can also use the `grid-area-(--custom-property)` syntax:
 
 
 This is shorthand for `grid-area-[var(--hero-area)]` — it adds the `var()` wrapper automatically.
-
----
-
-# Corner Shape
-
-> corner module (experimental) — CSS corner-shape property for squircle, bevel, scoop, notch, and superellipse corner rendering. Chrome 139+, ~68% browser support. All utilities wrapped in @supports (corner-shape: squircle).
-
-# Corner Shape
-
-The CSS `corner-shape` property controls how border-radius curves are drawn. Instead of standard circular arcs, you can use squircles (iOS-style), bevels, scoops, notches, and arbitrary superellipse values.
-
-**Browser Support**
-`corner-shape` is supported in Chrome 139+ (~68% of users). Firefox and Safari do not support it yet. All utilities are wrapped in `@supports (corner-shape: squircle)` and will be silently ignored in unsupported browsers.
-
-**Import**
-Included in `@import 'tw-jib-css/experimental'`. To import individually:
-```css
-@import 'tw-jib-css/experimental/corner';
-```
-
-## Quick Reference
-
-| Class | CSS |
-|---|---|
-| `corner-round` | `corner-shape: round` |
-| `corner-scoop` | `corner-shape: scoop` |
-| `corner-bevel` | `corner-shape: bevel` |
-| `corner-notch` | `corner-shape: notch` |
-| `corner-square` | `corner-shape: square` |
-| `corner-squircle` | `corner-shape: squircle` |
-| `corner-<number>` | `corner-shape: superellipse(<number>)` |
-| `corner-infinity` | `corner-shape: superellipse(infinity)` |
-| `-corner-<number>` | `corner-shape: superellipse(-<number>)` |
-| `corner-t-<value>` | `corner-top-left-shape + corner-top-right-shape: <value>` |
-| `corner-r-<value>` | `corner-top-right-shape + corner-bottom-right-shape: <value>` |
-| `corner-b-<value>` | `corner-bottom-left-shape + corner-bottom-right-shape: <value>` |
-| `corner-l-<value>` | `corner-top-left-shape + corner-bottom-left-shape: <value>` |
-| `corner-s-<value>` | `corner-start-start-shape + corner-end-start-shape: <value>` |
-| `corner-e-<value>` | `corner-start-end-shape + corner-end-end-shape: <value>` |
-| `corner-tl-<value>` | `corner-top-left-shape: <value>` |
-| `corner-tr-<value>` | `corner-top-right-shape: <value>` |
-| `corner-bl-<value>` | `corner-bottom-left-shape: <value>` |
-| `corner-br-<value>` | `corner-bottom-right-shape: <value>` |
-| `corner-ss-<value>` | `corner-start-start-shape: <value>` |
-| `corner-se-<value>` | `corner-start-end-shape: <value>` |
-| `corner-ee-<value>` | `corner-end-end-shape: <value>` |
-| `corner-es-<value>` | `corner-end-start-shape: <value>` |
-
-
-## Basic Usage
-
-Combine `corner-*` with `rounded-*` to change how corners are drawn:
-
-
-```html
-  <div class="flex gap-4">
-    <div class="rounded-2xl bg-blue-500 p-8 text-white text-sm text-center">Default round</div>
-    <div class="rounded-2xl corner-squircle bg-blue-500 p-8 text-white text-sm text-center">Squircle</div>
-  </div>
-```
-
-
-The `corner-shape` property modifies the curve shape — you still need `border-radius` (`rounded-*`) to set the corner size.
-
-## Named Shapes
-
-Each named shape produces a distinct visual effect:
-
-
-```html
-  <div class="grid grid-cols-3 gap-3 w-full max-w-lg">
-    <div class="rounded-2xl corner-round bg-gray-200 p-6 text-center text-xs text-gray-600">round</div>
-    <div class="rounded-2xl corner-scoop bg-gray-200 p-6 text-center text-xs text-gray-600">scoop</div>
-    <div class="rounded-2xl corner-bevel bg-gray-200 p-6 text-center text-xs text-gray-600">bevel</div>
-    <div class="rounded-2xl corner-notch bg-gray-200 p-6 text-center text-xs text-gray-600">notch</div>
-    <div class="rounded-2xl corner-square bg-gray-200 p-6 text-center text-xs text-gray-600">square</div>
-    <div class="rounded-2xl corner-squircle bg-gray-200 p-6 text-center text-xs text-gray-600">squircle</div>
-  </div>
-```
-
-
-## Superellipse Values
-
-Use numeric values to control the superellipse exponent:
-
-
-```html
-  <div class="flex gap-2 items-end">
-    <div class="flex flex-col items-center gap-1">
-      <div class="rounded-2xl corner-0.5 bg-blue-500 size-16"></div>
-      <span class="text-[10px] text-gray-500">0.5</span>
-    </div>
-    <div class="flex flex-col items-center gap-1">
-      <div class="rounded-2xl corner-1 bg-blue-500 size-16"></div>
-      <span class="text-[10px] text-gray-500">1</span>
-    </div>
-    <div class="flex flex-col items-center gap-1">
-      <div class="rounded-2xl corner-2 bg-blue-500 size-16"></div>
-      <span class="text-[10px] text-gray-500">2</span>
-    </div>
-    <div class="flex flex-col items-center gap-1">
-      <div class="rounded-2xl corner-3 bg-blue-500 size-16"></div>
-      <span class="text-[10px] text-gray-500">3</span>
-    </div>
-    <div class="flex flex-col items-center gap-1">
-      <div class="rounded-2xl corner-infinity bg-blue-500 size-16"></div>
-      <span class="text-[10px] text-gray-500">infinity</span>
-    </div>
-  </div>
-```
-
-
-## Side and Corner Variants
-
-Apply shapes to specific sides or individual corners:
-
-
-```html
-  <div class="flex gap-3">
-    <div class="rounded-2xl corner-t-squircle bg-blue-500 p-6 text-white text-xs text-center">corner-t-squircle</div>
-    <div class="rounded-2xl corner-tr-bevel bg-blue-500 p-6 text-white text-xs text-center">corner-tr-bevel</div>
-    <div class="rounded-2xl corner-t-squircle corner-b-bevel bg-blue-500 p-6 text-white text-xs text-center">mixed</div>
-  </div>
-```
-
-
-### Physical vs Logical
-
-| Logical | LTR Equivalent |
-| --- | --- |
-| `corner-s-*` | `corner-l-*` |
-| `corner-e-*` | `corner-r-*` |
-| `corner-ss-*` | `corner-tl-*` |
-| `corner-se-*` | `corner-tr-*` |
-| `corner-ee-*` | `corner-br-*` |
-| `corner-es-*` | `corner-bl-*` |
-
-## Negative Values
-
-Prefix with `-` to negate the superellipse exponent, which inverts the curve direction:
-
-
-```html
-  <div class="flex gap-2 items-end">
-    <div class="flex flex-col items-center gap-1">
-      <div class="rounded-2xl corner-1 bg-blue-500 size-20"></div>
-      <span class="text-[10px] text-gray-500">corner-1</span>
-    </div>
-    <div class="flex flex-col items-center gap-1">
-      <div class="rounded-2xl -corner-1 bg-blue-500 size-20"></div>
-      <span class="text-[10px] text-gray-500">-corner-1</span>
-    </div>
-    <div class="flex flex-col items-center gap-1">
-      <div class="rounded-2xl corner-2 bg-blue-500 size-20"></div>
-      <span class="text-[10px] text-gray-500">corner-2</span>
-    </div>
-    <div class="flex flex-col items-center gap-1">
-      <div class="rounded-2xl -corner-2 bg-blue-500 size-20"></div>
-      <span class="text-[10px] text-gray-500">-corner-2</span>
-    </div>
-    <div class="flex flex-col items-center gap-1">
-      <div class="rounded-2xl corner-3 bg-blue-500 size-20"></div>
-      <span class="text-[10px] text-gray-500">corner-3</span>
-    </div>
-    <div class="flex flex-col items-center gap-1">
-      <div class="rounded-2xl -corner-3 bg-blue-500 size-20"></div>
-      <span class="text-[10px] text-gray-500">-corner-3</span>
-    </div>
-  </div>
-```
-
-
-Negative values work with all directional variants:
-
-
-```html
-  <div class="flex gap-3">
-    <div class="flex flex-col items-center gap-1">
-      <div class="rounded-2xl -corner-t-3 bg-blue-500 size-20"></div>
-      <span class="text-[10px] text-gray-500">-corner-t-3</span>
-    </div>
-    <div class="flex flex-col items-center gap-1">
-      <div class="rounded-2xl -corner-b-3 bg-blue-500 size-20"></div>
-      <span class="text-[10px] text-gray-500">-corner-b-3</span>
-    </div>
-    <div class="flex flex-col items-center gap-1">
-      <div class="rounded-2xl -corner-tl-3 corner-br-3 bg-blue-500 size-20"></div>
-      <span class="text-[10px] text-gray-500">-corner-tl-3 corner-br-3</span>
-    </div>
-    <div class="flex flex-col items-center gap-1">
-      <div class="rounded-2xl -corner-2 corner-t-squircle bg-blue-500 size-20"></div>
-      <span class="text-[10px] text-gray-500">-corner-2 corner-t-squircle</span>
-    </div>
-  </div>
-```
-
-
-## Using a custom value
-
-Use the `corner-[<value>]` syntax to set the corner shape based on a completely custom value:
-
-
-```html
-  <div class="flex gap-4">
-    <div class="rounded-2xl corner-2.5 bg-blue-500 p-8 text-white text-sm text-center">
-      corner-2.5
-    </div>
-    <div class="rounded-2xl corner-[superellipse(4.2)] bg-blue-500 p-8 text-white text-sm text-center">
-      corner-[superellipse(4.2)]
-    </div>
-  </div>
-```
-
-
-## Using a custom variable
-
-For CSS variables, you can also use the `corner-(--custom-property)` syntax:
-
-
-```html
-  <div class="rounded-2xl corner-(--brand-roundness) bg-blue-500 p-8 text-white text-sm text-center max-w-xs mx-auto [--brand-roundness:squircle]">
-    corner-(--brand-roundness)
-  </div>
-```
-
-
-This is shorthand for `corner-[var(--brand-roundness)]` — it adds the `var()` wrapper automatically.
-
-## Applying conditionally
-
-### Hover and focus states
-
-Prefix a corner utility with a state variant like `hover:*` to only apply it in that state:
-
-
-```html
-  <div class="rounded-2xl corner-round hover:corner-squircle bg-blue-500 p-8 text-white text-sm text-center max-w-xs mx-auto cursor-pointer transition-all">
-    Hover for squircle
-  </div>
-```
-
----
-
-# Interpolate Size
-
-> interpolate module (experimental) — CSS interpolate-size property for animating keyword sizes (auto, min-content, etc.). Chromium only, ~48% browser support.
-
-# Interpolate Size
-
-The CSS `interpolate-size` property enables smooth transitions to and from keyword sizes like `auto`, `min-content`, and `max-content`. Without it, CSS cannot animate between a fixed size and `auto`.
-
-**Browser Support**
-`interpolate-size` is supported in Chromium browsers only (~48% of users). Firefox and Safari do not support it yet.
-
-**Import**
-Included in `@import 'tw-jib-css/experimental'`. To import individually:
-```css
-@import 'tw-jib-css/experimental/interpolate';
-```
-
-## Quick Reference
-
-| Class | CSS |
-|---|---|
-| `interpolate-numeric` | `interpolate-size: numeric-only` |
-| `interpolate-keywords` | `interpolate-size: allow-keywords` |
-| `interpolate-[<value>]` | `interpolate-size: <value>` |
-
-
-## Basic Usage
-
-Add `interpolate-keywords` to a parent element to enable smooth height transitions for its children:
-
-
-```html
-  <div class="interpolate-keywords max-w-sm mx-auto">
-    <div class="group border border-gray-200 rounded-lg overflow-hidden bg-white">
-      <button class="w-full p-4 text-left text-sm font-medium text-gray-700 bg-gray-50 cursor-pointer hover:bg-gray-100 transition-colors">
-        Hover to expand
-      </button>
-      <div class="h-0 group-hover:h-auto transition-all duration-300 overflow-hidden">
-        <div class="p-4 text-sm text-gray-600">
-          <p>This content smoothly animates to its natural height on hover.</p>
-          <p class="mt-2">Without <code class="text-xs bg-gray-100 px-1 py-0.5 rounded">interpolate-keywords</code>, the transition would snap instantly.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-```
-
-
-## Values
-
-| Value | Behaviour |
-| --- | --- |
-| `numeric-only` | Default browser behaviour — only numeric-to-numeric transitions work. `0px` → `auto` will snap. |
-| `allow-keywords` | Enables transitions involving keyword sizes (`auto`, `min-content`, `max-content`, `fit-content`). |
-
----
-
-# Base Select Picker
-
-> picker module (experimental) — CSS appearance: base-select and custom variants for ::picker(select), ::picker-icon, and ::checkmark pseudo-elements. Chromium only, Firefox WIP.
-
-# Base Select Picker
-
-The `appearance: base-select` value opts into the new customisable `<select>` rendering. Combined with `::picker(select)`, `::picker-icon`, and `::checkmark` pseudo-elements, you can fully style native select dropdowns without JavaScript.
-
-**Browser Support**
-`appearance: base-select` is supported in Chromium browsers only. Firefox support is in progress. These utilities and variants will be silently ignored in unsupported browsers.
-
-**Import**
-Included in `@import 'tw-jib-css/experimental'`. To import individually:
-```css
-@import 'tw-jib-css/experimental/picker';
-```
-
-## Quick Reference
-
-| Class | CSS |
-|---|---|
-| `appearance-base-select` | `appearance: base-select` |
-| `picker:{utility}` | `Targets ::picker(select) — the dropdown popup` |
-| `picker-icon:{utility}` | `Targets ::picker-icon — the dropdown arrow` |
-| `checkmark:{utility}` | `Targets ::checkmark — the selected-item indicator` |
-
-
-## Basic Usage
-
-Apply `appearance-base-select` to a `<select>` element to opt into customisable rendering:
-
-
-```html
-  <select class="appearance-base-select px-4 py-2 border border-gray-300 rounded-lg bg-white text-sm text-gray-700">
-    <option>Apple</option>
-    <option>Banana</option>
-    <option>Cherry</option>
-  </select>
-```
-
-
-## Fully Styled Select
-
-Use the custom variants to style every part of the select:
-
-
-```html
-  <select class="appearance-base-select px-4 py-3 border-2 border-gray-300 rounded-xl bg-white text-sm text-gray-700 picker:bg-white picker:border-2 picker:border-gray-200 picker:rounded-xl picker:shadow-lg picker:p-2 picker-icon:text-blue-500 picker-icon:transition-all open:picker-icon:rotate-180 open:picker-icon:text-green-500 checkmark:text-green-500">
-    <option>Apple</option>
-    <option>Banana</option>
-    <option>Cherry</option>
-    <option>Date</option>
-    <option>Elderberry</option>
-  </select>
-```
-
-
-## Custom Variants
-
-### `picker:*`
-
-Targets the dropdown popup via `::picker(select)`. Automatically sets `appearance: base-select` on the parent `<select>`.
-
-
-```html
-  <select class="px-4 py-2 border border-gray-300 rounded-lg bg-white text-sm picker:bg-white picker:rounded-xl picker:shadow-xl picker:p-3 picker:border picker:border-gray-200">
-    <option>Styled dropdown popup</option>
-    <option>With shadow and rounded corners</option>
-  </select>
-```
-
-
-### `picker-icon:*`
-
-Targets the dropdown arrow icon via `::picker-icon`. Also auto-sets `appearance: base-select`.
-
-
-```html
-  <select class="px-4 py-2 border border-gray-300 rounded-lg bg-white text-sm picker-icon:text-red-500 picker-icon:transition-all open:picker-icon:rotate-180 open:picker-icon:text-green-500">
-    <option>Red icon, green when open</option>
-    <option>Rotates on open</option>
-  </select>
-```
-
-
-### `checkmark:*`
-
-Targets the `::checkmark` pseudo-element that appears next to the selected option.
-
-
-```html
-  <select class="appearance-base-select px-4 py-2 border border-gray-300 rounded-lg bg-white text-sm checkmark:text-green-500">
-    <option>Green checkmark</option>
-    <option>On the selected item</option>
-  </select>
-```
-
----
-
-# WCAG Badge
-
-> wcag badge module (experimental) — wcag-badge overlays a ::after pseudo-element showing the WCAG 2.x contrast rating (AAA/AA/AA Large/Fail, plus Max) for the element's bg + text colour combination. Badge background is green/yellow/orange/red using TW colour tokens; Max shares Fail's red. Max appears only when text-a11y-* is on the same element and the level it requested is physically unreachable from that background. Badge text is black on yellow (AA), white on all others. All computation in CSS via @function + if(style()). Chromium only, and unlike text-a11y-* it cannot be made portable: colour-to-string needs if(style()). Ships from tw-jib-css/experimental; text-a11y-* ships from the main entry.
-
-# WCAG Badge
-
-`wcag-badge` overlays a live WCAG contrast rating on any element with a background and text colour. The badge shows AAA, AA, AA Large, or Fail — all computed in CSS at render time. Paired with `text-a11y-*` it adds a fifth state, Max, for a level the background cannot physically reach.
-
-**Browser Support**
-CSS `@function` and `if(style())` are required. Currently supported in Chromium browsers only. The utility is wrapped in `@supports` and renders nothing in unsupported browsers.
-
-This does **not** apply to its partner [`text-a11y-*`](/guide/wcag), which is stable and works everywhere. The badge is the half of the module that cannot follow: reading a rating out means turning a colour into a *string*, and `if(style())` is the only way CSS can do that. So an element carrying both utilities gets an accessible shade in every browser and a badge only in Chromium.
-
-**Import**
-Included in `@import 'tw-jib-css/experimental'`. To import individually:
-```css
-@import 'tw-jib-css/experimental/wcag';
-```
-The accessible shade is separate and stable: `@import 'tw-jib-css'`.
-
-## Quick Reference
-
-| Class | CSS |
-|---|---|
-| `wcag-badge` | `::after badge showing AAA / AA / AA Large / Fail (or Max, with text-a11y-*)` |
-
-
-## Basic Usage
-
-Add `wcag-badge` to any element that has both a background colour (`bg-*`) and text colour (`text-*`):
-
-
-```html
-  <div class="grid grid-cols-3 gap-3">
-    <div class="rounded-lg p-6 bg-slate-900 text-white wcag-badge text-center relative">
-      <div class="font-bold">White on Slate 900</div>
-    </div>
-    <div class="rounded-lg p-6 bg-amber-200 text-amber-900 wcag-badge text-center relative">
-      <div class="font-bold">Amber 900 on 200</div>
-    </div>
-    <div class="rounded-lg p-6 bg-gray-200 text-gray-400 wcag-badge text-center relative">
-      <div class="font-bold">Low contrast</div>
-    </div>
-  </div>
-```
-
-
-The badge background colour is green (AAA), yellow (AA), orange (AA Large), or red (Fail, and Max). Badge text is black on yellow (AA), white on all others.
-
-## Across the Spectrum
-
-White text on various backgrounds:
-
-
-```html
-  <div class="grid grid-cols-4 gap-3">
-    <div class="rounded-lg p-5 bg-red-500 text-white wcag-badge text-center relative">
-      <div class="font-bold">Red 500</div>
-    </div>
-    <div class="rounded-lg p-5 bg-red-800 text-white wcag-badge text-center relative">
-      <div class="font-bold">Red 800</div>
-    </div>
-    <div class="rounded-lg p-5 bg-amber-400 text-white wcag-badge text-center relative">
-      <div class="font-bold">Amber 400</div>
-    </div>
-    <div class="rounded-lg p-5 bg-emerald-600 text-white wcag-badge text-center relative">
-      <div class="font-bold">Emerald 600</div>
-    </div>
-    <div class="rounded-lg p-5 bg-blue-500 text-white wcag-badge text-center relative">
-      <div class="font-bold">Blue 500</div>
-    </div>
-    <div class="rounded-lg p-5 bg-blue-900 text-white wcag-badge text-center relative">
-      <div class="font-bold">Blue 900</div>
-    </div>
-    <div class="rounded-lg p-5 bg-violet-500 text-white wcag-badge text-center relative">
-      <div class="font-bold">Violet 500</div>
-    </div>
-    <div class="rounded-lg p-5 bg-slate-700 text-white wcag-badge text-center relative">
-      <div class="font-bold">Slate 700</div>
-    </div>
-  </div>
-```
-
-
-Dark text on light backgrounds:
-
-
-```html
-  <div class="grid grid-cols-4 gap-3">
-    <div class="rounded-lg p-5 bg-rose-100 text-rose-700 wcag-badge text-center relative">
-      <div class="font-bold">Rose 700/100</div>
-    </div>
-    <div class="rounded-lg p-5 bg-sky-100 text-sky-800 wcag-badge text-center relative">
-      <div class="font-bold">Sky 800/100</div>
-    </div>
-    <div class="rounded-lg p-5 bg-lime-200 text-lime-900 wcag-badge text-center relative">
-      <div class="font-bold">Lime 900/200</div>
-    </div>
-    <div class="rounded-lg p-5 bg-orange-100 text-orange-600 wcag-badge text-center relative">
-      <div class="font-bold">Orange 600/100</div>
-    </div>
-  </div>
-```
-
-
-## Combining with text-a11y-*
-
-`wcag-badge` and `text-a11y-*` work together on the same element. The badge reads the text colour set by `text-a11y-*` and shows the actual contrast rating:
-
-
-```html
-  <div class="grid grid-cols-3 gap-3">
-    <div class="rounded-lg p-6 bg-violet-600 text-a11y-aa wcag-badge text-center relative">
-      <div class="font-bold">AA shade + badge</div>
-    </div>
-    <div class="rounded-lg p-6 bg-teal-300 text-a11y-aaa wcag-badge text-center relative">
-      <div class="font-bold">AAA shade + badge</div>
-    </div>
-    <div class="rounded-lg p-6 bg-pink-700 text-a11y-aa-lg wcag-badge text-center relative">
-      <div class="font-bold">AA Large + badge</div>
-    </div>
-  </div>
-```
-
-
-Both utilities update live when the background changes — hover to see the text and badge recompute:
-
-
-```html
-  <div class="grid grid-cols-2 gap-3">
-    <div class="rounded-lg p-6 bg-cyan-100 hover:bg-cyan-900 text-a11y-aa wcag-badge text-center relative transition-colors duration-300">
-      <div class="font-bold">Cyan 100 → 900</div>
-      <div class="text-xs mt-1">Hover me</div>
-    </div>
-    <div class="rounded-lg p-6 bg-fuchsia-800 text-a11y-aaa hover:text-a11y-aa-lg wcag-badge text-center relative transition-colors duration-300">
-      <div class="font-bold">AAA -> AA Large</div>
-      <div class="text-xs mt-1">Hover me</div>
-    </div>
-  </div>
-```
-
-
-### Max — the level was impossible
-
-Some ratios cannot be reached from some backgrounds. The most any background can
-offer is `max((Y + 0.05)/0.05, 1.05/(Y + 0.05))`, which bottoms out at
-`√21 ≈ 4.583` at the 0.1791 pivot — so 3:1 and 4.5:1 are always achievable, but
-7:1 is out of reach for backgrounds in the middle of the luminance range. There
-the shade saturates at pure black or white and delivers the best that exists.
-
-Without a fifth state, that case reads as a plain `AA` — indistinguishable from
-"your AAA request quietly didn't work". `Max` says the quiet part out loud: this
-is the ceiling, and asking for more will not help.
-
-
-```html
-  <div class="grid grid-cols-3 gap-3">
-    <div class="rounded-lg p-6 bg-red-500 text-a11y-aaa wcag-badge text-center relative">
-      <div class="font-bold">AAA on Red 500</div>
-      <div class="text-xs mt-1">ceiling 5.50:1</div>
-    </div>
-    <div class="rounded-lg p-6 bg-blue-500 text-a11y-aaa wcag-badge text-center relative">
-      <div class="font-bold">AAA on Blue 500</div>
-      <div class="text-xs mt-1">ceiling 5.66:1</div>
-    </div>
-    <div class="rounded-lg p-6 bg-slate-500 text-a11y-aaa wcag-badge text-center relative">
-      <div class="font-bold">AAA on Slate 500</div>
-      <div class="text-xs mt-1">ceiling 4.77:1</div>
-    </div>
-  </div>
-```
-
-
-Two things follow from how it is derived:
-
-- **It needs `text-a11y-*`.** Max describes a shortfall against a *requested*
-  level, and only `text-a11y-*` records what was requested. A bare `wcag-badge`
-  has no intent to compare against, so it never shows Max — it reports plain
-  measurement, exactly as before.
-- **It shares Fail's red.** Both mean "don't ship this as-is". The difference is
-  what to do about it: Fail means fix the pair, Max means pick a different
-  background or accept a lower level.
-
-**Badge must be on the text colour element**
-`wcag-badge` reads `--tw-jib--text-color` from the element it's placed on. It measures the contrast between **its own** background and text colour — it cannot see or predict the contrast of child elements.
-
-Place the badge on the same element that has the text colour, or on a child element that carries the text colour. Do **not** place it on a parent and expect it to measure a child's `text-a11y-*` colour.
-
-## How It Works
-
-The badge reads the captured `--tw-jib--background-color` and `--tw-jib--text-color` custom properties (set by `bg-*` and `text-*` utilities in `core.css`), and runs them through an exact contrast pipeline:
-
-1. **`--tw-jib--luminance-packed()`** — packs each colour's relative luminance into R and its complement into G, so a single `color-mix()` becomes a luminance subtraction.
-2. **`--tw-jib--contrast-test-all()`** — a multi-channel `color-mix()` tests all three WCAG thresholds (3, 4.5, 7) simultaneously. Each output channel encodes one threshold; running both directional orderings handles either-can-be-lighter without branching.
-3. **`--tw-jib--wcag-rating()`** — matches the result colour against the four exact states: white = AAA, yellow = AA, red = AA Large, black = Fail (returns `<string>`).
-4. **`--tw-jib--wcag-shortfall`** — compares the rating against the level `text-a11y-*` recorded in `--tw-jib--a11y-level`, yielding the Max state described below.
-5. **`::after` pseudo-element** — `content: var(--tw-jib--wcag-display)` displays the rating, or `Max`.
-6. **Conditional badge colour** — `if(style())` maps the displayed value to green/yellow/orange/red using TW colour tokens; badge text is black on yellow (AA), white on all others.
-
-Because the comparison stays in colour space the whole way through — no numeric luminance is ever extracted — there is no quantization error and no uncertainty band. Every step works in `srgb-linear`; routing the luminance through the legacy `rgb()` function instead costs 10⁻⁵-scale precision, always signed so the darker colour of a pair measures darker, which is enough to decide a verdict for a pair sitting on a threshold.
-
-There is one deliberate tolerance. WCAG asks for a ratio of *at least* the threshold, so a pair landing exactly on 4.5:1 is AA — but a step function returns "fail" at exactly zero. The thresholds therefore carry a 10⁻⁶ epsilon, about 5 × 10⁻⁴ in ratio terms, so an exact tie resolves in favour of passing. This matters because [`text-a11y-*`](/guide/accessible-color) produces exact ties by design; without it the badge would contradict the class beside it on every element.

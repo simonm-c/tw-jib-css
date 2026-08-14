@@ -24,7 +24,7 @@ package does.
 
 | Package                                                                  | What it is                                                                                           | Docs                                                        |
 | ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
-| [**`tw-jib-css`**](packages/tw-jib-css)                                  | The stable library. Works on every engine. This README.                                              | [Docs](https://simonm-c.github.io/tw-jib-css/)              |
+| [**`tw-jib-css`**](packages/tw-jib-css#readme)                           | The stable library. Works on every engine. Its own README.                                           | [Docs](https://simonm-c.github.io/tw-jib-css/)              |
 | [**`tw-jib-css-experimental`**](packages/tw-jib-css-experimental#readme) | Not-yet-baseline features, mostly Chromium-only. Its own package, its own README, its own docs site. | [Docs](https://simonm-c.github.io/tw-jib-css/experimental/) |
 
 ## Features
@@ -147,6 +147,11 @@ the root changes how those classes compute. The additions are reachable on their
 ## Documentation
 
 Full documentation with interactive demos: [tw-jib-css docs](https://simonm-c.github.io/tw-jib-css/)
+
+For LLMs and agents, following the [llms.txt](https://llmstxt.org/) convention:
+
+- [llms.txt](https://simonm-c.github.io/tw-jib-css/llms.txt) — indexed map of every guide page
+- [llms-full.txt](https://simonm-c.github.io/tw-jib-css/llms-full.txt) — the whole corpus in one fetch
 
 The experimental package documents itself separately:
 [Jibcss Experimental](https://simonm-c.github.io/tw-jib-css/experimental/).

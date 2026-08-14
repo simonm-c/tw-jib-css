@@ -1,13 +1,33 @@
 import { test, expect, type Page } from '@playwright/test';
+import { EXPERIMENTAL_BASE } from '../../playwright.config';
 
 // ---------------------------------------------------------------------------
 // Constants
 // ---------------------------------------------------------------------------
 
 const TW_HUES = [
-  'red', 'orange', 'amber', 'yellow', 'lime', 'green', 'emerald', 'teal',
-  'cyan', 'sky', 'blue', 'indigo', 'violet', 'purple', 'fuchsia', 'pink',
-  'rose', 'slate', 'gray', 'zinc', 'neutral', 'stone',
+  'red',
+  'orange',
+  'amber',
+  'yellow',
+  'lime',
+  'green',
+  'emerald',
+  'teal',
+  'cyan',
+  'sky',
+  'blue',
+  'indigo',
+  'violet',
+  'purple',
+  'fuchsia',
+  'pink',
+  'rose',
+  'slate',
+  'gray',
+  'zinc',
+  'neutral',
+  'stone',
 ] as const;
 
 const TW_SHADES = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950] as const;
@@ -26,9 +46,15 @@ const SUPPORTS_WCAG =
   '(background: if(style(--value): red)) and (background: --tw-jib--linearize(red))';
 
 const A11Y_PAGE = 'examples/wcag';
-const BADGE_PAGE = 'examples/wcag-badge';
+/* The badge fixtures live in the EXPERIMENTAL docs instance (a separate
+ * VitePress server on 5174), so these are absolute rather than baseURL-relative.
+ * wcag-badge ships in tw-jib-css-experimental; the shade fixture above is stable
+ * and stays on the main instance. */
+const BADGE_PAGE = `${EXPERIMENTAL_BASE}examples/wcag-badge`;
 /** Both utilities on the same element — the combination fixture. */
-const COMBO_PAGE = 'examples/wcag-a11y-badge';
+const COMBO_PAGE = `${EXPERIMENTAL_BASE}examples/wcag-a11y-badge`;
+/** util / fn / stable side by side — experimental instance, see the describe below. */
+const AGREEMENT_PAGE = `${EXPERIMENTAL_BASE}examples/wcag-agreement`;
 
 /** Fixture ids on COMBO_PAGE, grouped by the level their class requests. */
 const COMBO_GROUPS = [
@@ -219,21 +245,37 @@ const COLOR_HELPERS_SOURCE = `
  * the CSS colour string directly (full float precision) — no canvas
  * 8-bit roundtrip.
  */
-async function extractA11yResults(
-  page: Page,
-  ids: string[],
-): Promise<Record<string, A11yResult>> {
+async function extractA11yResults(page: Page, ids: string[]): Promise<Record<string, A11yResult>> {
   return page.evaluate(
     ({ sels, helpersSrc }) => {
       // eslint-disable-next-line @typescript-eslint/no-implied-eval, no-new-func
-      new Function(helpersSrc + '; window.__wcagHelpers = { toLumAlpha, contrastRatio, wcagRating };')();
-      const { toLumAlpha, contrastRatio, wcagRating } = (window as unknown as { __wcagHelpers: { toLumAlpha: (s: string) => { lum: number; alpha: number; exact: boolean }; contrastRatio: (a: number, b: number) => number; wcagRating: (r: number) => string } }).__wcagHelpers;
+      new Function(
+        helpersSrc + '; window.__wcagHelpers = { toLumAlpha, contrastRatio, wcagRating };',
+      )();
+      const { toLumAlpha, contrastRatio, wcagRating } = (
+        window as unknown as {
+          __wcagHelpers: {
+            toLumAlpha: (s: string) => { lum: number; alpha: number; exact: boolean };
+            contrastRatio: (a: number, b: number) => number;
+            wcagRating: (r: number) => string;
+          };
+        }
+      ).__wcagHelpers;
 
       const out: Record<string, A11yResult> = {};
       for (const sel of sels) {
         const el = document.querySelector(`[data-test="${sel}"]`);
         if (!el) {
-          out[sel] = { bgColor: '', fgColor: '', bgLum: 0, fgLum: 0, ratio: 0, jsRating: 'Fail', fgAlpha: 0, exact: false };
+          out[sel] = {
+            bgColor: '',
+            fgColor: '',
+            bgLum: 0,
+            fgLum: 0,
+            ratio: 0,
+            jsRating: 'Fail',
+            fgAlpha: 0,
+            exact: false,
+          };
           continue;
         }
         const cs = getComputedStyle(el);
@@ -270,14 +312,32 @@ async function extractBadgeResults(
   return page.evaluate(
     ({ sels, helpersSrc }) => {
       // eslint-disable-next-line @typescript-eslint/no-implied-eval, no-new-func
-      new Function(helpersSrc + '; window.__wcagHelpers = { toLumAlpha, contrastRatio, wcagRating };')();
-      const { toLumAlpha, contrastRatio, wcagRating } = (window as unknown as { __wcagHelpers: { toLumAlpha: (s: string) => { lum: number; alpha: number }; contrastRatio: (a: number, b: number) => number; wcagRating: (r: number) => string } }).__wcagHelpers;
+      new Function(
+        helpersSrc + '; window.__wcagHelpers = { toLumAlpha, contrastRatio, wcagRating };',
+      )();
+      const { toLumAlpha, contrastRatio, wcagRating } = (
+        window as unknown as {
+          __wcagHelpers: {
+            toLumAlpha: (s: string) => { lum: number; alpha: number };
+            contrastRatio: (a: number, b: number) => number;
+            wcagRating: (r: number) => string;
+          };
+        }
+      ).__wcagHelpers;
 
       const out: Record<string, BadgeResult> = {};
       for (const sel of sels) {
         const el = document.querySelector(`[data-test="${sel}"]`);
         if (!el) {
-          out[sel] = { bgColor: '', fgColor: '', bgLum: 0, fgLum: 0, ratio: 0, jsRating: 'Fail', cssRating: '' };
+          out[sel] = {
+            bgColor: '',
+            fgColor: '',
+            bgLum: 0,
+            fgLum: 0,
+            ratio: 0,
+            jsRating: 'Fail',
+            cssRating: '',
+          };
           continue;
         }
         const cs = getComputedStyle(el);
@@ -320,9 +380,7 @@ async function detectSupport(page: Page): Promise<boolean> {
 
 /** Whether this engine accepts a channel keyword inside pow(). False on Gecko. */
 async function detectChannelPow(page: Page): Promise<boolean> {
-  return page.evaluate(() =>
-    CSS.supports('color', 'oklch(from red calc(pow(alpha, 0.5)) c h)'),
-  );
+  return page.evaluate(() => CSS.supports('color', 'oklch(from red calc(pow(alpha, 0.5)) c h)'));
 }
 
 /**
@@ -455,9 +513,7 @@ function gradeGrid(
  *  Chromium serialises as color(srgb-linear r g b). Used for neutrality
  *  checks, where 8-bit rounding would hide the thing being measured. */
 function parseLinearChannels(str: string): [number, number, number] | null {
-  const m = str
-    .trim()
-    .match(/^color\(srgb-linear\s+([-\d.e+]+)\s+([-\d.e+]+)\s+([-\d.e+]+)/);
+  const m = str.trim().match(/^color\(srgb-linear\s+([-\d.e+]+)\s+([-\d.e+]+)\s+([-\d.e+]+)/);
   return m ? [Number(m[1]), Number(m[2]), Number(m[3])] : null;
 }
 
@@ -480,7 +536,9 @@ test.describe('text-a11y-aa — exact ratio verification', () => {
     const results = await extractA11yResults(page, A11Y_IDS);
     const { failures, capped } = gradeGrid(results, A11Y_IDS, TARGET_RATIO.AA);
 
-    expect(failures, `${failures.length} colours missed AA:\n${failures.join('\n')}`).toHaveLength(0);
+    expect(failures, `${failures.length} colours missed AA:\n${failures.join('\n')}`).toHaveLength(
+      0,
+    );
     // 4.5:1 is below the √21 ≈ 4.583 floor of maxCR, so it is reachable from
     // EVERY background — nothing may degrade to the ceiling.
     expect(capped, 'AA is reachable from every background; none should be capped').toBe(0);
@@ -497,7 +555,10 @@ test.describe('text-a11y-aa — exact ratio verification', () => {
       }
     }
 
-    expect(invisible, `${invisible.length} colours have invisible text:\n${invisible.join(', ')}`).toHaveLength(0);
+    expect(
+      invisible,
+      `${invisible.length} colours have invisible text:\n${invisible.join(', ')}`,
+    ).toHaveLength(0);
   });
 });
 
@@ -514,7 +575,9 @@ test.describe('text-a11y-aaa — exact ratio verification', () => {
     const results = await extractA11yResults(page, A11Y_AAA_IDS);
     const { failures, capped } = gradeGrid(results, A11Y_AAA_IDS, TARGET_RATIO.AAA);
 
-    expect(failures, `${failures.length} colours missed AAA:\n${failures.join('\n')}`).toHaveLength(0);
+    expect(failures, `${failures.length} colours missed AAA:\n${failures.join('\n')}`).toHaveLength(
+      0,
+    );
     // 7:1 is mathematically unreachable for backgrounds with luminance in
     // (0.10, 0.30), so some cells MUST degrade to the ceiling. Zero capped
     // would mean the grading is not actually discriminating.
@@ -535,7 +598,10 @@ test.describe('text-a11y-aa-lg — exact ratio verification', () => {
     const results = await extractA11yResults(page, A11Y_AALG_IDS);
     const { failures, capped } = gradeGrid(results, A11Y_AALG_IDS, TARGET_RATIO['AA Large']);
 
-    expect(failures, `${failures.length} colours missed AA Large:\n${failures.join('\n')}`).toHaveLength(0);
+    expect(
+      failures,
+      `${failures.length} colours missed AA Large:\n${failures.join('\n')}`,
+    ).toHaveLength(0);
     expect(capped, 'AA Large is reachable from every background; none should be capped').toBe(0);
   });
 });
@@ -584,7 +650,9 @@ test.describe('text-a11y — threshold edge cases', () => {
       if (graded.verdict === 'FAIL') failures.push(`${id}: ${graded.reason}`);
     }
 
-    expect(failures, `${failures.length} edge cases failed:\n${failures.join('\n')}`).toHaveLength(0);
+    expect(failures, `${failures.length} edge cases failed:\n${failures.join('\n')}`).toHaveLength(
+      0,
+    );
   });
 });
 
@@ -639,7 +707,10 @@ test.describe('text-a11y — frozen regression cases', () => {
       }
     }
 
-    expect(failures, `${failures.length} frozen cases regressed:\n${failures.join('\n')}`).toHaveLength(0);
+    expect(
+      failures,
+      `${failures.length} frozen cases regressed:\n${failures.join('\n')}`,
+    ).toHaveLength(0);
   });
 
   test('exact grey stays achromatic at all three levels', async ({ page }) => {
@@ -657,11 +728,16 @@ test.describe('text-a11y — frozen regression cases', () => {
       if (spread === null) {
         tinted.push(`${id}: could not parse channels from "${results[id]?.fgColor}"`);
       } else if (spread > 1e-3) {
-        tinted.push(`${id}: channel spread ${spread.toExponential(3)} — grey input produced a tint`);
+        tinted.push(
+          `${id}: channel spread ${spread.toExponential(3)} — grey input produced a tint`,
+        );
       }
     }
 
-    expect(tinted, `${tinted.length} grey fixtures picked up a tint:\n${tinted.join('\n')}`).toHaveLength(0);
+    expect(
+      tinted,
+      `${tinted.length} grey fixtures picked up a tint:\n${tinted.join('\n')}`,
+    ).toHaveLength(0);
   });
 
   test('one-bit tints stay near-neutral and near-identical', async ({ page }) => {
@@ -707,9 +783,22 @@ test.describe('text-a11y — frozen regression cases', () => {
 // ---------------------------------------------------------------------------
 
 const INVARIANT_SPACES = [
-  'oklch', 'oklab', 'lch', 'lab', 'hsl', 'hwb', 'rgb',
-  'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
-  'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+  'oklch',
+  'oklab',
+  'lch',
+  'lab',
+  'hsl',
+  'hwb',
+  'rgb',
+  'srgb',
+  'srgb-linear',
+  'display-p3',
+  'a98-rgb',
+  'prophoto-rgb',
+  'rec2020',
+  'xyz',
+  'xyz-d50',
+  'xyz-d65',
   'color-mix',
 ] as const;
 
@@ -739,7 +828,10 @@ test.describe('text-a11y — cross-pipeline invariance', () => {
 
       // And every one of them must actually be on target, not merely agree.
       const { failures } = gradeGrid(results, ids, TARGET_RATIO.AA);
-      expect(failures, `${failures.length} spaces off target:\n${failures.join('\n')}`).toHaveLength(0);
+      expect(
+        failures,
+        `${failures.length} spaces off target:\n${failures.join('\n')}`,
+      ).toHaveLength(0);
     });
   }
 });
@@ -786,7 +878,10 @@ test.describe('text-a11y — the pow() gate', () => {
         }
       }
 
-      expect(broken, `${broken.length} spaces fell back to inherited:\n${broken.join('\n')}`).toHaveLength(0);
+      expect(
+        broken,
+        `${broken.length} spaces fell back to inherited:\n${broken.join('\n')}`,
+      ).toHaveLength(0);
     });
   }
 
@@ -839,7 +934,11 @@ const AGREEMENT_CASES = ['violet', 'grey', 'teal'].flatMap((bg) =>
 
 test.describe('text-a11y — the utility and the @function API agree', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto(A11Y_PAGE, { waitUntil: 'networkidle' });
+    // The agreement fixture lives in the EXPERIMENTAL instance: its `fn` cells
+    // call --tw-jib--accessible-shade() directly, which only the experimental
+    // package defines. The stable instance deliberately has no @function at all,
+    // so this comparison cannot run there.
+    await page.goto(AGREEMENT_PAGE, { waitUntil: 'networkidle' });
     const supports = await detectSupport(page);
     test.skip(!supports, 'Browser does not support CSS @function');
   });
@@ -901,7 +1000,10 @@ test.describe('text-a11y — the utility and the @function API agree', () => {
         Object.fromEntries(
           sels.map((sel) => {
             const el = document.querySelector(`[data-test="${sel}"]`);
-            return [sel, el ? getComputedStyle(el).getPropertyValue('--tw-jib--a11y--shade').trim() : ''];
+            return [
+              sel,
+              el ? getComputedStyle(el).getPropertyValue('--tw-jib--a11y--shade').trim() : '',
+            ];
           }),
         ),
       ids,
@@ -940,7 +1042,9 @@ test.describe('text-a11y + wcag-badge — the badge must agree with the class', 
   });
 
   for (const group of COMBO_GROUPS) {
-    test(`badge awards at least ${group.level} where text-a11y-${group.prefix} asks for it`, async ({ page }) => {
+    test(`badge awards at least ${group.level} where text-a11y-${group.prefix} asks for it`, async ({
+      page,
+    }) => {
       const ids = group.hues.flatMap((h) => TW_SHADES.map((s) => `${group.prefix}-${h}-${s}`));
       const results = await extractBadgeResults(page, ids);
       const target = TARGET_RATIO[group.level];
@@ -990,7 +1094,10 @@ test.describe('text-a11y + wcag-badge — the badge must agree with the class', 
     await page.goto(BADGE_PAGE, { waitUntil: 'networkidle' });
     const results = await extractBadgeResults(page, BADGE_IDS);
     const spurious = BADGE_IDS.filter((id) => results[id]?.cssRating === 'Max');
-    expect(spurious, `badge reported Max without a requested level:\n${spurious.join(', ')}`).toHaveLength(0);
+    expect(
+      spurious,
+      `badge reported Max without a requested level:\n${spurious.join(', ')}`,
+    ).toHaveLength(0);
   });
 });
 
@@ -1024,11 +1131,16 @@ test.describe('wcag-badge — rating verification', () => {
         continue;
       }
       if (!ratingsCompatible(r.cssRating, r.jsRating)) {
-        mismatches.push(`${id}: CSS says "${r.cssRating}", JS says "${r.jsRating}" (ratio ${r.ratio.toFixed(2)})`);
+        mismatches.push(
+          `${id}: CSS says "${r.cssRating}", JS says "${r.jsRating}" (ratio ${r.ratio.toFixed(2)})`,
+        );
       }
     }
 
-    expect(mismatches, `${mismatches.length} rating mismatches:\n${mismatches.join('\n')}`).toHaveLength(0);
+    expect(
+      mismatches,
+      `${mismatches.length} rating mismatches:\n${mismatches.join('\n')}`,
+    ).toHaveLength(0);
   });
 
   test('all 242 badges have non-empty ::after content', async ({ page }) => {
@@ -1048,14 +1160,25 @@ test.describe('wcag-badge — rating verification', () => {
   test('CSS rating matches JS rating for threshold edge cases', async ({ page }) => {
     const edgeIds = [
       // Near 3:1
-      'edge-blue700-black', 'edge-orange500-white', 'edge-red400-white',
-      'edge-emerald500-white', 'edge-gray600-black', 'edge-violet400-white',
+      'edge-blue700-black',
+      'edge-orange500-white',
+      'edge-red400-white',
+      'edge-emerald500-white',
+      'edge-gray600-black',
+      'edge-violet400-white',
       // Near 4.5:1
-      'edge-slate500-white', 'edge-slate500-black', 'edge-red600-white',
-      'edge-red600-black', 'edge-gray500-white', 'edge-violet500-white',
-      'edge-violet500-black', 'edge-blue600-black',
+      'edge-slate500-white',
+      'edge-slate500-black',
+      'edge-red600-white',
+      'edge-red600-black',
+      'edge-gray500-white',
+      'edge-violet500-white',
+      'edge-violet500-black',
+      'edge-blue600-black',
       // Near 7:1
-      'edge-blue700-white', 'edge-orange500-black', 'edge-gray600-white',
+      'edge-blue700-white',
+      'edge-orange500-black',
+      'edge-gray600-white',
       'edge-slate600-white',
     ];
 
@@ -1069,11 +1192,16 @@ test.describe('wcag-badge — rating verification', () => {
         continue;
       }
       if (!ratingsCompatible(r.cssRating, r.jsRating)) {
-        mismatches.push(`${id}: CSS "${r.cssRating}" vs JS "${r.jsRating}" (ratio ${r.ratio.toFixed(2)})`);
+        mismatches.push(
+          `${id}: CSS "${r.cssRating}" vs JS "${r.jsRating}" (ratio ${r.ratio.toFixed(2)})`,
+        );
       }
     }
 
-    expect(mismatches, `${mismatches.length} edge case mismatches:\n${mismatches.join('\n')}`).toHaveLength(0);
+    expect(
+      mismatches,
+      `${mismatches.length} edge case mismatches:\n${mismatches.join('\n')}`,
+    ).toHaveLength(0);
   });
 
   test('all ratings are clean (exact pipeline produces no tilde)', async ({ page }) => {
@@ -1093,6 +1221,9 @@ test.describe('wcag-badge — rating verification', () => {
       }
     }
 
-    expect(hasTilde, `${hasTilde.length} pairs have unexpected tilde:\n${hasTilde.join('\n')}`).toHaveLength(0);
+    expect(
+      hasTilde,
+      `${hasTilde.length} pairs have unexpected tilde:\n${hasTilde.join('\n')}`,
+    ).toHaveLength(0);
   });
 });

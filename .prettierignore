@@ -3,6 +3,8 @@ node_modules
 dist
 docs/.vitepress/dist
 docs/.vitepress/cache
+docs-experimental/.vitepress/dist
+docs-experimental/.vitepress/cache
 coverage
 test-results
 playwright-report

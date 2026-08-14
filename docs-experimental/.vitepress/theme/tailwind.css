@@ -1,0 +1,217 @@
+/*
+ * Tailwind entry for the EXPERIMENTAL docs instance.
+ *
+ * This is a separate VitePress instance from docs/ on purpose. Both packages
+ * define the same utility names, and the experimental package's functions entry
+ * OVERRIDES the stable implementations wherever CSS @function is supported. One
+ * instance means one stylesheet, and any attempt to load the overrides for only
+ * some pages leaks: Vite serves component-imported CSS globally in dev, so a
+ * per-page import reached the stable instance's pages too when it was tried.
+ *
+ * So the split is at the instance level. This file is the only place the
+ * experimental package is imported anywhere in the repo's docs, and the stable
+ * instance imports nothing from it.
+ *
+ * The stable package comes first because the @utility blocks that call the
+ * @function dispatchers live in its files; the experimental package supplies
+ * the @custom-variant and @function definitions that make their gates hold.
+ * Order carries the override — experimental must come last.
+ */
+
+@import 'tailwindcss';
+
+@import '../../../packages/tw-jib-css/src/index.css';
+@import '../../../packages/tw-jib-css-experimental/src/index.css';
+
+/* Directory form: scans docs-experimental recursively, including examples/.
+ * The glob form missed the examples subdirectory here, so do not reintroduce it.
+ * (A glob cannot be named in this comment: the star-slash inside one closes the
+ * CSS comment early, which is a confusing parse error to debug.) */
+@source '../..';
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ── Brand tokens ──
+ * Same shape as the stable instance's tokens, rotated off sky to violet. The
+ * whole instance is violet, chrome included — the nav logo reads from
+ * --color-jib-brand, so leaving it sky put a blue mark above a violet page.
+ * Any page here is identifiable as the experimental wing at a glance.
+ */
+@theme {
+  --color-jib-brand: oklch(0.42 0.24 293);
+  --color-jib-wind: oklch(0.72 0.19 293);
+  --color-jib-lab: oklch(0.541 0.281 293);
+}
+
+/* ── Landing page: registered properties + keyframes ──
+ * Raw CSS because @property and @keyframes have no utility form. Everything
+ * that CAN be a class is a class, in the components.
+ */
+@property --landing-demo-hue {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+@property --landing-base-color {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: oklch(0.541 0.281 293); /* violet-600 */
+}
+
+@keyframes landing-demo-hue-cycle {
+  from {
+    --landing-demo-hue: 0;
+  }
+  to {
+    --landing-demo-hue: 360;
+  }
+}
+
+/* 6 colours × 3s, holding ~80% of each segment. Mixes light and dark bases so
+ * the accessible shade is seen flipping between a dark and a light solution. */
+@keyframes landing-base-color {
+  0%,
+  14% {
+    --landing-base-color: oklch(0.541 0.281 293);
+  } /* violet-600 — mid */
+  17%,
+  30% {
+    --landing-base-color: oklch(0.396 0.141 21);
+  } /* rose-800 — dark */
+  33%,
+  47% {
+    --landing-base-color: oklch(0.871 0.15 85);
+  } /* amber-300 — light */
+  50%,
+  64% {
+    --landing-base-color: oklch(0.508 0.118 165);
+  } /* emerald-700 — dark */
+  67%,
+  80% {
+    --landing-base-color: oklch(0.811 0.111 293);
+  } /* violet-300 — light */
+  83%,
+  97% {
+    --landing-base-color: oklch(0.645 0.246 16);
+  } /* rose-500 — mid */
+}
+
+.landing-color-cycle {
+  animation: landing-base-color 18s ease-in-out infinite;
+}
+
+/*
+ * Disclosure loop for the interpolate-size slide. Raw CSS because @keyframes has
+ * no utility form — everything else on that slide is classes.
+ *
+ * The slide used to demo interpolate-size behind a :hover, so a reader scrolling
+ * past saw a closed panel and no evidence at all, on the one feature here with
+ * the lowest browser support. This animates the same 0 → auto transition on a
+ * loop, and the slide runs it on two panels: one inside .interpolate-keywords,
+ * one outside. The pair IS the demo — same keyframes, and only the one whose
+ * parent allows keyword interpolation actually eases. Without the utility the
+ * other jumps, which is exactly what the copy claims.
+ *
+ * height: auto in a keyframe is the point, not an oversight. Do not replace it
+ * with a pixel value: that would make both panels animate and the demo would
+ * prove nothing.
+ */
+@keyframes landing-disclosure {
+  0%,
+  10% {
+    height: 0;
+  }
+  40%,
+  70% {
+    height: auto;
+  }
+  100% {
+    height: 0;
+  }
+}
+
+.landing-disclosure {
+  animation: landing-disclosure 6s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .landing-disclosure {
+    animation: none;
+    height: auto;
+  }
+}
+
+/*
+ * This instance loads the @function overrides, so bg-lighten-*, bg-saturation-*,
+ * bg-hue-rotate-* and text-a11y-* all resolve through CSS @function here rather
+ * than through the stable relative-colour chains. Animated colour demos in the
+ * landing components carry `select-none`: they are instruments, not copy, and a
+ * drag across a continuously repainting grid selects nothing useful.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .landing-color-cycle {
+    animation: none;
+  }
+}
+
+/* --tw-jib--wcag-rating() called directly, rather than via the wcag-badge
+ * utility — the point of the demo is that the function returns a <string> that
+ * any `content` can take. No utility form: content: with a function call and two
+ * custom properties is not expressible as a class. */
+.jib-wcag-rating-label::before {
+  content: --tw-jib--wcag-rating(var(--bg), var(--fg));
+}
+
+/* ── Dense-cinematic scope, mirroring the stable landing ── */
+.jib-landing {
+  --color-jib-brand: oklch(from var(--color-violet-500) calc(l - 0.18) c h);
+  --color-jib-wind: oklch(from var(--color-violet-500) calc(l + 0.15) calc(c * 0.9) h);
+}
+
+/* ── Home landing: full-bleed, sidebar hidden ──
+ * `pageClass: home-landing` lands on <main class="VPContent">; the theme's
+ * router hook also toggles it on <body> so the nav bar picks it up. */
+.home-landing .VPDoc,
+.home-landing .VPContent,
+.home-landing .vp-doc {
+  padding: 0 !important;
+  max-width: none !important;
+}
+.home-landing .vp-doc > div:first-child {
+  padding: 0;
+}
+.home-landing main {
+  padding: 0 !important;
+}
+/* Belt + braces — hide sidebar/aside/outline even if frontmatter flags miss */
+.home-landing .VPSidebar,
+.home-landing .VPLocalNav,
+.home-landing .VPDocAside,
+.home-landing .VPDocOutline {
+  display: none !important;
+}
+.home-landing .VPDoc.has-sidebar,
+.home-landing .VPDoc.has-aside {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+.home-landing .VPDoc .container,
+.home-landing .VPDoc .content,
+.home-landing .VPDoc .content-container {
+  max-width: none !important;
+  width: 100% !important;
+  padding: 0 !important;
+}
+
+/* ── VitePress chrome: brand accent + transparent surfaces ── */
+:root {
+  --vp-c-brand-1: var(--color-jib-lab);
+  --vp-c-brand-2: var(--color-jib-lab);
+  --vp-c-brand-3: var(--color-jib-lab);
+}
+
+@layer utilities {
+  .VPNavBarTitle .logo {
+    @apply h-9 w-auto;
+  }
+}

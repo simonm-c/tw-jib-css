@@ -11,14 +11,16 @@ title: WCAG Badge
 ::: warning Browser Support
 CSS `@function` and `if(style())` are required. Currently supported in Chromium browsers only. The utility is wrapped in `@supports` and renders nothing in unsupported browsers.
 
-This does **not** apply to its partner [`text-a11y-*`](/guide/wcag), which is stable and works everywhere. The badge is the half of the module that cannot follow: reading a rating out means turning a colour into a *string*, and `if(style())` is the only way CSS can do that. So an element carrying both utilities gets an accessible shade in every browser and a badge only in Chromium.
+This does **not** apply to its partner [`text-a11y-*`](/tw-jib-css/guide/wcag), which is stable and works everywhere. The badge is the half of the module that cannot follow: reading a rating out means turning a colour into a _string_, and `if(style())` is the only way CSS can do that. So an element carrying both utilities gets an accessible shade in every browser and a badge only in Chromium.
 :::
 
 ::: tip Import
 Included in `@import 'tw-jib-css/experimental'`. To import individually:
+
 ```css
 @import 'tw-jib-css/experimental/wcag';
 ```
+
 The accessible shade is separate and stable: `@import 'tw-jib-css'`.
 :::
 
@@ -100,7 +102,7 @@ Dark text on light backgrounds:
   </div>
 </Example>
 
-## Combining with text-a11y-*
+## Combining with text-a11y-\*
 
 `wcag-badge` and `text-a11y-*` work together on the same element. The badge reads the text colour set by `text-a11y-*` and shows the actual contrast rating:
 
@@ -164,7 +166,7 @@ is the ceiling, and asking for more will not help.
 
 Two things follow from how it is derived:
 
-- **It needs `text-a11y-*`.** Max describes a shortfall against a *requested*
+- **It needs `text-a11y-*`.** Max describes a shortfall against a _requested_
   level, and only `text-a11y-*` records what was requested. A bare `wcag-badge`
   has no intent to compare against, so it never shows Max — it reports plain
   measurement, exactly as before.
@@ -191,4 +193,4 @@ The badge reads the captured `--tw-jib--background-color` and `--tw-jib--text-co
 
 Because the comparison stays in colour space the whole way through — no numeric luminance is ever extracted — there is no quantization error and no uncertainty band. Every step works in `srgb-linear`; routing the luminance through the legacy `rgb()` function instead costs 10⁻⁵-scale precision, always signed so the darker colour of a pair measures darker, which is enough to decide a verdict for a pair sitting on a threshold.
 
-There is one deliberate tolerance. WCAG asks for a ratio of *at least* the threshold, so a pair landing exactly on 4.5:1 is AA — but a step function returns "fail" at exactly zero. The thresholds therefore carry a 10⁻⁶ epsilon, about 5 × 10⁻⁴ in ratio terms, so an exact tie resolves in favour of passing. This matters because [`text-a11y-*`](/guide/accessible-color) produces exact ties by design; without it the badge would contradict the class beside it on every element.
+There is one deliberate tolerance. WCAG asks for a ratio of _at least_ the threshold, so a pair landing exactly on 4.5:1 is AA — but a step function returns "fail" at exactly zero. The thresholds therefore carry a 10⁻⁶ epsilon, about 5 × 10⁻⁴ in ratio terms, so an exact tie resolves in favour of passing. This matters because [`text-a11y-*`](/tw-jib-css/guide/accessible-color) produces exact ties by design; without it the badge would contradict the class beside it on every element.

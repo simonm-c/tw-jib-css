@@ -7,6 +7,13 @@ export default tseslint.config(
   ...tseslint.configs.recommended,
   prettierConfig,
   {
-    ignores: ['node_modules', 'dist', 'docs/.vitepress/dist', 'docs/.vitepress/cache'],
+    ignores: [
+      'node_modules',
+      'dist',
+      'docs/.vitepress/dist',
+      'docs/.vitepress/cache',
+      'docs-experimental/.vitepress/dist',
+      'docs-experimental/.vitepress/cache',
+    ],
   },
 );

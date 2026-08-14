@@ -14,9 +14,11 @@ The CSS `corner-shape` property controls how border-radius curves are drawn. Ins
 
 ::: tip Import
 Included in `@import 'tw-jib-css/experimental'`. To import individually:
+
 ```css
 @import 'tw-jib-css/experimental/corner';
 ```
+
 :::
 
 ## Quick Reference
@@ -118,14 +120,14 @@ Apply shapes to specific sides or individual corners:
 
 ### Physical vs Logical
 
-| Logical | LTR Equivalent |
-| --- | --- |
-| `corner-s-*` | `corner-l-*` |
-| `corner-e-*` | `corner-r-*` |
-| `corner-ss-*` | `corner-tl-*` |
-| `corner-se-*` | `corner-tr-*` |
-| `corner-ee-*` | `corner-br-*` |
-| `corner-es-*` | `corner-bl-*` |
+| Logical       | LTR Equivalent |
+| ------------- | -------------- |
+| `corner-s-*`  | `corner-l-*`   |
+| `corner-e-*`  | `corner-r-*`   |
+| `corner-ss-*` | `corner-tl-*`  |
+| `corner-se-*` | `corner-tr-*`  |
+| `corner-ee-*` | `corner-br-*`  |
+| `corner-es-*` | `corner-bl-*`  |
 
 ## Negative Values
 

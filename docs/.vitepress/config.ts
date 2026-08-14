@@ -9,14 +9,27 @@ export default defineConfig({
   description:
     'TailwindCSS v4 utility library — border gradients, color transforms, ripple effects, and more.',
   base: '/tw-jib-css/',
-  head: [
-    ['link', { rel: 'icon', type: 'image/svg+xml', href: '/tw-jib-css/jibcss-mark.svg' }],
-  ],
+  head: [['link', { rel: 'icon', type: 'image/svg+xml', href: '/tw-jib-css/jibcss-mark.svg' }]],
 
   themeConfig: {
     siteTitle: false,
-    nav: [{ text: 'Guide', link: '/guide/installation' }],
+    /*
+     * "Experimental" must be an ABSOLUTE url — nav links go through
+     * withBase(), so '/tw-jib-css/experimental/' would resolve to
+     * /tw-jib-css/tw-jib-css/experimental/. Same constraint, mirrored, in
+     * docs-experimental/.vitepress/config.ts.
+     */
+    nav: [
+      { text: 'Guide', link: '/guide/installation' },
+      { text: 'Experimental', link: 'https://simonm-c.github.io/tw-jib-css/experimental/' },
+    ],
 
+    // Stable package only — every PAGE here documents the stable package, and
+    // the experimental package has its own VitePress instance
+    // (docs-experimental/). What these docs do carry is a way to find it: the
+    // nav item above and the closing panel on the landing. Without those, the
+    // "is a second package worth it?" question is only ever asked of people who
+    // had already found the answer.
     sidebar: [
       {
         text: 'Getting Started',
@@ -47,6 +60,10 @@ export default defineConfig({
         ],
       },
       {
+        text: 'Accessibility',
+        items: [{ text: 'Accessible Shade', link: '/guide/wcag' }],
+      },
+      {
         text: 'Borders',
         items: [
           { text: 'Border Gradient', link: '/guide/border-gradient' },
@@ -63,25 +80,8 @@ export default defineConfig({
         ],
       },
       {
-        text: 'Accessibility',
-        items: [
-          { text: 'Accessible Shade', link: '/guide/wcag' },
-          { text: 'WCAG Badge (experimental)', link: '/guide/wcag-badge' },
-        ],
-      },
-      {
         text: 'Supporting',
-        items: [
-          { text: 'Grid', link: '/guide/grid' },
-        ],
-      },
-      {
-        text: 'Experimental',
-        items: [
-          { text: 'Corner Shape', link: '/guide/corner' },
-          { text: 'Interpolate Size', link: '/guide/interpolate' },
-          { text: 'Base Select Picker', link: '/guide/picker' },
-        ],
+        items: [{ text: 'Grid', link: '/guide/grid' }],
       },
       {
         text: 'Showcase',

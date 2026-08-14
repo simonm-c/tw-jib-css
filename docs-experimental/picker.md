@@ -14,9 +14,11 @@ The `appearance: base-select` value opts into the new customisable `<select>` re
 
 ::: tip Import
 Included in `@import 'tw-jib-css/experimental'`. To import individually:
+
 ```css
 @import 'tw-jib-css/experimental/picker';
 ```
+
 :::
 
 ## Quick Reference
@@ -88,4 +90,3 @@ Targets the `::checkmark` pseudo-element that appears next to the selected optio
     <option>On the selected item</option>
   </select>
 </Example>
-

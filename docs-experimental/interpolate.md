@@ -14,9 +14,11 @@ The CSS `interpolate-size` property enables smooth transitions to and from keywo
 
 ::: tip Import
 Included in `@import 'tw-jib-css/experimental'`. To import individually:
+
 ```css
 @import 'tw-jib-css/experimental/interpolate';
 ```
+
 :::
 
 ## Quick Reference
@@ -49,8 +51,7 @@ Add `interpolate-keywords` to a parent element to enable smooth height transitio
 
 ## Values
 
-| Value | Behaviour |
-| --- | --- |
-| `numeric-only` | Default browser behaviour — only numeric-to-numeric transitions work. `0px` → `auto` will snap. |
+| Value            | Behaviour                                                                                          |
+| ---------------- | -------------------------------------------------------------------------------------------------- |
+| `numeric-only`   | Default browser behaviour — only numeric-to-numeric transitions work. `0px` → `auto` will snap.    |
 | `allow-keywords` | Enables transitions involving keyword sizes (`auto`, `min-content`, `max-content`, `fit-content`). |
-

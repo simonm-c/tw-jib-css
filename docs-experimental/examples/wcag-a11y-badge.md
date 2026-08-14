@@ -3,7 +3,7 @@ title: WCAG Badge + text-a11y Combination Test
 layout: page
 ---
 
-# WCAG Badge + text-a11y-* Combination Test
+# WCAG Badge + text-a11y-\* Combination Test
 
 Every swatch applies `text-a11y-{level}` for the text colour AND `wcag-badge` on the same element. The badge rating should always meet or exceed the requested level: AA text gets AA+ badge, AAA text gets AAA badge, AA Large text gets AA Large+ badge.
 

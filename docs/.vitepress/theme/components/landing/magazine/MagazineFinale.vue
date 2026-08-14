@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// 6 columns: first 3 light bases, second 3 dark bases — shows text flipping on both
+// Light bases first, then dark — shows text flipping on both
 const columns = [
   { hue: 'red', light: '300', mid: '400', dark: '200', darkClass: 'bg-red-200' },
   { hue: 'orange', light: '300', mid: '400', dark: '200', darkClass: 'bg-orange-200' },
@@ -36,7 +36,6 @@ const ratios = [
   },
 ];
 
-// The three engines the shade is verified exact on — no asterisks, no polyfill.
 const engines = ['Chromium', 'Firefox', 'Safari'];
 </script>
 
@@ -126,8 +125,6 @@ const engines = ['Chromium', 'Firefox', 'Safari'];
 &lt;/div&gt;</code></pre>
         </div>
       </div>
-
-      <!-- 3 ratio rows, each with 6 cards using real TW colours + bg-hue-rotate animated -->
       <div
         class="space-y-6 animate-[landing-demo-hue-cycle_12s_linear_infinite] motion-reduce:animate-none"
       >

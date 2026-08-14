@@ -11,7 +11,6 @@
       </div>
 
       <div class="grid md:grid-cols-2 gap-8">
-        <!-- Border Styles -->
         <div class="space-y-3">
           <h3 class="text-lg font-bold">Border Styles</h3>
           <p class="text-sm opacity-70 leading-relaxed">

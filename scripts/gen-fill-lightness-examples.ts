@@ -72,7 +72,6 @@ ${row}
 </div>`;
 }
 
-// --- Simple grid for the top sections ---
 
 function simpleGrid(testPrefix: string, fillBase: string, op: string, amounts: number[], bg: string) {
   return amounts.map(a => {
@@ -95,7 +94,6 @@ function spaceGrid(testPrefix: string, fillBase: string, op: string, amount: num
   }).join('\n');
 }
 
-// --- Build the file ---
 
 const lines: string[] = [];
 const p = (s: string) => lines.push(s);
@@ -141,7 +139,6 @@ Each uses \`fill-blue-500 fill-lightness-20/{space}\`.
 ${spaceGrid('fill-lighten', 'fill-blue-500', 'lighten', 20, 'bg-gray-800')}
 </div>`);
 
-// Comprehensive Matrix — Key Colors × All Spaces
 p(`
 ## Comprehensive Matrix — Key Colors × All Spaces
 
@@ -158,7 +155,6 @@ for (const color of KEY_COLORS) {
   }
 }
 
-// All Tailwind Colors — Default (oklch)
 p(`\n## All Tailwind Colors — Default (oklch)
 
 Full lightness scale (0–100) in the default oklch colour space for every Tailwind colour, each at 3 starting shades.`);
@@ -174,7 +170,6 @@ for (const color of ALL_COLORS) {
   }
 }
 
-// Alias Equivalence
 p(`
 ## Alias Equivalence
 

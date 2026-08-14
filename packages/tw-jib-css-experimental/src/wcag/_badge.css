@@ -9,6 +9,32 @@
  * Requires wcag/_functions.css and wcag/_support.css; the wcag.css barrel
  * imports both ahead of this file. */
 
+/* --tw-jib--wcag-shortfall is read back by style(), which compares COMPUTED
+ * values, and an unregistered custom property computes to its raw token stream
+ * — every space between a branch's last value and its `;` included. Its
+ * branches below end in `)`, and prettier puts a space between `)` and `;`, so
+ * unregistered it computes to "1 " and never matches 1: the badge silently
+ * never reaches its Max branch. Registering it gives the engine a type to parse
+ * that stream into, which drops the whitespace and makes the match independent
+ * of how this file is formatted — the durable form of the guarantee, since
+ * hand-stripping the space only holds until the next `pnpm format`.
+ * --tw-jib--wcag-rating gets the same protection from `returns <string>`.
+ *
+ * --tw-jib--wcag-display deliberately stays UNREGISTERED: as a <string> it
+ * computes to a typed value that Chromium then substitutes into `content` as
+ * nothing at all, blanking every badge. It is matched by style() too (for the
+ * badge colour below), but only against ratings, and those reach it through the
+ * else branch whose `)` already closes the value — so no trailing space rides
+ * along. Adding a style() test for "Max" would need this solved first.
+ *
+ * Non-inheriting for the same reason as --tw-jib--a11y-level: a nested badge
+ * must rate itself, not repeat an ancestor's verdict. */
+@property --tw-jib--wcag-shortfall {
+  syntax: "<integer>";
+  inherits: false;
+  initial-value: 0;
+}
+
 @utility wcag-badge {
   @variant supports-wcag {
     /* Force-resolve --tw-jib--text-color via relative colour syntax so
@@ -34,12 +60,8 @@
      * a bare wcag-badge — can never report Max, which is correct: with no
      * requested level there is no shortfall to describe.
      *
-     * WHITESPACE: any property compared with style() must have its closing
-     * paren immediately after the last value. A multi-line if() puts the
-     * newline and indent INSIDE the computed value ("1\n      "), and style()
-     * compares token streams, so the match silently fails. Harmless for a
-     * property only ever used as a value (see --tw-jib--wcag-badge-bg below);
-     * fatal for one that gets matched. Hence the cramped formatting here. */
+     * The shortfall flag is @property-registered above, which is what lets the
+     * line below match it at all — see the note there. */
     --tw-jib--wcag-shortfall: if(style(--tw-jib--a11y-level: aaa): if(style(--tw-jib--wcag-rating: "AAA"): 0; else: 1) ; style(--tw-jib--a11y-level: aa): if(style(--tw-jib--wcag-rating: "AAA"): 0; style(--tw-jib--wcag-rating: "AA"): 0; else: 1) ; style(--tw-jib--a11y-level: aa-lg): if(style(--tw-jib--wcag-rating: "Fail"): 1; else: 0) ; else: 0);
     --tw-jib--wcag-display: if(style(--tw-jib--wcag-shortfall: 1): "Max" ; else: var(--tw-jib--wcag-rating));
     position: relative;

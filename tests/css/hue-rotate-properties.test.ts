@@ -2,8 +2,9 @@ import { describe, test, expect } from 'vitest';
 import { compile } from './helpers.js';
 
 /**
- * Tests for hue-rotate utilities across all 7 color properties.
- * Amount is in degrees (positive = clockwise). No color-mix modifier — see §3 of plan.
+ * Tests for hue-rotate utilities across every non-bg color property.
+ * Amount is in degrees (positive = clockwise). No color-mix modifier: hue
+ * rotation has no honest pairwise interpolation form.
  */
 
 /**
@@ -217,10 +218,6 @@ describe('bg-hue-rotate composes with bg-image layer', () => {
     );
   });
 });
-
-// ---------------------------------------------------------------------------
-// Experimental inline function usage (arbitrary values)
-// ---------------------------------------------------------------------------
 
 describe('experimental inline function usage', () => {
   test('bg-[...] with hue-rotate router function', async () => {

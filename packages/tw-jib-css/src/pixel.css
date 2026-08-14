@@ -1,71 +1,40 @@
-/* ==========================================================================
-   Pixel — TailwindCSS utilities
-   Renders a color as RGB pixel columns on a black background using
-   additive (screen) blending — mimics LCD/CRT display phosphors.
-
-   RGB channel extraction (via relative color syntax):
-     R = rgb(from color r 0 0)
-     G = rgb(from color 0 g 0)
-     B = rgb(from color 0 0 b)
-
-   Four background layers (each channel needs its own layer for screen to work):
-     1. Row mask: repeating-linear-gradient(to bottom) — white rows, black gaps → multiply
-     2. Red column: repeating-linear-gradient(to right) — R at column 0 → screen
-     3. Green column: repeating-linear-gradient(to right) — G at column 1 → screen
-     4. Blue column: repeating-linear-gradient(to right) — B at column 2 → screen
-   Over background-color: black.
-
-   When bloom > 0, adjacent channel layers overlap so screen blending creates
-   smooth additive colour transitions at the edges (like real phosphor glow).
-
-   Usage:
-     bg-pixel-red-500       — red-500 as RGB pixels
-     bg-pixel-[#ff6600]     — arbitrary color
-     pixel-size-2           — pixel size (width = size, height = size * 2)
-     pixel-gap-2            — gap multiplier (2x pixel width between triplets)
-     pixel-bloom-1          — edge softness (spacing/4)
-   ========================================================================== */
-
-/* --- Custom properties --- */
+/* Each channel needs its own background layer for screen blending to composite
+ * them additively, which is what makes overlapping bloom read as phosphor glow
+ * rather than as flat colour. */
 
 @property --tw-jib--pixel-color {
-  syntax: '<color>';
+  syntax: "<color>";
   inherits: false;
   initial-value: white;
 }
 @property --tw-jib--pixel-size {
-  syntax: '<length>';
+  syntax: "<length>";
   inherits: false;
   initial-value: 1px;
 }
 @property --tw-jib--pixel-gap {
-  syntax: '<number>';
+  syntax: "<number>";
   inherits: false;
   initial-value: 1;
 }
 @property --tw-jib--pixel-bloom {
-  syntax: '<length>';
+  syntax: "<length>";
   inherits: false;
   initial-value: 1px;
 }
 @property --tw-jib--pixel-opacity {
-  syntax: '<number>';
+  syntax: "<number>";
   inherits: false;
   initial-value: 1;
 }
 
-/* --- Utilities --- */
-
-/* bg-pixel-* — sets the color, applies the RGB pixel pattern */
 @utility bg-pixel-* {
-  --tw-jib--pixel-color: --value(--color-*, [color]);
+  --tw-jib--pixel-color: --value(--color- *, [color]);
   --tw-jib--pixel-opacity: calc(--modifier(integer) * 0.01);
 
-  /* derived dimensions — width = size, height = size * 2 (1:2 aspect ratio) */
   --tw-jib--pixel-width: var(--tw-jib--pixel-size);
   --tw-jib--pixel-height: calc(var(--tw-jib--pixel-size) * 2);
 
-  /* gap scales with pixel size — gap property is a multiplier applied to pixel-width */
   --tw-jib--pixel-gap-actual: calc(var(--tw-jib--pixel-gap) * var(--tw-jib--pixel-width));
 
   /* channel-gap — sub-pixel black mask between R/G/B columns within a triplet.
@@ -76,7 +45,6 @@
      so larger pixels get a proportionally visible CRT-style subpixel mask. */
   --tw-jib--pixel-channel-gap: max(0.5px, calc(var(--tw-jib--pixel-width) / 6));
 
-  /* computed cell dimensions — R · gap · G · gap · B · triplet-gap */
   --tw-jib--pixel-triplet-width: calc(var(--tw-jib--pixel-width) * 3 + var(--tw-jib--pixel-channel-gap) * 2);
   --tw-jib--pixel-cell-width: calc(var(--tw-jib--pixel-triplet-width) + var(--tw-jib--pixel-gap-actual));
   --tw-jib--pixel-cell-height: calc(var(--tw-jib--pixel-height) + var(--tw-jib--pixel-gap-actual));
@@ -113,7 +81,7 @@
   --tw-jib--pixel-col-mid-opacity: calc(var(--tw-jib--pixel-opacity) * var(--tw-jib--pixel-col-mid-alpha));
 
   /*
-     Column layout — all three channels share one gradient shape, placed at
+     Column layout — every channel shares one gradient shape, placed at
      different start positions via background-position. Per cell (w = pixel-width,
      ε = channel-gap, b = bloom-col, cell = 3w + 2ε + triplet-gap):
        COLOR solid:   0          → w
@@ -121,7 +89,7 @@
        transparent:   w + b      → cell - b
        fade in:       cell - b   → cell   (continuation of next cell's solid)
      Red offset 0; Green offset (w + ε); Blue offset (2w + 2ε). The ε
-     staggers channel edges so no two channels transition on the same element x
+     staggers channel edges so none of them transition on the same element x
      — at bloom=0 that kills the yellow/cyan AA fringe. At bloom ≤ ε the bloom
      fills into the black mask without reaching the next channel; past ε
      channels overlap and screen-blend additively → phosphor bloom.
@@ -134,7 +102,7 @@
     var(--tw-jib--ripple-image) padding-box,
     var(--tw-jib--background-image) padding-box,
     var(--tw-jib--border-gradient) border-box;
-  /* Position list matches the 7 background layers in order: ripple, row-mask,
+  /* Position list matches the background layers in order: ripple, row-mask,
      R, G, B, black-base, border-gradient. Only R/G/B differ. */
   background-position:
     0 0,
@@ -161,18 +129,17 @@
   background-blend-mode: normal, multiply, screen, screen, screen, normal, normal;
 }
 
-/* pixel-size-* — pixel size (width = size, height = size * 2). Spacing / 4 so pixel-size-1 = 1px. */
+/* size and bloom divide the spacing step by 4 so pixel-size-1 = 1px — the raw
+ * 0.25rem scale is far too coarse for a subpixel pattern. */
 @utility pixel-size-* {
   --tw-jib--pixel-size: calc(--spacing(--value(number)) / 4);
   --tw-jib--pixel-size: --value([length]);
 }
 
-/* pixel-gap-* — gap as a multiplier of pixel width (pixel-gap-1 = 1x width, pixel-gap-2 = 2x, etc.) */
 @utility pixel-gap-* {
-  --tw-jib--pixel-gap: --value(number, [*]);
+  --tw-jib--pixel-gap: --value(number, [ *]);
 }
 
-/* pixel-bloom-* — phosphor bloom (0 = crisp LCD, larger = CRT glow; unbounded, saturates to solid) */
 @utility pixel-bloom-* {
   --tw-jib--pixel-bloom: calc(--spacing(--value(number)) / 4);
   --tw-jib--pixel-bloom: --value([length]);

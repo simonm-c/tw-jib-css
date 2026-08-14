@@ -1,9 +1,5 @@
 /**
- * Shared test constants used across CSS unit test suites.
- */
-
-/**
- * The 3-layer background shorthand that every border-gradient utility must produce.
+ * The layered background shorthand every border-gradient utility must produce.
  * Ripple sits above the bg image, which sits above the border gradient.
  */
 export const BG_LAYER =

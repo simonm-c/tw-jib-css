@@ -1,19 +1,13 @@
-/*
- * wcag-badge — contrast rating badge.
+/* Reads the captured bg + text colours from core.css, computes a WCAG rating and
+ * displays it via ::after.
  *
- * Reads captured bg + text colours from core.css, computes a WCAG rating,
- * displays it as a positioned badge via ::after. Badge text colour uses a
- * simple if(style()) — black for yellow (AA), white for all others.
- *
- * This ADDS a utility rather than overriding one: colour→string has no stable
+ * This ADDS a utility rather than overriding one — colour→string has no stable
  * equivalent, so there is nothing to progressively enhance and nothing a
- * consumer loses by not having it. That is why the badge stays on the
- * experimental entry while the @function shade moved to its own
- * (wcag/_function-shade.css) — see that file for the reasoning.
+ * consumer loses by not having it. That is what qualifies it for the
+ * experimental entry, which _function-shade.css does not.
  *
- * Requires wcag/_functions.css and wcag/_support.css — the wcag.css barrel
- * imports both ahead of this file.
- */
+ * Requires wcag/_functions.css and wcag/_support.css; the wcag.css barrel
+ * imports both ahead of this file. */
 
 @utility wcag-badge {
   @variant supports-wcag {

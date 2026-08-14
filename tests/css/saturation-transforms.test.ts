@@ -85,10 +85,6 @@ const ALL_SPACES = [
   'color-mix',
 ] as const;
 
-// ---------------------------------------------------------------------------
-// Stable path (relative color syntax)
-// ---------------------------------------------------------------------------
-
 describe('stable path (relative color syntax)', () => {
   describe('desaturate — default amounts', () => {
     test.each([0, 5, 10, 20, 50, 75, 100])('bg-desaturate-%i', async (amount) => {
@@ -314,10 +310,6 @@ describe('stable path (relative color syntax)', () => {
   });
 });
 
-// ---------------------------------------------------------------------------
-// Experimental path (@function + @supports)
-// ---------------------------------------------------------------------------
-
 describe('experimental path (@function + @supports)', () => {
   describe('desaturate — default amounts', () => {
     test.each([0, 5, 10, 20, 50, 75, 100])('bg-desaturate-%i', async (amount) => {
@@ -469,10 +461,6 @@ describe('experimental path (@function + @supports)', () => {
     });
   });
 });
-
-// ---------------------------------------------------------------------------
-// Experimental inline function usage (arbitrary values)
-// ---------------------------------------------------------------------------
 
 describe('experimental inline function usage', () => {
   test('bg-[...] with saturation router function (desaturate)', async () => {

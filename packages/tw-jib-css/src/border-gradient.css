@@ -1,63 +1,63 @@
 @property --tw-jib--border-gradient {
-  syntax: '<image>';
+  syntax: "<image>";
   inherits: false;
   initial-value: linear-gradient(transparent 0 0);
 }
 @property --tw-jib--border-gradient-from-position {
-  syntax: '<length-percentage>';
+  syntax: "<length-percentage>";
   inherits: false;
   initial-value: 0%;
 }
 @property --tw-jib--border-gradient-to-position {
-  syntax: '<length-percentage>';
+  syntax: "<length-percentage>";
   inherits: false;
   initial-value: 100%;
 }
 @property --tw-jib--border-gradient-via-position {
-  syntax: '<length-percentage>';
+  syntax: "<length-percentage>";
   inherits: false;
   initial-value: 50%;
 }
 @property --tw-jib--border-gradient-stops {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
 }
 @property --tw-jib--border-gradient-position {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
 }
 
 @property --tw-jib--gradient-interpolation {
-  syntax: '*';
+  syntax: "*";
   inherits: false;
   initial-value: in oklab;
 }
 
 @property --tw-jib--border-gradient-angle {
-  syntax: '<angle>';
+  syntax: "<angle>";
   inherits: false;
   initial-value: 0deg;
 }
 
 @property --tw-jib--border-gradient-from {
-  syntax: '<color>';
+  syntax: "<color>";
   inherits: false;
   initial-value: #0000;
 }
 
 @property --tw-jib--border-gradient-to {
-  syntax: '<color>';
+  syntax: "<color>";
   inherits: false;
   initial-value: #0000;
 }
 @property --tw-jib--border-gradient-via {
-  syntax: '<color>';
+  syntax: "<color>";
   inherits: false;
   initial-value: #0000;
 }
 
 @property --tw-jib--border-spin-duration {
-  syntax: '<time>';
+  syntax: "<time>";
   inherits: false;
   initial-value: 1s;
 }
@@ -85,23 +85,23 @@
 }
 
 @utility border-* {
-  --tw-jib--border-color-source: --value('inherit', 'transparent', --color-*, [color]);
+  --tw-jib--border-color-source: --value("inherit", "transparent", --color- *, [color]);
   --tw-jib--border-color: var(--tw-jib--border-color-after-lightness, var(--tw-jib--border-color-after-saturation, var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source))));
-  --tw-jib--border-gradient: --value(--tw-jib--border-gradient-type-*);
-  --tw-jib--gradient-interpolation: --modifier(--tw-jib--gradient-interpolation-*);
+  --tw-jib--border-gradient: --value(--tw-jib--border-gradient-type- *);
+  --tw-jib--gradient-interpolation: --modifier(--tw-jib--gradient-interpolation- *);
   --tw-jib--border-gradient-position: var(--tw-jib--gradient-interpolation);
   background:
     var(--tw-jib--ripple-image) padding-box,
     var(--tw-jib--background-image) padding-box,
     var(--tw-jib--border-gradient) border-box;
   border-color: transparent;
-  --tw-jib--border-style: --value('groove', 'ridge', 'inset', 'outset');
-  border-style: --value('groove', 'ridge', 'inset', 'outset', [border-style]);
+  --tw-jib--border-style: --value("groove", "ridge", "inset", "outset");
+  border-style: --value("groove", "ridge", "inset", "outset", [border-style]);
 }
 
 @utility border-linear-* {
-  --tw-jib--gradient-interpolation: --modifier(--tw-jib--gradient-interpolation-*);
-  --tw-jib--border-gradient-stops: var(--tw-jib--border-gradient-position), --value([*]);
+  --tw-jib--gradient-interpolation: --modifier(--tw-jib--gradient-interpolation- *);
+  --tw-jib--border-gradient-stops: var(--tw-jib--border-gradient-position), --value([ *]);
   --tw-jib--border-gradient-position: calc(--value(number, [number]) * 1deg);
   --tw-jib--border-gradient-position: --value([angle]) var(--tw-jib--gradient-interpolation);
   --tw-jib--border-gradient: linear-gradient(var(--tw-jib--border-gradient-stops));
@@ -112,8 +112,8 @@
   border-color: transparent;
 }
 @utility -border-linear-* {
-  --tw-jib--gradient-interpolation: --modifier(--tw-jib--gradient-interpolation-*);
-  --tw-jib--border-gradient-stops: var(--tw-jib--border-gradient-position), --value([*]);
+  --tw-jib--gradient-interpolation: --modifier(--tw-jib--gradient-interpolation- *);
+  --tw-jib--border-gradient-stops: var(--tw-jib--border-gradient-position), --value([ *]);
   --tw-jib--border-gradient-position: calc(--value(number, [number]) * -1deg);
   --tw-jib--border-gradient-position: calc(--value([angle]) * -1) var(--tw-jib--gradient-interpolation);
   --tw-jib--border-gradient: linear-gradient(var(--tw-jib--border-gradient-stops));
@@ -124,8 +124,8 @@
   border-color: transparent;
 }
 @utility border-linear-to-* {
-  --tw-jib--gradient-interpolation: --modifier(--tw-jib--gradient-interpolation-*);
-  --tw-jib--border-gradient-position: to --value(--tw-jib--border-gradient-direction-*) var(--tw-jib--gradient-interpolation);
+  --tw-jib--gradient-interpolation: --modifier(--tw-jib--gradient-interpolation- *);
+  --tw-jib--border-gradient-position: to --value(--tw-jib--border-gradient-direction- *) var(--tw-jib--gradient-interpolation);
   --tw-jib--border-gradient-position: --value(number) var(--tw-jib--gradient-interpolation), var(--tw-jib--border-gradient-stops);
   --tw-jib--border-gradient-position: --value([value]);
   --tw-jib--border-gradient: linear-gradient(var(--tw-jib--border-gradient-stops));
@@ -135,9 +135,8 @@
     var(--tw-jib--border-gradient) border-box;
   border-color: transparent;
 }
-/* bare border-radial defaults the position to the interpolation hint alone */
 @utility border-radial-* {
-  --tw-jib--border-gradient-position: --value([*], --default(var(--tw-jib--gradient-interpolation)));
+  --tw-jib--border-gradient-position: --value([ *], --default(var(--tw-jib--gradient-interpolation)));
   --tw-jib--border-gradient: radial-gradient(var(--tw-jib--border-gradient-stops));
   background:
     var(--tw-jib--ripple-image) padding-box,
@@ -146,8 +145,8 @@
   border-color: transparent;
 }
 @utility border-conic-* {
-  --tw-jib--gradient-interpolation: --modifier(--tw-jib--gradient-interpolation-*);
-  --tw-jib--border-gradient-stops: var(--tw-jib--border-gradient-position), --value([*]);
+  --tw-jib--gradient-interpolation: --modifier(--tw-jib--gradient-interpolation- *);
+  --tw-jib--border-gradient-stops: var(--tw-jib--border-gradient-position), --value([ *]);
   --tw-jib--border-gradient-position: from calc(--value(number) * 1deg) var(--tw-jib--gradient-interpolation);
   --tw-jib--border-gradient-position: from --value([angle]) var(--tw-jib--gradient-interpolation);
   --tw-jib--border-gradient: conic-gradient(var(--tw-jib--border-gradient-stops));
@@ -158,8 +157,8 @@
   border-color: transparent;
 }
 @utility -border-conic-* {
-  --tw-jib--gradient-interpolation: --modifier(--tw-jib--gradient-interpolation-*);
-  --tw-jib--border-gradient-stops: var(--tw-jib--border-gradient-position), --value([*]);
+  --tw-jib--gradient-interpolation: --modifier(--tw-jib--gradient-interpolation- *);
+  --tw-jib--border-gradient-stops: var(--tw-jib--border-gradient-position), --value([ *]);
   --tw-jib--border-gradient-position: from calc(--value(number) * -1deg) var(--tw-jib--gradient-interpolation);
   --tw-jib--border-gradient-position: from calc(--value([angle]) * -1) var(--tw-jib--gradient-interpolation);
   --tw-jib--border-gradient: conic-gradient(var(--tw-jib--border-gradient-stops));
@@ -170,19 +169,19 @@
   border-color: transparent;
 }
 @utility border-from-* {
-  --tw-jib--border-gradient-from: --value('inherit', 'transparent', --color-*, [color], var(--color));
+  --tw-jib--border-gradient-from: --value("inherit", "transparent", --color- *, [color], var(--color));
   --tw-jib--border-gradient-from-position: --value(percentage, [percentage]);
   --tw-jib--border-gradient-stops: var(--tw-jib--border-gradient-via-stops, var(--tw-jib--border-gradient-position), var(--tw-jib--border-gradient-from) var(--tw-jib--border-gradient-from-position), var(--tw-jib--border-gradient-to) var(--tw-jib--border-gradient-to-position));
 }
 
 @utility border-via-* {
-  --tw-jib--border-gradient-via: --value('inherit', 'transparent', --color-*, [color], var(--color));
+  --tw-jib--border-gradient-via: --value("inherit", "transparent", --color- *, [color], var(--color));
   --tw-jib--border-gradient-via-position: --value(percentage, [percentage]);
   --tw-jib--border-gradient-via-stops: var(--tw-jib--border-gradient-position), var(--tw-jib--border-gradient-from) var(--tw-jib--border-gradient-from-position), var(--tw-jib--border-gradient-via) var(--tw-jib--border-gradient-via-position), var(--tw-jib--border-gradient-to) var(--tw-jib--border-gradient-to-position);
   --tw-jib--border-gradient-stops: var(--tw-jib--border-gradient-via-stops);
 }
 @utility border-to-* {
-  --tw-jib--border-gradient-to: --value('inherit', 'transparent', --color-*, [color], var(--color));
+  --tw-jib--border-gradient-to: --value("inherit", "transparent", --color- *, [color], var(--color));
   --tw-jib--border-gradient-to-position: --value(percentage, [percentage]);
   --tw-jib--border-gradient-stops: var(--tw-jib--border-gradient-via-stops, var(--tw-jib--border-gradient-position), var(--tw-jib--border-gradient-from) var(--tw-jib--border-gradient-from-position), var(--tw-jib--border-gradient-to) var(--tw-jib--border-gradient-to-position));
 }
@@ -194,7 +193,7 @@
 }
 @utility border-spin-duration-* {
   --tw-jib--border-spin-duration: calc(--value(number) * 1000ms);
-  --tw-jib--border-spin-duration: --value([*]);
+  --tw-jib--border-spin-duration: --value([ *]);
 }
 
 @keyframes border-spin {

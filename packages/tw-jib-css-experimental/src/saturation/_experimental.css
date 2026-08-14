@@ -1,12 +1,4 @@
 /*
- * Experimental saturation utilities — requires CSS @function + if(style()) support.
- * Imported via src/experimental.css (not the stable saturation barrel).
- *
- * Contains:
- * - 16 color-space-specific @function definitions
- * - --saturation() router function
- * - @custom-variant supports-saturation
- *
  * All spaces use lerp-to-max: saturate-100 = fully saturated, desaturate-100 = grayscale.
  * Polar spaces (oklch, lch, hsl) lerp chroma/saturation toward the space's maximum.
  * Rectangular chroma spaces (oklab, lab) scale a/b proportionally by max(|a|,|b|)
@@ -14,15 +6,7 @@
  * RGB-family normalizes each channel's deviation from luma by the max deviation
  *   across channels, preserving hue direction up to gamut clamping.
  * HWB lerps whiteness/blackness toward 0 (saturate) or 50 (desaturate).
- *
- * Experimental @utility blocks (blocks 3 & 5) live in each property's partial
- * file interleaved with stable blocks — TW4 requires correct block ordering.
- * Those blocks use @variant supports-saturation (a no-op without this file).
  */
-
-/* =========================================================================
- * @function definitions — color-space-specific saturation transforms
- * ========================================================================= */
 
 @function --tw-jib--oklch-saturation(--color type(<color>): currentColor, --amount type(<number>): 0) returns <color> {
   result: oklch(from var(--color) l calc(c * (1 - abs(calc(var(--amount) * 0.01))) + max(0, calc(var(--amount) * 0.01)) * 0.4) h / alpha);
@@ -92,20 +76,11 @@
   result: if(style(--amount > 0): color-mix(in oklch, var(--color) min(100%, calc(100% - var(--amount) * 1%)), oklch(from var(--color) l 0.4 h) min(100%, calc(var(--amount) * 1%))) ; else: color-mix(in oklch, var(--color) min(100%, calc(100% + var(--amount) * 1%)), oklch(from var(--color) l 0 h) min(100%, calc(var(--amount) * -1%))) ;);
 }
 
-/* =========================================================================
- * --saturation() router — dispatches to the correct color-space function
- * ========================================================================= */
-
 @function --tw-jib--saturation(--color type(<color>): currentColor, --amount type(<number>): 0, --interpolation type(<custom-ident>): oklch) returns <color> {
   result: if(style(--interpolation: oklch): --tw-jib--oklch-saturation(var(--color), var(--amount)) ; style(--interpolation: lch): --tw-jib--lch-saturation(var(--color), var(--amount)) ; style(--interpolation: lab): --tw-jib--lab-saturation(var(--color), var(--amount)) ; style(--interpolation: oklab): --tw-jib--oklab-saturation(var(--color), var(--amount)) ; style(--interpolation: hsl): --tw-jib--hsl-saturation(var(--color), var(--amount)) ; style(--interpolation: hwb): --tw-jib--hwb-saturation(var(--color), var(--amount)) ; style(--interpolation: rgb): --tw-jib--rgb-saturation(var(--color), var(--amount)) ; style(--interpolation: srgb): --tw-jib--srgb-saturation(var(--color), var(--amount)) ; style(--interpolation: srgb-linear): --tw-jib--srgb-linear-saturation(var(--color), var(--amount)) ; style(--interpolation: display-p3): --tw-jib--display-p3-saturation(var(--color), var(--amount)) ; style(--interpolation: a98-rgb): --tw-jib--a98-rgb-saturation(var(--color), var(--amount)) ; style(--interpolation: prophoto-rgb): --tw-jib--prophoto-rgb-saturation(var(--color), var(--amount)) ; style(--interpolation: rec2020): --tw-jib--rec-2020-saturation(var(--color), var(--amount)) ; style(--interpolation: xyz): --tw-jib--xyz-saturation(var(--color), var(--amount)) ; style(--interpolation: xyz-d50): --tw-jib--xyz-d50-saturation(var(--color), var(--amount)) ; style(--interpolation: xyz-d65): --tw-jib--xyz-d65-saturation(var(--color), var(--amount)) ; style(--interpolation: color-mix): --tw-jib--color-mix-saturation(var(--color), var(--amount)) ; else: --tw-jib--oklch-saturation(var(--color), var(--amount)) ;);
 }
 
-/* =========================================================================
- * @custom-variant — gates experimental blocks behind feature detection
- * ========================================================================= */
-
 @custom-variant supports-saturation {
-  /*test for support of custom functions and if queries*/
   @supports (background: if(style(--value): red)) and (background: --tw-jib--oklch-saturation(red, 20)) {
     @slot;
   }

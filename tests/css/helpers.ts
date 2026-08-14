@@ -8,13 +8,10 @@ const EXPERIMENTAL = './packages/tw-jib-css-experimental/src/index.css';
 const FUNCTIONS = './packages/tw-jib-css-experimental/src/functions.css';
 
 /**
- * Compile a set of utility classes against the packages and return the generated CSS.
+ * Compile one or more space-separated utility classes and return the generated CSS.
  *
- * Uses Tailwind's own compilation API so we test real output, not approximations.
- * Pass a single class or space-separated classes.
- *
- * The entries are separate flags because they are separate published artifacts,
- * and the difference is the point:
+ * The flags select which published artifact is under test, and the difference is
+ * the point:
  *
  *   (neither)            tw-jib-css alone — what a consumer who opted into
  *                        nothing gets. Must never run @function.
@@ -23,17 +20,14 @@ const FUNCTIONS = './packages/tw-jib-css-experimental/src/functions.css';
  *   functions: true      tw-jib-css-experimental/functions — the overrides
  *                        WITHOUT the additions.
  *
- * Order mirrors the documented consumer order: stable, then experimental, then
- * functions. Source order is what carries the override.
+ * Emitted in that order because source order is what carries the override.
  *
- * Composed as real @import statements resolved from the repo root, rather than
- * by inlining file text: the two packages live in different directories, so
- * there is no single base that makes inlined relative imports resolve. Letting
- * Tailwind resolve each file's imports relative to that file is both correct
- * and closer to what a consumer's build does.
+ * Composed as real @import statements rather than by inlining file text: the
+ * packages live in different directories, so no single base makes inlined
+ * relative imports resolve.
  *
- * Pass `extra` to append consumer-side CSS — a consumer's own `@theme` block,
- * for instance, to check that a themeable namespace really is themeable.
+ * `extra` appends consumer-side CSS — a consumer's own `@theme` block, say, to
+ * check that a themeable namespace really is themeable.
  */
 export async function compile(
   classes: string,

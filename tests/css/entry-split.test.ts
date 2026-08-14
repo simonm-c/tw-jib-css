@@ -3,12 +3,8 @@ import { compile } from './helpers';
 
 /*
  * The experimental entry ADDS utilities. The functions entry OVERRIDES them.
- *
- * These were one entry. The override blocks rode along with corner, picker and
- * wcag-badge, so wanting any additive experimental utility silently opted every
- * supporting engine into the @function path for four utility families it had
- * never asked about — including text-a11y-*. Splitting the entries makes taking
- * that path a choice rather than a side effect.
+ * They are separate so that taking the @function path is a choice rather than a
+ * side effect of wanting corner-*, picker or wcag-badge.
  *
  * The contract this file guards:
  *
@@ -41,7 +37,8 @@ const OVERRIDES = [
   { module: 'lightness', cls: 'bg-lightness-20', gate: '--tw-jib--oklch-lightness(red, 20)' },
   { module: 'saturation', cls: 'bg-saturation-20', gate: '--tw-jib--oklch-saturation(red, 20)' },
   { module: 'hue-rotate', cls: 'bg-hue-rotate-45', gate: '--tw-jib--oklch-hue-rotate(red, 30)' },
-  // the shade's @function block moved wholesale, so here the call itself is the tell
+  // the shade's @function block lives entirely in the functions entry, so unlike
+  // the other families the call itself is the tell
   {
     module: 'wcag shade',
     cls: 'text-a11y-aa',
@@ -123,11 +120,10 @@ describe('entry split — experimental adds, functions overrides', () => {
     }
   });
 
-  // wcag-badge ADDS a utility — colour→string has no stable form — so it stays
-  // on the experimental entry and must not have followed the shade across.
-  // Assert on a property only the badge utility declares, not on the function it
-  // calls: wcag/_functions.css is imported by both entries, so the definitions
-  // appear either way.
+  // wcag-badge ADDS a utility — colour→string has no stable form — so it belongs
+  // on the experimental entry, not the functions one. Assert on a property only
+  // the badge utility declares, not on the function it calls: wcag/_functions.css
+  // is imported by both entries, so the definitions appear either way.
   test('wcag-badge stays on the experimental entry', async () => {
     const onExperimental = await compile('bg-blue-500 wcag-badge', { experimental: true });
     expect(onExperimental).toContain('--tw-jib--wcag-display:');

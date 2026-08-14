@@ -1,21 +1,3 @@
-/*
- * Experimental lightness utilities — requires CSS @function + if(style()) support.
- * Imported via src/experimental.css (not the stable lightness barrel).
- *
- * Contains:
- * - 16 color-space-specific @function definitions
- * - --lightness() router function
- * - @custom-variant supports-lightness
- *
- * Experimental @utility blocks (blocks 3 & 5) live in each property's partial
- * file interleaved with stable blocks — TW4 requires correct block ordering.
- * Those blocks use @variant supports-lightness (a no-op without this file).
- */
-
-/* =========================================================================
- * @function definitions — color-space-specific lightness transforms
- * ========================================================================= */
-
 @function --tw-jib--oklch-lightness(--color type(<color>): currentColor, --amount type(<number>): 0) returns <color> {
   result: oklch(from var(--color) calc(l * (1 - abs(calc(var(--amount) * 0.01))) + max(0, calc(var(--amount) * 0.01))) calc(c * min(1, (1 - abs(calc(var(--amount) * 0.01))) * 5)) h / alpha);
 }
@@ -86,20 +68,11 @@
   result: if(style(--amount > 0): color-mix(in oklab, var(--color) min(100%, calc((100 - var(--amount)) * 2%)), rgb(from var(--color) 255 255 255 / alpha) min(100%, calc(var(--amount) * 2%))) ; else: color-mix(in oklab, var(--color) min(100%, calc((100 + var(--amount)) * 2%)), rgb(from var(--color) 0 0 0 / alpha) min(100%, calc(var(--amount) * -2%))) ;);
 }
 
-/* =========================================================================
- * --lightness() router — dispatches to the correct color-space function
- * ========================================================================= */
-
 @function --tw-jib--lightness(--color type(<color>): currentColor, --amount type(<number>): 0, --interpolation type(<custom-ident>): oklch) returns <color> {
   result: if(style(--interpolation: oklch): --tw-jib--oklch-lightness(var(--color), var(--amount)) ; style(--interpolation: lch): --tw-jib--lch-lightness(var(--color), var(--amount)) ; style(--interpolation: lab): --tw-jib--lab-lightness(var(--color), var(--amount)) ; style(--interpolation: oklab): --tw-jib--oklab-lightness(var(--color), var(--amount)) ; style(--interpolation: hsl): --tw-jib--hsl-lightness(var(--color), var(--amount)) ; style(--interpolation: hwb): --tw-jib--hwb-lightness(var(--color), var(--amount)) ; style(--interpolation: rgb): --tw-jib--rgb-lightness(var(--color), var(--amount)) ; style(--interpolation: srgb): --tw-jib--srgb-lightness(var(--color), var(--amount)) ; style(--interpolation: srgb-linear): --tw-jib--srgb-linear-lightness(var(--color), var(--amount)) ; style(--interpolation: display-p3): --tw-jib--display-p3-lightness(var(--color), var(--amount)) ; style(--interpolation: a98-rgb): --tw-jib--a98-rgb-lightness(var(--color), var(--amount)) ; style(--interpolation: prophoto-rgb): --tw-jib--prophoto-rgb-lightness(var(--color), var(--amount)) ; style(--interpolation: rec2020): --tw-jib--rec-2020-lightness(var(--color), var(--amount)) ; style(--interpolation: xyz): --tw-jib--xyz-lightness(var(--color), var(--amount)) ; style(--interpolation: xyz-d50): --tw-jib--xyz-d50-lightness(var(--color), var(--amount)) ; style(--interpolation: xyz-d65): --tw-jib--xyz-d65-lightness(var(--color), var(--amount)) ; style(--interpolation: color-mix): --tw-jib--color-mix-lightness(var(--color), var(--amount)) ; else: --tw-jib--oklch-lightness(var(--color), var(--amount)) ;);
 }
 
-/* =========================================================================
- * @custom-variant — gates experimental blocks behind feature detection
- * ========================================================================= */
-
 @custom-variant supports-lightness {
-  /*test for support of custom functions and if queries*/
   @supports (background: if(style(--value): red)) and (background: --tw-jib--oklch-lightness(red, 20)) {
     @slot;
   }

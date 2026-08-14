@@ -195,10 +195,17 @@ pnpm add -D tw-jib-css tw-jib-css-experimental
 > [!WARNING]
 > **Half of that package overrides utilities this one ships.** Importing its root, or
 > `tw-jib-css-experimental/functions`, reroutes `bg-lightness-*`, `bg-saturation-*`,
-> `bg-hue-rotate-*` and `text-a11y-*` onto CSS `@function` wherever it is supported — same names,
-> same output, a different code path. Its additions (`corner-*`, `interpolate-*`,
-> `appearance-base-select`, `wcag-badge`) are reachable on their own sub-paths if that is all you
-> want. Read its README first.
+> `bg-hue-rotate-*` and `text-a11y-*` onto CSS `@function` — same names, same output, a different
+> code path.
+>
+> The reroute is progressive, not a swap. Each override sits inside an `@supports` test for
+> `@function` itself, so an engine that understands `@function` takes that path and every other
+> engine keeps running the stable declarations this package emitted first. Both paths stay in the
+> stylesheet and the class works everywhere either way — you are adding a better path for browsers
+> that have one, not trading away the one you had.
+>
+> Its additions (`corner-*`, `interpolate-*`, `appearance-base-select`, `wcag-badge`) are reachable
+> on their own sub-paths if that is all you want. Read its README first.
 
 ## Documentation
 

@@ -1,8 +1,25 @@
 @import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bowlby+One+SC&family=Patrick+Hand+SC&display=swap');
 @import 'tailwindcss';
-@import '../../../src/index.css';
-@import '../../../src/experimental.css';
+
+/* The STABLE package only. Nothing experimental is imported here, deliberately.
+ *
+ * The experimental package documents itself in a SEPARATE VitePress instance
+ * (docs-experimental/), not a section of this one. A single instance emits a
+ * single stylesheet, and Vite serves component-imported CSS globally in dev, so
+ * "load it only on the experimental pages" does not hold — a per-page import
+ * leaked the overrides across the whole instance when it was tried.
+ *
+ * That matters because the experimental @function entry OVERRIDES
+ * bg-hue-rotate-*, bg-lighten-*, bg-saturation-* and text-a11y-*. These pages
+ * are the stable package's own documentation, so every utility they demo has to
+ * resolve through the stable path a reader gets from `@import 'tw-jib-css'`
+ * alone — otherwise the docs demonstrate something the package does not ship.
+ *
+ * So: two instances, no bleed. Add nothing experimental to this file.
+ */
+@import '../../../packages/tw-jib-css/src/index.css';
+
 @source '../../**/*.md';
 @source '../../**/*.vue';
 
@@ -24,12 +41,13 @@
 @theme {
   --font-departure: 'Departure Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --font-silkscreen: 'Silkscreen', ui-monospace, SFMono-Regular, Menlo, monospace;
-  --font-display: 'Archivo Black', 'Druk Wide', Impact, 'Haettenschweiler', 'Franklin Gothic Bold', sans-serif;
+  --font-display:
+    'Archivo Black', 'Druk Wide', Impact, 'Haettenschweiler', 'Franklin Gothic Bold', sans-serif;
 }
 
 @theme {
-  --font-bowlby: "Bowlby One", "Archivo Black", "Arial Black", sans-serif;
-  --font-comic: "Comic Sans MS", "Patrick Hand", cursive;
+  --font-bowlby: 'Bowlby One', 'Archivo Black', 'Arial Black', sans-serif;
+  --font-comic: 'Comic Sans MS', 'Patrick Hand', cursive;
 }
 /* ── Brand + wind-accent tokens registered in Tailwind's theme ── */
 @theme {
@@ -57,8 +75,12 @@
 }
 
 @keyframes landing-demo-hue-cycle {
-  from { --landing-demo-hue: 0; }
-  to   { --landing-demo-hue: 360; }
+  from {
+    --landing-demo-hue: 0;
+  }
+  to {
+    --landing-demo-hue: 360;
+  }
 }
 
 /*
@@ -67,85 +89,202 @@
  * to showcase lightness-dependent behaviors (comic dot density, pixel bloom, darken headroom, etc.)
  */
 @keyframes landing-base-color {
-  0%, 14%  { --landing-base-color: oklch(0.623 0.214 259); }  /* blue-500 — mid */
-  17%, 30% { --landing-base-color: oklch(0.396 0.141 21); }   /* rose-800 — dark */
-  33%, 47% { --landing-base-color: oklch(0.871 0.15 85); }    /* amber-300 — light */
-  50%, 64% { --landing-base-color: oklch(0.508 0.118 165); }  /* emerald-700 — dark */
-  67%, 80% { --landing-base-color: oklch(0.811 0.111 293); }  /* violet-300 — light */
-  83%, 97% { --landing-base-color: oklch(0.645 0.246 16); }   /* rose-500 — mid */
+  0%,
+  14% {
+    --landing-base-color: oklch(0.623 0.214 259);
+  } /* blue-500 — mid */
+  17%,
+  30% {
+    --landing-base-color: oklch(0.396 0.141 21);
+  } /* rose-800 — dark */
+  33%,
+  47% {
+    --landing-base-color: oklch(0.871 0.15 85);
+  } /* amber-300 — light */
+  50%,
+  64% {
+    --landing-base-color: oklch(0.508 0.118 165);
+  } /* emerald-700 — dark */
+  67%,
+  80% {
+    --landing-base-color: oklch(0.811 0.111 293);
+  } /* violet-300 — light */
+  83%,
+  97% {
+    --landing-base-color: oklch(0.645 0.246 16);
+  } /* rose-500 — mid */
 }
 @keyframes landing-tex-color {
-  0%, 14%  { --landing-tex-color: oklch(0.55 0.22 265); }     /* blue — mid */
-  17%, 30% { --landing-tex-color: oklch(0.37 0.12 21); }      /* dark rose */
-  33%, 47% { --landing-tex-color: oklch(0.85 0.14 85); }      /* light amber */
-  50%, 64% { --landing-tex-color: oklch(0.45 0.10 165); }     /* dark emerald */
-  67%, 80% { --landing-tex-color: oklch(0.80 0.11 293); }     /* light violet */
-  83%, 97% { --landing-tex-color: oklch(0.65 0.24 16); }      /* mid rose */
+  0%,
+  14% {
+    --landing-tex-color: oklch(0.55 0.22 265);
+  } /* blue — mid */
+  17%,
+  30% {
+    --landing-tex-color: oklch(0.37 0.12 21);
+  } /* dark rose */
+  33%,
+  47% {
+    --landing-tex-color: oklch(0.85 0.14 85);
+  } /* light amber */
+  50%,
+  64% {
+    --landing-tex-color: oklch(0.45 0.1 165);
+  } /* dark emerald */
+  67%,
+  80% {
+    --landing-tex-color: oklch(0.8 0.11 293);
+  } /* light violet */
+  83%,
+  97% {
+    --landing-tex-color: oklch(0.65 0.24 16);
+  } /* mid rose */
 }
 @keyframes landing-comic-params {
-  0%, 22%  { --tw-jib--comic-dot: 1px;   --tw-jib--comic-gap: 2px; }
-  25%, 47% { --tw-jib--comic-dot: 0.5px; --tw-jib--comic-gap: 1px; }
-  50%, 72% { --tw-jib--comic-dot: 2px;   --tw-jib--comic-gap: 4px; }
-  75%, 97% { --tw-jib--comic-dot: 1.5px; --tw-jib--comic-gap: 3px; }
+  0%,
+  22% {
+    --tw-jib--comic-dot: 1px;
+    --tw-jib--comic-gap: 2px;
+  }
+  25%,
+  47% {
+    --tw-jib--comic-dot: 0.5px;
+    --tw-jib--comic-gap: 1px;
+  }
+  50%,
+  72% {
+    --tw-jib--comic-dot: 2px;
+    --tw-jib--comic-gap: 4px;
+  }
+  75%,
+  97% {
+    --tw-jib--comic-dot: 1.5px;
+    --tw-jib--comic-gap: 3px;
+  }
 }
 @keyframes landing-pixel-params {
-  0%, 22%  { --tw-jib--pixel-size: 1px;   --tw-jib--pixel-bloom: 1px; }
-  25%, 47% { --tw-jib--pixel-size: 2px;   --tw-jib--pixel-bloom: 2px; }
-  50%, 72% { --tw-jib--pixel-size: 0.5px; --tw-jib--pixel-bloom: 0.5px; }
-  75%, 97% { --tw-jib--pixel-size: 1.5px; --tw-jib--pixel-bloom: 1.5px; }
+  0%,
+  22% {
+    --tw-jib--pixel-size: 1px;
+    --tw-jib--pixel-bloom: 1px;
+  }
+  25%,
+  47% {
+    --tw-jib--pixel-size: 2px;
+    --tw-jib--pixel-bloom: 2px;
+  }
+  50%,
+  72% {
+    --tw-jib--pixel-size: 0.5px;
+    --tw-jib--pixel-bloom: 0.5px;
+  }
+  75%,
+  97% {
+    --tw-jib--pixel-size: 1.5px;
+    --tw-jib--pixel-bloom: 1.5px;
+  }
 }
 
-.landing-color-cycle { animation: landing-base-color 18s ease-in-out infinite; }
-.landing-tex-cycle   { animation: landing-tex-color 18s ease-in-out infinite; }
-.landing-fn-cycle    { animation: landing-base-color 18s ease-in-out infinite; }
-
-@property --bg { syntax: '<color>'; inherits: true; initial-value: white; }
-@property --fg { syntax: '<color>'; inherits: true; initial-value: black; }
-.jib-wcag-rating-label::before {
-  content: --tw-jib--wcag-rating(var(--bg), var(--fg));
+.landing-color-cycle {
+  animation: landing-base-color 18s ease-in-out infinite;
 }
-.landing-comic-params { animation: landing-comic-params 12s ease-in-out infinite; }
-.landing-pixel-params { animation: landing-pixel-params 12s ease-in-out infinite; }
+.landing-tex-cycle {
+  animation: landing-tex-color 18s ease-in-out infinite;
+}
+.landing-fn-cycle {
+  animation: landing-base-color 18s ease-in-out infinite;
+}
+
+/* The --tw-jib--wcag-rating() label lived here. It is experimental, so it
+ * lives in the experimental docs instance instead. */
+.landing-comic-params {
+  animation: landing-comic-params 12s ease-in-out infinite;
+}
+.landing-pixel-params {
+  animation: landing-pixel-params 12s ease-in-out infinite;
+}
 
 @media (prefers-reduced-motion: reduce) {
   .landing-color-cycle,
   .landing-tex-cycle,
   .landing-comic-params,
-  .landing-pixel-params { animation: none; }
+  .landing-pixel-params {
+    animation: none;
+  }
 }
 @keyframes landing-slow-spin {
-  from { transform: rotate(0deg); }
-  to   { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 /* ── Showcase page animations (registered in @theme below for animate-* utilities) ── */
-@keyframes raster-retrace { 0% { left: -30%; } 100% { left: 100%; } }
-@keyframes raster-live    { 0%, 60% { opacity: 1; } 70%, 100% { opacity: 0.2; } }
-@keyframes hs-live        { 0%, 60% { opacity: 1; } 70%, 100% { opacity: 0.2; } }
+@keyframes raster-retrace {
+  0% {
+    left: -30%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+@keyframes raster-live {
+  0%,
+  60% {
+    opacity: 1;
+  }
+  70%,
+  100% {
+    opacity: 0.2;
+  }
+}
+@keyframes hs-live {
+  0%,
+  60% {
+    opacity: 1;
+  }
+  70%,
+  100% {
+    opacity: 0.2;
+  }
+}
 
 @theme {
   --animate-raster-retrace: raster-retrace 4s linear infinite;
-  --animate-raster-live:    raster-live 1s ease-in-out infinite;
-  --animate-hs-live:        hs-live 1.1s ease-in-out infinite;
+  --animate-raster-live: raster-live 1s ease-in-out infinite;
+  --animate-hs-live: hs-live 1.1s ease-in-out infinite;
 }
 @keyframes hero-logo-tilt {
-  0%, 100% { transform: perspective(1200px) rotateX(12deg) rotateY(-6deg) rotateZ(0deg); }
-  50%      { transform: perspective(1200px) rotateX(8deg)  rotateY(6deg)  rotateZ(2deg);  }
+  0%,
+  100% {
+    transform: perspective(1200px) rotateX(12deg) rotateY(-6deg) rotateZ(0deg);
+  }
+  50% {
+    transform: perspective(1200px) rotateX(8deg) rotateY(6deg) rotateZ(2deg);
+  }
 }
 
 /* ── Dense-cinematic scope — all variants share the deep-sky derivation ── */
 .jib-landing {
   --color-jib-brand: oklch(from var(--color-sky-500) calc(l - 0.22) c h);
-  --color-jib-wind:  oklch(from var(--color-sky-500) calc(l + 0.13) calc(c * 0.9) h);
+  --color-jib-wind: oklch(from var(--color-sky-500) calc(l + 0.13) calc(c * 0.9) h);
 }
 
 /* ── Showcase pages: full-bleed, zero padding.
    `pageClass: showcase` frontmatter lands on <main class="VPContent">.
    Each selector below adds one class of specificity vs the VitePress default it overrides — no !important needed. ── */
-.showcase.VPContent { @apply p-0; }
-.showcase .vp-doc { @apply p-0; }
+.showcase.VPContent {
+  @apply p-0;
+}
+.showcase .vp-doc {
+  @apply p-0;
+}
 .showcase .VPDoc .container .content,
-.showcase .VPDoc .container .content .content-container { @apply max-w-none p-0; }
+.showcase .VPDoc .container .content .content-container {
+  @apply max-w-none p-0;
+}
 
 /* ── Home landing: full-bleed, sidebar hidden ── */
 .home-landing .VPDoc,
@@ -197,22 +336,32 @@
 
 @layer utilities {
   /* ── VP element overrides via @apply — feeds jib-css pipeline for ripple ── */
-  .VPDoc, .VPContent, .vp-doc {
+  .VPDoc,
+  .VPContent,
+  .vp-doc {
     @apply bg-jib-brand -bg-saturation-85 bg-lighten-96;
   }
-  .dark .VPDoc, .dark .VPContent, .dark .vp-doc {
+  .dark .VPDoc,
+  .dark .VPContent,
+  .dark .vp-doc {
     @apply bg-darken-82 -bg-saturation-50;
   }
-  .vp-doc div[class*="language-"] {
+  .vp-doc div[class*='language-'] {
     @apply bg-jib-brand -bg-saturation-50 bg-darken-70;
   }
-  .dark .vp-doc div[class*="language-"] {
+  .dark .vp-doc div[class*='language-'] {
     @apply bg-darken-72;
   }
-  .vp-doc .tip, .vp-doc .info, .vp-doc .warning, .vp-doc .danger {
+  .vp-doc .tip,
+  .vp-doc .info,
+  .vp-doc .warning,
+  .vp-doc .danger {
     @apply bg-jib-brand -bg-saturation-65 bg-lighten-88;
   }
-  .dark .vp-doc .tip, .dark .vp-doc .info, .dark .vp-doc .warning, .dark .vp-doc .danger {
+  .dark .vp-doc .tip,
+  .dark .vp-doc .info,
+  .dark .vp-doc .warning,
+  .dark .vp-doc .danger {
     @apply bg-darken-70 -bg-saturation-40;
   }
   .VPLocalNav {
@@ -226,17 +375,22 @@
   :root {
     --vp-home-hero-name-color: transparent;
     --vp-home-hero-name-background: linear-gradient(
-      120deg, var(--color-jib-brand), oklch(from var(--color-jib-brand) calc(l + 0.2) calc(c * 0.6) h)
+      120deg,
+      var(--color-jib-brand),
+      oklch(from var(--color-jib-brand) calc(l + 0.2) calc(c * 0.6) h)
     );
     --vp-home-hero-image-background-image: radial-gradient(
-      circle, oklch(from var(--color-jib-brand) l c h / 0.3), transparent 70%
+      circle,
+      oklch(from var(--color-jib-brand) l c h / 0.3),
+      transparent 70%
     );
     --vp-home-hero-image-filter: blur(68px);
   }
   .dark {
     --vp-nav-bg-color: oklch(from var(--color-jib-brand) calc(l * 0.25) calc(c * 0.3) h);
     --vp-home-hero-name-background: linear-gradient(
-      120deg, oklch(from var(--color-jib-brand) calc(l + 0.2) calc(c * 0.6) h),
+      120deg,
+      oklch(from var(--color-jib-brand) calc(l + 0.2) calc(c * 0.6) h),
       oklch(from var(--color-jib-brand) calc(l + 0.35) calc(c * 0.3) h)
     );
   }
@@ -245,10 +399,18 @@
   .VPNavBarTitle .logo {
     @apply h-9 w-auto;
   }
-  .VPNav, .VPNavBar, .VPNavBar.home.top, .VPNavBar.top, .VPNavBar.has-sidebar {
+  .VPNav,
+  .VPNavBar,
+  .VPNavBar.home.top,
+  .VPNavBar.top,
+  .VPNavBar.has-sidebar {
     @apply bg-jib-brand -bg-saturation-75 bg-lighten-92 border-b border-jib-brand -border-saturation-75 border-lighten-82;
   }
-  .dark .VPNav, .dark .VPNavBar, .dark .VPNavBar.home.top, .dark .VPNavBar.top, .dark .VPNavBar.has-sidebar {
+  .dark .VPNav,
+  .dark .VPNavBar,
+  .dark .VPNavBar.home.top,
+  .dark .VPNavBar.top,
+  .dark .VPNavBar.has-sidebar {
     @apply bg-darken-72 -bg-saturation-50 border-darken-50;
   }
 
@@ -262,7 +424,9 @@
 
   /* ── Sidebar ── */
   .VPSidebar {
-    --vp-sidebar-bg-color: oklch(from var(--color-jib-brand) calc(l + 0.92 * (1 - l)) calc(c * 0.25) h);
+    --vp-sidebar-bg-color: oklch(
+      from var(--color-jib-brand) calc(l + 0.92 * (1 - l)) calc(c * 0.25) h
+    );
     @apply scrollbar-thin scrollbar-thumb-jib-brand scrollbar-track-transparent;
   }
   .dark .VPSidebar {
@@ -288,16 +452,20 @@
   .dark .vp-doc {
     @apply text-slate-200;
   }
-  .vp-doc h1, .vp-doc h2 {
+  .vp-doc h1,
+  .vp-doc h2 {
     @apply text-sky-950;
   }
-  .dark .vp-doc h1, .dark .vp-doc h2 {
+  .dark .vp-doc h1,
+  .dark .vp-doc h2 {
     @apply text-slate-300;
   }
-  .vp-doc h3, .vp-doc h4 {
+  .vp-doc h3,
+  .vp-doc h4 {
     @apply text-slate-900;
   }
-  .dark .vp-doc h3, .dark .vp-doc h4 {
+  .dark .vp-doc h3,
+  .dark .vp-doc h4 {
     @apply text-slate-200;
   }
   .vp-doc :not(pre, h1, h2, h3, h4, h5, h6) > code {
@@ -311,10 +479,12 @@
   }
 
   /* ── Hero tagline + description ── */
-  .VPHero .tagline, .VPHero .text {
+  .VPHero .tagline,
+  .VPHero .text {
     @apply bg-jib-brand -bg-saturation-70 bg-lighten-92 text-slate-900;
   }
-  .dark .VPHero .tagline, .dark .VPHero .text {
+  .dark .VPHero .tagline,
+  .dark .VPHero .text {
     @apply bg-darken-92 text-slate-200;
   }
 
@@ -363,22 +533,25 @@
     @apply bg-darken-10;
   }
 
-  /* ── Corner shape progressive enhancement ── */
-  @supports (corner-shape: squircle) {
-    .VPFeature {
-      @apply corner-squircle;
-    }
-    .VPFeature:hover {
-      @apply corner-bevel;
-    }
-  }
+  /* Corner shape belonged here once. It is an experimental feature, so it lives
+   * in the experimental docs instance now — as a utility there, and not as raw
+   * CSS here. Nothing experimental belongs in this stylesheet in any form. */
 
   /* ── Chart-paper texture for §7 ground-mode experimental ── */
   .texture-chart {
     background-image:
-      linear-gradient(to right, oklch(from var(--color-jib-brand) l c h / 0.04) 1px, transparent 1px),
-      linear-gradient(to bottom, oklch(from var(--color-jib-brand) l c h / 0.04) 1px, transparent 1px);
-    background-size: 24px 24px, 24px 24px;
+      linear-gradient(
+        to right,
+        oklch(from var(--color-jib-brand) l c h / 0.04) 1px,
+        transparent 1px
+      ),
+      linear-gradient(
+        to bottom,
+        oklch(from var(--color-jib-brand) l c h / 0.04) 1px,
+        transparent 1px
+      );
+    background-size:
+      24px 24px,
+      24px 24px;
   }
 }
-

@@ -10,9 +10,11 @@ Rotate the hue of any colour by a number of degrees. Positive values rotate cloc
 
 ::: tip Import
 Included in `@import 'tw-jib-css'`. Individual import:
+
 ```css
 @import 'tw-jib-css/hue-rotate';
 ```
+
 :::
 
 ## Syntax
@@ -27,15 +29,15 @@ Amount is 0–360. `bg-hue-rotate-180` rotates to the complementary colour.
 
 ## Surfaces
 
-| Surface | Clockwise | Counterclockwise |
-| --- | --- | --- |
-| Background | `bg-hue-rotate-{deg}` | `-bg-hue-rotate-{deg}` |
-| Text | `text-hue-rotate-{deg}` | `-text-hue-rotate-{deg}` |
-| Fill | `fill-hue-rotate-{deg}` | `-fill-hue-rotate-{deg}` |
-| Stroke | `stroke-hue-rotate-{deg}` | `-stroke-hue-rotate-{deg}` |
-| Outline | `outline-hue-rotate-{deg}` | `-outline-hue-rotate-{deg}` |
-| Accent | `accent-hue-rotate-{deg}` | `-accent-hue-rotate-{deg}` |
-| Border | `border-hue-rotate-{deg}` | `-border-hue-rotate-{deg}` |
+| Surface    | Clockwise                  | Counterclockwise            |
+| ---------- | -------------------------- | --------------------------- |
+| Background | `bg-hue-rotate-{deg}`      | `-bg-hue-rotate-{deg}`      |
+| Text       | `text-hue-rotate-{deg}`    | `-text-hue-rotate-{deg}`    |
+| Fill       | `fill-hue-rotate-{deg}`    | `-fill-hue-rotate-{deg}`    |
+| Stroke     | `stroke-hue-rotate-{deg}`  | `-stroke-hue-rotate-{deg}`  |
+| Outline    | `outline-hue-rotate-{deg}` | `-outline-hue-rotate-{deg}` |
+| Accent     | `accent-hue-rotate-{deg}`  | `-accent-hue-rotate-{deg}`  |
+| Border     | `border-hue-rotate-{deg}`  | `-border-hue-rotate-{deg}`  |
 
 ## Quick Reference
 
@@ -84,9 +86,7 @@ Amount is 0–360 degrees. All surfaces support the same negative prefix and `/{
 The hue amount is a registered `@property` variable. Transitions work:
 
 ```html
-<div class="bg-blue-500 hover:bg-hue-rotate-180 transition duration-700">
-  hover to shift
-</div>
+<div class="bg-blue-500 hover:bg-hue-rotate-180 transition duration-700">hover to shift</div>
 ```
 
 ### Full rotation
@@ -361,8 +361,10 @@ Every hue-rotate utility works with Tailwind's variant prefixes:
 
 ```html
 <div class="bg-red-500 hover:bg-hue-rotate-180 transition duration-300">
-<div class="bg-blue-500 dark:bg-hue-rotate-30">
-<div class="bg-blue-500 md:bg-hue-rotate-90">
+  <div class="bg-blue-500 dark:bg-hue-rotate-30">
+    <div class="bg-blue-500 md:bg-hue-rotate-90"></div>
+  </div>
+</div>
 ```
 
 ## Browser Support
@@ -370,5 +372,5 @@ Every hue-rotate utility works with Tailwind's variant prefixes:
 Requires CSS relative colour syntax: Chrome 111+, Safari 16.4+, Firefox 128+. Lab-space trig functions (`cos()`, `sin()`) require Chrome 125+.
 
 ::: info Rendering paths
-Hue-rotate utilities use two CSS rendering paths — a stable path (relative colour syntax, all modern browsers) and an experimental path (CSS `@function`, Chromium only). The browser selects automatically via `@supports`. With the experimental import, transforms are also available as CSS functions callable in arbitrary values: `from-[--tw-jib--hue-rotate(var(--color-red-500),120)]`. See [How It Works](/guide/color-transforms#how-it-works-stable-and-experimental-paths) for details.
+Hue-rotate utilities are CSS relative colour syntax, evaluated at render time in every modern browser. See [How It Works](/guide/color-transforms#how-it-works) for the mechanism.
 :::

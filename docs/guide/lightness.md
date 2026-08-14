@@ -10,9 +10,11 @@ Adjust the lightness of any colour. Positive values lighten, negative values dar
 
 ::: tip Import
 Included in `@import 'tw-jib-css'`. Individual import:
+
 ```css
 @import 'tw-jib-css/lightness';
 ```
+
 :::
 
 ## Syntax
@@ -29,15 +31,15 @@ Amount is 0–100, representing the percentage distance to white (lighten) or bl
 
 The same utility works across every colour-accepting property. Swap the prefix:
 
-| Surface | Lighten | Darken |
-| --- | --- | --- |
-| Background | `bg-lightness-{n}` | `-bg-lightness-{n}` |
-| Text | `text-lightness-{n}` | `-text-lightness-{n}` |
-| Fill | `fill-lightness-{n}` | `-fill-lightness-{n}` |
-| Stroke | `stroke-lightness-{n}` | `-stroke-lightness-{n}` |
-| Outline | `outline-lightness-{n}` | `-outline-lightness-{n}` |
-| Accent | `accent-lightness-{n}` | `-accent-lightness-{n}` |
-| Border | `border-lightness-{n}` | `-border-lightness-{n}` |
+| Surface    | Lighten                 | Darken                   |
+| ---------- | ----------------------- | ------------------------ |
+| Background | `bg-lightness-{n}`      | `-bg-lightness-{n}`      |
+| Text       | `text-lightness-{n}`    | `-text-lightness-{n}`    |
+| Fill       | `fill-lightness-{n}`    | `-fill-lightness-{n}`    |
+| Stroke     | `stroke-lightness-{n}`  | `-stroke-lightness-{n}`  |
+| Outline    | `outline-lightness-{n}` | `-outline-lightness-{n}` |
+| Accent     | `accent-lightness-{n}`  | `-accent-lightness-{n}`  |
+| Border     | `border-lightness-{n}`  | `-border-lightness-{n}`  |
 
 ## Quick Reference
 
@@ -121,9 +123,7 @@ The lightness amount is a registered `@property` variable. It composes with Tail
 </Example>
 
 ```html
-<div class="bg-blue-500 hover:bg-lightness-40 transition duration-700">
-  hover to lighten
-</div>
+<div class="bg-blue-500 hover:bg-lightness-40 transition duration-700">hover to lighten</div>
 ```
 
 ### Full scale
@@ -409,12 +409,12 @@ Values 0–100 represent a **percentage of the distance** to white or black — 
 
 `{surface}-lighten-*` and `{surface}-darken-*` are convenience aliases:
 
-| Alias | Equivalent |
-| --- | --- |
-| `bg-lighten-{n}` | `bg-lightness-{n}` |
-| `bg-darken-{n}` | `-bg-lightness-{n}` |
-| `text-lighten-{n}` | `text-lightness-{n}` |
-| `text-darken-{n}` | `-text-lightness-{n}` |
+| Alias              | Equivalent            |
+| ------------------ | --------------------- |
+| `bg-lighten-{n}`   | `bg-lightness-{n}`    |
+| `bg-darken-{n}`    | `-bg-lightness-{n}`   |
+| `text-lighten-{n}` | `text-lightness-{n}`  |
+| `text-darken-{n}`  | `-text-lightness-{n}` |
 
 The same pattern applies to fill, stroke, outline, accent, and border. Both forms produce identical CSS.
 
@@ -434,8 +434,10 @@ Every lightness utility works with Tailwind's variant prefixes:
 
 ```html
 <div class="bg-blue-500 hover:bg-lightness-40 transition duration-300">
-<div class="bg-blue-500 dark:bg-lightness-20">
-<div class="bg-blue-500 md:bg-lightness-30">
+  <div class="bg-blue-500 dark:bg-lightness-20">
+    <div class="bg-blue-500 md:bg-lightness-30"></div>
+  </div>
+</div>
 ```
 
 ## Browser Support
@@ -443,5 +445,5 @@ Every lightness utility works with Tailwind's variant prefixes:
 Requires CSS relative colour syntax: Chrome 111+, Safari 16.4+, Firefox 128+.
 
 ::: info Rendering paths
-Lightness utilities use two CSS rendering paths — a stable path (relative colour syntax, all modern browsers) and an experimental path (CSS `@function`, Chromium only). The browser selects automatically via `@supports`. With the experimental import, transforms are also available as CSS functions callable in arbitrary values: `from-[--tw-jib--lightness(var(--color-blue-500),60)]`. See [How It Works](/guide/color-transforms#how-it-works-stable-and-experimental-paths) for details.
+Lightness utilities are CSS relative colour syntax, evaluated at render time in every modern browser. See [How It Works](/guide/color-transforms#how-it-works) for the mechanism.
 :::

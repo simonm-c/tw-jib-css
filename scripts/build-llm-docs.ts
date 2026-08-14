@@ -27,9 +27,11 @@ const PAGE_ORDER = [
   'what-jibcss-adds',
   'color-spaces',
   'colour-spaces',
+  'accessible-color',
   'composition',
   'print-textures',
   'color-transforms',
+  'wcag',
   'border-gradient',
   'gradient-borders',
   'border-spin',
@@ -42,11 +44,9 @@ const PAGE_ORDER = [
   'pixel',
   'border-style',
   'grid',
-  'accessible-color',
   'corner',
   'interpolate',
   'picker',
-  'wcag',
   'wcag-badge',
 ];
 
@@ -176,7 +176,7 @@ function main() {
   const indexLines: string[] = [
     '# tw-jib-css',
     '',
-    '> TailwindCSS v4 utility library — border gradients, CSS relative color transforms, ripple effects, print-inspired texture backgrounds, and more.',
+    '> TailwindCSS v4 utility library — WCAG-exact text contrast, border gradients, CSS relative color transforms, ripple effects, print-inspired texture backgrounds, and more.',
     '',
     '## Docs',
     '',

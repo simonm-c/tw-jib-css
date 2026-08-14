@@ -26,9 +26,22 @@ const SUPPORTS_CHANNEL_POW = '@supports (color: oklch(from red calc(pow(alpha, 0
 const LEVELS = ['aa', 'aaa', 'aa-lg'] as const;
 
 const COLOR_SPACES = [
-  'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
-  'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
-  'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
+  'oklch',
+  'lch',
+  'lab',
+  'oklab',
+  'hsl',
+  'hwb',
+  'rgb',
+  'srgb',
+  'srgb-linear',
+  'display-p3',
+  'a98-rgb',
+  'prophoto-rgb',
+  'rec2020',
+  'xyz',
+  'xyz-d50',
+  'xyz-d65',
   'color-mix',
 ] as const;
 
@@ -88,7 +101,7 @@ describe('text-a11y utilities — stable path', () => {
     // The two implementations must default to the SAME space, or a bare
     // text-a11y-aa would be seeded one way on Chromium and another elsewhere.
     test('both implementations default to oklch', async () => {
-      const css = await compile('bg-blue-500 text-a11y-aa', { experimental: true });
+      const css = await compile('bg-blue-500 text-a11y-aa', { functions: true });
       expect(css).toContain('--tw-jib--a11y--vector: var(--tw-jib--a11y--oklch)');
       const call = css.slice(css.indexOf('--tw-jib--accessible-shade('));
       expect(call.slice(0, 300)).toMatch(/\n\s+oklch\n/);
@@ -100,7 +113,20 @@ describe('text-a11y utilities — stable path', () => {
       const css = await compile('bg-blue-500 text-a11y-aa');
       expect(css).toContain(SUPPORTS_CHANNEL_POW);
       const gated = css.slice(css.indexOf(SUPPORTS_CHANNEL_POW));
-      expect(gated).toContain('--tw-jib--a11y--vector: var(--tw-jib--a11y--oklch-precise)');
+      expect(gated).toContain(
+        '--tw-jib--a11y--vector: color(from oklch(from var(--tw-jib--a11y--target) calc(pow(alpha, 0.333333))',
+      );
+    });
+
+    // The cube-root seed is written into each block that uses it rather than
+    // shared through one element-scoped link. The link made every matching block
+    // declare it, including the ones that then ignore it: /lch and /lab, and the
+    // bare candidate that block D already covers.
+    test('no shared --oklch-precise link is emitted', async () => {
+      const css = await compile(
+        'bg-blue-500 text-a11y-aa text-a11y-aa/oklch text-a11y-aa/lch text-a11y-aa/hsl',
+      );
+      expect(css).not.toContain('--tw-jib--a11y--oklch-precise');
     });
   });
 
@@ -116,7 +142,10 @@ describe('text-a11y utilities — stable path', () => {
       const classes = LEVELS.flatMap((l) => COLOR_SPACES.map((s) => `text-a11y-${l}/${s}`));
       const css = await compile(`bg-blue-500 ${classes.join(' ')}`);
       const missing = classes.filter((c) => !css.includes(`.${c.replace('/', '\\/')}`));
-      expect(missing, `${missing.length} candidates did not compile: ${missing.join(', ')}`).toHaveLength(0);
+      expect(
+        missing,
+        `${missing.length} candidates did not compile: ${missing.join(', ')}`,
+      ).toHaveLength(0);
     });
 
     test('Class 2/3 spaces seed from the retargeted carrier', async () => {
@@ -137,28 +166,45 @@ describe('text-a11y utilities — stable path', () => {
       // The oklch default declaration is always emitted; the modifier's is
       // emitted after it and wins. Order is the assertion — a core declaration
       // that landed first would be dead.
-      for (const space of ['rgb', 'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
-        'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65', 'color-mix'] as const) {
+      for (const space of [
+        'rgb',
+        'srgb',
+        'srgb-linear',
+        'display-p3',
+        'a98-rgb',
+        'prophoto-rgb',
+        'rec2020',
+        'xyz',
+        'xyz-d50',
+        'xyz-d65',
+        'color-mix',
+      ] as const) {
         const css = await compile(`bg-blue-500 text-a11y-aa/${space}`);
         const dflt = css.indexOf('--tw-jib--a11y--vector: var(--tw-jib--a11y--oklch);');
         const core = css.indexOf('--tw-jib--a11y--vector: var(--tw-jib--a11y--core);');
         expect(dflt, `${space}: oklch default declaration missing`).toBeGreaterThan(-1);
         expect(core, `${space} is not routed to the core`).toBeGreaterThan(-1);
-        expect(core, `${space}: the core override precedes the default, so it loses`).toBeGreaterThan(dflt);
+        expect(
+          core,
+          `${space}: the core override precedes the default, so it loses`,
+        ).toBeGreaterThan(dflt);
       }
     });
   });
 
   describe('the pow() gate', () => {
-    test.each(POW_SEEDED)('text-a11y-aa/%s puts its cube-root seed behind @supports', async (space) => {
-      const css = await compile(`bg-blue-500 text-a11y-aa/${space}`);
-      expect(css).toContain(SUPPORTS_CHANNEL_POW);
-      expect(css).toContain('pow(alpha, 0.333333)');
-      // The portable seed must still be there, outside the gate — Gecko has to
-      // get an exact-ratio shade, not an ignored modifier.
-      const gateIndex = css.indexOf(SUPPORTS_CHANNEL_POW);
-      expect(css.slice(0, gateIndex)).not.toContain('pow(alpha');
-    });
+    test.each(POW_SEEDED)(
+      'text-a11y-aa/%s puts its cube-root seed behind @supports',
+      async (space) => {
+        const css = await compile(`bg-blue-500 text-a11y-aa/${space}`);
+        expect(css).toContain(SUPPORTS_CHANNEL_POW);
+        expect(css).toContain('pow(alpha, 0.333333)');
+        // The portable seed must still be there, outside the gate — Gecko has to
+        // get an exact-ratio shade, not an ignored modifier.
+        const gateIndex = css.indexOf(SUPPORTS_CHANNEL_POW);
+        expect(css.slice(0, gateIndex)).not.toContain('pow(alpha');
+      },
+    );
 
     test.each(['hsl', 'hwb', 'srgb', 'xyz', 'color-mix'] as const)(
       'text-a11y-aa/%s needs no gate',
@@ -188,7 +234,9 @@ describe('text-a11y utilities — stable path', () => {
     test('no chain intermediate is registered as a colour', async () => {
       const css = await compile('bg-blue-500 text-a11y-aa/oklch');
       for (const link of ['carrier', 'core', 'target', 'vector', 'shade']) {
-        const decl = css.match(new RegExp(`@property --tw-jib--a11y--${link} \\{[\\s\\S]*?\\}`))?.[0];
+        const decl = css.match(
+          new RegExp(`@property --tw-jib--a11y--${link} \\{[\\s\\S]*?\\}`),
+        )?.[0];
         expect(decl, `--tw-jib--a11y--${link} is registered: ${decl}`).toBeUndefined();
       }
     });
@@ -207,16 +255,18 @@ describe('text-a11y utilities — stable path', () => {
     });
   });
 
-  test('records the requested level for wcag-badge, bare and modified', async () => {
+  // Once, not twice. One block serves both cases: an absent modifier drops only
+  // the --modifier() declaration, so the bare-only twin this used to have was
+  // pure duplicate output.
+  test('records the requested level for wcag-badge exactly once, bare and modified', async () => {
     for (const level of LEVELS) {
       const bare = await compile(`bg-blue-500 text-a11y-${level}`);
-      expect(bare, `bare text-a11y-${level} lost its level record`).toContain(
-        `--tw-jib--a11y-level: ${level}`,
-      );
+      const bareCount = bare.split(`--tw-jib--a11y-level: ${level};`).length - 1;
+      expect(bareCount, `bare text-a11y-${level} emitted its level record ${bareCount}×`).toBe(1);
+
       const modified = await compile(`bg-blue-500 text-a11y-${level}/hsl`);
-      expect(modified, `text-a11y-${level}/hsl lost its level record`).toContain(
-        `--tw-jib--a11y-level: ${level}`,
-      );
+      const modCount = modified.split(`--tw-jib--a11y-level: ${level};`).length - 1;
+      expect(modCount, `text-a11y-${level}/hsl emitted its level record ${modCount}×`).toBe(1);
     }
   });
 
@@ -252,16 +302,19 @@ describe('text-a11y utilities — stable path', () => {
   // makes this a real regression guard, not a tautology.
   describe('the @function override is preferred where supported', () => {
     test('both implementations are emitted, @function last', async () => {
-      const css = await compile('bg-blue-500 text-a11y-aa', { experimental: true });
+      const css = await compile('bg-blue-500 text-a11y-aa', { functions: true });
       const stableAt = css.indexOf('--tw-jib--a11y--shade:');
       const fnAt = css.indexOf('--tw-jib--accessible-shade(\n');
       expect(stableAt, 'stable fallback chain missing').toBeGreaterThan(-1);
       expect(fnAt, '@function override missing').toBeGreaterThan(-1);
-      expect(fnAt, '@function override precedes the stable chain, so it loses the cascade').toBeGreaterThan(stableAt);
+      expect(
+        fnAt,
+        '@function override precedes the stable chain, so it loses the cascade',
+      ).toBeGreaterThan(stableAt);
     });
 
     test('the override is gated on @function support', async () => {
-      const css = await compile('bg-blue-500 text-a11y-aa', { experimental: true });
+      const css = await compile('bg-blue-500 text-a11y-aa', { functions: true });
       const fnAt = css.indexOf('--tw-jib--accessible-shade(\n');
       expect(css.slice(0, fnAt)).toContain(SUPPORTS_WCAG);
     });
@@ -277,11 +330,14 @@ describe('text-a11y utilities — stable path', () => {
       for (const level of LEVELS) {
         for (const space of [null, ...COLOR_SPACES]) {
           const cls = space ? `text-a11y-${level}/${space}` : `text-a11y-${level}`;
-          const css = await compile(`bg-blue-500 ${cls}`, { experimental: true });
+          const css = await compile(`bg-blue-500 ${cls}`, { functions: true });
           if (!css.includes('--tw-jib--accessible-shade(\n')) missing.push(cls);
         }
       }
-      expect(missing, `${missing.length} candidates have no @function override: ${missing.join(', ')}`).toHaveLength(0);
+      expect(
+        missing,
+        `${missing.length} candidates have no @function override: ${missing.join(', ')}`,
+      ).toHaveLength(0);
     });
 
     // A consumer's own level has no ratio the @function dispatcher can be told
@@ -289,7 +345,7 @@ describe('text-a11y utilities — stable path', () => {
     // silently resolving to the else branch's 4.5.
     test('a themed level keeps the stable path even with @function available', async () => {
       const css = await compile('bg-blue-500 text-a11y-aa-plus', {
-        experimental: true,
+        functions: true,
         extra: '@theme { --tw-jib--a11y-ratio-aa-plus: 5; }',
       });
       expect(css).toContain('--tw-jib--a11y--ratio: var(--tw-jib--a11y-ratio-aa-plus)');

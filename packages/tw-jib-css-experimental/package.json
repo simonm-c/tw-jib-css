@@ -1,0 +1,70 @@
+{
+  "name": "tw-jib-css-experimental",
+  "version": "0.1.0",
+  "description": "Experimental tw-jib-css utilities — CSS @function colour transforms, corner-shape, interpolate-size, base-select picker, and a WCAG contrast badge. Limited browser support.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Simon Monk-Chipman",
+  "homepage": "https://github.com/simonm-c/tw-jib-css#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simonm-c/tw-jib-css.git",
+    "directory": "packages/tw-jib-css-experimental"
+  },
+  "bugs": {
+    "url": "https://github.com/simonm-c/tw-jib-css/issues"
+  },
+  "keywords": [
+    "tailwindcss",
+    "tailwind",
+    "css",
+    "experimental",
+    "css-function",
+    "corner-shape",
+    "interpolate-size",
+    "base-select",
+    "wcag",
+    "contrast",
+    "v4",
+    "css-first"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "prepack": "pnpm -w test:css && pnpm -w lint"
+  },
+  "exports": {
+    ".": {
+      "style": "./src/index.css",
+      "default": "./src/index.css"
+    },
+    "./functions": {
+      "style": "./src/functions.css",
+      "default": "./src/functions.css"
+    },
+    "./corner": {
+      "style": "./src/corner.css",
+      "default": "./src/corner.css"
+    },
+    "./interpolate": {
+      "style": "./src/interpolate.css",
+      "default": "./src/interpolate.css"
+    },
+    "./picker": {
+      "style": "./src/picker.css",
+      "default": "./src/picker.css"
+    },
+    "./wcag": {
+      "style": "./src/wcag.css",
+      "default": "./src/wcag.css"
+    }
+  },
+  "peerDependencies": {
+    "tailwindcss": ">=4.3.0",
+    "tw-jib-css": "workspace:^"
+  }
+}

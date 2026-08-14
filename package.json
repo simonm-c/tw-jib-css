@@ -1,7 +1,8 @@
 {
-  "name": "tw-jib-css",
-  "version": "0.1.0",
-  "description": "TailwindCSS v4 utility library — border gradients, CSS relative color transforms, ripple effects, and more — built entirely with CSS-first @utility and @custom-variant syntax.",
+  "name": "tw-jib-css-workspace",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Workspace root for tw-jib-css and tw-jib-css-experimental. Publishes nothing; the packages under packages/ do.",
   "type": "module",
   "license": "MIT",
   "author": "Simon Monk-Chipman",
@@ -13,100 +14,6 @@
   "bugs": {
     "url": "https://github.com/simonm-c/tw-jib-css/issues"
   },
-  "keywords": [
-    "tailwindcss",
-    "tailwind",
-    "css",
-    "utilities",
-    "border-gradient",
-    "color-transform",
-    "lighten",
-    "darken",
-    "ripple",
-    "saturation",
-    "hue-rotate",
-    "comic",
-    "pixel",
-    "print-texture",
-    "grid",
-    "border-style",
-    "accessible-color",
-    "wcag",
-    "v4",
-    "css-first"
-  ],
-  "sideEffects": [
-    "**/*.css"
-  ],
-  "files": [
-    "src"
-  ],
-  "exports": {
-    ".": {
-      "style": "./src/index.css",
-      "default": "./src/index.css"
-    },
-    "./experimental": {
-      "style": "./src/experimental.css",
-      "default": "./src/experimental.css"
-    },
-    "./border-gradient": {
-      "style": "./src/border-gradient.css",
-      "default": "./src/border-gradient.css"
-    },
-    "./lightness": {
-      "style": "./src/lightness.css",
-      "default": "./src/lightness.css"
-    },
-    "./saturation": {
-      "style": "./src/saturation.css",
-      "default": "./src/saturation.css"
-    },
-    "./hue-rotate": {
-      "style": "./src/hue-rotate.css",
-      "default": "./src/hue-rotate.css"
-    },
-    "./accessible-shade": {
-      "style": "./src/accessible-shade.css",
-      "default": "./src/accessible-shade.css"
-    },
-    "./ripple": {
-      "style": "./src/ripple.css",
-      "default": "./src/ripple.css"
-    },
-    "./border-style": {
-      "style": "./src/border-style.css",
-      "default": "./src/border-style.css"
-    },
-    "./grid": {
-      "style": "./src/grid.css",
-      "default": "./src/grid.css"
-    },
-    "./comic": {
-      "style": "./src/comic.css",
-      "default": "./src/comic.css"
-    },
-    "./pixel": {
-      "style": "./src/pixel.css",
-      "default": "./src/pixel.css"
-    },
-    "./experimental/corner": {
-      "style": "./src/experimental/corner.css",
-      "default": "./src/experimental/corner.css"
-    },
-    "./experimental/interpolate": {
-      "style": "./src/experimental/interpolate.css",
-      "default": "./src/experimental/interpolate.css"
-    },
-    "./experimental/picker": {
-      "style": "./src/experimental/picker.css",
-      "default": "./src/experimental/picker.css"
-    },
-    "./experimental/wcag": {
-      "style": "./src/wcag.css",
-      "default": "./src/wcag.css"
-    }
-  },
   "packageManager": "pnpm@10.32.1",
   "engines": {
     "node": ">=20"
@@ -116,15 +23,13 @@
     "test:css": "vitest run tests/css",
     "test:integration": "playwright test",
     "dev:docs": "vitepress dev docs",
+    "dev:docs:experimental": "vitepress dev docs-experimental --port 5174",
     "build:docs": "vitepress build docs",
+    "build:docs:experimental": "vitepress build docs-experimental",
     "build:llm-docs": "tsx scripts/build-llm-docs.ts",
     "lint": "eslint .",
-    "prepack": "pnpm test:css && pnpm lint",
     "format": "prettier --write .",
     "format:check": "prettier --check ."
-  },
-  "peerDependencies": {
-    "tailwindcss": ">=4.3.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.28.0",

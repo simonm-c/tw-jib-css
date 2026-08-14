@@ -11,13 +11,69 @@ import { compile } from './helpers.js';
  * hueSlug matches the --tw-jib--{hueSlug}-hue--amount / -hue-interpolation-* prefix
  */
 const PROPERTIES: [string, string, string, string, string, string, string][] = [
-  ['bg', 'background-color', '--tw-jib--background-color', '--tw-jib--background-color-source', 'bg-blue-500', '--color-blue-500', 'background'],
-  ['text', 'color', '--tw-jib--text-color', '--tw-jib--text-color-source', 'text-blue-500', '--color-blue-500', 'text'],
-  ['fill', 'fill', '--tw-jib--fill-color', '--tw-jib--fill-color-source', 'fill-blue-500', '--color-blue-500', 'fill'],
-  ['stroke', 'stroke', '--tw-jib--stroke-color', '--tw-jib--stroke-color-source', 'stroke-blue-500', '--color-blue-500', 'stroke'],
-  ['outline', 'outline-color', '--tw-jib--outline-color', '--tw-jib--outline-color-source', 'outline-blue-500', '--color-blue-500', 'outline'],
-  ['accent', 'accent-color', '--tw-jib--accent-color', '--tw-jib--accent-color-source', 'accent-blue-500', '--color-blue-500', 'accent'],
-  ['border', 'border-color', '--tw-jib--border-color', '--tw-jib--border-color-source', 'border-blue-500', '--color-blue-500', 'border'],
+  [
+    'bg',
+    'background-color',
+    '--tw-jib--background-color',
+    '--tw-jib--background-color-source',
+    'bg-blue-500',
+    '--color-blue-500',
+    'background',
+  ],
+  [
+    'text',
+    'color',
+    '--tw-jib--text-color',
+    '--tw-jib--text-color-source',
+    'text-blue-500',
+    '--color-blue-500',
+    'text',
+  ],
+  [
+    'fill',
+    'fill',
+    '--tw-jib--fill-color',
+    '--tw-jib--fill-color-source',
+    'fill-blue-500',
+    '--color-blue-500',
+    'fill',
+  ],
+  [
+    'stroke',
+    'stroke',
+    '--tw-jib--stroke-color',
+    '--tw-jib--stroke-color-source',
+    'stroke-blue-500',
+    '--color-blue-500',
+    'stroke',
+  ],
+  [
+    'outline',
+    'outline-color',
+    '--tw-jib--outline-color',
+    '--tw-jib--outline-color-source',
+    'outline-blue-500',
+    '--color-blue-500',
+    'outline',
+  ],
+  [
+    'accent',
+    'accent-color',
+    '--tw-jib--accent-color',
+    '--tw-jib--accent-color-source',
+    'accent-blue-500',
+    '--color-blue-500',
+    'accent',
+  ],
+  [
+    'border',
+    'border-color',
+    '--tw-jib--border-color',
+    '--tw-jib--border-color-source',
+    'border-blue-500',
+    '--color-blue-500',
+    'border',
+  ],
 ];
 
 /**
@@ -43,38 +99,29 @@ describe.each(PROPERTIES)(
     const STABLE_OKLCH = `oklch(from var(${sourceVar}) l c calc(h + var(${amountVar})) / alpha)`;
 
     describe('positive rotation — default amounts', () => {
-      test.each([0, 15, 30, 90, 180, 270, 359])(
-        `${prefix}-hue-rotate-%i`,
-        async (amount) => {
-          const css = await compile(`${baseClass} ${prefix}-hue-rotate-${amount}`);
-          expect(css).toContain(`${amountVar}: ${amount}`);
-          expect(css).toContain(STABLE_OKLCH);
-          expect(css).toContain(`${sourceVar}: var(${baseMarker})`);
-        },
-      );
+      test.each([0, 15, 30, 90, 180, 270, 359])(`${prefix}-hue-rotate-%i`, async (amount) => {
+        const css = await compile(`${baseClass} ${prefix}-hue-rotate-${amount}`);
+        expect(css).toContain(`${amountVar}: ${amount}`);
+        expect(css).toContain(STABLE_OKLCH);
+        expect(css).toContain(`${sourceVar}: var(${baseMarker})`);
+      });
     });
 
     describe('negative rotation — default amounts', () => {
-      test.each([15, 30, 90, 180])(
-        `-${prefix}-hue-rotate-%i`,
-        async (amount) => {
-          const css = await compile(`${baseClass} -${prefix}-hue-rotate-${amount}`);
-          expect(css).toContain(`${amountVar}: calc(${amount} * -1)`);
-          expect(css).toContain(STABLE_OKLCH);
-          expect(css).toContain(`${sourceVar}: var(${baseMarker})`);
-        },
-      );
+      test.each([15, 30, 90, 180])(`-${prefix}-hue-rotate-%i`, async (amount) => {
+        const css = await compile(`${baseClass} -${prefix}-hue-rotate-${amount}`);
+        expect(css).toContain(`${amountVar}: calc(${amount} * -1)`);
+        expect(css).toContain(STABLE_OKLCH);
+        expect(css).toContain(`${sourceVar}: var(${baseMarker})`);
+      });
     });
 
     describe('color spaces via modifier', () => {
-      test.each(STABLE_SPACE_MARKERS)(
-        `${prefix}-hue-rotate-30/%s`,
-        async (space, marker) => {
-          const css = await compile(`${baseClass} ${prefix}-hue-rotate-30/${space}`);
-          expect(css).toContain(marker);
-          expect(css).toContain(`${amountVar}: 30`);
-        },
-      );
+      test.each(STABLE_SPACE_MARKERS)(`${prefix}-hue-rotate-30/%s`, async (space, marker) => {
+        const css = await compile(`${baseClass} ${prefix}-hue-rotate-30/${space}`);
+        expect(css).toContain(marker);
+        expect(css).toContain(`${amountVar}: 30`);
+      });
 
       test(`/rgb produces rgb( output in ${prefix} stage var`, async () => {
         const css = await compile(`${baseClass} ${prefix}-hue-rotate-30/rgb`);
@@ -113,41 +160,34 @@ describe.each(PROPERTIES)(
   '%s-hue-rotate (experimental path)',
   (prefix, _cssProperty, _captureVar, sourceVar, baseClass) => {
     describe('positive rotation with @function', () => {
-      test.each([0, 30, 90, 180])(
-        `${prefix}-hue-rotate-%i`,
-        async (amount) => {
-          const css = await compile(
-            `${baseClass} ${prefix}-hue-rotate-${amount}`,
-            { experimental: true },
-          );
-          expect(css).toContain(SUPPORTS_FUNCTION);
-          expect(css).toContain(`--tw-jib--hue-rotate(var(${sourceVar}), ${amount}, oklch)`);
-        },
-      );
+      test.each([0, 30, 90, 180])(`${prefix}-hue-rotate-%i`, async (amount) => {
+        const css = await compile(`${baseClass} ${prefix}-hue-rotate-${amount}`, {
+          functions: true,
+        });
+        expect(css).toContain(SUPPORTS_FUNCTION);
+        expect(css).toContain(`--tw-jib--hue-rotate(var(${sourceVar}), ${amount}, oklch)`);
+      });
     });
 
     describe('negative rotation with @function', () => {
-      test.each([30, 90, 180])(
-        `-${prefix}-hue-rotate-%i`,
-        async (amount) => {
-          const css = await compile(
-            `${baseClass} -${prefix}-hue-rotate-${amount}`,
-            { experimental: true },
-          );
-          expect(css).toContain(SUPPORTS_FUNCTION);
-          expect(css).toContain(`--tw-jib--hue-rotate(var(${sourceVar}), calc(${amount} * -1), oklch)`);
-        },
-      );
+      test.each([30, 90, 180])(`-${prefix}-hue-rotate-%i`, async (amount) => {
+        const css = await compile(`${baseClass} -${prefix}-hue-rotate-${amount}`, {
+          functions: true,
+        });
+        expect(css).toContain(SUPPORTS_FUNCTION);
+        expect(css).toContain(
+          `--tw-jib--hue-rotate(var(${sourceVar}), calc(${amount} * -1), oklch)`,
+        );
+      });
     });
 
     describe('color spaces with @function', () => {
       test.each(['oklch', 'hsl', 'rgb', 'srgb', 'display-p3', 'lab', 'xyz'] as const)(
         `${prefix}-hue-rotate-30/%s`,
         async (space) => {
-          const css = await compile(
-            `${baseClass} ${prefix}-hue-rotate-30/${space}`,
-            { experimental: true },
-          );
+          const css = await compile(`${baseClass} ${prefix}-hue-rotate-30/${space}`, {
+            functions: true,
+          });
           expect(css).toContain(SUPPORTS_FUNCTION);
           expect(css).toContain('--tw-jib--hue-rotate(');
           expect(css).toMatch(new RegExp(`30,\\s+${space.replace('-', '\\-')}`));
@@ -158,10 +198,9 @@ describe.each(PROPERTIES)(
     test('color-mix modifier is NOT supported', async () => {
       // hue-rotate deliberately omits color-mix — the modifier should not match.
       // The class compiles but without any hue-rotate output; no --tw-jib--hue-rotate() call.
-      const css = await compile(
-        `${baseClass} ${prefix}-hue-rotate-30/color-mix`,
-        { experimental: true },
-      );
+      const css = await compile(`${baseClass} ${prefix}-hue-rotate-30/color-mix`, {
+        functions: true,
+      });
       expect(css).not.toMatch(/--hue-rotate\([^)]*color-mix/);
     });
   },
@@ -173,7 +212,9 @@ describe.each(PROPERTIES)(
 describe('bg-hue-rotate composes with bg-image layer', () => {
   test('writes --tw-jib--background-image with the composed color', async () => {
     const css = await compile('bg-blue-500 bg-hue-rotate-30');
-    expect(css).toContain('--tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0)');
+    expect(css).toContain(
+      '--tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0)',
+    );
   });
 });
 
@@ -183,25 +224,35 @@ describe('bg-hue-rotate composes with bg-image layer', () => {
 
 describe('experimental inline function usage', () => {
   test('bg-[...] with hue-rotate router function', async () => {
-    const css = await compile('bg-[--tw-jib--hue-rotate(var(--color-red-500),180)]', { experimental: true });
+    const css = await compile('bg-[--tw-jib--hue-rotate(var(--color-red-500),180)]', {
+      functions: true,
+    });
     expect(css).toContain('--tw-jib--hue-rotate(');
     expect(css).toContain('background-color:');
   });
 
   test('bg-[...] with color space argument', async () => {
-    const css = await compile('bg-[--tw-jib--hue-rotate(var(--color-red-500),120,oklch)]', { experimental: true });
+    const css = await compile('bg-[--tw-jib--hue-rotate(var(--color-red-500),120,oklch)]', {
+      functions: true,
+    });
     expect(css).toContain('--tw-jib--hue-rotate(');
     expect(css).toContain('oklch');
   });
 
   test('from-[...] gradient stop with hue-rotated color', async () => {
-    const css = await compile('bg-linear-to-r from-[--tw-jib--hue-rotate(var(--color-red-500),120)] to-red-500', { experimental: true });
+    const css = await compile(
+      'bg-linear-to-r from-[--tw-jib--hue-rotate(var(--color-red-500),120)] to-red-500',
+      { functions: true },
+    );
     expect(css).toContain('--tw-jib--hue-rotate(');
     expect(css).toContain('--tw-gradient-from:');
   });
 
   test('from-[...] + to-[...] hue-rotated gradient', async () => {
-    const css = await compile('bg-linear-to-r from-[--tw-jib--hue-rotate(var(--color-red-500),60)] to-[--tw-jib--hue-rotate(var(--color-red-500),180)]', { experimental: true });
+    const css = await compile(
+      'bg-linear-to-r from-[--tw-jib--hue-rotate(var(--color-red-500),60)] to-[--tw-jib--hue-rotate(var(--color-red-500),180)]',
+      { functions: true },
+    );
     expect(css).toContain('--tw-gradient-from:');
     expect(css).toContain('--tw-gradient-to:');
     const matches = css.match(/--tw-jib--hue-rotate\(/g);

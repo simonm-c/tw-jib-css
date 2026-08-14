@@ -1,9 +1,5 @@
 import { test, expect, type Page } from '@playwright/test';
 
-// ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
-
 interface ElementStyles {
   backgroundImage: string;
   exists: boolean;
@@ -93,10 +89,6 @@ async function gotoPage(page: Page) {
   await page.locator('[data-test="black"]').waitFor();
 }
 
-// ---------------------------------------------------------------------------
-// Primary colours
-// ---------------------------------------------------------------------------
-
 test.describe('bg-comic — primary colours render', () => {
   test('all primary colours produce gradient layers', async ({ page }) => {
     await gotoPage(page);
@@ -115,10 +107,6 @@ test.describe('bg-comic — primary colours render', () => {
   });
 });
 
-// ---------------------------------------------------------------------------
-// Dot size variations
-// ---------------------------------------------------------------------------
-
 test.describe('comic-dot — dot size variations', () => {
   test('all dot size variants render with gradients', async ({ page }) => {
     await gotoPage(page);
@@ -130,10 +118,6 @@ test.describe('comic-dot — dot size variations', () => {
     }
   });
 });
-
-// ---------------------------------------------------------------------------
-// Gap variations
-// ---------------------------------------------------------------------------
 
 test.describe('comic-gap — gap variations', () => {
   test('all gap variants render', async ({ page }) => {
@@ -147,10 +131,6 @@ test.describe('comic-gap — gap variations', () => {
   });
 });
 
-// ---------------------------------------------------------------------------
-// Bleed variations
-// ---------------------------------------------------------------------------
-
 test.describe('comic-bleed — bleed variations', () => {
   test('all bleed variants render', async ({ page }) => {
     await gotoPage(page);
@@ -161,10 +141,6 @@ test.describe('comic-bleed — bleed variations', () => {
     }
   });
 });
-
-// ---------------------------------------------------------------------------
-// Opacity
-// ---------------------------------------------------------------------------
 
 test.describe('bg-comic opacity modifier', () => {
   test('all opacity variants render', async ({ page }) => {
@@ -183,10 +159,6 @@ test.describe('bg-comic opacity modifier', () => {
   });
 });
 
-// ---------------------------------------------------------------------------
-// Dot + gap combinations
-// ---------------------------------------------------------------------------
-
 test.describe('comic dot + gap combinations', () => {
   test('representative dot+gap combos render', async ({ page }) => {
     await gotoPage(page);
@@ -198,10 +170,6 @@ test.describe('comic dot + gap combinations', () => {
     }
   });
 });
-
-// ---------------------------------------------------------------------------
-// Border gradient composition
-// ---------------------------------------------------------------------------
 
 test.describe('comic + border gradient composition', () => {
   test('linear border directions render with gradients', async ({ page }) => {
@@ -241,10 +209,6 @@ test.describe('comic + border gradient composition', () => {
     }
   });
 });
-
-// ---------------------------------------------------------------------------
-// Full colour palette
-// ---------------------------------------------------------------------------
 
 test.describe('comic — full Tailwind colour palette', () => {
   test('all compare-* colours render with gradients', async ({ page }) => {

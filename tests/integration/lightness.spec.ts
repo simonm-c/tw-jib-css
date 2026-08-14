@@ -1,9 +1,5 @@
 import { test, expect, type Page } from '@playwright/test';
 
-// ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
-
 interface ElementStyles {
   backgroundColor: string;
   backgroundImage: string;
@@ -126,10 +122,6 @@ const ALL_SPACES = [
   'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
   'color-mix',
 ];
-
-// ---------------------------------------------------------------------------
-// Stable path — runs on ALL browsers
-// ---------------------------------------------------------------------------
 
 test.describe('stable path (all browsers)', () => {
   test.describe('darken — default amounts', () => {
@@ -536,10 +528,6 @@ test.describe('stable path (all browsers)', () => {
   });
 });
 
-// ---------------------------------------------------------------------------
-// @function path — runs only when CSS @function IS supported
-// ---------------------------------------------------------------------------
-
 test.describe('@function path (browsers with CSS @function support)', () => {
   test.beforeEach(async ({ page }) => {
     await gotoPage(page);
@@ -600,10 +588,6 @@ test.describe('@function path (browsers with CSS @function support)', () => {
     });
   });
 });
-
-// ---------------------------------------------------------------------------
-// Stable fallback path — runs only when CSS @function is NOT supported
-// ---------------------------------------------------------------------------
 
 test.describe('stable fallback path (browsers without CSS @function)', () => {
   test.beforeEach(async ({ page }) => {

@@ -1,10 +1,6 @@
 import { test, expect, type Page } from '@playwright/test';
 import { EXPERIMENTAL_BASE } from '../../playwright.config';
 
-// ---------------------------------------------------------------------------
-// Constants
-// ---------------------------------------------------------------------------
-
 const TW_HUES = [
   'red',
   'orange',
@@ -32,14 +28,11 @@ const TW_HUES = [
 
 const TW_SHADES = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950] as const;
 
-/** All 242 data-test IDs for the accessible shade page (AA level) */
 const A11Y_IDS = TW_HUES.flatMap((h) => TW_SHADES.map((s) => `${h}-${s}`));
 
-/** AAA and AA Large grids */
 const A11Y_AAA_IDS = TW_HUES.flatMap((h) => TW_SHADES.map((s) => `aaa-${h}-${s}`));
 const A11Y_AALG_IDS = TW_HUES.flatMap((h) => TW_SHADES.map((s) => `aalg-${h}-${s}`));
 
-/** All 242 data-test IDs for the badge page */
 const BADGE_IDS = TW_HUES.flatMap((h) => TW_SHADES.map((s) => `badge-${h}-${s}`));
 
 const SUPPORTS_WCAG =
@@ -62,10 +55,6 @@ const COMBO_GROUPS = [
   { prefix: 'aaa', level: 'AAA', hues: ['red', 'blue', 'slate'] },
   { prefix: 'aalg', level: 'AA Large', hues: ['red', 'blue', 'slate'] },
 ] as const;
-
-// ---------------------------------------------------------------------------
-// Helpers — run inside page.evaluate
-// ---------------------------------------------------------------------------
 
 interface A11yResult {
   bgColor: string;
@@ -371,8 +360,8 @@ async function extractBadgeResults(
  *
  * Gates the BADGE ONLY. text-a11y-* has a stable rendering path (no @function,
  * no if(style())) and must hit its ratio on every engine, so the shade specs
- * deliberately do not consult this — skipping them here is what hid the whole
- * module from Firefox and WebKit in the first place.
+ * must NOT consult this — gating them on it would hide the whole module from
+ * Firefox and WebKit while reporting green.
  */
 async function detectSupport(page: Page): Promise<boolean> {
   return page.evaluate((q) => CSS.supports(q), SUPPORTS_WCAG);
@@ -409,12 +398,11 @@ async function extractColorVsInherited(
   }, ids);
 }
 
-// ---------------------------------------------------------------------------
 // Exactness grading
 //
 // The shade is solved algebraically rather than searched, so the contract is
 // much stronger than "the rating is at or above the requested level": the
-// achieved ratio EQUALS the requested ratio. Three verdicts:
+// achieved ratio EQUALS the requested ratio. The verdicts:
 //
 //   PASS   — |measured − target| <= 0.006. Covers computed-value
 //            serialisation rounding plus the infinitesimal band around the
@@ -429,7 +417,6 @@ async function extractColorVsInherited(
 // threshold (observed spread ~1.6e-5) and a `ratio >= 7 ? 'AAA'` classifier
 // flips between AAA and AA on float noise. Asserting the rating would be flaky
 // by construction; asserting the ratio is the real contract.
-// ---------------------------------------------------------------------------
 
 function ratio(l1: number, l2: number) {
   const lighter = Math.max(l1, l2);
@@ -523,10 +510,6 @@ function channelSpread(str: string): number | null {
   return ch ? Math.max(...ch) - Math.min(...ch) : null;
 }
 
-// ---------------------------------------------------------------------------
-// text-a11y-aa tests
-// ---------------------------------------------------------------------------
-
 test.describe('text-a11y-aa — exact ratio verification', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(A11Y_PAGE, { waitUntil: 'networkidle' });
@@ -562,10 +545,6 @@ test.describe('text-a11y-aa — exact ratio verification', () => {
   });
 });
 
-// ---------------------------------------------------------------------------
-// text-a11y-aaa tests (separate page)
-// ---------------------------------------------------------------------------
-
 test.describe('text-a11y-aaa — exact ratio verification', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(A11Y_PAGE, { waitUntil: 'networkidle' });
@@ -585,10 +564,6 @@ test.describe('text-a11y-aaa — exact ratio verification', () => {
   });
 });
 
-// ---------------------------------------------------------------------------
-// text-a11y-aa-lg tests (separate page)
-// ---------------------------------------------------------------------------
-
 test.describe('text-a11y-aa-lg — exact ratio verification', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(A11Y_PAGE, { waitUntil: 'networkidle' });
@@ -605,10 +580,6 @@ test.describe('text-a11y-aa-lg — exact ratio verification', () => {
     expect(capped, 'AA Large is reachable from every background; none should be capped').toBe(0);
   });
 });
-
-// ---------------------------------------------------------------------------
-// text-a11y — threshold edge cases
-// ---------------------------------------------------------------------------
 
 /** Backgrounds near each threshold, paired with the ratio their class targets */
 const A11Y_EDGE_IDS = {
@@ -656,16 +627,11 @@ test.describe('text-a11y — threshold edge cases', () => {
   });
 });
 
-// ---------------------------------------------------------------------------
-// Frozen regression cases
-//
-// Each was a characterised failure during development of the closed-form
-// solver. The exact-grey and one-bit-tint cases now guard an invariant rather
-// than reproducing a live bug — the formulations that broke them are gone from
-// the API — so they are expected to pass comfortably. Do not delete them on
-// those grounds: they are the direct check that float residue in the chroma
-// vector stays unamplified.
-// ---------------------------------------------------------------------------
+// Frozen regression cases. The exact-grey and one-bit-tint cases guard an
+// invariant rather than reproducing a live bug, so they are expected to pass
+// comfortably. Do not delete them on those grounds: they are the direct check
+// that float residue in the chroma vector stays unamplified, which is the one
+// thing a gamut-maximal scale would silently undo.
 
 /** Fixture id → the ratio its class targets. */
 const FROZEN_TARGETS = {
@@ -680,7 +646,7 @@ const FROZEN_TARGETS = {
   'frozen-capped-indigo': TARGET_RATIO.AAA,
 } as const;
 
-/** The two AAA fixtures whose targets are physically out of reach. */
+/** The AAA fixtures whose targets are physically out of reach. */
 const FROZEN_EXPECT_CAPPED = new Set(['frozen-capped-grey', 'frozen-capped-indigo']);
 
 test.describe('text-a11y — frozen regression cases', () => {
@@ -716,9 +682,9 @@ test.describe('text-a11y — frozen regression cases', () => {
   test('exact grey stays achromatic at all three levels', async ({ page }) => {
     // The luma weights do not sum to exactly 1.0 in float, leaving a uniform
     // residual of order 1e-7 in the chroma vector on a mathematically exact
-    // grey. An earlier formulation amplified it ~1e5x into a visible tint and
-    // a 0.015 luminance error. The scale is now bounded by min(1, …), so the
-    // residual must stay the size it started.
+    // grey. A gamut-maximal scale amplifies that ~1e5x into a visible tint and a
+    // 0.015 luminance error; bounding the scale by min(1, …) is what keeps the
+    // residual the size it started.
     const ids = ['frozen-grey-aa', 'frozen-grey-aaa', 'frozen-grey-aalg'];
     const results = await extractA11yResults(page, ids);
     const tinted: string[] = [];
@@ -743,7 +709,7 @@ test.describe('text-a11y — frozen regression cases', () => {
   test('one-bit tints stay near-neutral and near-identical', async ({ page }) => {
     // #d5d4d4 vs #d4d4d5 differ by one 8-bit step and are visually identical.
     // Their chroma vectors differ in direction by a quantisation-scale amount,
-    // so a gamut-maximal scale amplified that into crimson vs ultramarine.
+    // which a gamut-maximal scale would amplify into crimson vs ultramarine.
     const results = await extractA11yResults(page, ['frozen-onebit-warm', 'frozen-onebit-cool']);
     const warm = results['frozen-onebit-warm'];
     const cool = results['frozen-onebit-cool'];
@@ -766,10 +732,9 @@ test.describe('text-a11y — frozen regression cases', () => {
   });
 });
 
-// ---------------------------------------------------------------------------
 // Cross-pipeline invariance
 //
-// All seventeen colour-space modifiers share one luminance solve, so they MUST
+// Every colour-space modifier shares one luminance solve, so they MUST
 // report the identical ratio on a given background — the space only changes the
 // aesthetic path. The Class 2/3 pipelines carry the solved target luminance
 // through the alpha channel of a nested relative colour, so any quantisation of
@@ -779,8 +744,7 @@ test.describe('text-a11y — frozen regression cases', () => {
 // Asserted PER ENGINE, never between engines. Gecko rejects a channel keyword
 // inside pow() and so seeds oklch/oklab/lch/lab linearly instead of by cube
 // root; the ratio is exact either way but the chroma differs, so a
-// cross-engine comparison of these four would fail by design.
-// ---------------------------------------------------------------------------
+// cross-engine comparison of those would fail by design.
 
 const INVARIANT_SPACES = [
   'oklch',
@@ -836,7 +800,6 @@ test.describe('text-a11y — cross-pipeline invariance', () => {
   }
 });
 
-// ---------------------------------------------------------------------------
 // The pow() gate
 //
 // Gecko parses pow() but rejects a CHANNEL KEYWORD as its argument, which
@@ -849,9 +812,8 @@ test.describe('text-a11y — cross-pipeline invariance', () => {
 // just a contrast failure that looks like the utility was never applied.
 //
 // So the gate is load-bearing, and this is its guard.
-// ---------------------------------------------------------------------------
 
-/** The four spaces whose precise seed needs a cube root. */
+/** The spaces whose precise seed needs a cube root. */
 const POW_SEEDED_SPACES = ['oklch', 'oklab', 'lch', 'lab'] as const;
 
 test.describe('text-a11y — the pow() gate', () => {
@@ -900,27 +862,25 @@ test.describe('text-a11y — the pow() gate', () => {
   });
 });
 
-// ---------------------------------------------------------------------------
 // @function / stable-path agreement
 //
-// text-a11y-* has two implementations: the @function dispatcher, which wins
+// text-a11y-* has both implementations live: the @function dispatcher, which wins
 // wherever CSS @function exists, and the nested relative-colour chain that
 // engines without it fall back to. Nothing in the code forces them to compute
 // the same thing, so this is what does.
 //
-// Three readouts per case, on Chromium where both paths are live:
+// Readouts per case, on Chromium where both paths are live:
 //   util    whatever the cascade picked — the @function override
 //   fn      --tw-jib--accessible-shade() called directly
 //   stable  a child reading --tw-jib--a11y--shade, the chain's own result, which
 //           block A computes on every engine even when @function wins `color:`
 //
-// fn vs stable is the load-bearing pair: the two paths, measured side by side in
+// fn vs stable is the load-bearing pair: both paths, measured side by side in
 // one engine. util vs fn additionally checks the utility is really wired to the
 // dispatcher where it claims to be.
 //
 // Chromium only, because `fn` IS the @function path. Its absence elsewhere is
 // the whole reason the stable path exists.
-// ---------------------------------------------------------------------------
 
 const AGREEMENT_CASES = ['violet', 'grey', 'teal'].flatMap((bg) =>
   [
@@ -991,7 +951,7 @@ test.describe('text-a11y — the utility and the @function API agree', () => {
     // @function result the test above compares against. The agreement test would
     // then pass by comparing a value to itself.
     //
-    // Comparing colours cannot detect that, precisely because the two paths do
+    // Comparing colours cannot detect that, precisely because both paths do
     // agree. So check the property instead: the chain has to be present on the
     // child as a token stream, with the final stage's srgb-linear form intact.
     const ids = AGREEMENT_CASES.map((c) => `agree-stable-${c}`);
@@ -1018,19 +978,16 @@ test.describe('text-a11y — the utility and the @function API agree', () => {
   });
 });
 
-// ---------------------------------------------------------------------------
-// text-a11y + wcag-badge on the same element
+// text-a11y + wcag-badge on the same element. They must not contradict each
+// other: if the class asks for AA, the badge on that element has to say AA or
+// better.
 //
-// The two utilities must not contradict each other: if the class asks for AA,
-// the badge sitting on that element has to say AA or better. This is the check
-// that a closed-form shade makes load-bearing. While shades were found by
-// search they overshot every threshold, so the badge's own precision never
-// decided a verdict. Landing exactly ON a threshold makes the badge the
-// arbiter of an exact tie, and it got it wrong twice over — a legacy rgb()
-// round-trip in the luminance path biased the measurement 5e-4 to 9e-4 toward
-// failing, and a step function that returns 0 at exactly 0 failed the tie
-// regardless. Both are fixed in _functions.css; this is the guard.
-// ---------------------------------------------------------------------------
+// This is load-bearing because a closed-form shade lands exactly ON the
+// threshold, which makes the badge the arbiter of an exact tie — a position the
+// measurement path loses from if it regresses. A legacy
+// rgb() round-trip in the luminance path biases the measurement 5e-4 to 9e-4
+// toward failing, and a step function returning 0 at exactly 0 fails the tie
+// outright. _functions.css avoids both; this is the guard that it still does.
 
 const RATING_RANK = { Fail: 0, 'AA Large': 1, AA: 2, AAA: 3 } as const;
 
@@ -1100,10 +1057,6 @@ test.describe('text-a11y + wcag-badge — the badge must agree with the class', 
     ).toHaveLength(0);
   });
 });
-
-// ---------------------------------------------------------------------------
-// wcag-badge tests
-// ---------------------------------------------------------------------------
 
 /**
  * The CSS pipeline is mathematically exact (packed-luminance + multi-channel

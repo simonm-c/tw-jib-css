@@ -328,15 +328,23 @@ describe('text-a11y utilities — stable path', () => {
       expect(css).not.toContain(SUPPORTS_WCAG);
     });
 
+    // Every candidate needs its own compile — one build carrying all of them
+    // could not attribute a missing call back to the class that lost it. They
+    // run concurrently because each compile() builds an independent compiler,
+    // and sequentially this alone approaches vitest's default timeout.
     test('all 3 levels and 17 spaces get the override', async () => {
-      const missing: string[] = [];
-      for (const level of LEVELS) {
-        for (const space of [null, ...COLOR_SPACES]) {
-          const cls = space ? `text-a11y-${level}/${space}` : `text-a11y-${level}`;
-          const css = await compile(`bg-blue-500 ${cls}`, { functions: true });
-          if (!css.includes(SHADE_CALL)) missing.push(cls);
-        }
-      }
+      const candidates = LEVELS.flatMap((level) =>
+        [null, ...COLOR_SPACES].map((space) =>
+          space ? `text-a11y-${level}/${space}` : `text-a11y-${level}`,
+        ),
+      );
+      const compiled = await Promise.all(
+        candidates.map(async (cls) => ({
+          cls,
+          css: await compile(`bg-blue-500 ${cls}`, { functions: true }),
+        })),
+      );
+      const missing = compiled.filter((c) => !c.css.includes(SHADE_CALL)).map((c) => c.cls);
       expect(
         missing,
         `${missing.length} candidates have no @function override: ${missing.join(', ')}`,

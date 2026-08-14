@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Geometry as docs/public/jibcss-mark.svg, rotated off sky to violet for the
+  same reason the rest of this instance is: the tab icon sits beside the stable
+  site's in a browser's tab strip, and a blue mark there is indistinguishable.
+
+  This instance needs its own copy rather than the stable one's. A head link
+  href does not go through VitePress's withBase(), so the path is absolute, and
+  an absolute path into the stable instance resolves only once both are deployed
+  under the same origin — in dev it is a 404.
+-->
+<svg width="100%" height="100%" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(-91.577639,-115.055196) scale(5.519651)">
+    <path d="M32.35,24.07L50.67,54.41C42.61,59.64,34.78,60.9,29.43,60.07C34.39,50.2,36.79,39.66,32.35,24.07Z" fill="oklch(70.2% 0.183 293.541)"/>
+  </g>
+</svg>

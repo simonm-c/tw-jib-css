@@ -361,7 +361,7 @@ Use bracket notation for custom colours and angles. Colour stops accept any CSS 
 Reference CSS custom properties with the typed bare-value syntax `(type:--var)`. The type hint tells Tailwind how to interpret the variable:
 
 <Example>
-  <div class="border-4 border-linear-to-r border-from-(color:--brand-from) border-to-(color:--brand-to) rounded-xl p-6 bg-white text-center font-mono text-xs text-gray-500" style="--brand-from: #ff6b35; --brand-to: #6366f1">
+  <div class="border-4 border-linear-to-r border-from-(color:--brand-from) border-to-(color:--brand-to) rounded-xl p-6 bg-white text-center font-mono text-xs text-gray-500 [--brand-from:#ff6b35] [--brand-to:#6366f1]">
     border-from-(color:--brand-from) border-to-(color:--brand-to)
   </div>
 </Example>

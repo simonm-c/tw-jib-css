@@ -118,7 +118,7 @@ describe('ripple-duration utilities', () => {
 describe('ripple-fade utilities', () => {
   test('ripple-fade sets fade-amount to 100%', async () => {
     const css = await compile('bg-ripple ripple-fade');
-    expect(css).toContain('--tw-jib--ripple-fade-amount: 100%');
+    expect(css).toContain('--tw-jib--ripple-fade-amount: calc(100 * 1%)');
   });
 
   test('ripple-fade-none sets fade-amount to 0%', async () => {
@@ -232,7 +232,7 @@ describe('ripple composition with border gradients', () => {
 describe('combined ripple customisation', () => {
   test('all customisations together', async () => {
     const css = await compile('bg-ripple ripple-color-white ripple-duration-60 ripple-fade bg-indigo-600');
-    expect(css).toContain('--tw-jib--ripple-fade-amount: 100%');
+    expect(css).toContain('--tw-jib--ripple-fade-amount: calc(100 * 1%)');
     expect(css).toContain('--tw-jib--ripple-duration: calc(60 * 10ms)');
     expect(css).toContain(BG_LAYER);
   });

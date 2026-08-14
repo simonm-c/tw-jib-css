@@ -1,0 +1,30 @@
+/* tw-jib-css — experimental utilities (limited browser support)
+ *
+ * This entry is everything experimental, and it contains two different kinds of
+ * thing. The distinction still governs which file code lives in, and it is what
+ * the sub-entries are for:
+ *
+ *   ADDITIONS   corner, interpolate, picker, wcag-badge — utilities with no
+ *               stable form. Importing them cannot change anything you already
+ *               use. Available individually: 'tw-jib-css/experimental/corner'
+ *               and siblings.
+ *   OVERRIDES   experimental/functions.css — the @function reimplementations of
+ *               lightness, saturation, hue-rotate and text-a11y-*. These REPLACE
+ *               utilities the main entry already defines. Available on their own
+ *               as 'tw-jib-css/experimental/functions'.
+ *
+ * So importing this entry DOES change how bg-hue-rotate-*, bg-lighten-*,
+ * bg-saturation-* and text-a11y-* are computed. That is deliberate — reaching
+ * for the experimental entry is an explicit act — but it is worth knowing.
+ *
+ * Want the additions without the overrides? Import the individual subpaths
+ * rather than this entry.
+ *
+ * Functions come LAST: source order is what carries the override.
+ */
+
+@import './corner.css';
+@import './interpolate.css';
+@import './picker.css';
+@import './wcag.css';
+@import './functions.css';

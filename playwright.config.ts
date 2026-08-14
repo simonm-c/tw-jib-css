@@ -15,9 +15,24 @@ export default defineConfig({
     { name: 'firefox', use: { ...devices['Desktop Firefox'] } },
     { name: 'webkit', use: { ...devices['Desktop Safari'] } },
   ],
-  webServer: {
-    command: 'pnpm dev:docs',
-    url: 'http://localhost:5173/tw-jib-css/',
-    reuseExistingServer: !process.env.CI,
-  },
+  // Two instances, two servers. The experimental docs are a separate VitePress
+  // instance because the experimental package overrides utilities the stable one
+  // defines — see docs-experimental/.vitepress/theme/tailwind.css. Specs that
+  // exercise experimental fixtures use EXPERIMENTAL_BASE below rather than
+  // baseURL.
+  webServer: [
+    {
+      command: 'pnpm dev:docs',
+      url: 'http://localhost:5173/tw-jib-css/',
+      reuseExistingServer: !process.env.CI,
+    },
+    {
+      command: 'pnpm dev:docs:experimental',
+      url: 'http://localhost:5174/tw-jib-css/experimental/',
+      reuseExistingServer: !process.env.CI,
+    },
+  ],
 });
+
+/** Base URL of the experimental docs instance, for specs on its fixtures. */
+export const EXPERIMENTAL_BASE = 'http://localhost:5174/tw-jib-css/experimental/';

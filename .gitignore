@@ -11,6 +11,8 @@ dist/
 # VitePress
 docs/.vitepress/dist
 docs/.vitepress/cache
+docs-experimental/.vitepress/dist
+docs-experimental/.vitepress/cache
 
 # Test output
 coverage/

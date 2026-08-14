@@ -1,0 +1,30 @@
+/* tw-jib-css — WCAG contrast measurement (experimental, CSS @function required)
+ *
+ * The module is deliberately split across three entries:
+ *
+ *   core          text-a11y-*       — src/accessible-shade.css, every engine
+ *   this file     wcag-badge        — Chromium only
+ *   functions     text-a11y-*'s     — Chromium only, OPT-IN
+ *                 @function path      src/experimental/functions.css
+ *
+ * The badge turns a colour into a rating STRING, which needs if(style()); CSS
+ * offers no stable colour→string conversion. So the badge cannot follow the
+ * shade into core, and importing only the core entry gives you working
+ * accessible shades and no badge. That is the right trade — the badge is a
+ * design-time instrument, the shade is what ships.
+ *
+ * The @function shade is NOT here any more. It overrides a utility that already
+ * works everywhere, so wanting the badge should not silently change how
+ * text-a11y-* is computed; it moved to the functions entry with the other
+ * override paths. The badge reads --tw-jib--a11y-level, which BOTH shade paths
+ * write, so it reports Max correctly whether or not that entry is loaded.
+ *
+ * Does NOT import wcag/_stable.css. The core entry owns it, and consumers load
+ * 'tw-jib-css' before 'tw-jib-css/experimental', so the stable path is already
+ * earlier in source order. Importing it here as well would emit every
+ * text-a11y-* chain twice.
+ */
+
+@import './wcag/_functions.css';
+@import './wcag/_support.css';
+@import './wcag/_badge.css';

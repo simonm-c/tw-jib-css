@@ -59,7 +59,6 @@ border) since they share the same source sub-files.
 | `src/saturation.css` → same pattern | `saturation.md`, `text-saturation.md`, etc. | `tw-jib-css/saturation` |
 | `src/hue-rotate.css` → same pattern | `hue-rotate.md`, `text-hue-rotate.md`, etc. | `tw-jib-css/hue-rotate` |
 | `src/ripple.css` | `ripple.md` | `tw-jib-css/ripple` |
-| `src/scrollbar.css` | `scrollbar.md` | `tw-jib-css/scrollbar` |
 | `src/grid.css` | `grid.md` | `tw-jib-css/grid` |
 | `src/comic.css` | `comic.md` | `tw-jib-css/comic` |
 | `src/pixel.css` | `pixel.md` | `tw-jib-css/pixel` |
@@ -446,7 +445,7 @@ correct section:
 - **Backgrounds**: comic, pixel, ripple
 - **Color Transforms**: lightness, saturation, hue-rotate (each with nested
   sub-items for variant pages: bg, text, fill, stroke, outline, accent, border)
-- **Supporting**: scrollbar, grid
+- **Supporting**: grid
 - **Experimental**: corner, interpolate, picker, wcag, wcag-badge
 
 Use the existing format:

@@ -97,7 +97,7 @@ For CSS variables, you can also use the `grid-area-(--custom-property)` syntax:
 
 <Example stretch>
   <div class="grid grid-cols-3 gap-2">
-    <div class="grid-area-(--hero-area) bg-blue-500 rounded-lg p-3 text-white text-sm text-center" style="--hero-area: span 2 / span 3">
+    <div class="grid-area-(--hero-area) bg-blue-500 rounded-lg p-3 text-white text-sm text-center [--hero-area:span_2_/_span_3]">
       grid-area-(--hero-area)
     </div>
     <div class="bg-gray-200 rounded-lg p-3 text-gray-700 text-sm text-center">auto</div>

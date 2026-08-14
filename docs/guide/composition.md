@@ -40,7 +40,7 @@ The lightness shift interpolates in oklch, the hue rotation in hsl. Each utility
 Print textures and gradient borders coexist on the same element:
 
 ```html
-<div class="bg-hatch-indigo-600
+<div class="bg-comic-indigo-600
   border-4 border-linear-to-br
   border-from-indigo-300 border-to-purple-300
   rounded-xl p-6">
@@ -53,8 +53,8 @@ The texture occupies the background. The gradient border occupies the border are
 `text-a11y-*` reads the computed background colour. It works on solid colours, transformed colours, and textures:
 
 ```html
-<div class="bg-watercolor-violet-600 text-a11y-aa p-6">
-  Readable text on a watercolour background.
+<div class="bg-comic-violet-600 text-a11y-aa p-6">
+  Readable text on a comic halftone background.
 </div>
 ```
 
@@ -63,7 +63,7 @@ The texture occupies the background. The gradient border occupies the border are
 A card with a texture background, auto-contrast text, a gradient border, and a lightened accent:
 
 ```html
-<div class="bg-watercolor-indigo-600
+<div class="bg-comic-indigo-600
   border-4 border-linear-to-br
   border-from-indigo-300 border-to-cyan-300
   text-a11y-aa

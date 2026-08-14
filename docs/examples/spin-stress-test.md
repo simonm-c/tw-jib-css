@@ -5,7 +5,7 @@ layout: page
 
 # Border Spin Stress Test
 
-Stress test for Chrome Error code 5 — many simultaneous `border-spin` animations to verify renderer stability under load.
+Many simultaneous `border-spin` animations on one page, to check that compositing stays stable under load.
 
 ## 24x Conic Spin (default 1s)
 

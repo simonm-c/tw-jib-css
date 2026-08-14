@@ -1,0 +1,97 @@
+{
+  "name": "tw-jib-css",
+  "version": "0.1.0",
+  "description": "TailwindCSS v4 utility library — border gradients, CSS relative color transforms, ripple effects, and more — built entirely with CSS-first @utility and @custom-variant syntax.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Simon Monk-Chipman",
+  "homepage": "https://github.com/simonm-c/tw-jib-css#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simonm-c/tw-jib-css.git",
+    "directory": "packages/tw-jib-css"
+  },
+  "bugs": {
+    "url": "https://github.com/simonm-c/tw-jib-css/issues"
+  },
+  "keywords": [
+    "tailwindcss",
+    "tailwind",
+    "css",
+    "utilities",
+    "border-gradient",
+    "color-transform",
+    "lighten",
+    "darken",
+    "ripple",
+    "saturation",
+    "hue-rotate",
+    "comic",
+    "pixel",
+    "print-texture",
+    "grid",
+    "border-style",
+    "accessible-color",
+    "wcag",
+    "v4",
+    "css-first"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "prepack": "pnpm -w test:css && pnpm -w lint"
+  },
+  "exports": {
+    ".": {
+      "style": "./src/index.css",
+      "default": "./src/index.css"
+    },
+    "./border-gradient": {
+      "style": "./src/border-gradient.css",
+      "default": "./src/border-gradient.css"
+    },
+    "./lightness": {
+      "style": "./src/lightness.css",
+      "default": "./src/lightness.css"
+    },
+    "./saturation": {
+      "style": "./src/saturation.css",
+      "default": "./src/saturation.css"
+    },
+    "./hue-rotate": {
+      "style": "./src/hue-rotate.css",
+      "default": "./src/hue-rotate.css"
+    },
+    "./accessible-shade": {
+      "style": "./src/accessible-shade.css",
+      "default": "./src/accessible-shade.css"
+    },
+    "./ripple": {
+      "style": "./src/ripple.css",
+      "default": "./src/ripple.css"
+    },
+    "./border-style": {
+      "style": "./src/border-style.css",
+      "default": "./src/border-style.css"
+    },
+    "./grid": {
+      "style": "./src/grid.css",
+      "default": "./src/grid.css"
+    },
+    "./comic": {
+      "style": "./src/comic.css",
+      "default": "./src/comic.css"
+    },
+    "./pixel": {
+      "style": "./src/pixel.css",
+      "default": "./src/pixel.css"
+    }
+  },
+  "peerDependencies": {
+    "tailwindcss": ">=4.3.0"
+  }
+}

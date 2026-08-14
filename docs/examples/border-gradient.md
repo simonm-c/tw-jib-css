@@ -3,14 +3,6 @@ title: Border Gradient Test Fixtures
 layout: page
 ---
 
-<style>
-:root {
-  --custom-bg-color: oklch(0.65 0.15 250);
-  --custom-border-from: oklch(0.6 0.25 330);
-  --custom-border-to: oklch(0.7 0.2 200);
-}
-</style>
-
 # Border Gradient Test Fixtures
 
 Test page covering all background × border-gradient combinations.
@@ -47,7 +39,7 @@ Each element pairs a background color variant with a standard linear border grad
   <div data-test="bg-arbitrary-oklch" class="h-20 rounded-lg border-4 flex items-center justify-center bg-[oklch(0.7_0.15_200)] border-linear-to-r border-from-rose-500 border-to-cyan-500">
     <span class="text-xs font-mono text-white/70">bg-[oklch()]</span>
   </div>
-  <div data-test="bg-css-var" class="h-20 rounded-lg border-4 flex items-center justify-center bg-(color:--custom-bg-color) border-linear-to-r border-from-rose-500 border-to-cyan-500">
+  <div data-test="bg-css-var" class="h-20 rounded-lg border-4 flex items-center justify-center bg-(color:--custom-bg-color) border-linear-to-r border-from-rose-500 border-to-cyan-500 [--custom-bg-color:oklch(0.65_0.15_250)]">
     <span class="text-xs font-mono text-white/70">bg-(color:--var)</span>
   </div>
     <div class="bg-red-500">
@@ -579,7 +571,7 @@ All 8 interpolation modes on a linear border gradient. Same from/to colors to sh
   <div data-test="border-stops-arbitrary" class="h-20 rounded-lg border-4 flex items-center justify-center bg-slate-800 border-linear-to-r border-from-[#ff6b35] border-to-[#00b4d8]">
     <span class="text-xs font-mono text-white/70">arbitrary hex</span>
   </div>
-  <div data-test="border-stops-css-var" class="h-20 rounded-lg border-4 flex items-center justify-center bg-slate-800 border-linear-to-r border-from-(color:--custom-border-from) border-to-(color:--custom-border-to)">
+  <div data-test="border-stops-css-var" class="h-20 rounded-lg border-4 flex items-center justify-center bg-slate-800 border-linear-to-r border-from-(color:--custom-border-from) border-to-(color:--custom-border-to) [--custom-border-from:oklch(0.6_0.25_330)] [--custom-border-to:oklch(0.7_0.2_200)]">
     <span class="text-xs font-mono text-white/70">css vars</span>
   </div>
   <div data-test="border-stops-transparent-to" class="h-20 rounded-lg border-4 flex items-center justify-center bg-slate-800 border-linear-to-r border-from-blue-500 border-to-transparent">

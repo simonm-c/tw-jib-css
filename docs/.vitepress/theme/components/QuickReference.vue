@@ -21,7 +21,7 @@ const hasMore = computed(() => props.rows.length > props.initialCount);
 
 <template>
   <div
-    class="jib-quickref my-5 overflow-hidden rounded-2xl border border-jib-brand -border-saturation-50 border-lighten-72 dark:border-darken-55 bg-jib-brand -bg-saturation-50 bg-lighten-92 dark:bg-darken-88 transition-shadow duration-200 hover:shadow-[0_0_0_2px_var(--color-jib-wind)] not-prose"
+    class="my-5 overflow-hidden rounded-2xl border border-jib-brand -border-saturation-50 border-lighten-72 dark:border-darken-55 bg-jib-brand -bg-saturation-50 bg-lighten-92 dark:bg-darken-88 transition-shadow duration-200 hover:shadow-[0_0_0_2px_var(--color-jib-wind)] not-prose"
   >
     <table class="w-full border-collapse text-sm">
       <thead>
@@ -47,7 +47,9 @@ const hasMore = computed(() => props.rows.length > props.initialCount);
           <td class="whitespace-nowrap px-4 py-2 font-mono text-[13px] text-jib-brand">
             {{ row.class }}
           </td>
-          <td class="whitespace-nowrap px-4 py-2 font-mono text-[13px] text-slate-900 dark:text-slate-200 opacity-85">
+          <td
+            class="whitespace-nowrap px-4 py-2 font-mono text-[13px] text-slate-900 dark:text-slate-200 opacity-85"
+          >
             {{ row.styles }}
           </td>
         </tr>
@@ -66,11 +68,3 @@ const hasMore = computed(() => props.rows.length > props.initialCount);
     </div>
   </div>
 </template>
-
-<style scoped>
-@supports (corner-shape: squircle) {
-  .jib-quickref {
-    corner-shape: squircle;
-  }
-}
-</style>

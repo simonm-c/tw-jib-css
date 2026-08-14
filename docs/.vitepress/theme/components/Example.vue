@@ -49,7 +49,7 @@ onMounted(async () => {
 
 <template>
   <div
-    class="jib-example group my-5 overflow-hidden rounded-2xl border border-jib-brand -border-saturation-50 border-lighten-72 dark:border-darken-55 bg-jib-brand -bg-saturation-50 bg-lighten-92 dark:bg-darken-85 transition-shadow duration-200 hover:shadow-[0_0_0_2px_var(--color-jib-wind)] not-prose"
+    class="group my-5 overflow-hidden rounded-2xl border border-jib-brand -border-saturation-50 border-lighten-72 dark:border-darken-55 bg-jib-brand -bg-saturation-50 bg-lighten-92 dark:bg-darken-85 transition-shadow duration-200 hover:shadow-[0_0_0_2px_var(--color-jib-wind)] not-prose"
   >
     <p
       v-if="label"
@@ -60,15 +60,14 @@ onMounted(async () => {
 
     <div
       ref="preview"
-      :class="[
-        'relative p-6',
-        stretch ? 'block' : 'flex justify-center items-center',
-      ]"
+      :class="['relative p-6', stretch ? 'block' : 'flex justify-center items-center']"
     >
       <slot />
     </div>
 
-    <div class="border-t border-jib-wind/25 bg-jib-brand -bg-saturation-60 bg-lighten-95 dark:bg-darken-88">
+    <div
+      class="border-t border-jib-wind/25 bg-jib-brand -bg-saturation-60 bg-lighten-95 dark:bg-darken-88"
+    >
       <button
         class="w-full border-0 bg-transparent bg-ripple ripple-color-jib-wind/40 ripple-position-center px-4 py-2 text-left font-mono text-[11px] uppercase tracking-[0.2em] cursor-pointer text-slate-900 dark:text-slate-200 transition-colors"
         @click="showCode = !showCode"
@@ -76,16 +75,10 @@ onMounted(async () => {
         {{ showCode ? 'hide code' : 'show code' }}
       </button>
       <div v-show="showCode" class="border-t border-jib-wind/20">
-        <pre class="m-0 overflow-x-auto bg-jib-brand -bg-saturation-40 bg-darken-80 dark:bg-darken-88 p-4 text-[13px] leading-relaxed text-slate-200"><code>{{ code }}</code></pre>
+        <pre
+          class="m-0 overflow-x-auto bg-jib-brand -bg-saturation-40 bg-darken-80 dark:bg-darken-88 p-4 text-[13px] leading-relaxed text-slate-200"
+        ><code>{{ code }}</code></pre>
       </div>
     </div>
   </div>
 </template>
-
-<style scoped>
-@supports (corner-shape: squircle) {
-  .jib-example {
-    corner-shape: squircle;
-  }
-}
-</style>

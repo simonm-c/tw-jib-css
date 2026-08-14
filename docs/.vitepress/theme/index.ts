@@ -17,7 +17,6 @@ import CompassRose from './components/landing/CompassRose.vue';
 import MagazineRoot from './components/landing/magazine/MagazineRoot.vue';
 import MagazineSlide from './components/landing/magazine/MagazineSlide.vue';
 import MagazineHero from './components/landing/magazine/MagazineHero.vue';
-import MagazineExperimentalBreak from './components/landing/magazine/MagazineExperimentalBreak.vue';
 import MagazineFinale from './components/landing/magazine/MagazineFinale.vue';
 import MagazineAlsoIncluded from './components/landing/magazine/MagazineAlsoIncluded.vue';
 
@@ -60,7 +59,6 @@ export default {
     app.component('MagazineRoot', MagazineRoot);
     app.component('MagazineSlide', MagazineSlide);
     app.component('MagazineHero', MagazineHero);
-    app.component('MagazineExperimentalBreak', MagazineExperimentalBreak);
     app.component('MagazineFinale', MagazineFinale);
     app.component('MagazineAlsoIncluded', MagazineAlsoIncluded);
 

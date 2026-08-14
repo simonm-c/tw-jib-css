@@ -1152,3 +1152,140 @@ Backgrounds near WCAG threshold boundaries.
     <span class="text-xs font-mono">oklch(25% 0.1 280)</span>
   </div>
 </div>
+
+## Frozen Regression Cases
+
+Each of these was a characterised failure during development of the closed-form
+solver. They are pinned here so the failure cannot return silently. The first two
+now guard an _invariant_ rather than reproducing a live bug — do not remove them
+on the grounds that they always pass.
+
+### Exact grey — float-residual guard
+
+The luma coefficients do not sum to exactly 1.0 in float evaluation, so on a
+mathematically exact grey the chroma vector carries a uniform residual of order
+10⁻⁷ instead of zero. An earlier formulation amplified that residual into a
+0.015 luminance error (measured 4.996 against a 4.500 target) and could undershoot
+just as easily as overshoot. The output must stay perfectly neutral and on target.
+
+<div class="grid grid-cols-3 gap-3 my-6">
+  <div data-test="frozen-grey-aa" class="h-20 rounded-lg flex flex-col items-center justify-center bg-[#d4d4d4] text-a11y-aa">
+    <span class="font-bold text-xs">#d4d4d4</span>
+    <span class="text-[10px] font-mono">text-a11y-aa</span>
+  </div>
+  <div data-test="frozen-grey-aaa" class="h-20 rounded-lg flex flex-col items-center justify-center bg-[#d4d4d4] text-a11y-aaa">
+    <span class="font-bold text-xs">#d4d4d4</span>
+    <span class="text-[10px] font-mono">text-a11y-aaa</span>
+  </div>
+  <div data-test="frozen-grey-aalg" class="h-20 rounded-lg flex flex-col items-center justify-center bg-[#d4d4d4] text-a11y-aa-lg">
+    <span class="font-bold text-xs">#d4d4d4</span>
+    <span class="text-[10px] font-mono">text-a11y-aa-lg</span>
+  </div>
+</div>
+
+### One-bit tints — hue stability on near-neutrals
+
+Two backgrounds one 8-bit step apart, visually identical. The output hue is the
+ratio of channel differences of order 5×10⁻³, so a gamut-maximal chroma scale
+amplified quantisation noise into a full hue swing — crimson vs ultramarine text
+on indistinguishable greys. Matching the input's chroma bounds the amplification,
+so these two must stay near-neutral and near-identical.
+
+<div class="grid grid-cols-2 gap-3 my-6">
+  <div data-test="frozen-onebit-warm" class="h-20 rounded-lg flex flex-col items-center justify-center bg-[#d5d4d4] text-a11y-aa">
+    <span class="font-bold text-xs">#d5d4d4 (warm)</span>
+    <span class="text-[10px] font-mono">text-a11y-aa</span>
+  </div>
+  <div data-test="frozen-onebit-cool" class="h-20 rounded-lg flex flex-col items-center justify-center bg-[#d4d4d5] text-a11y-aa">
+    <span class="font-bold text-xs">#d4d4d5 (cool)</span>
+    <span class="text-[10px] font-mono">text-a11y-aa</span>
+  </div>
+</div>
+
+### Barely-feasible AA
+
+Both backgrounds sit close to the 0.1791 pivot, where the maximum achievable
+ratio bottoms out at √21 ≈ 4.583. AA is reachable by a hair and must be hit
+exactly, not approximated.
+
+<div class="grid grid-cols-2 gap-3 my-6">
+  <div data-test="frozen-feasible-pink" class="h-20 rounded-lg flex flex-col items-center justify-center bg-[#db2777] text-a11y-aa">
+    <span class="font-bold text-xs">#db2777 — maxCR 4.60</span>
+    <span class="text-[10px] font-mono">text-a11y-aa</span>
+  </div>
+  <div data-test="frozen-feasible-grey" class="h-20 rounded-lg flex flex-col items-center justify-center bg-[#767676] text-a11y-aa">
+    <span class="font-bold text-xs">#767676 — maxCR 4.62</span>
+    <span class="text-[10px] font-mono">text-a11y-aa</span>
+  </div>
+</div>
+
+### Capped AAA — physics, not failure
+
+7:1 is mathematically unreachable for backgrounds with luminance in (0.10, 0.30).
+The target luminance clamps, the output saturates at pure black or white, and the
+achieved ratio equals the background's physical ceiling. This is correct
+degradation and the suite grades it CAPPED, not FAIL.
+
+<div class="grid grid-cols-2 gap-3 my-6">
+  <div data-test="frozen-capped-grey" class="h-20 rounded-lg flex flex-col items-center justify-center bg-[#767676] text-a11y-aaa">
+    <span class="font-bold text-xs">#767676 — ceiling 4.62</span>
+    <span class="text-[10px] font-mono">text-a11y-aaa</span>
+  </div>
+  <div data-test="frozen-capped-indigo" class="h-20 rounded-lg flex flex-col items-center justify-center bg-[#4f46e5] text-a11y-aaa">
+    <span class="font-bold text-xs">#4f46e5 — ceiling 6.29</span>
+    <span class="text-[10px] font-mono">text-a11y-aaa</span>
+  </div>
+</div>
+
+## Cross-pipeline Invariance
+
+Every colour-space modifier routes through a different aesthetic path but shares
+one luminance solve, so all seventeen MUST report the identical contrast ratio on
+a given background. The Class 2/3 pipelines carry the solved target luminance
+through the alpha channel of a nested relative colour; any quantisation of alpha
+anywhere in that nest shows up here as a divergence in the third decimal. This is
+the test that catches carrier breakage.
+
+### Vivid background (#7c3aed)
+
+<div class="grid grid-cols-6 gap-2 my-6">
+  <div data-test="invariant-violet-oklch" class="h-16 rounded flex items-center justify-center text-[10px] font-mono font-bold bg-[#7c3aed] text-a11y-aa/oklch">oklch</div>
+  <div data-test="invariant-violet-oklab" class="h-16 rounded flex items-center justify-center text-[10px] font-mono font-bold bg-[#7c3aed] text-a11y-aa/oklab">oklab</div>
+  <div data-test="invariant-violet-lch" class="h-16 rounded flex items-center justify-center text-[10px] font-mono font-bold bg-[#7c3aed] text-a11y-aa/lch">lch</div>
+  <div data-test="invariant-violet-lab" class="h-16 rounded flex items-center justify-center text-[10px] font-mono font-bold bg-[#7c3aed] text-a11y-aa/lab">lab</div>
+  <div data-test="invariant-violet-hsl" class="h-16 rounded flex items-center justify-center text-[10px] font-mono font-bold bg-[#7c3aed] text-a11y-aa/hsl">hsl</div>
+  <div data-test="invariant-violet-hwb" class="h-16 rounded flex items-center justify-center text-[10px] font-mono font-bold bg-[#7c3aed] text-a11y-aa/hwb">hwb</div>
+  <div data-test="invariant-violet-rgb" class="h-16 rounded flex items-center justify-center text-[10px] font-mono font-bold bg-[#7c3aed] text-a11y-aa/rgb">rgb</div>
+  <div data-test="invariant-violet-srgb" class="h-16 rounded flex items-center justify-center text-[10px] font-mono font-bold bg-[#7c3aed] text-a11y-aa/srgb">srgb</div>
+  <div data-test="invariant-violet-srgb-linear" class="h-16 rounded flex items-center justify-center text-[10px] font-mono font-bold bg-[#7c3aed] text-a11y-aa/srgb-linear">srgb-lin</div>
+  <div data-test="invariant-violet-display-p3" class="h-16 rounded flex items-center justify-center text-[10px] font-mono font-bold bg-[#7c3aed] text-a11y-aa/display-p3">p3</div>
+  <div data-test="invariant-violet-a98-rgb" class="h-16 rounded flex items-center justify-center text-[10px] font-mono font-bold bg-[#7c3aed] text-a11y-aa/a98-rgb">a98</div>
+  <div data-test="invariant-violet-prophoto-rgb" class="h-16 rounded flex items-center justify-center text-[10px] font-mono font-bold bg-[#7c3aed] text-a11y-aa/prophoto-rgb">prophoto</div>
+  <div data-test="invariant-violet-rec2020" class="h-16 rounded flex items-center justify-center text-[10px] font-mono font-bold bg-[#7c3aed] text-a11y-aa/rec2020">rec2020</div>
+  <div data-test="invariant-violet-xyz" class="h-16 rounded flex items-center justify-center text-[10px] font-mono font-bold bg-[#7c3aed] text-a11y-aa/xyz">xyz</div>
+  <div data-test="invariant-violet-xyz-d50" class="h-16 rounded flex items-center justify-center text-[10px] font-mono font-bold bg-[#7c3aed] text-a11y-aa/xyz-d50">xyz-d50</div>
+  <div data-test="invariant-violet-xyz-d65" class="h-16 rounded flex items-center justify-center text-[10px] font-mono font-bold bg-[#7c3aed] text-a11y-aa/xyz-d65">xyz-d65</div>
+  <div data-test="invariant-violet-color-mix" class="h-16 rounded flex items-center justify-center text-[10px] font-mono font-bold bg-[#7c3aed] text-a11y-aa/color-mix">color-mix</div>
+</div>
+
+### Neutral background (#d4d4d4)
+
+<div class="grid grid-cols-6 gap-2 my-6">
+  <div data-test="invariant-grey-oklch" class="h-16 rounded flex items-center justify-center text-[10px] font-mono font-bold bg-[#d4d4d4] text-a11y-aa/oklch">oklch</div>
+  <div data-test="invariant-grey-oklab" class="h-16 rounded flex items-center justify-center text-[10px] font-mono font-bold bg-[#d4d4d4] text-a11y-aa/oklab">oklab</div>
+  <div data-test="invariant-grey-lch" class="h-16 rounded flex items-center justify-center text-[10px] font-mono font-bold bg-[#d4d4d4] text-a11y-aa/lch">lch</div>
+  <div data-test="invariant-grey-lab" class="h-16 rounded flex items-center justify-center text-[10px] font-mono font-bold bg-[#d4d4d4] text-a11y-aa/lab">lab</div>
+  <div data-test="invariant-grey-hsl" class="h-16 rounded flex items-center justify-center text-[10px] font-mono font-bold bg-[#d4d4d4] text-a11y-aa/hsl">hsl</div>
+  <div data-test="invariant-grey-hwb" class="h-16 rounded flex items-center justify-center text-[10px] font-mono font-bold bg-[#d4d4d4] text-a11y-aa/hwb">hwb</div>
+  <div data-test="invariant-grey-rgb" class="h-16 rounded flex items-center justify-center text-[10px] font-mono font-bold bg-[#d4d4d4] text-a11y-aa/rgb">rgb</div>
+  <div data-test="invariant-grey-srgb" class="h-16 rounded flex items-center justify-center text-[10px] font-mono font-bold bg-[#d4d4d4] text-a11y-aa/srgb">srgb</div>
+  <div data-test="invariant-grey-srgb-linear" class="h-16 rounded flex items-center justify-center text-[10px] font-mono font-bold bg-[#d4d4d4] text-a11y-aa/srgb-linear">srgb-lin</div>
+  <div data-test="invariant-grey-display-p3" class="h-16 rounded flex items-center justify-center text-[10px] font-mono font-bold bg-[#d4d4d4] text-a11y-aa/display-p3">p3</div>
+  <div data-test="invariant-grey-a98-rgb" class="h-16 rounded flex items-center justify-center text-[10px] font-mono font-bold bg-[#d4d4d4] text-a11y-aa/a98-rgb">a98</div>
+  <div data-test="invariant-grey-prophoto-rgb" class="h-16 rounded flex items-center justify-center text-[10px] font-mono font-bold bg-[#d4d4d4] text-a11y-aa/prophoto-rgb">prophoto</div>
+  <div data-test="invariant-grey-rec2020" class="h-16 rounded flex items-center justify-center text-[10px] font-mono font-bold bg-[#d4d4d4] text-a11y-aa/rec2020">rec2020</div>
+  <div data-test="invariant-grey-xyz" class="h-16 rounded flex items-center justify-center text-[10px] font-mono font-bold bg-[#d4d4d4] text-a11y-aa/xyz">xyz</div>
+  <div data-test="invariant-grey-xyz-d50" class="h-16 rounded flex items-center justify-center text-[10px] font-mono font-bold bg-[#d4d4d4] text-a11y-aa/xyz-d50">xyz-d50</div>
+  <div data-test="invariant-grey-xyz-d65" class="h-16 rounded flex items-center justify-center text-[10px] font-mono font-bold bg-[#d4d4d4] text-a11y-aa/xyz-d65">xyz-d65</div>
+  <div data-test="invariant-grey-color-mix" class="h-16 rounded flex items-center justify-center text-[10px] font-mono font-bold bg-[#d4d4d4] text-a11y-aa/color-mix">color-mix</div>
+</div>

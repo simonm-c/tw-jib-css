@@ -1,6 +1,6 @@
 # tw-jib-css
 
-> TailwindCSS v4 utility library — border gradients, CSS relative color transforms, ripple effects, print-inspired texture backgrounds, and more.
+> TailwindCSS v4 utility library — WCAG-exact text contrast, border gradients, CSS relative color transforms, ripple effects, print-inspired texture backgrounds, and more.
 
 ## Docs
 
@@ -8,9 +8,11 @@
 - [What Jibcss Adds](https://simonm-c.github.io/tw-jib-css/guide/what-jibcss-adds): One element, three layers that plain Tailwind can't do:
 - [Color Spaces](https://simonm-c.github.io/tw-jib-css/guide/color-spaces): Every colour transform interpolates in a colour space. Jibcss gives you seventeen. Pick one by appending a modifier.
 - [Colour Spaces](https://simonm-c.github.io/tw-jib-css/guide/colour-spaces): General overview of CSS colour spaces used across tw-jib-css utilities — what each space is, how they differ, and when to choose one.
+- [Accessible Color](https://simonm-c.github.io/tw-jib-css/guide/accessible-color): `text-a11y-aa`, `text-a11y-aa-lg`, and `text-a11y-aaa` generate text colours guaranteed to pass WCAG contrast against...
 - [Composition](https://simonm-c.github.io/tw-jib-css/guide/composition): Jibcss utilities compose. Stack transforms, combine textures with borders, apply colour spaces to everything.
-- [Print Textures](https://simonm-c.github.io/tw-jib-css/guide/print-textures): Comic halftone, CRT pixel, hatch, and watercolour textures. Any colour in, textured surface out.
+- [Print Textures](https://simonm-c.github.io/tw-jib-css/guide/print-textures): Comic halftone and CRT pixel textures. Any colour in, textured surface out.
 - [Color Transforms](https://simonm-c.github.io/tw-jib-css/guide/color-transforms): Lighten, darken, saturate, desaturate, or hue-shift any Tailwind colour with a utility.
+- [Accessible Shade](https://simonm-c.github.io/tw-jib-css/guide/wcag): wcag accessible shade module (stable, ships from the core entry) — text-a11y-{aa,aaa,aa-lg} solves in closed form for a same-hue text colour whose WCAG 2.x contrast ratio against the background equals the requested ratio exactly.
 - [Border Gradient](https://simonm-c.github.io/tw-jib-css/guide/border-gradient): border-gradient module — gradient borders via CSS background padding-box/border-box clipping.
 - [Gradient Borders](https://simonm-c.github.io/tw-jib-css/guide/gradient-borders): Linear, radial, conic, and animated gradient borders. Same grammar as Tailwind's `bg-linear-*`, applied to borders.
 - [Border Spin](https://simonm-c.github.io/tw-jib-css/guide/border-spin): border-spin module — animated rotating gradient borders using @property and @keyframes.
@@ -19,16 +21,7 @@
 - [Hue Rotate](https://simonm-c.github.io/tw-jib-css/guide/hue-rotate): hue-rotate utility — rotates the hue of any colour using CSS relative colour syntax across 16 colour spaces.
 - [Ripple](https://simonm-c.github.io/tw-jib-css/guide/ripple): ripple module — Material-style ripple effect via CSS @property transitions, no JavaScript required.
 - [Ripples](https://simonm-c.github.io/tw-jib-css/guide/ripples): Material-style ripple, pure CSS. Any colour, any origin, any speed.
-- [Hatch](https://simonm-c.github.io/tw-jib-css/guide/hatch): hatch module — pencil-hatching backgrounds.
-- [Watercolor](https://simonm-c.github.io/tw-jib-css/guide/watercolor): watercolor module — multi-pigment watercolor wash backgrounds.
 - [Comic Dots](https://simonm-c.github.io/tw-jib-css/guide/comic): comic module — CMYK halftone dot pattern backgrounds.
 - [Pixel](https://simonm-c.github.io/tw-jib-css/guide/pixel): pixel module — RGB pixel pattern backgrounds.
 - [Border Style](https://simonm-c.github.io/tw-jib-css/guide/border-style): border-style module — per-side border styles (groove, ridge, inset, outset, etc.) that TailwindCSS v4 doesn't expose natively.
-- [Scrollbar](https://simonm-c.github.io/tw-jib-css/guide/scrollbar): scrollbar module — standard scrollbar-color, scrollbar-width, and scrollbar-gutter CSS properties via utility classes.
 - [Grid](https://simonm-c.github.io/tw-jib-css/guide/grid): grid module — CSS Grid template-areas and grid-area utilities.
-- [Accessible Color](https://simonm-c.github.io/tw-jib-css/guide/accessible-color): `text-a11y-aa`, `text-a11y-aa-lg`, and `text-a11y-aaa` generate text colours guaranteed to pass WCAG contrast against...
-- [Corner Shape](https://simonm-c.github.io/tw-jib-css/guide/corner): corner module (experimental) — CSS corner-shape property for squircle, bevel, scoop, notch, and superellipse corner rendering.
-- [Interpolate Size](https://simonm-c.github.io/tw-jib-css/guide/interpolate): interpolate module (experimental) — CSS interpolate-size property for animating keyword sizes (auto, min-content, etc.).
-- [Base Select Picker](https://simonm-c.github.io/tw-jib-css/guide/picker): picker module (experimental) — CSS appearance: base-select and custom variants for ::picker(select), ::picker-icon, and ::checkmark pseudo-elements.
-- [Accessible Shade](https://simonm-c.github.io/tw-jib-css/guide/wcag): wcag accessible shade module (experimental) — text-a11y-{aa,aaa,aa-lg} auto-selects the nearest same-hue accessible text colour for a given background using WCAG 2.x contrast ratio computation.
-- [WCAG Badge](https://simonm-c.github.io/tw-jib-css/guide/wcag-badge): wcag badge module (experimental) — wcag-badge overlays a ::after pseudo-element showing the WCAG 2.x contrast rating (AAA/AA/AA Large/Fail) for the element's bg + text colour combination.

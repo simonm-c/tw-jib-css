@@ -10,9 +10,11 @@ Adjust the saturation (chroma) of any colour. Positive values increase saturatio
 
 ::: tip Import
 Included in `@import 'tw-jib-css'`. Individual import:
+
 ```css
 @import 'tw-jib-css/saturation';
 ```
+
 :::
 
 ## Syntax
@@ -27,15 +29,15 @@ Amount is 0–100. `bg-saturation-50` moves halfway to full saturation. `-bg-sat
 
 ## Surfaces
 
-| Surface | Saturate | Desaturate |
-| --- | --- | --- |
-| Background | `bg-saturation-{n}` | `-bg-saturation-{n}` |
-| Text | `text-saturation-{n}` | `-text-saturation-{n}` |
-| Fill | `fill-saturation-{n}` | `-fill-saturation-{n}` |
-| Stroke | `stroke-saturation-{n}` | `-stroke-saturation-{n}` |
-| Outline | `outline-saturation-{n}` | `-outline-saturation-{n}` |
-| Accent | `accent-saturation-{n}` | `-accent-saturation-{n}` |
-| Border | `border-saturation-{n}` | `-border-saturation-{n}` |
+| Surface    | Saturate                 | Desaturate                |
+| ---------- | ------------------------ | ------------------------- |
+| Background | `bg-saturation-{n}`      | `-bg-saturation-{n}`      |
+| Text       | `text-saturation-{n}`    | `-text-saturation-{n}`    |
+| Fill       | `fill-saturation-{n}`    | `-fill-saturation-{n}`    |
+| Stroke     | `stroke-saturation-{n}`  | `-stroke-saturation-{n}`  |
+| Outline    | `outline-saturation-{n}` | `-outline-saturation-{n}` |
+| Accent     | `accent-saturation-{n}`  | `-accent-saturation-{n}`  |
+| Border     | `border-saturation-{n}`  | `-border-saturation-{n}`  |
 
 ## Quick Reference
 
@@ -89,9 +91,7 @@ Start with a muted colour to see the full range:
 The saturation amount is a registered `@property` variable. Transitions work:
 
 ```html
-<div class="bg-blue-500 hover:-bg-saturation-50 transition duration-700">
-  hover to desaturate
-</div>
+<div class="bg-blue-500 hover:-bg-saturation-50 transition duration-700">hover to desaturate</div>
 ```
 
 ### Full desaturation scale
@@ -375,9 +375,9 @@ See the [Colour Spaces reference](/guide/colour-spaces) for what each space is a
 
 `{surface}-saturate-*` and `{surface}-desaturate-*` are convenience aliases:
 
-| Alias | Equivalent |
-| --- | --- |
-| `bg-saturate-{n}` | `bg-saturation-{n}` |
+| Alias               | Equivalent           |
+| ------------------- | -------------------- |
+| `bg-saturate-{n}`   | `bg-saturation-{n}`  |
 | `bg-desaturate-{n}` | `-bg-saturation-{n}` |
 
 The same pattern applies to text, fill, stroke, outline, accent, and border.
@@ -394,8 +394,10 @@ Every saturation utility works with Tailwind's variant prefixes:
 
 ```html
 <div class="bg-blue-500 hover:-bg-saturation-50 transition duration-300">
-<div class="bg-blue-500 dark:-bg-saturation-30">
-<div class="bg-blue-500 md:bg-saturation-20">
+  <div class="bg-blue-500 dark:-bg-saturation-30">
+    <div class="bg-blue-500 md:bg-saturation-20"></div>
+  </div>
+</div>
 ```
 
 ## Browser Support
@@ -403,5 +405,5 @@ Every saturation utility works with Tailwind's variant prefixes:
 Requires CSS relative colour syntax: Chrome 111+, Safari 16.4+, Firefox 128+.
 
 ::: info Rendering paths
-Saturation utilities use two CSS rendering paths — a stable path (relative colour syntax, all modern browsers) and an experimental path (CSS `@function`, Chromium only). The browser selects automatically via `@supports`. With the experimental import, transforms are also available as CSS functions callable in arbitrary values: `bg-[--tw-jib--saturation(var(--color-blue-500),-40,oklch)]`. See [How It Works](/guide/color-transforms#how-it-works-stable-and-experimental-paths) for details.
+Saturation utilities are CSS relative colour syntax, evaluated at render time in every modern browser. See [How It Works](/guide/color-transforms#how-it-works) for the mechanism.
 :::

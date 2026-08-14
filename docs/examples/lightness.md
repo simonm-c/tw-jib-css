@@ -3,12 +3,6 @@ title: Lightness Test Fixtures
 layout: page
 ---
 
-<style>
-:root {
-  --custom-bg-color: oklch(0.65 0.15 250);
-}
-</style>
-
 # Lightness Test Fixtures
 
 Test page covering all bg-darken/bg-lighten × color space × base color × border-gradient combinations.
@@ -24307,7 +24301,7 @@ Arbitrary, CSS variable, and extreme base colors.
   <div data-test="base-arbitrary-rgb" class="h-20 rounded-lg flex items-center justify-center bg-[rgb(50,215,30)] bg-darken-20">
     <span class="text-xs font-mono text-white/70">[rgb()] darken</span>
   </div>
-  <div data-test="base-css-var" class="h-20 rounded-lg flex items-center justify-center bg-(color:--custom-bg-color) bg-darken-20">
+  <div data-test="base-css-var" class="h-20 rounded-lg flex items-center justify-center bg-(color:--custom-bg-color) bg-darken-20 [--custom-bg-color:oklch(0.65_0.15_250)]">
     <span class="text-xs font-mono text-white/70">(color:--var) darken</span>
   </div>
   <div data-test="base-arbitrary-hex-lighten" class="h-20 rounded-lg flex items-center justify-center bg-[#ff6b35] bg-lighten-20">
@@ -24316,7 +24310,7 @@ Arbitrary, CSS variable, and extreme base colors.
   <div data-test="base-arbitrary-oklch-lighten" class="h-20 rounded-lg flex items-center justify-center bg-[oklch(0.7_0.15_200)] bg-lighten-20">
     <span class="text-xs font-mono text-white/70">[oklch()] lighten</span>
   </div>
-  <div data-test="base-css-var-lighten" class="h-20 rounded-lg flex items-center justify-center bg-(color:--custom-bg-color) bg-lighten-20">
+  <div data-test="base-css-var-lighten" class="h-20 rounded-lg flex items-center justify-center bg-(color:--custom-bg-color) bg-lighten-20 [--custom-bg-color:oklch(0.65_0.15_250)]">
     <span class="text-xs font-mono text-white/70">(color:--var) lighten</span>
   </div>
 </div>

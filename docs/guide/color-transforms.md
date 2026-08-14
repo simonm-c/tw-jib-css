@@ -11,7 +11,7 @@ Lighten, darken, saturate, desaturate, or hue-shift any Tailwind colour with a u
 Set a base colour with a standard Tailwind class, then stack a transform:
 
 ```html
-<div class="bg-blue-500 bg-lighten-30">
+<div class="bg-blue-500 bg-lighten-30"></div>
 ```
 
 The transform operates on the colour you set. Change the base colour, the transform follows.
@@ -32,9 +32,12 @@ The transform operates on the colour you set. Change the base colour, the transf
 
 ```html
 <div class="bg-blue-500 bg-lighten-30">
-<div class="bg-blue-500 bg-darken-30">
-<div class="bg-blue-500 bg-hue-rotate-90">
-<div class="bg-blue-500 -bg-saturation-40">
+  <div class="bg-blue-500 bg-darken-30">
+    <div class="bg-blue-500 bg-hue-rotate-90">
+      <div class="bg-blue-500 -bg-saturation-40"></div>
+    </div>
+  </div>
+</div>
 ```
 
 Lightness and saturation support positive and negative values. Prefix with `-` to reverse: `-bg-lightness-30` darkens, `-bg-saturation-30` desaturates.
@@ -44,7 +47,7 @@ Lightness and saturation support positive and negative values. Prefix with `-` t
 Stack multiple transforms on the same element:
 
 ```html
-<div class="bg-blue-500 bg-lighten-20 bg-hue-rotate-45 -bg-saturation-20">
+<div class="bg-blue-500 bg-lighten-20 bg-hue-rotate-45 -bg-saturation-20"></div>
 ```
 
 Order in the class list doesn't matter. Each transform reads the same base colour and applies independently.
@@ -67,86 +70,26 @@ Every transform defaults to oklch. Append a modifier to pick a different space:
 
 ```html
 <div class="bg-red-500 bg-lighten-40/hsl">
-<div class="bg-red-500 bg-lighten-40/display-p3">
+  <div class="bg-red-500 bg-lighten-40/display-p3"></div>
+</div>
 ```
 
 Different spaces produce visually different results from the same input. See [Color Spaces](/guide/color-spaces) for when this matters.
 
-## How it works: stable and experimental paths
+## How it works
 
-Every colour transform utility emits CSS through **two rendering paths** simultaneously. The browser picks the best one automatically via `@supports`. You write the same classes either way — there is nothing to configure for the stable path.
+Every transform is CSS relative colour syntax. Each colour space has a pre-computed
+expression built at compile time via Tailwind's `@theme inline`, so a modifier is a
+theme lookup rather than a branch: writing `bg-lightness-30/hsl` resolves
+`--modifier()` to the pre-built HSL expression.
 
-### Stable path
-
-Uses CSS relative colour syntax — each colour space has a pre-computed expression built at compile time via Tailwind's `@theme inline`. Works in **Chrome 111+, Safari 16.4+, Firefox 128+**.
-
-```css
-@import 'tw-jib-css';
-```
-
-The stable path powers the 7 surface utilities (`bg-`, `text-`, `fill-`, `stroke-`, `outline-`, `accent-`, `border-`). When you write `bg-lightness-30/hsl`, the `--modifier()` resolves to the pre-built HSL relative colour expression.
-
-### Experimental path
-
-Uses CSS `@function` definitions with an `if(style())` dispatcher that routes to per-space functions at paint time. Requires **CSS `@function` support** (Chromium only as of April 2026).
+That is the whole mechanism, and it runs on **Chrome 111+, Safari 16.4+, Firefox 128+**.
+There is no JavaScript, no build step beyond Tailwind itself, and nothing to detect —
+the same expression evaluates on every engine.
 
 ```css
 @import 'tw-jib-css';
-@import 'tw-jib-css/experimental';
 ```
-
-The second import activates `@custom-variant` gates (`supports-lightness`, `supports-saturation`, `supports-hue-rotate`) that wrap the experimental blocks. Without it, the experimental path is inert.
-
-In supporting browsers, the experimental blocks override the stable blocks via `@supports` — the same classes produce the same visual result through a different mechanism.
-
-### Why use experimental?
-
-The experimental path exposes three CSS functions callable from **anywhere a `<color>` value is accepted**, including Tailwind's arbitrary value syntax:
-
-```
---tw-jib--lightness(color, amount, space?)
---tw-jib--saturation(color, amount, space?)
---tw-jib--hue-rotate(color, amount, space?)
-```
-
-This unlocks use cases the class-based API can't reach:
-
-**Gradient stops** — the class API has no way to apply transforms to `from-*`/`via-*`/`to-*`:
-
-```html
-<div class="bg-linear-to-r
-  from-[--tw-jib--lightness(var(--color-blue-500),60)]
-  to-[--tw-jib--lightness(var(--color-blue-500),-60)]">
-```
-
-**Arbitrary properties** — shadows, carets, any CSS property that takes a colour:
-
-```html
-<div class="shadow-lg [--tw-shadow-color:--tw-jib--lightness(var(--color-blue-500),-30)]">
-```
-
-**Theme tokens and CSS variables** — no Tailwind colour class needed as the source:
-
-```html
-<div class="bg-[--tw-jib--saturation(var(--brand-primary),-40,oklch)]">
-```
-
-**Composing transforms** — nest calls to chain lightness + hue-rotate in one value:
-
-```html
-<div class="bg-[--tw-jib--lightness(--tw-jib--hue-rotate(var(--color-red-500),120),30)]">
-```
-
-### Comparison
-
-|  | Stable | Experimental |
-| --- | --- | --- |
-| Browser support | Chrome 111+, Safari 16.4+, Firefox 128+ | Chromium only (CSS `@function`) |
-| Import | `tw-jib-css` | `tw-jib-css` + `tw-jib-css/experimental` |
-| Surface utilities | All 7 surfaces | All 7 surfaces (auto-upgraded) |
-| Arbitrary values | — | Callable anywhere a `<color>` is accepted |
-| Gradient stops | — | `from-[--tw-jib--lightness(...)]` etc. |
-| Nested composition | — | Chain multiple transforms in one expression |
 
 ## Reference pages
 

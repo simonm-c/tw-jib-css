@@ -84,12 +84,6 @@ title: Jibcss
   <div class="aspect-square rounded-xl bg-pixel-(color:--landing-tex-color) relative">
     <span class="absolute bottom-2 left-2 font-mono text-[9px] text-white opacity-60">pixel</span>
   </div>
-  <div class="aspect-square rounded-xl bg-hatch-(color:--landing-tex-color) relative">
-    <span class="absolute bottom-2 left-2 font-mono text-[9px] opacity-60">hatch</span>
-  </div>
-  <div class="aspect-square rounded-xl bg-watercolor-(color:--landing-tex-color) relative">
-    <span class="absolute bottom-2 left-2 font-mono text-[9px] opacity-60">watercolor</span>
-  </div>
 </div>
 </MagazineSlide>
 
@@ -97,8 +91,6 @@ title: Jibcss
 <div class="grid grid-cols-2 gap-4 w-full max-w-md">
   <div class="aspect-square rounded-xl landing-comic-params bg-comic-indigo-600"></div>
   <div class="aspect-square rounded-xl landing-pixel-params bg-pixel-indigo-600"></div>
-  <div class="aspect-square rounded-xl landing-hatch-params bg-hatch-indigo-600"></div>
-  <div class="aspect-square rounded-xl landing-wc-params bg-watercolor-indigo-600"></div>
 </div>
 </MagazineSlide>
 
@@ -121,15 +113,6 @@ title: Jibcss
 </MagazineSlide>
 
 <MagazineFinale />
-
-<MagazineSlide :index="6">
-<div class="grid grid-cols-2 gap-3 w-full max-w-sm">
-<div class="rounded-xl bg-indigo-900 text-white wcag-badge p-5 min-h-25 flex items-end"><span class="text-sm font-bold">White on dark</span></div>
-<div class="rounded-xl bg-blue-600 text-white wcag-badge p-5 min-h-25 flex items-end"><span class="text-sm font-bold">White on blue</span></div>
-<div class="rounded-xl bg-orange-400 text-orange-900 wcag-badge p-5 min-h-25 flex items-end"><span class="text-sm font-bold">Borderline</span></div>
-<div class="rounded-xl bg-yellow-200 text-yellow-400 wcag-badge p-5 min-h-25 flex items-end"><span class="text-sm font-bold">Poor contrast</span></div>
-</div>
-</MagazineSlide>
 
 <MagazineAlsoIncluded />
 </MagazineRoot>

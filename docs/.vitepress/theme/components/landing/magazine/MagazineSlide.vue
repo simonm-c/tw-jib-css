@@ -9,7 +9,7 @@ const slide = computed<MagazineSlideData>(() => slides[props.index]);
 <template>
   <section
     :class="[
-      'magazine-slide relative min-h-screen scroll-snap-align-start flex items-center px-6 md:px-12 py-16',
+      'relative min-h-screen snap-start flex items-center px-6 md:px-12 py-16',
       slide.dark ? 'bg-gray-950 text-gray-100 dark:bg-white dark:text-gray-900' : 'bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100',
     ]"
   >
@@ -21,7 +21,7 @@ const slide = computed<MagazineSlideData>(() => slides[props.index]);
         slide.flipped ? 'md:grid-cols-[1fr_1.4fr]' : 'md:grid-cols-[1.4fr_1fr]',
       ]"
     >
-      <div :class="['min-h-[300px] flex items-center justify-center rounded-2xl overflow-hidden', slide.flipped ? 'md:order-2' : '']">
+      <div :class="['min-h-[300px] flex items-center justify-center rounded-2xl', slide.flipped ? 'md:order-2' : '']">
         <slot />
       </div>
 
@@ -44,7 +44,3 @@ const slide = computed<MagazineSlideData>(() => slides[props.index]);
     </div>
   </section>
 </template>
-
-<style scoped>
-.magazine-slide { scroll-snap-align: start; }
-</style>

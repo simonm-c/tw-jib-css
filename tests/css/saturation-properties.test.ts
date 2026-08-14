@@ -10,12 +10,54 @@ import { compile } from './helpers.js';
  * Property configurations: [prefix, cssProperty, captureVar, sourceVar, baseClass, baseMarker]
  */
 const PROPERTIES: [string, string, string, string, string, string][] = [
-  ['text', 'color', '--tw-jib--text-color', '--tw-jib--text-color-source', 'text-blue-500', '--color-blue-500'],
-  ['fill', 'fill', '--tw-jib--fill-color', '--tw-jib--fill-color-source', 'fill-blue-500', '--color-blue-500'],
-  ['stroke', 'stroke', '--tw-jib--stroke-color', '--tw-jib--stroke-color-source', 'stroke-blue-500', '--color-blue-500'],
-  ['outline', 'outline-color', '--tw-jib--outline-color', '--tw-jib--outline-color-source', 'outline-blue-500', '--color-blue-500'],
-  ['accent', 'accent-color', '--tw-jib--accent-color', '--tw-jib--accent-color-source', 'accent-blue-500', '--color-blue-500'],
-  ['border', 'border-color', '--tw-jib--border-color', '--tw-jib--border-color-source', 'border-blue-500', '--color-blue-500'],
+  [
+    'text',
+    'color',
+    '--tw-jib--text-color',
+    '--tw-jib--text-color-source',
+    'text-blue-500',
+    '--color-blue-500',
+  ],
+  [
+    'fill',
+    'fill',
+    '--tw-jib--fill-color',
+    '--tw-jib--fill-color-source',
+    'fill-blue-500',
+    '--color-blue-500',
+  ],
+  [
+    'stroke',
+    'stroke',
+    '--tw-jib--stroke-color',
+    '--tw-jib--stroke-color-source',
+    'stroke-blue-500',
+    '--color-blue-500',
+  ],
+  [
+    'outline',
+    'outline-color',
+    '--tw-jib--outline-color',
+    '--tw-jib--outline-color-source',
+    'outline-blue-500',
+    '--color-blue-500',
+  ],
+  [
+    'accent',
+    'accent-color',
+    '--tw-jib--accent-color',
+    '--tw-jib--accent-color-source',
+    'accent-blue-500',
+    '--color-blue-500',
+  ],
+  [
+    'border',
+    'border-color',
+    '--tw-jib--border-color',
+    '--tw-jib--border-color-source',
+    'border-blue-500',
+    '--color-blue-500',
+  ],
 ];
 
 const STABLE_SPACE_MARKERS: [string, string][] = [
@@ -42,38 +84,29 @@ describe.each(PROPERTIES)(
     const OKLCH = stableOklch(amountVar);
 
     describe('desaturate — default amounts', () => {
-      test.each([0, 5, 10, 20, 50, 75, 100])(
-        `${prefix}-desaturate-%i`,
-        async (amount) => {
-          const css = await compile(`${baseClass} ${prefix}-desaturate-${amount}`);
-          expect(css).toContain(`${amountVar}: calc(${amount} * -0.01)`);
-          expect(css).toContain(OKLCH);
-          expect(css).toContain(`${sourceVar}: var(${baseMarker})`);
-        },
-      );
+      test.each([0, 5, 10, 20, 50, 75, 100])(`${prefix}-desaturate-%i`, async (amount) => {
+        const css = await compile(`${baseClass} ${prefix}-desaturate-${amount}`);
+        expect(css).toContain(`${amountVar}: calc(${amount} * -0.01)`);
+        expect(css).toContain(OKLCH);
+        expect(css).toContain(`${sourceVar}: var(${baseMarker})`);
+      });
     });
 
     describe('saturate — default amounts', () => {
-      test.each([0, 5, 10, 20, 50, 75, 100])(
-        `${prefix}-saturate-%i`,
-        async (amount) => {
-          const css = await compile(`${baseClass} ${prefix}-saturate-${amount}`);
-          expect(css).toContain(`${amountVar}: calc(${amount} * 0.01)`);
-          expect(css).toContain(OKLCH);
-          expect(css).toContain(`${sourceVar}: var(${baseMarker})`);
-        },
-      );
+      test.each([0, 5, 10, 20, 50, 75, 100])(`${prefix}-saturate-%i`, async (amount) => {
+        const css = await compile(`${baseClass} ${prefix}-saturate-${amount}`);
+        expect(css).toContain(`${amountVar}: calc(${amount} * 0.01)`);
+        expect(css).toContain(OKLCH);
+        expect(css).toContain(`${sourceVar}: var(${baseMarker})`);
+      });
     });
 
     describe('color spaces via modifier', () => {
-      test.each(STABLE_SPACE_MARKERS)(
-        `${prefix}-desaturate-20/%s`,
-        async (space, marker) => {
-          const css = await compile(`${baseClass} ${prefix}-desaturate-20/${space}`);
-          expect(css).toContain(marker);
-          expect(css).toContain(`${amountVar}: calc(20 * -0.01)`);
-        },
-      );
+      test.each(STABLE_SPACE_MARKERS)(`${prefix}-desaturate-20/%s`, async (space, marker) => {
+        const css = await compile(`${baseClass} ${prefix}-desaturate-20/${space}`);
+        expect(css).toContain(marker);
+        expect(css).toContain(`${amountVar}: calc(20 * -0.01)`);
+      });
     });
 
     describe('aliases match primary', () => {
@@ -121,32 +154,30 @@ describe.each(PROPERTIES)(
     const satInput = `var(${captureVar}-after-hue-rotate, var(${sourceVar}))`;
 
     describe('desaturate with @function', () => {
-      test.each([0, 20, 50, 100])(
-        `${prefix}-desaturate-%i`,
-        async (amount) => {
-          const css = await compile(`${baseClass} ${prefix}-desaturate-${amount}`, { experimental: true });
-          expect(css).toContain(SUPPORTS_FUNCTION);
-          expect(css).toContain(`--tw-jib--saturation(${satInput}, calc(${amount} * -1))`);
-        },
-      );
+      test.each([0, 20, 50, 100])(`${prefix}-desaturate-%i`, async (amount) => {
+        const css = await compile(`${baseClass} ${prefix}-desaturate-${amount}`, {
+          functions: true,
+        });
+        expect(css).toContain(SUPPORTS_FUNCTION);
+        expect(css).toContain(`--tw-jib--saturation(${satInput}, calc(${amount} * -1), oklch)`);
+      });
     });
 
     describe('saturate with @function', () => {
-      test.each([0, 20, 50, 100])(
-        `${prefix}-saturate-%i`,
-        async (amount) => {
-          const css = await compile(`${baseClass} ${prefix}-saturate-${amount}`, { experimental: true });
-          expect(css).toContain(SUPPORTS_FUNCTION);
-          expect(css).toContain(`--tw-jib--saturation(${satInput}, ${amount})`);
-        },
-      );
+      test.each([0, 20, 50, 100])(`${prefix}-saturate-%i`, async (amount) => {
+        const css = await compile(`${baseClass} ${prefix}-saturate-${amount}`, { functions: true });
+        expect(css).toContain(SUPPORTS_FUNCTION);
+        expect(css).toContain(`--tw-jib--saturation(${satInput}, ${amount}, oklch)`);
+      });
     });
 
     describe('color spaces with @function', () => {
       test.each(['oklch', 'hsl', 'rgb', 'srgb', 'display-p3'] as const)(
         `${prefix}-desaturate-20/%s`,
         async (space) => {
-          const css = await compile(`${baseClass} ${prefix}-desaturate-20/${space}`, { experimental: true });
+          const css = await compile(`${baseClass} ${prefix}-desaturate-20/${space}`, {
+            functions: true,
+          });
           expect(css).toContain(SUPPORTS_FUNCTION);
           expect(css).toContain('--tw-jib--saturation(');
           expect(css).toMatch(new RegExp(`calc\\(20 \\* -1\\),\\s+${space.replace('-', '\\-')}`));

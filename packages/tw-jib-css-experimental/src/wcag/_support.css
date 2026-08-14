@@ -1,0 +1,35 @@
+/*
+ * Shared prerequisites for both WCAG @function consumers.
+ *
+ * wcag-badge (wcag/_badge.css, the experimental entry) and the text-a11y-*
+ * @function path (wcag/_function-shade.css, the functions entry) live behind
+ * different imports now, but both need this gate and both touch the level
+ * record. Neither can own it, so it sits here and both barrels import it.
+ *
+ * Imported twice when a consumer takes both entries. A repeated
+ * @custom-variant and a repeated @property are last-one-wins with identical
+ * content, so the duplicate is inert.
+ */
+
+/* =========================================================================
+ * Feature detection — gates every WCAG @function utility
+ * ========================================================================= */
+
+@custom-variant supports-wcag {
+  @supports (background: if(style(--value): red)) and (background: --tw-jib--linearize(red)) {
+    @slot;
+  }
+}
+
+/* Records which WCAG level text-a11y-* asked for, so wcag-badge on the same
+ * element can tell "this is the best the background physically allows" apart
+ * from "this pair is simply short". Non-inheriting: a nested wcag-badge must
+ * not pick up an ancestor's requested level and mislabel itself.
+ *
+ * Written by BOTH text-a11y-* paths — wcag/_stable.css block B on every
+ * engine, and the @function block where that entry is loaded — so the badge
+ * reads a populated level regardless of which shade path ran. */
+@property --tw-jib--a11y-level {
+  syntax: '*';
+  inherits: false;
+}

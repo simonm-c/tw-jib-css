@@ -44,30 +44,30 @@ function dist(a: Rgb, b: Rgb): number {
 
 async function gotoPage(page: Page) {
   await page.goto(PAGE, { waitUntil: 'networkidle' });
-  await page.locator('[data-test="rot-0"]').waitFor();
+  await page.locator('[data-test="smoke-0"]').waitFor();
 }
 
 test.describe('bg-hue-rotate — clockwise rotation', () => {
   test('0° equals base red-500', async ({ page }) => {
     await gotoPage(page);
-    const c = await extractBgColors(page, ['rot-0']);
+    const c = await extractBgColors(page, ['smoke-0']);
     // red-500 is approximately (239, 68, 68) — dominant red channel
-    expect(c['rot-0'].r).toBeGreaterThan(c['rot-0'].g);
-    expect(c['rot-0'].r).toBeGreaterThan(c['rot-0'].b);
+    expect(c['smoke-0'].r).toBeGreaterThan(c['smoke-0'].g);
+    expect(c['smoke-0'].r).toBeGreaterThan(c['smoke-0'].b);
   });
 
   test('60°, 120°, 180° shift away from red', async ({ page }) => {
     await gotoPage(page);
-    const c = await extractBgColors(page, ['rot-0', 'rot-60', 'rot-120', 'rot-180']);
+    const c = await extractBgColors(page, ['smoke-0', 'smoke-60', 'smoke-120', 'smoke-180']);
     // Each rotation should produce a perceptibly different colour from the base
-    expect(dist(c['rot-0'], c['rot-60'])).toBeGreaterThan(30);
-    expect(dist(c['rot-0'], c['rot-120'])).toBeGreaterThan(60);
-    expect(dist(c['rot-0'], c['rot-180'])).toBeGreaterThan(90);
+    expect(dist(c['smoke-0'], c['smoke-60'])).toBeGreaterThan(30);
+    expect(dist(c['smoke-0'], c['smoke-120'])).toBeGreaterThan(60);
+    expect(dist(c['smoke-0'], c['smoke-180'])).toBeGreaterThan(90);
   });
 
   test('180° produces the complementary hue (red no longer dominant)', async ({ page }) => {
     await gotoPage(page);
-    const { 'rot-180': c } = await extractBgColors(page, ['rot-180']);
+    const { 'smoke-180': c } = await extractBgColors(page, ['smoke-180']);
     // Complement of red should have green + blue dominant over red
     expect(c.r).toBeLessThan(Math.max(c.g, c.b));
   });
@@ -76,26 +76,21 @@ test.describe('bg-hue-rotate — clockwise rotation', () => {
 test.describe('bg-hue-rotate — counterclockwise', () => {
   test('-180° equals +180° (rotation symmetry at half-turn)', async ({ page }) => {
     await gotoPage(page);
-    const c = await extractBgColors(page, ['rot-180', 'rot-neg-180']);
-    expect(dist(c['rot-180'], c['rot-neg-180'])).toBeLessThan(3);
+    const c = await extractBgColors(page, ['smoke-180', 'ccw-180']);
+    expect(dist(c['smoke-180'], c['ccw-180'])).toBeLessThan(3);
   });
 
   test('-60° differs from +60°', async ({ page }) => {
     await gotoPage(page);
-    const c = await extractBgColors(page, ['rot-60', 'rot-neg-60']);
-    expect(dist(c['rot-60'], c['rot-neg-60'])).toBeGreaterThan(30);
+    const c = await extractBgColors(page, ['smoke-60', 'ccw-60']);
+    expect(dist(c['smoke-60'], c['ccw-60'])).toBeGreaterThan(30);
   });
 });
 
 test.describe('bg-hue-rotate — colour space modifiers', () => {
   test('oklch, hsl, lab, rgb produce distinct results for the same degree', async ({ page }) => {
     await gotoPage(page);
-    const c = await extractBgColors(page, [
-      'space-oklch',
-      'space-hsl',
-      'space-lab',
-      'space-rgb',
-    ]);
+    const c = await extractBgColors(page, ['space-oklch', 'space-hsl', 'space-lab', 'space-rgb']);
     // Sanity check: all four produced a painted colour
     for (const key of ['space-oklch', 'space-hsl', 'space-lab', 'space-rgb']) {
       expect(c[key].a).toBeGreaterThan(0);
@@ -114,7 +109,8 @@ test.describe('bg-hue-rotate — colour space modifiers', () => {
 test.describe('full wheel coverage', () => {
   test('each 30° step produces a distinct colour', async ({ page }) => {
     await gotoPage(page);
-    const keys = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((d) => `wheel-${d}`);
+    // The smoke row is itself a full 12-step wheel of bg-red-500.
+    const keys = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((d) => `smoke-${d}`);
     const c = await extractBgColors(page, keys);
     // Consecutive steps should each differ by some margin
     for (let i = 1; i < keys.length; i++) {

@@ -120,45 +120,47 @@ title: Jibcss Experimental
 </ExpSlide>
 
 <!-- 3 · interpolate size.
-
      Two panels running the identical 0 → auto keyframe animation, differing only
-     in whether an ancestor carries interpolate-keywords. The top one eases, the
-     bottom one snaps. Both run on a loop rather than on :hover, so the evidence
+     in whether an ancestor carries interpolate-keywords. The left one eases, the
+     right one snaps. Both run on a loop rather than on :hover, so the evidence
      is on screen for a reader who never touches the page — this is the lowest-
-     support feature in the package and it previously showed nothing at rest. -->
+     support feature in the package and it previously showed nothing at rest.
+     The two are side by side, and the grid is pinned to the top of the cell with
+     its rows aligned to their own start, so a panel can only ever grow downward
+     into empty space. Stacked and centred, the snapping panel's pop resized the
+     whole block and shunted the eased panel mid-flight, which read as the eased
+     panel stuttering — the one thing this slide must not show.
+     Labels and cards are separate grid rows rather than two column wrappers so
+     the cards share a start line however the labels wrap. -->
 <ExpSlide :index="3">
-<div class="w-full max-w-sm space-y-4">
-
-  <div class="interpolate-keywords space-y-1.5">
-    <p class="flex items-center gap-2 m-0">
-      <span class="rounded-full border border-emerald-500/40 bg-emerald-500/15 px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-widest text-emerald-700 dark:text-emerald-300">with</span>
-      <span class="font-mono text-[10px] opacity-60">parent has interpolate-keywords</span>
-    </p>
-    <div class="rounded-xl border border-violet-500/40 overflow-hidden bg-gray-900">
-      <div class="w-full px-4 py-2.5 text-left text-sm font-semibold text-violet-200 bg-violet-500/10">
-        Disclosure panel
-      </div>
-      <div class="landing-disclosure h-0 overflow-hidden">
-        <p class="m-0 p-4 text-sm text-gray-300">Eases to its natural height. No measured pixel value anywhere, and no JavaScript.</p>
-      </div>
+<div class="grid w-full max-w-2xl grid-cols-2 items-start gap-x-4 gap-y-1.5 self-start">
+  <p class="flex items-center gap-2 m-0">
+    <span class="rounded-full border border-emerald-500/40 bg-emerald-500/15 px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-widest text-emerald-700 dark:text-emerald-300">with</span>
+    <span class="font-mono text-[10px] opacity-60">parent has interpolate-keywords</span>
+  </p>
+  <p class="flex items-center gap-2 m-0">
+    <span class="rounded-full border border-gray-500/40 bg-gray-500/15 px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-widest opacity-70">without</span>
+    <span class="font-mono text-[10px] opacity-60">same animation, no utility</span>
+  </p>
+  <div class="interpolate-keywords rounded-xl border border-violet-500/40 overflow-hidden bg-gray-900">
+    <div class="w-full px-4 py-2.5 text-left text-sm font-semibold text-violet-200 bg-violet-500/10">
+      Disclosure panel
+    </div>
+    <div class="landing-disclosure h-0 overflow-hidden">
+      <p class="m-0 p-4 text-sm text-gray-300">Eases to its natural height. No measured pixel value anywhere, and no JavaScript.</p>
     </div>
   </div>
-
-  <div class="space-y-1.5">
-    <p class="flex items-center gap-2 m-0">
-      <span class="rounded-full border border-gray-500/40 bg-gray-500/15 px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-widest opacity-70">without</span>
-      <span class="font-mono text-[10px] opacity-60">same animation, no utility</span>
-    </p>
-    <div class="rounded-xl border border-gray-500/30 overflow-hidden bg-gray-900">
-      <div class="w-full px-4 py-2.5 text-left text-sm font-semibold text-gray-400 bg-gray-500/10">
-        Disclosure panel
-      </div>
-      <div class="landing-disclosure h-0 overflow-hidden">
-        <p class="m-0 p-4 text-sm text-gray-400">Snaps. This is what CSS did before interpolate-size.</p>
-      </div>
+  <div class="rounded-xl border border-gray-500/30 overflow-hidden bg-gray-900">
+    <div class="w-full px-4 py-2.5 text-left text-sm font-semibold text-gray-400 bg-gray-500/10">
+      Disclosure panel
+    </div>
+    <!-- landing-disclosure-lag holds this panel back so it pops at the moment
+         the panel beside it finishes easing, never during. Same keyframes either
+         way; the landing-disclosure comment has the arithmetic. -->
+    <div class="landing-disclosure landing-disclosure-lag h-0 overflow-hidden">
+      <p class="m-0 p-4 text-sm text-gray-400">Snaps. This is what CSS did before interpolate-size.</p>
     </div>
   </div>
-
 </div>
 </ExpSlide>
 

@@ -4,9 +4,9 @@
  * This is a separate VitePress instance from docs/ on purpose. Both packages
  * define the same utility names, and the experimental package's functions entry
  * OVERRIDES the stable implementations wherever CSS @function is supported. One
- * instance means one stylesheet, and any attempt to load the overrides for only
- * some pages leaks: Vite serves component-imported CSS globally in dev, so a
- * per-page import reached the stable instance's pages too when it was tried.
+ * instance means one stylesheet, and loading the overrides for only some pages
+ * cannot work: Vite serves component-imported CSS globally in dev, so a per-page
+ * import reaches the stable instance's pages too.
  *
  * So the split is at the instance level. This file is the only place the
  * experimental package is imported anywhere in the repo's docs, and the stable
@@ -31,12 +31,10 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* ── Brand tokens ──
- * Same shape as the stable instance's tokens, rotated off sky to violet. The
- * whole instance is violet, chrome included — the nav logo reads from
- * --color-jib-brand, so leaving it sky put a blue mark above a violet page.
- * Any page here is identifiable as the experimental wing at a glance.
- */
+/* Brand tokens: same shape as the stable instance's, rotated off sky to violet,
+ * so any page here is identifiable as the experimental wing at a glance. The
+ * whole instance is violet including the chrome — the nav logo reads
+ * --color-jib-brand, and a sky value there puts a blue mark above a violet page. */
 @theme {
   --color-jib-brand: oklch(0.42 0.24 293);
   --color-jib-wind: oklch(0.72 0.19 293);
@@ -67,7 +65,7 @@
   }
 }
 
-/* 6 colours × 3s, holding ~80% of each segment. Mixes light and dark bases so
+/* Holds most of each segment, eases the rest. Mixes light and dark bases so
  * the accessible shade is seen flipping between a dark and a light solution. */
 @keyframes landing-base-color {
   0%,
@@ -104,25 +102,35 @@
  * Disclosure loop for the interpolate-size slide. Raw CSS because @keyframes has
  * no utility form — everything else on that slide is classes.
  *
- * The slide used to demo interpolate-size behind a :hover, so a reader scrolling
- * past saw a closed panel and no evidence at all, on the one feature here with
- * the lowest browser support. This animates the same 0 → auto transition on a
- * loop, and the slide runs it on two panels: one inside .interpolate-keywords,
- * one outside. The pair IS the demo — same keyframes, and only the one whose
- * parent allows keyword interpolation actually eases. Without the utility the
- * other jumps, which is exactly what the copy claims.
+ * Loops the 0 → auto transition rather than putting it behind a :hover, so a
+ * reader scrolling past sees the evidence unprompted — this is the feature here
+ * with the lowest browser support, and a closed panel demonstrates nothing. The
+ * slide runs it on a pair of panels, one inside .interpolate-keywords and one
+ * outside.
+ * The pair IS the demo: same keyframes, and only the one whose parent allows
+ * keyword interpolation actually eases. The other jumps, which is exactly what
+ * the copy claims.
  *
  * height: auto in a keyframe is the point, not an oversight. Do not replace it
  * with a pixel value: that would make both panels animate and the demo would
  * prove nothing.
+ *
+ * Holds and eases are all the same length so the slide can offset the snapping
+ * panel by an exact fraction of the cycle. A discrete height flips halfway
+ * through its segment, so in phase that snap fires mid-ease beside the eased
+ * panel and reads as the eased panel stuttering. An eighth of a cycle moves the
+ * flip to the instant the ease lands, and the demo becomes sequential: the eased
+ * panel glides to its height, then the other pops to the same place. Equal steps
+ * are what make that fraction hold — skew them and the snap drifts back inside
+ * the ease.
  */
 @keyframes landing-disclosure {
   0%,
-  10% {
+  25% {
     height: 0;
   }
-  40%,
-  70% {
+  50%,
+  75% {
     height: auto;
   }
   100% {
@@ -131,7 +139,20 @@
 }
 
 .landing-disclosure {
-  animation: landing-disclosure 6s ease-in-out infinite;
+  --landing-disclosure-cycle: 6s;
+  animation: landing-disclosure var(--landing-disclosure-cycle) ease-in-out infinite;
+}
+
+/*
+ * The offset has to live here, beside the shorthand above, and after it. An
+ * arbitrary-property class in the markup cannot do this job twice over: Tailwind
+ * emits utilities into @layer utilities, unlayered rules beat every layer, and
+ * the shorthand resets animation-delay to zero on its way past. Both panels then
+ * run in phase and the snap lands mid-ease again, which is the failure this
+ * whole arrangement exists to avoid.
+ */
+.landing-disclosure-lag {
+  animation-delay: calc(var(--landing-disclosure-cycle) / 8);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -156,13 +177,12 @@
 
 /* --tw-jib--wcag-rating() called directly, rather than via the wcag-badge
  * utility — the point of the demo is that the function returns a <string> that
- * any `content` can take. No utility form: content: with a function call and two
+ * any `content` can take. No utility form: content: with a function call and
  * custom properties is not expressible as a class. */
 .jib-wcag-rating-label::before {
   content: --tw-jib--wcag-rating(var(--bg), var(--fg));
 }
 
-/* ── Dense-cinematic scope, mirroring the stable landing ── */
 .jib-landing {
   --color-jib-brand: oklch(from var(--color-violet-500) calc(l - 0.18) c h);
   --color-jib-wind: oklch(from var(--color-violet-500) calc(l + 0.15) calc(c * 0.9) h);
@@ -203,7 +223,6 @@
   padding: 0 !important;
 }
 
-/* ── VitePress chrome: brand accent + transparent surfaces ── */
 :root {
   --vp-c-brand-1: var(--color-jib-lab);
   --vp-c-brand-2: var(--color-jib-lab);

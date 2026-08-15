@@ -1,29 +1,24 @@
 <!--
   Duplicated from docs/.vitepress/theme/components/JibLogo.vue rather than
-  imported across instances. The two VitePress instances are deliberately
+  imported across instances. The VitePress instances are deliberately
   independent (see theme/tailwind.css) — and @source here only scans
   docs-experimental, so a component imported from docs/ would render with its
   utility classes never compiled. A static SVG is the cheapest thing to copy.
 -->
 <template>
   <svg viewBox="0 0 225 79" xmlns="http://www.w3.org/2000/svg" class="fill-jib-brand">
-    <path
-      d="M4.58,69.77L4.68,72.01C22.12,76.12,37.62,70.37,50.52,65.56L54.08,60.13C38.66,67.03,25.21,71.55,4.58,69.77Z"
-      class="-fill-lightness-26"
-    />
-    <path
-      d="M32.35,24.07L50.67,54.41C42.61,59.64,34.78,60.9,29.43,60.07C34.39,50.2,36.79,39.66,32.35,24.07Z"
-      class="fill-lightness-60"
-    />
-    <path
-      d="M7.76,62.1L4.79,68.45C18.48,69.3,35.26,68.46,53.57,58.85C51.93,58.67,48.89,58.35,46.55,58.32C42.87,59.58,37.68,62.87,27.34,61.06C27.44,60.85,28.49,58.91,28.49,58.91C25.7,59.25,23.45,59.49,20.8,59.81L15.13,63.45L15.55,60.49L7.76,62.1Z"
-      class="-fill-lightness-34"
-    />
-    <path
-      d="M25.61,4.86C24.97,4.58,24.5,4.76,24.11,5.14L32.27,48.61C32.53,47.28,32.82,46.1,33.01,44.3L25.61,4.86Z"
-      class="-fill-lightness-34"
-    />
-    <path d="M23.43,9.49L31.22,52.1L16.88,60.72L23.43,9.49Z" />
+    <!--
+      Sail and wordmark are aligned on their area centroids rather than their
+      bounding boxes. Both shapes sit low in their own box — the sail tapers at
+      the head, the wordmark carries its mass in the x-height band below the
+      ascenders — so box-centring reads as a sail floating above the word.
+    -->
+    <g transform="translate(-38.155302,-33.958658) scale(1.772751)">
+      <path
+        d="M32.35,24.07L50.67,54.41C42.61,59.64,34.78,60.9,29.43,60.07C34.39,50.2,36.79,39.66,32.35,24.07Z"
+        class="dark:fill-lightness-60"
+      />
+    </g>
     <g class="-fill-lightness-90 dark:fill-lightness-90">
       <path
         d="M79.87 67.56L79.87 67.56Q76.29 67.56 73.57 66.22Q70.86 64.87 69.06 62.46L69.06 62.46L74.22 57.54Q76.23 60.50 79.82 60.50L79.82 60.50Q82.45 60.50 84.02 58.88Q85.58 57.26 85.58 54.23L85.58 54.23L85.58 27.63L93.26 27.63L93.26 53.78Q93.26 57.98 91.60 61.09Q89.95 64.20 86.93 65.88Q83.90 67.56 79.87 67.56Z"

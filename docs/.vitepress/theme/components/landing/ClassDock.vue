@@ -24,7 +24,6 @@ function scan() {
   if (observer) observer.disconnect();
   observer = new IntersectionObserver(
     (entries) => {
-      // Find most-visible entry
       let best: IntersectionObserverEntry | null = null;
       for (const e of entries) {
         if (!e.isIntersecting) continue;
@@ -41,9 +40,9 @@ function scan() {
 }
 
 onMounted(() => {
-  // Wait one tick so content is mounted
+  // Double rAF: the first fires before VitePress has painted the routed
+  // content, so a single one scans an empty page.
   requestAnimationFrame(() => requestAnimationFrame(scan));
-  // Re-scan on route change (for SPA navigation)
   window.addEventListener('popstate', scan);
 });
 

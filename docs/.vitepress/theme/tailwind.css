@@ -8,7 +8,7 @@
  * (docs-experimental/), not a section of this one. A single instance emits a
  * single stylesheet, and Vite serves component-imported CSS globally in dev, so
  * "load it only on the experimental pages" does not hold — a per-page import
- * leaked the overrides across the whole instance when it was tried.
+ * leaks the overrides across the whole instance.
  *
  * That matters because the experimental @function entry OVERRIDES
  * bg-hue-rotate-*, bg-lighten-*, bg-saturation-* and text-a11y-*. These pages
@@ -16,7 +16,7 @@
  * resolve through the stable path a reader gets from `@import 'tw-jib-css'`
  * alone — otherwise the docs demonstrate something the package does not ship.
  *
- * So: two instances, no bleed. Add nothing experimental to this file.
+ * So: separate instances, no bleed. Add nothing experimental to this file.
  */
 @import '../../../packages/tw-jib-css/src/index.css';
 
@@ -49,20 +49,17 @@
   --font-bowlby: 'Bowlby One', 'Archivo Black', 'Arial Black', sans-serif;
   --font-comic: 'Comic Sans MS', 'Patrick Hand', cursive;
 }
-/* ── Brand + wind-accent tokens registered in Tailwind's theme ── */
 @theme {
   --color-jib-brand: oklch(0.465 0.169 237);
   --color-jib-wind: oklch(0.815 0.152 237);
 }
 
-/* ── Registered custom properties (for animation) ── */
 @property --landing-demo-hue {
   syntax: '<number>';
   inherits: true;
   initial-value: 0;
 }
 
-/* ── Landing page: color cycling ── */
 @property --landing-base-color {
   syntax: '<color>';
   inherits: true;
@@ -84,9 +81,9 @@
 }
 
 /*
- * Color keyframes: hold ~80% of each segment, ease ~20%.
- * 6 colors × 3s = 18s. Alternates mid → dark → light → dark → light → mid
- * to showcase lightness-dependent behaviors (comic dot density, pixel bloom, darken headroom, etc.)
+ * Color keyframes: hold most of each segment, ease the rest. Alternates
+ * mid → dark → light → dark → light → mid to showcase lightness-dependent
+ * behaviours (comic dot density, pixel bloom, darken headroom, and so on).
  */
 @keyframes landing-base-color {
   0%,
@@ -195,8 +192,6 @@
   animation: landing-base-color 18s ease-in-out infinite;
 }
 
-/* The --tw-jib--wcag-rating() label lived here. It is experimental, so it
- * lives in the experimental docs instance instead. */
 .landing-comic-params {
   animation: landing-comic-params 12s ease-in-out infinite;
 }
@@ -221,7 +216,7 @@
   }
 }
 
-/* ── Showcase page animations (registered in @theme below for animate-* utilities) ── */
+/* Registered in @theme below so animate-* utilities can reach them. */
 @keyframes raster-retrace {
   0% {
     left: -30%;
@@ -266,7 +261,7 @@
   }
 }
 
-/* ── Dense-cinematic scope — all variants share the deep-sky derivation ── */
+/* All variants share the deep-sky derivation. */
 .jib-landing {
   --color-jib-brand: oklch(from var(--color-sky-500) calc(l - 0.22) c h);
   --color-jib-wind: oklch(from var(--color-sky-500) calc(l + 0.13) calc(c * 0.9) h);
@@ -286,7 +281,6 @@
   @apply max-w-none p-0;
 }
 
-/* ── Home landing: full-bleed, sidebar hidden ── */
 .home-landing .VPDoc,
 .home-landing .VPContent,
 .home-landing .vp-doc {
@@ -335,7 +329,7 @@
 }
 
 @layer utilities {
-  /* ── VP element overrides via @apply — feeds jib-css pipeline for ripple ── */
+  /* @apply rather than raw CSS so these feed the jib-css ripple pipeline. */
   .VPDoc,
   .VPContent,
   .vp-doc {
@@ -371,7 +365,6 @@
     @apply bg-darken-78 -bg-saturation-50;
   }
 
-  /* ── Hero ── */
   :root {
     --vp-home-hero-name-color: transparent;
     --vp-home-hero-name-background: linear-gradient(
@@ -395,7 +388,6 @@
     );
   }
 
-  /* ── Navbar ── */
   .VPNavBarTitle .logo {
     @apply h-9 w-auto;
   }
@@ -414,7 +406,6 @@
     @apply bg-darken-72 -bg-saturation-50 border-darken-50;
   }
 
-  /* ── Page background ── */
   body {
     @apply bg-jib-brand -bg-saturation-85 bg-lighten-96;
   }
@@ -422,7 +413,6 @@
     @apply bg-darken-82 -bg-saturation-50;
   }
 
-  /* ── Sidebar ── */
   .VPSidebar {
     --vp-sidebar-bg-color: oklch(
       from var(--color-jib-brand) calc(l + 0.92 * (1 - l)) calc(c * 0.25) h
@@ -445,7 +435,6 @@
     @apply text-slate-200;
   }
 
-  /* ── Content area ── */
   .vp-doc {
     @apply text-slate-900;
   }
@@ -478,7 +467,6 @@
     @apply text-jib-brand;
   }
 
-  /* ── Hero tagline + description ── */
   .VPHero .tagline,
   .VPHero .text {
     @apply bg-jib-brand -bg-saturation-70 bg-lighten-92 text-slate-900;
@@ -488,7 +476,6 @@
     @apply bg-darken-92 text-slate-200;
   }
 
-  /* ── Feature cards ── */
   .VPFeature {
     @apply bg-jib-brand -bg-saturation-50 bg-lighten-90 text-slate-900 border-2 border-jib-brand -border-saturation-40 border-lighten-65 transition-all duration-300 bg-ripple ripple-color-jib-brand/30 ripple-position-center;
   }
@@ -522,7 +509,7 @@
     @apply border-linear-to-br border-from-jib-brand border-to-[oklch(from_var(--color-jib-brand)_l_c_calc(h+150))];
   }
 
-  /* ── CTA button (with ripple — needs own bg for pipeline) ── */
+  /* CTA button needs its own bg to feed the ripple pipeline. */
   .VPButton.brand {
     @apply bg-jib-brand text-slate-100 bg-ripple ripple-color-white/25 ripple-position-center;
   }
@@ -532,10 +519,6 @@
   .dark .VPButton.brand:hover {
     @apply bg-darken-10;
   }
-
-  /* Corner shape belonged here once. It is an experimental feature, so it lives
-   * in the experimental docs instance now — as a utility there, and not as raw
-   * CSS here. Nothing experimental belongs in this stylesheet in any form. */
 
   /* ── Chart-paper texture for §7 ground-mode experimental ── */
   .texture-chart {

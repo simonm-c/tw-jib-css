@@ -3,24 +3,20 @@ import DefaultTheme from 'vitepress/theme';
 import type { Theme } from 'vitepress';
 import './tailwind.css';
 
-// Site-wide components
 import QuickReference from './components/QuickReference.vue';
 import Example from './components/Example.vue';
 import JibLogo from './components/JibLogo.vue';
-// Shared landing utilities
 import ProposalsHub from './components/landing/ProposalsHub.vue';
 import ClassDock from './components/landing/ClassDock.vue';
 import StatPill from './components/landing/StatPill.vue';
 import CompassRose from './components/landing/CompassRose.vue';
 
-// A · Magazine Spread
 import MagazineRoot from './components/landing/magazine/MagazineRoot.vue';
 import MagazineSlide from './components/landing/magazine/MagazineSlide.vue';
 import MagazineHero from './components/landing/magazine/MagazineHero.vue';
 import MagazineFinale from './components/landing/magazine/MagazineFinale.vue';
 import MagazineAlsoIncluded from './components/landing/magazine/MagazineAlsoIncluded.vue';
 
-// B · Card Stack
 import CardStackRoot from './components/landing/cardstack/CardStackRoot.vue';
 import CardStackSlide from './components/landing/cardstack/CardStackSlide.vue';
 import DemoCard from './components/landing/cardstack/DemoCard.vue';
@@ -28,7 +24,6 @@ import CodeCard from './components/landing/cardstack/CodeCard.vue';
 import StatCard from './components/landing/cardstack/StatCard.vue';
 import InfoCard from './components/landing/cardstack/InfoCard.vue';
 
-// C · Vertical River
 import RiverRoot from './components/landing/river/RiverRoot.vue';
 import RiverCopy from './components/landing/river/RiverCopy.vue';
 import RiverDemo from './components/landing/river/RiverDemo.vue';
@@ -54,23 +49,17 @@ export default {
     app.component('ClassDock', ClassDock);
     app.component('StatPill', StatPill);
     app.component('CompassRose', CompassRose);
-
-    // A
     app.component('MagazineRoot', MagazineRoot);
     app.component('MagazineSlide', MagazineSlide);
     app.component('MagazineHero', MagazineHero);
     app.component('MagazineFinale', MagazineFinale);
     app.component('MagazineAlsoIncluded', MagazineAlsoIncluded);
-
-    // B
     app.component('CardStackRoot', CardStackRoot);
     app.component('CardStackSlide', CardStackSlide);
     app.component('DemoCard', DemoCard);
     app.component('CodeCard', CodeCard);
     app.component('StatCard', StatCard);
     app.component('InfoCard', InfoCard);
-
-    // C
     app.component('RiverRoot', RiverRoot);
     app.component('RiverCopy', RiverCopy);
     app.component('RiverDemo', RiverDemo);

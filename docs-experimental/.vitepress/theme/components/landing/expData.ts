@@ -37,9 +37,9 @@ export const slides: ExpSlideData[] = [
     /*
      * violet-700, NOT violet-600. AAA is physically unreachable from
      * violet-600: the solve clamps to white and delivers 5.895:1, which the
-     * badge correctly calls Max. This slide's whole claim is the ratio, so
-     * demoing it on a colour that cannot reach the ratio disproved the claim to
-     * anyone who measured it. violet-700 solves to 7.03 rendered.
+     * badge correctly calls Max. This slide's whole claim is the ratio, so a
+     * base that cannot reach it disproves the claim to anyone who measures it.
+     * violet-700 solves to 7.03 rendered.
      */
     code: `.cta {\n  /* both from one background token, solved for 7:1 */\n  color:        --tw-jib--accessible-shade(\n                  var(--color-violet-700), aaa, oklch);\n  border-color: --tw-jib--accessible-shade(\n                  var(--color-violet-700), aaa, oklch);\n}`,
     lang: 'css',
@@ -66,9 +66,9 @@ export const slides: ExpSlideData[] = [
     kicker: 'interpolate size',
     headline: 'Animate to auto.',
     body: 'CSS has never been able to transition from a fixed size to an intrinsic keyword — 0 to auto snaps. interpolate-size: allow-keywords lifts that, on the parent, for every child. Disclosure panels and accordions stop needing a JavaScript height measurement.',
-    /* Must describe what the panels beside it are doing. The demo is now an
-     * autoplaying A/B rather than a :hover, so a sample showing only
-     * group-hover left a reader comparing a transition against an animation. */
+    /* Must describe what the panels beside it are doing. They are an autoplaying
+     * A/B, not a :hover, so a sample showing only group-hover leaves a reader
+     * comparing a transition against an animation. */
     code: `<!-- the utility goes on an ANCESTOR -->\n<div class="interpolate-keywords">\n\n  <!-- transition to auto -->\n  <div class="group">\n    <button>Expand</button>\n    <div class="h-0 group-hover:h-auto\n      transition-all duration-300 overflow-hidden">…</div>\n  </div>\n\n  <!-- or animate to it, as the panels here do -->\n  <div class="h-0 overflow-hidden\n    animate-[disclosure_6s_ease-in-out_infinite]">…</div>\n</div>`,
     lang: 'html',
     support: 'Chromium only · ~48%',

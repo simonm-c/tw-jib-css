@@ -60,11 +60,11 @@ async function copy() {
         </div>
       </div>
 
-      <!-- Every pill has to say something specific to THIS package. "2 packages"
-           restated the install line directly above it, and "0 JavaScript" is the
-           stable package's claim too, so half the row differentiated nothing.
-           The risk surface is now countable, which is the number a reader
-           weighing a second install actually wants. -->
+      <!-- Every pill has to say something specific to THIS package. A pill that
+           restates the install line above it, or repeats a claim the stable
+           package makes just as well, differentiates nothing. Quantify the risk
+           surface instead — that is what a reader weighing a second install
+           wants to know. -->
       <div class="flex flex-wrap justify-center gap-2">
         <StatPill n="5" caption="callable CSS functions" />
         <StatPill n="4" caption="additions, safe alone" />

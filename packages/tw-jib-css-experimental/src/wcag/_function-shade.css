@@ -1,53 +1,28 @@
-/*
- * text-a11y-* — accessible shade, @function path.
+/* text-a11y-*'s @function path. The utility is defined TWICE — the nested
+ * relative-colour chain in wcag/_stable.css is the all-engines fallback, this is
+ * the dispatcher. Both compute the same closed form and measured agreeing to
+ * serialisation precision, so which one runs is invisible in the output. Source
+ * order carries the override: the stable chain loads first and same-name
+ * @utility blocks never merge, so this wins where the gate holds.
  *
- * text-a11y-* is defined TWICE:
- *
- *   wcag/_stable.css   nested relative-colour chain — the fallback, all engines
- *   this file          @function dispatcher — only where this entry is imported
- *
- * Both compute the same closed form and were measured agreeing to serialisation
- * precision, so which one runs is invisible in the output.
- *
- * ── WHY THIS IS ITS OWN IMPORT ──
- *
- * This block OVERRIDES a utility that already works everywhere. It used to ride
- * along with the experimental entry, so a consumer who wanted wcag-badge or
- * corner-* silently had their text-a11y-* rerouted onto the @function path too —
- * accessible contrast, the one utility here you least want quietly moved onto a
- * non-baseline code path, changed by asking for an unrelated class.
- *
- * So the override paths are opt-in on their own entry, and nothing that merely
- * ADDS a utility (the badge, corner, picker) drags them in.
- *
- * Source order still carries the override: consumers load 'tw-jib-css' before
- * 'tw-jib-css/experimental/functions', so the stable chain is already earlier
- * and this block wins in the cascade where the gate holds. Same-name @utility
- * blocks never merge.
- *
- * Requires wcag/_functions.css and wcag/_support.css — the functions barrel
+ * Requires wcag/_functions.css and wcag/_support.css; the functions barrel
  * imports both ahead of this file.
- */
-
-/* =========================================================================
- * text-a11y-* — @function path
  *
- * One block, not a with-modifier/no-modifier pair: --default() inside
- * --modifier() covers the bare candidate too, which is how bg-lightness-*'s
- * experimental block is built.
+ * This OVERRIDES a utility that already works everywhere, which is why it sits
+ * on the functions entry rather than the experimental one — nothing that merely
+ * ADDS a utility (badge, corner, picker) should reroute accessible contrast onto
+ * a non-baseline code path.
  *
- * The default is oklch, matching both the stable path's default and every other
- * colour transform in this library. The two defaults MUST stay in step: if they
- * diverged, a bare text-a11y-aa would be seeded one way with this entry loaded
- * and another way without it — a visible difference on the most common class in
- * the module.
+ * One block covers both candidate shapes: --default() inside --modifier() picks
+ * up the bare one too. That default MUST stay oklch, in step with the stable
+ * path — if they diverged, a bare text-a11y-aa would seed one way with this
+ * entry loaded and another way without it.
  *
- * The level list is enumerated here, so a consumer's own level from the
- * --tw-jib--a11y-ratio-* namespace (see wcag/_stable.css) does not match this
- * block and keeps the stable path on every engine. That is the only correct
- * answer: --tw-jib--accessible-shade() takes a level ident and maps it to a
- * ratio internally, so it has no way to be told an unfamiliar level's ratio.
- * ========================================================================= */
+ * The level list is enumerated rather than read from the themeable
+ * --tw-jib--a11y-ratio-* namespace, so a consumer's own level does not match
+ * this block and stays on the stable path. That is the only available answer:
+ * --tw-jib--accessible-shade() maps a level ident to a ratio internally, so it
+ * cannot be told an unfamiliar level's ratio. */
 
 @utility text-a11y-* {
   @variant supports-wcag {
@@ -57,16 +32,7 @@
        shade paths default to oklch. Collapsing it to one line is a silent
        failure of that check. Prettier at printWidth 100 will collapse it, so
        the library CSS is in .prettierignore. */
-    --tw-jib--text-color: --tw-jib--accessible-shade(
-      var(--tw-jib--background-color),
-      --value('aa', 'aaa', 'aa-lg'),
-      --modifier(
-        'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
-        'srgb', 'srgb-linear', 'display-p3', 'a98-rgb',
-        'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65',
-        'color-mix', --default(oklch)
-      )
-    );
+    --tw-jib--text-color: --tw-jib--accessible-shade(var(--tw-jib--background-color), --value("aa", "aaa", "aa-lg"), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
     color: var(--tw-jib--text-color);
   }
 }

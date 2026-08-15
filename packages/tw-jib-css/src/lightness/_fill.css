@@ -1,5 +1,5 @@
 @property --tw-jib--fill-lightness--amount {
-  syntax: '<number>';
+  syntax: "<number>";
   inherits: false;
   initial-value: 0;
 }
@@ -26,104 +26,80 @@
        endpoint would drag a translucent colour toward opaque. */ rgb(from var(--tw-jib--fill-color-after-saturation, var(--tw-jib--fill-color-after-hue-rotate, var(--tw-jib--fill-color-source))) calc(max(0, sign(var(--tw-jib--fill-lightness--amount))) * 255) calc(max(0, sign(var(--tw-jib--fill-lightness--amount))) * 255) calc(max(0, sign(var(--tw-jib--fill-lightness--amount))) * 255) / alpha) clamp(0%, calc(abs(var(--tw-jib--fill-lightness--amount)) * 200%), 100%));
 }
 
-/* =========================================================================
- * PRIMARY: fill-lightness-* (positive lightness — lighten)
- * ========================================================================= */
-
-/* stable path: sets amount; oklch default overridden by --modifier when a color space is given */
 @utility fill-lightness-* {
   &:not(._) {
     --tw-jib--fill-lightness--amount: calc(--value(integer, [number]) * 0.01);
     --tw-jib--fill-color-after-lightness: oklch(from var(--tw-jib--fill-color-after-saturation, var(--tw-jib--fill-color-after-hue-rotate, var(--tw-jib--fill-color-source))) calc(l * (1 - abs(var(--tw-jib--fill-lightness--amount))) + max(0, var(--tw-jib--fill-lightness--amount))) calc(c * min(1, (1 - abs(var(--tw-jib--fill-lightness--amount))) * 5)) h / alpha);
-    --tw-jib--fill-color-after-lightness: --modifier(--tw-jib--fill-color-interpolation-*);
+    --tw-jib--fill-color-after-lightness: --modifier(--tw-jib--fill-color-interpolation- *);
     --tw-jib--fill-color: var(--tw-jib--fill-color-after-lightness, var(--tw-jib--fill-color-after-saturation, var(--tw-jib--fill-color-after-hue-rotate, var(--tw-jib--fill-color-source))));
     fill: var(--tw-jib--fill-color);
   }
 }
 
-/* experimental @function path — overrides stable where supported */
 @utility fill-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--fill-color-after-lightness: --tw-jib--lightness(var(--tw-jib--fill-color-after-saturation, var(--tw-jib--fill-color-after-hue-rotate, var(--tw-jib--fill-color-source))), --value(integer, [number]), --modifier('oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb', 'srgb', 'srgb-linear', 'display-p3', 'a98-rgb', 'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65', 'color-mix', --default(oklch)));
+      --tw-jib--fill-color-after-lightness: --tw-jib--lightness(var(--tw-jib--fill-color-after-saturation, var(--tw-jib--fill-color-after-hue-rotate, var(--tw-jib--fill-color-source))), --value(integer, [number]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
       --tw-jib--fill-color: var(--tw-jib--fill-color-after-lightness, var(--tw-jib--fill-color-after-saturation, var(--tw-jib--fill-color-after-hue-rotate, var(--tw-jib--fill-color-source))));
       fill: var(--tw-jib--fill-color);
     }
   }
 }
 
-/* =========================================================================
- * PRIMARY: -fill-lightness-* (negative lightness — darken)
- * ========================================================================= */
-
-/* stable path: sets amount; oklch default overridden by --modifier when a color space is given */
 @utility -fill-lightness-* {
   &:not(._) {
     --tw-jib--fill-lightness--amount: calc(--value(integer, [number]) * -0.01);
     --tw-jib--fill-color-after-lightness: oklch(from var(--tw-jib--fill-color-after-saturation, var(--tw-jib--fill-color-after-hue-rotate, var(--tw-jib--fill-color-source))) calc(l * (1 - abs(var(--tw-jib--fill-lightness--amount))) + max(0, var(--tw-jib--fill-lightness--amount))) calc(c * min(1, (1 - abs(var(--tw-jib--fill-lightness--amount))) * 5)) h / alpha);
-    --tw-jib--fill-color-after-lightness: --modifier(--tw-jib--fill-color-interpolation-*);
+    --tw-jib--fill-color-after-lightness: --modifier(--tw-jib--fill-color-interpolation- *);
     --tw-jib--fill-color: var(--tw-jib--fill-color-after-lightness, var(--tw-jib--fill-color-after-saturation, var(--tw-jib--fill-color-after-hue-rotate, var(--tw-jib--fill-color-source))));
     fill: var(--tw-jib--fill-color);
   }
 }
 
-/* experimental @function path — overrides stable where supported */
 @utility -fill-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--fill-color-after-lightness: --tw-jib--lightness(var(--tw-jib--fill-color-after-saturation, var(--tw-jib--fill-color-after-hue-rotate, var(--tw-jib--fill-color-source))), calc(--value(integer, [number]) * -1), --modifier('oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb', 'srgb', 'srgb-linear', 'display-p3', 'a98-rgb', 'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65', 'color-mix', --default(oklch)));
+      --tw-jib--fill-color-after-lightness: --tw-jib--lightness(var(--tw-jib--fill-color-after-saturation, var(--tw-jib--fill-color-after-hue-rotate, var(--tw-jib--fill-color-source))), calc(--value(integer, [number]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
       --tw-jib--fill-color: var(--tw-jib--fill-color-after-lightness, var(--tw-jib--fill-color-after-saturation, var(--tw-jib--fill-color-after-hue-rotate, var(--tw-jib--fill-color-source))));
       fill: var(--tw-jib--fill-color);
     }
   }
 }
 
-/* =========================================================================
- * ALIAS: fill-lighten-*
- * ========================================================================= */
-
-/* stable path: sets amount; oklch default overridden by --modifier when a color space is given */
 @utility fill-lighten-* {
   &:not(._) {
     --tw-jib--fill-lightness--amount: calc(--value(integer, [number]) * 0.01);
     --tw-jib--fill-color-after-lightness: oklch(from var(--tw-jib--fill-color-after-saturation, var(--tw-jib--fill-color-after-hue-rotate, var(--tw-jib--fill-color-source))) calc(l * (1 - abs(var(--tw-jib--fill-lightness--amount))) + max(0, var(--tw-jib--fill-lightness--amount))) calc(c * min(1, (1 - abs(var(--tw-jib--fill-lightness--amount))) * 5)) h / alpha);
-    --tw-jib--fill-color-after-lightness: --modifier(--tw-jib--fill-color-interpolation-*);
+    --tw-jib--fill-color-after-lightness: --modifier(--tw-jib--fill-color-interpolation- *);
     --tw-jib--fill-color: var(--tw-jib--fill-color-after-lightness, var(--tw-jib--fill-color-after-saturation, var(--tw-jib--fill-color-after-hue-rotate, var(--tw-jib--fill-color-source))));
     fill: var(--tw-jib--fill-color);
   }
 }
 
-/* experimental @function path — overrides stable where supported */
 @utility fill-lighten-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--fill-color-after-lightness: --tw-jib--lightness(var(--tw-jib--fill-color-after-saturation, var(--tw-jib--fill-color-after-hue-rotate, var(--tw-jib--fill-color-source))), --value(integer, [number]), --modifier('oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb', 'srgb', 'srgb-linear', 'display-p3', 'a98-rgb', 'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65', 'color-mix', --default(oklch)));
+      --tw-jib--fill-color-after-lightness: --tw-jib--lightness(var(--tw-jib--fill-color-after-saturation, var(--tw-jib--fill-color-after-hue-rotate, var(--tw-jib--fill-color-source))), --value(integer, [number]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
       --tw-jib--fill-color: var(--tw-jib--fill-color-after-lightness, var(--tw-jib--fill-color-after-saturation, var(--tw-jib--fill-color-after-hue-rotate, var(--tw-jib--fill-color-source))));
       fill: var(--tw-jib--fill-color);
     }
   }
 }
 
-/* =========================================================================
- * ALIAS: fill-darken-*
- * ========================================================================= */
-
-/* stable path: sets amount; oklch default overridden by --modifier when a color space is given */
 @utility fill-darken-* {
   &:not(._) {
     --tw-jib--fill-lightness--amount: calc(--value(integer, [number]) * -0.01);
     --tw-jib--fill-color-after-lightness: oklch(from var(--tw-jib--fill-color-after-saturation, var(--tw-jib--fill-color-after-hue-rotate, var(--tw-jib--fill-color-source))) calc(l * (1 - abs(var(--tw-jib--fill-lightness--amount))) + max(0, var(--tw-jib--fill-lightness--amount))) calc(c * min(1, (1 - abs(var(--tw-jib--fill-lightness--amount))) * 5)) h / alpha);
-    --tw-jib--fill-color-after-lightness: --modifier(--tw-jib--fill-color-interpolation-*);
+    --tw-jib--fill-color-after-lightness: --modifier(--tw-jib--fill-color-interpolation- *);
     --tw-jib--fill-color: var(--tw-jib--fill-color-after-lightness, var(--tw-jib--fill-color-after-saturation, var(--tw-jib--fill-color-after-hue-rotate, var(--tw-jib--fill-color-source))));
     fill: var(--tw-jib--fill-color);
   }
 }
 
-/* experimental @function path — overrides stable where supported */
 @utility fill-darken-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--fill-color-after-lightness: --tw-jib--lightness(var(--tw-jib--fill-color-after-saturation, var(--tw-jib--fill-color-after-hue-rotate, var(--tw-jib--fill-color-source))), calc(--value(integer, [number]) * -1), --modifier('oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb', 'srgb', 'srgb-linear', 'display-p3', 'a98-rgb', 'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65', 'color-mix', --default(oklch)));
+      --tw-jib--fill-color-after-lightness: --tw-jib--lightness(var(--tw-jib--fill-color-after-saturation, var(--tw-jib--fill-color-after-hue-rotate, var(--tw-jib--fill-color-source))), calc(--value(integer, [number]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
       --tw-jib--fill-color: var(--tw-jib--fill-color-after-lightness, var(--tw-jib--fill-color-after-saturation, var(--tw-jib--fill-color-after-hue-rotate, var(--tw-jib--fill-color-source))));
       fill: var(--tw-jib--fill-color);
     }

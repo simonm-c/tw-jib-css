@@ -1,17 +1,7 @@
 /**
- * build-llm-docs.ts
- *
- * Generates LLM-optimised documentation files:
- * - docs/public/llms.txt — structured index following the llms.txt convention
- * - docs/public/llms-full.txt — all guide pages concatenated
- *
- * Processing steps:
- * 1. Read all .md files from docs/guide/
- * 2. Strip Vue SFC components (<script>, <template> blocks within MD)
- * 3. Convert HTML comments (<!-- llm-context: ... -->) to visible text
- * 4. Clean frontmatter
- * 5. Concatenate into llms-full.txt
- * 6. Generate llms.txt index
+ * Generates, into docs/public/ from docs/guide/:
+ * - llms.txt — structured index following the llms.txt convention
+ * - llms-full.txt — all guide pages concatenated, Vue components stripped
  */
 
 import { readFileSync, readdirSync, writeFileSync, mkdirSync } from 'node:fs';
@@ -69,14 +59,11 @@ function extractFrontmatter(raw: string): { title: string; body: string } {
 }
 
 function extractDescription(body: string): string {
-  // First try llm-context comment
   const ctxMatch = body.match(/<!--\s*llm-context:\s*([\s\S]*?)\s*-->/);
   if (ctxMatch) {
-    // Take first sentence
     const first = ctxMatch[1].split(/\.\s/)[0];
     return first.endsWith('.') ? first : first + '.';
   }
-  // Fall back to first non-empty paragraph
   const lines = body.split('\n');
   for (const line of lines) {
     const trimmed = line.trim();
@@ -95,13 +82,10 @@ function extractDescription(body: string): string {
 function processContent(body: string): string {
   let out = body;
 
-  // Convert <!-- llm-context: ... --> to blockquote
   out = out.replace(/<!--\s*llm-context:\s*([\s\S]*?)\s*-->/g, '> $1');
 
-  // Strip <script setup>...</script>
   out = out.replace(/<script[^>]*>[\s\S]*?<\/script>/g, '');
 
-  // Convert <QuickReference :rows="[...]" /> to markdown table
   out = out.replace(
     /<QuickReference\s+:rows="\[([\s\S]*?)\]"\s*\/>/g,
     (_match, rowsStr: string) => {
@@ -115,11 +99,9 @@ function processContent(body: string): string {
     },
   );
 
-  // Strip <Example ...> and </Example> tags, preserve inner content
   out = out.replace(/<Example[^>]*>/g, '\n```html');
   out = out.replace(/<\/Example>/g, '```\n');
 
-  // Convert VitePress containers
   out = out.replace(
     /::: (tip|info|warning|danger)\s*(.*)\n/g,
     (_m, type: string, label: string) => {
@@ -129,7 +111,6 @@ function processContent(body: string): string {
   );
   out = out.replace(/^:::\s*$/gm, '');
 
-  // Clean up excessive blank lines
   out = out.replace(/\n{4,}/g, '\n\n\n');
 
   return out.trim();
@@ -157,14 +138,12 @@ function main() {
     });
   }
 
-  // Sort by logical order
   pages.sort((a, b) => {
     const ai = PAGE_ORDER.indexOf(a.slug);
     const bi = PAGE_ORDER.indexOf(b.slug);
     return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
   });
 
-  // Generate llms-full.txt
   const fullParts: string[] = [];
   for (const page of pages) {
     fullParts.push(`# ${page.title}\n\n${page.content}`);
@@ -172,7 +151,6 @@ function main() {
   const fullTxt = fullParts.join('\n\n---\n\n');
   writeFileSync(join(OUTPUT_DIR, 'llms-full.txt'), fullTxt, 'utf-8');
 
-  // Generate llms.txt
   const indexLines: string[] = [
     '# tw-jib-css',
     '',

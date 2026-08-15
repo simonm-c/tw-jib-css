@@ -91,11 +91,11 @@ test.describe('bg-hue-rotate — colour space modifiers', () => {
   test('oklch, hsl, lab, rgb produce distinct results for the same degree', async ({ page }) => {
     await gotoPage(page);
     const c = await extractBgColors(page, ['space-oklch', 'space-hsl', 'space-lab', 'space-rgb']);
-    // Sanity check: all four produced a painted colour
+    // Sanity check: every one produced a painted colour
     for (const key of ['space-oklch', 'space-hsl', 'space-lab', 'space-rgb']) {
       expect(c[key].a).toBeGreaterThan(0);
     }
-    // At least one pair must differ (the 4 spaces treat 120° differently)
+    // At least one pair must differ (these spaces treat 120° differently)
     const maxPairDist = Math.max(
       dist(c['space-oklch'], c['space-hsl']),
       dist(c['space-oklch'], c['space-lab']),
@@ -109,7 +109,7 @@ test.describe('bg-hue-rotate — colour space modifiers', () => {
 test.describe('full wheel coverage', () => {
   test('each 30° step produces a distinct colour', async ({ page }) => {
     await gotoPage(page);
-    // The smoke row is itself a full 12-step wheel of bg-red-500.
+    // The smoke row is itself a full wheel of bg-red-500.
     const keys = [0, 30, 60, 90, 120, 150, 180, 210, 240, 270, 300, 330].map((d) => `smoke-${d}`);
     const c = await extractBgColors(page, keys);
     // Consecutive steps should each differ by some margin

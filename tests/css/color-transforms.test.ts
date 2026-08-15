@@ -59,10 +59,6 @@ const ALL_SPACES = [
   'color-mix',
 ] as const;
 
-// ---------------------------------------------------------------------------
-// Stable path (relative color syntax)
-// ---------------------------------------------------------------------------
-
 describe('stable path (relative color syntax)', () => {
   describe('darken — default amounts', () => {
     test.each([0, 5, 10, 20, 50, 75, 100])('bg-darken-%i', async (amount) => {
@@ -647,10 +643,6 @@ describe('stable path (relative color syntax)', () => {
     });
   });
 });
-
-// ---------------------------------------------------------------------------
-// Experimental path (@function + @supports)
-// ---------------------------------------------------------------------------
 
 describe('experimental path (@function + @supports)', () => {
   describe('darken — default amounts', () => {
@@ -1303,10 +1295,6 @@ describe('experimental path (@function + @supports)', () => {
     });
   });
 });
-
-// ---------------------------------------------------------------------------
-// Experimental inline function usage (arbitrary values)
-// ---------------------------------------------------------------------------
 
 describe('experimental inline function usage', () => {
   test('bg-[...] with lightness router function', async () => {

@@ -1,57 +1,41 @@
-/* ==========================================================================
-   Comic Dots — TailwindCSS utilities
-   Converts a color into a CMYK halftone dot pattern using subtractive mixing.
-
-   Uses proper CMYK conversion — K extracts the neutral/dark component,
-   leaving CMY to handle only the chromatic difference.
-
-   CMYK opacity math (via relative color syntax):
-     K (black)   = 1 - max(R, G, B) / 255
-     C (cyan)    = (max(R,G,B) - R) / max(R,G,B)
-     M (magenta) = (max(R,G,B) - G) / max(R,G,B)
-     Y (yellow)  = (max(R,G,B) - B) / max(R,G,B)
-
-   Usage:
-     bg-comic-red-500       — red-500 as CMYK dots
-     bg-comic-[#ff6600]     — arbitrary color
-     comic-dot-1            — dot radius (TW spacing)
-     comic-bleed-2          — dot edge softness (TW spacing)
-     comic-gap-4            — space between dots (spacing/4)
-   ========================================================================== */
-
-/* --- Custom properties --- */
+/* Per-dot opacity, the symbolic form of the expression in bg-comic-*. A true
+ * CMYK separation: K takes the neutral component so CMY carry only the
+ * chromatic difference, which is what makes the multiply stack reproduce the
+ * input colour rather than muddying it.
+ *
+ *   K (black)   = 1 - max(R, G, B) / 255
+ *   C (cyan)    = (max(R,G,B) - R) / max(R,G,B)
+ *   M (magenta) = (max(R,G,B) - G) / max(R,G,B)
+ *   Y (yellow)  = (max(R,G,B) - B) / max(R,G,B) */
 
 @property --tw-jib--comic-color {
-  syntax: '<color>';
+  syntax: "<color>";
   inherits: false;
   initial-value: black;
 }
 @property --tw-jib--comic-dot {
-  syntax: '<length>';
+  syntax: "<length>";
   inherits: false;
   initial-value: 1px;
 }
 @property --tw-jib--comic-bleed {
-  syntax: '<length>';
+  syntax: "<length>";
   inherits: false;
   initial-value: 1px;
 }
 @property --tw-jib--comic-gap {
-  syntax: '<length>';
+  syntax: "<length>";
   inherits: false;
   initial-value: 2px;
 }
 @property --tw-jib--comic-opacity {
-  syntax: '<number>';
+  syntax: "<number>";
   inherits: false;
   initial-value: 1;
 }
 
-/* --- Utilities --- */
-
-/* bg-comic-* — sets the color, applies the CMYK dot pattern */
 @utility bg-comic-* {
-  --tw-jib--comic-color: --value(--color-*, [color]);
+  --tw-jib--comic-color: --value(--color- *, [color]);
   --tw-jib--comic-opacity: calc(--modifier(integer) * 0.01);
   --tw-jib--comic-cell: calc(var(--tw-jib--comic-dot) * 2 + var(--tw-jib--comic-gap));
   --tw-jib--background-image: radial-gradient(circle, rgb(from var(--tw-jib--comic-color) 0 255 255 / calc((max(r, g, b) - r) / max(max(r, g, b), 1) * var(--tw-jib--comic-opacity))) var(--tw-jib--comic-dot), transparent calc(var(--tw-jib--comic-dot) + var(--tw-jib--comic-bleed))) 0px 0px / var(--tw-jib--comic-cell) var(--tw-jib--comic-cell) padding-box, radial-gradient(circle, rgb(from var(--tw-jib--comic-color) 255 0 255 / calc((max(r, g, b) - g) / max(max(r, g, b), 1) * var(--tw-jib--comic-opacity))) var(--tw-jib--comic-dot), transparent calc(var(--tw-jib--comic-dot) + var(--tw-jib--comic-bleed))) calc(var(--tw-jib--comic-cell) / 2) calc(var(--tw-jib--comic-cell) / 2) / var(--tw-jib--comic-cell) var(--tw-jib--comic-cell) padding-box, radial-gradient(circle, rgb(from var(--tw-jib--comic-color) 255 255 0 / calc((max(r, g, b) - b) / max(max(r, g, b), 1) * var(--tw-jib--comic-opacity))) var(--tw-jib--comic-dot), transparent calc(var(--tw-jib--comic-dot) + var(--tw-jib--comic-bleed))) calc(var(--tw-jib--comic-cell) / 2) 0px / var(--tw-jib--comic-cell) var(--tw-jib--comic-cell) padding-box, radial-gradient(circle, rgb(from var(--tw-jib--comic-color) 0 0 0 / calc((1 - max(r, g, b) / 255) * var(--tw-jib--comic-opacity))) var(--tw-jib--comic-dot), transparent calc(var(--tw-jib--comic-dot) + var(--tw-jib--comic-bleed))) 0px calc(var(--tw-jib--comic-cell) / 2) / var(--tw-jib--comic-cell) var(--tw-jib--comic-cell) padding-box, linear-gradient(rgb(255 255 255 / var(--tw-jib--comic-opacity)) 0 0) padding-box;
@@ -62,19 +46,19 @@
   background-blend-mode: normal, multiply, multiply, multiply, multiply, normal, normal;
 }
 
-/* comic-dot-* — dot radius from TW spacing scale */
 @utility comic-dot-* {
   --tw-jib--comic-dot: --spacing(--value(number));
   --tw-jib--comic-dot: --value([length]);
 }
 
-/* comic-bleed-* — dot edge softness (= dot size for crisp, larger = more blur) */
+/* bleed and gap divide the spacing step by 4: dot radius wants the raw scale,
+ * but softness and spacing need finer control than 0.25rem increments. Bleed
+ * equal to the dot size gives a crisp edge, larger blurs it. */
 @utility comic-bleed-* {
   --tw-jib--comic-bleed: calc(--spacing(--value(number)) / 4);
   --tw-jib--comic-bleed: --value([length]);
 }
 
-/* comic-gap-* — space between dots (spacing / 4 for finer control) */
 @utility comic-gap-* {
   --tw-jib--comic-gap: calc(--spacing(--value(number)) / 4);
   --tw-jib--comic-gap: --value([length]);

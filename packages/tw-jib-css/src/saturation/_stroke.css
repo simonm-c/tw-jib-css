@@ -1,5 +1,5 @@
 @property --tw-jib--stroke-saturation--amount {
-  syntax: '<number>';
+  syntax: "<number>";
   inherits: false;
   initial-value: 0;
 }
@@ -24,104 +24,80 @@
   --tw-jib--stroke-saturation-interpolation-color-mix: color-mix(in oklch, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) clamp(0%, calc((1 - abs(var(--tw-jib--stroke-saturation--amount))) * 200%), 100%), oklch(from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) l calc(max(0, sign(var(--tw-jib--stroke-saturation--amount))) * 0.4) h / alpha) clamp(0%, calc(abs(var(--tw-jib--stroke-saturation--amount)) * 200%), 100%));
 }
 
-/* =========================================================================
- * PRIMARY: stroke-saturation-* (positive saturation — saturate)
- * ========================================================================= */
-
-/* stable path: sets amount; oklch default overridden by --modifier when a color space is given */
 @utility stroke-saturation-* {
   &:not(._) {
     --tw-jib--stroke-saturation--amount: calc(--value(integer, [number]) * 0.01);
     --tw-jib--stroke-color-after-saturation: oklch(from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) l calc(c * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * 0.4) h / alpha);
-    --tw-jib--stroke-color-after-saturation: --modifier(--tw-jib--stroke-saturation-interpolation-*);
+    --tw-jib--stroke-color-after-saturation: --modifier(--tw-jib--stroke-saturation-interpolation- *);
     --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
     stroke: var(--tw-jib--stroke-color);
   }
 }
 
-/* experimental @function path — overrides stable where supported */
 @utility stroke-saturation-* {
   &:not(._) {
     @variant supports-saturation {
-      --tw-jib--stroke-color-after-saturation: --tw-jib--saturation(var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)), --value(integer, [number]), --modifier('oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb', 'srgb', 'srgb-linear', 'display-p3', 'a98-rgb', 'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65', 'color-mix', --default(oklch)));
+      --tw-jib--stroke-color-after-saturation: --tw-jib--saturation(var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)), --value(integer, [number]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
       --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
       stroke: var(--tw-jib--stroke-color);
     }
   }
 }
 
-/* =========================================================================
- * PRIMARY: -stroke-saturation-* (negative saturation — desaturate)
- * ========================================================================= */
-
-/* stable path: sets amount; oklch default overridden by --modifier when a color space is given */
 @utility -stroke-saturation-* {
   &:not(._) {
     --tw-jib--stroke-saturation--amount: calc(--value(integer, [number]) * -0.01);
     --tw-jib--stroke-color-after-saturation: oklch(from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) l calc(c * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * 0.4) h / alpha);
-    --tw-jib--stroke-color-after-saturation: --modifier(--tw-jib--stroke-saturation-interpolation-*);
+    --tw-jib--stroke-color-after-saturation: --modifier(--tw-jib--stroke-saturation-interpolation- *);
     --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
     stroke: var(--tw-jib--stroke-color);
   }
 }
 
-/* experimental @function path — overrides stable where supported */
 @utility -stroke-saturation-* {
   &:not(._) {
     @variant supports-saturation {
-      --tw-jib--stroke-color-after-saturation: --tw-jib--saturation(var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)), calc(--value(integer, [number]) * -1), --modifier('oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb', 'srgb', 'srgb-linear', 'display-p3', 'a98-rgb', 'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65', 'color-mix', --default(oklch)));
+      --tw-jib--stroke-color-after-saturation: --tw-jib--saturation(var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)), calc(--value(integer, [number]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
       --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
       stroke: var(--tw-jib--stroke-color);
     }
   }
 }
 
-/* =========================================================================
- * ALIAS: stroke-saturate-*
- * ========================================================================= */
-
-/* stable path: sets amount; oklch default overridden by --modifier when a color space is given */
 @utility stroke-saturate-* {
   &:not(._) {
     --tw-jib--stroke-saturation--amount: calc(--value(integer, [number]) * 0.01);
     --tw-jib--stroke-color-after-saturation: oklch(from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) l calc(c * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * 0.4) h / alpha);
-    --tw-jib--stroke-color-after-saturation: --modifier(--tw-jib--stroke-saturation-interpolation-*);
+    --tw-jib--stroke-color-after-saturation: --modifier(--tw-jib--stroke-saturation-interpolation- *);
     --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
     stroke: var(--tw-jib--stroke-color);
   }
 }
 
-/* experimental @function path — overrides stable where supported */
 @utility stroke-saturate-* {
   &:not(._) {
     @variant supports-saturation {
-      --tw-jib--stroke-color-after-saturation: --tw-jib--saturation(var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)), --value(integer, [number]), --modifier('oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb', 'srgb', 'srgb-linear', 'display-p3', 'a98-rgb', 'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65', 'color-mix', --default(oklch)));
+      --tw-jib--stroke-color-after-saturation: --tw-jib--saturation(var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)), --value(integer, [number]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
       --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
       stroke: var(--tw-jib--stroke-color);
     }
   }
 }
 
-/* =========================================================================
- * ALIAS: stroke-desaturate-*
- * ========================================================================= */
-
-/* stable path: sets amount; oklch default overridden by --modifier when a color space is given */
 @utility stroke-desaturate-* {
   &:not(._) {
     --tw-jib--stroke-saturation--amount: calc(--value(integer, [number]) * -0.01);
     --tw-jib--stroke-color-after-saturation: oklch(from var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)) l calc(c * (1 - abs(var(--tw-jib--stroke-saturation--amount))) + max(0, var(--tw-jib--stroke-saturation--amount)) * 0.4) h / alpha);
-    --tw-jib--stroke-color-after-saturation: --modifier(--tw-jib--stroke-saturation-interpolation-*);
+    --tw-jib--stroke-color-after-saturation: --modifier(--tw-jib--stroke-saturation-interpolation- *);
     --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
     stroke: var(--tw-jib--stroke-color);
   }
 }
 
-/* experimental @function path — overrides stable where supported */
 @utility stroke-desaturate-* {
   &:not(._) {
     @variant supports-saturation {
-      --tw-jib--stroke-color-after-saturation: --tw-jib--saturation(var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)), calc(--value(integer, [number]) * -1), --modifier('oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb', 'srgb', 'srgb-linear', 'display-p3', 'a98-rgb', 'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65', 'color-mix', --default(oklch)));
+      --tw-jib--stroke-color-after-saturation: --tw-jib--saturation(var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source)), calc(--value(integer, [number]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
       --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
       stroke: var(--tw-jib--stroke-color);
     }

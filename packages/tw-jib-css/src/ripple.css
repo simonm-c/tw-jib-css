@@ -1,40 +1,40 @@
 @property --tw-jib--ripple-distance {
-  syntax: '<percentage>';
+  syntax: "<percentage>";
   inherits: false;
   initial-value: 100%;
 }
 @property --tw-jib--ripple-opacity {
-  syntax: '<number>';
+  syntax: "<number>";
   inherits: false;
   initial-value: 0;
 }
 @property --tw-jib--ripple-position {
-  syntax: '<length-percentage>+ | <custom-ident>';
+  syntax: "<length-percentage>+ | <custom-ident>";
   inherits: false;
   initial-value: center;
 }
 @property --tw-jib--ripple-duration {
-  syntax: '<time>';
+  syntax: "<time>";
   inherits: false;
   initial-value: 0.3s;
 }
 @property --tw-jib--ripple-color {
-  syntax: '<color>';
+  syntax: "<color>";
   inherits: true;
   initial-value: oklch(1 0 0 / 20%);
 }
 @property --tw-jib--ripple-color-mix {
-  syntax: '<percentage>';
+  syntax: "<percentage>";
   inherits: false;
   initial-value: 0%;
 }
 @property --tw-jib--ripple-fade-amount {
-  syntax: '<percentage>';
+  syntax: "<percentage>";
   inherits: false;
   initial-value: 0%;
 }
 @property --tw-jib--ripple-image {
-  syntax: '<image>';
+  syntax: "<image>";
   inherits: false;
   initial-value: radial-gradient(circle at center, transparent 0%, transparent 0%, transparent 0%, transparent 100%);
 }
@@ -72,8 +72,8 @@
 }
 
 @utility ripple-color-* {
-  --tw-jib--ripple-color: --value('inherit', --color-*, [color], var(--color));
-  --tw-jib--ripple-color: color-mix(in oklch, --value(--color-*, [color], var(--color)) calc(--modifier(integer, [number]) * 1%), transparent);
+  --tw-jib--ripple-color: --value("inherit", --color- *, [color], var(--color));
+  --tw-jib--ripple-color: color-mix(in oklch, --value(--color- *, [color], var(--color)) calc(--modifier(integer, [number]) * 1%), transparent);
 }
 
 @utility ripple-color-current {
@@ -82,17 +82,16 @@
 
 @utility ripple-duration-* {
   --tw-jib--ripple-duration: calc(--value(integer) * 10ms);
-  --tw-jib--ripple-duration: --value([*]);
+  --tw-jib--ripple-duration: --value([ *]);
 }
 
 @utility ripple-position-* {
-  --tw-jib--ripple-position: --value('top', 'left', 'right', 'bottom', 'center', [position]);
+  --tw-jib--ripple-position: --value("top", "left", "right", "bottom", "center", [position]);
 }
 @utility ripple-fade-none {
   --tw-jib--ripple-fade-amount: 0%;
 }
 
-/* bare ripple-fade defaults to a full fade (100%) */
 @utility ripple-fade-* {
   --tw-jib--ripple-fade-amount: calc(--value(integer, --default(100)) * 1%);
 }

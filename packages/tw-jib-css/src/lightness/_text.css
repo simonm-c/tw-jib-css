@@ -1,5 +1,5 @@
 @property --tw-jib--text-lightness--amount {
-  syntax: '<number>';
+  syntax: "<number>";
   inherits: false;
   initial-value: 0;
 }
@@ -26,104 +26,80 @@
        endpoint would drag a translucent colour toward opaque. */ rgb(from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) calc(max(0, sign(var(--tw-jib--text-lightness--amount))) * 255) calc(max(0, sign(var(--tw-jib--text-lightness--amount))) * 255) calc(max(0, sign(var(--tw-jib--text-lightness--amount))) * 255) / alpha) clamp(0%, calc(abs(var(--tw-jib--text-lightness--amount)) * 200%), 100%));
 }
 
-/* =========================================================================
- * PRIMARY: text-lightness-* (positive lightness — lighten)
- * ========================================================================= */
-
-/* stable path: sets amount; oklch default overridden by --modifier when a color space is given */
 @utility text-lightness-* {
   &:not(._) {
     --tw-jib--text-lightness--amount: calc(--value(integer, [number]) * 0.01);
     --tw-jib--text-color-after-lightness: oklch(from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) calc(l * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount))) calc(c * min(1, (1 - abs(var(--tw-jib--text-lightness--amount))) * 5)) h / alpha);
-    --tw-jib--text-color-after-lightness: --modifier(--tw-jib--text-color-interpolation-*);
+    --tw-jib--text-color-after-lightness: --modifier(--tw-jib--text-color-interpolation- *);
     --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
     color: var(--tw-jib--text-color);
   }
 }
 
-/* experimental @function path — overrides stable where supported */
 @utility text-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--text-color-after-lightness: --tw-jib--lightness(var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))), --value(integer, [number]), --modifier('oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb', 'srgb', 'srgb-linear', 'display-p3', 'a98-rgb', 'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65', 'color-mix', --default(oklch)));
+      --tw-jib--text-color-after-lightness: --tw-jib--lightness(var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))), --value(integer, [number]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
       --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
       color: var(--tw-jib--text-color);
     }
   }
 }
 
-/* =========================================================================
- * PRIMARY: -text-lightness-* (negative lightness — darken)
- * ========================================================================= */
-
-/* stable path: sets amount; oklch default overridden by --modifier when a color space is given */
 @utility -text-lightness-* {
   &:not(._) {
     --tw-jib--text-lightness--amount: calc(--value(integer, [number]) * -0.01);
     --tw-jib--text-color-after-lightness: oklch(from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) calc(l * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount))) calc(c * min(1, (1 - abs(var(--tw-jib--text-lightness--amount))) * 5)) h / alpha);
-    --tw-jib--text-color-after-lightness: --modifier(--tw-jib--text-color-interpolation-*);
+    --tw-jib--text-color-after-lightness: --modifier(--tw-jib--text-color-interpolation- *);
     --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
     color: var(--tw-jib--text-color);
   }
 }
 
-/* experimental @function path — overrides stable where supported */
 @utility -text-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--text-color-after-lightness: --tw-jib--lightness(var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))), calc(--value(integer, [number]) * -1), --modifier('oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb', 'srgb', 'srgb-linear', 'display-p3', 'a98-rgb', 'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65', 'color-mix', --default(oklch)));
+      --tw-jib--text-color-after-lightness: --tw-jib--lightness(var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))), calc(--value(integer, [number]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
       --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
       color: var(--tw-jib--text-color);
     }
   }
 }
 
-/* =========================================================================
- * ALIAS: text-lighten-*
- * ========================================================================= */
-
-/* stable path: sets amount; oklch default overridden by --modifier when a color space is given */
 @utility text-lighten-* {
   &:not(._) {
     --tw-jib--text-lightness--amount: calc(--value(integer, [number]) * 0.01);
     --tw-jib--text-color-after-lightness: oklch(from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) calc(l * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount))) calc(c * min(1, (1 - abs(var(--tw-jib--text-lightness--amount))) * 5)) h / alpha);
-    --tw-jib--text-color-after-lightness: --modifier(--tw-jib--text-color-interpolation-*);
+    --tw-jib--text-color-after-lightness: --modifier(--tw-jib--text-color-interpolation- *);
     --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
     color: var(--tw-jib--text-color);
   }
 }
 
-/* experimental @function path — overrides stable where supported */
 @utility text-lighten-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--text-color-after-lightness: --tw-jib--lightness(var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))), --value(integer, [number]), --modifier('oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb', 'srgb', 'srgb-linear', 'display-p3', 'a98-rgb', 'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65', 'color-mix', --default(oklch)));
+      --tw-jib--text-color-after-lightness: --tw-jib--lightness(var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))), --value(integer, [number]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
       --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
       color: var(--tw-jib--text-color);
     }
   }
 }
 
-/* =========================================================================
- * ALIAS: text-darken-*
- * ========================================================================= */
-
-/* stable path: sets amount; oklch default overridden by --modifier when a color space is given */
 @utility text-darken-* {
   &:not(._) {
     --tw-jib--text-lightness--amount: calc(--value(integer, [number]) * -0.01);
     --tw-jib--text-color-after-lightness: oklch(from var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))) calc(l * (1 - abs(var(--tw-jib--text-lightness--amount))) + max(0, var(--tw-jib--text-lightness--amount))) calc(c * min(1, (1 - abs(var(--tw-jib--text-lightness--amount))) * 5)) h / alpha);
-    --tw-jib--text-color-after-lightness: --modifier(--tw-jib--text-color-interpolation-*);
+    --tw-jib--text-color-after-lightness: --modifier(--tw-jib--text-color-interpolation- *);
     --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
     color: var(--tw-jib--text-color);
   }
 }
 
-/* experimental @function path — overrides stable where supported */
 @utility text-darken-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--text-color-after-lightness: --tw-jib--lightness(var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))), calc(--value(integer, [number]) * -1), --modifier('oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb', 'srgb', 'srgb-linear', 'display-p3', 'a98-rgb', 'prophoto-rgb', 'rec2020', 'xyz', 'xyz-d50', 'xyz-d65', 'color-mix', --default(oklch)));
+      --tw-jib--text-color-after-lightness: --tw-jib--lightness(var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))), calc(--value(integer, [number]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
       --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
       color: var(--tw-jib--text-color);
     }

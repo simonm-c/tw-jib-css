@@ -75,7 +75,7 @@ describe('pixel utilities', () => {
   });
 
   /*
-   * The bloom mid values are a dimensionless ratio of two lengths. Expressing
+   * The bloom mid values are a dimensionless ratio of lengths. Expressing
    * that as calc(a / b) costs the module every engine that cannot divide a
    * length by a length — Gecko rejects it, and because the ratio is substituted
    * into the `background` shorthand, one rejected division drops the entire
@@ -107,7 +107,7 @@ describe('pixel utilities', () => {
 
     test('the caps and overflows feeding the ratio stay lengths', async () => {
       const css = await compile('bg-pixel-red-500');
-      // max(0px, ...) keeps the overflow a length so atan2's two arguments agree
+      // max(0px, ...) keeps the overflow a length so atan2's arguments agree
       // in type — atan2 rejects mismatched units.
       expect(ratioDecl(css, '--tw-jib--pixel-bloom-row-overflow')).toContain('max(0px');
       expect(ratioDecl(css, '--tw-jib--pixel-bloom-col-overflow')).toContain('max(0px');

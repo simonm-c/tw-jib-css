@@ -2,21 +2,24 @@ import { describe, test, expect } from 'vitest';
 import { compile } from './helpers.js';
 
 /**
- * Tests for the WCAG module, which is split across both entries:
+ * The WCAG module spans both entries:
  *
- *   text-a11y-*  two implementations. The @function dispatcher in
- *                wcag/_utilities.css is preferred and wins wherever CSS
+ *   text-a11y-*  has both implementations. The @function dispatcher in
+ *                wcag/_function-shade.css is preferred and wins wherever CSS
  *                @function exists; the nested relative-colour chain in
- *                wcag/_stable.css ships from the core entry as the fallback.
+ *                wcag/_stable.css ships from the stable package as the fallback.
  *                Same arrangement as bg-lightness-* and its siblings.
  *   wcag-badge   experimental only, needs @function + if(style()), no fallback.
  *
  * So the shade must compile WITHOUT { experimental: true } — that is the whole
  * point of the fallback — and must additionally pick up the @function override
- * WITH it. The badge must appear only with the flag. The shade assertions here
- * were previously the inverse, asserting absence without the flag, because the
- * @function path used to be the only implementation.
+ * WITH it. The badge must appear only with the flag.
  */
+
+// The @function definition carries the same name as the call it defines, and
+// comes first in the output, so reaching the call means anchoring on the
+// declaration colon rather than on the name alone.
+const SHADE_CALL = ': --tw-jib--accessible-shade(';
 
 const SUPPORTS_WCAG =
   '@supports (background: if(style(--value): red)) and (background: --tw-jib--linearize(red))';
@@ -45,7 +48,7 @@ const COLOR_SPACES = [
   'color-mix',
 ] as const;
 
-/** The four spaces whose precise seed needs a cube root, hence the pow() gate. */
+/** The spaces whose precise seed needs a cube root, hence the pow() gate. */
 const POW_SEEDED = ['oklch', 'oklab', 'lch', 'lab'] as const;
 
 describe('text-a11y utilities — stable path', () => {
@@ -76,7 +79,7 @@ describe('text-a11y utilities — stable path', () => {
   });
 
   // The map is what makes levels themeable, and that only holds while nothing
-  // consulting it hard-codes the three names. A --value() that fails to resolve
+  // consulting it hard-codes the level names. A --value() that fails to resolve
   // drops its whole block, so the enumerated --tw-jib--a11y-level record has to
   // live in a separate block from the ratio lookup.
   test('a consumer-defined level works end to end', async () => {
@@ -98,13 +101,13 @@ describe('text-a11y utilities — stable path', () => {
       expect(css).toContain('oklch(from var(--tw-jib--a11y--target)');
     });
 
-    // The two implementations must default to the SAME space, or a bare
+    // Both implementations must default to the SAME space, or a bare
     // text-a11y-aa would be seeded one way on Chromium and another elsewhere.
     test('both implementations default to oklch', async () => {
       const css = await compile('bg-blue-500 text-a11y-aa', { functions: true });
       expect(css).toContain('--tw-jib--a11y--vector: var(--tw-jib--a11y--oklch)');
-      const call = css.slice(css.indexOf('--tw-jib--accessible-shade('));
-      expect(call.slice(0, 300)).toMatch(/\n\s+oklch\n/);
+      const call = css.slice(css.indexOf(SHADE_CALL));
+      expect(call.slice(0, 300)).toMatch(/,\s*oklch\)/);
     });
 
     test('the bare candidate gets the precise seed behind the gate too', async () => {
@@ -221,7 +224,7 @@ describe('text-a11y utilities — stable path', () => {
       const css = await compile('bg-blue-500 text-a11y-aa');
       const decl = css.match(/@property --tw-jib--a11y--ratio \{[\s\S]*?\}/)?.[0];
       expect(decl, '@property --tw-jib--a11y--ratio not emitted').toBeTruthy();
-      expect(decl).toContain("syntax: '<number>'");
+      expect(decl).toContain('syntax: "<number>"');
       expect(decl).toContain('inherits: false');
       expect(decl).toContain('initial-value: 4.5');
     });
@@ -229,7 +232,7 @@ describe('text-a11y utilities — stable path', () => {
     // §4.3 regression guard. Registering a chain link as <color> forces the
     // engine to evaluate it into a colour value; Gecko stores that at reduced
     // precision and the error compounds through the carrier's alpha, which IS
-    // the target luminance. Measured over 27 cells: Firefox falls from 23 exact
+    // the target luminance. Measured: Firefox falls from 23 exact cells
     // to 9. Every intermediate must stay an unregistered token stream.
     test('no chain intermediate is registered as a colour', async () => {
       const css = await compile('bg-blue-500 text-a11y-aa/oklch');
@@ -243,7 +246,7 @@ describe('text-a11y utilities — stable path', () => {
 
     // The delivered colour deliberately does not read back through
     // --tw-jib--text-color, which core.css registers as <color>. That last hop
-    // measured exact on all three engines, so this is belt-and-braces: it keeps
+    // measured exact on every engine, so this is belt-and-braces: it keeps
     // the shade off a registered <color> entirely, one hop from where
     // registration demonstrably destroys the ratio.
     test('color: reads the unregistered link, not --tw-jib--text-color', async () => {
@@ -255,9 +258,9 @@ describe('text-a11y utilities — stable path', () => {
     });
   });
 
-  // Once, not twice. One block serves both cases: an absent modifier drops only
-  // the --modifier() declaration, so the bare-only twin this used to have was
-  // pure duplicate output.
+  // One block serves both cases, because an absent modifier drops only the
+  // --modifier() declaration and leaves the block standing. Splitting it into a
+  // bare/modified pair emits the level record twice.
   test('records the requested level for wcag-badge exactly once, bare and modified', async () => {
     for (const level of LEVELS) {
       const bare = await compile(`bg-blue-500 text-a11y-${level}`);
@@ -304,7 +307,7 @@ describe('text-a11y utilities — stable path', () => {
     test('both implementations are emitted, @function last', async () => {
       const css = await compile('bg-blue-500 text-a11y-aa', { functions: true });
       const stableAt = css.indexOf('--tw-jib--a11y--shade:');
-      const fnAt = css.indexOf('--tw-jib--accessible-shade(\n');
+      const fnAt = css.indexOf(SHADE_CALL);
       expect(stableAt, 'stable fallback chain missing').toBeGreaterThan(-1);
       expect(fnAt, '@function override missing').toBeGreaterThan(-1);
       expect(
@@ -315,7 +318,7 @@ describe('text-a11y utilities — stable path', () => {
 
     test('the override is gated on @function support', async () => {
       const css = await compile('bg-blue-500 text-a11y-aa', { functions: true });
-      const fnAt = css.indexOf('--tw-jib--accessible-shade(\n');
+      const fnAt = css.indexOf(SHADE_CALL);
       expect(css.slice(0, fnAt)).toContain(SUPPORTS_WCAG);
     });
 
@@ -331,7 +334,7 @@ describe('text-a11y utilities — stable path', () => {
         for (const space of [null, ...COLOR_SPACES]) {
           const cls = space ? `text-a11y-${level}/${space}` : `text-a11y-${level}`;
           const css = await compile(`bg-blue-500 ${cls}`, { functions: true });
-          if (!css.includes('--tw-jib--accessible-shade(\n')) missing.push(cls);
+          if (!css.includes(SHADE_CALL)) missing.push(cls);
         }
       }
       expect(

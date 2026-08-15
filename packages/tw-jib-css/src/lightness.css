@@ -1,9 +1,7 @@
-/* tw-jib-css — stable lightness utilities */
-
-@import './lightness/_bg.css';
-@import './lightness/_text.css';
-@import './lightness/_fill.css';
-@import './lightness/_stroke.css';
-@import './lightness/_outline.css';
-@import './lightness/_accent.css';
-@import './lightness/_border.css';
+@import "./lightness/_bg.css";
+@import "./lightness/_text.css";
+@import "./lightness/_fill.css";
+@import "./lightness/_stroke.css";
+@import "./lightness/_outline.css";
+@import "./lightness/_accent.css";
+@import "./lightness/_border.css";

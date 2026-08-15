@@ -1,38 +1,16 @@
-/*
- * WCAG 2.x contrast functions — CSS @function + if(style()) required.
+/* Independent layers, both self-contained.
  *
- * Layer 1: Contrast measurement (self-contained, no external deps)
- *   --tw-jib--linearize, --tw-jib--luminance-packed,
- *   --tw-jib--contrast-test-directed, --tw-jib--contrast-test-all,
- *   --tw-jib--wcag-rating
+ * Layer 1 MEASURES: given a pair of colours, what is their rating? Packed
+ * luminance plus a multi-channel color-mix() encode every WCAG threshold (3, 4.5, 7)
+ * into a single rgb result whose channels read as pass/fail bits. No
+ * quantization, no safety margins, no uncertainty bands.
  *
- * Layer 2: Accessible shade construction (self-contained)
- *   --tw-jib--wcag-carrier, --tw-jib--wcag-target,
- *   --tw-jib--wcag-core-vector, --tw-jib--wcag-chroma-vector,
- *   --tw-jib--wcag-lift,
- *   --tw-jib--accessible-shade-core/-oklch/-lch/-hsl/-hwb,
- *   --tw-jib--accessible-shade
+ * Layer 2 CONSTRUCTS: given a background and a ratio, what colour hits it?
+ * Solved in closed form — see the derivation above Layer 2.
  *
- * Layer 1 measures: given two colours, what is their rating? The packed
- * luminance + multi-channel color-mix() encode all three WCAG thresholds
- * (3, 4.5, 7) into a single rgb result whose channels read as pass/fail
- * bits. No quantization, no safety margins, no uncertainty bands.
- *
- * Layer 2 constructs: given a background and a ratio, what colour hits it?
- * This is solved in closed form — no candidate search, no verification.
- * See the derivation block above Layer 2.
- *
- * The two layers are independent. Layer 1 exists for the badge, which must
- * keep measuring precisely because Layer 2's guarantees apply to declared
- * colours only — not to images, gradients, or alpha compositing.
- *
- * These functions are importable independently — any module can
- * @import './wcag/_functions.css' to reuse luminance/contrast.
- */
-
-/* =========================================================================
- * Layer 1: Contrast measurement
- * ========================================================================= */
+ * Layer 1 is not redundant with Layer 2: it exists for the badge, which must
+ * keep measuring precisely because Layer 2's guarantees cover declared colours
+ * only, not images, gradients or alpha compositing. */
 
 /* Undo sRGB gamma encoding → linear light.
  *
@@ -48,10 +26,10 @@
  * syntax with rgb() round-trips via gamma-encoded sRGB, and that encode/
  * decode is not exact — it loses 1e-5 to 6e-5 of absolute precision,
  * always signed so the darker colour of a pair measures darker. That
- * biased every contrast verdict toward the lower level by 5e-4 to 9e-4 in
- * ratio terms, which is invisible on a typical pair but decides the
- * verdict for a pair sitting on a threshold — exactly what the shade
- * utilities now produce. Staying in srgb-linear is exact.
+ * biases every contrast verdict toward the lower level by 5e-4 to 9e-4 in
+ * ratio terms — invisible on a typical pair, but decisive for a pair
+ * sitting on a threshold, which is exactly what the shade utilities
+ * produce. Staying in srgb-linear is exact.
  *
  * Everything downstream therefore works in the 0..1 domain rather than
  * 0..255, which also keeps every intermediate channel inside [0, 1] so
@@ -78,7 +56,7 @@
  * rearranges to L_lighter − T·L_darker >= 0.05·(T−1), expressed as a
  * single color-mix between the lighter colour's R (=L) and the darker
  * colour's G (=1−L). Scaling each output channel by a different T
- * before the mix lets one color-mix() test all three WCAG thresholds:
+ * before the mix lets one color-mix() test every WCAG threshold at once:
  *
  *   R channel: T = 3   (AA Large), threshold 0.3875
  *   G channel: T = 4.5 (AA),       threshold 0.425
@@ -89,10 +67,10 @@
  *
  * THE EPSILON. WCAG asks for a ratio of *at least* T, but a step function
  * built on clamp(0, x·10000, 1) returns 0 when x is exactly 0 — so a pair
- * landing precisely on a threshold reads as a failure. That never mattered
- * while shades were found by search and overshot; the closed-form shade
- * lands ON the threshold every time, making exact equality the common case
- * rather than a curiosity. 1e-6 in this domain is ~4.7e-4 in ratio terms:
+ * landing precisely on a threshold would read as a failure. The closed-form
+ * shade lands ON the threshold every time, which makes exact equality the
+ * common case here rather than a curiosity, so the epsilon is load-bearing
+ * and not defensive. 1e-6 in this domain is ~4.7e-4 in ratio terms:
  * comfortably above both float dust and the shade's own ~2e-5 spread, and
  * far below any difference a reader could perceive or a bucket could show. */
 @function --tw-jib--contrast-test-directed(--lighter type(<color>): white, --darker type(<color>): black) returns <color> {
@@ -104,9 +82,9 @@
 
 /* Direction-independent WCAG contrast test.
  * Runs the directed test in both orderings (either input might be the
- * lighter), mixes the two results and clamps. The output colour IS the
+ * lighter), mixes both results and clamps. The output colour IS the
  * rating:
- *   color(srgb-linear 1 1 1)  AAA      (all three pass)
+ *   color(srgb-linear 1 1 1)  AAA      (all pass)
  *   color(srgb-linear 1 1 0)  AA       (R + G pass)
  *   color(srgb-linear 1 0 0)  AA Large (only R passes)
  *   color(srgb-linear 0 0 0)  Fail     (nothing passes)
@@ -123,14 +101,13 @@
 /* WCAG rating classification.
  * Returns a <string> so it can go straight into content: for display
  * and still be matched with style() for conditional styling.
- * Pipeline is exact — only four ratings are reachable. */
+ * Pipeline is exact — only the ratings above are reachable. */
 @function --tw-jib--wcag-rating(--color-1 type(<color>): black, --color-2 type(<color>): white) returns <string> {
   --tw-jib--result: --tw-jib--contrast-test-all(var(--color-1), var(--color-2));
   result: if(style(--tw-jib--result: color(srgb-linear 1 1 1)): "AAA" ; style(--tw-jib--result: color(srgb-linear 1 1 0)): "AA" ; style(--tw-jib--result: color(srgb-linear 1 0 0)): "AA Large" ; else: "Fail");
 }
 
-/* =========================================================================
- * Layer 2: Accessible shade construction — closed form
+/* Layer 2: accessible shade construction, in closed form.
  *
  * WCAG 2's ratio constrains exactly one quantity, relative luminance, and
  * luminance is LINEAR in linear-light RGB. Both facts together make the
@@ -167,7 +144,7 @@
  * luminance.
  *
  * WHY THE CAPS ARE ALSO A GAMUT MAPPER: each cap term is the largest
- * scale for which one channel stays inside [0, 1]; the min over all six
+ * scale for which one channel stays inside [0, 1]; the min over all of them
  * makes every channel simultaneously valid. Because they act on whatever
  * vector they are given, they also pull out-of-gamut candidates (§ the
  * space pipelines) back into gamut ALONG the constant-luminance plane —
@@ -180,7 +157,7 @@
  * achieved ratio equals maxCR — the best physics allows. That is correct
  * degradation, not failure.
  *
- * THE TWO EPSILONS: 10⁻⁶ guards the Yt/Y division for near-black
+ * THE EPSILONS: 10⁻⁶ guards the Yt/Y division for near-black
  * backgrounds. 10⁻³ guards the cap divisions. Both are pure division
  * guards and only ever make a cap LARGER, i.e. non-binding — which is
  * right, because a vector too small to reach the floor is also too small
@@ -190,9 +167,8 @@
  * channel, and it stays that size in the output.
  *
  * Each layer is bound to a local custom property before its channels are
- * read. This is required, not stylistic — see the currentColor note in
- * _utilities.css and --tw-jib--luminance-packed above.
- * ========================================================================= */
+ * read. This is required, not stylistic — see --tw-jib--luminance-packed
+ * above. */
 
 /* Luminance carrier: background's linear channels preserved, WCAG
  * luminance smuggled into alpha.
@@ -200,10 +176,10 @@
  * Relative colour syntax admits one origin colour per expression, so a
  * candidate built in oklch cannot also see the background's luminance —
  * unless the luminance travels inside the colour. Alpha is the only
- * channel available for it, and two properties make it work: alpha is a
+ * channel available for it, and it works because alpha is a
  * float in [0, 1], which is exactly the range of a luminance, and alpha is
  * inert to colour-space conversion, so it survives an oklch/lch/hsl round
- * trip untouched. Verified in Chromium to ~10⁻⁷ through five nested
+ * trip untouched. Verified in Chromium to ~10⁻⁷ through the nested
  * layers; the cross-pipeline invariance test guards it. */
 @function --tw-jib--wcag-carrier(--color type(<color>): white) returns <color> {
   result: color(from var(--color) srgb-linear r g b / calc(0.2126 * r + 0.7152 * g + 0.0722 * b));
@@ -227,8 +203,8 @@
 
 /* Candidate chroma vector: channels become c − Yc, alpha passes through.
  * Input is a seed colour whose alpha already carries Yt. Splitting this
- * out of the lift stage keeps the luminance dot product written three
- * times instead of nine. */
+ * out of the lift stage keeps the luminance dot product written once per stage
+ * rather than once per channel per stage. */
 @function --tw-jib--wcag-chroma-vector(--candidate type(<color>): white) returns <color> {
   result: color(from var(--candidate) srgb-linear calc(r - (0.2126 * r + 0.7152 * g + 0.0722 * b)) calc(g - (0.2126 * r + 0.7152 * g + 0.0722 * b)) calc(b - (0.2126 * r + 0.7152 * g + 0.0722 * b)) / alpha);
 }
@@ -246,14 +222,10 @@
   result: color(from var(--vector) srgb-linear calc(alpha + min(1, (1 - alpha) / max(r, 0.001), alpha / max((0 - r), 0.001), (1 - alpha) / max(g, 0.001), alpha / max((0 - g), 0.001), (1 - alpha) / max(b, 0.001), alpha / max((0 - b), 0.001)) * r) calc(alpha + min(1, (1 - alpha) / max(r, 0.001), alpha / max((0 - r), 0.001), (1 - alpha) / max(g, 0.001), alpha / max((0 - g), 0.001), (1 - alpha) / max(b, 0.001), alpha / max((0 - b), 0.001)) * g) calc(alpha + min(1, (1 - alpha) / max(r, 0.001), alpha / max((0 - r), 0.001), (1 - alpha) / max(g, 0.001), alpha / max((0 - g), 0.001), (1 - alpha) / max(b, 0.001), alpha / max((0 - b), 0.001)) * b) / 1);
 }
 
-/* -------------------------------------------------------------------------
- * Shade pipelines
- *
- * The colour-space modifier selects the AESTHETIC PATH of the shade — how
- * chroma and perceptual hue behave between background and output — while
- * --tw-jib--wcag-lift() owns correctness for every space uniformly. Same
- * division of labour as the previous implementation, where the verify step
- * also owned correctness for all spaces; the verify is now algebra.
+/* Shade pipelines. The colour-space modifier selects only the AESTHETIC PATH —
+ * how chroma and perceptual hue behave between background and output — while
+ * --tw-jib--wcag-lift() owns correctness for every space uniformly. That is why
+ * an approximate seed below is not a bug.
  *
  * Class 1 — linear-light and RGB-family (srgb, srgb-linear, rgb, xyz*,
  *   display-p3, a98-rgb, prophoto-rgb, rec2020, color-mix): the core IS
@@ -271,8 +243,7 @@
  *   lift corrects it. Measured oklch seed drift without the lift, on this
  *   library's own test colours: −0.30 to +0.16 in ratio terms (one
  *   undershoot would silently fail compliance, one overshoot silently
- *   wastes chroma). With the lift: exact.
- * ------------------------------------------------------------------------- */
+ *   wastes chroma). With the lift: exact. */
 
 /* Class 1 — the workhorse. carrier → core vector → lift. */
 @function --tw-jib--accessible-shade-core(--background type(<color>): white, --ratio type(<number>): 4.5) returns <color> {
@@ -335,7 +306,7 @@
  * Maps the WCAG level to its ratio once, then routes to the pipeline for
  * the requested colour space. oklab and lab alias their polar twins: the
  * seeds are identical, only the channel notation differs. The else branch
- * catches all eleven Class-1 spaces. */
+ * catches every Class-1 space. */
 @function --tw-jib--accessible-shade(--background type(<color>): white, --level type(<custom-ident>): aa, --interpolation type(<custom-ident>): oklch) returns <color> {
   --tw-jib--ratio: if(style(--level: aaa): 7; style(--level: aa-lg): 3; else: 4.5);
   result: if(style(--interpolation: oklch): --tw-jib--accessible-shade-oklch(var(--background), var(--tw-jib--ratio)) ; style(--interpolation: oklab): --tw-jib--accessible-shade-oklch(var(--background), var(--tw-jib--ratio)) ; style(--interpolation: lch): --tw-jib--accessible-shade-lch(var(--background), var(--tw-jib--ratio)) ; style(--interpolation: lab): --tw-jib--accessible-shade-lch(var(--background), var(--tw-jib--ratio)) ; style(--interpolation: hsl): --tw-jib--accessible-shade-hsl(var(--background), var(--tw-jib--ratio)) ; style(--interpolation: hwb): --tw-jib--accessible-shade-hwb(var(--background), var(--tw-jib--ratio)) ; else: --tw-jib--accessible-shade-core(var(--background), var(--tw-jib--ratio)));

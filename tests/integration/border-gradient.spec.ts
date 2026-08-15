@@ -1,9 +1,5 @@
 import { test, expect, type Page } from '@playwright/test';
 
-// ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
-
 interface ElementStyles {
   backgroundColor: string;
   backgroundImage: string;
@@ -64,10 +60,6 @@ async function gotoPage(page: Page) {
   await page.locator('[data-test="bg-named"]').waitFor();
 }
 
-// ---------------------------------------------------------------------------
-// Background colors
-// ---------------------------------------------------------------------------
-
 test.describe('background colors', () => {
   test('named colors produce non-transparent background with gradient layers', async ({ page }) => {
     await gotoPage(page);
@@ -109,10 +101,6 @@ test.describe('background colors', () => {
     }
   });
 });
-
-// ---------------------------------------------------------------------------
-// Background gradients
-// ---------------------------------------------------------------------------
 
 test.describe('background linear gradients', () => {
   test('cardinal and diagonal directions produce linear-gradient bg layer', async ({ page }) => {
@@ -190,10 +178,6 @@ test.describe('background gradient interpolation', () => {
   });
 });
 
-// ---------------------------------------------------------------------------
-// Background URLs
-// ---------------------------------------------------------------------------
-
 test.describe('background URLs', () => {
   test('bg-url renders with gradient layers', async ({ page }) => {
     await gotoPage(page);
@@ -201,10 +185,6 @@ test.describe('background URLs', () => {
     expect(s['bg-url'].backgroundImage).toContain('gradient');
   });
 });
-
-// ---------------------------------------------------------------------------
-// Border gradient directions
-// ---------------------------------------------------------------------------
 
 test.describe('border gradient linear directions', () => {
   test('all 8 cardinal and diagonal directions render linear-gradient border', async ({ page }) => {
@@ -236,10 +216,6 @@ test.describe('border gradient linear angles', () => {
   });
 });
 
-// ---------------------------------------------------------------------------
-// Border gradient radial and conic
-// ---------------------------------------------------------------------------
-
 test.describe('border gradient radial', () => {
   test('radial border gradients with position variants render', async ({ page }) => {
     await gotoPage(page);
@@ -263,10 +239,6 @@ test.describe('border gradient conic', () => {
     }
   });
 });
-
-// ---------------------------------------------------------------------------
-// Border gradient interpolation
-// ---------------------------------------------------------------------------
 
 test.describe('border gradient interpolation', () => {
   test('linear interpolation modifiers render gradient', async ({ page }) => {
@@ -306,10 +278,6 @@ test.describe('border gradient interpolation', () => {
   });
 });
 
-// ---------------------------------------------------------------------------
-// Border gradient color stops
-// ---------------------------------------------------------------------------
-
 test.describe('border gradient color stops', () => {
   test('named, arbitrary, CSS variable, and transparent stops render gradient', async ({ page }) => {
     await gotoPage(page);
@@ -344,10 +312,6 @@ test.describe('border gradient color stops', () => {
   });
 });
 
-// ---------------------------------------------------------------------------
-// Border spin
-// ---------------------------------------------------------------------------
-
 test.describe('border spin', () => {
   test('spin elements have border-spin animation', async ({ page }) => {
     await gotoPage(page);
@@ -367,10 +331,6 @@ test.describe('border spin', () => {
     expect(s['border-spin-slow'].animation).toContain('3s');
   });
 });
-
-// ---------------------------------------------------------------------------
-// Edge cases
-// ---------------------------------------------------------------------------
 
 test.describe('edge cases', () => {
   test('bg opacity + border interpolation render gradient', async ({ page }) => {
@@ -462,10 +422,6 @@ test.describe('edge cases', () => {
     expect(s['edge-no-bg-spin'].animation).toContain('border-spin');
   });
 });
-
-// ---------------------------------------------------------------------------
-// Border styles
-// ---------------------------------------------------------------------------
 
 test.describe('border styles', () => {
   test('transparent border-color (default): all 8 styles render gradient with transparent border', async ({ page }) => {

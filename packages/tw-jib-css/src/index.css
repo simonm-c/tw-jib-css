@@ -1,14 +1,12 @@
-/* tw-jib-css — stable utilities */
+@import "./core.css";
+@import "./ripple.css";
+@import "./border-gradient.css";
 
-@import './core.css';
-@import './ripple.css';
-@import './border-gradient.css';
-
-@import './lightness.css';
-@import './saturation.css';
-@import './hue-rotate.css';
-@import './accessible-shade.css';
-@import './border-style.css';
-@import './grid.css';
-@import './comic.css';
-@import './pixel.css';
+@import "./lightness.css";
+@import "./saturation.css";
+@import "./hue-rotate.css";
+@import "./accessible-shade.css";
+@import "./border-style.css";
+@import "./grid.css";
+@import "./comic.css";
+@import "./pixel.css";

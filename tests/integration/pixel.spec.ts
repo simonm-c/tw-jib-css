@@ -1,9 +1,5 @@
 import { test, expect, type Page } from '@playwright/test';
 
-// ---------------------------------------------------------------------------
-// Helpers
-// ---------------------------------------------------------------------------
-
 interface ElementStyles {
   backgroundImage: string;
   blendMode: string;
@@ -13,10 +9,10 @@ interface ElementStyles {
 }
 
 /**
- * The seven background layers bg-pixel-* composites, in order:
+ * The background layers bg-pixel-* composites, in order:
  * ripple, row-mask, R, G, B, black-base, border-gradient. Every layer is a
  * gradient (the unused ones come from @property initial-values), so a healthy
- * pixel element always reports exactly seven.
+ * pixel element always reports the full set.
  *
  * Asserting the count — rather than `toContain('gradient')` — is what catches a
  * partially invalid layer list. And because an invalid value anywhere in the
@@ -191,10 +187,6 @@ async function gotoPage(page: Page) {
   await page.locator('[data-test="white"]').waitFor();
 }
 
-// ---------------------------------------------------------------------------
-// Primary colours
-// ---------------------------------------------------------------------------
-
 test.describe('bg-pixel — primary colours render', () => {
   test('all primary colours produce gradient layers', async ({ page }) => {
     await gotoPage(page);
@@ -209,10 +201,6 @@ test.describe('bg-pixel — primary colours render', () => {
   });
 });
 
-// ---------------------------------------------------------------------------
-// Size variations
-// ---------------------------------------------------------------------------
-
 test.describe('pixel-size — size variations', () => {
   test('all size variants render with gradients', async ({ page }) => {
     await gotoPage(page);
@@ -221,10 +209,6 @@ test.describe('pixel-size — size variations', () => {
   });
 });
 
-// ---------------------------------------------------------------------------
-// Gap variations
-// ---------------------------------------------------------------------------
-
 test.describe('pixel-gap — gap variations', () => {
   test('all gap variants render', async ({ page }) => {
     await gotoPage(page);
@@ -232,10 +216,6 @@ test.describe('pixel-gap — gap variations', () => {
     expectPixelLayers(await extractStyles(page, ids), ids);
   });
 });
-
-// ---------------------------------------------------------------------------
-// Bloom variations
-// ---------------------------------------------------------------------------
 
 test.describe('pixel-bloom — bloom variations', () => {
   test('all bloom variants render', async ({ page }) => {
@@ -258,12 +238,12 @@ test.describe('pixel-bloom — bloom variations', () => {
   });
 
   /*
-   * Bloom's two regimes are driven by a dimensionless ratio,
+   * Bloom's regimes are driven by a dimensionless ratio,
    * overflow / (overflow + cap), where both operands are lengths. Below the cap
    * the mid stop stays at zero and bloom only widens the ramp; above it the mid
    * value itself rises asymptotically toward full.
    *
-   * These two tests pin that ratio's output, because it is the part of the
+   * These tests pin that ratio's output, because it is the part of the
    * module most exposed to engine differences in calc() — a length-by-length
    * division silently takes the entire background shorthand down with it. The
    * expected numbers below are derived from the geometry, not copied from a
@@ -313,10 +293,6 @@ test.describe('pixel-bloom — bloom variations', () => {
   });
 });
 
-// ---------------------------------------------------------------------------
-// Opacity
-// ---------------------------------------------------------------------------
-
 test.describe('bg-pixel opacity modifier', () => {
   test('all opacity variants render', async ({ page }) => {
     await gotoPage(page);
@@ -331,10 +307,6 @@ test.describe('bg-pixel opacity modifier', () => {
     expectPixelLayers(await extractStyles(page, ids), ids);
   });
 });
-
-// ---------------------------------------------------------------------------
-// Border gradient composition
-// ---------------------------------------------------------------------------
 
 test.describe('pixel + border gradient composition', () => {
   test('linear border directions render with gradients', async ({ page }) => {
@@ -375,10 +347,6 @@ test.describe('pixel + border gradient composition', () => {
   });
 });
 
-// ---------------------------------------------------------------------------
-// Full colour palette
-// ---------------------------------------------------------------------------
-
 test.describe('pixel — colour scales', () => {
   test('bloom colour comparison — representative colours render', async ({ page }) => {
     await gotoPage(page);
@@ -395,16 +363,12 @@ test.describe('pixel — colour scales', () => {
   });
 });
 
-// ---------------------------------------------------------------------------
-// Whole-page coverage
-// ---------------------------------------------------------------------------
-
 /*
  * The named tests above each sample a handful of fixtures, which leaves room for
  * a module-wide failure to hide: an engine that rejects one calc() drops every
  * `background` shorthand on the page to `none`, yet only the sampled ids report
  * it. These sweeps assert against every bg-pixel-* element the fixture defines,
- * so breadth of coverage no longer depends on which ids a test happens to list.
+ * so coverage does not depend on which ids a test happens to list.
  */
 test.describe('bg-pixel — whole-page coverage', () => {
   test('every bg-pixel element on the page renders its full layer stack', async ({ page }) => {
@@ -437,7 +401,7 @@ test.describe('bg-pixel — whole-page coverage', () => {
     await gotoPage(page);
     const s = await extractStyles(page, ['blue-500']);
     expectPixelLayers(s, ['blue-500']);
-    // Row mask multiplies to punch out gaps; the three channels screen together.
+    // Row mask multiplies to punch out gaps; the channels screen together.
     expect(s['blue-500'].blendMode, 'row mask should multiply').toContain('multiply');
     expect(
       s['blue-500'].blendMode.match(/screen/g)?.length,

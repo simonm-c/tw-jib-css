@@ -1,53 +1,23 @@
-/* tw-jib-css — the CSS @function implementations of utilities that already
- * ship a stable form (experimental, CSS @function required)
+/* Adds no class. Every utility here already exists and already works from the
+ * main entry, on every engine; each block re-implements one behind an @supports
+ * gate so it wins in the cascade wherever CSS @function is supported. Must load
+ * AFTER the main entry — same-name @utility blocks never merge, so source order
+ * is what carries the override.
  *
- * ── WHAT THIS ENTRY IS ──
- *
- * Every utility here ALREADY EXISTS and already works, on every engine, from
- * the main entry. Nothing in this file adds a class; each block re-implements a
- * class the stable path defines, behind an @supports gate, so that it wins in
- * the cascade wherever CSS @function is supported.
- *
- * You do not need it for those utilities to work.
- *
- *   @import 'tw-jib-css';                        stable — all engines
- *   @import 'tw-jib-css/experimental';           everything experimental, THIS INCLUDED
- *   @import 'tw-jib-css/experimental/functions'; THIS alone, without the additions
- *   @import 'tw-jib-css/experimental/corner';    an addition alone, without THIS
- *
- * Load it after the main entry. Source order is what carries the override:
- * same-name @utility blocks never merge, so the later one wins where its gate
- * holds.
- *
- * ── WHY IT IS ITS OWN FILE AND SUB-ENTRY ──
- *
- * The experimental entry contains two different kinds of thing:
- *
- *   ADDITIONS   corner-*, wcag-badge — no stable form exists, so importing them
- *               can only give you something you did not have
- *   OVERRIDES   these — a stable form exists and importing them REPLACES it
- *
- * They are separable here so that a consumer who wants only corner-* can take
- * it without having bg-hue-rotate-*, bg-lighten-*, bg-saturation-* and
- * text-a11y-* rerouted onto the @function path — via the individual subpaths.
- * The experimental entry itself deliberately includes both.
- *
- * That separation is the point: progressive enhancement onto a code path that is
- * not baseline should be something a consumer opts into for its own sake, not
- * something that arrives because they wanted an unrelated class. An @supports
- * gate can say "this engine understands @function"; it cannot say "you meant to
- * be here". Only an import can.
- */
+ * This lives behind its own import rather than a feature test alone because an
+ * @supports gate can say "this engine understands @function" but not "you meant
+ * to be here". A consumer who wanted corner-* should not have text-a11y-*
+ * rerouted onto a non-baseline path as a side effect. */
 
-@import './lightness/_experimental.css';
-@import './saturation/_experimental.css';
-@import './hue-rotate/_experimental.css';
+@import "./lightness/_experimental.css";
+@import "./saturation/_experimental.css";
+@import "./hue-rotate/_experimental.css";
 
 /* text-a11y-*'s @function path. _functions.css defines the functions it calls;
  * _support.css carries the shared gate and the level record. Both are imported
  * by the wcag.css barrel as well — repeated @function, @custom-variant and
  * @property definitions are last-one-wins with identical content, so taking
  * both entries is inert. */
-@import './wcag/_functions.css';
-@import './wcag/_support.css';
-@import './wcag/_function-shade.css';
+@import "./wcag/_functions.css";
+@import "./wcag/_support.css";
+@import "./wcag/_function-shade.css";

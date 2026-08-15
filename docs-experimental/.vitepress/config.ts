@@ -19,7 +19,12 @@ export default defineConfig({
   description:
     'Experimental tw-jib-css utilities — CSS @function colour transforms, corner-shape, interpolate-size, base-select picker, and a WCAG contrast badge.',
   base: '/tw-jib-css/experimental/',
-  head: [['link', { rel: 'icon', type: 'image/svg+xml', href: '/tw-jib-css/jibcss-mark.svg' }]],
+  head: [
+    [
+      'link',
+      { rel: 'icon', type: 'image/svg+xml', href: '/tw-jib-css/experimental/jibcss-mark.svg' },
+    ],
+  ],
 
   /*
    * Links into the STABLE instance cannot be resolved from here — it is a
@@ -38,10 +43,9 @@ export default defineConfig({
     /*
      * "Stable docs" must be an ABSOLUTE url, not '/tw-jib-css/'. Nav items go
      * through VitePress's withBase(), which prepends this instance's base to
-     * anything that isn't protocol-qualified — so the root-relative form
-     * resolved to /tw-jib-css/experimental/tw-jib-css/ and 404'd. The in-body
-     * links in the landing components are raw <a href> and bypass that, which
-     * is why only the nav item was broken.
+     * anything not protocol-qualified, so the root-relative form resolves to
+     * /tw-jib-css/experimental/tw-jib-css/ and 404s. Only nav items are affected:
+     * the landing components' in-body links are raw <a href> and bypass withBase.
      *
      * The cost is that this leaves localhost in dev. There is no third option:
      * cross-instance links cannot be expressed as base-relative paths.

@@ -8,20 +8,3 @@ docs-experimental/.vitepress/cache
 coverage
 test-results
 playwright-report
-
-# ── The library's CSS is hand-formatted, and that is load-bearing ──
-#
-# Tailwind emits declaration values with the source's own line structure, string
-# quoting and number formatting, and tests/css/** asserts on the compiled text.
-# Every setting in prettier.config.js changes that output:
-#
-#   printWidth: 100   rewraps long values, and one test checks that a defaulted
-#                     colour space lands on its own line
-#   singleQuote: true flips the WCAG rating strings ("AA" -> 'AA'), which
-#                     if(style()) compares as token streams
-#   (defaults)        drops the trailing zero from the 0.140 hueRotate matrix
-#                     coefficient, and the space from calc(l * ...)
-#
-# Formatting these files takes the suite from 1659 passing to 912 failing. They
-# were never prettier-clean; that is the intended state, not a backlog item.
-packages/*/src/**/*.css

@@ -33,7 +33,8 @@ package does.
 - **Contrast, solved not searched** — `text-a11y-*` hits your target WCAG ratio exactly, in Chromium, Firefox and Safari alike
 - **TailwindCSS v4 native** — uses `@utility`, `@custom-variant`, `@theme`, `@property`
 - **Works with all variants** — hover, focus, responsive, dark mode, etc.
-- **Selective imports** — import only what you need via sub-path exports
+- **No baggage** — every module is its own entry point and stands alone. Want accessible shades? Import
+  that one module; you don't get comic halftones as the price of admission
 - **No build step** — ships raw CSS consumed directly by your Tailwind compiler
 
 ## Installation
@@ -51,15 +52,53 @@ Import in your main CSS file alongside Tailwind:
 @import 'tw-jib-css';
 ```
 
-### Selective imports
+## Take only what you need
 
-Import only the modules you need:
+Every module has a sub-path export and stands entirely on its own. Import one and it works; import
+several and they compose exactly as they do from the root entry. Nobody who wants accessible text
+shades has to take comic halftones to get them.
 
 ```css
 @import 'tailwindcss';
-@import 'tw-jib-css/border-gradient';
-@import 'tw-jib-css/lightness';
+@import 'tw-jib-css/accessible-shade';
+@import 'tw-jib-css/grid';
 ```
+
+| Module                              | Import path                   | Colour pipeline |
+| ----------------------------------- | ----------------------------- | --------------- |
+| _everything below_                  | `tw-jib-css`                  | yes             |
+| Accessible Shade                    | `tw-jib-css/accessible-shade` | yes             |
+| Lightness + Saturation + Hue Rotate | `tw-jib-css/color-transforms` | yes             |
+| Border Gradient                     | `tw-jib-css/border-gradient`  | yes             |
+| Ripple                              | `tw-jib-css/ripple`           | yes             |
+| Comic                               | `tw-jib-css/comic`            | yes             |
+| Pixel                               | `tw-jib-css/pixel`            | yes             |
+| Border Style                        | `tw-jib-css/border-style`     | no              |
+| Grid                                | `tw-jib-css/grid`             | no              |
+
+**Why it's worth doing.** Not bundle size — Tailwind's scanner purges classes you never write either
+way. What it saves is the part the scanner _cannot_ reach: `@property` registrations and `@theme` keys
+aren't classes, so they're emitted whether or not anything uses them. The colour pipeline behind
+`bg-lighten-*` and `text-a11y-*` is a few dozen registrations, and the root entry emits all of them.
+`tw-jib-css/grid` emits none — those utilities read no colour, so they carry no colour machinery, and
+their browser-support floor is plain Tailwind's.
+
+Lightness, saturation and hue-rotate ship as one `color-transforms` module rather than three because
+they are one pipeline: each stage's expression starts from the stage before it, so a stage taken alone
+would compute against a value nothing can write.
+
+Taking the whole library costs no more per utility than taking one module — the root entry is composed
+so the shared pipeline lands once, not once per module. Both halves are covered by the test suite.
+
+## Requirements
+
+- **TailwindCSS 4.3+**, declared as a peer dependency (`tailwindcss >=4.3.0`).
+- **Chrome 111+, Safari 16.4+, Firefox 128+** for anything that transforms a colour — that's CSS
+  relative colour syntax plus `@property`. `border-style` and `grid` need neither and work wherever
+  Tailwind does.
+
+Nothing in this package runs CSS `@function`. That's deliberate: it's the guarantee that covers
+consumers who opted into nothing.
 
 ## Modules
 
@@ -112,19 +151,20 @@ Material-style ripple effect — pure CSS, no JavaScript. Radial gradient animat
 
 ### Print Textures
 
-Pure CSS print-inspired texture effects via layered gradient composition.
+Pure CSS print-inspired texture effects via layered gradient composition. `bg-comic-*` renders CMYK
+halftone dots through radial gradients and multiply blending; `bg-pixel-*` renders RGB phosphor columns
+through repeating gradients and screen blending. Any colour in, textured surface out.
 
-| Module | Import             | Description                                       |
-| ------ | ------------------ | ------------------------------------------------- |
-| Comic  | `tw-jib-css/comic` | CMYK halftone dots via radial gradient + multiply |
-| Pixel  | `tw-jib-css/pixel` | RGB LCD/CRT columns via repeating linear gradient |
+```html
+<div class="bg-comic-rose-500 comic-dot-2">Halftone</div>
+<div class="bg-pixel-cyan-400 pixel-size-3 pixel-bloom-2">CRT</div>
+```
 
 ### Supporting Modules
 
-| Module       | Import                    | Description                                      |
-| ------------ | ------------------------- | ------------------------------------------------ |
-| Border Style | `tw-jib-css/border-style` | Per-side border styles (`border-t-dashed`, etc.) |
-| Grid         | `tw-jib-css/grid`         | Grid template areas and named grid areas         |
+`border-style` fills in the per-side border styles Tailwind doesn't expose (`border-t-dashed`). `grid`
+adds template areas and named areas (`grid-template-areas-*`, `grid-area-*`). Neither reads a colour, so
+neither carries any of the colour machinery above.
 
 ## Experimental
 

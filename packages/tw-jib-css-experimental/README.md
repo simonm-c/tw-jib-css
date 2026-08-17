@@ -71,13 +71,18 @@ Importing the package root gives you both. Each is reachable alone:
 
 ## Modules
 
+Every module is its own entry point, and taking one brings nothing else with it. `corner`,
+`interpolate` and `picker` read nothing from `tw-jib-css` either, so they carry none of its colour
+machinery. This is a separate package, never a sub-path of the stable one — `tw-jib-css/experimental`
+does not exist.
+
 | Module                                                                             | Import                                | Kind     | Browser support                             |
 | ---------------------------------------------------------------------------------- | ------------------------------------- | -------- | ------------------------------------------- |
 | [Functions](https://simonm-c.github.io/tw-jib-css/experimental/functions)          | `tw-jib-css-experimental/functions`   | Override | Chromium only (CSS `@function`)             |
 | [Corner Shape](https://simonm-c.github.io/tw-jib-css/experimental/corner)          | `tw-jib-css-experimental/corner`      | Addition | Chrome 139+ (~68%)                          |
 | [Interpolate Size](https://simonm-c.github.io/tw-jib-css/experimental/interpolate) | `tw-jib-css-experimental/interpolate` | Addition | Chromium only (~48%)                        |
 | [Base Select Picker](https://simonm-c.github.io/tw-jib-css/experimental/picker)    | `tw-jib-css-experimental/picker`      | Addition | Chromium only, Firefox in progress          |
-| [WCAG Badge](https://simonm-c.github.io/tw-jib-css/experimental/wcag-badge)        | `tw-jib-css-experimental/wcag`        | Addition | Chromium only (`@function` + `if(style())`) |
+| [WCAG Badge](https://simonm-c.github.io/tw-jib-css/experimental/wcag-badge)        | `tw-jib-css-experimental/wcag-badge`  | Addition | Chromium only (`@function` + `if(style())`) |
 
 ### Functions
 

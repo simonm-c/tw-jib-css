@@ -1,7 +1,7 @@
 import { describe, test, expect } from 'vitest';
-import { compile } from './helpers.js';
+import { suiteScenarios } from './helpers.js';
 
-describe('grid utilities', () => {
+describe.each(suiteScenarios('grid'))('grid utilities — $name', ({ compile }) => {
   test('grid-area-[sidebar] sets named grid-area', async () => {
     const css = await compile('grid-area-[sidebar]');
     expect(css).toContain('grid-area: sidebar');

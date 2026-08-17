@@ -58,3 +58,33 @@ export const LIGHTEN_PALETTE: [string, string][] = [
   ['gray-500', '--color-gray-500'],
   ['black', 'background-color'],
 ];
+
+/**
+ * The @supports gate the experimental @function override compiles behind. The
+ * gate's shape is shared; the function it names is per-module, so callers pass
+ * that in. Written once here because a drift in the shape would silently stop
+ * every module's override test from matching anything.
+ */
+export const supportsFunction = (call: string) =>
+  `@supports (background: if(style(--value): red)) and (background: ${call})`;
+
+/** Every colour space a transform modifier accepts, including the color-mix fallback. */
+export const ALL_SPACES = [
+  'oklch',
+  'lch',
+  'lab',
+  'oklab',
+  'hsl',
+  'hwb',
+  'rgb',
+  'srgb',
+  'srgb-linear',
+  'display-p3',
+  'a98-rgb',
+  'prophoto-rgb',
+  'rec2020',
+  'xyz',
+  'xyz-d50',
+  'xyz-d65',
+  'color-mix',
+] as const;

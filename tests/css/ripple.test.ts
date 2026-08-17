@@ -1,8 +1,8 @@
 import { describe, test, expect } from 'vitest';
-import { compile } from './helpers.js';
+import { suiteScenarios } from './helpers.js';
 import { BG_LAYER } from './constants.js';
 
-describe('bg-ripple base utility', () => {
+describe.each(suiteScenarios('ripple'))('bg-ripple base utility — $name', ({ compile }) => {
   test('sets the 3-layer background stack', async () => {
     const css = await compile('bg-ripple bg-blue-500');
     expect(css).toContain(BG_LAYER);
@@ -46,7 +46,7 @@ describe('bg-ripple base utility', () => {
   });
 });
 
-describe('ripple-color utilities', () => {
+describe.each(suiteScenarios('ripple'))('ripple-color utilities — $name', ({ compile }) => {
   test('ripple-color-blue-400', async () => {
     const css = await compile('bg-ripple ripple-color-blue-400');
     expect(css).toContain('--tw-jib--ripple-color:');
@@ -83,7 +83,7 @@ describe('ripple-color utilities', () => {
   });
 });
 
-describe('ripple-duration utilities', () => {
+describe.each(suiteScenarios('ripple'))('ripple-duration utilities — $name', ({ compile }) => {
   test('ripple-duration-20 = 200ms', async () => {
     const css = await compile('bg-ripple ripple-duration-20');
     expect(css).toContain('--tw-jib--ripple-duration: calc(20 * 10ms)');
@@ -115,7 +115,7 @@ describe('ripple-duration utilities', () => {
   });
 });
 
-describe('ripple-fade utilities', () => {
+describe.each(suiteScenarios('ripple'))('ripple-fade utilities — $name', ({ compile }) => {
   test('ripple-fade sets fade-amount to 100%', async () => {
     const css = await compile('bg-ripple ripple-fade');
     expect(css).toContain('--tw-jib--ripple-fade-amount: calc(100 * 1%)');
@@ -137,7 +137,7 @@ describe('ripple-fade utilities', () => {
   });
 });
 
-describe('ripple-position utilities', () => {
+describe.each(suiteScenarios('ripple'))('ripple-position utilities — $name', ({ compile }) => {
   test('ripple-position-center', async () => {
     const css = await compile('bg-ripple ripple-position-center');
     expect(css).toContain('--tw-jib--ripple-position: center');
@@ -179,66 +179,94 @@ describe('ripple-position utilities', () => {
   });
 });
 
-describe('ripple composition with backgrounds', () => {
-  test('composes with solid bg-*', async () => {
-    const css = await compile('bg-ripple bg-blue-500');
-    expect(css).toContain(BG_LAYER);
-    expect(css).toContain('--color-blue-500');
-  });
+describe.each(suiteScenarios('ripple'))(
+  'ripple composition with backgrounds — $name',
+  ({ compile }) => {
+    test('composes with solid bg-*', async () => {
+      const css = await compile('bg-ripple bg-blue-500');
+      expect(css).toContain(BG_LAYER);
+      expect(css).toContain('--color-blue-500');
+    });
 
-  test('composes with bg-linear-to-r', async () => {
-    const css = await compile('bg-ripple bg-linear-to-r from-blue-500 to-purple-500');
-    expect(css).toContain('linear-gradient(');
-    expect(css).toContain(BG_LAYER);
-  });
+    test('composes with bg-linear-to-r', async () => {
+      const css = await compile('bg-ripple bg-linear-to-r from-blue-500 to-purple-500');
+      expect(css).toContain('linear-gradient(');
+      expect(css).toContain(BG_LAYER);
+    });
 
-  test('composes with bg-radial', async () => {
-    const css = await compile('bg-ripple bg-radial from-sky-300 to-blue-600');
-    expect(css).toContain('radial-gradient(');
-    expect(css).toContain(BG_LAYER);
-  });
+    test('composes with bg-radial', async () => {
+      const css = await compile('bg-ripple bg-radial from-sky-300 to-blue-600');
+      expect(css).toContain('radial-gradient(');
+      expect(css).toContain(BG_LAYER);
+    });
 
-  test('composes with bg-conic', async () => {
-    const css = await compile('bg-ripple bg-conic from-red-500 via-yellow-500 to-red-500');
-    expect(css).toContain('conic-gradient(');
-    expect(css).toContain(BG_LAYER);
-  });
-});
+    test('composes with bg-conic', async () => {
+      const css = await compile('bg-ripple bg-conic from-red-500 via-yellow-500 to-red-500');
+      expect(css).toContain('conic-gradient(');
+      expect(css).toContain(BG_LAYER);
+    });
+  },
+);
 
-describe('ripple composition with border gradients', () => {
-  test('composes with border-linear-to-r', async () => {
-    const css = await compile('bg-ripple bg-slate-800 border-4 border-linear-to-r border-from-rose-500 border-to-cyan-500');
-    expect(css).toContain(BG_LAYER);
-    expect(css).toContain('--tw-jib--border-gradient');
-  });
+describe.each(suiteScenarios('ripple', 'border-gradient'))(
+  'ripple composition with border gradients — $name',
+  ({ compile }) => {
+    /*
+     * Both halves have to be asserted for these to mean anything. BG_LAYER is
+     * the stack bg-ripple emits on its own, so on its own it is satisfied by a
+     * build with no border gradient in it at all — it says the ripple layer
+     * survived, not that anything composed with it. The gradient assertion is
+     * what pins the other half.
+     */
+    test('composes with border-linear-to-r', async () => {
+      const css = await compile(
+        'bg-ripple bg-slate-800 border-4 border-linear-to-r border-from-rose-500 border-to-cyan-500',
+      );
+      expect(css).toContain(BG_LAYER);
+      expect(css).toContain('--tw-jib--border-gradient: linear-gradient(');
+    });
 
-  test('composes with border-radial', async () => {
-    const css = await compile('bg-ripple bg-slate-800 border-4 border-radial border-from-rose-500 border-to-cyan-500');
-    expect(css).toContain(BG_LAYER);
-  });
+    test('composes with border-radial', async () => {
+      const css = await compile(
+        'bg-ripple bg-slate-800 border-4 border-radial border-from-rose-500 border-to-cyan-500',
+      );
+      expect(css).toContain(BG_LAYER);
+      expect(css).toContain('--tw-jib--border-gradient: radial-gradient(');
+    });
 
-  test('composes with border-conic', async () => {
-    const css = await compile('bg-ripple bg-slate-800 border-4 border-conic-0 border-from-rose-500 border-via-yellow-400 border-to-cyan-500');
-    expect(css).toContain(BG_LAYER);
-  });
+    test('composes with border-conic', async () => {
+      const css = await compile(
+        'bg-ripple bg-slate-800 border-4 border-conic-0 border-from-rose-500 border-via-yellow-400 border-to-cyan-500',
+      );
+      expect(css).toContain(BG_LAYER);
+      expect(css).toContain('--tw-jib--border-gradient: conic-gradient(');
+    });
 
-  test('composes with border-spin', async () => {
-    const css = await compile('bg-ripple bg-slate-800 border-4 border-conic-0 border-spin border-from-rose-500 border-via-yellow-400 border-to-cyan-500');
-    expect(css).toContain(BG_LAYER);
-    expect(css).toContain('border-spin');
-  });
-});
+    test('composes with border-spin', async () => {
+      const css = await compile(
+        'bg-ripple bg-slate-800 border-4 border-conic-0 border-spin border-from-rose-500 border-via-yellow-400 border-to-cyan-500',
+      );
+      expect(css).toContain(BG_LAYER);
+      expect(css).toContain('--tw-jib--border-gradient: conic-gradient(');
+      expect(css).toContain('animation: border-spin');
+    });
+  },
+);
 
-describe('combined ripple customisation', () => {
+describe.each(suiteScenarios('ripple'))('combined ripple customisation — $name', ({ compile }) => {
   test('all customisations together', async () => {
-    const css = await compile('bg-ripple ripple-color-white ripple-duration-60 ripple-fade bg-indigo-600');
+    const css = await compile(
+      'bg-ripple ripple-color-white ripple-duration-60 ripple-fade bg-indigo-600',
+    );
     expect(css).toContain('--tw-jib--ripple-fade-amount: calc(100 * 1%)');
     expect(css).toContain('--tw-jib--ripple-duration: calc(60 * 10ms)');
     expect(css).toContain(BG_LAYER);
   });
 
   test('color + position + duration + fade', async () => {
-    const css = await compile('bg-ripple ripple-color-pink-400 ripple-position-top ripple-duration-80 ripple-fade-50');
+    const css = await compile(
+      'bg-ripple ripple-color-pink-400 ripple-position-top ripple-duration-80 ripple-fade-50',
+    );
     expect(css).toContain('--color-pink-400');
     expect(css).toContain('--tw-jib--ripple-position: top');
     expect(css).toContain('--tw-jib--ripple-duration: calc(80 * 10ms)');

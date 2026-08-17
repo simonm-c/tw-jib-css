@@ -1,12 +1,14 @@
 import { describe, test, expect } from 'vitest';
-import { compile } from './helpers.js';
+import { suiteScenarios } from './helpers.js';
 
-describe('comic utilities', () => {
+describe.each(suiteScenarios('comic'))('comic utilities — $name', ({ compile }) => {
   describe('bg-comic-*', () => {
     test('bg-comic-red-500 generates radial-gradient with multiply blend', async () => {
       const css = await compile('bg-comic-red-500');
       expect(css).toContain('radial-gradient');
-      expect(css).toContain('background-blend-mode: normal, multiply, multiply, multiply, multiply, normal, normal');
+      expect(css).toContain(
+        'background-blend-mode: normal, multiply, multiply, multiply, multiply, normal, normal',
+      );
     });
 
     test('bg-comic-red-500 extracts CMYK channels via relative color syntax', async () => {

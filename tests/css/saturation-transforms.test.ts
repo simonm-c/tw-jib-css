@@ -1,12 +1,17 @@
 import { describe, test, expect } from 'vitest';
-import { compile } from './helpers.js';
-import { BG_LAYER, DARKEN_PALETTE, LIGHTEN_PALETTE } from './constants.js';
+import { compile, suiteScenarios } from './helpers.js';
+import {
+  ALL_SPACES,
+  BG_LAYER,
+  DARKEN_PALETTE,
+  LIGHTEN_PALETTE,
+  supportsFunction,
+} from './constants.js';
 
 /**
  * The @supports query that gates the experimental @function path.
  */
-const SUPPORTS_FUNCTION =
-  '@supports (background: if(style(--value): red)) and (background: --tw-jib--oklch-saturation(red, 20))';
+const SUPPORTS_FUNCTION = supportsFunction('--tw-jib--oklch-saturation(red, 20)');
 
 /**
  * The stable default oklch relative color expression used when no modifier is given.
@@ -65,250 +70,206 @@ const STABLE_SPACE_MARKERS: [string, string][] = [
   ],
 ];
 
-const ALL_SPACES = [
-  'oklch',
-  'lch',
-  'lab',
-  'oklab',
-  'hsl',
-  'hwb',
-  'rgb',
-  'srgb',
-  'srgb-linear',
-  'display-p3',
-  'a98-rgb',
-  'prophoto-rgb',
-  'rec2020',
-  'xyz',
-  'xyz-d50',
-  'xyz-d65',
-  'color-mix',
-] as const;
-
-describe('stable path (relative color syntax)', () => {
-  describe('desaturate — default amounts', () => {
-    test.each([0, 5, 10, 20, 50, 75, 100])('bg-desaturate-%i', async (amount) => {
-      const css = await compile(`bg-blue-500 bg-desaturate-${amount}`);
-      expect(css).toContain(`--tw-jib--background-saturation--amount: calc(${amount} * -0.01)`);
-      expect(css).toContain(STABLE_OKLCH);
-      expect(css).toContain('--tw-jib--background-color-source: var(--color-blue-500)');
-    });
-  });
-
-  describe('saturate — default amounts', () => {
-    test.each([0, 5, 10, 20, 50, 75, 100])('bg-saturate-%i', async (amount) => {
-      const css = await compile(`bg-blue-500 bg-saturate-${amount}`);
-      expect(css).toContain(`--tw-jib--background-saturation--amount: calc(${amount} * 0.01)`);
-      expect(css).toContain(STABLE_OKLCH);
-      expect(css).toContain('--tw-jib--background-color-source: var(--color-blue-500)');
-    });
-  });
-
-  describe('desaturate — all 17 color spaces', () => {
-    test.each(STABLE_SPACE_MARKERS)('bg-desaturate-20/%s', async (space, marker) => {
-      const css = await compile(`bg-blue-500 bg-desaturate-20/${space}`);
-      expect(css).toContain(marker);
-      expect(css).toContain('--tw-jib--background-saturation--amount: calc(20 * -0.01)');
+describe.each(suiteScenarios('color-transforms'))(
+  'stable path (relative color syntax) — $name',
+  ({ compile }) => {
+    describe('desaturate — default amounts', () => {
+      test.each([0, 5, 10, 20, 50, 75, 100])('bg-desaturate-%i', async (amount) => {
+        const css = await compile(`bg-blue-500 bg-desaturate-${amount}`);
+        expect(css).toContain(`--tw-jib--background-saturation--amount: calc(${amount} * -0.01)`);
+        expect(css).toContain(STABLE_OKLCH);
+        expect(css).toContain('--tw-jib--background-color-source: var(--color-blue-500)');
+      });
     });
 
-    test('bg-desaturate-20/color-mix', async () => {
-      const css = await compile('bg-blue-500 bg-desaturate-20/color-mix');
-      expect(css).toContain('color-mix(');
-      expect(css).toContain('--tw-jib--background-saturation--amount: calc(20 * -0.01)');
-    });
-  });
-
-  describe('saturate — all 17 color spaces', () => {
-    test.each(STABLE_SPACE_MARKERS)('bg-saturate-20/%s', async (space, marker) => {
-      const css = await compile(`bg-blue-500 bg-saturate-20/${space}`);
-      expect(css).toContain(marker);
-      expect(css).toContain('--tw-jib--background-saturation--amount: calc(20 * 0.01)');
+    describe('saturate — default amounts', () => {
+      test.each([0, 5, 10, 20, 50, 75, 100])('bg-saturate-%i', async (amount) => {
+        const css = await compile(`bg-blue-500 bg-saturate-${amount}`);
+        expect(css).toContain(`--tw-jib--background-saturation--amount: calc(${amount} * 0.01)`);
+        expect(css).toContain(STABLE_OKLCH);
+        expect(css).toContain('--tw-jib--background-color-source: var(--color-blue-500)');
+      });
     });
 
-    test('bg-saturate-20/color-mix', async () => {
-      const css = await compile('bg-blue-500 bg-saturate-20/color-mix');
-      expect(css).toContain('color-mix(');
-      expect(css).toContain('--tw-jib--background-saturation--amount: calc(20 * 0.01)');
-    });
-  });
+    describe('desaturate — all 17 color spaces', () => {
+      test.each(STABLE_SPACE_MARKERS)('bg-desaturate-20/%s', async (space, marker) => {
+        const css = await compile(`bg-blue-500 bg-desaturate-20/${space}`);
+        expect(css).toContain(marker);
+        expect(css).toContain('--tw-jib--background-saturation--amount: calc(20 * -0.01)');
+      });
 
-  describe('base color range — desaturate-20', () => {
-    test.each(DARKEN_PALETTE)('bg-%s bg-desaturate-20', async (color, marker) => {
-      const css = await compile(`bg-${color} bg-desaturate-20`);
-      expect(css).toContain(marker);
-      expect(css).toContain(STABLE_OKLCH);
-    });
-  });
-
-  describe('base color range — saturate-20', () => {
-    test.each(LIGHTEN_PALETTE)('bg-%s bg-saturate-20', async (color, marker) => {
-      const css = await compile(`bg-${color} bg-saturate-20`);
-      expect(css).toContain(marker);
-      expect(css).toContain(STABLE_OKLCH);
-    });
-  });
-
-  describe('special base colors', () => {
-    test('bg-[#ff6b35] bg-desaturate-20', async () => {
-      const css = await compile('bg-[#ff6b35] bg-desaturate-20');
-      expect(css).toContain('#ff6b35');
-      expect(css).toContain(STABLE_OKLCH);
+      test('bg-desaturate-20/color-mix', async () => {
+        const css = await compile('bg-blue-500 bg-desaturate-20/color-mix');
+        expect(css).toContain('color-mix(');
+        expect(css).toContain('--tw-jib--background-saturation--amount: calc(20 * -0.01)');
+      });
     });
 
-    test('bg-[oklch(0.7_0.15_200)] bg-desaturate-20', async () => {
-      const css = await compile('bg-[oklch(0.7_0.15_200)] bg-desaturate-20');
-      expect(css).toContain('oklch(0.7 0.15 200)');
-      expect(css).toContain(STABLE_OKLCH);
+    describe('saturate — all 17 color spaces', () => {
+      test.each(STABLE_SPACE_MARKERS)('bg-saturate-20/%s', async (space, marker) => {
+        const css = await compile(`bg-blue-500 bg-saturate-20/${space}`);
+        expect(css).toContain(marker);
+        expect(css).toContain('--tw-jib--background-saturation--amount: calc(20 * 0.01)');
+      });
+
+      test('bg-saturate-20/color-mix', async () => {
+        const css = await compile('bg-blue-500 bg-saturate-20/color-mix');
+        expect(css).toContain('color-mix(');
+        expect(css).toContain('--tw-jib--background-saturation--amount: calc(20 * 0.01)');
+      });
     });
 
-    test('bg-(color:--custom-bg-color) bg-desaturate-20', async () => {
-      const css = await compile('bg-(color:--custom-bg-color) bg-desaturate-20');
-      expect(css).toContain('--custom-bg-color');
-      expect(css).toContain(STABLE_OKLCH);
+    describe('base color range — desaturate-20', () => {
+      test.each(DARKEN_PALETTE)('bg-%s bg-desaturate-20', async (color, marker) => {
+        const css = await compile(`bg-${color} bg-desaturate-20`);
+        expect(css).toContain(marker);
+        expect(css).toContain(STABLE_OKLCH);
+      });
     });
 
-    test('bg-[#ff6b35] bg-saturate-20', async () => {
-      const css = await compile('bg-[#ff6b35] bg-saturate-20');
-      expect(css).toContain('#ff6b35');
-      expect(css).toContain(STABLE_OKLCH);
+    describe('base color range — saturate-20', () => {
+      test.each(LIGHTEN_PALETTE)('bg-%s bg-saturate-20', async (color, marker) => {
+        const css = await compile(`bg-${color} bg-saturate-20`);
+        expect(css).toContain(marker);
+        expect(css).toContain(STABLE_OKLCH);
+      });
     });
 
-    test('bg-[oklch(0.7_0.15_200)] bg-saturate-20', async () => {
-      const css = await compile('bg-[oklch(0.7_0.15_200)] bg-saturate-20');
-      expect(css).toContain('oklch(0.7 0.15 200)');
-      expect(css).toContain(STABLE_OKLCH);
+    describe('special base colors', () => {
+      test('bg-[#ff6b35] bg-desaturate-20', async () => {
+        const css = await compile('bg-[#ff6b35] bg-desaturate-20');
+        expect(css).toContain('#ff6b35');
+        expect(css).toContain(STABLE_OKLCH);
+      });
+
+      test('bg-[oklch(0.7_0.15_200)] bg-desaturate-20', async () => {
+        const css = await compile('bg-[oklch(0.7_0.15_200)] bg-desaturate-20');
+        expect(css).toContain('oklch(0.7 0.15 200)');
+        expect(css).toContain(STABLE_OKLCH);
+      });
+
+      test('bg-(color:--custom-bg-color) bg-desaturate-20', async () => {
+        const css = await compile('bg-(color:--custom-bg-color) bg-desaturate-20');
+        expect(css).toContain('--custom-bg-color');
+        expect(css).toContain(STABLE_OKLCH);
+      });
+
+      test('bg-[#ff6b35] bg-saturate-20', async () => {
+        const css = await compile('bg-[#ff6b35] bg-saturate-20');
+        expect(css).toContain('#ff6b35');
+        expect(css).toContain(STABLE_OKLCH);
+      });
+
+      test('bg-[oklch(0.7_0.15_200)] bg-saturate-20', async () => {
+        const css = await compile('bg-[oklch(0.7_0.15_200)] bg-saturate-20');
+        expect(css).toContain('oklch(0.7 0.15 200)');
+        expect(css).toContain(STABLE_OKLCH);
+      });
+
+      test('bg-(color:--custom-bg-color) bg-saturate-20', async () => {
+        const css = await compile('bg-(color:--custom-bg-color) bg-saturate-20');
+        expect(css).toContain('--custom-bg-color');
+        expect(css).toContain(STABLE_OKLCH);
+      });
     });
 
-    test('bg-(color:--custom-bg-color) bg-saturate-20', async () => {
-      const css = await compile('bg-(color:--custom-bg-color) bg-saturate-20');
-      expect(css).toContain('--custom-bg-color');
-      expect(css).toContain(STABLE_OKLCH);
-    });
-  });
+    describe('base colors × color spaces', () => {
+      describe('red-500 desaturate', () => {
+        test.each(['oklch', 'hsl', 'rgb', 'srgb', 'display-p3'] as const)(
+          'bg-desaturate-20/%s',
+          async (space) => {
+            const css = await compile(`bg-red-500 bg-desaturate-20/${space}`);
+            expect(css).toContain('--color-red-500');
+            expect(css).toContain('--tw-jib--background-saturation--amount: calc(20 * -0.01)');
+          },
+        );
+      });
 
-  describe('base colors × color spaces', () => {
-    describe('red-500 desaturate', () => {
-      test.each(['oklch', 'hsl', 'rgb', 'srgb', 'display-p3'] as const)(
-        'bg-desaturate-20/%s',
-        async (space) => {
-          const css = await compile(`bg-red-500 bg-desaturate-20/${space}`);
-          expect(css).toContain('--color-red-500');
-          expect(css).toContain('--tw-jib--background-saturation--amount: calc(20 * -0.01)');
-        },
-      );
-    });
-
-    describe('purple-600 saturate', () => {
-      test.each(['oklch', 'hsl', 'rgb', 'srgb', 'display-p3'] as const)(
-        'bg-saturate-20/%s',
-        async (space) => {
-          const css = await compile(`bg-purple-600 bg-saturate-20/${space}`);
-          expect(css).toContain('--color-purple-600');
-          expect(css).toContain('--tw-jib--background-saturation--amount: calc(20 * 0.01)');
-        },
-      );
-    });
-  });
-
-  describe('opacity + desaturate', () => {
-    test.each([
-      ['25', '10'],
-      ['50', '20'],
-      ['75', '50'],
-    ])('bg-blue-500/%s bg-desaturate-%s', async (opacity, amount) => {
-      const css = await compile(`bg-blue-500/${opacity} bg-desaturate-${amount}`);
-      expect(css).toContain('color-mix');
-      expect(css).toContain(STABLE_OKLCH);
-      expect(css).toContain(`--tw-jib--background-saturation--amount: calc(${amount} * -0.01)`);
-    });
-  });
-
-  describe('opacity + saturate', () => {
-    test.each([
-      ['25', '10'],
-      ['50', '20'],
-      ['75', '50'],
-    ])('bg-blue-500/%s bg-saturate-%s', async (opacity, amount) => {
-      const css = await compile(`bg-blue-500/${opacity} bg-saturate-${amount}`);
-      expect(css).toContain('color-mix');
-      expect(css).toContain(STABLE_OKLCH);
-      expect(css).toContain(`--tw-jib--background-saturation--amount: calc(${amount} * 0.01)`);
-    });
-  });
-
-  describe('saturation + border gradient', () => {
-    test('desaturate + linear-r', async () => {
-      const css = await compile(
-        'bg-blue-500 bg-desaturate-20 border-linear-to-r border-from-rose-500 border-to-cyan-500',
-      );
-      expect(css).toContain(STABLE_OKLCH);
-      expect(css).toContain(BG_LAYER);
-      expect(css).toContain('border-color: transparent');
+      describe('purple-600 saturate', () => {
+        test.each(['oklch', 'hsl', 'rgb', 'srgb', 'display-p3'] as const)(
+          'bg-saturate-20/%s',
+          async (space) => {
+            const css = await compile(`bg-purple-600 bg-saturate-20/${space}`);
+            expect(css).toContain('--color-purple-600');
+            expect(css).toContain('--tw-jib--background-saturation--amount: calc(20 * 0.01)');
+          },
+        );
+      });
     });
 
-    test('saturate + linear-r', async () => {
-      const css = await compile(
-        'bg-blue-500 bg-saturate-20 border-linear-to-r border-from-rose-500 border-to-cyan-500',
-      );
-      expect(css).toContain(STABLE_OKLCH);
-      expect(css).toContain(BG_LAYER);
+    describe('opacity + desaturate', () => {
+      test.each([
+        ['25', '10'],
+        ['50', '20'],
+        ['75', '50'],
+      ])('bg-blue-500/%s bg-desaturate-%s', async (opacity, amount) => {
+        const css = await compile(`bg-blue-500/${opacity} bg-desaturate-${amount}`);
+        expect(css).toContain('color-mix');
+        expect(css).toContain(STABLE_OKLCH);
+        expect(css).toContain(`--tw-jib--background-saturation--amount: calc(${amount} * -0.01)`);
+      });
     });
 
-    test('desaturate/hsl + border', async () => {
-      const css = await compile(
-        'bg-blue-500 bg-desaturate-20/hsl border-linear-to-r border-from-rose-500 border-to-cyan-500',
-      );
-      expect(css).toContain('hsl(');
-      expect(css).toContain(BG_LAYER);
-    });
-  });
-
-  describe('aliases match primary', () => {
-    test('bg-saturation-20 = bg-saturate-20', async () => {
-      const cssA = await compile('bg-blue-500 bg-saturation-20');
-      const cssB = await compile('bg-blue-500 bg-saturate-20');
-      expect(cssA).toContain(STABLE_OKLCH);
-      expect(cssB).toContain(STABLE_OKLCH);
-      expect(cssA).toContain('--tw-jib--background-saturation--amount: calc(20 * 0.01)');
-      expect(cssB).toContain('--tw-jib--background-saturation--amount: calc(20 * 0.01)');
+    describe('opacity + saturate', () => {
+      test.each([
+        ['25', '10'],
+        ['50', '20'],
+        ['75', '50'],
+      ])('bg-blue-500/%s bg-saturate-%s', async (opacity, amount) => {
+        const css = await compile(`bg-blue-500/${opacity} bg-saturate-${amount}`);
+        expect(css).toContain('color-mix');
+        expect(css).toContain(STABLE_OKLCH);
+        expect(css).toContain(`--tw-jib--background-saturation--amount: calc(${amount} * 0.01)`);
+      });
     });
 
-    test('-bg-saturation-20 = bg-desaturate-20', async () => {
-      const cssA = await compile('bg-blue-500 -bg-saturation-20');
-      const cssB = await compile('bg-blue-500 bg-desaturate-20');
-      expect(cssA).toContain(STABLE_OKLCH);
-      expect(cssB).toContain(STABLE_OKLCH);
-      expect(cssA).toContain('--tw-jib--background-saturation--amount: calc(20 * -0.01)');
-      expect(cssB).toContain('--tw-jib--background-saturation--amount: calc(20 * -0.01)');
-    });
-  });
+    describe('aliases match primary', () => {
+      test('bg-saturation-20 = bg-saturate-20', async () => {
+        const cssA = await compile('bg-blue-500 bg-saturation-20');
+        const cssB = await compile('bg-blue-500 bg-saturate-20');
+        expect(cssA).toContain(STABLE_OKLCH);
+        expect(cssB).toContain(STABLE_OKLCH);
+        expect(cssA).toContain('--tw-jib--background-saturation--amount: calc(20 * 0.01)');
+        expect(cssB).toContain('--tw-jib--background-saturation--amount: calc(20 * 0.01)');
+      });
 
-  describe('edge cases', () => {
-    test('bg-desaturate-20 alone', async () => {
-      const css = await compile('bg-desaturate-20');
-      expect(css).toContain(STABLE_OKLCH);
-      expect(css).toContain('--tw-jib--background-saturation--amount: calc(20 * -0.01)');
-    });
-
-    test('bg-saturate-20 alone', async () => {
-      const css = await compile('bg-saturate-20');
-      expect(css).toContain(STABLE_OKLCH);
-      expect(css).toContain('--tw-jib--background-saturation--amount: calc(20 * 0.01)');
+      test('-bg-saturation-20 = bg-desaturate-20', async () => {
+        const cssA = await compile('bg-blue-500 -bg-saturation-20');
+        const cssB = await compile('bg-blue-500 bg-desaturate-20');
+        expect(cssA).toContain(STABLE_OKLCH);
+        expect(cssB).toContain(STABLE_OKLCH);
+        expect(cssA).toContain('--tw-jib--background-saturation--amount: calc(20 * -0.01)');
+        expect(cssB).toContain('--tw-jib--background-saturation--amount: calc(20 * -0.01)');
+      });
     });
 
-    test('hover:bg-desaturate-20', async () => {
-      const css = await compile('bg-blue-500 hover:bg-desaturate-20');
-      expect(css).toContain('&:hover');
-      expect(css).toContain(STABLE_OKLCH);
-    });
+    describe('edge cases', () => {
+      test('bg-desaturate-20 alone', async () => {
+        const css = await compile('bg-desaturate-20');
+        expect(css).toContain(STABLE_OKLCH);
+        expect(css).toContain('--tw-jib--background-saturation--amount: calc(20 * -0.01)');
+      });
 
-    test('dark:bg-desaturate-30', async () => {
-      const css = await compile('bg-blue-500 bg-desaturate-10 dark:bg-desaturate-30');
-      expect(css).toContain('prefers-color-scheme: dark');
-      expect(css).toContain(STABLE_OKLCH);
+      test('bg-saturate-20 alone', async () => {
+        const css = await compile('bg-saturate-20');
+        expect(css).toContain(STABLE_OKLCH);
+        expect(css).toContain('--tw-jib--background-saturation--amount: calc(20 * 0.01)');
+      });
+
+      test('hover:bg-desaturate-20', async () => {
+        const css = await compile('bg-blue-500 hover:bg-desaturate-20');
+        expect(css).toContain('&:hover');
+        expect(css).toContain(STABLE_OKLCH);
+      });
+
+      test('dark:bg-desaturate-30', async () => {
+        const css = await compile('bg-blue-500 bg-desaturate-10 dark:bg-desaturate-30');
+        expect(css).toContain('prefers-color-scheme: dark');
+        expect(css).toContain(STABLE_OKLCH);
+      });
     });
-  });
-});
+  },
+);
 
 describe('experimental path (@function + @supports)', () => {
   describe('desaturate — default amounts', () => {
@@ -499,3 +460,33 @@ describe('experimental inline function usage', () => {
     expect(matches?.length).toBeGreaterThanOrEqual(2);
   });
 });
+
+describe.each(suiteScenarios('color-transforms', 'border-gradient'))(
+  'saturation + border gradient — $name',
+  ({ compile }) => {
+    test('desaturate + linear-r', async () => {
+      const css = await compile(
+        'bg-blue-500 bg-desaturate-20 border-linear-to-r border-from-rose-500 border-to-cyan-500',
+      );
+      expect(css).toContain(STABLE_OKLCH);
+      expect(css).toContain(BG_LAYER);
+      expect(css).toContain('border-color: transparent');
+    });
+
+    test('saturate + linear-r', async () => {
+      const css = await compile(
+        'bg-blue-500 bg-saturate-20 border-linear-to-r border-from-rose-500 border-to-cyan-500',
+      );
+      expect(css).toContain(STABLE_OKLCH);
+      expect(css).toContain(BG_LAYER);
+    });
+
+    test('desaturate/hsl + border', async () => {
+      const css = await compile(
+        'bg-blue-500 bg-desaturate-20/hsl border-linear-to-r border-from-rose-500 border-to-cyan-500',
+      );
+      expect(css).toContain('hsl(');
+      expect(css).toContain(BG_LAYER);
+    });
+  },
+);

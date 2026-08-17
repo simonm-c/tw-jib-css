@@ -1,13 +1,13 @@
 import { describe, test, expect } from 'vitest';
-import { compile } from './helpers.js';
+import { compile, stableScenarios, suiteScenarios } from './helpers.js';
 
 /**
  * The WCAG module spans both entries:
  *
  *   text-a11y-*  has both implementations. The @function dispatcher in
- *                wcag/_function-shade.css is preferred and wins wherever CSS
+ *                accessible-shade/_override.css is preferred and wins wherever CSS
  *                @function exists; the nested relative-colour chain in
- *                wcag/_stable.css ships from the stable package as the fallback.
+ *                accessible-shade/_index.css ships from the stable package as the fallback.
  *                Same arrangement as bg-lightness-* and its siblings.
  *   wcag-badge   experimental only, needs @function + if(style()), no fallback.
  *
@@ -63,13 +63,16 @@ describe('text-a11y utilities — stable path', () => {
     });
   });
 
-  describe('each level reads its ratio from the theme map', () => {
-    test.each(LEVELS)('text-a11y-%s', async (level) => {
-      const css = await compile(`bg-blue-500 text-a11y-${level}`);
-      expect(css).toContain(`--tw-jib--a11y--ratio: var(--tw-jib--a11y-ratio-${level})`);
-      expect(css).toContain('var(--tw-jib--background-color)');
-    });
-  });
+  describe.each(suiteScenarios('accessible-shade'))(
+    'each level reads its ratio from the theme map — $name',
+    ({ compile }) => {
+      test.each(LEVELS)('text-a11y-%s', async (level) => {
+        const css = await compile(`bg-blue-500 text-a11y-${level}`);
+        expect(css).toContain(`--tw-jib--a11y--ratio: var(--tw-jib--a11y-ratio-${level})`);
+        expect(css).toContain('var(--tw-jib--background-color)');
+      });
+    },
+  );
 
   test('the level → ratio map is emitted with the three WCAG ratios', async () => {
     const css = await compile('bg-blue-500 text-a11y-aa text-a11y-aaa text-a11y-aa-lg');
@@ -133,69 +136,72 @@ describe('text-a11y utilities — stable path', () => {
     });
   });
 
-  describe('colour space modifiers', () => {
-    test.each(COLOR_SPACES)('text-a11y-aa/%s resolves a vector', async (space) => {
-      const css = await compile(`bg-blue-500 text-a11y-aa/${space}`);
-      expect(css).toContain(`.text-a11y-aa\\/${space}`);
-      expect(css).toContain('--tw-jib--a11y--shade:');
-      expect(css).toContain('color: var(--tw-jib--a11y--shade)');
-    });
-
-    test('all 17 spaces compile at all 3 levels', async () => {
-      const classes = LEVELS.flatMap((l) => COLOR_SPACES.map((s) => `text-a11y-${l}/${s}`));
-      const css = await compile(`bg-blue-500 ${classes.join(' ')}`);
-      const missing = classes.filter((c) => !css.includes(`.${c.replace('/', '\\/')}`));
-      expect(
-        missing,
-        `${missing.length} candidates did not compile: ${missing.join(', ')}`,
-      ).toHaveLength(0);
-    });
-
-    test('Class 2/3 spaces seed from the retargeted carrier', async () => {
-      for (const [space, fn] of [
-        ['oklch', 'oklch(from var(--tw-jib--a11y--target)'],
-        ['oklab', 'oklch(from var(--tw-jib--a11y--target)'],
-        ['lch', 'lch(from var(--tw-jib--a11y--target)'],
-        ['lab', 'lch(from var(--tw-jib--a11y--target)'],
-        ['hsl', 'hsl(from var(--tw-jib--a11y--target)'],
-        ['hwb', 'hwb(from var(--tw-jib--a11y--target)'],
-      ] as const) {
+  describe.each(suiteScenarios('accessible-shade'))(
+    'colour space modifiers — $name',
+    ({ compile }) => {
+      test.each(COLOR_SPACES)('text-a11y-aa/%s resolves a vector', async (space) => {
         const css = await compile(`bg-blue-500 text-a11y-aa/${space}`);
-        expect(css, `${space} did not seed from the carrier`).toContain(fn);
-      }
-    });
+        expect(css).toContain(`.text-a11y-aa\\/${space}`);
+        expect(css).toContain('--tw-jib--a11y--shade:');
+        expect(css).toContain('color: var(--tw-jib--a11y--shade)');
+      });
 
-    test('Class 1 spaces share the one core expression, overriding the default', async () => {
-      // The oklch default declaration is always emitted; the modifier's is
-      // emitted after it and wins. Order is the assertion — a core declaration
-      // that landed first would be dead.
-      for (const space of [
-        'rgb',
-        'srgb',
-        'srgb-linear',
-        'display-p3',
-        'a98-rgb',
-        'prophoto-rgb',
-        'rec2020',
-        'xyz',
-        'xyz-d50',
-        'xyz-d65',
-        'color-mix',
-      ] as const) {
-        const css = await compile(`bg-blue-500 text-a11y-aa/${space}`);
-        const dflt = css.indexOf('--tw-jib--a11y--vector: var(--tw-jib--a11y--oklch);');
-        const core = css.indexOf('--tw-jib--a11y--vector: var(--tw-jib--a11y--core);');
-        expect(dflt, `${space}: oklch default declaration missing`).toBeGreaterThan(-1);
-        expect(core, `${space} is not routed to the core`).toBeGreaterThan(-1);
+      test('all 17 spaces compile at all 3 levels', async () => {
+        const classes = LEVELS.flatMap((l) => COLOR_SPACES.map((s) => `text-a11y-${l}/${s}`));
+        const css = await compile(`bg-blue-500 ${classes.join(' ')}`);
+        const missing = classes.filter((c) => !css.includes(`.${c.replace('/', '\\/')}`));
         expect(
-          core,
-          `${space}: the core override precedes the default, so it loses`,
-        ).toBeGreaterThan(dflt);
-      }
-    });
-  });
+          missing,
+          `${missing.length} candidates did not compile: ${missing.join(', ')}`,
+        ).toHaveLength(0);
+      });
 
-  describe('the pow() gate', () => {
+      test('Class 2/3 spaces seed from the retargeted carrier', async () => {
+        for (const [space, fn] of [
+          ['oklch', 'oklch(from var(--tw-jib--a11y--target)'],
+          ['oklab', 'oklch(from var(--tw-jib--a11y--target)'],
+          ['lch', 'lch(from var(--tw-jib--a11y--target)'],
+          ['lab', 'lch(from var(--tw-jib--a11y--target)'],
+          ['hsl', 'hsl(from var(--tw-jib--a11y--target)'],
+          ['hwb', 'hwb(from var(--tw-jib--a11y--target)'],
+        ] as const) {
+          const css = await compile(`bg-blue-500 text-a11y-aa/${space}`);
+          expect(css, `${space} did not seed from the carrier`).toContain(fn);
+        }
+      });
+
+      test('Class 1 spaces share the one core expression, overriding the default', async () => {
+        // The oklch default declaration is always emitted; the modifier's is
+        // emitted after it and wins. Order is the assertion — a core declaration
+        // that landed first would be dead.
+        for (const space of [
+          'rgb',
+          'srgb',
+          'srgb-linear',
+          'display-p3',
+          'a98-rgb',
+          'prophoto-rgb',
+          'rec2020',
+          'xyz',
+          'xyz-d50',
+          'xyz-d65',
+          'color-mix',
+        ] as const) {
+          const css = await compile(`bg-blue-500 text-a11y-aa/${space}`);
+          const dflt = css.indexOf('--tw-jib--a11y--vector: var(--tw-jib--a11y--oklch);');
+          const core = css.indexOf('--tw-jib--a11y--vector: var(--tw-jib--a11y--core);');
+          expect(dflt, `${space}: oklch default declaration missing`).toBeGreaterThan(-1);
+          expect(core, `${space} is not routed to the core`).toBeGreaterThan(-1);
+          expect(
+            core,
+            `${space}: the core override precedes the default, so it loses`,
+          ).toBeGreaterThan(dflt);
+        }
+      });
+    },
+  );
+
+  describe.each(stableScenarios('accessible-shade'))('the pow() gate — $name', ({ compile }) => {
     test.each(POW_SEEDED)(
       'text-a11y-aa/%s puts its cube-root seed behind @supports',
       async (space) => {
@@ -219,7 +225,7 @@ describe('text-a11y utilities — stable path', () => {
     );
   });
 
-  describe('registration', () => {
+  describe.each(stableScenarios('accessible-shade'))('registration — $name', ({ compile }) => {
     test('--tw-jib--a11y--ratio is a non-inheriting number', async () => {
       const css = await compile('bg-blue-500 text-a11y-aa');
       const decl = css.match(/@property --tw-jib--a11y--ratio \{[\s\S]*?\}/)?.[0];
@@ -245,7 +251,7 @@ describe('text-a11y utilities — stable path', () => {
     });
 
     // The delivered colour deliberately does not read back through
-    // --tw-jib--text-color, which core.css registers as <color>. That last hop
+    // --tw-jib--text-color, which core/_index.css registers as <color>. That last hop
     // measured exact on every engine, so this is belt-and-braces: it keeps
     // the shade off a registered <color> entirely, one hop from where
     // registration demonstrably destroys the ratio.
@@ -279,30 +285,33 @@ describe('text-a11y utilities — stable path', () => {
     expect(css).toContain('--tw-jib--a11y--shade:');
   });
 
-  describe('oklch colours (high saturation, low sRGB luminance)', () => {
-    test('compiles with an oklch arbitrary bg colour', async () => {
-      const css = await compile('bg-[oklch(54.6%_0.245_262.881)] text-a11y-aa');
-      expect(css).toContain('--tw-jib--a11y--shade:');
-      expect(css).toContain('var(--tw-jib--background-color)');
-    });
+  describe.each(suiteScenarios('accessible-shade'))(
+    'oklch colours (high saturation, low sRGB luminance) — $name',
+    ({ compile }) => {
+      test('compiles with an oklch arbitrary bg colour', async () => {
+        const css = await compile('bg-[oklch(54.6%_0.245_262.881)] text-a11y-aa');
+        expect(css).toContain('--tw-jib--a11y--shade:');
+        expect(css).toContain('var(--tw-jib--background-color)');
+      });
 
-    test('compiles with an oklch arbitrary bg and a colour space modifier', async () => {
-      const css = await compile('bg-[oklch(70%_0.15_150)] text-a11y-aaa/oklab');
-      expect(css).toContain('--tw-jib--a11y--shade:');
-      expect(css).toContain('--tw-jib--a11y--ratio: var(--tw-jib--a11y-ratio-aaa)');
-    });
+      test('compiles with an oklch arbitrary bg and a colour space modifier', async () => {
+        const css = await compile('bg-[oklch(70%_0.15_150)] text-a11y-aaa/oklab');
+        expect(css).toContain('--tw-jib--a11y--shade:');
+        expect(css).toContain('--tw-jib--a11y--ratio: var(--tw-jib--a11y-ratio-aaa)');
+      });
 
-    test('compiles with a dark oklch bg', async () => {
-      const css = await compile('bg-[oklch(25%_0.1_280)] text-a11y-aa-lg');
-      expect(css).toContain('--tw-jib--a11y--shade:');
-      expect(css).toContain('--tw-jib--a11y--ratio: var(--tw-jib--a11y-ratio-aa-lg)');
-    });
-  });
+      test('compiles with a dark oklch bg', async () => {
+        const css = await compile('bg-[oklch(25%_0.1_280)] text-a11y-aa-lg');
+        expect(css).toContain('--tw-jib--a11y--shade:');
+        expect(css).toContain('--tw-jib--a11y--ratio: var(--tw-jib--a11y-ratio-aa-lg)');
+      });
+    },
+  );
 
   // The @function path is the preferred one, so where it is available it has to
   // WIN. Same-name @utility blocks resolve on source order, and the only reason
-  // it lands later is that wcag.css is imported after the core entry — which
-  // makes this a real regression guard, not a tautology.
+  // it lands later is that the functions entry is imported after the stable
+  // package — which makes this a real regression guard, not a tautology.
   describe('the @function override is preferred where supported', () => {
     test('both implementations are emitted, @function last', async () => {
       const css = await compile('bg-blue-500 text-a11y-aa', { functions: true });

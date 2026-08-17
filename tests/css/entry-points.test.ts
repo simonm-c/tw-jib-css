@@ -23,11 +23,12 @@ import { compile } from './helpers';
  * WHAT TO ASSERT ON, AND WHY IT IS THE GATE AND NOT THE CALL.
  *
  * The @function call blocks live in the STABLE files (see the second
- * `@utility bg-hue-rotate-*` block in src/hue-rotate/_bg.css), gated on
- * `@variant supports-hue-rotate`. That @custom-variant is defined only in
- * _experimental.css. Without it, Tailwind falls back to its built-in supports-*
- * variant and emits `@supports (hue-rotate: var(--tw))` — a test for a CSS
- * property that does not exist, false in every engine, so the block is inert.
+ * `@utility bg-hue-rotate-*` block in src/color-transforms/hue-rotate/_bg.css),
+ * gated on `@variant supports-hue-rotate`. That @custom-variant is defined only
+ * in the experimental package's _override.css files. Without it, Tailwind falls
+ * back to its built-in supports-* variant and emits
+ * `@supports (hue-rotate: var(--tw))` — a test for a CSS property that does not
+ * exist, false in every engine, so the block is inert.
  *
  * So the call text is present either way and proves nothing. What changes is
  * the gate: only the functions entry brings the real one, which names the
@@ -53,7 +54,7 @@ const INERT_GATES = [
   '(hue-rotate: var(--tw))',
 ];
 
-describe('entry split — experimental adds, functions overrides', () => {
+describe('what each published entry point delivers', () => {
   describe('the MAIN entry never runs @function', () => {
     // This is the load-bearing guarantee. Everything else here is about which
     // opt-in gets you what; this is about a consumer who opted into nothing.
@@ -122,7 +123,7 @@ describe('entry split — experimental adds, functions overrides', () => {
 
   // wcag-badge ADDS a utility — colour→string has no stable form — so it belongs
   // on the experimental entry, not the functions one. Assert on a property only
-  // the badge utility declares, not on the function it calls: wcag/_functions.css
+  // the badge utility declares, not on the function it calls: contrast/_functions.css
   // is imported by both entries, so the definitions appear either way.
   test('wcag-badge stays on the experimental entry', async () => {
     const onExperimental = await compile('bg-blue-500 wcag-badge', { experimental: true });

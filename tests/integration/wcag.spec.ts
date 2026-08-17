@@ -234,37 +234,45 @@ const COLOR_HELPERS_SOURCE = `
  * the CSS colour string directly (full float precision) — no canvas
  * 8-bit roundtrip.
  */
+/**
+ * The colour maths is injected into the page as source text and re-exported on
+ * `window`, because page.evaluate() callbacks cannot close over module scope.
+ * Declaring the surface here is what lets the two readers below stay cast-free.
+ */
+declare global {
+  interface Window {
+    __wcagHelpers: {
+      toLumAlpha: (color: string) => { lum: number; alpha: number; exact: boolean };
+      contrastRatio: (a: number, b: number) => number;
+      wcagRating: (ratio: number) => string;
+    };
+  }
+}
+
+/**
+ * Fail naming the ids that were asked for and not found. Without this a renamed
+ * fixture would read back as a graded result and simply grade as Fail, which is
+ * indistinguishable from the utility genuinely missing its contrast target.
+ */
+function expectNoMissingFixtures(missing: string[], page: string) {
+  expect(missing, `missing [data-test] fixtures on ${page}`).toEqual([]);
+}
+
 async function extractA11yResults(page: Page, ids: string[]): Promise<Record<string, A11yResult>> {
-  return page.evaluate(
+  const { out, missing } = await page.evaluate(
     ({ sels, helpersSrc }) => {
       // eslint-disable-next-line @typescript-eslint/no-implied-eval, no-new-func
       new Function(
         helpersSrc + '; window.__wcagHelpers = { toLumAlpha, contrastRatio, wcagRating };',
       )();
-      const { toLumAlpha, contrastRatio, wcagRating } = (
-        window as unknown as {
-          __wcagHelpers: {
-            toLumAlpha: (s: string) => { lum: number; alpha: number; exact: boolean };
-            contrastRatio: (a: number, b: number) => number;
-            wcagRating: (r: number) => string;
-          };
-        }
-      ).__wcagHelpers;
+      const { toLumAlpha, contrastRatio, wcagRating } = window.__wcagHelpers;
 
       const out: Record<string, A11yResult> = {};
+      const missing: string[] = [];
       for (const sel of sels) {
         const el = document.querySelector(`[data-test="${sel}"]`);
         if (!el) {
-          out[sel] = {
-            bgColor: '',
-            fgColor: '',
-            bgLum: 0,
-            fgLum: 0,
-            ratio: 0,
-            jsRating: 'Fail',
-            fgAlpha: 0,
-            exact: false,
-          };
+          missing.push(sel);
           continue;
         }
         const cs = getComputedStyle(el);
@@ -284,10 +292,12 @@ async function extractA11yResults(page: Page, ids: string[]): Promise<Record<str
           exact: bg.exact && fg.exact,
         };
       }
-      return out;
+      return { out, missing };
     },
     { sels: ids, helpersSrc: COLOR_HELPERS_SOURCE },
   );
+  expectNoMissingFixtures(missing, page.url());
+  return out;
 }
 
 /**
@@ -298,35 +308,20 @@ async function extractBadgeResults(
   page: Page,
   ids: string[],
 ): Promise<Record<string, BadgeResult>> {
-  return page.evaluate(
+  const { out, missing } = await page.evaluate(
     ({ sels, helpersSrc }) => {
       // eslint-disable-next-line @typescript-eslint/no-implied-eval, no-new-func
       new Function(
         helpersSrc + '; window.__wcagHelpers = { toLumAlpha, contrastRatio, wcagRating };',
       )();
-      const { toLumAlpha, contrastRatio, wcagRating } = (
-        window as unknown as {
-          __wcagHelpers: {
-            toLumAlpha: (s: string) => { lum: number; alpha: number };
-            contrastRatio: (a: number, b: number) => number;
-            wcagRating: (r: number) => string;
-          };
-        }
-      ).__wcagHelpers;
+      const { toLumAlpha, contrastRatio, wcagRating } = window.__wcagHelpers;
 
       const out: Record<string, BadgeResult> = {};
+      const missing: string[] = [];
       for (const sel of sels) {
         const el = document.querySelector(`[data-test="${sel}"]`);
         if (!el) {
-          out[sel] = {
-            bgColor: '',
-            fgColor: '',
-            bgLum: 0,
-            fgLum: 0,
-            ratio: 0,
-            jsRating: 'Fail',
-            cssRating: '',
-          };
+          missing.push(sel);
           continue;
         }
         const cs = getComputedStyle(el);
@@ -349,10 +344,12 @@ async function extractBadgeResults(
           cssRating,
         };
       }
-      return out;
+      return { out, missing };
     },
     { sels: ids, helpersSrc: COLOR_HELPERS_SOURCE },
   );
+  expectNoMissingFixtures(missing, page.url());
+  return out;
 }
 
 /**
@@ -381,12 +378,13 @@ async function extractColorVsInherited(
   page: Page,
   ids: string[],
 ): Promise<Record<string, { color: string; inherited: string }>> {
-  return page.evaluate((sels) => {
+  const { out, missing } = await page.evaluate((sels) => {
     const out: Record<string, { color: string; inherited: string }> = {};
+    const missing: string[] = [];
     for (const sel of sels) {
       const el = document.querySelector(`[data-test="${sel}"]`);
       if (!el) {
-        out[sel] = { color: '', inherited: '' };
+        missing.push(sel);
         continue;
       }
       out[sel] = {
@@ -394,8 +392,10 @@ async function extractColorVsInherited(
         inherited: el.parentElement ? getComputedStyle(el.parentElement).color : '',
       };
     }
-    return out;
+    return { out, missing };
   }, ids);
+  expectNoMissingFixtures(missing, page.url());
+  return out;
 }
 
 // Exactness grading
@@ -516,9 +516,12 @@ test.describe('text-a11y-aa — exact ratio verification', () => {
   });
 
   test('all 242 TW colours land exactly on 4.5:1', async ({ page }) => {
+    // Arrange
+    // Act
     const results = await extractA11yResults(page, A11Y_IDS);
     const { failures, capped } = gradeGrid(results, A11Y_IDS, TARGET_RATIO.AA);
 
+    // Assert
     expect(failures, `${failures.length} colours missed AA:\n${failures.join('\n')}`).toHaveLength(
       0,
     );
@@ -528,9 +531,12 @@ test.describe('text-a11y-aa — exact ratio verification', () => {
   });
 
   test('all 242 TW colours have visible (non-transparent) text', async ({ page }) => {
+    // Arrange
+    // Act
     const results = await extractA11yResults(page, A11Y_IDS);
     const invisible: string[] = [];
 
+    // Assert
     for (const id of A11Y_IDS) {
       const r = results[id];
       if (!r || r.fgAlpha < 0.1) {
@@ -551,9 +557,12 @@ test.describe('text-a11y-aaa — exact ratio verification', () => {
   });
 
   test('all 242 TW colours land exactly on 7:1, or at their physical ceiling', async ({ page }) => {
+    // Arrange
+    // Act
     const results = await extractA11yResults(page, A11Y_AAA_IDS);
     const { failures, capped } = gradeGrid(results, A11Y_AAA_IDS, TARGET_RATIO.AAA);
 
+    // Assert
     expect(failures, `${failures.length} colours missed AAA:\n${failures.join('\n')}`).toHaveLength(
       0,
     );
@@ -570,9 +579,12 @@ test.describe('text-a11y-aa-lg — exact ratio verification', () => {
   });
 
   test('all 242 TW colours land exactly on 3:1', async ({ page }) => {
+    // Arrange
+    // Act
     const results = await extractA11yResults(page, A11Y_AALG_IDS);
     const { failures, capped } = gradeGrid(results, A11Y_AALG_IDS, TARGET_RATIO['AA Large']);
 
+    // Assert
     expect(
       failures,
       `${failures.length} colours missed AA Large:\n${failures.join('\n')}`,
@@ -606,10 +618,13 @@ test.describe('text-a11y — threshold edge cases', () => {
   });
 
   test('lands on target (or the ceiling) near each threshold boundary', async ({ page }) => {
+    // Arrange
     const ids = Object.keys(A11Y_EDGE_IDS);
+    // Act
     const results = await extractA11yResults(page, ids);
     const failures: string[] = [];
 
+    // Assert
     for (const id of ids) {
       const r = results[id];
       if (!r) {
@@ -655,10 +670,13 @@ test.describe('text-a11y — frozen regression cases', () => {
   });
 
   test('every frozen case grades as expected', async ({ page }) => {
+    // Arrange
     const ids = Object.keys(FROZEN_TARGETS);
+    // Act
     const results = await extractA11yResults(page, ids);
     const failures: string[] = [];
 
+    // Assert
     for (const id of ids) {
       const r = results[id];
       if (!r) {
@@ -680,15 +698,18 @@ test.describe('text-a11y — frozen regression cases', () => {
   });
 
   test('exact grey stays achromatic at all three levels', async ({ page }) => {
+    // Arrange
     // The luma weights do not sum to exactly 1.0 in float, leaving a uniform
     // residual of order 1e-7 in the chroma vector on a mathematically exact
     // grey. A gamut-maximal scale amplifies that ~1e5x into a visible tint and a
     // 0.015 luminance error; bounding the scale by min(1, …) is what keeps the
     // residual the size it started.
     const ids = ['frozen-grey-aa', 'frozen-grey-aaa', 'frozen-grey-aalg'];
+    // Act
     const results = await extractA11yResults(page, ids);
     const tinted: string[] = [];
 
+    // Assert
     for (const id of ids) {
       const spread = channelSpread(results[id]?.fgColor ?? '');
       if (spread === null) {
@@ -707,15 +728,18 @@ test.describe('text-a11y — frozen regression cases', () => {
   });
 
   test('one-bit tints stay near-neutral and near-identical', async ({ page }) => {
+    // Arrange
     // #d5d4d4 vs #d4d4d5 differ by one 8-bit step and are visually identical.
     // Their chroma vectors differ in direction by a quantisation-scale amount,
     // which a gamut-maximal scale would amplify into crimson vs ultramarine.
+    // Act
     const results = await extractA11yResults(page, ['frozen-onebit-warm', 'frozen-onebit-cool']);
     const warm = results['frozen-onebit-warm'];
     const cool = results['frozen-onebit-cool'];
 
     const warmCh = parseLinearChannels(warm?.fgColor ?? '');
     const coolCh = parseLinearChannels(cool?.fgColor ?? '');
+    // Assert
     expect(warmCh, `unparseable warm fg "${warm?.fgColor}"`).not.toBeNull();
     expect(coolCh, `unparseable cool fg "${cool?.fgColor}"`).not.toBeNull();
 
@@ -773,10 +797,13 @@ test.describe('text-a11y — cross-pipeline invariance', () => {
 
   for (const bg of ['violet', 'grey'] as const) {
     test(`all 17 colour spaces report the same ratio on the ${bg} background`, async ({ page }) => {
+      // Arrange
       const ids = INVARIANT_SPACES.map((s) => `invariant-${bg}-${s}`);
+      // Act
       const results = await extractA11yResults(page, ids);
 
       const missing = ids.filter((id) => !results[id]);
+      // Assert
       expect(missing, `missing fixtures: ${missing.join(', ')}`).toHaveLength(0);
 
       const ratios = ids.map((id) => results[id].ratio);
@@ -823,10 +850,13 @@ test.describe('text-a11y — the pow() gate', () => {
 
   for (const bg of ['violet', 'grey'] as const) {
     test(`no cube-root-seeded space falls back to inherited text on ${bg}`, async ({ page }) => {
+      // Arrange
       const ids = POW_SEEDED_SPACES.map((s) => `invariant-${bg}-${s}`);
+      // Act
       const results = await extractColorVsInherited(page, ids);
       const broken: string[] = [];
 
+      // Assert
       for (const id of ids) {
         const r = results[id];
         if (!r?.color) {
@@ -848,13 +878,16 @@ test.describe('text-a11y — the pow() gate', () => {
   }
 
   test('the gate agrees with what the engine actually accepts', async ({ page }) => {
-    // If this ever disagrees, the @supports query in wcag/_stable.css has
+    // Arrange
+    // If this ever disagrees, the @supports query in accessible-shade/_index.css has
     // drifted from the construct it is meant to detect and the guard above
     // stops guarding anything.
     const gate = await detectChannelPow(page);
+    // Act
     const accepts = await page.evaluate(() =>
       CSS.supports('color', 'oklch(from red calc(pow(alpha, 0.333333)) c h / alpha)'),
     );
+    // Assert
     expect(
       gate,
       `supports-channel-pow reports ${gate} but the shipped cube-root seed is ${accepts ? 'accepted' : 'rejected'}`,
@@ -904,11 +937,13 @@ test.describe('text-a11y — the utility and the @function API agree', () => {
   });
 
   test('every level/space pair lands on the same colour by both routes', async ({ page }) => {
+    // Arrange
     const ids = AGREEMENT_CASES.flatMap((c) => [
       `agree-util-${c}`,
       `agree-fn-${c}`,
       `agree-stable-${c}`,
     ]);
+    // Act
     const results = await extractA11yResults(page, ids);
     const drifted: string[] = [];
 
@@ -917,6 +952,7 @@ test.describe('text-a11y — the utility and the @function API agree', () => {
     // Serialisation rounding alone accounts for ~1e-6 here.
     const TOLERANCE = 1e-4;
 
+    // Assert
     for (const c of AGREEMENT_CASES) {
       const util = results[`agree-util-${c}`];
       const fn = results[`agree-fn-${c}`];
@@ -945,6 +981,7 @@ test.describe('text-a11y — the utility and the @function API agree', () => {
   });
 
   test('the stable readout is reading a real chain, not inheriting a colour', async ({ page }) => {
+    // Arrange
     // Guards the guard. The readout is a child reading --tw-jib--a11y--shade; if
     // that property never reached the child, `color` would fall back to
     // inherited — and inherited is the parent's shade, which on Chromium is the
@@ -955,6 +992,7 @@ test.describe('text-a11y — the utility and the @function API agree', () => {
     // agree. So check the property instead: the chain has to be present on the
     // child as a token stream, with the final stage's srgb-linear form intact.
     const ids = AGREEMENT_CASES.map((c) => `agree-stable-${c}`);
+    // Act
     const chains = await page.evaluate(
       (sels) =>
         Object.fromEntries(
@@ -969,6 +1007,7 @@ test.describe('text-a11y — the utility and the @function API agree', () => {
       ids,
     );
     const broken = ids.filter((id) => !chains[id]?.includes('srgb-linear'));
+    // Assert
     expect(
       broken,
       `${broken.length} readouts have no chain to read — --tw-jib--a11y--shade did not reach the child, so the agreement test is comparing the @function path against itself:\n${broken
@@ -1000,15 +1039,18 @@ test.describe('text-a11y + wcag-badge — the badge must agree with the class', 
 
   for (const group of COMBO_GROUPS) {
     test(`badge awards at least ${group.level} where text-a11y-${group.prefix} asks for it`, async ({
+      // Arrange
       page,
     }) => {
       const ids = group.hues.flatMap((h) => TW_SHADES.map((s) => `${group.prefix}-${h}-${s}`));
+      // Act
       const results = await extractBadgeResults(page, ids);
       const target = TARGET_RATIO[group.level];
       const wanted = RATING_RANK[group.level];
       const failures: string[] = [];
       let unreachable = 0;
 
+      // Assert
       for (const id of ids) {
         const r = results[id];
         if (!r) {
@@ -1044,13 +1086,16 @@ test.describe('text-a11y + wcag-badge — the badge must agree with the class', 
   }
 
   test('a bare wcag-badge never reports Max', async ({ page }) => {
+    // Arrange
     // Max describes a shortfall against a REQUESTED level. With no
     // text-a11y-* on the element there is no requested level, so the badge
     // must fall back to plain measurement — otherwise it would be inventing
     // an intent the author never expressed.
     await page.goto(BADGE_PAGE, { waitUntil: 'networkidle' });
+    // Act
     const results = await extractBadgeResults(page, BADGE_IDS);
     const spurious = BADGE_IDS.filter((id) => results[id]?.cssRating === 'Max');
+    // Assert
     expect(
       spurious,
       `badge reported Max without a requested level:\n${spurious.join(', ')}`,
@@ -1074,9 +1119,12 @@ test.describe('wcag-badge — rating verification', () => {
   });
 
   test('CSS rating matches JS rating for all 242 TW colours', async ({ page }) => {
+    // Arrange
+    // Act
     const results = await extractBadgeResults(page, BADGE_IDS);
     const mismatches: string[] = [];
 
+    // Assert
     for (const id of BADGE_IDS) {
       const r = results[id];
       if (!r) {
@@ -1097,9 +1145,12 @@ test.describe('wcag-badge — rating verification', () => {
   });
 
   test('all 242 badges have non-empty ::after content', async ({ page }) => {
+    // Arrange
+    // Act
     const results = await extractBadgeResults(page, BADGE_IDS);
     const empty: string[] = [];
 
+    // Assert
     for (const id of BADGE_IDS) {
       const r = results[id];
       if (!r || !r.cssRating || r.cssRating === 'none' || r.cssRating === 'normal') {
@@ -1111,6 +1162,7 @@ test.describe('wcag-badge — rating verification', () => {
   });
 
   test('CSS rating matches JS rating for threshold edge cases', async ({ page }) => {
+    // Arrange
     const edgeIds = [
       // Near 3:1
       'edge-blue700-black',
@@ -1135,9 +1187,11 @@ test.describe('wcag-badge — rating verification', () => {
       'edge-slate600-white',
     ];
 
+    // Act
     const results = await extractBadgeResults(page, edgeIds);
     const mismatches: string[] = [];
 
+    // Assert
     for (const id of edgeIds) {
       const r = results[id];
       if (!r) {
@@ -1158,11 +1212,14 @@ test.describe('wcag-badge — rating verification', () => {
   });
 
   test('all ratings are clean (exact pipeline produces no tilde)', async ({ page }) => {
+    // Arrange
     const cleanIds = ['clean-fail', 'clean-aalg', 'clean-aa', 'clean-aaa'];
 
+    // Act
     const results = await extractBadgeResults(page, cleanIds);
     const hasTilde: string[] = [];
 
+    // Assert
     for (const id of cleanIds) {
       const r = results[id];
       if (!r) {

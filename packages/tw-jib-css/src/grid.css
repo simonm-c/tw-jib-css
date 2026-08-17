@@ -1,6 +1,5 @@
-@utility grid-template-areas-* {
-  grid-template-areas: --value([ *]);
-}
-@utility grid-area-* {
-  grid-area: --value(integer, [ *]);
-}
+/* No core import: these utilities read none of core's colour registrations, so
+ * carrying core would only emit dead @property blocks for a consumer who took
+ * this suite alone. */
+
+@import "./grid/_index.css";

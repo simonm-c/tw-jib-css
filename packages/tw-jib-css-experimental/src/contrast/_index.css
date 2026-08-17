@@ -1,0 +1,9 @@
+/* The contrast maths, in its own folder because it belongs to no one feature:
+ * the shade override solves for a colour that clears a ratio, the badge reports
+ * the ratio a pair already has, and both call the same functions. Each entry
+ * that needs it imports this barrel, so a consumer taking one subpath gets it
+ * once; index.css imports it here rather than through those entries so a
+ * consumer taking everything also gets it once. */
+
+@import "./_functions.css";
+@import "./_support.css";

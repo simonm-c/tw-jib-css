@@ -103,10 +103,27 @@
   inherits: false;
 }
 
+/* Every layer of the `background` shorthand this file writes, registered here
+ * because this file is what composes them. A layer whose slot is unregistered
+ * and unset makes the whole shorthand invalid at computed-value time, so
+ * bg-none / bg-[url(…)] / bg-linear-* would silently produce no background at
+ * all for anyone who took a suite that does not itself carry ripple or
+ * border-gradient. The utilities that WRITE these slots stay in ripple/_index.css and
+ * border-gradient/_index.css; only the slots are shared. */
+@property --tw-jib--ripple-image {
+  syntax: "<image>";
+  inherits: false;
+  initial-value: radial-gradient(circle at center, transparent 0%, transparent 0%, transparent 0%, transparent 100%);
+}
 @property --tw-jib--background-image {
   syntax: "*";
   inherits: false;
   initial-value: linear-gradient(canvas 0 0);
+}
+@property --tw-jib--border-gradient {
+  syntax: "<image>";
+  inherits: false;
+  initial-value: linear-gradient(transparent 0 0);
 }
 @property --tw-jib--text-color-source {
   syntax: "<color>";
@@ -276,6 +293,18 @@
     var(--tw-jib--ripple-image) padding-box,
     var(--tw-jib--background-image) padding-box,
     var(--tw-jib--border-gradient) border-box;
+}
+
+/* The capture half of border-*, here rather than beside the gradient it shares a
+ * name with. Every colour transform reads a -color-source that something must
+ * write, and a suite entry that pulls in core gets all seven writers from one
+ * place — so tw-jib-css/color-transforms can transform a border colour without
+ * dragging in the border-gradient suite to capture it. The gradient half stays
+ * in border-gradient/_index.css; same-name @utility blocks stack, so the two halves
+ * compose exactly as one block did. */
+@utility border-* {
+  --tw-jib--border-color-source: --value("inherit", "transparent", --color- *, [color]);
+  --tw-jib--border-color: var(--tw-jib--border-color-after-lightness, var(--tw-jib--border-color-after-saturation, var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source))));
 }
 
 @utility text-* {

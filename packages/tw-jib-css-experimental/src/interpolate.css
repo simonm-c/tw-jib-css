@@ -1,9 +1,5 @@
-@utility interpolate-numeric {
-  interpolate-size: numeric-only;
-}
-@utility interpolate-keywords {
-  interpolate-size: allow-keywords;
-}
-@utility interpolate-* {
-  interpolate-size: --value("numeric-only", "allow-keywords", [ *]);
-}
+/* No core import: these utilities read none of the stable package's colour
+ * registrations, so carrying core would only emit dead @property blocks for a
+ * consumer who took this suite alone. */
+
+@import "./interpolate/_index.css";

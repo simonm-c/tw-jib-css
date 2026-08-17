@@ -1,13 +1,13 @@
-/* Reads the captured bg + text colours from core.css, computes a WCAG rating and
+/* Reads the captured bg + text colours from core/_index.css, computes a WCAG rating and
  * displays it via ::after.
  *
  * This ADDS a utility rather than overriding one — colour→string has no stable
  * equivalent, so there is nothing to progressively enhance and nothing a
  * consumer loses by not having it. That is what qualifies it for the
- * experimental entry, which _function-shade.css does not.
+ * experimental entry, which accessible-shade/_override.css does not.
  *
- * Requires wcag/_functions.css and wcag/_support.css; the wcag.css barrel
- * imports both ahead of this file. */
+ * Requires contrast/_functions.css and contrast/_support.css; the wcag-badge
+ * entry imports the contrast barrel ahead of this file. */
 
 /* --tw-jib--wcag-shortfall is read back by style(), which compares COMPUTED
  * values, and an unregistered custom property computes to its raw token stream
@@ -51,7 +51,7 @@
      * the ceiling ALWAYS rates at least AA — it never shows up as Fail. The
      * misleading case is therefore "asked for AAA, badge says AA", which the
      * badge cannot detect from the pair alone: it has to know what was asked.
-     * text-a11y-* records that in --tw-jib--a11y-level (see wcag/_support.css;
+     * text-a11y-* records that in --tw-jib--a11y-level (see contrast/_support.css;
      * both shade paths write it, so the badge works with either).
      *
      * A shortfall implies the ceiling was hit, because the shade is solved in

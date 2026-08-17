@@ -1,7 +1,8 @@
 /*
  * Accessible shade — stable path, the fallback for engines without CSS
- * @function. wcag/_function-shade.css holds the preferred path and is imported
- * after this file, so it wins on source order where @function is supported.
+ * @function. The experimental package's accessible-shade/_override.css holds the
+ * preferred path and is imported after this file, so it wins on source order
+ * where @function is supported.
  * Both MUST default to the same colour space (oklch) or a bare text-a11y-aa
  * looks different depending on which entry the consumer imported.
  *
@@ -80,7 +81,7 @@
  * 0.1791 — it is √0.0525 − 0.05, the luminance where headroom
  * toward black equals headroom toward white. Both epsilons are division guards
  * only; the scale is bounded by min(1, …), so float residue cannot be amplified.
- * Full derivation in wcag/_functions.css.
+ * Full derivation in contrast/_functions.css.
  *
  * The chain is  lift( vector( seed( target( carrier(BG) ) ) ) ). Only the middle
  * varies by colour space, so carrier / target / lift are written once in the
@@ -170,9 +171,9 @@
  *   D — the precise seed for a bare candidate, gated
  * Tailwind sorts same-name blocks most-declarations-first, and A carries by far
  * the most, so C and D land after it and their --tw-jib--a11y--vector wins where
- * the gate holds. A further
- * definition — the @function dispatcher in wcag/_function-shade.css — overrides
- * all of this wherever CSS @function is supported. */
+ * the gate holds. A further definition — the @function dispatcher in the
+ * experimental package's accessible-shade/_override.css — overrides all of this
+ * wherever CSS @function is supported. */
 
 /* A — the shade. */
 @utility text-a11y-* {

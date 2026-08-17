@@ -1,5 +1,3 @@
-/* The contrast BADGE is deliberately not here: it needs if(style()) to turn a
- * colour into a rating string, which has no stable equivalent, so it ships as
- * an experimental addition — tw-jib-css-experimental/wcag. */
+@import "./core/_index.css";
 
-@import "./wcag/_stable.css";
+@import "./accessible-shade/_index.css";

@@ -1,12 +1,21 @@
-@import "./core.css";
-@import "./ripple.css";
-@import "./border-gradient.css";
+/* The whole library. Composed from the PARTIALS, not from the per-suite entries
+ * beside them, because Tailwind does not de-duplicate @import: a file reached
+ * twice has its @utility and @theme blocks emitted twice. @property is the
+ * exception — it is keyed by name — which is why the partials may share core's
+ * registrations freely while only this file and the per-suite entries import
+ * core itself.
+ *
+ * Order is preserved from suite to suite: same-name @utility blocks are sorted
+ * most-declarations-first, and source order is the tie-break. */
 
-@import "./lightness.css";
-@import "./saturation.css";
-@import "./hue-rotate.css";
-@import "./accessible-shade.css";
-@import "./border-style.css";
-@import "./grid.css";
-@import "./comic.css";
-@import "./pixel.css";
+@import "./core/_index.css";
+
+@import "./ripple/_index.css";
+@import "./border-gradient/_index.css";
+
+@import "./color-transforms/_index.css";
+@import "./accessible-shade/_index.css";
+@import "./border-style/_index.css";
+@import "./grid/_index.css";
+@import "./comic/_index.css";
+@import "./pixel/_index.css";

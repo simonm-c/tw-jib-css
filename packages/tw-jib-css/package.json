@@ -54,17 +54,9 @@
       "style": "./src/border-gradient.css",
       "default": "./src/border-gradient.css"
     },
-    "./lightness": {
-      "style": "./src/lightness.css",
-      "default": "./src/lightness.css"
-    },
-    "./saturation": {
-      "style": "./src/saturation.css",
-      "default": "./src/saturation.css"
-    },
-    "./hue-rotate": {
-      "style": "./src/hue-rotate.css",
-      "default": "./src/hue-rotate.css"
+    "./color-transforms": {
+      "style": "./src/color-transforms.css",
+      "default": "./src/color-transforms.css"
     },
     "./accessible-shade": {
       "style": "./src/accessible-shade.css",

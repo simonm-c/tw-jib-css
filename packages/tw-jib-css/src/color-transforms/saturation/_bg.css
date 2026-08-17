@@ -31,7 +31,7 @@
  * supported.
  *
  * That block is gated on @variant supports-saturation, which is defined only in
- * tw-jib-css-experimental/saturation/_experimental.css. Without that import Tailwind
+ * tw-jib-css-experimental/color-transforms/saturation/_override.css. Without that import Tailwind
  * falls back to its built-in supports-* variant and emits a test for a CSS
  * property that does not exist — false everywhere, so the block is inert and the
  * main entry never runs @function. */

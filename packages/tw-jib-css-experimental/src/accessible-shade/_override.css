@@ -1,12 +1,12 @@
 /* text-a11y-*'s @function path. The utility is defined TWICE — the nested
- * relative-colour chain in wcag/_stable.css is the all-engines fallback, this is
+ * relative-colour chain in accessible-shade/_index.css is the all-engines fallback, this is
  * the dispatcher. Both compute the same closed form and measured agreeing to
  * serialisation precision, so which one runs is invisible in the output. Source
  * order carries the override: the stable chain loads first and same-name
  * @utility blocks never merge, so this wins where the gate holds.
  *
- * Requires wcag/_functions.css and wcag/_support.css; the functions barrel
- * imports both ahead of this file.
+ * Requires contrast/_functions.css and contrast/_support.css; the functions
+ * entry imports the contrast barrel ahead of this file.
  *
  * This OVERRIDES a utility that already works everywhere, which is why it sits
  * on the functions entry rather than the experimental one — nothing that merely

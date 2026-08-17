@@ -2,22 +2,20 @@
  * main entry, on every engine; each block re-implements one behind an @supports
  * gate so it wins in the cascade wherever CSS @function is supported. Must load
  * AFTER the main entry — same-name @utility blocks never merge, so source order
- * is what carries the override.
+ * is what carries the override. That is what the _override.css suffix marks:
+ * every file reached from here restates a class the stable package defines.
  *
  * This lives behind its own import rather than a feature test alone because an
  * @supports gate can say "this engine understands @function" but not "you meant
  * to be here". A consumer who wanted corner-* should not have text-a11y-*
- * rerouted onto a non-baseline path as a side effect. */
+ * rerouted onto a non-baseline path as a side effect.
+ *
+ * contrast/ carries the functions the shade override calls, and wcag-badge.css
+ * imports it too — repeated @function, @custom-variant and @property
+ * definitions are last-one-wins with identical content, so taking both entries
+ * is inert. */
 
-@import "./lightness/_experimental.css";
-@import "./saturation/_experimental.css";
-@import "./hue-rotate/_experimental.css";
+@import "./contrast/_index.css";
 
-/* text-a11y-*'s @function path. _functions.css defines the functions it calls;
- * _support.css carries the shared gate and the level record. Both are imported
- * by the wcag.css barrel as well — repeated @function, @custom-variant and
- * @property definitions are last-one-wins with identical content, so taking
- * both entries is inert. */
-@import "./wcag/_functions.css";
-@import "./wcag/_support.css";
-@import "./wcag/_function-shade.css";
+@import "./color-transforms/_index.css";
+@import "./accessible-shade/_override.css";

@@ -58,9 +58,9 @@
       "style": "./src/picker.css",
       "default": "./src/picker.css"
     },
-    "./wcag": {
-      "style": "./src/wcag.css",
-      "default": "./src/wcag.css"
+    "./wcag-badge": {
+      "style": "./src/wcag-badge.css",
+      "default": "./src/wcag-badge.css"
     }
   },
   "peerDependencies": {

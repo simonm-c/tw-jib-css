@@ -1,10 +1,11 @@
-/* Shared prerequisites for both WCAG @function consumers. wcag-badge (_badge.css,
- * the experimental entry) and text-a11y-*'s @function path (_function-shade.css,
+/* Shared prerequisites for both WCAG @function consumers. wcag-badge (wcag-badge/_index.css,
+ * the experimental entry) and text-a11y-*'s @function path (accessible-shade/_override.css,
  * the functions entry) sit behind different imports, yet both need this gate and
- * both touch the level record. Neither can own it, so both barrels import this —
- * and a consumer taking both entries imports it twice, which is inert: a
- * repeated @custom-variant and @property are last-one-wins with identical
- * content. */
+ * both touch the level record. Neither can own it, which is why it lives in a
+ * folder named for the maths rather than for either consumer, and why both
+ * entries import the contrast barrel. A consumer taking both entries imports it
+ * twice, which is inert: a repeated @custom-variant and @property are
+ * last-one-wins with identical content. */
 
 @custom-variant supports-wcag {
   @supports (background: if(style(--value): red)) and (background: --tw-jib--linearize(red)) {
@@ -16,7 +17,7 @@
  * element can tell "this is the best the background physically allows" apart
  * from "this pair is simply short". Non-inheriting: a nested wcag-badge must not
  * pick up an ancestor's requested level and mislabel itself. Written by BOTH
- * shade paths — wcag/_stable.css block B, and _function-shade.css where that
+ * shade paths — accessible-shade/_index.css block B, and accessible-shade/_override.css where that
  * entry is loaded — so the badge reads a populated level either way. */
 @property --tw-jib--a11y-level {
   syntax: "*";

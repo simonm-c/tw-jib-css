@@ -10,9 +10,10 @@
  * overrides. The badge reads --tw-jib--a11y-level, which BOTH shade paths write,
  * so it reports Max correctly either way.
  *
- * MUST NOT import wcag/_stable.css. The stable package owns it and loads first,
- * so importing it here too would emit every text-a11y-* chain twice. */
+ * MUST NOT import the stable package's accessible-shade partial. That package
+ * owns it and loads first, so importing it here too would emit every text-a11y-*
+ * chain twice. */
 
-@import "./wcag/_functions.css";
-@import "./wcag/_support.css";
-@import "./wcag/_badge.css";
+@import "./contrast/_index.css";
+
+@import "./wcag-badge/_index.css";

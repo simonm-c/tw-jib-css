@@ -11,6 +11,14 @@ export interface MagazineSlideData {
 
 export const slides: MagazineSlideData[] = [
   {
+    kicker: 'borders',
+    headline: 'Border Gradients, Demystified.',
+    body: "Gradient borders usually mean SVG tricks, pseudo-element hacks, or background-clip workarounds. With jibcss, they're utility classes — the same syntax you already know from Tailwind's bg-linear-*. Linear, radial, conic, and animated spin with 8 interpolation modes.",
+    code: `<div class="border-4 border-linear-to-br\n  border-from-violet-500 border-to-cyan-400\n  rounded-2xl">\n\n<div class="border-4 border-conic-0 border-spin\n  border-from-rose-500 border-via-amber-400\n  border-to-rose-500 rounded-full">`,
+    stat: '8',
+    statCaption: 'interpolation modes',
+  },
+  {
     kicker: 'color',
     headline: 'Colors, Transformed.',
     body: 'Lighten, darken, saturate, desaturate, or hue-shift any colour with a single utility class. Works across bg-, text-, fill-, stroke-, outline-, accent-, and border- properties. Compose freely — stack transforms on the same element.',
@@ -41,14 +49,6 @@ export const slides: MagazineSlideData[] = [
     body: 'CMYK halftone decomposes into subtractive dot layers. CRT phosphor splits into additive RGB columns. Tune dot size, gap, and bleed; pixel size and bloom — every dial reshapes the same input colour.',
     code: `/* adjust dot size & spacing */\ncomic-dot-2 comic-gap-6 comic-bleed-1\n\n/* phosphor glow */\npixel-size-2 pixel-bloom-1`,
     flipped: true,
-  },
-  {
-    kicker: 'borders',
-    headline: 'Border Gradients, Demystified.',
-    body: "Gradient borders usually mean SVG tricks, pseudo-element hacks, or background-clip workarounds. With jibcss, they're utility classes — the same syntax you already know from Tailwind's bg-linear-*. Linear, radial, conic, and animated spin with 8 interpolation modes.",
-    code: `<div class="border-4 border-linear-to-br\n  border-from-violet-500 border-to-cyan-400\n  rounded-2xl">\n\n<div class="border-4 border-conic-0 border-spin\n  border-from-rose-500 border-via-amber-400\n  border-to-rose-500 rounded-full">`,
-    stat: '8',
-    statCaption: 'interpolation modes',
   },
   {
     kicker: 'interaction',

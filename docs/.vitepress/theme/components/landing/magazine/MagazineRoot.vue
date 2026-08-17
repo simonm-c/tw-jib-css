@@ -1,5 +1,5 @@
 <template>
-  <div class="jib-landing snap-y snap-mandatory overflow-y-auto h-screen motion-reduce:snap-none">
+  <div class="jib-landing">
     <slot />
   </div>
 </template>

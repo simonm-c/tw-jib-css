@@ -26,7 +26,7 @@ const cards = [
 
 <template>
   <section
-    class="relative min-h-screen snap-start flex items-center px-6 md:px-12 py-20 bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100"
+    class="relative min-h-screen flex items-center px-6 md:px-12 py-20 bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100"
   >
     <div class="mx-auto w-full max-w-[1300px] space-y-10">
       <div class="grid md:grid-cols-[1fr_1fr] gap-8 items-start">

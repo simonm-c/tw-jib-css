@@ -17,9 +17,7 @@ async function copy() {
 </script>
 
 <template>
-  <section
-    class="relative min-h-screen snap-start flex flex-col items-center justify-center px-6 py-16"
-  >
+  <section class="relative min-h-screen flex flex-col items-center justify-center px-6 py-16">
     <div class="flex flex-col items-center gap-7 text-center max-w-3xl">
       <div class="relative">
         <JibLogo

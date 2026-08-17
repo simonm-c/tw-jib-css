@@ -1,8 +1,11 @@
 <script setup lang="ts">
-withDefaults(defineProps<{
-  rotate?: number;
-  z?: number;
-}>(), { rotate: 0, z: 5 });
+withDefaults(
+  defineProps<{
+    rotate?: number;
+    z?: number;
+  }>(),
+  { rotate: 0, z: 5 },
+);
 </script>
 
 <template>

@@ -14,7 +14,7 @@ import CompassRose from './components/landing/CompassRose.vue';
 import MagazineRoot from './components/landing/magazine/MagazineRoot.vue';
 import MagazineSlide from './components/landing/magazine/MagazineSlide.vue';
 import MagazineHero from './components/landing/magazine/MagazineHero.vue';
-import MagazineFinale from './components/landing/magazine/MagazineFinale.vue';
+import MagazineAccessibility from './components/landing/magazine/MagazineAccessibility.vue';
 import MagazineAlsoIncluded from './components/landing/magazine/MagazineAlsoIncluded.vue';
 
 import CardStackRoot from './components/landing/cardstack/CardStackRoot.vue';
@@ -52,7 +52,7 @@ export default {
     app.component('MagazineRoot', MagazineRoot);
     app.component('MagazineSlide', MagazineSlide);
     app.component('MagazineHero', MagazineHero);
-    app.component('MagazineFinale', MagazineFinale);
+    app.component('MagazineAccessibility', MagazineAccessibility);
     app.component('MagazineAlsoIncluded', MagazineAlsoIncluded);
     app.component('CardStackRoot', CardStackRoot);
     app.component('CardStackSlide', CardStackSlide);

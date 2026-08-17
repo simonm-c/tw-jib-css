@@ -10,7 +10,18 @@ title: Jibcss
 <MagazineRoot>
 <MagazineHero />
 
+<MagazineAccessibility />
+
 <MagazineSlide :index="0">
+<div class="grid grid-cols-2 gap-4 w-full max-w-md">
+<div class="aspect-square rounded-2xl border-4 border-linear-to-br border-from-violet-500 border-to-cyan-400"></div>
+<div class="aspect-square rounded-2xl border-4 border-linear-to-br/longer border-from-rose-500 border-to-sky-400"></div>
+<div class="aspect-square rounded-2xl border-4 border-conic-0 border-from-indigo-500 border-via-pink-500 border-to-indigo-500"></div>
+<div class="aspect-square rounded-full border-4 border-conic-0 border-spin border-spin-duration-4 border-from-emerald-400 border-via-violet-500 border-to-emerald-400"></div>
+</div>
+</MagazineSlide>
+
+<MagazineSlide :index="1">
 <div class="landing-color-cycle space-y-3 w-full max-w-sm">
 <div class="flex gap-1">
   <div class="flex-1 h-10 first:rounded-l-lg last:rounded-r-lg bg-(color:--landing-base-color)"></div>
@@ -55,7 +66,7 @@ title: Jibcss
 </div>
 </MagazineSlide>
 
-<MagazineSlide :index="1">
+<MagazineSlide :index="2">
 <div class="landing-color-cycle grid grid-cols-4 gap-2 w-full max-w-md">
   <div class="aspect-[4/3] rounded-lg bg-(color:--landing-base-color) p-2 flex items-end bg-lighten-40/oklch"><span class="font-mono text-[9px] text-a11y-aa opacity-80">/oklch</span></div>
   <div class="aspect-[4/3] rounded-lg bg-(color:--landing-base-color) p-2 flex items-end bg-lighten-40/hsl"><span class="font-mono text-[9px] text-a11y-aa opacity-80">/hsl</span></div>
@@ -76,7 +87,7 @@ title: Jibcss
 </div>
 </MagazineSlide>
 
-<MagazineSlide :index="2">
+<MagazineSlide :index="3">
 <div class="landing-tex-cycle grid grid-cols-2 gap-4 w-full max-w-md">
   <div class="aspect-square rounded-xl bg-comic-(color:--landing-tex-color) relative">
     <span class="absolute bottom-2 left-2 font-mono text-[9px] opacity-60">comic</span>
@@ -87,19 +98,10 @@ title: Jibcss
 </div>
 </MagazineSlide>
 
-<MagazineSlide :index="3">
+<MagazineSlide :index="4">
 <div class="grid grid-cols-2 gap-4 w-full max-w-md">
   <div class="aspect-square rounded-xl landing-comic-params bg-comic-indigo-600"></div>
   <div class="aspect-square rounded-xl landing-pixel-params bg-pixel-indigo-600"></div>
-</div>
-</MagazineSlide>
-
-<MagazineSlide :index="4">
-<div class="grid grid-cols-2 gap-4 w-full max-w-md">
-<div class="aspect-square rounded-2xl border-4 border-linear-to-br border-from-violet-500 border-to-cyan-400"></div>
-<div class="aspect-square rounded-2xl border-4 border-linear-to-br/longer border-from-rose-500 border-to-sky-400"></div>
-<div class="aspect-square rounded-2xl border-4 border-conic-0 border-from-indigo-500 border-via-pink-500 border-to-indigo-500"></div>
-<div class="aspect-square rounded-full border-4 border-conic-0 border-spin border-spin-duration-4 border-from-emerald-400 border-via-violet-500 border-to-emerald-400"></div>
 </div>
 </MagazineSlide>
 
@@ -111,8 +113,6 @@ title: Jibcss
 <button class="aspect-square rounded-2xl border-0 cursor-pointer bg-sky-600 bg-ripple ripple-color-sky-200/70 ripple-position-left ripple-duration-40 text-white text-xs font-mono p-3 text-left">left · sky · 400ms</button>
 </div>
 </MagazineSlide>
-
-<MagazineFinale />
 
 <MagazineAlsoIncluded />
 </MagazineRoot>

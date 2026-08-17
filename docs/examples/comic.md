@@ -9,42 +9,42 @@ Visual test page for `bg-comic-*` utilities.
 
 Cell size = `dot * 2 + gap`. Gap scales at `--spacing / 4` (comic-gap-1 = 1px, comic-gap-4 = 4px).
 
-## Utility Classes — Primary & Secondary Colors
+## Utility Classes – Primary & Secondary Colors
 
 Defaults: dot 1px, bleed 1px, gap 2px.
 
 <div class="grid grid-cols-4 gap-4 my-6">
   <div>
     <div data-test="black" class="bg-comic-black h-32 rounded-lg"></div>
-    <p class="text-xs font-mono text-center mt-1">bg-comic-black — K only</p>
+    <p class="text-xs font-mono text-center mt-1">bg-comic-black – K only</p>
   </div>
   <div>
     <div data-test="white" class="bg-comic-white h-32 rounded-lg border border-gray-200"></div>
-    <p class="text-xs font-mono text-center mt-1">bg-comic-white — none</p>
+    <p class="text-xs font-mono text-center mt-1">bg-comic-white – none</p>
   </div>
   <div>
     <div data-test="red" class="bg-comic-red-500 h-32 rounded-lg"></div>
-    <p class="text-xs font-mono text-center mt-1">bg-comic-red-500 — M+Y</p>
+    <p class="text-xs font-mono text-center mt-1">bg-comic-red-500 – M+Y</p>
   </div>
   <div>
     <div data-test="green" class="bg-comic-green-500 h-32 rounded-lg"></div>
-    <p class="text-xs font-mono text-center mt-1">bg-comic-green-500 — C+Y</p>
+    <p class="text-xs font-mono text-center mt-1">bg-comic-green-500 – C+Y</p>
   </div>
   <div>
     <div data-test="blue" class="bg-comic-blue-500 h-32 rounded-lg"></div>
-    <p class="text-xs font-mono text-center mt-1">bg-comic-blue-500 — C+M</p>
+    <p class="text-xs font-mono text-center mt-1">bg-comic-blue-500 – C+M</p>
   </div>
   <div>
     <div data-test="cyan" class="bg-comic-cyan-500 h-32 rounded-lg"></div>
-    <p class="text-xs font-mono text-center mt-1">bg-comic-cyan-500 — C only</p>
+    <p class="text-xs font-mono text-center mt-1">bg-comic-cyan-500 – C only</p>
   </div>
   <div>
     <div data-test="magenta" class="bg-comic-fuchsia-500 h-32 rounded-lg"></div>
-    <p class="text-xs font-mono text-center mt-1">bg-comic-fuchsia-500 — M heavy</p>
+    <p class="text-xs font-mono text-center mt-1">bg-comic-fuchsia-500 – M heavy</p>
   </div>
   <div>
     <div data-test="yellow" class="bg-comic-yellow-500 h-32 rounded-lg"></div>
-    <p class="text-xs font-mono text-center mt-1">bg-comic-yellow-500 — Y heavy</p>
+    <p class="text-xs font-mono text-center mt-1">bg-comic-yellow-500 – Y heavy</p>
   </div>
 </div>
 
@@ -457,7 +457,7 @@ Different dot sizes and bleed settings with border gradients.
   </div>
 </div>
 
-## Side-by-side: Solid vs Ben Day — All Tailwind Colors
+## Side-by-side: Solid vs Ben Day – All Tailwind Colors
 
 <div class="grid grid-cols-[auto_1fr_1fr] gap-x-3 gap-y-1 items-center my-6">
   <p class="text-xs font-mono font-bold">Color</p>

@@ -8,8 +8,8 @@
         Accessibility, Automated.
       </h2>
       <p class="text-xl opacity-80 leading-relaxed text-center max-w-[56ch] mx-auto">
-        Generate perfect colour contrast every time. Pick a desired WCAG ratio — AA, AAA, or AA
-        Large — and the CSS does the rest. Bold titles that match your brand, small text guaranteed
+        Generate perfect colour contrast every time. Pick a desired WCAG ratio – AA, AAA, or AA
+        Large – and the CSS does the rest. Bold titles that match your brand, small text guaranteed
         to pass, whatever your needs. No fuss, no JavaScript, updates automatically when the
         background changes.
       </p>

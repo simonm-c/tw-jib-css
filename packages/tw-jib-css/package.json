@@ -1,7 +1,7 @@
 {
   "name": "tw-jib-css",
   "version": "0.1.0",
-  "description": "TailwindCSS v4 utility library — border gradients, CSS relative color transforms, ripple effects, and more — built entirely with CSS-first @utility and @custom-variant syntax.",
+  "description": "TailwindCSS v4 utility library – border gradients, CSS relative color transforms, ripple effects, and more – built entirely with CSS-first @utility and @custom-variant syntax.",
   "type": "module",
   "license": "MIT",
   "author": "Simon Monk-Chipman",

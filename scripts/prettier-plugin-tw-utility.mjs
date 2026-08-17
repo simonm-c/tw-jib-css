@@ -8,8 +8,8 @@ import postcssPlugin from 'prettier/plugins/postcss.js';
  * declaration values as well, where it rewrites `calc(l * (1 - x))` into
  * `calc(l* (1 - x))`.
  *
- * Both forms compute the same colour — `*` needs no surrounding whitespace,
- * unlike `+` and `-` — so the rewrite is not wrong on its own. It matters
+ * Both forms compute the same colour – `*` needs no surrounding whitespace,
+ * unlike `+` and `-` – so the rewrite is not wrong on its own. It matters
  * because lightness/_*.css and saturation/_*.css repeat one colour expression
  * in an `@utility` fallback and in the `@theme inline` value a `--modifier()`
  * resolves to, and Tailwind collapses that pair only while the two are

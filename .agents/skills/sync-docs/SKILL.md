@@ -37,10 +37,10 @@ Invoke this skill when:
 
 Determine your scope from the user's invocation:
 
-**Full audit** — User says "sync docs", "audit all docs", "check documentation",
+**Full audit** – User says "sync docs", "audit all docs", "check documentation",
 or gives no specific module. Scan ALL source files against ALL guide pages.
 
-**Targeted** — User names a specific module or file: "sync lightness docs",
+**Targeted** – User names a specific module or file: "sync lightness docs",
 "I updated scrollbar.css", "create docs for comic". Limit scope to that module
 and its corresponding guide page(s).
 
@@ -77,7 +77,7 @@ A leading underscore marks a partial and its absence an entry; `_index.css` is a
 folder's barrel and `_override.css` re-implements a class another package
 already defines. The entry beside a folder is a bare import list, so read the
 partials for utilities and `package.json` `exports` for the import path.
-`core/` and `contrast/` publish nothing — they are shared by the suites that
+`core/` and `contrast/` publish nothing – they are shared by the suites that
 import them.
 
 Also check each package's `src/index.css` for its import list. If a partial is
@@ -101,9 +101,9 @@ glob: src/**/*.css
 For each match, record:
 
 - **Utility name** (e.g., `bg-lightness-*`, `-bg-lightness-*`)
-- **Whether it has a wildcard** (`*`) — means it accepts values
+- **Whether it has a wildcard** (`*`) – means it accepts values
 - **Whether it is negative** (starts with `-`)
-- **Property count** per block — multiple same-name blocks with different
+- **Property count** per block – multiple same-name blocks with different
   property counts = TW4 specificity stacking. Note this but do not document
   each block separately; document the combined behaviour.
 
@@ -124,7 +124,7 @@ Find `--modifier(...)` calls:
   read the `@theme inline` block to get available modifier names
 - Literal modifiers: `--modifier('oklch', 'lch', ...)` → enumerate all
 - Numeric modifiers: `--modifier(integer)` → typically opacity as percentage
-- Noop modifiers: `--tw-jib--noop: --modifier(...)` — these consume the modifier
+- Noop modifiers: `--tw-jib--noop: --modifier(...)` – these consume the modifier
   for validation only; still document them as available modifiers
 
 ### 1d. Custom Properties
@@ -305,7 +305,7 @@ Use this template. Replace placeholders with data extracted from Phase 1.
 title: { Title }
 ---
 
-<!-- llm-context: {module-name} module — {brief technical description of what
+<!-- llm-context: {module-name} module – {brief technical description of what
 the utilities do, key CSS techniques used, and value/modifier patterns}. -->
 
 # {Title}
@@ -365,7 +365,7 @@ Included in `@import 'tw-jib-css'`. To import individually:
 ## {Feature-specific sections}
 
 {Colour Spaces, Scale, Gradient Direction, Interpolation Modes, Named Shapes,
-etc. — whatever the utility warrants. Follow the pattern of existing pages
+etc. – whatever the utility warrants. Follow the pattern of existing pages
 in the same category.}
 
 ## Aliases
@@ -415,7 +415,7 @@ For CSS variables, use the typed bare-value syntax:
 
 ## How It Works
 
-{Technical explanation of the CSS technique — background clipping, relative
+{Technical explanation of the CSS technique – background clipping, relative
 colour syntax, @property animation, etc. Include numbered steps for multi-layer
 approaches.}
 ````
@@ -428,7 +428,7 @@ When a page exists but is missing content:
 2. Identify the exact line range where the new section belongs
 3. Use `Edit` to insert or replace content at the correct position
 4. Preserve existing content that is still accurate
-5. Follow the established style of the page — match heading levels,
+5. Follow the established style of the page – match heading levels,
    Example component patterns, code formatting
 
 ### QuickReference Row Construction
@@ -444,7 +444,7 @@ For each `@utility name-* { ... }` block:
 
 2. **Styles column**: Show the user-visible CSS property and its value. For
    complex formulas, use abbreviated form (see `lightness.md` for the pattern).
-   Omit internal pipeline variables — show the final CSS declaration only.
+   Omit internal pipeline variables – show the final CSS declaration only.
 
 3. **Modifier rows**: For each modifier available (from `@theme inline` map or
    `--modifier()` literal list), add a row showing `utility-<value>/{modifier}`
@@ -475,7 +475,7 @@ When creating `<Example>` demos:
   that name the classes being demonstrated
 - Use `<Example stretch>` for full-width demos (colour space grids, scale strips)
 - Use `<Example>` (no stretch) for centred demos
-- Keep each Example focused — one concept per block
+- Keep each Example focused – one concept per block
 - For hover demos, add `cursor-pointer` and `transition-all duration-300`
 
 ### Sidebar Registration
@@ -515,13 +515,13 @@ For nested groups:
 
 After making changes, run these checks:
 
-1. **CSS unit tests** — `pnpm test:css` to verify no regressions
-2. **VitePress build** — `pnpm build:docs` to verify:
+1. **CSS unit tests** – `pnpm test:css` to verify no regressions
+2. **VitePress build** – `pnpm build:docs` to verify:
    - No broken internal links
    - No missing component imports
    - Valid Markdown structure
    - All Example components render without errors
-3. **Visual spot-check** — If the dev server is running (`pnpm dev:docs`),
+3. **Visual spot-check** – If the dev server is running (`pnpm dev:docs`),
    open the updated pages in a browser and verify demos render correctly
 
 Report any build errors and fix them before considering the sync complete.
@@ -532,19 +532,19 @@ Report any build errors and fix them before considering the sync complete.
 
 - **British spelling** in prose: colour, behaviour, customise. CSS property
   names stay American (per the spec).
-- **oklch is the default colour space** — always mention it first in examples
+- **oklch is the default colour space** – always mention it first in examples
   and reference tables.
 - **`<!-- llm-context: ... -->` comments** are visible to LLMs but hidden in
   VitePress. Keep them concise and technically accurate.
 - **2-space indentation** in code examples.
-- **Each guide page must be self-contained** — a user reading only that page
+- **Each guide page must be self-contained** – a user reading only that page
   should understand the utility without reading other pages first.
   Cross-reference for depth, not dependency.
 - **`docs/examples/` pages are test fixtures**, not documentation. Never
   conflate them with `docs/guide/` pages.
 - **Follow Tailwind docs quality**: Quick Reference for scanning, visual demos
   for understanding, conditional/custom sections for advanced usage.
-- **Never fabricate CSS output** — if uncertain about what a utility compiles
+- **Never fabricate CSS output** – if uncertain about what a utility compiles
   to, use the test helper to verify before documenting.
-- **Report before writing** — always present the gap report and get user
+- **Report before writing** – always present the gap report and get user
   confirmation before creating or editing documentation files.

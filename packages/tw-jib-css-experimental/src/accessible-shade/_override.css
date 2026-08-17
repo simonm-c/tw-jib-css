@@ -1,4 +1,4 @@
-/* text-a11y-*'s @function path. The utility is defined TWICE — the nested
+/* text-a11y-*'s @function path. The utility is defined TWICE – the nested
  * relative-colour chain in accessible-shade/_index.css is the all-engines fallback, this is
  * the dispatcher. Both compute the same closed form and measured agreeing to
  * serialisation precision, so which one runs is invisible in the output. Source
@@ -9,13 +9,13 @@
  * entry imports the contrast barrel ahead of this file.
  *
  * This OVERRIDES a utility that already works everywhere, which is why it sits
- * on the functions entry rather than the experimental one — nothing that merely
+ * on the functions entry rather than the experimental one – nothing that merely
  * ADDS a utility (badge, corner, picker) should reroute accessible contrast onto
  * a non-baseline code path.
  *
  * One block covers both candidate shapes: --default() inside --modifier() picks
  * up the bare one too. That default MUST stay oklch, in step with the stable
- * path — if they diverged, a bare text-a11y-aa would seed one way with this
+ * path – if they diverged, a bare text-a11y-aa would seed one way with this
  * entry loaded and another way without it.
  *
  * The level list is enumerated rather than read from the themeable
@@ -28,7 +28,7 @@
   @variant supports-wcag {
     /* Keep this call MULTI-LINE. Tailwind emits the resolved arguments with the
        source's own line structure, and tests/css/wcag.test.ts asserts the
-       defaulted space lands on its own line — which is how it checks that both
+       defaulted space lands on its own line – which is how it checks that both
        shade paths default to oklch. Collapsing it to one line is a silent
        failure of that check. Prettier at printWidth 100 will collapse it, so
        the library CSS is in .prettierignore. */

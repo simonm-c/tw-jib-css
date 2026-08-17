@@ -7,7 +7,7 @@ async function gotoPage(page: Page) {
   await gotoExample(page, PAGE, 'black');
 }
 
-test.describe('bg-comic — primary colours render', () => {
+test.describe('bg-comic – primary colours render', () => {
   test('all primary colours produce gradient layers', async ({ page }) => {
     // Arrange
     await gotoPage(page);
@@ -30,7 +30,7 @@ test.describe('bg-comic — primary colours render', () => {
   });
 });
 
-test.describe('comic-dot — dot size variations', () => {
+test.describe('comic-dot – dot size variations', () => {
   test('all dot size variants render with gradients', async ({ page }) => {
     // Arrange
     await gotoPage(page);
@@ -44,7 +44,7 @@ test.describe('comic-dot — dot size variations', () => {
   });
 });
 
-test.describe('comic-gap — gap variations', () => {
+test.describe('comic-gap – gap variations', () => {
   test('all gap variants render', async ({ page }) => {
     // Arrange
     await gotoPage(page);
@@ -58,7 +58,7 @@ test.describe('comic-gap — gap variations', () => {
   });
 });
 
-test.describe('comic-bleed — bleed variations', () => {
+test.describe('comic-bleed – bleed variations', () => {
   test('all bleed variants render', async ({ page }) => {
     // Arrange
     await gotoPage(page);
@@ -179,7 +179,7 @@ test.describe('comic + border gradient composition', () => {
   });
 });
 
-test.describe('comic — full Tailwind colour palette', () => {
+test.describe('comic – full Tailwind colour palette', () => {
   test('all compare-* colours render with gradients', async ({ page }) => {
     // Arrange
     await gotoPage(page);

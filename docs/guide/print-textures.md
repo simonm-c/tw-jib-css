@@ -16,7 +16,7 @@ Both textures follow the same pattern: `bg-{texture}-{color}` plus modifier clas
 </div>
 ```
 
-Pass a Tailwind colour, get a textured surface. Change the colour, the texture updates — no images, no SVG, no JavaScript.
+Pass a Tailwind colour, get a textured surface. Change the colour, the texture updates – no images, no SVG, no JavaScript.
 
 ## Two rendering engines
 
@@ -31,9 +31,9 @@ Pass a Tailwind colour, get a textured surface. Change the colour, the texture u
   </div>
 </Example>
 
-**Comic** decomposes the input into CMYK halftone dot layers using subtractive mixing — the same principle as a printing press.
+**Comic** decomposes the input into CMYK halftone dot layers using subtractive mixing – the same principle as a printing press.
 
-**Pixel** splits the input into RGB column triplets with additive (screen) blending — mimics CRT and LCD phosphor displays.
+**Pixel** splits the input into RGB column triplets with additive (screen) blending – mimics CRT and LCD phosphor displays.
 
 ## They compose with the rest of the library
 
@@ -53,5 +53,5 @@ Textures play nicely with gradient borders, colour transforms, and auto-contrast
 
 Each texture has a full reference with the complete modifier list, formulas, and configuration options:
 
-- [Comic](/guide/comic) — CMYK halftone dots
-- [Pixel](/guide/pixel) — RGB pixel columns
+- [Comic](/guide/comic) – CMYK halftone dots
+- [Pixel](/guide/pixel) – RGB pixel columns

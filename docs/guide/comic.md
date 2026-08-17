@@ -2,7 +2,7 @@
 title: Comic Dots
 ---
 
-<!-- llm-context: comic module — CMYK halftone dot pattern backgrounds. Converts any colour to overlapping cyan, magenta, yellow and black dots using CSS relative colour syntax and radial gradients. -->
+<!-- llm-context: comic module – CMYK halftone dot pattern backgrounds. Converts any colour to overlapping cyan, magenta, yellow and black dots using CSS relative colour syntax and radial gradients. -->
 
 # Comic Dots
 
@@ -27,11 +27,11 @@ Uses CSS relative colour syntax with `max()` inside `rgb(from ...)`. Supported i
   { class: 'bg-comic-<color>', styles: 'Sets colour and applies CMYK dot pattern with background-blend-mode: multiply' },
   { class: 'bg-comic-<color>/<opacity>', styles: 'Same with opacity modifier' },
   { class: 'bg-comic-[<value>]', styles: 'Arbitrary colour value' },
-  { class: 'comic-dot-<number>', styles: '--tw-jib--comic-dot: --spacing(<number>) — dot radius' },
+  { class: 'comic-dot-<number>', styles: '--tw-jib--comic-dot: --spacing(<number>) – dot radius' },
   { class: 'comic-dot-[<value>]', styles: '--tw-jib--comic-dot: <value>' },
-  { class: 'comic-bleed-<number>', styles: '--tw-jib--comic-bleed: --spacing(<number>) / 4 — dot edge softness' },
+  { class: 'comic-bleed-<number>', styles: '--tw-jib--comic-bleed: --spacing(<number>) / 4 – dot edge softness' },
   { class: 'comic-bleed-[<value>]', styles: '--tw-jib--comic-bleed: <value>' },
-  { class: 'comic-gap-<number>', styles: '--tw-jib--comic-gap: --spacing(<number>) / 4 — space between dots' },
+  { class: 'comic-gap-<number>', styles: '--tw-jib--comic-gap: --spacing(<number>) / 4 – space between dots' },
   { class: 'comic-gap-[<value>]', styles: '--tw-jib--comic-gap: <value>' },
 ]" />
 
@@ -46,7 +46,7 @@ Each colour is decomposed into CMYK channels using the inverse of its RGB values
 | **Y** (yellow)  | `rgb(255 255 0)` | `(max(R,G,B) - B) / max(R,G,B)` |
 | **K** (black)   | `rgb(0 0 0)`     | `1 - max(R,G,B) / 255`          |
 
-The four dot layers are staggered at different grid offsets and composited with `background-blend-mode: multiply` for subtractive colour mixing — just like a printing press.
+The four dot layers are staggered at different grid offsets and composited with `background-blend-mode: multiply` for subtractive colour mixing – just like a printing press.
 
 ## Basic Usage
 
@@ -75,7 +75,7 @@ Control the space between dots with `comic-gap-{number}`. The value scales at `-
   </div>
 </Example>
 
-Gap is additive to dot size — the grid cell is computed as `dot * 2 + gap`. This means changing `comic-dot-*` automatically scales the grid proportionally.
+Gap is additive to dot size – the grid cell is computed as `dot * 2 + gap`. This means changing `comic-dot-*` automatically scales the grid proportionally.
 
 ## Dot Size
 
@@ -95,9 +95,9 @@ Control the dot radius with `comic-dot-{number}` using the Tailwind spacing scal
 
 Control the dot edge softness with `comic-bleed-{number}`. The transparent gradient stop is positioned at `dot + bleed`, so:
 
-- `comic-bleed-0` — crisp hard-edged circles
-- `comic-bleed-1` — slight softness (default)
-- Larger values — increasingly blurred dot edges
+- `comic-bleed-0` – crisp hard-edged circles
+- `comic-bleed-1` – slight softness (default)
+- Larger values – increasingly blurred dot edges
 
 <Example>
   <div class="flex gap-3">
@@ -111,7 +111,7 @@ Control the dot edge softness with `comic-bleed-{number}`. The transparent gradi
 
 ## Opacity
 
-Add an opacity modifier with the `/` syntax to fade the entire pattern — all four CMYK dot layers and the white background. The value is a percentage (0–100).
+Add an opacity modifier with the `/` syntax to fade the entire pattern – all four CMYK dot layers and the white background. The value is a percentage (0–100).
 
 <Example>
   <div class="flex gap-3">
@@ -142,7 +142,7 @@ This scales the computed CMYK channel opacities proportionally and makes the whi
 
 ## CMYK Channel Behaviour
 
-Every Tailwind colour at every shade, rendered as Ben Day dots. Grays produce only K (black) dots with no colour cast — the key advantage of proper CMYK conversion over naive CMY.
+Every Tailwind colour at every shade, rendered as Ben Day dots. Grays produce only K (black) dots with no colour cast – the key advantage of proper CMYK conversion over naive CMY.
 
 <div class="space-y-4 my-6">
   <div>

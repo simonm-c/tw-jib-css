@@ -69,9 +69,9 @@ const STABLE_SPACE_MARKERS: [string, string][] = [
 ];
 
 describe.each(suiteScenarios('color-transforms'))(
-  'stable path (relative color syntax) — $name',
+  'stable path (relative color syntax) – $name',
   ({ compile }) => {
-    describe('darken — default amounts', () => {
+    describe('darken – default amounts', () => {
       test.each([0, 5, 10, 20, 50, 75, 100])('bg-darken-%i', async (amount) => {
         const css = await compile(`bg-blue-500 bg-darken-${amount}`);
         expect(css).toContain(`--tw-jib--background-lightness--amount: calc(${amount} * -0.01)`);
@@ -80,7 +80,7 @@ describe.each(suiteScenarios('color-transforms'))(
       });
     });
 
-    describe('lighten — default amounts', () => {
+    describe('lighten – default amounts', () => {
       test.each([0, 5, 10, 20, 50, 75, 100])('bg-lighten-%i', async (amount) => {
         const css = await compile(`bg-blue-500 bg-lighten-${amount}`);
         expect(css).toContain(`--tw-jib--background-lightness--amount: calc(${amount} * 0.01)`);
@@ -89,7 +89,7 @@ describe.each(suiteScenarios('color-transforms'))(
       });
     });
 
-    describe('darken — all 17 color spaces', () => {
+    describe('darken – all 17 color spaces', () => {
       test.each(STABLE_SPACE_MARKERS)('bg-darken-20/%s', async (space, marker) => {
         const css = await compile(`bg-blue-500 bg-darken-20/${space}`);
         expect(css).toContain(marker);
@@ -103,7 +103,7 @@ describe.each(suiteScenarios('color-transforms'))(
       });
     });
 
-    describe('lighten — all 17 color spaces', () => {
+    describe('lighten – all 17 color spaces', () => {
       test.each(STABLE_SPACE_MARKERS)('bg-lighten-20/%s', async (space, marker) => {
         const css = await compile(`bg-blue-500 bg-lighten-20/${space}`);
         expect(css).toContain(marker);
@@ -117,7 +117,7 @@ describe.each(suiteScenarios('color-transforms'))(
       });
     });
 
-    describe('base color range — darken-20', () => {
+    describe('base color range – darken-20', () => {
       test.each(DARKEN_PALETTE)('bg-%s bg-darken-20', async (color, marker) => {
         const css = await compile(`bg-${color} bg-darken-20`);
         expect(css).toContain(marker);
@@ -125,7 +125,7 @@ describe.each(suiteScenarios('color-transforms'))(
       });
     });
 
-    describe('base color range — lighten-20', () => {
+    describe('base color range – lighten-20', () => {
       test.each(LIGHTEN_PALETTE)('bg-%s bg-lighten-20', async (color, marker) => {
         const css = await compile(`bg-${color} bg-lighten-20`);
         expect(css).toContain(marker);
@@ -391,7 +391,7 @@ describe.each(suiteScenarios('color-transforms'))(
 );
 
 describe('experimental path (@function + @supports)', () => {
-  describe('darken — default amounts', () => {
+  describe('darken – default amounts', () => {
     test.each([0, 5, 10, 20, 50, 75, 100])('bg-darken-%i', async (amount) => {
       const css = await compile(`bg-blue-500 bg-darken-${amount}`, { functions: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
@@ -399,7 +399,7 @@ describe('experimental path (@function + @supports)', () => {
     });
   });
 
-  describe('lighten — default amounts', () => {
+  describe('lighten – default amounts', () => {
     test.each([0, 5, 10, 20, 50, 75, 100])('bg-lighten-%i', async (amount) => {
       const css = await compile(`bg-blue-500 bg-lighten-${amount}`, { functions: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
@@ -407,7 +407,7 @@ describe('experimental path (@function + @supports)', () => {
     });
   });
 
-  describe('darken — all 17 color spaces', () => {
+  describe('darken – all 17 color spaces', () => {
     test.each(ALL_SPACES)('bg-darken-20/%s', async (space) => {
       const css = await compile(`bg-blue-500 bg-darken-20/${space}`, { functions: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
@@ -416,7 +416,7 @@ describe('experimental path (@function + @supports)', () => {
     });
   });
 
-  describe('lighten — all 17 color spaces', () => {
+  describe('lighten – all 17 color spaces', () => {
     test.each(ALL_SPACES)('bg-lighten-20/%s', async (space) => {
       const css = await compile(`bg-blue-500 bg-lighten-20/${space}`, { functions: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
@@ -425,7 +425,7 @@ describe('experimental path (@function + @supports)', () => {
     });
   });
 
-  describe('base color range — darken-20', () => {
+  describe('base color range – darken-20', () => {
     test.each(DARKEN_PALETTE)('bg-%s bg-darken-20', async (color, marker) => {
       const css = await compile(`bg-${color} bg-darken-20`, { functions: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
@@ -434,7 +434,7 @@ describe('experimental path (@function + @supports)', () => {
     });
   });
 
-  describe('base color range — lighten-20', () => {
+  describe('base color range – lighten-20', () => {
     test.each(LIGHTEN_PALETTE)('bg-%s bg-lighten-20', async (color, marker) => {
       const css = await compile(`bg-${color} bg-lighten-20`, { functions: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
@@ -1126,7 +1126,7 @@ describe('experimental inline function usage', () => {
 });
 
 describe.each(suiteScenarios('color-transforms', 'border-gradient'))(
-  'opacity + darken/lighten + border gradient — $name',
+  'opacity + darken/lighten + border gradient – $name',
   ({ compile }) => {
     test('opacity-darken-border-linear', async () => {
       const css = await compile(
@@ -1197,7 +1197,7 @@ describe.each(suiteScenarios('color-transforms', 'border-gradient'))(
 );
 
 describe.each(suiteScenarios('color-transforms', 'border-gradient'))(
-  'color transform + border gradient — $name',
+  'color transform + border gradient – $name',
   ({ compile }) => {
     describe('darken with all border types', () => {
       test('darken + linear-r', async () => {
@@ -1362,7 +1362,7 @@ describe.each(suiteScenarios('color-transforms', 'border-gradient'))(
 );
 
 describe.each(suiteScenarios('color-transforms', 'border-gradient'))(
-  'triple combo: opacity + transform + border gradient — $name',
+  'triple combo: opacity + transform + border gradient – $name',
   ({ compile }) => {
     test('triple-darken', async () => {
       const css = await compile(

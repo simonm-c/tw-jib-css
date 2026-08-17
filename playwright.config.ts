@@ -17,7 +17,7 @@ export default defineConfig({
   ],
   // Two instances, two servers. The experimental docs are a separate VitePress
   // instance because the experimental package overrides utilities the stable one
-  // defines — see docs-experimental/.vitepress/theme/tailwind.css. Specs that
+  // defines – see docs-experimental/.vitepress/theme/tailwind.css. Specs that
   // exercise experimental fixtures use EXPERIMENTAL_BASE below rather than
   // baseURL.
   webServer: [

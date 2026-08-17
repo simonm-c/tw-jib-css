@@ -11,8 +11,8 @@ import { compile, stableScenarios, suiteScenarios } from './helpers.js';
  *                Same arrangement as bg-lightness-* and its siblings.
  *   wcag-badge   experimental only, needs @function + if(style()), no fallback.
  *
- * So the shade must compile WITHOUT { experimental: true } — that is the whole
- * point of the fallback — and must additionally pick up the @function override
+ * So the shade must compile WITHOUT { experimental: true } – that is the whole
+ * point of the fallback – and must additionally pick up the @function override
  * WITH it. The badge must appear only with the flag.
  */
 
@@ -51,7 +51,7 @@ const COLOR_SPACES = [
 /** The spaces whose precise seed needs a cube root, hence the pow() gate. */
 const POW_SEEDED = ['oklch', 'oklab', 'lch', 'lab'] as const;
 
-describe('text-a11y utilities — stable path', () => {
+describe('text-a11y utilities – stable path', () => {
   describe('present WITHOUT the experimental flag', () => {
     test.each(LEVELS)('text-a11y-%s compiles from the core entry', async (level) => {
       const css = await compile(`bg-blue-500 text-a11y-${level}`);
@@ -64,7 +64,7 @@ describe('text-a11y utilities — stable path', () => {
   });
 
   describe.each(suiteScenarios('accessible-shade'))(
-    'each level reads its ratio from the theme map — $name',
+    'each level reads its ratio from the theme map – $name',
     ({ compile }) => {
       test.each(LEVELS)('text-a11y-%s', async (level) => {
         const css = await compile(`bg-blue-500 text-a11y-${level}`);
@@ -137,7 +137,7 @@ describe('text-a11y utilities — stable path', () => {
   });
 
   describe.each(suiteScenarios('accessible-shade'))(
-    'colour space modifiers — $name',
+    'colour space modifiers – $name',
     ({ compile }) => {
       test.each(COLOR_SPACES)('text-a11y-aa/%s resolves a vector', async (space) => {
         const css = await compile(`bg-blue-500 text-a11y-aa/${space}`);
@@ -172,7 +172,7 @@ describe('text-a11y utilities — stable path', () => {
 
       test('Class 1 spaces share the one core expression, overriding the default', async () => {
         // The oklch default declaration is always emitted; the modifier's is
-        // emitted after it and wins. Order is the assertion — a core declaration
+        // emitted after it and wins. Order is the assertion – a core declaration
         // that landed first would be dead.
         for (const space of [
           'rgb',
@@ -201,14 +201,14 @@ describe('text-a11y utilities — stable path', () => {
     },
   );
 
-  describe.each(stableScenarios('accessible-shade'))('the pow() gate — $name', ({ compile }) => {
+  describe.each(stableScenarios('accessible-shade'))('the pow() gate – $name', ({ compile }) => {
     test.each(POW_SEEDED)(
       'text-a11y-aa/%s puts its cube-root seed behind @supports',
       async (space) => {
         const css = await compile(`bg-blue-500 text-a11y-aa/${space}`);
         expect(css).toContain(SUPPORTS_CHANNEL_POW);
         expect(css).toContain('pow(alpha, 0.333333)');
-        // The portable seed must still be there, outside the gate — Gecko has to
+        // The portable seed must still be there, outside the gate – Gecko has to
         // get an exact-ratio shade, not an ignored modifier.
         const gateIndex = css.indexOf(SUPPORTS_CHANNEL_POW);
         expect(css.slice(0, gateIndex)).not.toContain('pow(alpha');
@@ -225,7 +225,7 @@ describe('text-a11y utilities — stable path', () => {
     );
   });
 
-  describe.each(stableScenarios('accessible-shade'))('registration — $name', ({ compile }) => {
+  describe.each(stableScenarios('accessible-shade'))('registration – $name', ({ compile }) => {
     test('--tw-jib--a11y--ratio is a non-inheriting number', async () => {
       const css = await compile('bg-blue-500 text-a11y-aa');
       const decl = css.match(/@property --tw-jib--a11y--ratio \{[\s\S]*?\}/)?.[0];
@@ -286,7 +286,7 @@ describe('text-a11y utilities — stable path', () => {
   });
 
   describe.each(suiteScenarios('accessible-shade'))(
-    'oklch colours (high saturation, low sRGB luminance) — $name',
+    'oklch colours (high saturation, low sRGB luminance) – $name',
     ({ compile }) => {
       test('compiles with an oklch arbitrary bg colour', async () => {
         const css = await compile('bg-[oklch(54.6%_0.245_262.881)] text-a11y-aa');
@@ -311,7 +311,7 @@ describe('text-a11y utilities — stable path', () => {
   // The @function path is the preferred one, so where it is available it has to
   // WIN. Same-name @utility blocks resolve on source order, and the only reason
   // it lands later is that the functions entry is imported after the stable
-  // package — which makes this a real regression guard, not a tautology.
+  // package – which makes this a real regression guard, not a tautology.
   describe('the @function override is preferred where supported', () => {
     test('both implementations are emitted, @function last', async () => {
       const css = await compile('bg-blue-500 text-a11y-aa', { functions: true });
@@ -337,7 +337,7 @@ describe('text-a11y utilities — stable path', () => {
       expect(css).not.toContain(SUPPORTS_WCAG);
     });
 
-    // Every candidate needs its own compile — one build carrying all of them
+    // Every candidate needs its own compile – one build carrying all of them
     // could not attribute a missing call back to the class that lost it. They
     // run concurrently because each compile() builds an independent compiler,
     // and sequentially this alone approaches vitest's default timeout.
@@ -386,7 +386,7 @@ describe('text-a11y utilities — stable path', () => {
   });
 });
 
-describe('wcag-badge utility — experimental', () => {
+describe('wcag-badge utility – experimental', () => {
   test('not present without the experimental flag', async () => {
     const css = await compile('bg-blue-500 text-white wcag-badge');
     expect(css).not.toContain('--wcag-rating');
@@ -440,7 +440,7 @@ describe('wcag-badge utility — experimental', () => {
     });
 
     // The style()-compared properties must not carry the newline+indent that a
-    // multi-line if() leaves inside the computed value — style() compares token
+    // multi-line if() leaves inside the computed value – style() compares token
     // streams, so trailing whitespace makes every match silently fail.
     test('style()-compared properties have no trailing whitespace', async () => {
       const css = await compile('bg-blue-500 text-white wcag-badge', { experimental: true });

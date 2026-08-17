@@ -7,14 +7,14 @@
  * The experimental package documents itself in a SEPARATE VitePress instance
  * (docs-experimental/), not a section of this one. A single instance emits a
  * single stylesheet, and Vite serves component-imported CSS globally in dev, so
- * "load it only on the experimental pages" does not hold — a per-page import
+ * "load it only on the experimental pages" does not hold – a per-page import
  * leaks the overrides across the whole instance.
  *
  * That matters because the experimental @function entry OVERRIDES
  * bg-hue-rotate-*, bg-lighten-*, bg-saturation-* and text-a11y-*. These pages
  * are the stable package's own documentation, so every utility they demo has to
  * resolve through the stable path a reader gets from `@import 'tw-jib-css'`
- * alone — otherwise the docs demonstrate something the package does not ship.
+ * alone – otherwise the docs demonstrate something the package does not ship.
  *
  * So: separate instances, no bleed. Add nothing experimental to this file.
  */
@@ -26,7 +26,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 /* ── Showcase fonts ──
-   Departure Mono self-hosted at ./fonts/DepartureMono-Regular.woff2 (SIL OFL — departuremono.com)
+   Departure Mono self-hosted at ./fonts/DepartureMono-Regular.woff2 (SIL OFL – departuremono.com)
    Silkscreen via Google Fonts CDN (imported at top of file)
 */
 
@@ -89,33 +89,33 @@
   0%,
   14% {
     --landing-base-color: oklch(0.623 0.214 259);
-  } /* blue-500 — mid */
+  } /* blue-500 – mid */
   17%,
   30% {
     --landing-base-color: oklch(0.396 0.141 21);
-  } /* rose-800 — dark */
+  } /* rose-800 – dark */
   33%,
   47% {
     --landing-base-color: oklch(0.871 0.15 85);
-  } /* amber-300 — light */
+  } /* amber-300 – light */
   50%,
   64% {
     --landing-base-color: oklch(0.508 0.118 165);
-  } /* emerald-700 — dark */
+  } /* emerald-700 – dark */
   67%,
   80% {
     --landing-base-color: oklch(0.811 0.111 293);
-  } /* violet-300 — light */
+  } /* violet-300 – light */
   83%,
   97% {
     --landing-base-color: oklch(0.645 0.246 16);
-  } /* rose-500 — mid */
+  } /* rose-500 – mid */
 }
 @keyframes landing-tex-color {
   0%,
   14% {
     --landing-tex-color: oklch(0.55 0.22 265);
-  } /* blue — mid */
+  } /* blue – mid */
   17%,
   30% {
     --landing-tex-color: oklch(0.37 0.12 21);
@@ -269,7 +269,7 @@
 
 /* ── Showcase pages: full-bleed, zero padding.
    `pageClass: showcase` frontmatter lands on <main class="VPContent">.
-   Each selector below adds one class of specificity vs the VitePress default it overrides — no !important needed. ── */
+   Each selector below adds one class of specificity vs the VitePress default it overrides – no !important needed. ── */
 .showcase.VPContent {
   @apply p-0;
 }
@@ -293,7 +293,7 @@
 .home-landing main {
   padding: 0 !important;
 }
-/* Belt + braces — hide sidebar/aside/outline even if frontmatter flags miss */
+/* Belt + braces – hide sidebar/aside/outline even if frontmatter flags miss */
 .home-landing .VPSidebar,
 .home-landing .VPLocalNav,
 .home-landing .VPDocAside,
@@ -498,7 +498,7 @@
     @apply text-slate-200;
   }
 
-  /* Card gradient borders — each card a different hue-rotated accent */
+  /* Card gradient borders – each card a different hue-rotated accent */
   .VPFeatures .item:nth-child(1) .VPFeature {
     @apply border-linear-to-br border-from-jib-brand border-to-[oklch(from_var(--color-jib-brand)_l_c_calc(h+60))];
   }

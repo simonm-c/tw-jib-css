@@ -2,14 +2,14 @@
 title: Border Style
 ---
 
-<!-- llm-context: border-style module — per-side border styles (groove, ridge, inset, outset, etc.) that TailwindCSS v4 doesn't expose natively. Physical, axis, and logical side variants. -->
+<!-- llm-context: border-style module – per-side border styles (groove, ridge, inset, outset, etc.) that TailwindCSS v4 doesn't expose natively. Physical, axis, and logical side variants. -->
 
 # Border Style
 
 Per-side border styles. Set `border-t-dashed`, `border-b-dotted`, or any combination that TailwindCSS v4 doesn't expose natively.
 
 ::: info Browser Support
-Plain `border-*-style` declarations — no relative colour syntax, no `@property`
+Plain `border-*-style` declarations – no relative colour syntax, no `@property`
 registrations, nothing modern at all. These utilities work wherever Tailwind itself
 does.
 :::
@@ -22,7 +22,7 @@ Included in `@import 'tw-jib-css'`. To import individually:
 ```
 
 This entry carries none of the library's colour machinery, because these utilities
-read no colour. Taking it costs you nothing but the border styles below — see [take
+read no colour. Taking it costs you nothing but the border styles below – see [take
 only what you need](/guide/installation#take-only-what-you-need).
 :::
 
@@ -109,7 +109,7 @@ Combine multiple per-side styles for decorative effects:
 
 ### Logical variants
 
-The logical variants (`s` and `e`) respect writing direction — in LTR layouts, `s` is left and `e` is right. In RTL, they swap.
+The logical variants (`s` and `e`) respect writing direction – in LTR layouts, `s` is left and `e` is right. In RTL, they swap.
 
 <Example>
   <div class="flex gap-4">

@@ -7,7 +7,7 @@ layout: page
 
 Full Tailwind colour × shade × rotation matrix. Every swatch is labelled with a `data-test` attribute of the form `{family}-{shade}-{degrees}` for Playwright assertions.
 
-## Base smoke tests — bg-red-500
+## Base smoke tests – bg-red-500
 
 <div class="grid grid-cols-12 gap-1 my-6">
   <div data-test="smoke-0" class="h-10 rounded bg-red-500" title="0°"></div>
@@ -24,7 +24,7 @@ Full Tailwind colour × shade × rotation matrix. Every swatch is labelled with 
   <div data-test="smoke-330" class="h-10 rounded bg-red-500 bg-hue-rotate-330" title="330°"></div>
 </div>
 
-## Counterclockwise — bg-red-500
+## Counterclockwise – bg-red-500
 
 <div class="grid grid-cols-12 gap-1 my-6">
   <div data-test="ccw-0" class="h-10 rounded bg-red-500" title="-0°"></div>
@@ -41,7 +41,7 @@ Full Tailwind colour × shade × rotation matrix. Every swatch is labelled with 
   <div data-test="ccw-330" class="h-10 rounded bg-red-500 -bg-hue-rotate-330" title="-330°"></div>
 </div>
 
-## Colour space modifiers — 120° on bg-red-500
+## Colour space modifiers – 120° on bg-red-500
 
 <div class="grid grid-cols-4 gap-2 my-6">
   <div data-test="space-oklch" class="h-12 rounded bg-red-500 bg-hue-rotate-120/oklch flex items-center justify-center text-xs font-mono text-white">/oklch</div>
@@ -78,7 +78,7 @@ Full Tailwind colour × shade × rotation matrix. Every swatch is labelled with 
 
 ## Full Tailwind matrix
 
-Each family below shows all 11 shades (rows) rotated through the full 360° wheel in 30° increments (columns). Neutral families (slate, gray, zinc, neutral, stone) should show minimal variation — they're low-chroma.
+Each family below shows all 11 shades (rows) rotated through the full 360° wheel in 30° increments (columns). Neutral families (slate, gray, zinc, neutral, stone) should show minimal variation – they're low-chroma.
 
 ### slate
 

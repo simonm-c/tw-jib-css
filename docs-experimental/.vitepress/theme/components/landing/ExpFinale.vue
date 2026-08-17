@@ -1,19 +1,19 @@
 <script setup lang="ts">
 /*
  * The closer, mirroring the stable landing's accessible-shade finale. Where the
- * stable side *solves* for a shade, this side *measures* a pair and names it —
+ * stable side *solves* for a shade, this side *measures* a pair and names it –
  * and that is the half that can never be made portable, because turning a colour
  * into a string needs if(style()).
  *
  * The `select-none` on the animated wrapper below is deliberate. These cards are
- * a live instrument, not copy — the labels restate what the classes already say,
+ * a live instrument, not copy – the labels restate what the classes already say,
  * and a drag across a continuously repainting grid selects nothing a reader
  * wants. Keep it on any animated demo added here.
  */
 /*
  * Labels must not name a colour. bg-hue-rotate-* moves the background hue every
  * frame, so "white on blue" is false a second later. What stays fixed is the
- * lightness pairing — the shade numbers — and that is also the thing that
+ * lightness pairing – the shade numbers – and that is also the thing that
  * actually drives the rating, so it is the honest label.
  */
 const cards = [
@@ -46,19 +46,19 @@ const cards = [
           </h2>
 
           <p class="text-lg leading-relaxed opacity-85">
-            A dev-mode badge that prints the live WCAG rating of any element — AAA, AA, AA Large, or
+            A dev-mode badge that prints the live WCAG rating of any element – AAA, AA, AA Large, or
             Fail. Pure CSS, no JavaScript, no build step. Drop it on while you are designing, take
             it off before you ship.
           </p>
 
           <p class="text-base leading-relaxed opacity-70">
             It updates on its own. Change the background, change the text colour, hover it, animate
-            it — the rating follows.
+            it – the rating follows.
           </p>
 
           <p class="text-base leading-relaxed opacity-70">
             Paired with <code class="font-mono">text-a11y-*</code> it adds a fifth state,
-            <strong class="font-bold opacity-100">Max</strong> — for when the level you asked for is
+            <strong class="font-bold opacity-100">Max</strong> – for when the level you asked for is
             out of reach from that background.
           </p>
 

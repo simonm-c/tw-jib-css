@@ -1,7 +1,7 @@
 /* The whole library. Composed from the PARTIALS, not from the per-suite entries
  * beside them, because Tailwind does not de-duplicate @import: a file reached
  * twice has its @utility and @theme blocks emitted twice. @property is the
- * exception — it is keyed by name — which is why the partials may share core's
+ * exception – it is keyed by name – which is why the partials may share core's
  * registrations freely while only this file and the per-suite entries import
  * core itself.
  *

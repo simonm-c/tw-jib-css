@@ -17,7 +17,7 @@ const variants = [
     title: 'Card Stack',
     device: 'Overlapping card clusters',
     blurb:
-      'Each viewport slide is a cluster of 3-5 tilted cards — demo card, code card, stat card. Tactile, playful, dense information per panel.',
+      'Each viewport slide is a cluster of 3-5 tilted cards – demo card, code card, stat card. Tactile, playful, dense information per panel.',
     density: 'very high',
     scroll: 'snap',
     reference: 'Figma · Dribbble',
@@ -28,7 +28,7 @@ const variants = [
     title: 'Vertical River',
     device: 'Alternating wide demos + narrow copy',
     blurb:
-      'Continuous scroll — no snap. Full-width demo bands alternate with centred copy and code. Natural reading flow, longest editorial copy.',
+      'Continuous scroll – no snap. Full-width demo bands alternate with centred copy and code. Natural reading flow, longest editorial copy.',
     density: 'medium-high',
     scroll: 'continuous',
     reference: 'Stripe · Linear long-form',

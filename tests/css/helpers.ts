@@ -13,11 +13,11 @@ const FUNCTIONS = './packages/tw-jib-css-experimental/src/functions.css';
  * The flags select which published artifact is under test, and the difference is
  * the point:
  *
- *   (neither)            tw-jib-css alone — what a consumer who opted into
+ *   (neither)            tw-jib-css alone – what a consumer who opted into
  *                        nothing gets. Must never run @function.
- *   experimental: true   tw-jib-css-experimental — EVERYTHING experimental,
+ *   experimental: true   tw-jib-css-experimental – EVERYTHING experimental,
  *                        the @function overrides included.
- *   functions: true      tw-jib-css-experimental/functions — the overrides
+ *   functions: true      tw-jib-css-experimental/functions – the overrides
  *                        WITHOUT the additions.
  *
  * Emitted in that order because source order is what carries the override.
@@ -26,7 +26,7 @@ const FUNCTIONS = './packages/tw-jib-css-experimental/src/functions.css';
  * packages live in different directories, so no single base makes inlined
  * relative imports resolve.
  *
- * `extra` appends consumer-side CSS — a consumer's own `@theme` block, say, to
+ * `extra` appends consumer-side CSS – a consumer's own `@theme` block, say, to
  * check that a themeable namespace really is themeable.
  */
 export async function compile(
@@ -89,7 +89,7 @@ export interface Scenario {
  *
  *   tw-jib-css                what someone who opted into nothing gets
  *   + tw-jib-css-experimental the same utilities with the overrides loaded over
- *                             them — the only combination that can catch a newer
+ *                             them – the only combination that can catch a newer
  *                             import regressing a utility that already worked
  *   tw-jib-css/<suite>        the subpath taken WITHOUT the umbrella entry,
  *                             which has to stand up on its own
@@ -100,8 +100,8 @@ export interface Scenario {
 /**
  * The two ways to reach the STABLE implementation of a suite, and only those.
  *
- * For assertions about how the stable chain is built — that a space needs no
- * @supports gate, that a property reads one link rather than another — rather
+ * For assertions about how the stable chain is built – that a space needs no
+ * @supports gate, that a property reads one link rather than another – rather
  * than about what the utility does. Loading the experimental overrides replaces
  * that mechanism on purpose, so such a claim is false there without anything
  * being broken. Behavioural assertions belong in `suiteScenarios`, which does

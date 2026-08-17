@@ -1,7 +1,7 @@
 import { describe, test, expect } from 'vitest';
 import { suiteScenarios } from './helpers.js';
 
-describe.each(suiteScenarios('border-style'))('border-style utilities — $name', ({ compile }) => {
+describe.each(suiteScenarios('border-style'))('border-style utilities – $name', ({ compile }) => {
   // --- directions (one style each) ---
 
   test('border-t-dashed sets border-top-style', async () => {

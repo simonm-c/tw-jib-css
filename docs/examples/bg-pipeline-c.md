@@ -1,5 +1,5 @@
 ---
-title: Pipeline C — Chained transforms + WCAG
+title: Pipeline C – Chained transforms + WCAG
 layout: page
 ---
 

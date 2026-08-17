@@ -7,7 +7,7 @@
  * derived from -source by a composer expression that walks back through
  * whichever stage variables were applied. Every utility in the family writes
  * that composer, so the cascade winner produces the same value no matter which
- * utility wins. Consumers — text-a11y-*, wcag-badge, border-gradient layering —
+ * utility wins. Consumers – text-a11y-*, wcag-badge, border-gradient layering –
  * read this and so see the post-pipeline colour. */
 @property --tw-jib--background-color {
   syntax: "<color>";
@@ -298,7 +298,7 @@
 /* The capture half of border-*, here rather than beside the gradient it shares a
  * name with. Every colour transform reads a -color-source that something must
  * write, and a suite entry that pulls in core gets all seven writers from one
- * place — so tw-jib-css/color-transforms can transform a border colour without
+ * place – so tw-jib-css/color-transforms can transform a border colour without
  * dragging in the border-gradient suite to capture it. The gradient half stays
  * in border-gradient/_index.css; same-name @utility blocks stack, so the two halves
  * compose exactly as one block did. */

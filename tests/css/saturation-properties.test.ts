@@ -80,7 +80,7 @@ const PROPERTY_SCENARIOS = PROPERTIES.flatMap((property) =>
 );
 
 describe.each(PROPERTY_SCENARIOS)(
-  '$label (stable path) — $scenario.name',
+  '$label (stable path) – $scenario.name',
   ({ scenario: { compile }, property }) => {
     const [prefix, cssProperty, captureVar, sourceVar, baseClass, baseMarker] = property;
     const amountVar = `--tw-jib--${prefix}-saturation--amount`;
@@ -92,7 +92,7 @@ describe.each(PROPERTY_SCENARIOS)(
 
     const OKLCH = stableOklch(amountVar);
 
-    describe('desaturate — default amounts', () => {
+    describe('desaturate – default amounts', () => {
       test.each([0, 5, 10, 20, 50, 75, 100])(`${prefix}-desaturate-%i`, async (amount) => {
         const css = await compile(`${baseClass} ${prefix}-desaturate-${amount}`);
         expect(css).toContain(`${amountVar}: calc(${amount} * -0.01)`);
@@ -101,7 +101,7 @@ describe.each(PROPERTY_SCENARIOS)(
       });
     });
 
-    describe('saturate — default amounts', () => {
+    describe('saturate – default amounts', () => {
       test.each([0, 5, 10, 20, 50, 75, 100])(`${prefix}-saturate-%i`, async (amount) => {
         const css = await compile(`${baseClass} ${prefix}-saturate-${amount}`);
         expect(css).toContain(`${amountVar}: calc(${amount} * 0.01)`);

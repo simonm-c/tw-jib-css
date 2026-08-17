@@ -2,7 +2,7 @@
 title: Installation
 ---
 
-<!-- llm-context: Installation — how to add tw-jib-css to a TailwindCSS v4 project. Peer dependency is tailwindcss >=4.3.0. Every module is importable on its own via a package sub-path export, and a module you do not import costs you nothing: @property registrations and @theme keys are emitted unconditionally, so unlike an unused class the scanner cannot purge them. grid and border-style emit no colour registrations at all. Lightness/saturation/hue-rotate ship as one color-transforms module because they are one pipeline. Experimental features are a SEPARATE package, tw-jib-css-experimental, never a tw-jib-css sub-path. -->
+<!-- llm-context: Installation – how to add tw-jib-css to a TailwindCSS v4 project. Peer dependency is tailwindcss >=4.3.0. Every module is importable on its own via a package sub-path export, and a module you do not import costs you nothing: @property registrations and @theme keys are emitted unconditionally, so unlike an unused class the scanner cannot purge them. grid and border-style emit no colour registrations at all. Lightness/saturation/hue-rotate ship as one color-transforms module because they are one pipeline. Experimental features are a SEPARATE package, tw-jib-css-experimental, never a tw-jib-css sub-path. -->
 
 # Installation
 
@@ -39,7 +39,7 @@ Import it alongside TailwindCSS:
 @import 'tw-jib-css';
 ```
 
-That is the whole library. If you want a part of it, read on — every module is also
+That is the whole library. If you want a part of it, read on – every module is also
 its own entry point.
 
 ## Take only what you need
@@ -63,7 +63,7 @@ Import several and they compose exactly as they do from the root entry:
 ```
 
 ::: tip Why this is worth doing
-Not bundle size — Tailwind's scanner purges classes you never write regardless, so
+Not bundle size – Tailwind's scanner purges classes you never write regardless, so
 an unused utility costs you nothing either way.
 
 What it saves is the part the scanner **cannot** reach. `@property` registrations and
@@ -74,7 +74,7 @@ dozen registrations, and importing the root entry emits all of them. Importing
 colour machinery.
 
 It also keeps your browser-support floor honest. `grid` and `border-style` are plain
-CSS properties and need nothing modern at all — see [Browser
+CSS properties and need nothing modern at all – see [Browser
 support](#browser-support).
 :::
 
@@ -96,22 +96,22 @@ Lightness, saturation and hue-rotate ship as one module rather than three becaus
 they are one pipeline: each stage's expression starts from the stage before it, so a
 stage taken alone would compute against a value nothing can write.
 
-Taking the whole library costs no more per utility than taking a single module —
+Taking the whole library costs no more per utility than taking a single module –
 the root entry is composed so the shared colour pipeline is emitted once, not once
 per module. Both halves of that are covered by the test suite.
 
 ## Browser support
 
-- **TailwindCSS 4.3+** — the library is built with the CSS-first `@utility`,
+- **TailwindCSS 4.3+** – the library is built with the CSS-first `@utility`,
   `@custom-variant`, `@theme` and `@property` syntax, and uses the `--value()` and
   `--default()` functional-utility forms that 4.3 requires. `tailwindcss >=4.3.0`
   is declared as a peer dependency.
-- **Colour utilities** — anything that transforms a colour needs CSS relative
+- **Colour utilities** – anything that transforms a colour needs CSS relative
   colour syntax and `@property`: **Chrome 111+, Safari 16.4+, Firefox 128+**. That
   covers accessible shade, the colour transforms, border gradients, ripple, comic
   and pixel. A few individual features want a little more, and each module page
   says so.
-- **`border-style` and `grid`** — plain CSS properties, no relative colour syntax,
+- **`border-style` and `grid`** – plain CSS properties, no relative colour syntax,
   no registrations. They work wherever Tailwind itself does.
 
 Nothing in this package runs CSS `@function`. That is deliberate, and it is the
@@ -120,7 +120,7 @@ guarantee that covers you if you opted into nothing.
 ## Experimental features
 
 Not-yet-baseline features live in a **separate package**,
-[`tw-jib-css-experimental`](https://simonm-c.github.io/tw-jib-css/experimental/) — CSS
+[`tw-jib-css-experimental`](https://simonm-c.github.io/tw-jib-css/experimental/) – CSS
 `@function` colour transforms, `corner-shape`, `interpolate-size`, a styleable
 `<select>` and a live WCAG contrast badge. It is mostly Chromium-only and it declares
 this package as a peer dependency.
@@ -132,14 +132,14 @@ npm install -D tw-jib-css tw-jib-css-experimental
 ```css
 @import 'tailwindcss';
 @import 'tw-jib-css';
-@import 'tw-jib-css-experimental'; /* always after stable — order carries the override */
+@import 'tw-jib-css-experimental'; /* always after stable – order carries the override */
 ```
 
 It is its own package, never a sub-path of this one: `tw-jib-css/experimental` does
 not exist. Its modules are individually importable on the same principle as above
 (`tw-jib-css-experimental/corner` and siblings), which matters more there than here,
 because half of that package _overrides_ utilities this one ships. Taking an addition
-should not reroute classes you already use — so it doesn't.
+should not reroute classes you already use – so it doesn't.
 
 Read [its overview](https://simonm-c.github.io/tw-jib-css/experimental/overview)
 before installing.

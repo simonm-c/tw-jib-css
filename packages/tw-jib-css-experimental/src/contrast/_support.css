@@ -17,8 +17,8 @@
  * element can tell "this is the best the background physically allows" apart
  * from "this pair is simply short". Non-inheriting: a nested wcag-badge must not
  * pick up an ancestor's requested level and mislabel itself. Written by BOTH
- * shade paths — accessible-shade/_index.css block B, and accessible-shade/_override.css where that
- * entry is loaded — so the badge reads a populated level either way. */
+ * shade paths – accessible-shade/_index.css block B, and accessible-shade/_override.css where that
+ * entry is loaded – so the badge reads a populated level either way. */
 @property --tw-jib--a11y-level {
   syntax: "*";
   inherits: false;

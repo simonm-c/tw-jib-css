@@ -28,11 +28,11 @@ If you know `bg-linear-to-br`, you already know `border-linear-to-br`. The utili
 
 ## Three gradient types
 
-**Linear** — `border-linear-to-{direction}` with directional keywords (`br`, `t`, `l`, etc.) or custom angles.
+**Linear** – `border-linear-to-{direction}` with directional keywords (`br`, `t`, `l`, etc.) or custom angles.
 
-**Radial** — `border-radial-*` with optional position control.
+**Radial** – `border-radial-*` with optional position control.
 
-**Conic** — `border-conic-{angle}` for conic sweeps. Pair with `border-spin` for animation.
+**Conic** – `border-conic-{angle}` for conic sweeps. Pair with `border-spin` for animation.
 
 ## Animated spin
 

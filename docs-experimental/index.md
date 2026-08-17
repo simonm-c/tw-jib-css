@@ -47,7 +47,7 @@ title: Jibcss Experimental
 <!-- 1 · accessible shade as a function, reaching properties the class cannot.
 
      violet-700 THROUGHOUT, never violet-600. AAA is physically unreachable from
-     violet-600 — the solve clamps to white and delivers 5.895:1, which is the
+     violet-600 – the solve clamps to white and delivers 5.895:1, which is the
      Max state, not a 7:1 state. This slide's every claim is the ratio, so the
      demo colour has to be one that can carry it. violet-700 renders 7.03.
      Check with a picker before changing any colour on this slide. -->
@@ -69,7 +69,7 @@ title: Jibcss Experimental
   </div>
 
   <!-- No text INSIDE this bar. The shade of violet-700 is a near-white, and the
-       gradient's far stop IS that shade — so text painted in the shade colour
+       gradient's far stop IS that shade – so text painted in the shade colour
        ran to 1:1 against its own background at the right-hand end. The card
        demonstrates that a function can BE a gradient stop; the two endpoint
        swatches below say which colour is which without needing to overlay it. -->
@@ -97,7 +97,7 @@ title: Jibcss Experimental
 <!-- 2 · corner shape.
      All SIX named shapes, because the stat on this slide says six. The demo used
      to show five plus a mixed pair, so a reader who counted the cells found a
-     different number from the one printed beside them — and `square` is the cell
+     different number from the one printed beside them – and `square` is the cell
      that proves corner-shape is independent of the radius, since it carries the
      same rounded-[40%] as its neighbours and shows no curve at all.
      rounded-[40%], not [28%]: at 28% the round and squircle cells were near
@@ -123,13 +123,13 @@ title: Jibcss Experimental
      Two panels running the identical 0 → auto keyframe animation, differing only
      in whether an ancestor carries interpolate-keywords. The left one eases, the
      right one snaps. Both run on a loop rather than on :hover, so the evidence
-     is on screen for a reader who never touches the page — this is the lowest-
+     is on screen for a reader who never touches the page – this is the lowest-
      support feature in the package and it previously showed nothing at rest.
      The two are side by side, and the grid is pinned to the top of the cell with
      its rows aligned to their own start, so a panel can only ever grow downward
      into empty space. Stacked and centred, the snapping panel's pop resized the
      whole block and shunted the eased panel mid-flight, which read as the eased
-     panel stuttering — the one thing this slide must not show.
+     panel stuttering – the one thing this slide must not show.
      Labels and cards are separate grid rows rather than two column wrappers so
      the cards share a start line however the labels wrap. -->
 <ExpSlide :index="3">
@@ -168,17 +168,17 @@ title: Jibcss Experimental
 <ExpSlide :index="4">
 <div class="w-full max-w-xs space-y-3">
   <!-- NO BLANK LINES IN THIS COMMENT. It is nested inside an HTML block, and a
-       blank line ends that block — markdown then treats the remainder as an
+       blank line ends that block – markdown then treats the remainder as an
        indented code block, the closing delimiter gets escaped along with it, and
        the page dies with "Unexpected EOF in comment". Nor can the delimiter
        itself be quoted in here, for the obvious reason.
        *:text-gray-200 colours the <option>s. They do NOT inherit the select's
-       colour in base-select mode — the UA sheet sets option colour explicitly,
+       colour in base-select mode – the UA sheet sets option colour explicitly,
        so a dark picker background leaves black-on-dark text without this.
        The wrapper and the ▾ span are a fallback arrow for engines without
        base-select. Gecko drops its native dropdown indicator as soon as an
-       author sets a background-color on a select — nothing to do with
-       appearance-base-select, which is correctly ignored there — so this demo
+       author sets a background-color on a select – nothing to do with
+       appearance-base-select, which is correctly ignored there – so this demo
        rendered as a plain box with no affordance in Firefox, on the slide whose
        whole subject is selects. supports-[appearance:base-select]:hidden takes
        the fallback back out wherever the real picker-icon is drawn, so the two
@@ -193,7 +193,7 @@ title: Jibcss Experimental
     </select>
     <span aria-hidden="true" class="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-xs text-violet-400 supports-[appearance:base-select]:hidden">▾</span>
   </div>
-  <p class="font-mono text-[10px] opacity-50 m-0">a real select — open it</p>
+  <p class="font-mono text-[10px] opacity-50 m-0">a real select – open it</p>
 </div>
 </ExpSlide>
 

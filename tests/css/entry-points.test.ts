@@ -8,14 +8,14 @@ import { compile } from './helpers';
  *
  * The contract this file guards:
  *
- *   main entry alone        never runs @function — the guarantee that matters,
+ *   main entry alone        never runs @function – the guarantee that matters,
  *                           because it covers consumers who opted into nothing
  *   experimental entry      everything experimental, overrides included
  *   experimental/functions  the overrides WITHOUT the additions
  *   experimental/<addition> an addition WITHOUT the overrides (individual subpaths)
  *
- * Both directions are asserted per module — absent from the main entry, present
- * with the opt-ins — so a regression cannot pass by breaking the override
+ * Both directions are asserted per module – absent from the main entry, present
+ * with the opt-ins – so a regression cannot pass by breaking the override
  * outright.
  */
 
@@ -27,7 +27,7 @@ import { compile } from './helpers';
  * gated on `@variant supports-hue-rotate`. That @custom-variant is defined only
  * in the experimental package's _override.css files. Without it, Tailwind falls
  * back to its built-in supports-* variant and emits
- * `@supports (hue-rotate: var(--tw))` — a test for a CSS property that does not
+ * `@supports (hue-rotate: var(--tw))` – a test for a CSS property that does not
  * exist, false in every engine, so the block is inert.
  *
  * So the call text is present either way and proves nothing. What changes is
@@ -102,7 +102,7 @@ describe('what each published entry point delivers', () => {
     }
   });
 
-  // The stable form is what the main entry ships, so it must survive both — the
+  // The stable form is what the main entry ships, so it must survive both – the
   // override wins on source order inside an @supports gate, it does not replace
   // the declaration in the output.
   describe('the stable form is emitted either way', () => {
@@ -121,7 +121,7 @@ describe('what each published entry point delivers', () => {
     }
   });
 
-  // wcag-badge ADDS a utility — colour→string has no stable form — so it belongs
+  // wcag-badge ADDS a utility – colour→string has no stable form – so it belongs
   // on the experimental entry, not the functions one. Assert on a property only
   // the badge utility declares, not on the function it calls: contrast/_functions.css
   // is imported by both entries, so the definitions appear either way.

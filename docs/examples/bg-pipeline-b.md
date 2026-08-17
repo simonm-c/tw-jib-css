@@ -1,5 +1,5 @@
 ---
-title: Pipeline B — WCAG only
+title: Pipeline B – WCAG only
 layout: page
 ---
 

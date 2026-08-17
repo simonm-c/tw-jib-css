@@ -17,7 +17,7 @@ export default defineConfig({
   },
   title: 'Jibcss Experimental',
   description:
-    'Experimental tw-jib-css utilities — CSS @function colour transforms, corner-shape, interpolate-size, base-select picker, and a WCAG contrast badge.',
+    'Experimental tw-jib-css utilities – CSS @function colour transforms, corner-shape, interpolate-size, base-select picker, and a WCAG contrast badge.',
   base: '/tw-jib-css/experimental/',
   head: [
     [
@@ -27,7 +27,7 @@ export default defineConfig({
   ],
 
   /*
-   * Links into the STABLE instance cannot be resolved from here — it is a
+   * Links into the STABLE instance cannot be resolved from here – it is a
    * separate VitePress build with its own page set, so its routes are dead links
    * by definition to this one. Ignore exactly those and nothing else: the
    * negative lookahead keeps /tw-jib-css/experimental/* checked, so a genuinely

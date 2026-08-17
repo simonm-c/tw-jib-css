@@ -1,7 +1,7 @@
 import { describe, test, expect } from 'vitest';
 import { suiteScenarios } from './helpers.js';
 
-describe.each(suiteScenarios('comic'))('comic utilities — $name', ({ compile }) => {
+describe.each(suiteScenarios('comic'))('comic utilities – $name', ({ compile }) => {
   describe('bg-comic-*', () => {
     test('bg-comic-red-500 generates radial-gradient with multiply blend', async () => {
       const css = await compile('bg-comic-red-500');

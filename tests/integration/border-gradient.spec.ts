@@ -632,7 +632,7 @@ test.describe('state variants', () => {
     await element.hover();
     expect(await element.evaluate((node) => node.matches(':hover'))).toBe(true);
 
-    // Assert — poll rather than sleep, so the test waits exactly as long as the
+    // Assert – poll rather than sleep, so the test waits exactly as long as the
     // style recalc takes on this engine instead of a guessed interval.
     await expect
       .poll(() => element.evaluate((node) => getComputedStyle(node).backgroundColor))

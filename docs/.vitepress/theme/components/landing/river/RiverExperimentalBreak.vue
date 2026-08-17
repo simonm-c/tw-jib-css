@@ -5,7 +5,7 @@
     </p>
     <h2 class="text-4xl md:text-5xl font-black tracking-tight mt-3">Experimental Waters</h2>
     <p class="text-base opacity-60 max-w-[44ch] mx-auto mt-3">
-      Upcoming features, available now. Chromium-only — progressive enhancement.
+      Upcoming features, available now. Chromium-only – progressive enhancement.
     </p>
   </div>
 </template>

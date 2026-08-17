@@ -88,7 +88,7 @@ ${items}
 }
 
 function allSpacesSection(color: string, shade: number, op: string, bg: string) {
-  const title = `${color}-${shade} (${shade <= 200 ? 'light' : shade <= 500 ? 'mid' : 'dark'} base) — ${op === 'lighten' ? 'Lighten' : 'Darken'} Scale`;
+  const title = `${color}-${shade} (${shade <= 200 ? 'light' : shade <= 500 ? 'mid' : 'dark'} base) – ${op === 'lighten' ? 'Lighten' : 'Darken'} Scale`;
   const rows = SPACES.map((s) => scaleRow(color, shade, op, s, `/${s}`, bg)).join('\n');
   return `#### ${title}
 
@@ -98,7 +98,7 @@ ${rows}
 }
 
 function defaultOnlySection(color: string, shade: number, op: string, bg: string) {
-  const title = `${color}-${shade} (${shade <= 200 ? 'light' : shade <= 500 ? 'mid' : 'dark'} base) — ${op === 'lighten' ? 'Lighten' : 'Darken'} Scale`;
+  const title = `${color}-${shade} (${shade <= 200 ? 'light' : shade <= 500 ? 'mid' : 'dark'} base) – ${op === 'lighten' ? 'Lighten' : 'Darken'} Scale`;
   const row = scaleRow(color, shade, op, 'default', '(default)', bg);
   return `#### ${title}
 
@@ -148,7 +148,7 @@ layout: page
 
 Test page covering all fill-lightness / -fill-lightness × color space combinations.
 
-## Darken — Default (oklch, no modifier)
+## Darken – Default (oklch, no modifier)
 
 Darken amounts 0–100 on fill-blue-500 using \`-fill-lightness-{n}\`.
 
@@ -156,7 +156,7 @@ Darken amounts 0–100 on fill-blue-500 using \`-fill-lightness-{n}\`.
 ${simpleGrid('fill-darken', 'fill-blue-500', 'darken', AMOUNTS, 'bg-gray-100')}
 </div>
 
-## Lighten — Default (oklch, no modifier)
+## Lighten – Default (oklch, no modifier)
 
 Lighten amounts 0–100 on fill-blue-500 using \`fill-lightness-{n}\`.
 
@@ -164,7 +164,7 @@ Lighten amounts 0–100 on fill-blue-500 using \`fill-lightness-{n}\`.
 ${simpleGrid('fill-lighten', 'fill-blue-500', 'lighten', AMOUNTS, 'bg-gray-800')}
 </div>
 
-## Darken — All 17 Color Spaces
+## Darken – All 17 Color Spaces
 
 Each uses \`fill-blue-500 -fill-lightness-20/{space}\`.
 
@@ -172,7 +172,7 @@ Each uses \`fill-blue-500 -fill-lightness-20/{space}\`.
 ${spaceGrid('fill-darken', 'fill-blue-500', 'darken', 20, 'bg-gray-100')}
 </div>
 
-## Lighten — All 17 Color Spaces
+## Lighten – All 17 Color Spaces
 
 Each uses \`fill-blue-500 fill-lightness-20/{space}\`.
 
@@ -181,12 +181,12 @@ ${spaceGrid('fill-lighten', 'fill-blue-500', 'lighten', 20, 'bg-gray-800')}
 </div>`);
 
 p(`
-## Comprehensive Matrix — Key Colors × All Spaces
+## Comprehensive Matrix – Key Colors × All Spaces
 
 Full lightness scale (0–100) across all 17 colour spaces for 5 representative colours, each at 3 starting shades (200 light, 500 mid, 800 dark).`);
 
 for (const color of KEY_COLORS) {
-  p(`\n### ${color.charAt(0).toUpperCase() + color.slice(1)} — All Spaces`);
+  p(`\n### ${color.charAt(0).toUpperCase() + color.slice(1)} – All Spaces`);
   for (const shade of KEY_SHADES) {
     const bg = shade >= 500 ? 'bg-gray-800' : 'bg-gray-100';
     p('');
@@ -196,7 +196,7 @@ for (const color of KEY_COLORS) {
   }
 }
 
-p(`\n## All Tailwind Colors — Default (oklch)
+p(`\n## All Tailwind Colors – Default (oklch)
 
 Full lightness scale (0–100) in the default oklch colour space for every Tailwind colour, each at 3 starting shades.`);
 

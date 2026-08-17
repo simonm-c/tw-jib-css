@@ -6,7 +6,7 @@ import { BG_LAYER } from './constants.js';
 const BORDER = 'border-linear-to-r border-from-rose-500 border-to-cyan-500';
 
 describe.each(suiteScenarios('border-gradient'))(
-  'background colors with border gradient — $name',
+  'background colors with border gradient – $name',
   ({ compile }) => {
     test('bg-blue-500', async () => {
       const css = await compile(`bg-blue-500 ${BORDER}`);
@@ -100,7 +100,7 @@ describe.each(suiteScenarios('border-gradient'))(
 );
 
 describe.each(suiteScenarios('border-gradient'))(
-  'background linear gradients with border gradient — $name',
+  'background linear gradients with border gradient – $name',
   ({ compile }) => {
     test.each([
       ['bg-linear-to-r', 'to right'],
@@ -159,7 +159,7 @@ describe.each(suiteScenarios('border-gradient'))(
 );
 
 describe.each(suiteScenarios('border-gradient'))(
-  'background radial and conic gradients with border gradient — $name',
+  'background radial and conic gradients with border gradient – $name',
   ({ compile }) => {
     test('bg-radial', async () => {
       const css = await compile(`bg-radial from-blue-500 to-purple-500 ${BORDER}`);
@@ -206,7 +206,7 @@ describe.each(suiteScenarios('border-gradient'))(
 );
 
 describe.each(suiteScenarios('border-gradient'))(
-  'background gradient interpolation modifiers — $name',
+  'background gradient interpolation modifiers – $name',
   ({ compile }) => {
     test.each([
       ['bg-linear-to-r/srgb', 'in srgb'],
@@ -228,7 +228,7 @@ describe.each(suiteScenarios('border-gradient'))(
 );
 
 describe.each(suiteScenarios('border-gradient'))(
-  'border gradient linear directions — $name',
+  'border gradient linear directions – $name',
   ({ compile }) => {
     test.each([
       ['border-linear-to-r', 'to right'],
@@ -250,7 +250,7 @@ describe.each(suiteScenarios('border-gradient'))(
 );
 
 describe.each(suiteScenarios('border-gradient'))(
-  'border gradient linear angles — $name',
+  'border gradient linear angles – $name',
   ({ compile }) => {
     test('border-linear-45', async () => {
       const css = await compile(
@@ -299,7 +299,7 @@ describe.each(suiteScenarios('border-gradient'))(
 );
 
 describe.each(suiteScenarios('border-gradient'))(
-  'border gradient radial — $name',
+  'border gradient radial – $name',
   ({ compile }) => {
     test('border-radial', async () => {
       const css = await compile(
@@ -328,7 +328,7 @@ describe.each(suiteScenarios('border-gradient'))(
   },
 );
 
-describe.each(suiteScenarios('border-gradient'))('border gradient conic — $name', ({ compile }) => {
+describe.each(suiteScenarios('border-gradient'))('border gradient conic – $name', ({ compile }) => {
   test('border-conic-0', async () => {
     const css = await compile(
       'bg-slate-800 border-conic-0 border-from-rose-500 border-via-yellow-400 border-to-cyan-500',
@@ -374,7 +374,7 @@ describe.each(suiteScenarios('border-gradient'))('border gradient conic — $nam
 });
 
 describe.each(suiteScenarios('border-gradient'))(
-  'border gradient interpolation modifiers — $name',
+  'border gradient interpolation modifiers – $name',
   ({ compile }) => {
     describe('on linear', () => {
       test.each([
@@ -486,7 +486,7 @@ describe.each(suiteScenarios('border-gradient'))(
 );
 
 describe.each(suiteScenarios('border-gradient'))(
-  'border gradient color stops — $name',
+  'border gradient color stops – $name',
   ({ compile }) => {
     test('named colors', async () => {
       const css = await compile(
@@ -569,7 +569,7 @@ describe.each(suiteScenarios('border-gradient'))(
 );
 
 describe.each(suiteScenarios('border-gradient'))(
-  'border gradient color stop positions — $name',
+  'border gradient color stop positions – $name',
   ({ compile }) => {
     test('border-from-20%', async () => {
       const css = await compile(
@@ -605,7 +605,7 @@ describe.each(suiteScenarios('border-gradient'))(
   },
 );
 
-describe.each(suiteScenarios('border-gradient'))('border spin — $name', ({ compile }) => {
+describe.each(suiteScenarios('border-gradient'))('border spin – $name', ({ compile }) => {
   test('border-spin animation', async () => {
     const css = await compile(
       'bg-slate-800 border-conic-0 border-spin border-from-rose-500 border-via-yellow-400 border-to-cyan-500',
@@ -635,7 +635,7 @@ describe.each(suiteScenarios('border-gradient'))('border spin — $name', ({ com
 });
 
 describe.each(suiteScenarios('border-gradient'))(
-  'edge cases: bg opacity + border interpolation — $name',
+  'edge cases: bg opacity + border interpolation – $name',
   ({ compile }) => {
     test.each([
       ['border-linear/srgb', 'in srgb'],
@@ -659,7 +659,7 @@ describe.each(suiteScenarios('border-gradient'))(
 );
 
 describe.each(suiteScenarios('border-gradient'))(
-  'edge cases: bg gradient interpolation + border gradient interpolation — $name',
+  'edge cases: bg gradient interpolation + border gradient interpolation – $name',
   ({ compile }) => {
     test('both /srgb', async () => {
       const css = await compile(
@@ -734,7 +734,7 @@ describe.each(suiteScenarios('border-gradient'))(
 );
 
 describe.each(suiteScenarios('border-gradient'))(
-  'edge cases: mixed gradient types — $name',
+  'edge cases: mixed gradient types – $name',
   ({ compile }) => {
     test('bg-radial + border-linear', async () => {
       const css = await compile(
@@ -789,7 +789,7 @@ describe.each(suiteScenarios('border-gradient'))(
 );
 
 describe.each(suiteScenarios('border-gradient'))(
-  'edge cases: arbitrary color formats on border gradient — $name',
+  'edge cases: arbitrary color formats on border gradient – $name',
   ({ compile }) => {
     test('oklch values', async () => {
       const css = await compile(
@@ -821,7 +821,7 @@ describe.each(suiteScenarios('border-gradient'))(
 );
 
 describe.each(suiteScenarios('border-gradient'))(
-  'edge cases: border widths — $name',
+  'edge cases: border widths – $name',
   ({ compile }) => {
     test.each(['border', 'border-2', 'border-4', 'border-8'])(
       '%s + border gradient',
@@ -836,7 +836,7 @@ describe.each(suiteScenarios('border-gradient'))(
 );
 
 describe.each(suiteScenarios('border-gradient'))(
-  'edge cases: no background — $name',
+  'edge cases: no background – $name',
   ({ compile }) => {
     test('border-linear without bg', async () => {
       const css = await compile(BORDER);
@@ -869,7 +869,7 @@ describe.each(suiteScenarios('border-gradient'))(
 );
 
 describe.each(suiteScenarios('border-gradient'))(
-  'edge cases: state variants — $name',
+  'edge cases: state variants – $name',
   ({ compile }) => {
     test('hover:bg-red-500', async () => {
       const css = await compile(`bg-blue-500 hover:bg-red-500 ${BORDER}`);

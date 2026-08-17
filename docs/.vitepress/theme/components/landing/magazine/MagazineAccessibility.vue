@@ -1,5 +1,5 @@
 <script setup lang="ts">
-// Light bases first, then dark — shows text flipping on both
+// Light bases first, then dark – shows text flipping on both
 const columns = [
   { hue: 'red', light: '300', mid: '400', dark: '200', darkClass: 'bg-red-200' },
   { hue: 'orange', light: '300', mid: '400', dark: '200', darkClass: 'bg-orange-200' },
@@ -12,7 +12,7 @@ const columns = [
 const ratios = [
   {
     level: 'aa-lg',
-    label: 'AA Large — bold titles and headings',
+    label: 'AA Large – bold titles and headings',
     cls: 'text-a11y-aa-lg',
     textSize: 'text-2xl font-black',
     sample: 'Bold Brand Title',
@@ -20,7 +20,7 @@ const ratios = [
   },
   {
     level: 'aa',
-    label: 'AA — standard, regular copy',
+    label: 'AA – standard, regular copy',
     cls: 'text-a11y-aa',
     textSize: 'text-base',
     sample: 'Regular body copy, readable anywhere',
@@ -28,7 +28,7 @@ const ratios = [
   },
   {
     level: 'aaa',
-    label: 'AAA — strictest, small body text',
+    label: 'AAA – strictest, small body text',
     cls: 'text-a11y-aaa',
     textSize: 'text-sm',
     sample: 'Small text solved for the strictest level',
@@ -60,7 +60,7 @@ const engines = ['Chromium', 'Firefox', 'Safari'];
           </h2>
         </div>
         <p class="max-w-[60ch] text-base md:text-lg leading-relaxed opacity-80 md:pb-1">
-          Ask for a WCAG level — AA, AAA, or AA Large — and the CSS solves the text colour for the
+          Ask for a WCAG level – AA, AAA, or AA Large – and the CSS solves the text colour for the
           background it lands on. No JavaScript.
         </p>
       </div>
@@ -131,13 +131,13 @@ const engines = ['Chromium', 'Firefox', 'Safari'];
             >
           </div>
           <p class="text-sm leading-relaxed opacity-70">
-            The shade is <strong class="font-bold opacity-100">solved, not searched</strong> —
+            The shade is <strong class="font-bold opacity-100">solved, not searched</strong> –
             invert the ratio formula for a target luminance, then build a colour that carries it.
             Plain relative colour syntax, so it ships from the main entry.
           </p>
           <!-- The solve targets the threshold with zero headroom, so 8-bit
                rasterisation can round either way and about half the time rounds
-               down — an eyedropper or a screenshot-sampling audit then reads a
+               down – an eyedropper or a screenshot-sampling audit then reads a
                hair under. Say so here rather than let a reader discover it with
                a colour picker. -->
           <p class="text-sm leading-relaxed opacity-60">

@@ -80,7 +80,7 @@ Default ripple (white 20% opacity, 400ms, center).
 
 ## Ripple over Ben Day Dots
 
-`bg-comic-*` includes ripple and border-gradient layers in its background stack — just add `bg-ripple` on the same element.
+`bg-comic-*` includes ripple and border-gradient layers in its background stack – just add `bg-ripple` on the same element.
 
 <div class="grid grid-cols-3 gap-4 my-6">
   <div>
@@ -135,7 +135,7 @@ Default ripple (white 20% opacity, 400ms, center).
 
 ## Ripple over Sub-Pixel Patterns
 
-`bg-pixel-*` includes ripple and border-gradient layers — same single-element composition.
+`bg-pixel-*` includes ripple and border-gradient layers – same single-element composition.
 
 <div class="grid grid-cols-3 gap-4 my-6">
   <div>

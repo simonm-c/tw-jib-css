@@ -2,7 +2,7 @@
 title: Hue Rotate
 ---
 
-<!-- llm-context: hue-rotate utility — rotates the hue of any colour using CSS relative colour syntax across 16 colour spaces. {surface}-hue-rotate-{deg} rotates clockwise, -{surface}-hue-rotate-{deg} counterclockwise. Works on background, text, fill, stroke, outline, accent, and border surfaces. No color-mix modifier — hue rotation has no honest two-colour form. -->
+<!-- llm-context: hue-rotate utility – rotates the hue of any colour using CSS relative colour syntax across 16 colour spaces. {surface}-hue-rotate-{deg} rotates clockwise, -{surface}-hue-rotate-{deg} counterclockwise. Works on background, text, fill, stroke, outline, accent, and border surfaces. No color-mix modifier – hue rotation has no honest two-colour form. -->
 
 # Hue Rotate
 
@@ -343,16 +343,16 @@ Append a modifier: `bg-hue-rotate-90/oklch`, `bg-hue-rotate-90/hsl`, etc. Defaul
   </div>
 </Example>
 
-No color-mix modifier — hue rotation has no honest two-colour interpolation form. See the [Colour Spaces reference](/guide/colour-spaces) for what each space is and when to choose one.
+No color-mix modifier – hue rotation has no honest two-colour interpolation form. See the [Colour Spaces reference](/guide/colour-spaces) for what each space is and when to choose one.
 
 ::: info How rotation works per space
-**Polar spaces (oklch, lch, hsl, hwb)** — Adds degrees to the hue channel directly. The simplest and most predictable.
+**Polar spaces (oklch, lch, hsl, hwb)** – Adds degrees to the hue channel directly. The simplest and most predictable.
 
-**Lab spaces (oklab, lab)** — Rotates the (a, b) chromatic plane trigonometrically: `a' = a·cos(θ) − b·sin(θ)`, `b' = a·sin(θ) + b·cos(θ)`. Preserves chroma exactly.
+**Lab spaces (oklab, lab)** – Rotates the (a, b) chromatic plane trigonometrically: `a' = a·cos(θ) − b·sin(θ)`, `b' = a·sin(θ) + b·cos(θ)`. Preserves chroma exactly.
 
-**RGB-family** — Applies a luma-preserving 3×3 colour matrix (same algorithm as SVG's `feColorMatrix type="hueRotate"`). Maintains perceived brightness.
+**RGB-family** – Applies a luma-preserving 3×3 colour matrix (same algorithm as SVG's `feColorMatrix type="hueRotate"`). Maintains perceived brightness.
 
-**XYZ-family** — Rotates (x, z) deviations around the white point, preserving y (luminance).
+**XYZ-family** – Rotates (x, z) deviations around the white point, preserving y (luminance).
 :::
 
 ## Applying Conditionally

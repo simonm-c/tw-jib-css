@@ -8,16 +8,16 @@ title: WCAG agreement fixture
 
 Both implementations of `text-a11y-*` rendered side by side, so a drift between them shows up as a colour difference rather than a silent divergence.
 
-This fixture lives in the experimental instance because the `fn` readout calls `--tw-jib--accessible-shade()` directly, which needs the `@function` entry. That entry also overrides the utility, so `util` here is the `@function` path — the `stable` cells read `--tw-jib--a11y--shade`, which the utility computes on every engine regardless of which path wins `color:`.
+This fixture lives in the experimental instance because the `fn` readout calls `--tw-jib--accessible-shade()` directly, which needs the `@function` entry. That entry also overrides the utility, so `util` here is the `@function` path – the `stable` cells read `--tw-jib--a11y--shade`, which the utility computes on every engine regardless of which path wins `color:`.
 
-`text-a11y-*` has two implementations — the `@function` dispatcher, preferred wherever
+`text-a11y-*` has two implementations – the `@function` dispatcher, preferred wherever
 CSS `@function` exists, and the nested relative-colour chain that engines without it
 fall back to. They must produce the same colour, or which engine you are on becomes
 visible. Three readouts per case:
 
-- **util** — whatever the cascade picks: `@function` on Chromium, the chain elsewhere.
-- **fn** — `--tw-jib--accessible-shade()` called directly. Renders nothing without `@function`.
-- **stable** — a child reading `--tw-jib--a11y--shade`, the chain's own result, which the
+- **util** – whatever the cascade picks: `@function` on Chromium, the chain elsewhere.
+- **fn** – `--tw-jib--accessible-shade()` called directly. Renders nothing without `@function`.
+- **stable** – a child reading `--tw-jib--a11y--shade`, the chain's own result, which the
   utility computes on every engine even where the `@function` override wins the `color:`.
 
 So on Chromium all three are the comparison that matters: **fn** and **stable** are the two

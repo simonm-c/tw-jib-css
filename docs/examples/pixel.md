@@ -9,42 +9,42 @@ Visual test page for `bg-pixel-*` utilities.
 
 RGB pixel columns on black background with `screen` blend mode (additive mixing). Cell = `(width * 3 + gap)` wide, `(height + gap)` tall. Gap separates each R|G|B triplet.
 
-## Utility Classes — Primary & Secondary Colors
+## Utility Classes – Primary & Secondary Colors
 
 Defaults: size 1 (width=1px, height=2px), gap 1, bloom 1px.
 
 <div class="grid grid-cols-4 gap-4 my-6">
   <div>
     <div data-test="white" class="bg-pixel-white h-32 rounded-lg"></div>
-    <p class="text-xs font-mono text-center mt-1">bg-pixel-white — R+G+B</p>
+    <p class="text-xs font-mono text-center mt-1">bg-pixel-white – R+G+B</p>
   </div>
   <div>
     <div data-test="black" class="bg-pixel-black h-32 rounded-lg border border-gray-700"></div>
-    <p class="text-xs font-mono text-center mt-1">bg-pixel-black — none</p>
+    <p class="text-xs font-mono text-center mt-1">bg-pixel-black – none</p>
   </div>
   <div>
     <div data-test="red" class="bg-pixel-red-500 h-32 rounded-lg"></div>
-    <p class="text-xs font-mono text-center mt-1">bg-pixel-red-500 — R heavy</p>
+    <p class="text-xs font-mono text-center mt-1">bg-pixel-red-500 – R heavy</p>
   </div>
   <div>
     <div data-test="green" class="bg-pixel-green-500 h-32 rounded-lg"></div>
-    <p class="text-xs font-mono text-center mt-1">bg-pixel-green-500 — G heavy</p>
+    <p class="text-xs font-mono text-center mt-1">bg-pixel-green-500 – G heavy</p>
   </div>
   <div>
     <div data-test="blue" class="bg-pixel-blue-500 h-32 rounded-lg"></div>
-    <p class="text-xs font-mono text-center mt-1">bg-pixel-blue-500 — B heavy</p>
+    <p class="text-xs font-mono text-center mt-1">bg-pixel-blue-500 – B heavy</p>
   </div>
   <div>
     <div data-test="cyan" class="bg-pixel-cyan-500 h-32 rounded-lg"></div>
-    <p class="text-xs font-mono text-center mt-1">bg-pixel-cyan-500 — G+B</p>
+    <p class="text-xs font-mono text-center mt-1">bg-pixel-cyan-500 – G+B</p>
   </div>
   <div>
     <div data-test="magenta" class="bg-pixel-fuchsia-500 h-32 rounded-lg"></div>
-    <p class="text-xs font-mono text-center mt-1">bg-pixel-fuchsia-500 — R+B</p>
+    <p class="text-xs font-mono text-center mt-1">bg-pixel-fuchsia-500 – R+B</p>
   </div>
   <div>
     <div data-test="yellow" class="bg-pixel-yellow-500 h-32 rounded-lg"></div>
-    <p class="text-xs font-mono text-center mt-1">bg-pixel-yellow-500 — R+G</p>
+    <p class="text-xs font-mono text-center mt-1">bg-pixel-yellow-500 – R+G</p>
   </div>
 </div>
 
@@ -133,7 +133,7 @@ Using `bg-pixel-white`. From crisp LCD through CRT phosphor glow to saturation.
   </div>
 </div>
 
-### Bloom — All Tailwind Colors (bloom-1)
+### Bloom – All Tailwind Colors (bloom-1)
 
 <div class="grid grid-cols-[auto_1fr_1fr] gap-x-3 gap-y-1 items-center my-6">
   <p class="text-xs font-mono font-bold">Color</p>
@@ -689,7 +689,7 @@ Different pixel sizes and bloom settings with border gradients.
   </div>
 </div>
 
-## Side-by-side: Solid vs Pixel — All Tailwind Colors
+## Side-by-side: Solid vs Pixel – All Tailwind Colors
 
 <div class="grid grid-cols-[auto_1fr_1fr] gap-x-3 gap-y-1 items-center my-6">
   <p class="text-xs font-mono font-bold">Color</p>
@@ -837,7 +837,7 @@ Different pixel sizes and bloom settings with border gradients.
   <div data-test="blue-950" class="bg-pixel-blue-950 h-16 rounded-lg"></div>
 </div>
 
-## Full Tailwind Palette — All Shades
+## Full Tailwind Palette – All Shades
 
 <div class="my-6">
 

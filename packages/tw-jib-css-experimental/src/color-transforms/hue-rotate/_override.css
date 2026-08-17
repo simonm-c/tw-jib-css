@@ -3,11 +3,11 @@
  * Polar spaces (oklch, lch, hsl, hwb): direct hue addition.
  * Lab spaces (oklab, lab): trigonometric rotation of the a/b chromatic plane.
  * RGB-family (rgb plus the color() spaces): luma-preserving SVG-style hueRotate matrix
- *   with luma coefficients (0.213, 0.715, 0.072) — matches CSS filter: hue-rotate().
+ *   with luma coefficients (0.213, 0.715, 0.072) – matches CSS filter: hue-rotate().
  * XYZ-family (xyz, xyz-d50, xyz-d65): rotation of (x, z) deviations from the
  *   achromatic axis around the white point, with y (luminance) preserved.
  *
- * No --color-mix-hue-rotate function — hue rotation has no honest pairwise
+ * No --color-mix-hue-rotate function – hue rotation has no honest pairwise
  * interpolation form (no target hue without already knowing the rotation amount),
  * so the 'color-mix' modifier is intentionally absent from the surface area.
  */
@@ -37,7 +37,7 @@
 }
 
 /*
- * RGB-family hue rotation — SVG feColorMatrix type="hueRotate" matrix:
+ * RGB-family hue rotation – SVG feColorMatrix type="hueRotate" matrix:
  *   c = cos(θ), s = sin(θ)
  *   r' = r·(0.213 + 0.787c - 0.213s) + g·(0.715 - 0.715c - 0.715s) + b·(0.072 - 0.072c + 0.928s)
  *   g' = r·(0.213 - 0.213c + 0.143s) + g·(0.715 + 0.285c + 0.140s) + b·(0.072 - 0.072c - 0.283s)
@@ -74,7 +74,7 @@
 }
 
 /*
- * XYZ-family hue rotation — rotate (x, z) deviations from the achromatic axis
+ * XYZ-family hue rotation – rotate (x, z) deviations from the achromatic axis
  * around the white point, with y (luminance) preserved.
  *   wp_x, wp_z = white-point chromaticity scaled by y
  *   x' = wp_x*y + (x - wp_x*y)·cos(θ) - (z - wp_z*y)·sin(θ)

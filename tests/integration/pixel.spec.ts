@@ -13,7 +13,7 @@ import {
  * gradient (the unused ones come from @property initial-values), so a healthy
  * pixel element always reports the full set.
  *
- * Asserting the count — rather than `toContain('gradient')` — is what catches a
+ * Asserting the count – rather than `toContain('gradient')` – is what catches a
  * partially invalid layer list. And because an invalid value anywhere in the
  * `background:` shorthand makes the whole declaration invalid at computed-value
  * time (dropping it to `none`), the count also catches wholesale failures such
@@ -62,7 +62,7 @@ const PAGE = 'examples/pixel';
 async function gotoPage(page: Page) {
   await gotoExample(page, PAGE, 'white');
 }
-test.describe('bg-pixel — primary colours render', () => {
+test.describe('bg-pixel – primary colours render', () => {
   test('all primary colours produce gradient layers', async ({ page }) => {
     await gotoPage(page);
     const ids = ['white', 'black', 'red', 'green', 'blue', 'cyan', 'magenta', 'yellow'];
@@ -79,7 +79,7 @@ test.describe('bg-pixel — primary colours render', () => {
   });
 });
 
-test.describe('pixel-size — size variations', () => {
+test.describe('pixel-size – size variations', () => {
   test('all size variants render with gradients', async ({ page }) => {
     await gotoPage(page);
     const ids = ['size-1', 'size-2', 'size-3', 'size-4', 'size-6'];
@@ -87,7 +87,7 @@ test.describe('pixel-size — size variations', () => {
   });
 });
 
-test.describe('pixel-gap — gap variations', () => {
+test.describe('pixel-gap – gap variations', () => {
   test('all gap variants render', async ({ page }) => {
     await gotoPage(page);
     const ids = ['gap-0.5', 'gap-1', 'gap-1.5', 'gap-2', 'gap-4', 'gap-6'];
@@ -95,7 +95,7 @@ test.describe('pixel-gap — gap variations', () => {
   });
 });
 
-test.describe('pixel-bloom — bloom variations', () => {
+test.describe('pixel-bloom – bloom variations', () => {
   test('all bloom variants render', async ({ page }) => {
     await gotoPage(page);
     const ids = ['bloom-0', 'bloom-1', 'bloom-2', 'bloom-3', 'bloom-4'];
@@ -122,7 +122,7 @@ test.describe('pixel-bloom — bloom variations', () => {
    * value itself rises asymptotically toward full.
    *
    * These tests pin that ratio's output, because it is the part of the
-   * module most exposed to engine differences in calc() — a length-by-length
+   * module most exposed to engine differences in calc() – a length-by-length
    * division silently takes the entire background shorthand down with it. The
    * expected numbers below are derived from the geometry, not copied from a
    * browser: with the default pixel-size-1 (w = 1px) and pixel-gap-1,
@@ -231,8 +231,8 @@ test.describe('pixel + border gradient composition', () => {
   });
 });
 
-test.describe('pixel — colour scales', () => {
-  test('bloom colour comparison — representative colours render', async ({ page }) => {
+test.describe('pixel – colour scales', () => {
+  test('bloom colour comparison – representative colours render', async ({ page }) => {
     await gotoPage(page);
     const colors = ['red', 'blue', 'green', 'amber', 'cyan', 'violet', 'pink', 'slate'];
     const ids = colors.flatMap((c) => [`bloom-color-${c}-0`, `bloom-color-${c}-1`]);
@@ -257,7 +257,7 @@ test.describe('pixel — colour scales', () => {
  * it. These sweeps assert against every bg-pixel-* element the fixture defines,
  * so coverage does not depend on which ids a test happens to list.
  */
-test.describe('bg-pixel — whole-page coverage', () => {
+test.describe('bg-pixel – whole-page coverage', () => {
   test('every bg-pixel element on the page renders its full layer stack', async ({ page }) => {
     await gotoPage(page);
 

@@ -28,7 +28,7 @@ const PAGE = 'examples/lightness';
 /**
  * Expected computed color-space prefix per modifier.
  * Browsers resolve relative color syntax and return the result in a
- * canonical format — e.g. hsl/hwb/rgb all resolve to color(srgb …).
+ * canonical format – e.g. hsl/hwb/rgb all resolve to color(srgb …).
  */
 const EXPECTED_SPACE_PREFIX: Record<string, string> = {
   oklch: 'oklch(',
@@ -74,7 +74,7 @@ const ALL_SPACES = [
  * Why this file has no @function-gated lane.
  *
  * The main entry's @function blocks compile behind a gate that cannot hold, so
- * this page renders through the stable relative-colour path on EVERY engine —
+ * this page renders through the stable relative-colour path on EVERY engine –
  * including one that implements @function. Skipping on CSS.supports() therefore
  * measured the engine rather than the page, and cost Blink the whole extended
  * set for nothing. This describe pins the premise the rest of the file rests on,
@@ -129,14 +129,14 @@ test.describe('the served CSS never runs @function', () => {
     for (const { condition, holds } of gates.lightnessGates) {
       expect(
         holds,
-        `${condition} is satisfiable (engine @function support: ${engineSupportsFunction}) — the stable entry may now run @function`,
+        `${condition} is satisfiable (engine @function support: ${engineSupportsFunction}) – the stable entry may now run @function`,
       ).toBe(false);
     }
   });
 });
 
 test.describe('stable path (all browsers)', () => {
-  test.describe('darken — default amounts', () => {
+  test.describe('darken – default amounts', () => {
     test('monotonically decreasing luminance from darken-0 to darken-100', async ({ page }) => {
       // Arrange
       await gotoPage(page);
@@ -166,7 +166,7 @@ test.describe('stable path (all browsers)', () => {
     });
   });
 
-  test.describe('lighten — default amounts', () => {
+  test.describe('lighten – default amounts', () => {
     test('monotonically increasing luminance from lighten-0 to lighten-100', async ({ page }) => {
       // Arrange
       await gotoPage(page);
@@ -195,7 +195,7 @@ test.describe('stable path (all browsers)', () => {
     });
   });
 
-  test.describe('darken — all 17 color spaces', () => {
+  test.describe('darken – all 17 color spaces', () => {
     test('each color space returns the correct computed format and is darker than base', async ({
       page,
     }) => {
@@ -221,7 +221,7 @@ test.describe('stable path (all browsers)', () => {
     });
   });
 
-  test.describe('lighten — all 17 color spaces', () => {
+  test.describe('lighten – all 17 color spaces', () => {
     test('each color space returns the correct computed format and is lighter than base', async ({
       page,
     }) => {
@@ -247,7 +247,7 @@ test.describe('stable path (all browsers)', () => {
     });
   });
 
-  test.describe('base color range — darken-20', () => {
+  test.describe('base color range – darken-20', () => {
     test('20 base colors produce non-transparent darkened backgrounds', async ({ page }) => {
       // Arrange
       await gotoPage(page);
@@ -282,7 +282,7 @@ test.describe('stable path (all browsers)', () => {
     });
   });
 
-  test.describe('base color range — lighten-20', () => {
+  test.describe('base color range – lighten-20', () => {
     test('20 base colors produce non-transparent lightened backgrounds', async ({ page }) => {
       // Arrange
       await gotoPage(page);
@@ -414,7 +414,7 @@ test.describe('stable path (all browsers)', () => {
       // Elements with opacity 5 should have very low alpha
       expect(styles['opacity-5-darken'].alpha).toBeLessThan(0.15);
 
-      // Opacity is correctly applied — check approximate alpha values
+      // Opacity is correctly applied – check approximate alpha values
       expect(styles['opacity-25-darken-10'].alpha).toBeCloseTo(0.25, 1);
       expect(styles['opacity-50-darken-20'].alpha).toBeCloseTo(0.5, 1);
       expect(styles['opacity-75-darken-50'].alpha).toBeCloseTo(0.75, 1);
@@ -701,7 +701,7 @@ test.describe('stable path (all browsers)', () => {
 
       // Assert
       for (const id of ids) {
-        // Should resolve to something — the key is no crash
+        // Should resolve to something – the key is no crash
         expect(styles[id].backgroundColor).toBeDefined();
       }
     });
@@ -763,7 +763,7 @@ test.describe('stable path (all browsers)', () => {
   });
 });
 
-test.describe('stable path — extended coverage', () => {
+test.describe('stable path – extended coverage', () => {
   test.beforeEach(async ({ page }) => {
     await gotoPage(page);
   });

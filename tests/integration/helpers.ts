@@ -22,7 +22,7 @@ export interface ElementStyles {
   /** backgroundColor as RGBA, for specs comparing hue rather than brightness. */
   rgb: Rgb;
   /**
-   * Gamma-encoded brightness proxy, not WCAG relative luminance — the channels
+   * Gamma-encoded brightness proxy, not WCAG relative luminance – the channels
    * are not linearised. It exists to order two colours by brightness, which is
    * all the transform specs ask of it. Contrast work needs the real thing, and
    * computes it separately in wcag.spec.ts.
@@ -49,7 +49,7 @@ export interface SampledColor extends Rgb {
 function assertNonePlaceholder(missing: string[], page: string) {
   expect(
     missing,
-    `missing [data-test] fixtures on ${page} — renamed or removed since the spec was written`,
+    `missing [data-test] fixtures on ${page} – renamed or removed since the spec was written`,
   ).toEqual([]);
 }
 
@@ -183,7 +183,7 @@ export async function extractRenderedColors(
 
 /**
  * Navigate to an example fixture and wait for it to paint. The anchor is any id
- * the page is known to define — reading styles before it exists returns initial
+ * the page is known to define – reading styles before it exists returns initial
  * values that look like real ones.
  */
 export async function gotoExample(page: Page, path: string, anchorId: string) {
@@ -213,7 +213,7 @@ export function splitLayers(backgroundImage: string): string[] {
  *
  * `toContain('gradient')` over the whole background-image is satisfied by ANY
  * layer in the stack, so an element whose border gradient dropped out still
- * passes it as long as its background image survived — the assertion cannot tell
+ * passes it as long as its background image survived – the assertion cannot tell
  * a healthy element from a degraded one. The border gradient is the last layer
  * (it is the border-box one), so checking that layer alone is what makes the
  * difference. Pass a type where the test names one, so "radial border variants

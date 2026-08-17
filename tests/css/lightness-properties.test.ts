@@ -80,7 +80,7 @@ const PROPERTY_SCENARIOS = PROPERTIES.flatMap((property) =>
 );
 
 describe.each(PROPERTY_SCENARIOS)(
-  '$label (stable path) — $scenario.name',
+  '$label (stable path) – $scenario.name',
   ({ scenario: { compile }, property }) => {
     const [prefix, cssProperty, captureVar, sourceVar, baseClass, baseMarker] = property;
     const amountVar = `--tw-jib--${prefix}-lightness--amount`;
@@ -92,7 +92,7 @@ describe.each(PROPERTY_SCENARIOS)(
 
     const OKLCH = stableOklch(amountVar);
 
-    describe('darken — default amounts', () => {
+    describe('darken – default amounts', () => {
       test.each([0, 5, 10, 20, 50, 75, 100])(`${prefix}-darken-%i`, async (amount) => {
         const css = await compile(`${baseClass} ${prefix}-darken-${amount}`);
         expect(css).toContain(`${amountVar}: calc(${amount} * -0.01)`);
@@ -101,7 +101,7 @@ describe.each(PROPERTY_SCENARIOS)(
       });
     });
 
-    describe('lighten — default amounts', () => {
+    describe('lighten – default amounts', () => {
       test.each([0, 5, 10, 20, 50, 75, 100])(`${prefix}-lighten-%i`, async (amount) => {
         const css = await compile(`${baseClass} ${prefix}-lighten-${amount}`);
         expect(css).toContain(`${amountVar}: calc(${amount} * 0.01)`);

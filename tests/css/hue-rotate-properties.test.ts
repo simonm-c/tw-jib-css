@@ -102,13 +102,13 @@ const PROPERTY_SCENARIOS = PROPERTIES.flatMap((property) =>
 );
 
 describe.each(PROPERTY_SCENARIOS)(
-  '$label (stable path) — $scenario.name',
+  '$label (stable path) – $scenario.name',
   ({ scenario: { compile }, property }) => {
     const [prefix, cssProperty, captureVar, sourceVar, baseClass, baseMarker, hueSlug] = property;
     const amountVar = `--tw-jib--${hueSlug}-hue--amount`;
     const STABLE_OKLCH = `oklch(from var(${sourceVar}) l c calc(h + var(${amountVar})) / alpha)`;
 
-    describe('positive rotation — default amounts', () => {
+    describe('positive rotation – default amounts', () => {
       test.each([0, 15, 30, 90, 180, 270, 359])(`${prefix}-hue-rotate-%i`, async (amount) => {
         const css = await compile(`${baseClass} ${prefix}-hue-rotate-${amount}`);
         expect(css).toContain(`${amountVar}: ${amount}`);
@@ -117,7 +117,7 @@ describe.each(PROPERTY_SCENARIOS)(
       });
     });
 
-    describe('negative rotation — default amounts', () => {
+    describe('negative rotation – default amounts', () => {
       test.each([15, 30, 90, 180])(`-${prefix}-hue-rotate-%i`, async (amount) => {
         const css = await compile(`${baseClass} -${prefix}-hue-rotate-${amount}`);
         expect(css).toContain(`${amountVar}: calc(${amount} * -1)`);
@@ -206,7 +206,7 @@ describe.each(PROPERTIES)(
     });
 
     test('color-mix modifier is NOT supported', async () => {
-      // hue-rotate deliberately omits color-mix — the modifier should not match.
+      // hue-rotate deliberately omits color-mix – the modifier should not match.
       // The class compiles but without any hue-rotate output; no --tw-jib--hue-rotate() call.
       const css = await compile(`${baseClass} ${prefix}-hue-rotate-30/color-mix`, {
         functions: true,
@@ -220,7 +220,7 @@ describe.each(PROPERTIES)(
  * bg-specific: must also compose with border-gradient via --tw-jib--background-image.
  */
 describe.each(suiteScenarios('color-transforms'))(
-  'bg-hue-rotate composes with bg-image layer — $name',
+  'bg-hue-rotate composes with bg-image layer – $name',
   ({ compile }) => {
     test('writes --tw-jib--background-image with the composed color', async () => {
       const css = await compile('bg-blue-500 bg-hue-rotate-30');

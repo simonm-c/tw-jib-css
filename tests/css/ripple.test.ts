@@ -2,7 +2,7 @@ import { describe, test, expect } from 'vitest';
 import { suiteScenarios } from './helpers.js';
 import { BG_LAYER } from './constants.js';
 
-describe.each(suiteScenarios('ripple'))('bg-ripple base utility — $name', ({ compile }) => {
+describe.each(suiteScenarios('ripple'))('bg-ripple base utility – $name', ({ compile }) => {
   test('sets the 3-layer background stack', async () => {
     const css = await compile('bg-ripple bg-blue-500');
     expect(css).toContain(BG_LAYER);
@@ -46,7 +46,7 @@ describe.each(suiteScenarios('ripple'))('bg-ripple base utility — $name', ({ c
   });
 });
 
-describe.each(suiteScenarios('ripple'))('ripple-color utilities — $name', ({ compile }) => {
+describe.each(suiteScenarios('ripple'))('ripple-color utilities – $name', ({ compile }) => {
   test('ripple-color-blue-400', async () => {
     const css = await compile('bg-ripple ripple-color-blue-400');
     expect(css).toContain('--tw-jib--ripple-color:');
@@ -83,7 +83,7 @@ describe.each(suiteScenarios('ripple'))('ripple-color utilities — $name', ({ c
   });
 });
 
-describe.each(suiteScenarios('ripple'))('ripple-duration utilities — $name', ({ compile }) => {
+describe.each(suiteScenarios('ripple'))('ripple-duration utilities – $name', ({ compile }) => {
   test('ripple-duration-20 = 200ms', async () => {
     const css = await compile('bg-ripple ripple-duration-20');
     expect(css).toContain('--tw-jib--ripple-duration: calc(20 * 10ms)');
@@ -115,7 +115,7 @@ describe.each(suiteScenarios('ripple'))('ripple-duration utilities — $name', (
   });
 });
 
-describe.each(suiteScenarios('ripple'))('ripple-fade utilities — $name', ({ compile }) => {
+describe.each(suiteScenarios('ripple'))('ripple-fade utilities – $name', ({ compile }) => {
   test('ripple-fade sets fade-amount to 100%', async () => {
     const css = await compile('bg-ripple ripple-fade');
     expect(css).toContain('--tw-jib--ripple-fade-amount: calc(100 * 1%)');
@@ -137,7 +137,7 @@ describe.each(suiteScenarios('ripple'))('ripple-fade utilities — $name', ({ co
   });
 });
 
-describe.each(suiteScenarios('ripple'))('ripple-position utilities — $name', ({ compile }) => {
+describe.each(suiteScenarios('ripple'))('ripple-position utilities – $name', ({ compile }) => {
   test('ripple-position-center', async () => {
     const css = await compile('bg-ripple ripple-position-center');
     expect(css).toContain('--tw-jib--ripple-position: center');
@@ -180,7 +180,7 @@ describe.each(suiteScenarios('ripple'))('ripple-position utilities — $name', (
 });
 
 describe.each(suiteScenarios('ripple'))(
-  'ripple composition with backgrounds — $name',
+  'ripple composition with backgrounds – $name',
   ({ compile }) => {
     test('composes with solid bg-*', async () => {
       const css = await compile('bg-ripple bg-blue-500');
@@ -209,12 +209,12 @@ describe.each(suiteScenarios('ripple'))(
 );
 
 describe.each(suiteScenarios('ripple', 'border-gradient'))(
-  'ripple composition with border gradients — $name',
+  'ripple composition with border gradients – $name',
   ({ compile }) => {
     /*
      * Both halves have to be asserted for these to mean anything. BG_LAYER is
      * the stack bg-ripple emits on its own, so on its own it is satisfied by a
-     * build with no border gradient in it at all — it says the ripple layer
+     * build with no border gradient in it at all – it says the ripple layer
      * survived, not that anything composed with it. The gradient assertion is
      * what pins the other half.
      */
@@ -253,7 +253,7 @@ describe.each(suiteScenarios('ripple', 'border-gradient'))(
   },
 );
 
-describe.each(suiteScenarios('ripple'))('combined ripple customisation — $name', ({ compile }) => {
+describe.each(suiteScenarios('ripple'))('combined ripple customisation – $name', ({ compile }) => {
   test('all customisations together', async () => {
     const css = await compile(
       'bg-ripple ripple-color-white ripple-duration-60 ripple-fade bg-indigo-600',

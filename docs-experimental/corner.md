@@ -2,7 +2,7 @@
 title: Corner Shape
 ---
 
-<!-- llm-context: corner module (experimental) — CSS corner-shape property for squircle, bevel, scoop, notch, and superellipse corner rendering. Chrome 139+, ~68% browser support. All utilities wrapped in @supports (corner-shape: squircle). -->
+<!-- llm-context: corner module (experimental) – CSS corner-shape property for squircle, bevel, scoop, notch, and superellipse corner rendering. Chrome 139+, ~68% browser support. All utilities wrapped in @supports (corner-shape: squircle). -->
 
 # Corner Shape
 
@@ -13,7 +13,7 @@ The CSS `corner-shape` property controls how border-radius curves are drawn. Ins
 :::
 
 ::: tip Import
-Included in `@import 'tw-jib-css-experimental'`. To take it on its own — no other
+Included in `@import 'tw-jib-css-experimental'`. To take it on its own – no other
 experimental module, and none of the [`@function` overrides](/functions):
 
 ```css
@@ -63,7 +63,7 @@ Combine `corner-*` with `rounded-*` to change how corners are drawn:
   </div>
 </Example>
 
-The `corner-shape` property modifies the curve shape — you still need `border-radius` (`rounded-*`) to set the corner size.
+The `corner-shape` property modifies the curve shape – you still need `border-radius` (`rounded-*`) to set the corner size.
 
 ## Named Shapes
 
@@ -213,7 +213,7 @@ For CSS variables, you can also use the `corner-(--custom-property)` syntax:
   </div>
 </Example>
 
-This is shorthand for `corner-[var(--brand-roundness)]` — it adds the `var()` wrapper automatically.
+This is shorthand for `corner-[var(--brand-roundness)]` – it adds the `var()` wrapper automatically.
 
 ## Applying conditionally
 

@@ -2,7 +2,7 @@
 title: Lightness
 ---
 
-<!-- llm-context: lightness utility — adjusts colour lightness using CSS relative colour syntax across 17 colour spaces. {surface}-lightness-{n} to lighten, -{surface}-lightness-{n} to darken, with optional /{color-space} modifier. Works on background, text, fill, stroke, outline, accent, and border surfaces. -->
+<!-- llm-context: lightness utility – adjusts colour lightness using CSS relative colour syntax across 17 colour spaces. {surface}-lightness-{n} to lighten, -{surface}-lightness-{n} to darken, with optional /{color-space} modifier. Works on background, text, fill, stroke, outline, accent, and border surfaces. -->
 
 # Lightness
 
@@ -392,17 +392,17 @@ Append a modifier to select the interpolation space: `bg-lightness-30/oklch`, `b
 See the [Colour Spaces reference](/guide/colour-spaces) for what each space is and when to choose one.
 
 ::: info How scaling works
-Values 0–100 represent a **percentage of the distance** to white or black — not a fixed channel offset. `bg-lightness-50` moves halfway to white; `bg-lightness-100` reaches white exactly, regardless of where the colour started. Each colour space family handles this differently:
+Values 0–100 represent a **percentage of the distance** to white or black – not a fixed channel offset. `bg-lightness-50` moves halfway to white; `bg-lightness-100` reaches white exactly, regardless of where the colour started. Each colour space family handles this differently:
 
-**oklch, lch, oklab, lab** — Lightness interpolates toward 1 (white) or 0 (black). Chroma is held constant through most of the range, tapering above 80 where the gamut narrows.
+**oklch, lch, oklab, lab** – Lightness interpolates toward 1 (white) or 0 (black). Chroma is held constant through most of the range, tapering above 80 where the gamut narrows.
 
-**HSL** — S is scaled by the gamut factor ratio `min(l, 100−l) / min(new_l, 100−new_l)`, clamped to ≤ 1, so saturation dampens as lightness moves toward the extremes.
+**HSL** – S is scaled by the gamut factor ratio `min(l, 100−l) / min(new_l, 100−new_l)`, clamped to ≤ 1, so saturation dampens as lightness moves toward the extremes.
 
-**HWB** — Lightening adds whiteness and removes blackness; darkening does the reverse.
+**HWB** – Lightening adds whiteness and removes blackness; darkening does the reverse.
 
-**RGB-family (rgb, srgb, display-p3, etc.)** — All three channels interpolate independently toward their white-point (or 0 for darkening).
+**RGB-family (rgb, srgb, display-p3, etc.)** – All three channels interpolate independently toward their white-point (or 0 for darkening).
 
-**colour-mix** — Blends the colour with white or black via `color-mix()` in oklab. Acts as the reference curve that other spaces are calibrated against.
+**colour-mix** – Blends the colour with white or black via `color-mix()` in oklab. Acts as the reference curve that other spaces are calibrated against.
 :::
 
 ## Aliases

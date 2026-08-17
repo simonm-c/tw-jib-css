@@ -6,7 +6,7 @@
       <div class="space-y-2">
         <h2 class="text-3xl md:text-4xl font-black tracking-tight">Also Included.</h2>
         <p class="text-base opacity-70 max-w-[48ch] leading-relaxed">
-          What doesn't fit the colour story — and what deliberately isn't in this package at all.
+          What doesn't fit the colour story – and what deliberately isn't in this package at all.
         </p>
       </div>
 
@@ -14,7 +14,7 @@
         <div class="space-y-3">
           <h3 class="text-lg font-bold">Border Styles</h3>
           <p class="text-sm opacity-70 leading-relaxed">
-            Per-side border styles that Tailwind doesn't expose. Dashed top, dotted bottom — mix
+            Per-side border styles that Tailwind doesn't expose. Dashed top, dotted bottom – mix
             freely.
           </p>
           <div
@@ -40,7 +40,7 @@
              deliberately the last thing on the page and deliberately states the
              cost before the contents: a reader who never scrolls this far has
              lost nothing, and a reader who does gets the trade, not a teaser.
-             Nothing here is version-pinned — "not baseline yet" is the whole
+             Nothing here is version-pinned – "not baseline yet" is the whole
              claim, and the experimental instance carries the per-module detail. -->
         <div class="space-y-3">
           <div class="flex flex-wrap items-center gap-2">

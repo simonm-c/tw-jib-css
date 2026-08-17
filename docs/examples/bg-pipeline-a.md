@@ -1,5 +1,5 @@
 ---
-title: Pipeline A — Chained transforms only
+title: Pipeline A – Chained transforms only
 layout: page
 ---
 

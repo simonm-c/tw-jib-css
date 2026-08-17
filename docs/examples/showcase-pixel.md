@@ -75,7 +75,7 @@ pageClass: showcase
         Six hues. Shade varies within each row.
       </h2>
     </div>    <div class="flex items-center justify-between mb-4 pt-4 border-t border-stone-100/10">
-      <p class="font-silkscreen text-[15px] uppercase tracking-[0.08em] text-stone-400 m-0">18:00 — 02:00</p>
+      <p class="font-silkscreen text-[15px] uppercase tracking-[0.08em] text-stone-400 m-0">18:00 – 02:00</p>
       <p class="font-silkscreen text-[15px] uppercase tracking-[0.08em] text-stone-400 m-0">▶ CURRENT 22:47</p>
     </div>    <div class="grid grid-cols-[80px_1fr] gap-4 items-center">
       <span class="font-silkscreen text-[15px] text-stone-500 text-right tabular-nums">RED</span>

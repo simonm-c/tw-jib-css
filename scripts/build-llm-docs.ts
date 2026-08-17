@@ -1,7 +1,7 @@
 /**
  * Generates, into docs/public/ from docs/guide/:
- * - llms.txt — structured index following the llms.txt convention
- * - llms-full.txt — all guide pages concatenated, Vue components stripped
+ * - llms.txt – structured index following the llms.txt convention
+ * - llms-full.txt – all guide pages concatenated, Vue components stripped
  */
 
 import { readFileSync, readdirSync, writeFileSync, mkdirSync } from 'node:fs';
@@ -154,7 +154,7 @@ function main() {
   const indexLines: string[] = [
     '# tw-jib-css',
     '',
-    '> TailwindCSS v4 utility library — WCAG-exact text contrast, border gradients, CSS relative color transforms, ripple effects, print-inspired texture backgrounds, and more.',
+    '> TailwindCSS v4 utility library – WCAG-exact text contrast, border gradients, CSS relative color transforms, ripple effects, print-inspired texture backgrounds, and more.',
     '',
     '## Docs',
     '',

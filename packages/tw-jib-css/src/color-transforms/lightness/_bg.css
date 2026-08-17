@@ -27,7 +27,7 @@
 }
 
 /* Same-name @utility blocks stack per utility. The stable block sets the amount,
- * then an inline oklch default, then a --modifier() override — later declarations
+ * then an inline oklch default, then a --modifier() override – later declarations
  * win, so a /modifier replaces the default within the block. The second block is
  * the @function dispatcher and must come after, so it wins in cascade where
  * supported.
@@ -35,7 +35,7 @@
  * That block is gated on @variant supports-lightness, which is defined only in
  * tw-jib-css-experimental/color-transforms/lightness/_override.css. Without that import Tailwind
  * falls back to its built-in supports-* variant and emits a test for a CSS
- * property that does not exist — false everywhere, so the block is inert and the
+ * property that does not exist – false everywhere, so the block is inert and the
  * main entry never runs @function. */
 
 @utility bg-lightness-* {

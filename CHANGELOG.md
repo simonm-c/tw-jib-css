@@ -11,9 +11,9 @@ Initial release.
 
 ### Color Transforms
 
-- **Lightness** — `bg-lightness-*`, `bg-lighten-*`, `bg-darken-*` across 17 colour spaces
-- **Saturation** — `bg-saturation-*`, `bg-saturate-*`, `bg-desaturate-*` across 17 colour spaces
-- **Hue Rotate** — `bg-hue-rotate-*` across 16 colour spaces with polar, Lab, and RGB-matrix rotation
+- **Lightness** – `bg-lightness-*`, `bg-lighten-*`, `bg-darken-*` across 17 colour spaces
+- **Saturation** – `bg-saturation-*`, `bg-saturate-*`, `bg-desaturate-*` across 17 colour spaces
+- **Hue Rotate** – `bg-hue-rotate-*` across 16 colour spaces with polar, Lab, and RGB-matrix rotation
 - All color transforms support 7 targets: `bg-`, `text-`, `fill-`, `stroke-`, `outline-`, `accent-`, `border-`
 
 ### Border Gradient
@@ -24,22 +24,22 @@ Initial release.
 
 ### Print Textures
 
-- **Comic** — CMYK halftone dots via 5-layer radial gradients with multiply blending
-- **Pixel** — RGB column rendering via 5-layer repeating gradients with screen blending
+- **Comic** – CMYK halftone dots via 5-layer radial gradients with multiply blending
+- **Pixel** – RGB column rendering via 5-layer repeating gradients with screen blending
 
 ### Ripple
 
-- Material-style ripple effect — pure CSS, no JavaScript
+- Material-style ripple effect – pure CSS, no JavaScript
 - Radial gradient animation via `@property`
 
 ### Supporting
 
-- **Border Style** — per-side border styles (`border-t-dashed`, etc.)
-- **Grid** — `grid-template-areas-*`, `grid-area-*`
+- **Border Style** – per-side border styles (`border-t-dashed`, etc.)
+- **Grid** – `grid-template-areas-*`, `grid-area-*`
 
 ### Experimental (separate import)
 
-- **Corner Shape** — CSS `corner-shape` (Chrome 139+)
-- **Interpolate Size** — `interpolate-size` keywords (Chromium only)
-- **Base Select Picker** — `appearance: base-select` and `::picker()` (Chromium only)
-- **WCAG Accessible Shade** — WCAG 2.x contrast computation via CSS `@function` (Chromium only)
+- **Corner Shape** – CSS `corner-shape` (Chrome 139+)
+- **Interpolate Size** – `interpolate-size` keywords (Chromium only)
+- **Base Select Picker** – `appearance: base-select` and `::picker()` (Chromium only)
+- **WCAG Accessible Shade** – WCAG 2.x contrast computation via CSS `@function` (Chromium only)

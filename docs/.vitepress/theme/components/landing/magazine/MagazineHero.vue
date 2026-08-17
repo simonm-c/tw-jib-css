@@ -26,7 +26,7 @@ async function copy() {
       </h1>
 
       <p class="text-lg opacity-80 leading-relaxed max-w-[48ch]">
-        WCAG-correct contrast, gradient borders, colour transforms, and print textures — as utility
+        WCAG-correct contrast, gradient borders, colour transforms, and print textures – as utility
         classes. Zero JavaScript.
       </p>
 
@@ -47,7 +47,7 @@ async function copy() {
            choice rather than a floor. Stated here because the objection lands at
            the install moment, not three sections later. -->
       <p class="-mt-4 font-mono text-xs opacity-50">
-        or just the part you want —
+        or just the part you want –
         <a
           href="/tw-jib-css/guide/installation#take-only-what-you-need"
           class="text-sky-300 no-underline hover:underline"

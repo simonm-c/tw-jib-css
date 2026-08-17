@@ -1,7 +1,7 @@
 <!--
   Duplicated from docs/.vitepress/theme/components/JibLogo.vue rather than
   imported across instances. The VitePress instances are deliberately
-  independent (see theme/tailwind.css) — and @source here only scans
+  independent (see theme/tailwind.css) – and @source here only scans
   docs-experimental, so a component imported from docs/ would render with its
   utility classes never compiled. A static SVG is the cheapest thing to copy.
 -->
@@ -9,9 +9,9 @@
   <svg viewBox="0 0 225 79" xmlns="http://www.w3.org/2000/svg" class="fill-jib-brand">
     <!--
       Sail and wordmark are aligned on their area centroids rather than their
-      bounding boxes. Both shapes sit low in their own box — the sail tapers at
+      bounding boxes. Both shapes sit low in their own box – the sail tapers at
       the head, the wordmark carries its mass in the x-height band below the
-      ascenders — so box-centring reads as a sail floating above the word.
+      ascenders – so box-centring reads as a sail floating above the word.
     -->
     <g transform="translate(-38.155302,-33.958658) scale(1.772751)">
       <path

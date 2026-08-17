@@ -2,7 +2,7 @@
 title: Border Spin
 ---
 
-<!-- llm-context: border-spin module — animated rotating gradient borders using @property and @keyframes. Requires border-gradient utilities for the gradient itself. -->
+<!-- llm-context: border-spin module – animated rotating gradient borders using @property and @keyframes. Requires border-gradient utilities for the gradient itself. -->
 
 # Border Spin
 

@@ -71,9 +71,9 @@ const STABLE_SPACE_MARKERS: [string, string][] = [
 ];
 
 describe.each(suiteScenarios('color-transforms'))(
-  'stable path (relative color syntax) — $name',
+  'stable path (relative color syntax) – $name',
   ({ compile }) => {
-    describe('desaturate — default amounts', () => {
+    describe('desaturate – default amounts', () => {
       test.each([0, 5, 10, 20, 50, 75, 100])('bg-desaturate-%i', async (amount) => {
         const css = await compile(`bg-blue-500 bg-desaturate-${amount}`);
         expect(css).toContain(`--tw-jib--background-saturation--amount: calc(${amount} * -0.01)`);
@@ -82,7 +82,7 @@ describe.each(suiteScenarios('color-transforms'))(
       });
     });
 
-    describe('saturate — default amounts', () => {
+    describe('saturate – default amounts', () => {
       test.each([0, 5, 10, 20, 50, 75, 100])('bg-saturate-%i', async (amount) => {
         const css = await compile(`bg-blue-500 bg-saturate-${amount}`);
         expect(css).toContain(`--tw-jib--background-saturation--amount: calc(${amount} * 0.01)`);
@@ -91,7 +91,7 @@ describe.each(suiteScenarios('color-transforms'))(
       });
     });
 
-    describe('desaturate — all 17 color spaces', () => {
+    describe('desaturate – all 17 color spaces', () => {
       test.each(STABLE_SPACE_MARKERS)('bg-desaturate-20/%s', async (space, marker) => {
         const css = await compile(`bg-blue-500 bg-desaturate-20/${space}`);
         expect(css).toContain(marker);
@@ -105,7 +105,7 @@ describe.each(suiteScenarios('color-transforms'))(
       });
     });
 
-    describe('saturate — all 17 color spaces', () => {
+    describe('saturate – all 17 color spaces', () => {
       test.each(STABLE_SPACE_MARKERS)('bg-saturate-20/%s', async (space, marker) => {
         const css = await compile(`bg-blue-500 bg-saturate-20/${space}`);
         expect(css).toContain(marker);
@@ -119,7 +119,7 @@ describe.each(suiteScenarios('color-transforms'))(
       });
     });
 
-    describe('base color range — desaturate-20', () => {
+    describe('base color range – desaturate-20', () => {
       test.each(DARKEN_PALETTE)('bg-%s bg-desaturate-20', async (color, marker) => {
         const css = await compile(`bg-${color} bg-desaturate-20`);
         expect(css).toContain(marker);
@@ -127,7 +127,7 @@ describe.each(suiteScenarios('color-transforms'))(
       });
     });
 
-    describe('base color range — saturate-20', () => {
+    describe('base color range – saturate-20', () => {
       test.each(LIGHTEN_PALETTE)('bg-%s bg-saturate-20', async (color, marker) => {
         const css = await compile(`bg-${color} bg-saturate-20`);
         expect(css).toContain(marker);
@@ -272,7 +272,7 @@ describe.each(suiteScenarios('color-transforms'))(
 );
 
 describe('experimental path (@function + @supports)', () => {
-  describe('desaturate — default amounts', () => {
+  describe('desaturate – default amounts', () => {
     test.each([0, 5, 10, 20, 50, 75, 100])('bg-desaturate-%i', async (amount) => {
       const css = await compile(`bg-blue-500 bg-desaturate-${amount}`, { functions: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
@@ -282,7 +282,7 @@ describe('experimental path (@function + @supports)', () => {
     });
   });
 
-  describe('saturate — default amounts', () => {
+  describe('saturate – default amounts', () => {
     test.each([0, 5, 10, 20, 50, 75, 100])('bg-saturate-%i', async (amount) => {
       const css = await compile(`bg-blue-500 bg-saturate-${amount}`, { functions: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
@@ -292,7 +292,7 @@ describe('experimental path (@function + @supports)', () => {
     });
   });
 
-  describe('desaturate — all 17 color spaces', () => {
+  describe('desaturate – all 17 color spaces', () => {
     test.each(ALL_SPACES)('bg-desaturate-20/%s', async (space) => {
       const css = await compile(`bg-blue-500 bg-desaturate-20/${space}`, { functions: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
@@ -301,7 +301,7 @@ describe('experimental path (@function + @supports)', () => {
     });
   });
 
-  describe('saturate — all 17 color spaces', () => {
+  describe('saturate – all 17 color spaces', () => {
     test.each(ALL_SPACES)('bg-saturate-20/%s', async (space) => {
       const css = await compile(`bg-blue-500 bg-saturate-20/${space}`, { functions: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
@@ -462,7 +462,7 @@ describe('experimental inline function usage', () => {
 });
 
 describe.each(suiteScenarios('color-transforms', 'border-gradient'))(
-  'saturation + border gradient — $name',
+  'saturation + border gradient – $name',
   ({ compile }) => {
     test('desaturate + linear-r', async () => {
       const css = await compile(

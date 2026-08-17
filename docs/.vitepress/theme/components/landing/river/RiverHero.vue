@@ -16,7 +16,7 @@ import StatPill from '../StatPill.vue';
       </h1>
       <p class="text-lg opacity-75 max-w-[48ch] mx-auto">
         A CSS-first plugin. Gradient borders, colour transforms, ripples, comic halftones, CRT
-        phosphors. Drop it in — ship further.
+        phosphors. Drop it in – ship further.
       </p>
       <div class="flex flex-wrap justify-center gap-2">
         <StatPill n="1" caption="import" />

@@ -1,7 +1,7 @@
 /* Reads the captured bg + text colours from core/_index.css, computes a WCAG rating and
  * displays it via ::after.
  *
- * This ADDS a utility rather than overriding one — colour→string has no stable
+ * This ADDS a utility rather than overriding one – colour→string has no stable
  * equivalent, so there is nothing to progressively enhance and nothing a
  * consumer loses by not having it. That is what qualifies it for the
  * experimental entry, which accessible-shade/_override.css does not.
@@ -11,12 +11,12 @@
 
 /* --tw-jib--wcag-shortfall is read back by style(), which compares COMPUTED
  * values, and an unregistered custom property computes to its raw token stream
- * — every space between a branch's last value and its `;` included. Its
+ * – every space between a branch's last value and its `;` included. Its
  * branches below end in `)`, and prettier puts a space between `)` and `;`, so
  * unregistered it computes to "1 " and never matches 1: the badge silently
  * never reaches its Max branch. Registering it gives the engine a type to parse
  * that stream into, which drops the whitespace and makes the match independent
- * of how this file is formatted — the durable form of the guarantee, since
+ * of how this file is formatted – the durable form of the guarantee, since
  * hand-stripping the space only holds until the next `pnpm format`.
  * --tw-jib--wcag-rating gets the same protection from `returns <string>`.
  *
@@ -24,7 +24,7 @@
  * computes to a typed value that Chromium then substitutes into `content` as
  * nothing at all, blanking every badge. It is matched by style() too (for the
  * badge colour below), but only against ratings, and those reach it through the
- * else branch whose `)` already closes the value — so no trailing space rides
+ * else branch whose `)` already closes the value – so no trailing space rides
  * along. Adding a style() test for "Max" would need this solved first.
  *
  * Non-inheriting for the same reason as --tw-jib--a11y-level: a nested badge
@@ -44,11 +44,11 @@
     --tw-jib--wcag-badge-text: oklch(from var(--tw-jib--text-color) l c h);
     --tw-jib--wcag-rating: --tw-jib--wcag-rating(var(--tw-jib--background-color), var(--tw-jib--wcag-badge-text));
 
-    /* "Max" — the requested level is physically unreachable from this
+    /* "Max" – the requested level is physically unreachable from this
      * background and the shade delivered the best that exists.
      *
      * maxCR(Y) bottoms out at √21 ≈ 4.583 at the 0.1791 pivot, so a pair at
-     * the ceiling ALWAYS rates at least AA — it never shows up as Fail. The
+     * the ceiling ALWAYS rates at least AA – it never shows up as Fail. The
      * misleading case is therefore "asked for AAA, badge says AA", which the
      * badge cannot detect from the pair alone: it has to know what was asked.
      * text-a11y-* records that in --tw-jib--a11y-level (see contrast/_support.css;
@@ -56,12 +56,12 @@
      *
      * A shortfall implies the ceiling was hit, because the shade is solved in
      * closed form and hits a reachable target exactly (verified across 726
-     * fixtures). No separate "did it saturate" probe is needed. Unset level —
-     * a bare wcag-badge — can never report Max, which is correct: with no
+     * fixtures). No separate "did it saturate" probe is needed. Unset level –
+     * a bare wcag-badge – can never report Max, which is correct: with no
      * requested level there is no shortfall to describe.
      *
      * The shortfall flag is @property-registered above, which is what lets the
-     * line below match it at all — see the note there. */
+     * line below match it at all – see the note there. */
     --tw-jib--wcag-shortfall: if(style(--tw-jib--a11y-level: aaa): if(style(--tw-jib--wcag-rating: "AAA"): 0; else: 1) ; style(--tw-jib--a11y-level: aa): if(style(--tw-jib--wcag-rating: "AAA"): 0; style(--tw-jib--wcag-rating: "AA"): 0; else: 1) ; style(--tw-jib--a11y-level: aa-lg): if(style(--tw-jib--wcag-rating: "Fail"): 1; else: 0) ; else: 0);
     --tw-jib--wcag-display: if(style(--tw-jib--wcag-shortfall: 1): "Max" ; else: var(--tw-jib--wcag-rating));
     position: relative;
@@ -76,7 +76,7 @@
       font-weight: 700;
       line-height: 1;
       border-radius: 0 0 0 var(--radius-sm, --spacing(1));
-      /* Max shares Fail's red — both mean "do not ship this as-is". */
+      /* Max shares Fail's red – both mean "do not ship this as-is". */
       --tw-jib--wcag-badge-bg: if(style(--tw-jib--wcag-display: "AAA"): var(--color-green-500) ; style(--tw-jib--wcag-display: "AA"): var(--color-yellow-500) ; style(--tw-jib--wcag-display: "AA Large"): var(--color-orange-500) ; else: var(--color-red-500));
       background: var(--tw-jib--wcag-badge-bg);
       color: if(style(--tw-jib--wcag-display: "AA"): black; else: white);

@@ -16,7 +16,7 @@ export default {
       //
       // printWidth   Wrapping a value splits one declaration across lines, and
       //              a --modifier() result then no longer matches the fallback
-      //              declaration it repeats verbatim — Tailwind stops
+      //              declaration it repeats verbatim – Tailwind stops
       //              collapsing the pair and emits both. Never wrapping keeps
       //              every value on one line, which is how they are written.
       // singleQuote  The WCAG ratings are strings that if(style()) compares,

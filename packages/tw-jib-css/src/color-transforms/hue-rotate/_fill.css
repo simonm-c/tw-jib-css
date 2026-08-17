@@ -24,7 +24,7 @@
 }
 
 /* =========================================================================
- * PRIMARY: fill-hue-rotate-* (positive — clockwise)
+ * PRIMARY: fill-hue-rotate-* (positive – clockwise)
  *
  * Pipeline stage: first. Reads --tw-jib--fill-color-source, writes
  * --tw-jib--fill-color-after-hue-rotate. Every block also writes the composer

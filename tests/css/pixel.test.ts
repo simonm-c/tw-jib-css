@@ -1,7 +1,7 @@
 import { describe, test, expect } from 'vitest';
 import { suiteScenarios } from './helpers.js';
 
-describe.each(suiteScenarios('pixel'))('pixel utilities — $name', ({ compile }) => {
+describe.each(suiteScenarios('pixel'))('pixel utilities – $name', ({ compile }) => {
   describe('bg-pixel-*', () => {
     test('bg-pixel-red-500 generates repeating-linear-gradient with screen blend', async () => {
       const css = await compile('bg-pixel-red-500');
@@ -77,7 +77,7 @@ describe.each(suiteScenarios('pixel'))('pixel utilities — $name', ({ compile }
   /*
    * The bloom mid values are a dimensionless ratio of lengths. Expressing
    * that as calc(a / b) costs the module every engine that cannot divide a
-   * length by a length — Gecko rejects it, and because the ratio is substituted
+   * length by a length – Gecko rejects it, and because the ratio is substituted
    * into the `background` shorthand, one rejected division drops the entire
    * shorthand to `none`, i.e. the module renders nothing at all rather than
    * degrading. tan(atan2(a, b)) is the portable spelling of the same ratio.
@@ -108,7 +108,7 @@ describe.each(suiteScenarios('pixel'))('pixel utilities — $name', ({ compile }
     test('the caps and overflows feeding the ratio stay lengths', async () => {
       const css = await compile('bg-pixel-red-500');
       // max(0px, ...) keeps the overflow a length so atan2's arguments agree
-      // in type — atan2 rejects mismatched units.
+      // in type – atan2 rejects mismatched units.
       expect(ratioDecl(css, '--tw-jib--pixel-bloom-row-overflow')).toContain('max(0px');
       expect(ratioDecl(css, '--tw-jib--pixel-bloom-col-overflow')).toContain('max(0px');
     });

@@ -2,7 +2,7 @@
 title: Pixel
 ---
 
-<!-- llm-context: pixel module — RGB pixel pattern backgrounds. Decomposes any colour into R, G, B rectangular columns using CSS relative colour syntax and repeating linear gradients with screen blend mode (additive mixing). Mimics LCD/CRT display phosphors. -->
+<!-- llm-context: pixel module – RGB pixel pattern backgrounds. Decomposes any colour into R, G, B rectangular columns using CSS relative colour syntax and repeating linear gradients with screen blend mode (additive mixing). Mimics LCD/CRT display phosphors. -->
 
 # Pixel
 
@@ -27,17 +27,17 @@ Requires CSS relative colour syntax (`rgb(from ... r 0 0)`). Chrome 111+, Safari
   { class: 'bg-pixel-<color>', styles: 'Sets colour and applies RGB pixel pattern with background-blend-mode: screen' },
   { class: 'bg-pixel-<color>/<opacity>', styles: 'Same with opacity modifier' },
   { class: 'bg-pixel-[<value>]', styles: 'Arbitrary colour value' },
-  { class: 'pixel-size-<number>', styles: '--tw-jib--pixel-size: --spacing(<number>) / 4 — pixel size (width = size, height = size × 2)' },
+  { class: 'pixel-size-<number>', styles: '--tw-jib--pixel-size: --spacing(<number>) / 4 – pixel size (width = size, height = size × 2)' },
   { class: 'pixel-size-[<value>]', styles: '--tw-jib--pixel-size: <value>' },
-  { class: 'pixel-gap-<number>', styles: '--tw-jib--pixel-gap: <number> — gap multiplier of pixel width' },
+  { class: 'pixel-gap-<number>', styles: '--tw-jib--pixel-gap: <number> – gap multiplier of pixel width' },
   { class: 'pixel-gap-[<value>]', styles: '--tw-jib--pixel-gap: <value>' },
-  { class: 'pixel-bloom-<number>', styles: '--tw-jib--pixel-bloom: --spacing(<number>) / 4 — phosphor bloom (unbounded; saturates to solid)' },
+  { class: 'pixel-bloom-<number>', styles: '--tw-jib--pixel-bloom: --spacing(<number>) / 4 – phosphor bloom (unbounded; saturates to solid)' },
   { class: 'pixel-bloom-[<value>]', styles: '--tw-jib--pixel-bloom: <value>' },
 ]" />
 
 ## How it works
 
-Each colour is split into its RGB channels — the direct components of additive light:
+Each colour is split into its RGB channels – the direct components of additive light:
 
 | Column        | Colour       | Extraction         |
 | ------------- | ------------ | ------------------ |
@@ -45,14 +45,14 @@ Each colour is split into its RGB channels — the direct components of additive
 | **G** (green) | `rgb(0 g 0)` | Green channel only |
 | **B** (blue)  | `rgb(0 0 b)` | Blue channel only  |
 
-Four background layers are composited — each channel needs its own layer for `screen` blending to work additively:
+Four background layers are composited – each channel needs its own layer for `screen` blending to work additively:
 
-1. **Row mask** — `repeating-linear-gradient(to bottom, ...)` with white rows and black gaps. Blended with `multiply` to punch out horizontal row separators.
-2. **Red column** — `repeating-linear-gradient(to right, ...)` at column position 0. Blended with `screen`.
-3. **Green column** — same, at column position 1. Blended with `screen`.
-4. **Blue column** — same, at column position 2. Blended with `screen`.
+1. **Row mask** – `repeating-linear-gradient(to bottom, ...)` with white rows and black gaps. Blended with `multiply` to punch out horizontal row separators.
+2. **Red column** – `repeating-linear-gradient(to right, ...)` at column position 0. Blended with `screen`.
+3. **Green column** – same, at column position 1. Blended with `screen`.
+4. **Blue column** – same, at column position 2. Blended with `screen`.
 
-Over a black `background-color`. The `screen` blend mode adds the channels together (additive mixing), creating tall rectangular pixels arranged in R|G|B triplets — just like a real LCD panel. When `pixel-bloom` > 0, each channel's column widens outward and adjacent channels overlap to produce secondary colours (yellow, cyan, magenta) — mimicking CRT phosphor glow. The dial is unbounded: at high values every channel saturates and the pattern dissolves into solid colour.
+Over a black `background-color`. The `screen` blend mode adds the channels together (additive mixing), creating tall rectangular pixels arranged in R|G|B triplets – just like a real LCD panel. When `pixel-bloom` > 0, each channel's column widens outward and adjacent channels overlap to produce secondary colours (yellow, cyan, magenta) – mimicking CRT phosphor glow. The dial is unbounded: at high values every channel saturates and the pattern dissolves into solid colour.
 
 ## Basic Usage
 
@@ -69,7 +69,7 @@ Add `bg-pixel-{color}` to any element:
 
 ## Gap
 
-Control the space between each R|G|B pixel triplet with `pixel-gap-{number}`. The value is a multiplier of the pixel width — `pixel-gap-1` = 1x pixel width, `pixel-gap-2` = 2x, etc. The default is 1.
+Control the space between each R|G|B pixel triplet with `pixel-gap-{number}`. The value is a multiplier of the pixel width – `pixel-gap-1` = 1x pixel width, `pixel-gap-2` = 2x, etc. The default is 1.
 
 <Example>
   <div class="flex gap-3">
@@ -81,7 +81,7 @@ Control the space between each R|G|B pixel triplet with `pixel-gap-{number}`. Th
   </div>
 </Example>
 
-Gap scales proportionally with pixel size — changing `pixel-size-*` automatically adjusts the gap.
+Gap scales proportionally with pixel size – changing `pixel-size-*` automatically adjusts the gap.
 
 ## Size
 
@@ -99,12 +99,12 @@ Control the pixel size with `pixel-size-{number}`. Scales at spacing/4 so `pixel
 
 ## Bloom
 
-Control the phosphor bloom with `pixel-bloom-{number}`. Scales at spacing/4 so `pixel-bloom-1` = 1px. This widens each channel outward so adjacent columns overlap additively — the CRT glow effect. The dial is unbounded; at high values every channel saturates and the pixel structure dissolves into solid colour. The default is 1px.
+Control the phosphor bloom with `pixel-bloom-{number}`. Scales at spacing/4 so `pixel-bloom-1` = 1px. This widens each channel outward so adjacent columns overlap additively – the CRT glow effect. The dial is unbounded; at high values every channel saturates and the pixel structure dissolves into solid colour. The default is 1px.
 
-- `pixel-bloom-0` — crisp hard-edged rectangles (LCD look)
-- `pixel-bloom-1` — slight glow (default)
-- `pixel-bloom-2` — adjacent channels fully meet
-- Larger — saturation regime; structure fades into colour
+- `pixel-bloom-0` – crisp hard-edged rectangles (LCD look)
+- `pixel-bloom-1` – slight glow (default)
+- `pixel-bloom-2` – adjacent channels fully meet
+- Larger – saturation regime; structure fades into colour
 
 <Example>
   <div class="flex gap-3">
@@ -118,7 +118,7 @@ Control the phosphor bloom with `pixel-bloom-{number}`. Scales at spacing/4 so `
 
 ## Opacity
 
-Add an opacity modifier with the `/` syntax to fade the entire pattern — all three RGB channel layers, the row mask, and the black background. The value is a percentage (0–100).
+Add an opacity modifier with the `/` syntax to fade the entire pattern – all three RGB channel layers, the row mask, and the black background. The value is a percentage (0–100).
 
 <Example>
   <div class="flex gap-3">
@@ -149,7 +149,7 @@ This scales the RGB channel opacities proportionally and makes the black backgro
 
 ## RGB Channel Behaviour
 
-Every Tailwind colour at every shade, rendered as pixels. Whites light all three R|G|B columns equally. Pure hues light only the relevant channels — red lights R, blue lights B, yellow lights R+G.
+Every Tailwind colour at every shade, rendered as pixels. Whites light all three R|G|B columns equally. Pure hues light only the relevant channels – red lights R, blue lights B, yellow lights R+G.
 
 <div class="space-y-4 my-6">
   <div>

@@ -24,7 +24,7 @@
 }
 
 /* =========================================================================
- * PRIMARY: outline-hue-rotate-* (positive — clockwise)
+ * PRIMARY: outline-hue-rotate-* (positive – clockwise)
  *
  * Pipeline stage: first. Reads --tw-jib--outline-color-source, writes
  * --tw-jib--outline-color-after-hue-rotate. Every block also writes the composer

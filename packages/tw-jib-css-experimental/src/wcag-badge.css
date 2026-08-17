@@ -1,10 +1,10 @@
-/* wcag-badge only — an ADDITION. The badge turns a colour into a rating STRING,
+/* wcag-badge only – an ADDITION. The badge turns a colour into a rating STRING,
  * which needs if(style()), and CSS offers no stable colour→string conversion, so
  * it cannot follow text-a11y-* into the stable package. Importing only the
  * stable package gives you working accessible shades and no badge; the badge is
  * a design-time instrument, the shade is what ships.
  *
- * text-a11y-*'s @function path is deliberately NOT here — it overrides a utility
+ * text-a11y-*'s @function path is deliberately NOT here – it overrides a utility
  * that already works everywhere, so wanting the badge must not silently change
  * how text-a11y-* computes. It lives in the functions entry with the other
  * overrides. The badge reads --tw-jib--a11y-level, which BOTH shade paths write,

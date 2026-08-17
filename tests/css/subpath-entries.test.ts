@@ -9,7 +9,7 @@ import { compileEntries } from './helpers.js';
  *
  * Those goals pull against each other, because Tailwind does NOT de-duplicate
  * @import: a file reached down more than one path has its @utility and @theme
- * blocks re-emitted per path. (@property is the exception — it is keyed by
+ * blocks re-emitted per path. (@property is the exception – it is keyed by
  * name, which is what lets the partials share core's registrations freely.) So
  * the split is structural rather than conventional: PARTIALS (leading
  * underscore) never import core, per-suite ENTRIES do, and index.css composes
@@ -48,7 +48,7 @@ const SUITES = [
  * unregistered layer does not degrade to a partial background, it produces
  * none at all.
  *
- * Reads WITH a fallback are excluded deliberately — that is the pipeline's own
+ * Reads WITH a fallback are excluded deliberately – that is the pipeline's own
  * idiom (a lightness expression starts from -after-saturation falling back to
  * -after-hue-rotate falling back to the source), and those stages are meant to
  * be unwritten until something writes them.
@@ -82,7 +82,7 @@ describe('per-suite subpaths', () => {
         const css = await compileEntries([`${SRC}/${subpath}.css`], classes);
         expect(
           danglingReads(css),
-          `${subpath} emits var()s nothing registers or writes — importing it alone yields dead declarations`,
+          `${subpath} emits var()s nothing registers or writes – importing it alone yields dead declarations`,
         ).toEqual([]);
       });
     }
@@ -112,8 +112,8 @@ describe('per-suite subpaths', () => {
     }
   });
 
-  /* The transforms are one pipeline — each stage's expression names the stage
-   * before it — so they ship as a single suite. */
+  /* The transforms are one pipeline – each stage's expression names the stage
+   * before it – so they ship as a single suite. */
   test('color-transforms carries every stage', async () => {
     const css = await compileEntries(
       [`${SRC}/color-transforms.css`],
@@ -143,7 +143,7 @@ describe('per-suite subpaths', () => {
         ]);
         expect(
           ruleCount(combined, cls),
-          `.${cls} is emitted more times from index.css than from a single suite — a partial is being reached twice`,
+          `.${cls} is emitted more times from index.css than from a single suite – a partial is being reached twice`,
         ).toBe(ruleCount(single, cls));
       });
     }

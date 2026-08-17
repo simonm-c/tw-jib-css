@@ -8,7 +8,7 @@
   </a>
 </p>
 
-<p align="center"><strong>tw-jib-css-experimental</strong> – the parts that aren't baseline yet.</p>
+<p align="center"><strong>tw-jib-css-experimental</strong> – bring the cutting edge of CSS to Tailwind.</p>
 
 <p align="center">
   <a href="https://www.npmjs.com/package/tw-jib-css-experimental"><img src="https://img.shields.io/npm/v/tw-jib-css-experimental" alt="npm version"></a>

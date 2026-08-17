@@ -32,7 +32,7 @@ async function copy() {
       </div>
 
       <h1 class="text-4xl md:text-5xl font-black tracking-tight leading-tight">
-        The parts that aren’t baseline yet.
+        Bring the cutting edge of CSS to Tailwind.
       </h1>
 
       <p class="text-lg opacity-80 leading-relaxed max-w-[52ch]">

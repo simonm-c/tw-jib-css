@@ -22,7 +22,7 @@ async function copy() {
       />
 
       <h1 class="text-4xl md:text-5xl font-black tracking-tight leading-tight">
-        The colour layer for Tailwind v4.
+        Do more with CSS than you thought possible, in the same familiar Tailwind syntax.
       </h1>
 
       <p class="text-lg opacity-80 leading-relaxed max-w-[48ch]">

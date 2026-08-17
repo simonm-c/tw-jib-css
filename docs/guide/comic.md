@@ -10,9 +10,11 @@ CMYK halftone dot backgrounds for any Tailwind colour. Pure CSS, no images.
 
 ::: tip Import
 Included in `@import 'tw-jib-css'`. To import individually:
+
 ```css
 @import 'tw-jib-css/comic';
 ```
+
 :::
 
 ::: info Browser Support
@@ -37,12 +39,12 @@ Uses CSS relative colour syntax with `max()` inside `rgb(from ...)`. Supported i
 
 Each colour is decomposed into CMYK channels using the inverse of its RGB values:
 
-| Dot | Colour | Opacity formula |
-|-----|--------|-----------------|
-| **C** (cyan) | `rgb(0 255 255)` | `(max(R,G,B) - R) / max(R,G,B)` |
+| Dot             | Colour           | Opacity formula                 |
+| --------------- | ---------------- | ------------------------------- |
+| **C** (cyan)    | `rgb(0 255 255)` | `(max(R,G,B) - R) / max(R,G,B)` |
 | **M** (magenta) | `rgb(255 0 255)` | `(max(R,G,B) - G) / max(R,G,B)` |
-| **Y** (yellow) | `rgb(255 255 0)` | `(max(R,G,B) - B) / max(R,G,B)` |
-| **K** (black) | `rgb(0 0 0)` | `1 - max(R,G,B) / 255` |
+| **Y** (yellow)  | `rgb(255 255 0)` | `(max(R,G,B) - B) / max(R,G,B)` |
+| **K** (black)   | `rgb(0 0 0)`     | `1 - max(R,G,B) / 255`          |
 
 The four dot layers are staggered at different grid offsets and composited with `background-blend-mode: multiply` for subtractive colour mixing — just like a printing press.
 
@@ -514,11 +516,7 @@ Use the arbitrary value syntax for colours not in the Tailwind palette:
 All `bg-comic-*` and `comic-*` utilities support Tailwind's variant syntax:
 
 ```html
-<div class="bg-blue-500 hover:bg-comic-blue-500">
-  Dots on hover
-</div>
+<div class="bg-blue-500 hover:bg-comic-blue-500">Dots on hover</div>
 
-<div class="bg-comic-red-500 md:comic-gap-8">
-  Larger gaps on medium screens
-</div>
+<div class="bg-comic-red-500 md:comic-gap-8">Larger gaps on medium screens</div>
 ```

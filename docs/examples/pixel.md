@@ -48,7 +48,7 @@ Defaults: size 1 (width=1px, height=2px), gap 1, bloom 1px.
   </div>
 </div>
 
-## Gap Sizes (pixel-gap-*)
+## Gap Sizes (pixel-gap-\*)
 
 All using `bg-pixel-blue-500`. Gap is a multiplier of pixel width (pixel-gap-1 = 1x width).
 
@@ -79,7 +79,7 @@ All using `bg-pixel-blue-500`. Gap is a multiplier of pixel width (pixel-gap-1 =
   </div>
 </div>
 
-## Pixel Size (pixel-size-*)
+## Pixel Size (pixel-size-\*)
 
 Using `bg-pixel-red-500`. Size sets width (spacing/4, so size-1 = 1px); height is always 2x width.
 
@@ -106,7 +106,7 @@ Using `bg-pixel-red-500`. Size sets width (spacing/4, so size-1 = 1px); height i
   </div>
 </div>
 
-## Bloom (pixel-bloom-*)
+## Bloom (pixel-bloom-\*)
 
 Using `bg-pixel-white`. From crisp LCD through CRT phosphor glow to saturation.
 
@@ -377,7 +377,7 @@ Using `bg-pixel-white`. From crisp LCD through CRT phosphor glow to saturation.
   </div>
 </div>
 
-## Opacity (bg-pixel-*/opacity)
+## Opacity (bg-pixel-\*/opacity)
 
 All using `bg-pixel-red-500` with varying opacity modifiers. The black background and all pixel layers fade together.
 
@@ -842,6 +842,7 @@ Different pixel sizes and bloom settings with border gradients.
 <div class="my-6">
 
 ### Slate
+
 <div class="grid grid-cols-11 gap-1 mb-4">
   <div data-test="slate-50" class="bg-pixel-slate-50 h-12 rounded"></div>
   <div data-test="slate-100" class="bg-pixel-slate-100 h-12 rounded"></div>
@@ -857,6 +858,7 @@ Different pixel sizes and bloom settings with border gradients.
 </div>
 
 ### Gray
+
 <div class="grid grid-cols-11 gap-1 mb-4">
   <div data-test="gray-50" class="bg-pixel-gray-50 h-12 rounded"></div>
   <div data-test="gray-100" class="bg-pixel-gray-100 h-12 rounded"></div>
@@ -872,6 +874,7 @@ Different pixel sizes and bloom settings with border gradients.
 </div>
 
 ### Zinc
+
 <div class="grid grid-cols-11 gap-1 mb-4">
   <div data-test="zinc-50" class="bg-pixel-zinc-50 h-12 rounded"></div>
   <div data-test="zinc-100" class="bg-pixel-zinc-100 h-12 rounded"></div>
@@ -887,6 +890,7 @@ Different pixel sizes and bloom settings with border gradients.
 </div>
 
 ### Red
+
 <div class="grid grid-cols-11 gap-1 mb-4">
   <div data-test="red-50" class="bg-pixel-red-50 h-12 rounded"></div>
   <div data-test="red-100" class="bg-pixel-red-100 h-12 rounded"></div>
@@ -902,6 +906,7 @@ Different pixel sizes and bloom settings with border gradients.
 </div>
 
 ### Orange
+
 <div class="grid grid-cols-11 gap-1 mb-4">
   <div data-test="orange-50" class="bg-pixel-orange-50 h-12 rounded"></div>
   <div data-test="orange-100" class="bg-pixel-orange-100 h-12 rounded"></div>
@@ -917,6 +922,7 @@ Different pixel sizes and bloom settings with border gradients.
 </div>
 
 ### Amber
+
 <div class="grid grid-cols-11 gap-1 mb-4">
   <div data-test="amber-50" class="bg-pixel-amber-50 h-12 rounded"></div>
   <div data-test="amber-100" class="bg-pixel-amber-100 h-12 rounded"></div>
@@ -932,6 +938,7 @@ Different pixel sizes and bloom settings with border gradients.
 </div>
 
 ### Yellow
+
 <div class="grid grid-cols-11 gap-1 mb-4">
   <div data-test="yellow-50" class="bg-pixel-yellow-50 h-12 rounded"></div>
   <div data-test="yellow-100" class="bg-pixel-yellow-100 h-12 rounded"></div>
@@ -947,6 +954,7 @@ Different pixel sizes and bloom settings with border gradients.
 </div>
 
 ### Lime
+
 <div class="grid grid-cols-11 gap-1 mb-4">
   <div data-test="lime-50" class="bg-pixel-lime-50 h-12 rounded"></div>
   <div data-test="lime-100" class="bg-pixel-lime-100 h-12 rounded"></div>
@@ -962,6 +970,7 @@ Different pixel sizes and bloom settings with border gradients.
 </div>
 
 ### Green
+
 <div class="grid grid-cols-11 gap-1 mb-4">
   <div data-test="green-50" class="bg-pixel-green-50 h-12 rounded"></div>
   <div data-test="green-100" class="bg-pixel-green-100 h-12 rounded"></div>
@@ -977,6 +986,7 @@ Different pixel sizes and bloom settings with border gradients.
 </div>
 
 ### Emerald
+
 <div class="grid grid-cols-11 gap-1 mb-4">
   <div data-test="emerald-50" class="bg-pixel-emerald-50 h-12 rounded"></div>
   <div data-test="emerald-100" class="bg-pixel-emerald-100 h-12 rounded"></div>
@@ -992,6 +1002,7 @@ Different pixel sizes and bloom settings with border gradients.
 </div>
 
 ### Teal
+
 <div class="grid grid-cols-11 gap-1 mb-4">
   <div data-test="teal-50" class="bg-pixel-teal-50 h-12 rounded"></div>
   <div data-test="teal-100" class="bg-pixel-teal-100 h-12 rounded"></div>
@@ -1007,6 +1018,7 @@ Different pixel sizes and bloom settings with border gradients.
 </div>
 
 ### Cyan
+
 <div class="grid grid-cols-11 gap-1 mb-4">
   <div data-test="cyan-50" class="bg-pixel-cyan-50 h-12 rounded"></div>
   <div data-test="cyan-100" class="bg-pixel-cyan-100 h-12 rounded"></div>
@@ -1022,6 +1034,7 @@ Different pixel sizes and bloom settings with border gradients.
 </div>
 
 ### Sky
+
 <div class="grid grid-cols-11 gap-1 mb-4">
   <div data-test="sky-50" class="bg-pixel-sky-50 h-12 rounded"></div>
   <div data-test="sky-100" class="bg-pixel-sky-100 h-12 rounded"></div>
@@ -1037,6 +1050,7 @@ Different pixel sizes and bloom settings with border gradients.
 </div>
 
 ### Blue
+
 <div class="grid grid-cols-11 gap-1 mb-4">
   <div data-test="blue-p-50" class="bg-pixel-blue-50 h-12 rounded"></div>
   <div data-test="blue-p-100" class="bg-pixel-blue-100 h-12 rounded"></div>
@@ -1052,6 +1066,7 @@ Different pixel sizes and bloom settings with border gradients.
 </div>
 
 ### Indigo
+
 <div class="grid grid-cols-11 gap-1 mb-4">
   <div data-test="indigo-50" class="bg-pixel-indigo-50 h-12 rounded"></div>
   <div data-test="indigo-100" class="bg-pixel-indigo-100 h-12 rounded"></div>
@@ -1067,6 +1082,7 @@ Different pixel sizes and bloom settings with border gradients.
 </div>
 
 ### Violet
+
 <div class="grid grid-cols-11 gap-1 mb-4">
   <div data-test="violet-50" class="bg-pixel-violet-50 h-12 rounded"></div>
   <div data-test="violet-100" class="bg-pixel-violet-100 h-12 rounded"></div>
@@ -1082,6 +1098,7 @@ Different pixel sizes and bloom settings with border gradients.
 </div>
 
 ### Purple
+
 <div class="grid grid-cols-11 gap-1 mb-4">
   <div data-test="purple-50" class="bg-pixel-purple-50 h-12 rounded"></div>
   <div data-test="purple-100" class="bg-pixel-purple-100 h-12 rounded"></div>
@@ -1097,6 +1114,7 @@ Different pixel sizes and bloom settings with border gradients.
 </div>
 
 ### Fuchsia
+
 <div class="grid grid-cols-11 gap-1 mb-4">
   <div data-test="fuchsia-50" class="bg-pixel-fuchsia-50 h-12 rounded"></div>
   <div data-test="fuchsia-100" class="bg-pixel-fuchsia-100 h-12 rounded"></div>
@@ -1112,6 +1130,7 @@ Different pixel sizes and bloom settings with border gradients.
 </div>
 
 ### Pink
+
 <div class="grid grid-cols-11 gap-1 mb-4">
   <div data-test="pink-50" class="bg-pixel-pink-50 h-12 rounded"></div>
   <div data-test="pink-100" class="bg-pixel-pink-100 h-12 rounded"></div>
@@ -1127,6 +1146,7 @@ Different pixel sizes and bloom settings with border gradients.
 </div>
 
 ### Rose
+
 <div class="grid grid-cols-11 gap-1 mb-4">
   <div data-test="rose-50" class="bg-pixel-rose-50 h-12 rounded"></div>
   <div data-test="rose-100" class="bg-pixel-rose-100 h-12 rounded"></div>

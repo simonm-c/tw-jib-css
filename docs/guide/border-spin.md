@@ -14,9 +14,11 @@ Chrome 85+, Safari 15.4+, Firefox 128+. Requires CSS `@property` for animated an
 
 ::: tip Import
 Included in `@import 'tw-jib-css'`. To import individually:
+
 ```css
 @import 'tw-jib-css/border-gradient';
 ```
+
 Note: `border-spin` is part of the `border-gradient` module.
 :::
 
@@ -85,9 +87,9 @@ Use bracket notation for custom durations:
 
 Reference CSS custom properties with the typed bare-value syntax `(type:--var)`:
 
-| Utility | Type hint | Example |
-| --- | --- | --- |
-| `border-spin-duration-*` | `time` | `border-spin-duration-(time:--spin-speed)` |
+| Utility                  | Type hint | Example                                    |
+| ------------------------ | --------- | ------------------------------------------ |
+| `border-spin-duration-*` | `time`    | `border-spin-duration-(time:--spin-speed)` |
 
 ## How It Works
 

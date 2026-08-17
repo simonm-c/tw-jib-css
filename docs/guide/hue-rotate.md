@@ -12,7 +12,7 @@ Rotate the hue of any colour by a number of degrees. Positive values rotate cloc
 Included in `@import 'tw-jib-css'`. Individual import:
 
 ```css
-@import 'tw-jib-css/hue-rotate';
+@import 'tw-jib-css/color-transforms';
 ```
 
 :::

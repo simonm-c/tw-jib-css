@@ -5,6 +5,7 @@ sidebar: false
 aside: false
 pageClass: showcase
 ---
+
 <div class="bg-[#f4ead0] text-[#141210] font-bold">
 <!-- ============================================================
      KIRBY SECTION

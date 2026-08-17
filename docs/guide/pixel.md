@@ -10,9 +10,11 @@ RGB pixel column backgrounds for any Tailwind colour. LCD or CRT phosphor look, 
 
 ::: tip Import
 Included in `@import 'tw-jib-css'`. To import individually:
+
 ```css
 @import 'tw-jib-css/pixel';
 ```
+
 :::
 
 ::: warning Browser Support
@@ -37,11 +39,11 @@ Requires CSS relative colour syntax (`rgb(from ... r 0 0)`). Chrome 111+, Safari
 
 Each colour is split into its RGB channels — the direct components of additive light:
 
-| Column | Colour | Extraction |
-|--------|--------|------------|
-| **R** (red) | `rgb(r 0 0)` | Red channel only |
+| Column        | Colour       | Extraction         |
+| ------------- | ------------ | ------------------ |
+| **R** (red)   | `rgb(r 0 0)` | Red channel only   |
 | **G** (green) | `rgb(0 g 0)` | Green channel only |
-| **B** (blue) | `rgb(0 0 b)` | Blue channel only |
+| **B** (blue)  | `rgb(0 0 b)` | Blue channel only  |
 
 Four background layers are composited — each channel needs its own layer for `screen` blending to work additively:
 
@@ -409,11 +411,7 @@ Use the arbitrary value syntax for colours not in the Tailwind palette:
 All `bg-pixel-*` and `pixel-*` utilities support Tailwind's variant syntax:
 
 ```html
-<div class="bg-blue-500 hover:bg-pixel-blue-500">
-  Sub-pixels on hover
-</div>
+<div class="bg-blue-500 hover:bg-pixel-blue-500">Sub-pixels on hover</div>
 
-<div class="bg-pixel-red-500 md:pixel-size-3">
-  Larger pixels on medium screens
-</div>
+<div class="bg-pixel-red-500 md:pixel-size-3">Larger pixels on medium screens</div>
 ```

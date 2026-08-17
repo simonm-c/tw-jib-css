@@ -13,12 +13,15 @@ The CSS `interpolate-size` property enables smooth transitions to and from keywo
 :::
 
 ::: tip Import
-Included in `@import 'tw-jib-css/experimental'`. To import individually:
+Included in `@import 'tw-jib-css-experimental'`. To take it on its own — no other
+experimental module, and none of the [`@function` overrides](/functions):
 
 ```css
-@import 'tw-jib-css/experimental/interpolate';
+@import 'tw-jib-css-experimental/interpolate';
 ```
 
+This entry reads nothing from `tw-jib-css`, so it costs you no colour machinery you
+aren't using.
 :::
 
 ## Quick Reference

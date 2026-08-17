@@ -13,12 +13,15 @@ The CSS `corner-shape` property controls how border-radius curves are drawn. Ins
 :::
 
 ::: tip Import
-Included in `@import 'tw-jib-css/experimental'`. To import individually:
+Included in `@import 'tw-jib-css-experimental'`. To take it on its own — no other
+experimental module, and none of the [`@function` overrides](/functions):
 
 ```css
-@import 'tw-jib-css/experimental/corner';
+@import 'tw-jib-css-experimental/corner';
 ```
 
+This entry reads nothing from `tw-jib-css`, so it costs you no colour machinery you
+aren't using.
 :::
 
 ## Quick Reference

@@ -48,7 +48,7 @@ Defaults: dot 1px, bleed 1px, gap 2px.
   </div>
 </div>
 
-## Gap Sizes (comic-gap-*)
+## Gap Sizes (comic-gap-\*)
 
 All using `bg-comic-blue-500`. Gap scales at spacing/4: comic-gap-1=1px, comic-gap-2=2px, comic-gap-4=4px, etc.
 
@@ -79,7 +79,7 @@ All using `bg-comic-blue-500`. Gap scales at spacing/4: comic-gap-1=1px, comic-g
   </div>
 </div>
 
-## Dot Radius (comic-dot-*)
+## Dot Radius (comic-dot-\*)
 
 Using `bg-comic-red-500 comic-gap-4`.
 
@@ -106,7 +106,7 @@ Using `bg-comic-red-500 comic-gap-4`.
   </div>
 </div>
 
-## Bleed (comic-bleed-*)
+## Bleed (comic-bleed-\*)
 
 Using `bg-comic-red-500 comic-gap-4`.
 
@@ -133,7 +133,7 @@ Using `bg-comic-red-500 comic-gap-4`.
   </div>
 </div>
 
-## Opacity (bg-comic-*/opacity)
+## Opacity (bg-comic-\*/opacity)
 
 All using `bg-comic-red-500` with varying opacity modifiers. The white background and all dot layers fade together.
 

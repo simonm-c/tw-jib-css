@@ -8,11 +8,22 @@ title: Border Style
 
 Per-side border styles. Set `border-t-dashed`, `border-b-dotted`, or any combination that TailwindCSS v4 doesn't expose natively.
 
+::: info Browser Support
+Plain `border-*-style` declarations — no relative colour syntax, no `@property`
+registrations, nothing modern at all. These utilities work wherever Tailwind itself
+does.
+:::
+
 ::: tip Import
 Included in `@import 'tw-jib-css'`. To import individually:
+
 ```css
 @import 'tw-jib-css/border-style';
 ```
+
+This entry carries none of the library's colour machinery, because these utilities
+read no colour. Taking it costs you nothing but the border styles below — see [take
+only what you need](/guide/installation#take-only-what-you-need).
 :::
 
 ## Quick Reference
@@ -76,16 +87,16 @@ Combine multiple per-side styles for decorative effects:
 
 ## Side Variants
 
-| Prefix | Sides | CSS Property |
-| --- | --- | --- |
-| `t` | Top | `border-top-style` |
-| `r` | Right | `border-right-style` |
-| `b` | Bottom | `border-bottom-style` |
-| `l` | Left | `border-left-style` |
-| `x` | Left + Right | `border-inline-style` |
-| `y` | Top + Bottom | `border-block-style` |
-| `s` | Inline start | `border-inline-start-style` |
-| `e` | Inline end | `border-inline-end-style` |
+| Prefix | Sides        | CSS Property                |
+| ------ | ------------ | --------------------------- |
+| `t`    | Top          | `border-top-style`          |
+| `r`    | Right        | `border-right-style`        |
+| `b`    | Bottom       | `border-bottom-style`       |
+| `l`    | Left         | `border-left-style`         |
+| `x`    | Left + Right | `border-inline-style`       |
+| `y`    | Top + Bottom | `border-block-style`        |
+| `s`    | Inline start | `border-inline-start-style` |
+| `e`    | Inline end   | `border-inline-end-style`   |
 
 ### Axis variants
 

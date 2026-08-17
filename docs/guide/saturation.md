@@ -12,7 +12,7 @@ Adjust the saturation (chroma) of any colour. Positive values increase saturatio
 Included in `@import 'tw-jib-css'`. Individual import:
 
 ```css
-@import 'tw-jib-css/saturation';
+@import 'tw-jib-css/color-transforms';
 ```
 
 :::

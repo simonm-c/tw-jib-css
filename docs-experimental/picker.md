@@ -13,12 +13,15 @@ The `appearance: base-select` value opts into the new customisable `<select>` re
 :::
 
 ::: tip Import
-Included in `@import 'tw-jib-css/experimental'`. To import individually:
+Included in `@import 'tw-jib-css-experimental'`. To take it on its own — no other
+experimental module, and none of the [`@function` overrides](/functions):
 
 ```css
-@import 'tw-jib-css/experimental/picker';
+@import 'tw-jib-css-experimental/picker';
 ```
 
+This entry reads nothing from `tw-jib-css`, so it costs you no colour machinery you
+aren't using.
 :::
 
 ## Quick Reference

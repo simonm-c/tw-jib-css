@@ -14,9 +14,11 @@ Chrome 111+, Safari 16.4+, Firefox 128+. Interpolation modes (`/shorter`, `/long
 
 ::: tip Import
 Included in `@import 'tw-jib-css'`. To import individually:
+
 ```css
 @import 'tw-jib-css/border-gradient';
 ```
+
 :::
 
 ## Quick Reference
@@ -127,13 +129,20 @@ A background set via a custom CSS class or inline style is overwritten by the bo
 
 ```html
 <!-- ✗ Custom class — background is overwritten -->
-<style>.my-card { background: #e0f2fe; }</style>
+<style>
+  .my-card {
+    background: #e0f2fe;
+  }
+</style>
 <div class="my-card border-4 border-linear-to-r border-from-pink-500 border-to-cyan-500">
   Background will be canvas, not #e0f2fe
 </div>
 
 <!-- ✗ Inline style — same issue -->
-<div style="background-color: #e0f2fe" class="border-4 border-linear-to-r border-from-pink-500 border-to-cyan-500">
+<div
+  style="background-color: #e0f2fe"
+  class="border-4 border-linear-to-r border-from-pink-500 border-to-cyan-500"
+>
   Background will be canvas, not #e0f2fe
 </div>
 ```
@@ -158,7 +167,10 @@ Or set `--tw-bg-image` directly to bypass the `bg-*` utility:
 
 ```html
 <!-- ✓ Setting the custom property directly -->
-<div style="--tw-bg-image: linear-gradient(#e0f2fe 0 0)" class="border-4 border-linear-to-r border-from-pink-500 border-to-cyan-500">
+<div
+  style="--tw-bg-image: linear-gradient(#e0f2fe 0 0)"
+  class="border-4 border-linear-to-r border-from-pink-500 border-to-cyan-500"
+>
   ...
 </div>
 ```
@@ -324,16 +336,16 @@ The same 8 modifiers apply to `border-radial` and `border-conic` gradients: `bor
 
 See [Colour Spaces](./colour-spaces.md) for a deeper look at how each space affects blending.
 
-| Mode | Best for |
-| --- | --- |
-| `/oklab` (default) | Smooth, perceptually uniform blends. No hue shifts. Best general-purpose choice. |
-| `/srgb` | Classic RGB blending. Can produce muddy midpoints between complementary colours. |
-| `/hsl` | Hue-based blending. Predictable hue transitions but can produce unexpected bright or grey bands. |
-| `/oklch` | Perceptually uniform with hue control. Good for rainbow-like gradients. |
-| `/longer` | Takes the long way around the hue wheel in oklch. Creates rainbow effects between two colours. |
-| `/shorter` | Shortest path around the hue wheel (default hue interpolation in oklch). |
-| `/increasing` | Always moves clockwise around the hue wheel. |
-| `/decreasing` | Always moves counter-clockwise around the hue wheel. |
+| Mode               | Best for                                                                                         |
+| ------------------ | ------------------------------------------------------------------------------------------------ |
+| `/oklab` (default) | Smooth, perceptually uniform blends. No hue shifts. Best general-purpose choice.                 |
+| `/srgb`            | Classic RGB blending. Can produce muddy midpoints between complementary colours.                 |
+| `/hsl`             | Hue-based blending. Predictable hue transitions but can produce unexpected bright or grey bands. |
+| `/oklch`           | Perceptually uniform with hue control. Good for rainbow-like gradients.                          |
+| `/longer`          | Takes the long way around the hue wheel in oklch. Creates rainbow effects between two colours.   |
+| `/shorter`         | Shortest path around the hue wheel (default hue interpolation in oklch).                         |
+| `/increasing`      | Always moves clockwise around the hue wheel.                                                     |
+| `/decreasing`      | Always moves counter-clockwise around the hue wheel.                                             |
 
 ## Using a custom value
 
@@ -368,15 +380,15 @@ Reference CSS custom properties with the typed bare-value syntax `(type:--var)`.
 
 All border gradient utilities that accept custom properties:
 
-| Utility | Type hint | Example |
-| --- | --- | --- |
-| `border-from-*` | `color` | `border-from-(color:--brand-from)` |
-| `border-via-*` | `color` | `border-via-(color:--brand-accent)` |
-| `border-to-*` | `color` | `border-to-(color:--brand-to)` |
-| `border-from-*` | `percentage` | `border-from-(percentage:--stop-start)` |
-| `border-to-*` | `percentage` | `border-to-(percentage:--stop-end)` |
-| `border-linear-*` | `number` | `border-linear-(number:--angle)` |
-| `border-conic-*` | `number` | `border-conic-(number:--start-angle)` |
+| Utility           | Type hint    | Example                                 |
+| ----------------- | ------------ | --------------------------------------- |
+| `border-from-*`   | `color`      | `border-from-(color:--brand-from)`      |
+| `border-via-*`    | `color`      | `border-via-(color:--brand-accent)`     |
+| `border-to-*`     | `color`      | `border-to-(color:--brand-to)`          |
+| `border-from-*`   | `percentage` | `border-from-(percentage:--stop-start)` |
+| `border-to-*`     | `percentage` | `border-to-(percentage:--stop-end)`     |
+| `border-linear-*` | `number`     | `border-linear-(number:--angle)`        |
+| `border-conic-*`  | `number`     | `border-conic-(number:--start-angle)`   |
 
 ## Applying conditionally
 
@@ -389,7 +401,6 @@ Prefix a border gradient utility with a state variant like `hover:*` to only app
     Hover to shift gradient
   </div>
 </Example>
-
 
 ## Border Width
 

@@ -8,7 +8,7 @@ Every colour transform interpolates in a colour space. Jibcss gives you seventee
 
 ## What colour space changes
 
-The colour space affects *how* a transform calculates, not *what* colours you can use. `bg-lighten-40/oklch` and `bg-lighten-40/hsl` both lighten the same input by the same amount — but the path from A to B is different, so the result looks different.
+The colour space affects _how_ a transform calculates, not _what_ colours you can use. `bg-lighten-40/oklch` and `bg-lighten-40/hsl` both lighten the same input by the same amount — but the path from A to B is different, so the result looks different.
 
 <Example stretch>
   <div class="flex flex-col gap-1">
@@ -75,14 +75,16 @@ For most work, the default (oklch) is the right answer. Switch spaces when you s
 
 ```html
 <div class="bg-blue-500 bg-lighten-30/oklch">
-<div class="bg-blue-500 bg-lighten-30/hsl">
-<div class="bg-blue-500 bg-hue-rotate-90/lab">
+  <div class="bg-blue-500 bg-lighten-30/hsl">
+    <div class="bg-blue-500 bg-hue-rotate-90/lab"></div>
+  </div>
+</div>
 ```
 
 The modifier applies per-utility, not per-element. You can mix spaces on one element if you have a reason to:
 
 ```html
-<div class="bg-blue-500 bg-lighten-20/oklch bg-hue-rotate-45/hsl">
+<div class="bg-blue-500 bg-lighten-20/oklch bg-hue-rotate-45/hsl"></div>
 ```
 
 ## Full list

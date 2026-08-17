@@ -11,9 +11,11 @@ Linear, radial, conic, and animated gradient borders. Same grammar as Tailwind's
 If you know `bg-linear-to-br`, you already know `border-linear-to-br`. The utilities mirror Tailwind's background gradient classes, with `border-from-*`, `border-via-*`, and `border-to-*` setting colour stops.
 
 ```html
-<div class="border-4 border-linear-to-br
+<div
+  class="border-4 border-linear-to-br
   border-from-violet-500 border-to-cyan-400
-  rounded-2xl">
+  rounded-2xl"
+></div>
 ```
 
 <Example stretch>
@@ -37,9 +39,11 @@ If you know `bg-linear-to-br`, you already know `border-linear-to-br`. The utili
 Add `border-spin` to a conic gradient for continuous rotation. Control speed with `border-spin-duration-{seconds}`:
 
 ```html
-<div class="border-4 border-conic-0 border-spin border-spin-duration-4
+<div
+  class="border-4 border-conic-0 border-spin border-spin-duration-4
   border-from-emerald-400 border-via-violet-500 border-to-emerald-400
-  rounded-full">
+  rounded-full"
+></div>
 ```
 
 Respects `prefers-reduced-motion`.

@@ -2,7 +2,7 @@
 title: WCAG Badge
 ---
 
-<!-- llm-context: wcag badge module (experimental) — wcag-badge overlays a ::after pseudo-element showing the WCAG 2.x contrast rating (AAA/AA/AA Large/Fail, plus Max) for the element's bg + text colour combination. Badge background is green/yellow/orange/red using TW colour tokens; Max shares Fail's red. Max appears only when text-a11y-* is on the same element and the level it requested is physically unreachable from that background. Badge text is black on yellow (AA), white on all others. All computation in CSS via @function + if(style()). Chromium only, and unlike text-a11y-* it cannot be made portable: colour-to-string needs if(style()). Ships from tw-jib-css/experimental; text-a11y-* ships from the main entry. -->
+<!-- llm-context: wcag badge module (experimental) — wcag-badge overlays a ::after pseudo-element showing the WCAG 2.x contrast rating (AAA/AA/AA Large/Fail, plus Max) for the element's bg + text colour combination. Badge background is green/yellow/orange/red using TW colour tokens; Max shares Fail's red. Max appears only when text-a11y-* is on the same element and the level it requested is physically unreachable from that background. Badge text is black on yellow (AA), white on all others. All computation in CSS via @function + if(style()). Chromium only, and unlike text-a11y-* it cannot be made portable: colour-to-string needs if(style()). Ships from tw-jib-css-experimental, importable alone as tw-jib-css-experimental/wcag-badge; text-a11y-* ships from the stable tw-jib-css main entry. -->
 
 # WCAG Badge
 
@@ -11,17 +11,21 @@ title: WCAG Badge
 ::: warning Browser Support
 CSS `@function` and `if(style())` are required. Currently supported in Chromium browsers only. The utility is wrapped in `@supports` and renders nothing in unsupported browsers.
 
-This does **not** apply to its partner [`text-a11y-*`](/tw-jib-css/guide/wcag), which is stable and works everywhere. The badge is the half of the module that cannot follow: reading a rating out means turning a colour into a _string_, and `if(style())` is the only way CSS can do that. So an element carrying both utilities gets an accessible shade in every browser and a badge only in Chromium.
+This does **not** apply to its partner [`text-a11y-*`](https://simonm-c.github.io/tw-jib-css/guide/wcag), which is stable and works everywhere. The badge is the half of the module that cannot follow: reading a rating out means turning a colour into a _string_, and `if(style())` is the only way CSS can do that. So an element carrying both utilities gets an accessible shade in every browser and a badge only in Chromium.
 :::
 
 ::: tip Import
-Included in `@import 'tw-jib-css/experimental'`. To import individually:
+Included in `@import 'tw-jib-css-experimental'`. To take it on its own — no other
+experimental module, and none of the [`@function` overrides](/functions):
 
 ```css
-@import 'tw-jib-css/experimental/wcag';
+@import 'tw-jib-css-experimental/wcag-badge';
 ```
 
-The accessible shade is separate and stable: `@import 'tw-jib-css'`.
+Taking the badge deliberately does **not** reroute `text-a11y-*` onto `@function`.
+The badge reads `--tw-jib--a11y-level`, which both shade paths write, so it reports
+correctly either way. The accessible shade itself is separate and stable:
+`@import 'tw-jib-css'`.
 :::
 
 ## Quick Reference
@@ -182,7 +186,7 @@ Place the badge on the same element that has the text colour, or on a child elem
 
 ## How It Works
 
-The badge reads the captured `--tw-jib--background-color` and `--tw-jib--text-color` custom properties (set by `bg-*` and `text-*` utilities in `core.css`), and runs them through an exact contrast pipeline:
+The badge reads the captured `--tw-jib--background-color` and `--tw-jib--text-color` custom properties (set by `bg-*` and `text-*` utilities in `core/_index.css`), and runs them through an exact contrast pipeline:
 
 1. **`--tw-jib--luminance-packed()`** — packs each colour's relative luminance into R and its complement into G, so a single `color-mix()` becomes a luminance subtraction.
 2. **`--tw-jib--contrast-test-all()`** — a multi-channel `color-mix()` tests all three WCAG thresholds (3, 4.5, 7) simultaneously. Each output channel encodes one threshold; running both directional orderings handles either-can-be-lighter without branching.
@@ -193,4 +197,4 @@ The badge reads the captured `--tw-jib--background-color` and `--tw-jib--text-co
 
 Because the comparison stays in colour space the whole way through — no numeric luminance is ever extracted — there is no quantization error and no uncertainty band. Every step works in `srgb-linear`; routing the luminance through the legacy `rgb()` function instead costs 10⁻⁵-scale precision, always signed so the darker colour of a pair measures darker, which is enough to decide a verdict for a pair sitting on a threshold.
 
-There is one deliberate tolerance. WCAG asks for a ratio of _at least_ the threshold, so a pair landing exactly on 4.5:1 is AA — but a step function returns "fail" at exactly zero. The thresholds therefore carry a 10⁻⁶ epsilon, about 5 × 10⁻⁴ in ratio terms, so an exact tie resolves in favour of passing. This matters because [`text-a11y-*`](/tw-jib-css/guide/accessible-color) produces exact ties by design; without it the badge would contradict the class beside it on every element.
+There is one deliberate tolerance. WCAG asks for a ratio of _at least_ the threshold, so a pair landing exactly on 4.5:1 is AA — but a step function returns "fail" at exactly zero. The thresholds therefore carry a 10⁻⁶ epsilon, about 5 × 10⁻⁴ in ratio terms, so an exact tie resolves in favour of passing. This matters because [`text-a11y-*`](https://simonm-c.github.io/tw-jib-css/guide/accessible-color) produces exact ties by design; without it the badge would contradict the class beside it on every element.

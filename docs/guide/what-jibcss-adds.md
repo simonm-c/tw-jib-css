@@ -17,13 +17,14 @@ One element, three layers that plain Tailwind can't do:
 </Example>
 
 ```html
-<div class="bg-comic-indigo-600
+<div
+  class="bg-comic-indigo-600
   border-4 border-linear-to-br border-from-indigo-300 border-to-cyan-300
   text-a11y-aa
-  rounded-xl p-6">
+  rounded-xl p-6"
+>
   <h3>Event name</h3>
-  <p>A card with a comic halftone background, a gradient border,
-     and auto-contrasted text.</p>
+  <p>A card with a comic halftone background, a gradient border, and auto-contrasted text.</p>
 </div>
 ```
 

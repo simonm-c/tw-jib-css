@@ -12,7 +12,7 @@ Adjust the lightness of any colour. Positive values lighten, negative values dar
 Included in `@import 'tw-jib-css'`. Individual import:
 
 ```css
-@import 'tw-jib-css/lightness';
+@import 'tw-jib-css/color-transforms';
 ```
 
 :::

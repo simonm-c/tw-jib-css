@@ -14,9 +14,11 @@ Chrome 85+, Safari 15.4+, Firefox 128+. Requires CSS `@property` for animated tr
 
 ::: tip Import
 Included in `@import 'tw-jib-css'`. To import individually:
+
 ```css
 @import 'tw-jib-css/ripple';
 ```
+
 :::
 
 ## Quick Reference
@@ -160,7 +162,7 @@ For CSS variables, use the typed bare-value syntax `ripple-color-(color:--var)`.
 The same pattern works for all ripple properties. For position, use the `position` type hint:
 
 ```html
-<div class="bg-ripple ripple-position-(position:--ripple-pos) [--ripple-pos:25%_75%]">
+<div class="bg-ripple ripple-position-(position:--ripple-pos) [--ripple-pos:25%_75%]"></div>
 ```
 
 ### Cursor-tracking ripple
@@ -192,8 +194,8 @@ const button = document.querySelector('.ripple-btn');
 
 button.addEventListener('mousedown', (e) => {
   const rect = button.getBoundingClientRect();
-  const x = ((e.clientX - rect.left) / rect.width * 100).toFixed(1);
-  const y = ((e.clientY - rect.top) / rect.height * 100).toFixed(1);
+  const x = (((e.clientX - rect.left) / rect.width) * 100).toFixed(1);
+  const y = (((e.clientY - rect.top) / rect.height) * 100).toFixed(1);
   button.style.setProperty('--ripple-pos', `${x}% ${y}%`);
 });
 ```
@@ -205,8 +207,8 @@ const button = document.querySelector<HTMLButtonElement>('.ripple-btn')!;
 
 button.addEventListener('mousedown', (e: MouseEvent) => {
   const rect = button.getBoundingClientRect();
-  const x = ((e.clientX - rect.left) / rect.width * 100).toFixed(1);
-  const y = ((e.clientY - rect.top) / rect.height * 100).toFixed(1);
+  const x = (((e.clientX - rect.left) / rect.width) * 100).toFixed(1);
+  const y = (((e.clientY - rect.top) / rect.height) * 100).toFixed(1);
   button.style.setProperty('--ripple-pos', `${x}% ${y}%`);
 });
 ```
@@ -215,8 +217,8 @@ button.addEventListener('mousedown', (e: MouseEvent) => {
 function RippleButton() {
   function handleMouseDown(e) {
     const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width * 100).toFixed(1);
-    const y = ((e.clientY - rect.top) / rect.height * 100).toFixed(1);
+    const x = (((e.clientX - rect.left) / rect.width) * 100).toFixed(1);
+    const y = (((e.clientY - rect.top) / rect.height) * 100).toFixed(1);
     e.currentTarget.style.setProperty('--ripple-pos', `${x}% ${y}%`);
   }
 
@@ -249,8 +251,8 @@ const buttonRef = useTemplateRef('buttonRef');
 
 function handleMouseDown(e) {
   const rect = buttonRef.value.getBoundingClientRect();
-  const x = ((e.clientX - rect.left) / rect.width * 100).toFixed(1);
-  const y = ((e.clientY - rect.top) / rect.height * 100).toFixed(1);
+  const x = (((e.clientX - rect.left) / rect.width) * 100).toFixed(1);
+  const y = (((e.clientY - rect.top) / rect.height) * 100).toFixed(1);
   buttonRef.value.style.setProperty('--ripple-pos', `${x}% ${y}%`);
 }
 </script>
@@ -263,4 +265,3 @@ You could — but using a custom variable via `ripple-position-(position:--rippl
 :::
 
 ## Applying conditionally
-

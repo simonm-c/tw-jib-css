@@ -24149,8 +24149,6 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-
-
 <!-- END GENERATED MATRIX -->
 
 ## Base Color Range — Darken-20
@@ -24694,7 +24692,7 @@ Opacity with explicit color space — darken and lighten.
 
 ## Edge Cases: No Explicit Background
 
-Color transform without a bg-* class (uses --tw-jib--background-color default: canvas).
+Color transform without a bg-\* class (uses --tw-jib--background-color default: canvas).
 
 <div class="grid grid-cols-4 gap-3 my-6">
   <div data-test="edge-no-bg-darken" class="h-20 rounded-lg flex items-center justify-center bg-darken-20">

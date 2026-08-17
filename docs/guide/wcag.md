@@ -487,4 +487,4 @@ Two details of that arrangement are load-bearing rather than stylistic:
 
 The most any background can offer is `max((Y + 0.05)/0.05, 1.05/(Y + 0.05))`, which bottoms out at `√21 ≈ 4.583` at the pivot. So 3:1 and 4.5:1 are reachable from _every_ background, but 7:1 is mathematically unreachable for backgrounds with luminance between roughly 0.10 and 0.30, and for many vivid mid-tones. There the target luminance clamps, the output saturates at pure black or white, and the achieved ratio is the best physics allows. `text-a11y-aaa` on `bg-indigo-600` tops out at 6.44:1.
 
-The implementation lives in `wcag/_stable.css` and ships from the main entry.
+The implementation lives in `accessible-shade/_index.css` and ships from the main entry.

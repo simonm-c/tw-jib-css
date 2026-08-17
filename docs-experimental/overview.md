@@ -53,20 +53,30 @@ wherever it is supported. Same names, same results, a different code path. If yo
 that has no stable form, take that module on its own instead.
 :::
 
-## Browser support at a glance
+## Modules at a glance
 
-| Module                           | Kind     | Support                                     |
-| -------------------------------- | -------- | ------------------------------------------- |
-| [Functions](/functions)          | Override | Chromium only — CSS `@function`             |
-| [Corner Shape](/corner)          | Addition | Chrome 139+ · ~68%                          |
-| [Interpolate Size](/interpolate) | Addition | Chromium only · ~48%                        |
-| [Base Select Picker](/picker)    | Addition | Chromium only, Firefox in progress          |
-| [WCAG Badge](/wcag-badge)        | Addition | Chromium only — `@function` + `if(style())` |
+Every module is its own entry point. Take the one you want and nothing else comes with it — which
+matters more here than in the stable package, because the additions and the overrides live side by side
+and only the overrides can change existing markup.
+
+| Module                           | Import                                | Kind     | Support                                     |
+| -------------------------------- | ------------------------------------- | -------- | ------------------------------------------- |
+| _everything below_               | `tw-jib-css-experimental`             | both     | see each row                                |
+| [Functions](/functions)          | `tw-jib-css-experimental/functions`   | Override | Chromium only — CSS `@function`             |
+| [Corner Shape](/corner)          | `tw-jib-css-experimental/corner`      | Addition | Chrome 139+ · ~68%                          |
+| [Interpolate Size](/interpolate) | `tw-jib-css-experimental/interpolate` | Addition | Chromium only · ~48%                        |
+| [Base Select Picker](/picker)    | `tw-jib-css-experimental/picker`      | Addition | Chromium only, Firefox in progress          |
+| [WCAG Badge](/wcag-badge)        | `tw-jib-css-experimental/wcag-badge`  | Addition | Chromium only — `@function` + `if(style())` |
+
+`corner`, `interpolate` and `picker` read nothing from `tw-jib-css` at all, so taking one of those
+carries no colour machinery. This is a separate package, never a sub-path of the stable one:
+`tw-jib-css/experimental` does not exist.
 
 ## What is _not_ in here
 
 The accessible shade itself. `text-a11y-aa`, `text-a11y-aaa` and `text-a11y-aa-lg` are
-[stable and ship from the main entry](/tw-jib-css/guide/wcag), exact on Chromium, Firefox and Safari alike.
+[stable and ship from the main entry](https://simonm-c.github.io/tw-jib-css/guide/wcag), exact on
+Chromium, Firefox and Safari alike.
 
 Only the _measuring_ half stayed experimental: the [badge](/wcag-badge) that names a rating needs
 `if(style())`, because reading a rating out means turning a colour into a string. The shade could be solved

@@ -8,11 +8,22 @@ title: Grid
 
 CSS Grid named template areas. Set `grid-template-areas` and `grid-area` via utility classes.
 
+::: info Browser Support
+Plain `grid-template-areas` and `grid-area` — no relative colour syntax, no
+`@property` registrations, nothing modern at all. These utilities work wherever
+Tailwind itself does.
+:::
+
 ::: tip Import
 Included in `@import 'tw-jib-css'`. To import individually:
+
 ```css
 @import 'tw-jib-css/grid';
 ```
+
+This entry carries none of the library's colour machinery, because these utilities
+read no colour. Taking it costs you nothing but the two utilities below — see [take
+only what you need](/guide/installation#take-only-what-you-need).
 :::
 
 ## Quick Reference
@@ -105,4 +116,3 @@ For CSS variables, you can also use the `grid-area-(--custom-property)` syntax:
 </Example>
 
 This is shorthand for `grid-area-[var(--hero-area)]` — it adds the `var()` wrapper automatically.
-

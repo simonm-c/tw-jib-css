@@ -12,7 +12,8 @@ Both textures follow the same pattern: `bg-{texture}-{color}` plus modifier clas
 
 ```html
 <div class="bg-comic-blue-500">
-<div class="bg-pixel-blue-500 pixel-size-1 pixel-gap-1">
+  <div class="bg-pixel-blue-500 pixel-size-1 pixel-gap-1"></div>
+</div>
 ```
 
 Pass a Tailwind colour, get a textured surface. Change the colour, the texture updates — no images, no SVG, no JavaScript.
@@ -39,9 +40,11 @@ Pass a Tailwind colour, get a textured surface. Change the colour, the texture u
 Textures play nicely with gradient borders, colour transforms, and auto-contrast text:
 
 ```html
-<div class="bg-comic-violet-600
+<div
+  class="bg-comic-violet-600
   border-4 border-linear-to-br border-from-violet-300 border-to-pink-300
-  text-a11y-aa p-6 rounded-xl">
+  text-a11y-aa p-6 rounded-xl"
+>
   Comic halftone background, gradient border, accessible text.
 </div>
 ```

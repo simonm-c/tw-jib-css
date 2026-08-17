@@ -19,10 +19,12 @@ Add `bg-ripple` to any element. On `:active`, a radial gradient expands outward 
 </Example>
 
 ```html
-<button class="bg-indigo-600 bg-ripple
+<button
+  class="bg-indigo-600 bg-ripple
   ripple-color-white/40
   ripple-position-center
-  ripple-duration-60">
+  ripple-duration-60"
+>
   Click me
 </button>
 ```

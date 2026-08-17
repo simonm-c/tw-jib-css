@@ -45,9 +45,23 @@ const ALL_COLORS = [
 ];
 
 const SPACES = [
-  'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
-  'srgb', 'srgb-linear', 'display-p3', 'a98-rgb', 'prophoto-rgb',
-  'rec2020', 'xyz', 'xyz-d50', 'xyz-d65', 'color-mix',
+  'oklch',
+  'lch',
+  'lab',
+  'oklab',
+  'hsl',
+  'hwb',
+  'rgb',
+  'srgb',
+  'srgb-linear',
+  'display-p3',
+  'a98-rgb',
+  'prophoto-rgb',
+  'rec2020',
+  'xyz',
+  'xyz-d50',
+  'xyz-d65',
+  'color-mix',
 ];
 
 const AMOUNTS = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
@@ -125,7 +139,12 @@ output += `Full lightness scale (0–100) across all 17 colour spaces for 5 repr
 
 for (const color of FULL_MATRIX_COLORS) {
   const shades = [color.light, color.mid, color.dark];
-  output += colorSection(color, shades, SPACES, `${color.name.charAt(0).toUpperCase() + color.name.slice(1)} — All Spaces`);
+  output += colorSection(
+    color,
+    shades,
+    SPACES,
+    `${color.name.charAt(0).toUpperCase() + color.name.slice(1)} — All Spaces`,
+  );
 }
 
 // Section: All 22 colors × oklch only
@@ -137,7 +156,12 @@ for (const color of ALL_COLORS) {
   if (FULL_MATRIX_COLORS.some((c) => c.name === color.name)) continue;
 
   const shades = [color.light, color.mid, color.dark];
-  output += colorSection(color, shades, ['oklch'], `${color.name.charAt(0).toUpperCase() + color.name.slice(1)}`);
+  output += colorSection(
+    color,
+    shades,
+    ['oklch'],
+    `${color.name.charAt(0).toUpperCase() + color.name.slice(1)}`,
+  );
 }
 
 process.stdout.write(output);

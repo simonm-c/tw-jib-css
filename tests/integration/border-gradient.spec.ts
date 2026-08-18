@@ -614,16 +614,21 @@ test.describe('border styles', () => {
 
 test.describe('state variants', () => {
   /*
-   * WebKit matches :hover here but never re-resolves
-   * --tw-jib--background-color-source, so the painted colour stays at the base.
-   * Gecko and Blink both re-resolve it. That is a defect in the utility, not a
-   * gap in the engine's hover support, so this is marked as an expected failure
-   * rather than skipped: the assertion below states the intended behaviour, and
-   * Playwright fails the run if WebKit ever starts passing, which is the signal
-   * to delete this annotation.
+   * WebKit matches :hover here but does not invalidate
+   * --tw-jib--background-color-source off the pseudo-class alone, so the painted
+   * colour stays at the base until some unrelated recalc flushes it. Gecko and
+   * Blink both re-resolve immediately.
+   *
+   * That makes the outcome a race, not a stable failure: on a loaded machine an
+   * unrelated recalc lands inside the poll window and WebKit reaches the hovered
+   * colour, while on an idle one it never does. So this is fixme rather than
+   * fail – test.fail asserts a DETERMINISTIC failure, and turned every run that
+   * happened to flush into a reported failure. The cost is that nothing now
+   * reports when WebKit fixes the invalidation; the previous annotation only
+   * appeared to give that signal, because what tripped it was load.
    */
   test('hover:bg changes background on hover', async ({ page, browserName }) => {
-    test.fail(browserName === 'webkit', 'hover: does not re-resolve the tw-jib colour source');
+    test.fixme(browserName === 'webkit', 'hover: does not invalidate the tw-jib colour source');
 
     await gotoPage(page);
     const element = page.locator('[data-test="edge-hover-bg"]');

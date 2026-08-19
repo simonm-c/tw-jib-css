@@ -2,7 +2,7 @@
 title: Base Select Picker
 ---
 
-<!-- llm-context: picker module (experimental) — CSS appearance: base-select and custom variants for ::picker(select), ::picker-icon, and ::checkmark pseudo-elements. Chromium only, Firefox WIP. -->
+<!-- llm-context: picker module (experimental) – CSS appearance: base-select and custom variants for ::picker(select), ::picker-icon, and ::checkmark pseudo-elements. Chromium only, Firefox WIP. -->
 
 # Base Select Picker
 
@@ -13,21 +13,24 @@ The `appearance: base-select` value opts into the new customisable `<select>` re
 :::
 
 ::: tip Import
-Included in `@import 'tw-jib-css/experimental'`. To import individually:
+Included in `@import 'tw-jib-css-experimental'`. To take it on its own – no other
+experimental module, and none of the [`@function` overrides](/functions):
 
 ```css
-@import 'tw-jib-css/experimental/picker';
+@import 'tw-jib-css-experimental/picker';
 ```
 
+This entry reads nothing from `tw-jib-css`, so it costs you no colour machinery you
+aren't using.
 :::
 
 ## Quick Reference
 
 <QuickReference :rows="[
   { class: 'appearance-base-select', styles: 'appearance: base-select' },
-  { class: 'picker:{utility}', styles: 'Targets ::picker(select) — the dropdown popup' },
-  { class: 'picker-icon:{utility}', styles: 'Targets ::picker-icon — the dropdown arrow' },
-  { class: 'checkmark:{utility}', styles: 'Targets ::checkmark — the selected-item indicator' },
+  { class: 'picker:{utility}', styles: 'Targets ::picker(select) – the dropdown popup' },
+  { class: 'picker-icon:{utility}', styles: 'Targets ::picker-icon – the dropdown arrow' },
+  { class: 'checkmark:{utility}', styles: 'Targets ::checkmark – the selected-item indicator' },
 ]" />
 
 ## Basic Usage

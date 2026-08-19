@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
   The sail tapers to a point at the head, so its drawn mass sits low in its
-  bounding box — the area centroid lands two thirds of the way down. Centring
+  bounding box – the area centroid lands two thirds of the way down. Centring
   the bounding box reads bottom-heavy, and centring the centroid strands the
   apex against the top edge because the eye still reads the silhouette. This
   translate puts a point three tenths of the way from box centre toward the

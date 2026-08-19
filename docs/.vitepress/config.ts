@@ -7,14 +7,14 @@ export default defineConfig({
   },
   title: 'Jibcss',
   description:
-    'TailwindCSS v4 utility library — border gradients, color transforms, ripple effects, and more.',
+    'TailwindCSS v4 utility library – border gradients, color transforms, ripple effects, and more.',
   base: '/tw-jib-css/',
   head: [['link', { rel: 'icon', type: 'image/svg+xml', href: '/tw-jib-css/jibcss-mark.svg' }]],
 
   themeConfig: {
     siteTitle: false,
     /*
-     * "Experimental" must be an ABSOLUTE url — nav links go through
+     * "Experimental" must be an ABSOLUTE url – nav links go through
      * withBase(), so '/tw-jib-css/experimental/' would resolve to
      * /tw-jib-css/tw-jib-css/experimental/. Same constraint, mirrored, in
      * docs-experimental/.vitepress/config.ts.
@@ -24,7 +24,7 @@ export default defineConfig({
       { text: 'Experimental', link: 'https://simonm-c.github.io/tw-jib-css/experimental/' },
     ],
 
-    // Stable package only — every PAGE here documents the stable package, and
+    // Stable package only – every PAGE here documents the stable package, and
     // the experimental package has its own VitePress instance
     // (docs-experimental/). What these docs do carry is a way to find it: the
     // nav item above and the closing panel on the landing. Without those, the

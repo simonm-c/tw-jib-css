@@ -9,7 +9,7 @@ pageClass: showcase
 <div class="bg-gray-950 px-8 py-16 text-center">
   <p class="text-gray-500 text-xs uppercase tracking-[0.3em] m-0">Jibcss Textures</p>
   <h1 class="text-4xl font-bold text-white mt-3 mb-0 border-0">What could your site look like?</h1>
-  <p class="text-gray-400 mt-3 mb-0 max-w-lg mx-auto">Two full-page mock websites, each built entirely with Tailwind and Jibcss texture utilities. No images, no SVG, no JavaScript — just CSS.</p>
+  <p class="text-gray-400 mt-3 mb-0 max-w-lg mx-auto">Two full-page mock websites, each built entirely with Tailwind and Jibcss texture utilities. No images, no SVG, no JavaScript – just CSS.</p>
 </div>
 
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-0">

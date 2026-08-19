@@ -7,7 +7,7 @@ layout: page
 
 Every TW default colour at every shade, exercised against all three WCAG levels (AA, AAA, AA Large) plus threshold edge cases and oklch stress fixtures. Targeted by the Playwright integration suite.
 
-## All Colours — AA
+## All Colours – AA
 
 ### Red
 
@@ -361,7 +361,7 @@ Every TW default colour at every shade, exercised against all three WCAG levels 
   <div data-test="stone-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-950 text-a11y-aa">950</div>
 </div>
 
-## All Colours — AAA
+## All Colours – AAA
 
 ### Red
 
@@ -715,7 +715,7 @@ Every TW default colour at every shade, exercised against all three WCAG levels 
   <div data-test="aaa-stone-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-950 text-a11y-aaa">950</div>
 </div>
 
-## All Colours — AA Large
+## All Colours – AA Large
 
 ### Red
 
@@ -1136,7 +1136,7 @@ Backgrounds near WCAG threshold boundaries.
   </div>
 </div>
 
-## oklch — High Saturation Stress Test
+## oklch – High Saturation Stress Test
 
 <div class="grid grid-cols-3 gap-4 my-6">
   <div data-test="oklch-blue" class="h-24 rounded-lg flex flex-col items-center justify-center bg-[oklch(54.6%_0.245_262.881)] text-a11y-aa">
@@ -1157,10 +1157,10 @@ Backgrounds near WCAG threshold boundaries.
 
 Each of these was a characterised failure during development of the closed-form
 solver. They are pinned here so the failure cannot return silently. The first two
-now guard an _invariant_ rather than reproducing a live bug — do not remove them
+now guard an _invariant_ rather than reproducing a live bug – do not remove them
 on the grounds that they always pass.
 
-### Exact grey — float-residual guard
+### Exact grey – float-residual guard
 
 The luma coefficients do not sum to exactly 1.0 in float evaluation, so on a
 mathematically exact grey the chroma vector carries a uniform residual of order
@@ -1183,11 +1183,11 @@ just as easily as overshoot. The output must stay perfectly neutral and on targe
   </div>
 </div>
 
-### One-bit tints — hue stability on near-neutrals
+### One-bit tints – hue stability on near-neutrals
 
 Two backgrounds one 8-bit step apart, visually identical. The output hue is the
 ratio of channel differences of order 5×10⁻³, so a gamut-maximal chroma scale
-amplified quantisation noise into a full hue swing — crimson vs ultramarine text
+amplified quantisation noise into a full hue swing – crimson vs ultramarine text
 on indistinguishable greys. Matching the input's chroma bounds the amplification,
 so these two must stay near-neutral and near-identical.
 
@@ -1210,16 +1210,16 @@ exactly, not approximated.
 
 <div class="grid grid-cols-2 gap-3 my-6">
   <div data-test="frozen-feasible-pink" class="h-20 rounded-lg flex flex-col items-center justify-center bg-[#db2777] text-a11y-aa">
-    <span class="font-bold text-xs">#db2777 — maxCR 4.60</span>
+    <span class="font-bold text-xs">#db2777 – maxCR 4.60</span>
     <span class="text-[10px] font-mono">text-a11y-aa</span>
   </div>
   <div data-test="frozen-feasible-grey" class="h-20 rounded-lg flex flex-col items-center justify-center bg-[#767676] text-a11y-aa">
-    <span class="font-bold text-xs">#767676 — maxCR 4.62</span>
+    <span class="font-bold text-xs">#767676 – maxCR 4.62</span>
     <span class="text-[10px] font-mono">text-a11y-aa</span>
   </div>
 </div>
 
-### Capped AAA — physics, not failure
+### Capped AAA – physics, not failure
 
 7:1 is mathematically unreachable for backgrounds with luminance in (0.10, 0.30).
 The target luminance clamps, the output saturates at pure black or white, and the
@@ -1228,11 +1228,11 @@ degradation and the suite grades it CAPPED, not FAIL.
 
 <div class="grid grid-cols-2 gap-3 my-6">
   <div data-test="frozen-capped-grey" class="h-20 rounded-lg flex flex-col items-center justify-center bg-[#767676] text-a11y-aaa">
-    <span class="font-bold text-xs">#767676 — ceiling 4.62</span>
+    <span class="font-bold text-xs">#767676 – ceiling 4.62</span>
     <span class="text-[10px] font-mono">text-a11y-aaa</span>
   </div>
   <div data-test="frozen-capped-indigo" class="h-20 rounded-lg flex flex-col items-center justify-center bg-[#4f46e5] text-a11y-aaa">
-    <span class="font-bold text-xs">#4f46e5 — ceiling 6.29</span>
+    <span class="font-bold text-xs">#4f46e5 – ceiling 6.29</span>
     <span class="text-[10px] font-mono">text-a11y-aaa</span>
   </div>
 </div>

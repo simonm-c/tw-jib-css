@@ -1,6 +1,6 @@
 # Installation
 
-> Installation — how to add tw-jib-css to a TailwindCSS v4 project
+> Installation – how to add tw-jib-css to a TailwindCSS v4 project. Peer dependency is tailwindcss >=4.3.0. Every module is importable on its own via a package sub-path export, and a module you do not import costs you nothing: @property registrations and @theme keys are emitted unconditionally, so unlike an unused class the scanner cannot purge them. grid and border-style emit no colour registrations at all. Lightness/saturation/hue-rotate ship as one color-transforms module because they are one pipeline. Experimental features are a SEPARATE package, tw-jib-css-experimental, never a tw-jib-css sub-path.
 
 # Installation
 
@@ -36,25 +36,109 @@ Import it alongside TailwindCSS:
 @import 'tw-jib-css';
 ```
 
-## Available Modules
+That is the whole library. If you want a part of it, read on – every module is also
+its own entry point.
 
-| Module           | Import Path                   |
-| ---------------- | ----------------------------- |
-| Border Gradient  | `tw-jib-css/border-gradient`  |
-| Lightness        | `tw-jib-css/lightness`        |
-| Saturation       | `tw-jib-css/saturation`       |
-| Hue Rotate       | `tw-jib-css/hue-rotate`       |
-| Accessible Shade | `tw-jib-css/accessible-shade` |
-| Ripple           | `tw-jib-css/ripple`           |
-| Comic Dots       | `tw-jib-css/comic`            |
-| Pixel            | `tw-jib-css/pixel`            |
-| Border Style     | `tw-jib-css/border-style`     |
-| Grid             | `tw-jib-css/grid`             |
+## Take only what you need
 
-## Requirements
+Each module has a package sub-path export and stands entirely on its own. Want
+accessible text shades and nothing else? Import that one module. You do not get
+comic halftones, ripples or gradient borders as the price of admission:
 
-- **TailwindCSS v4.0+** — tw-jib-css uses the CSS-first `@utility`, `@custom-variant`, `@theme`, and `@property` syntax introduced in v4.
-- **Modern browser** — CSS relative color syntax, `@property`, and `color-mix()` are used throughout. All major browsers support these features.
+```css
+@import 'tailwindcss';
+@import 'tw-jib-css/accessible-shade';
+```
+
+Import several and they compose exactly as they do from the root entry:
+
+```css
+@import 'tailwindcss';
+@import 'tw-jib-css/accessible-shade';
+@import 'tw-jib-css/border-gradient';
+@import 'tw-jib-css/grid';
+```
+
+**Why this is worth doing**
+Not bundle size – Tailwind's scanner purges classes you never write regardless, so
+an unused utility costs you nothing either way.
+
+What it saves is the part the scanner **cannot** reach. `@property` registrations and
+`@theme` keys are not classes, so they are emitted whether or not anything uses
+them. The colour pipeline that `bg-lighten-*` and `text-a11y-*` read from is a few
+dozen registrations, and importing the root entry emits all of them. Importing
+`tw-jib-css/grid` emits none: those utilities read no colour, so they carry no
+colour machinery.
+
+It also keeps your browser-support floor honest. `grid` and `border-style` are plain
+CSS properties and need nothing modern at all – see [Browser
+support](#browser-support).
+
+### Modules
+
+| Module                                                                                             | Import path                   | Colour pipeline |
+| -------------------------------------------------------------------------------------------------- | ----------------------------- | --------------- |
+| _everything below_                                                                                 | `tw-jib-css`                  | yes             |
+| [Accessible Shade](/guide/wcag)                                                                    | `tw-jib-css/accessible-shade` | yes             |
+| [Lightness](/guide/lightness), [Saturation](/guide/saturation) and [Hue Rotate](/guide/hue-rotate) | `tw-jib-css/color-transforms` | yes             |
+| [Border Gradient](/guide/border-gradient)                                                          | `tw-jib-css/border-gradient`  | yes             |
+| [Ripple](/guide/ripple)                                                                            | `tw-jib-css/ripple`           | yes             |
+| [Comic](/guide/comic)                                                                              | `tw-jib-css/comic`            | yes             |
+| [Pixel](/guide/pixel)                                                                              | `tw-jib-css/pixel`            | yes             |
+| [Border Style](/guide/border-style)                                                                | `tw-jib-css/border-style`     | no              |
+| [Grid](/guide/grid)                                                                                | `tw-jib-css/grid`             | no              |
+
+Lightness, saturation and hue-rotate ship as one module rather than three because
+they are one pipeline: each stage's expression starts from the stage before it, so a
+stage taken alone would compute against a value nothing can write.
+
+Taking the whole library costs no more per utility than taking a single module –
+the root entry is composed so the shared colour pipeline is emitted once, not once
+per module. Both halves of that are covered by the test suite.
+
+## Browser support
+
+- **TailwindCSS 4.3+** – the library is built with the CSS-first `@utility`,
+  `@custom-variant`, `@theme` and `@property` syntax, and uses the `--value()` and
+  `--default()` functional-utility forms that 4.3 requires. `tailwindcss >=4.3.0`
+  is declared as a peer dependency.
+- **Colour utilities** – anything that transforms a colour needs CSS relative
+  colour syntax and `@property`: **Chrome 111+, Safari 16.4+, Firefox 128+**. That
+  covers accessible shade, the colour transforms, border gradients, ripple, comic
+  and pixel. A few individual features want a little more, and each module page
+  says so.
+- **`border-style` and `grid`** – plain CSS properties, no relative colour syntax,
+  no registrations. They work wherever Tailwind itself does.
+
+Nothing in this package runs CSS `@function`. That is deliberate, and it is the
+guarantee that covers you if you opted into nothing.
+
+## Experimental features
+
+Not-yet-baseline features live in a **separate package**,
+[`tw-jib-css-experimental`](https://simonm-c.github.io/tw-jib-css/experimental/) – CSS
+`@function` colour transforms, `corner-shape`, `interpolate-size`, a styleable
+`<select>` and a live WCAG contrast badge. It is mostly Chromium-only and it declares
+this package as a peer dependency.
+
+```bash
+npm install -D tw-jib-css tw-jib-css-experimental
+```
+
+```css
+@import 'tailwindcss';
+@import 'tw-jib-css';
+@import 'tw-jib-css-experimental'; /* always after stable – order carries the override */
+```
+
+It is its own package, never a sub-path of this one: `tw-jib-css/experimental` does
+not exist. Its modules are individually importable on the same principle as above
+(`tw-jib-css-experimental/corner` and siblings), which matters more there than here,
+because half of that package _overrides_ utilities this one ships. Taking an addition
+should not reroute classes you already use – so it doesn't.
+
+Read [its overview](https://simonm-c.github.io/tw-jib-css/experimental/overview)
+before installing.
 
 ---
 
@@ -77,13 +161,14 @@ One element, three layers that plain Tailwind can't do:
 
 
 ```html
-<div class="bg-comic-indigo-600
+<div
+  class="bg-comic-indigo-600
   border-4 border-linear-to-br border-from-indigo-300 border-to-cyan-300
   text-a11y-aa
-  rounded-xl p-6">
+  rounded-xl p-6"
+>
   <h3>Event name</h3>
-  <p>A card with a comic halftone background, a gradient border,
-     and auto-contrasted text.</p>
+  <p>A card with a comic halftone background, a gradient border, and auto-contrasted text.</p>
 </div>
 ```
 
@@ -91,13 +176,13 @@ Every class in that snippet either comes from stock Tailwind (`rounded-xl`, `p-6
 
 ## The background is a texture, not an image
 
-`bg-comic-indigo-600` takes `indigo-600` and renders it as CMYK halftone dots — pure CSS gradients with multiply blending. Change the colour to `bg-comic-rose-500` and the dot layers recalculate.
+`bg-comic-indigo-600` takes `indigo-600` and renders it as CMYK halftone dots – pure CSS gradients with multiply blending. Change the colour to `bg-comic-rose-500` and the dot layers recalculate.
 
 Two textures are available: comic (CMYK halftone) and pixel (CRT phosphors). See [Print Textures](/guide/print-textures).
 
 ## The text colour is computed from the background
 
-`text-a11y-aa` doesn't set a fixed colour. It reads the background, calculates WCAG 2.x luminance, and returns a text shade guaranteed to pass the 4.5:1 AA ratio — at render time, in CSS.
+`text-a11y-aa` doesn't set a fixed colour. It reads the background, calculates WCAG 2.x luminance, and returns a text shade guaranteed to pass the 4.5:1 AA ratio – at render time, in CSS.
 
 Change the background and the text colour updates. Three levels available: `text-a11y-aa`, `text-a11y-aaa`, `text-a11y-aa-lg`. See [Accessible Color](/guide/accessible-color).
 
@@ -111,10 +196,10 @@ No pseudo-elements, no SVG, no workarounds. See [Gradient Borders](/guide/gradie
 
 Beyond these three layers, jibcss adds:
 
-- **Colour transforms** — lighten, darken, saturate, desaturate, hue-shift any Tailwind colour. See [Color Transforms](/guide/color-transforms).
-- **16 colour spaces** — append `/oklch`, `/hsl`, `/display-p3` to any transform. See [Color Spaces](/guide/color-spaces).
-- **Ripple effects** — material-style ripple, pure CSS. See [Ripples](/guide/ripples).
-- **Composition** — every utility stacks. See [Composition](/guide/composition).
+- **Colour transforms** – lighten, darken, saturate, desaturate, hue-shift any Tailwind colour. See [Color Transforms](/guide/color-transforms).
+- **16 colour spaces** – append `/oklch`, `/hsl`, `/display-p3` to any transform. See [Color Spaces](/guide/color-spaces).
+- **Ripple effects** – material-style ripple, pure CSS. See [Ripples](/guide/ripples).
+- **Composition** – every utility stacks. See [Composition](/guide/composition).
 
 ---
 
@@ -126,7 +211,7 @@ Every colour transform interpolates in a colour space. Jibcss gives you seventee
 
 ## What colour space changes
 
-The colour space affects *how* a transform calculates, not *what* colours you can use. `bg-lighten-40/oklch` and `bg-lighten-40/hsl` both lighten the same input by the same amount — but the path from A to B is different, so the result looks different.
+The colour space affects _how_ a transform calculates, not _what_ colours you can use. `bg-lighten-40/oklch` and `bg-lighten-40/hsl` both lighten the same input by the same amount – but the path from A to B is different, so the result looks different.
 
 
 ```html
@@ -179,15 +264,15 @@ Same input (`red-500`), same transform (`lighten-40`), four different results. T
 
 ## When to pick what
 
-**oklch** (default) — Perceptually uniform. A 20-point lightness shift looks the same whether you start from blue or yellow. Best general-purpose choice.
+**oklch** (default) – Perceptually uniform. A 20-point lightness shift looks the same whether you start from blue or yellow. Best general-purpose choice.
 
-**hsl** — Familiar if you've worked with CSS colour before. Less uniform — yellows blow out faster than blues — but sometimes that's the look you want.
+**hsl** – Familiar if you've worked with CSS colour before. Less uniform – yellows blow out faster than blues – but sometimes that's the look you want.
 
-**lab / oklab** — Perceptual spaces without a hue channel. Good for lightness and saturation where you want zero hue drift.
+**lab / oklab** – Perceptual spaces without a hue channel. Good for lightness and saturation where you want zero hue drift.
 
-**display-p3** — Wide gamut. Same interpolation as srgb but covers more of the visible spectrum. Use when targeting Apple displays or modern HDR screens.
+**display-p3** – Wide gamut. Same interpolation as srgb but covers more of the visible spectrum. Use when targeting Apple displays or modern HDR screens.
 
-**color-mix** — Falls back to `color-mix()` in oklab. Maximum browser compatibility. Slightly different results from native relative colour syntax.
+**color-mix** – Falls back to `color-mix()` in oklab. Maximum browser compatibility. Slightly different results from native relative colour syntax.
 
 For most work, the default (oklch) is the right answer. Switch spaces when you see a visual difference you don't like and want to compare alternatives.
 
@@ -195,14 +280,16 @@ For most work, the default (oklch) is the right answer. Switch spaces when you s
 
 ```html
 <div class="bg-blue-500 bg-lighten-30/oklch">
-<div class="bg-blue-500 bg-lighten-30/hsl">
-<div class="bg-blue-500 bg-hue-rotate-90/lab">
+  <div class="bg-blue-500 bg-lighten-30/hsl">
+    <div class="bg-blue-500 bg-hue-rotate-90/lab"></div>
+  </div>
+</div>
 ```
 
 The modifier applies per-utility, not per-element. You can mix spaces on one element if you have a reason to:
 
 ```html
-<div class="bg-blue-500 bg-lighten-20/oklch bg-hue-rotate-45/hsl">
+<div class="bg-blue-500 bg-lighten-20/oklch bg-hue-rotate-45/hsl"></div>
 ```
 
 ## Full list
@@ -213,7 +300,7 @@ See the [Colour Spaces reference](/guide/colour-spaces) for the complete list of
 
 # Colour Spaces
 
-> General overview of CSS colour spaces used across tw-jib-css utilities — what each space is, how they differ, and when to choose one.
+> General overview of CSS colour spaces used across tw-jib-css utilities – what each space is, how they differ, and when to choose one.
 
 # Colour Spaces
 
@@ -221,7 +308,7 @@ Several tw-jib-css utilities let you choose which colour space a transform or in
 
 ## What is a colour space?
 
-A colour space is a model for representing colour numerically. Each space defines its own axes — some use lightness, hue, and chroma; others use red, green, and blue channels; others use device-independent coordinates.
+A colour space is a model for representing colour numerically. Each space defines its own axes – some use lightness, hue, and chroma; others use red, green, and blue channels; others use device-independent coordinates.
 
 The choice of colour space affects how colour transformations look. Adjusting "lightness" in one space may shift hue slightly, while another space keeps hue perfectly stable. Gradient interpolation between two colours can follow completely different paths depending on the space.
 
@@ -229,60 +316,60 @@ The choice of colour space affects how colour transformations look. Adjusting "l
 
 CSS supports a wide range of colour spaces. tw-jib-css utilities expose these 17:
 
-| Name | CSS notation | Characteristics |
-| --- | --- | --- |
-| OKLCh | `oklch()` | Perceptually uniform lightness and chroma with a hue angle. The default in tw-jib-css. |
-| LCH | `lch()` | CIE LCH — perceptually uniform, predecessor to OKLCh. Slight hue shifts at high chroma. |
-| OKLab | `oklab()` | Perceptually uniform lightness and two colour-opponent axes. No hue channel — good for hue-stable transforms. |
-| CIELAB | `lab()` | The original perceptually uniform space. Similar to OKLab but with known uniformity issues at blue hues. |
-| HSL | `hsl()` | Hue, Saturation, Lightness. Familiar and intuitive but not perceptually uniform. |
-| HWB | `hwb()` | Hue, Whiteness, Blackness. An alternative to HSL that some find more intuitive for tinting and shading. |
-| RGB | `rgb()` | Direct red, green, blue channel values. The web's legacy default. |
-| sRGB | `color(srgb ...)` | The standard web colour space in functional `color()` notation. |
-| Linear sRGB | `color(srgb-linear ...)` | sRGB without the gamma curve — linear light values. Used in physically-based rendering. |
-| Display P3 | `color(display-p3 ...)` | Wide gamut. Covers colours available on modern Apple and flagship Android displays. |
-| Adobe RGB (1998) | `color(a98-rgb ...)` | Wide gamut designed for print and photography workflows. |
-| ProPhoto RGB | `color(prophoto-rgb ...)` | Very wide gamut. Covers nearly all visible colours — primarily used in photography. |
-| Rec. 2020 | `color(rec2020 ...)` | Ultra-wide gamut designed for HDR video. |
-| CIE XYZ | `color(xyz ...)` | Device-independent reference space. All other spaces can convert through XYZ. |
-| CIE XYZ D50 | `color(xyz-d50 ...)` | XYZ under D50 (warm daylight) illuminant. Used by CIELAB and ProPhoto RGB internally. |
-| CIE XYZ D65 | `color(xyz-d65 ...)` | XYZ under D65 (noon daylight) illuminant. Used by sRGB and OKLab internally. |
-| color-mix | `color-mix()` | Not a colour space itself — blends colours using `color-mix()` in oklab. Shifts hue and saturation slightly. |
+| Name             | CSS notation              | Characteristics                                                                                               |
+| ---------------- | ------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| OKLCh            | `oklch()`                 | Perceptually uniform lightness and chroma with a hue angle. The default in tw-jib-css.                        |
+| LCH              | `lch()`                   | CIE LCH – perceptually uniform, predecessor to OKLCh. Slight hue shifts at high chroma.                       |
+| OKLab            | `oklab()`                 | Perceptually uniform lightness and two colour-opponent axes. No hue channel – good for hue-stable transforms. |
+| CIELAB           | `lab()`                   | The original perceptually uniform space. Similar to OKLab but with known uniformity issues at blue hues.      |
+| HSL              | `hsl()`                   | Hue, Saturation, Lightness. Familiar and intuitive but not perceptually uniform.                              |
+| HWB              | `hwb()`                   | Hue, Whiteness, Blackness. An alternative to HSL that some find more intuitive for tinting and shading.       |
+| RGB              | `rgb()`                   | Direct red, green, blue channel values. The web's legacy default.                                             |
+| sRGB             | `color(srgb ...)`         | The standard web colour space in functional `color()` notation.                                               |
+| Linear sRGB      | `color(srgb-linear ...)`  | sRGB without the gamma curve – linear light values. Used in physically-based rendering.                       |
+| Display P3       | `color(display-p3 ...)`   | Wide gamut. Covers colours available on modern Apple and flagship Android displays.                           |
+| Adobe RGB (1998) | `color(a98-rgb ...)`      | Wide gamut designed for print and photography workflows.                                                      |
+| ProPhoto RGB     | `color(prophoto-rgb ...)` | Very wide gamut. Covers nearly all visible colours – primarily used in photography.                           |
+| Rec. 2020        | `color(rec2020 ...)`      | Ultra-wide gamut designed for HDR video.                                                                      |
+| CIE XYZ          | `color(xyz ...)`          | Device-independent reference space. All other spaces can convert through XYZ.                                 |
+| CIE XYZ D50      | `color(xyz-d50 ...)`      | XYZ under D50 (warm daylight) illuminant. Used by CIELAB and ProPhoto RGB internally.                         |
+| CIE XYZ D65      | `color(xyz-d65 ...)`      | XYZ under D65 (noon daylight) illuminant. Used by sRGB and OKLab internally.                                  |
+| color-mix        | `color-mix()`             | Not a colour space itself – blends colours using `color-mix()` in oklab. Shifts hue and saturation slightly.  |
 
 ## Perceptual uniformity
 
 In a **perceptually uniform** space, equal numeric changes produce equal visual changes regardless of the starting colour. A 10-unit lightness reduction on yellow looks the same as a 10-unit reduction on blue.
 
-**OKLCh** and **OKLab** are the most perceptually uniform spaces available in CSS. This is why oklch is the default across tw-jib-css — transformations produce visually consistent results on any hue.
+**OKLCh** and **OKLab** are the most perceptually uniform spaces available in CSS. This is why oklch is the default across tw-jib-css – transformations produce visually consistent results on any hue.
 
-**HSL** and **RGB** are *not* perceptually uniform. The same numeric lightness change on different hues produces visibly different results. HSL's "50% lightness" looks much brighter on yellow than on blue. These spaces are still useful when you want direct control over specific channels, but they are less predictable for design-system-level colour manipulation.
+**HSL** and **RGB** are _not_ perceptually uniform. The same numeric lightness change on different hues produces visibly different results. HSL's "50% lightness" looks much brighter on yellow than on blue. These spaces are still useful when you want direct control over specific channels, but they are less predictable for design-system-level colour manipulation.
 
-**LCH** and **Lab** are perceptually uniform in theory but have known issues — particularly hue shifts in the blue region. OKLCh and OKLab were created specifically to fix these problems.
+**LCH** and **Lab** are perceptually uniform in theory but have known issues – particularly hue shifts in the blue region. OKLCh and OKLab were created specifically to fix these problems.
 
 ## Wide gamut spaces
 
-Standard web colours live in the **sRGB** gamut. Modern displays — particularly Apple devices — support the wider **Display P3** gamut, which includes more vivid greens, reds, and oranges that sRGB cannot represent.
+Standard web colours live in the **sRGB** gamut. Modern displays – particularly Apple devices – support the wider **Display P3** gamut, which includes more vivid greens, reds, and oranges that sRGB cannot represent.
 
 If you are working with colours outside the sRGB gamut, using a wide gamut space (Display P3, Adobe RGB, ProPhoto RGB, or Rec. 2020) preserves those colours without clipping. For most web work, sRGB or oklch is sufficient.
 
 ## Choosing a space
 
-| Space | Best for |
-| --- | --- |
-| OKLCh (default) | General purpose. Perceptually uniform lightness — the same numeric change produces a visually consistent result on any hue. |
-| OKLab | Smooth transforms without hue shifts. Good when you want to avoid any hue rotation during lightness changes. |
-| HSL | Familiar and intuitive, but not perceptually uniform. Saturation is automatically compensated when lightness shifts toward the mid-range to prevent colour spikes. |
-| Display P3 | Wide-gamut displays. Preserves P3 colours without clipping to sRGB. |
-| sRGB | Direct channel manipulation in the standard web colour space. Can produce harsh transitions. |
-| LCH / Lab | Perceptually uniform alternatives if you need CIE-based spaces. OKLCh/OKLab are generally preferred. |
+| Space           | Best for                                                                                                                                                           |
+| --------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| OKLCh (default) | General purpose. Perceptually uniform lightness – the same numeric change produces a visually consistent result on any hue.                                        |
+| OKLab           | Smooth transforms without hue shifts. Good when you want to avoid any hue rotation during lightness changes.                                                       |
+| HSL             | Familiar and intuitive, but not perceptually uniform. Saturation is automatically compensated when lightness shifts toward the mid-range to prevent colour spikes. |
+| Display P3      | Wide-gamut displays. Preserves P3 colours without clipping to sRGB.                                                                                                |
+| sRGB            | Direct channel manipulation in the standard web colour space. Can produce harsh transitions.                                                                       |
+| LCH / Lab       | Perceptually uniform alternatives if you need CIE-based spaces. OKLCh/OKLab are generally preferred.                                                               |
 
 ## Where colour spaces appear in tw-jib-css
 
-- **[Lightness](/guide/lightness)** — All 17 spaces available via the `/modifier` syntax (e.g. `bg-lightness-20/oklch`, `-bg-lightness-20/oklch`). Also available as `bg-lighten-*` and `bg-darken-*` aliases.
-- **[Saturation](/guide/saturation)** — All 17 spaces available via the `/modifier` syntax (e.g. `bg-saturation-20/oklch`, `-bg-saturation-40/oklch`). Also available as `bg-saturate-*` and `bg-desaturate-*` aliases.
-- **[Hue Rotate](/guide/hue-rotate)** — 16 spaces available via the `/modifier` syntax (e.g. `bg-hue-rotate-90/oklch`). No color-mix — hue rotation has no honest two-colour form.
-- **[Border Gradient](/guide/border-gradient)** — Interpolation modes control which space gradients blend through (sRGB, HSL, OKLab, OKLCh with hue direction modifiers).
-- **[Ripple](/guide/ripple)** — Uses `color-mix(in oklch)` internally for opacity blending.
+- **[Lightness](/guide/lightness)** – All 17 spaces available via the `/modifier` syntax (e.g. `bg-lightness-20/oklch`, `-bg-lightness-20/oklch`). Also available as `bg-lighten-*` and `bg-darken-*` aliases.
+- **[Saturation](/guide/saturation)** – All 17 spaces available via the `/modifier` syntax (e.g. `bg-saturation-20/oklch`, `-bg-saturation-40/oklch`). Also available as `bg-saturate-*` and `bg-desaturate-*` aliases.
+- **[Hue Rotate](/guide/hue-rotate)** – 16 spaces available via the `/modifier` syntax (e.g. `bg-hue-rotate-90/oklch`). No color-mix – hue rotation has no honest two-colour form.
+- **[Border Gradient](/guide/border-gradient)** – Interpolation modes control which space gradients blend through (sRGB, HSL, OKLab, OKLCh with hue direction modifiers).
+- **[Ripple](/guide/ripple)** – Uses `color-mix(in oklch)` internally for opacity blending.
 
 ---
 
@@ -294,7 +381,7 @@ If you are working with colours outside the sRGB gamut, using a wide gamut space
 
 ## The core idea
 
-Set a background colour. Add a `text-a11y-*` class. The CSS computes a text colour that passes the specified WCAG contrast ratio — 4.5:1 for AA, 3:1 for AA Large, 7:1 for AAA. Change the background, the text updates automatically.
+Set a background colour. Add a `text-a11y-*` class. The CSS computes a text colour that passes the specified WCAG contrast ratio – 4.5:1 for AA, 3:1 for AA Large, 7:1 for AAA. Change the background, the text updates automatically.
 
 
 ```html
@@ -327,9 +414,9 @@ Set a background colour. Add a `text-a11y-*` class. The CSS computes a text colo
 
 ## How it works
 
-Powered by relative colour syntax. The WCAG ratio formula inverts to give a target luminance, and a colour with that luminance, the background's hue and the background's chroma is built in one relative-colour expression — so the shade is solved outright rather than searched for. All at render time, no JavaScript, no build step.
+Powered by relative colour syntax. The WCAG ratio formula inverts to give a target luminance, and a colour with that luminance, the background's hue and the background's chroma is built in one relative-colour expression – so the shade is solved outright rather than searched for. All at render time, no JavaScript, no build step.
 
-Because it is solved rather than searched, the whole thing expresses in plain relative colour syntax — `calc`, `clamp`, `min`, `max` and one nested colour expression. You get the same colour in Chromium, Firefox and Safari alike. Ships from the main entry:
+Because it is solved rather than searched, the whole thing expresses in plain relative colour syntax – `calc`, `clamp`, `min`, `max` and one nested colour expression. You get the same colour in Chromium, Firefox and Safari alike. Ships from the main entry:
 
 ```css
 @import 'tw-jib-css';
@@ -352,7 +439,7 @@ Jibcss utilities compose. Stack transforms, combine textures with borders, apply
 Multiple transforms read the same base colour and apply independently:
 
 ```html
-<div class="bg-blue-500 bg-lighten-20 bg-hue-rotate-45 -bg-saturation-20">
+<div class="bg-blue-500 bg-lighten-20 bg-hue-rotate-45 -bg-saturation-20"></div>
 ```
 
 
@@ -373,7 +460,7 @@ Lightness and saturation compose additively. Hue rotation is additive. Order in 
 Colour space modifiers apply per-utility, not per-element. You can mix spaces on one element:
 
 ```html
-<div class="bg-blue-500 bg-lighten-30/oklch bg-hue-rotate-90/hsl">
+<div class="bg-blue-500 bg-lighten-30/oklch bg-hue-rotate-90/hsl"></div>
 ```
 
 The lightness shift interpolates in oklch, the hue rotation in hsl. Each utility reads the base colour independently.
@@ -383,10 +470,12 @@ The lightness shift interpolates in oklch, the hue rotation in hsl. Each utility
 Print textures and gradient borders coexist on the same element:
 
 ```html
-<div class="bg-comic-indigo-600
+<div
+  class="bg-comic-indigo-600
   border-4 border-linear-to-br
   border-from-indigo-300 border-to-purple-300
-  rounded-xl p-6">
+  rounded-xl p-6"
+></div>
 ```
 
 The texture occupies the background. The gradient border occupies the border area via background-clip. They don't interfere.
@@ -406,16 +495,20 @@ The texture occupies the background. The gradient border occupies the border are
 A card with a texture background, auto-contrast text, a gradient border, and a lightened accent:
 
 ```html
-<div class="bg-comic-indigo-600
+<div
+  class="bg-comic-indigo-600
   border-4 border-linear-to-br
   border-from-indigo-300 border-to-cyan-300
   text-a11y-aa
-  rounded-xl p-6">
+  rounded-xl p-6"
+>
   <h3 class="text-lg font-bold">Card title</h3>
   <p class="text-sm">Body text, auto-contrasted.</p>
-  <button class="bg-indigo-500 bg-lighten-20
+  <button
+    class="bg-indigo-500 bg-lighten-20
     text-a11y-aa bg-ripple ripple-color-white/30
-    rounded px-4 py-2 mt-3 border-0 cursor-pointer">
+    rounded px-4 py-2 mt-3 border-0 cursor-pointer"
+  >
     Action
   </button>
 </div>
@@ -437,10 +530,11 @@ Both textures follow the same pattern: `bg-{texture}-{color}` plus modifier clas
 
 ```html
 <div class="bg-comic-blue-500">
-<div class="bg-pixel-blue-500 pixel-size-1 pixel-gap-1">
+  <div class="bg-pixel-blue-500 pixel-size-1 pixel-gap-1"></div>
+</div>
 ```
 
-Pass a Tailwind colour, get a textured surface. Change the colour, the texture updates — no images, no SVG, no JavaScript.
+Pass a Tailwind colour, get a textured surface. Change the colour, the texture updates – no images, no SVG, no JavaScript.
 
 ## Two rendering engines
 
@@ -457,18 +551,20 @@ Pass a Tailwind colour, get a textured surface. Change the colour, the texture u
 ```
 
 
-**Comic** decomposes the input into CMYK halftone dot layers using subtractive mixing — the same principle as a printing press.
+**Comic** decomposes the input into CMYK halftone dot layers using subtractive mixing – the same principle as a printing press.
 
-**Pixel** splits the input into RGB column triplets with additive (screen) blending — mimics CRT and LCD phosphor displays.
+**Pixel** splits the input into RGB column triplets with additive (screen) blending – mimics CRT and LCD phosphor displays.
 
 ## They compose with the rest of the library
 
 Textures play nicely with gradient borders, colour transforms, and auto-contrast text:
 
 ```html
-<div class="bg-comic-violet-600
+<div
+  class="bg-comic-violet-600
   border-4 border-linear-to-br border-from-violet-300 border-to-pink-300
-  text-a11y-aa p-6 rounded-xl">
+  text-a11y-aa p-6 rounded-xl"
+>
   Comic halftone background, gradient border, accessible text.
 </div>
 ```
@@ -477,8 +573,8 @@ Textures play nicely with gradient borders, colour transforms, and auto-contrast
 
 Each texture has a full reference with the complete modifier list, formulas, and configuration options:
 
-- [Comic](/guide/comic) — CMYK halftone dots
-- [Pixel](/guide/pixel) — RGB pixel columns
+- [Comic](/guide/comic) – CMYK halftone dots
+- [Pixel](/guide/pixel) – RGB pixel columns
 
 ---
 
@@ -568,7 +664,7 @@ theme lookup rather than a branch: writing `bg-lightness-30/hsl` resolves
 `--modifier()` to the pre-built HSL expression.
 
 That is the whole mechanism, and it runs on **Chrome 111+, Safari 16.4+, Firefox 128+**.
-There is no JavaScript, no build step beyond Tailwind itself, and nothing to detect —
+There is no JavaScript, no build step beyond Tailwind itself, and nothing to detect –
 the same expression evaluates on every engine.
 
 ```css
@@ -579,29 +675,29 @@ the same expression evaluates on every engine.
 
 Each transform type has a full reference page with the complete class list, formulas, and all 17 colour spaces compared:
 
-- [Lightness](/guide/lightness) — lighten and darken
-- [Saturation](/guide/saturation) — saturate and desaturate
-- [Hue Rotate](/guide/hue-rotate) — shift hue by degrees
+- [Lightness](/guide/lightness) – lighten and darken
+- [Saturation](/guide/saturation) – saturate and desaturate
+- [Hue Rotate](/guide/hue-rotate) – shift hue by degrees
 
 ---
 
 # Accessible Shade
 
-> wcag accessible shade module (stable, ships from the core entry) — text-a11y-{aa,aaa,aa-lg} solves in closed form for a same-hue text colour whose WCAG 2.x contrast ratio against the background equals the requested ratio exactly. No candidate search, no verification pass. Optional /{colour-space} modifier for all 17 colour spaces selects the aesthetic path only; correctness is owned by a shared final stage. All computation happens in CSS relative colour syntax at render time — no JS. Verified exact on Chromium, Firefox and WebKit. Levels are themeable via the --tw-jib--a11y-ratio-* namespace.
+> wcag accessible shade module (stable, ships from the core entry) – text-a11y-{aa,aaa,aa-lg} solves in closed form for a same-hue text colour whose WCAG 2.x contrast ratio against the background equals the requested ratio exactly. No candidate search, no verification pass. Optional /{colour-space} modifier for all 17 colour spaces selects the aesthetic path only; correctness is owned by a shared final stage. All computation happens in CSS relative colour syntax at render time – no JS. Verified exact on Chromium, Firefox and WebKit. Levels are themeable via the --tw-jib--a11y-ratio-* namespace.
 
 # Accessible Shade
 
-`text-a11y-*` derives a same-hue text colour that hits your target WCAG ratio for any background. Set a background, add the utility, and CSS computes the shade at render time — no JavaScript.
+`text-a11y-*` derives a same-hue text colour that hits your target WCAG ratio for any background. Set a background, add the utility, and CSS computes the shade at render time – no JavaScript.
 
-The shade is not searched for, it is **solved**. WCAG 2's contrast ratio constrains exactly one quantity — relative luminance — and luminance is a linear function of linear-light RGB. Invert the ratio formula for the target luminance, then build a colour with that luminance, the background's hue and the background's chroma, in a single relative-colour expression. The achieved ratio equals the requested ratio by construction: no candidate bracket, no verification pass, no convergence tolerance.
+The shade is not searched for, it is **solved**. WCAG 2's contrast ratio constrains exactly one quantity – relative luminance – and luminance is a linear function of linear-light RGB. Invert the ratio formula for the target luminance, then build a colour with that luminance, the background's hue and the background's chroma, in a single relative-colour expression. The achieved ratio equals the requested ratio by construction: no candidate bracket, no verification pass, no convergence tolerance.
 
-Solving instead of searching is also what makes the utility portable. A search would need a way to call itself and a way to pick the candidate that passed; the closed form needs neither, so it is built from `calc`, `clamp`, `min`, `max` and relative colour syntax — and works everywhere.
+Solving instead of searching is also what makes the utility portable. A search would need a way to call itself and a way to pick the candidate that passed; the closed form needs neither, so it is built from `calc`, `clamp`, `min`, `max` and relative colour syntax – and works everywhere.
 
 **The ratio is exact, which cuts both ways**
-Because the utilities target the ratio _exactly_ rather than overshooting it, the result can land a hair either side of the named threshold — around ±2 × 10⁻⁵ in practice. A third-party checker doing a bare `ratio >= 7` may not, and can report `text-a11y-aaa` as AA. That is arithmetic on a tie, not a contrast failure: the pair is at 7:1 to four decimal places. If you need an external report to read AAA unambiguously, ask for a slightly higher ratio than the level you need.
+Because the utilities target the ratio _exactly_ rather than overshooting it, the result can land a hair either side of the named threshold – around ±2 × 10⁻⁵ in practice. A third-party checker doing a bare `ratio >= 7` may not, and can report `text-a11y-aaa` as AA. That is arithmetic on a tie, not a contrast failure: the pair is at 7:1 to four decimal places. If you need an external report to read AAA unambiguously, ask for a slightly higher ratio than the level you need.
 
 **Browser Support**
-Works in Chromium, Firefox and Safari. Every engine gets the requested ratio exactly — verified against all 242 Tailwind colours at all three levels on each. The only per-engine difference is cosmetic; see [Colour Spaces](#colour-spaces) below.
+Works in Chromium, Firefox and Safari. Every engine gets the requested ratio exactly – verified against all 242 Tailwind colours at all three levels on each. The only per-engine difference is cosmetic; see [Colour Spaces](#colour-spaces) below.
 
 `text-a11y-*` needs only relative colour syntax and `@property`, both of which have been baseline for some time.
 
@@ -625,7 +721,7 @@ Included in `@import 'tw-jib-css'`. To import individually:
 
 ### Levels are themeable
 
-The three levels are not hard-coded — they are entries in the `--tw-jib--a11y-ratio-*` theme namespace. Add a key and you get a working utility:
+The three levels are not hard-coded – they are entries in the `--tw-jib--a11y-ratio-*` theme namespace. Add a key and you get a working utility:
 
 ```css
 @theme {
@@ -662,7 +758,7 @@ Set a background with `bg-*`, then use `text-a11y-*` to pick the WCAG level:
 ```
 
 
-The result is a lighter or darker shade of the background colour, landing on the requested ratio rather than merely clearing it. Dark backgrounds get lighter text, light backgrounds get darker text — the crossover is the luminance where there is equal room to move in either direction.
+The result is a lighter or darker shade of the background colour, landing on the requested ratio rather than merely clearing it. Dark backgrounds get lighter text, light backgrounds get darker text – the crossover is the luminance where there is equal room to move in either direction.
 
 ### WCAG Levels
 
@@ -971,7 +1067,7 @@ Every default TW colour at all shade values, with `text-a11y-aa` automatically p
 
 ## Colour Spaces
 
-The modifier selects the **aesthetic path** of the shade — how chroma and perceptual hue travel between the background and the output. It does not affect the ratio: a single shared final stage owns correctness for every space, so all seventeen land on the same contrast ratio and differ only in how colourful the result is. Default is oklch, as it is for every colour transform in this library.
+The modifier selects the **aesthetic path** of the shade – how chroma and perceptual hue travel between the background and the output. It does not affect the ratio: a single shared final stage owns correctness for every space, so all seventeen land on the same contrast ratio and differ only in how colourful the result is. Default is oklch, as it is for every colour transform in this library.
 
 
 ```html
@@ -1002,7 +1098,7 @@ They fall into three groups by how their lightness relates to luminance:
 | CIE Lab family              | `lab`, `lch`                                                                                                               | L\* is an invertible function of luminance, so the seed is exact in closed form. CSS `lab()`/`lch()` are D50-adapted, so L\* tracks chromatically adapted luminance; the final stage absorbs the difference.                                 |
 | Perceptual-OK and legacy    | `oklab`, `oklch`, `hsl`, `hwb`                                                                                             | Lightness is _not_ a pure function of luminance, so the seed is approximate and the final stage corrects it. `hsl` keeps saturation and so washes out at extreme targets; `hwb` splits the input's whiteness/blackness budget by the target. |
 
-`oklab` and `lab` route through the same pipelines as `oklch` and `lch` — identical seeds, only the channel notation differs.
+`oklab` and `lab` route through the same pipelines as `oklch` and `lch` – identical seeds, only the channel notation differs.
 
 ### One per-engine difference, in chroma only
 
@@ -1013,11 +1109,11 @@ The consequence is worth being precise about, because it is smaller than it soun
 - **The ratio is unaffected.** The seed governs aesthetics; a shared final stage owns correctness. All four are exact on Firefox, same as everywhere else.
 - **The chroma differs slightly.** A linear seed is less perceptually even, so `text-a11y-aa/oklch` on Firefox can be a touch more or less colourful than the same class in Chrome or Safari. Same hue, same contrast.
 
-If you need the four to match pixel-for-pixel across engines, use a Class 1 space — `/srgb` and its ten siblings have no seed, so they are identical everywhere. Asking for `/oklch` and getting the linear seed is still strictly better than the alternative of ignoring your modifier and silently handing you the core.
+If you need the four to match pixel-for-pixel across engines, use a Class 1 space – `/srgb` and its ten siblings have no seed, so they are identical everywhere. Asking for `/oklch` and getting the linear seed is still strictly better than the alternative of ignoring your modifier and silently handing you the core.
 
 ## Typographic Hierarchy
 
-Use different levels for different text sizes — heading at AA Large, body at AA, fine print at AAA:
+Use different levels for different text sizes – heading at AA Large, body at AA, fine print at AAA:
 
 
 ```html
@@ -1042,23 +1138,23 @@ Constructing a colour at a known ratio is the whole job here, and it is solved r
 
 ### Which colour hits this ratio?
 
-The WCAG ratio `(Y_lighter + 0.05) / (Y_darker + 0.05)` inverts directly, giving the target luminance `Yt` for a requested ratio `R`. Any colour with luminance `Yt` achieves `R` against the background exactly, whatever its hue or chroma — one degree of freedom is constrained, two are free, and the free ones are spent on matching the background's colour.
+The WCAG ratio `(Y_lighter + 0.05) / (Y_darker + 0.05)` inverts directly, giving the target luminance `Yt` for a requested ratio `R`. Any colour with luminance `Yt` achieves `R` against the background exactly, whatever its hue or chroma – one degree of freedom is constrained, two are free, and the free ones are spent on matching the background's colour.
 
-1. **The carrier** — computes the background's luminance and smuggles it into the alpha channel. Relative colour syntax allows one origin colour per expression, so this is how a candidate built in oklch can still see the background's luminance: alpha is a float in `[0, 1]`, exactly a luminance's range, and it survives colour-space conversion untouched.
-2. **The target** — solves for `Yt`. The direction (lighten vs darken) is chosen branchlessly at the `0.1791` pivot, the luminance where headroom toward black equals headroom toward white — `√0.0525 − 0.05`. Picking the side with more headroom is optimal.
-3. **The seed** — for Class 2/3 spaces, a candidate in the requested space with its lightness derived from `Yt` and the background's chroma and hue kept.
-4. **The chroma vector** — reduces a candidate to its zero-luminance chroma vector, `c − Yc`.
-5. **The lift** — the shared final stage: `out = Yt + min(1, caps) · vector`. Because the vector contributes no luminance, the output's luminance is `Yt` identically. The `caps` are the largest scale keeping every channel inside `[0, 1]`, so this one expression sets luminance exactly, gamut-maps at constant luminance, and is a no-op on a candidate that already fits.
-6. **The dispatch** — maps the level to its ratio and routes to the pipeline for the requested colour space.
+1. **The carrier** – computes the background's luminance and smuggles it into the alpha channel. Relative colour syntax allows one origin colour per expression, so this is how a candidate built in oklch can still see the background's luminance: alpha is a float in `[0, 1]`, exactly a luminance's range, and it survives colour-space conversion untouched.
+2. **The target** – solves for `Yt`. The direction (lighten vs darken) is chosen branchlessly at the `0.1791` pivot, the luminance where headroom toward black equals headroom toward white – `√0.0525 − 0.05`. Picking the side with more headroom is optimal.
+3. **The seed** – for Class 2/3 spaces, a candidate in the requested space with its lightness derived from `Yt` and the background's chroma and hue kept.
+4. **The chroma vector** – reduces a candidate to its zero-luminance chroma vector, `c − Yc`.
+5. **The lift** – the shared final stage: `out = Yt + min(1, caps) · vector`. Because the vector contributes no luminance, the output's luminance is `Yt` identically. The `caps` are the largest scale keeping every channel inside `[0, 1]`, so this one expression sets luminance exactly, gamut-maps at constant luminance, and is a no-op on a candidate that already fits.
+6. **The dispatch** – maps the level to its ratio and routes to the pipeline for the requested colour space.
 
-Because the caps act on whatever vector they are handed, they double as a gamut mapper that preserves WCAG luminance — something neither clipping nor generic chroma reduction can promise.
+Because the caps act on whatever vector they are handed, they double as a gamut mapper that preserves WCAG luminance – something neither clipping nor generic chroma reduction can promise.
 
 ### How the solve is expressed
 
 The whole thing renders as one nested relative-colour expression, chained through
 **unregistered custom properties**. That substitution is the trick: an unregistered custom
 property's computed value is a token stream, so `var()` splices it in textually rather than
-evaluating it — which gives the algebra above the local bindings it needs. Half a dozen small
+evaluating it – which gives the algebra above the local bindings it needs. Half a dozen small
 declarations collapse into one nested expression the engine evaluates in a single step at
 `color:`.
 
@@ -1069,7 +1165,7 @@ Two details of that arrangement are load-bearing rather than stylistic:
   lands hardest on the carrier, whose alpha channel _is_ the target luminance, so a 1/255 step of
   alpha is roughly 0.04 of contrast ratio. Measured over 27 cells, Firefox falls from 23 exact to 9. Unregistered, all three engines are exact.
 - **The colour-space modifier is a theme lookup, not a branch.** `@theme inline` holds one
-  expression per space and the utility declares its result twice — oklch inline as the default,
+  expression per space and the utility declares its result twice – oklch inline as the default,
   then again as `--modifier(--tw-jib--a11y-shade-interpolation-*)`, which Tailwind emits only when
   a modifier is present. That is the same dispatch the [lightness](/guide/lightness) and
   [saturation](/guide/saturation) modules use.
@@ -1078,26 +1174,28 @@ Two details of that arrangement are load-bearing rather than stylistic:
 
 The most any background can offer is `max((Y + 0.05)/0.05, 1.05/(Y + 0.05))`, which bottoms out at `√21 ≈ 4.583` at the pivot. So 3:1 and 4.5:1 are reachable from _every_ background, but 7:1 is mathematically unreachable for backgrounds with luminance between roughly 0.10 and 0.30, and for many vivid mid-tones. There the target luminance clamps, the output saturates at pure black or white, and the achieved ratio is the best physics allows. `text-a11y-aaa` on `bg-indigo-600` tops out at 6.44:1.
 
-The implementation lives in `wcag/_stable.css` and ships from the main entry.
+The implementation lives in `accessible-shade/_index.css` and ships from the main entry.
 
 ---
 
 # Border Gradient
 
-> border-gradient module — gradient borders via CSS background padding-box/border-box clipping. Supports linear, radial, and conic gradients with 8 interpolation modes and animated spin. No pseudo-elements or JavaScript.
+> border-gradient module – gradient borders via CSS background padding-box/border-box clipping. Supports linear, radial, and conic gradients with 8 interpolation modes and animated spin. No pseudo-elements or JavaScript.
 
 # Border Gradient
 
-Linear, radial, and conic gradient borders — same grammar as Tailwind's `bg-linear-*`, applied to borders. 8 interpolation modes. For animated spinning borders, see [Border Spin](/guide/border-spin).
+Linear, radial, and conic gradient borders – same grammar as Tailwind's `bg-linear-*`, applied to borders. 8 interpolation modes. For animated spinning borders, see [Border Spin](/guide/border-spin).
 
 **Browser Support**
 Chrome 111+, Safari 16.4+, Firefox 128+. Interpolation modes (`/shorter`, `/longer`, etc.) require Chrome 111+, Safari 16.4+.
 
 **Import**
 Included in `@import 'tw-jib-css'`. To import individually:
+
 ```css
 @import 'tw-jib-css/border-gradient';
 ```
+
 
 ## Quick Reference
 
@@ -1158,7 +1256,7 @@ Border gradients work alongside Tailwind's `bg-*` utilities. When you apply a `b
 
 #### Gradient backgrounds
 
-Tailwind gradient backgrounds and border gradients coexist — the background gradient layers inside the padding area while the border gradient fills the border area. The background and border gradient types don't need to match:
+Tailwind gradient backgrounds and border gradients coexist – the background gradient layers inside the padding area while the border gradient fills the border area. The background and border gradient types don't need to match:
 
 
 ```html
@@ -1193,7 +1291,7 @@ The background colour does not inherit from parent elements. The `--tw-jib--back
 
 #### Transparent and semi-transparent backgrounds
 
-The border-gradient technique works by stacking two background layers — a `padding-box` layer (your background) on top of a `border-box` layer (the gradient). A transparent or semi-transparent background lets the gradient layer show through into the content area, not just the border:
+The border-gradient technique works by stacking two background layers – a `padding-box` layer (your background) on top of a `border-box` layer (the gradient). A transparent or semi-transparent background lets the gradient layer show through into the content area, not just the border:
 
 
 ```html
@@ -1206,7 +1304,7 @@ The border-gradient technique works by stacking two background layers — a `pad
 ```
 
 
-This is inherent to the clipping technique — the `padding-box` layer must be fully opaque to mask the gradient behind it. If you want a see-through content area with only a gradient border, this approach won't work; you'd need a pseudo-element or `border-image` technique instead.
+This is inherent to the clipping technique – the `padding-box` layer must be fully opaque to mask the gradient behind it. If you want a see-through content area with only a gradient border, this approach won't work; you'd need a pseudo-element or `border-image` technique instead.
 
 ### What doesn't work
 
@@ -1215,14 +1313,21 @@ This is inherent to the clipping technique — the `padding-box` layer must be f
 A background set via a custom CSS class or inline style is overwritten by the border-gradient utility's `background` shorthand. The `--tw-bg-image` property stays at its initial value (`canvas`), so the element loses its intended background:
 
 ```html
-<!-- ✗ Custom class — background is overwritten -->
-<style>.my-card { background: #e0f2fe; }</style>
+<!-- ✗ Custom class – background is overwritten -->
+<style>
+  .my-card {
+    background: #e0f2fe;
+  }
+</style>
 <div class="my-card border-4 border-linear-to-r border-from-pink-500 border-to-cyan-500">
   Background will be canvas, not #e0f2fe
 </div>
 
-<!-- ✗ Inline style — same issue -->
-<div style="background-color: #e0f2fe" class="border-4 border-linear-to-r border-from-pink-500 border-to-cyan-500">
+<!-- ✗ Inline style – same issue -->
+<div
+  style="background-color: #e0f2fe"
+  class="border-4 border-linear-to-r border-from-pink-500 border-to-cyan-500"
+>
   Background will be canvas, not #e0f2fe
 </div>
 ```
@@ -1247,7 +1352,10 @@ Or set `--tw-bg-image` directly to bypass the `bg-*` utility:
 
 ```html
 <!-- ✓ Setting the custom property directly -->
-<div style="--tw-bg-image: linear-gradient(#e0f2fe 0 0)" class="border-4 border-linear-to-r border-from-pink-500 border-to-cyan-500">
+<div
+  style="--tw-bg-image: linear-gradient(#e0f2fe 0 0)"
+  class="border-4 border-linear-to-r border-from-pink-500 border-to-cyan-500"
+>
   ...
 </div>
 ```
@@ -1305,7 +1413,7 @@ Use `border-from-{color}`, `border-via-{color}`, and `border-to-{color}` to set 
 ```
 
 
-> border-from-inherit sets --tw-jib--border-gradient-from: inherit. Because this property is registered with inherits: false and initial-value: #0000, inherit resolves to transparent — not currentColor or the text colour.
+> border-from-inherit sets --tw-jib--border-gradient-from: inherit. Because this property is registered with inherits: false and initial-value: #0000, inherit resolves to transparent – not currentColor or the text colour.
 
 ### Setting gradient stop positions
 
@@ -1323,7 +1431,7 @@ Use `border-from-{n}%`, `border-via-{n}%`, and `border-to-{n}%` to set where eac
 
 ## Radial Gradients
 
-Use `border-radial` for a gradient that radiates from the centre. Use bracket notation to set a custom position — either percentage-based or keyword-based:
+Use `border-radial` for a gradient that radiates from the centre. Use bracket notation to set a custom position – either percentage-based or keyword-based:
 
 
 ```html
@@ -1427,20 +1535,20 @@ The same 8 modifiers apply to `border-radial` and `border-conic` gradients: `bor
 
 See [Colour Spaces](./colour-spaces.md) for a deeper look at how each space affects blending.
 
-| Mode | Best for |
-| --- | --- |
-| `/oklab` (default) | Smooth, perceptually uniform blends. No hue shifts. Best general-purpose choice. |
-| `/srgb` | Classic RGB blending. Can produce muddy midpoints between complementary colours. |
-| `/hsl` | Hue-based blending. Predictable hue transitions but can produce unexpected bright or grey bands. |
-| `/oklch` | Perceptually uniform with hue control. Good for rainbow-like gradients. |
-| `/longer` | Takes the long way around the hue wheel in oklch. Creates rainbow effects between two colours. |
-| `/shorter` | Shortest path around the hue wheel (default hue interpolation in oklch). |
-| `/increasing` | Always moves clockwise around the hue wheel. |
-| `/decreasing` | Always moves counter-clockwise around the hue wheel. |
+| Mode               | Best for                                                                                         |
+| ------------------ | ------------------------------------------------------------------------------------------------ |
+| `/oklab` (default) | Smooth, perceptually uniform blends. No hue shifts. Best general-purpose choice.                 |
+| `/srgb`            | Classic RGB blending. Can produce muddy midpoints between complementary colours.                 |
+| `/hsl`             | Hue-based blending. Predictable hue transitions but can produce unexpected bright or grey bands. |
+| `/oklch`           | Perceptually uniform with hue control. Good for rainbow-like gradients.                          |
+| `/longer`          | Takes the long way around the hue wheel in oklch. Creates rainbow effects between two colours.   |
+| `/shorter`         | Shortest path around the hue wheel (default hue interpolation in oklch).                         |
+| `/increasing`      | Always moves clockwise around the hue wheel.                                                     |
+| `/decreasing`      | Always moves counter-clockwise around the hue wheel.                                             |
 
 ## Using a custom value
 
-Use bracket notation for custom colours and angles. Colour stops accept any CSS colour format — hex, `rgb()`, `hsl()`, `oklch()`, etc.:
+Use bracket notation for custom colours and angles. Colour stops accept any CSS colour format – hex, `rgb()`, `hsl()`, `oklch()`, etc.:
 
 
 ```html
@@ -1475,15 +1583,15 @@ Reference CSS custom properties with the typed bare-value syntax `(type:--var)`.
 
 All border gradient utilities that accept custom properties:
 
-| Utility | Type hint | Example |
-| --- | --- | --- |
-| `border-from-*` | `color` | `border-from-(color:--brand-from)` |
-| `border-via-*` | `color` | `border-via-(color:--brand-accent)` |
-| `border-to-*` | `color` | `border-to-(color:--brand-to)` |
-| `border-from-*` | `percentage` | `border-from-(percentage:--stop-start)` |
-| `border-to-*` | `percentage` | `border-to-(percentage:--stop-end)` |
-| `border-linear-*` | `number` | `border-linear-(number:--angle)` |
-| `border-conic-*` | `number` | `border-conic-(number:--start-angle)` |
+| Utility           | Type hint    | Example                                 |
+| ----------------- | ------------ | --------------------------------------- |
+| `border-from-*`   | `color`      | `border-from-(color:--brand-from)`      |
+| `border-via-*`    | `color`      | `border-via-(color:--brand-accent)`     |
+| `border-to-*`     | `color`      | `border-to-(color:--brand-to)`          |
+| `border-from-*`   | `percentage` | `border-from-(percentage:--stop-start)` |
+| `border-to-*`     | `percentage` | `border-to-(percentage:--stop-end)`     |
+| `border-linear-*` | `number`     | `border-linear-(number:--angle)`        |
+| `border-conic-*`  | `number`     | `border-conic-(number:--start-angle)`   |
 
 ## Applying conditionally
 
@@ -1525,7 +1633,7 @@ The gradient is rendered as a background layer clipped to `border-box` with `bor
 
 ### Default (transparent border colour)
 
-With `border-color: transparent`, all border styles look identical — the gradient shows through everywhere:
+With `border-color: transparent`, all border styles look identical – the gradient shows through everywhere:
 
 
 ```html
@@ -1570,8 +1678,8 @@ With `border-color: transparent`, all border styles look identical — the gradi
 
 The gradient border technique uses CSS background clipping. A transparent border is set, then two background layers are stacked:
 
-1. **Padding-box layer** — your background colour, clipped to the content + padding area
-2. **Border-box layer** — the gradient, filling the entire box including the border area
+1. **Padding-box layer** – your background colour, clipped to the content + padding area
+2. **Border-box layer** – the gradient, filling the entire box including the border area
 
 The border area shows the gradient because the padding-box background doesn't cover it. This is a pure CSS technique that works with `border-radius` and doesn't require pseudo-elements.
 
@@ -1590,9 +1698,11 @@ Linear, radial, conic, and animated gradient borders. Same grammar as Tailwind's
 If you know `bg-linear-to-br`, you already know `border-linear-to-br`. The utilities mirror Tailwind's background gradient classes, with `border-from-*`, `border-via-*`, and `border-to-*` setting colour stops.
 
 ```html
-<div class="border-4 border-linear-to-br
+<div
+  class="border-4 border-linear-to-br
   border-from-violet-500 border-to-cyan-400
-  rounded-2xl">
+  rounded-2xl"
+></div>
 ```
 
 
@@ -1607,20 +1717,22 @@ If you know `bg-linear-to-br`, you already know `border-linear-to-br`. The utili
 
 ## Three gradient types
 
-**Linear** — `border-linear-to-{direction}` with directional keywords (`br`, `t`, `l`, etc.) or custom angles.
+**Linear** – `border-linear-to-{direction}` with directional keywords (`br`, `t`, `l`, etc.) or custom angles.
 
-**Radial** — `border-radial-*` with optional position control.
+**Radial** – `border-radial-*` with optional position control.
 
-**Conic** — `border-conic-{angle}` for conic sweeps. Pair with `border-spin` for animation.
+**Conic** – `border-conic-{angle}` for conic sweeps. Pair with `border-spin` for animation.
 
 ## Animated spin
 
 Add `border-spin` to a conic gradient for continuous rotation. Control speed with `border-spin-duration-{seconds}`:
 
 ```html
-<div class="border-4 border-conic-0 border-spin border-spin-duration-4
+<div
+  class="border-4 border-conic-0 border-spin border-spin-duration-4
   border-from-emerald-400 border-via-violet-500 border-to-emerald-400
-  rounded-full">
+  rounded-full"
+></div>
 ```
 
 Respects `prefers-reduced-motion`.
@@ -1637,7 +1749,7 @@ See the [Border Gradient reference](/guide/border-gradient) for the full class l
 
 # Border Spin
 
-> border-spin module — animated rotating gradient borders using @property and @keyframes. Requires border-gradient utilities for the gradient itself.
+> border-spin module – animated rotating gradient borders using @property and @keyframes. Requires border-gradient utilities for the gradient itself.
 
 # Border Spin
 
@@ -1648,9 +1760,11 @@ Chrome 85+, Safari 15.4+, Firefox 128+. Requires CSS `@property` for animated an
 
 **Import**
 Included in `@import 'tw-jib-css'`. To import individually:
+
 ```css
 @import 'tw-jib-css/border-gradient';
 ```
+
 Note: `border-spin` is part of the `border-gradient` module.
 
 ## Quick Reference
@@ -1725,9 +1839,9 @@ Use bracket notation for custom durations:
 
 Reference CSS custom properties with the typed bare-value syntax `(type:--var)`:
 
-| Utility | Type hint | Example |
-| --- | --- | --- |
-| `border-spin-duration-*` | `time` | `border-spin-duration-(time:--spin-speed)` |
+| Utility                  | Type hint | Example                                    |
+| ------------------------ | --------- | ------------------------------------------ |
+| `border-spin-duration-*` | `time`    | `border-spin-duration-(time:--spin-speed)` |
 
 ## How It Works
 
@@ -1737,7 +1851,7 @@ The animated spin uses `@property` to register `--tw-border-gradient-angle` as a
 
 # Lightness
 
-> lightness utility — adjusts colour lightness using CSS relative colour syntax across 17 colour spaces. {surface}-lightness-{n} to lighten, -{surface}-lightness-{n} to darken, with optional /{color-space} modifier. Works on background, text, fill, stroke, outline, accent, and border surfaces.
+> lightness utility – adjusts colour lightness using CSS relative colour syntax across 17 colour spaces. {surface}-lightness-{n} to lighten, -{surface}-lightness-{n} to darken, with optional /{color-space} modifier. Works on background, text, fill, stroke, outline, accent, and border surfaces.
 
 # Lightness
 
@@ -1747,7 +1861,7 @@ Adjust the lightness of any colour. Positive values lighten, negative values dar
 Included in `@import 'tw-jib-css'`. Individual import:
 
 ```css
-@import 'tw-jib-css/lightness';
+@import 'tw-jib-css/color-transforms';
 ```
 
 
@@ -2149,17 +2263,17 @@ Append a modifier to select the interpolation space: `bg-lightness-30/oklch`, `b
 See the [Colour Spaces reference](/guide/colour-spaces) for what each space is and when to choose one.
 
 **How scaling works**
-Values 0–100 represent a **percentage of the distance** to white or black — not a fixed channel offset. `bg-lightness-50` moves halfway to white; `bg-lightness-100` reaches white exactly, regardless of where the colour started. Each colour space family handles this differently:
+Values 0–100 represent a **percentage of the distance** to white or black – not a fixed channel offset. `bg-lightness-50` moves halfway to white; `bg-lightness-100` reaches white exactly, regardless of where the colour started. Each colour space family handles this differently:
 
-**oklch, lch, oklab, lab** — Lightness interpolates toward 1 (white) or 0 (black). Chroma is held constant through most of the range, tapering above 80 where the gamut narrows.
+**oklch, lch, oklab, lab** – Lightness interpolates toward 1 (white) or 0 (black). Chroma is held constant through most of the range, tapering above 80 where the gamut narrows.
 
-**HSL** — S is scaled by the gamut factor ratio `min(l, 100−l) / min(new_l, 100−new_l)`, clamped to ≤ 1, so saturation dampens as lightness moves toward the extremes.
+**HSL** – S is scaled by the gamut factor ratio `min(l, 100−l) / min(new_l, 100−new_l)`, clamped to ≤ 1, so saturation dampens as lightness moves toward the extremes.
 
-**HWB** — Lightening adds whiteness and removes blackness; darkening does the reverse.
+**HWB** – Lightening adds whiteness and removes blackness; darkening does the reverse.
 
-**RGB-family (rgb, srgb, display-p3, etc.)** — All three channels interpolate independently toward their white-point (or 0 for darkening).
+**RGB-family (rgb, srgb, display-p3, etc.)** – All three channels interpolate independently toward their white-point (or 0 for darkening).
 
-**colour-mix** — Blends the colour with white or black via `color-mix()` in oklab. Acts as the reference curve that other spaces are calibrated against.
+**colour-mix** – Blends the colour with white or black via `color-mix()` in oklab. Acts as the reference curve that other spaces are calibrated against.
 
 ## Aliases
 
@@ -2207,7 +2321,7 @@ Lightness utilities are CSS relative colour syntax, evaluated at render time in 
 
 # Saturation
 
-> saturation utility — adjusts colour saturation/chroma using CSS relative colour syntax across 17 colour spaces. {surface}-saturation-{n} to saturate, -{surface}-saturation-{n} to desaturate, with optional /{color-space} modifier. Works on background, text, fill, stroke, outline, accent, and border surfaces.
+> saturation utility – adjusts colour saturation/chroma using CSS relative colour syntax across 17 colour spaces. {surface}-saturation-{n} to saturate, -{surface}-saturation-{n} to desaturate, with optional /{color-space} modifier. Works on background, text, fill, stroke, outline, accent, and border surfaces.
 
 # Saturation
 
@@ -2217,7 +2331,7 @@ Adjust the saturation (chroma) of any colour. Positive values increase saturatio
 Included in `@import 'tw-jib-css'`. Individual import:
 
 ```css
-@import 'tw-jib-css/saturation';
+@import 'tw-jib-css/color-transforms';
 ```
 
 
@@ -2581,15 +2695,15 @@ Append a modifier: `bg-saturation-30/oklch`, `-bg-saturation-50/hsl`, etc. Defau
 See the [Colour Spaces reference](/guide/colour-spaces) for what each space is and when to choose one.
 
 **How scaling works**
-**oklch, lch** — Chroma interpolates toward the maximum (saturate) or 0 (desaturate). Lightness is held constant.
+**oklch, lch** – Chroma interpolates toward the maximum (saturate) or 0 (desaturate). Lightness is held constant.
 
-**oklab, lab** — Both chromatic axes (a, b) scale toward their theoretical maxima or toward 0.
+**oklab, lab** – Both chromatic axes (a, b) scale toward their theoretical maxima or toward 0.
 
-**HSL** — S interpolates toward 100% or 0%.
+**HSL** – S interpolates toward 100% or 0%.
 
-**RGB-family** — Each channel moves toward or away from its greyscale luma value (`0.213r + 0.715g + 0.072b`).
+**RGB-family** – Each channel moves toward or away from its greyscale luma value (`0.213r + 0.715g + 0.072b`).
 
-**colour-mix** — Blends toward grey (desaturation) or maximum chroma (saturation) via `color-mix()` in oklch.
+**colour-mix** – Blends toward grey (desaturation) or maximum chroma (saturation) via `color-mix()` in oklch.
 
 ## Aliases
 
@@ -2631,7 +2745,7 @@ Saturation utilities are CSS relative colour syntax, evaluated at render time in
 
 # Hue Rotate
 
-> hue-rotate utility — rotates the hue of any colour using CSS relative colour syntax across 16 colour spaces. {surface}-hue-rotate-{deg} rotates clockwise, -{surface}-hue-rotate-{deg} counterclockwise. Works on background, text, fill, stroke, outline, accent, and border surfaces. No color-mix modifier — hue rotation has no honest two-colour form.
+> hue-rotate utility – rotates the hue of any colour using CSS relative colour syntax across 16 colour spaces. {surface}-hue-rotate-{deg} rotates clockwise, -{surface}-hue-rotate-{deg} counterclockwise. Works on background, text, fill, stroke, outline, accent, and border surfaces. No color-mix modifier – hue rotation has no honest two-colour form.
 
 # Hue Rotate
 
@@ -2641,7 +2755,7 @@ Rotate the hue of any colour by a number of degrees. Positive values rotate cloc
 Included in `@import 'tw-jib-css'`. Individual import:
 
 ```css
-@import 'tw-jib-css/hue-rotate';
+@import 'tw-jib-css/color-transforms';
 ```
 
 
@@ -2986,16 +3100,16 @@ Append a modifier: `bg-hue-rotate-90/oklch`, `bg-hue-rotate-90/hsl`, etc. Defaul
 ```
 
 
-No color-mix modifier — hue rotation has no honest two-colour interpolation form. See the [Colour Spaces reference](/guide/colour-spaces) for what each space is and when to choose one.
+No color-mix modifier – hue rotation has no honest two-colour interpolation form. See the [Colour Spaces reference](/guide/colour-spaces) for what each space is and when to choose one.
 
 **How rotation works per space**
-**Polar spaces (oklch, lch, hsl, hwb)** — Adds degrees to the hue channel directly. The simplest and most predictable.
+**Polar spaces (oklch, lch, hsl, hwb)** – Adds degrees to the hue channel directly. The simplest and most predictable.
 
-**Lab spaces (oklab, lab)** — Rotates the (a, b) chromatic plane trigonometrically: `a' = a·cos(θ) − b·sin(θ)`, `b' = a·sin(θ) + b·cos(θ)`. Preserves chroma exactly.
+**Lab spaces (oklab, lab)** – Rotates the (a, b) chromatic plane trigonometrically: `a' = a·cos(θ) − b·sin(θ)`, `b' = a·sin(θ) + b·cos(θ)`. Preserves chroma exactly.
 
-**RGB-family** — Applies a luma-preserving 3×3 colour matrix (same algorithm as SVG's `feColorMatrix type="hueRotate"`). Maintains perceived brightness.
+**RGB-family** – Applies a luma-preserving 3×3 colour matrix (same algorithm as SVG's `feColorMatrix type="hueRotate"`). Maintains perceived brightness.
 
-**XYZ-family** — Rotates (x, z) deviations around the white point, preserving y (luminance).
+**XYZ-family** – Rotates (x, z) deviations around the white point, preserving y (luminance).
 
 ## Applying Conditionally
 
@@ -3020,20 +3134,22 @@ Hue-rotate utilities are CSS relative colour syntax, evaluated at render time in
 
 # Ripple
 
-> ripple module — Material-style ripple effect via CSS @property transitions, no JavaScript required. Uses reverse-transition technique so the ripple always completes its full duration, even on quick clicks.
+> ripple module – Material-style ripple effect via CSS @property transitions, no JavaScript required. Uses reverse-transition technique so the ripple always completes its full duration, even on quick clicks.
 
 # Ripple
 
-Material-style ripple effect triggered on click — pure CSS, no JavaScript. The ripple always completes its full duration, even if the click is released early.
+Material-style ripple effect triggered on click – pure CSS, no JavaScript. The ripple always completes its full duration, even if the click is released early.
 
 **Browser Support**
 Chrome 85+, Safari 15.4+, Firefox 128+. Requires CSS `@property` for animated transitions.
 
 **Import**
 Included in `@import 'tw-jib-css'`. To import individually:
+
 ```css
 @import 'tw-jib-css/ripple';
 ```
+
 
 ## Quick Reference
 
@@ -3195,12 +3311,12 @@ For CSS variables, use the typed bare-value syntax `ripple-color-(color:--var)`.
 The same pattern works for all ripple properties. For position, use the `position` type hint:
 
 ```html
-<div class="bg-ripple ripple-position-(position:--ripple-pos) [--ripple-pos:25%_75%]">
+<div class="bg-ripple ripple-position-(position:--ripple-pos) [--ripple-pos:25%_75%]"></div>
 ```
 
 ### Cursor-tracking ripple
 
-By default, `ripple-position` is a fixed value — the ripple always starts from the same point. To make the ripple originate from where the user actually clicks, bind `ripple-position` to a CSS variable and update it with JavaScript on each `mousedown`:
+By default, `ripple-position` is a fixed value – the ripple always starts from the same point. To make the ripple originate from where the user actually clicks, bind `ripple-position` to a CSS variable and update it with JavaScript on each `mousedown`:
 
 
 ```html
@@ -3218,7 +3334,7 @@ By default, `ripple-position` is a fixed value — the ripple always starts from
 ```
 
 
-The JavaScript is minimal — convert the cursor position to a percentage and write it to `--ripple-pos` on each `mousedown`:
+The JavaScript is minimal – convert the cursor position to a percentage and write it to `--ripple-pos` on each `mousedown`:
 
 ::: code-group
 
@@ -3229,8 +3345,8 @@ const button = document.querySelector('.ripple-btn');
 
 button.addEventListener('mousedown', (e) => {
   const rect = button.getBoundingClientRect();
-  const x = ((e.clientX - rect.left) / rect.width * 100).toFixed(1);
-  const y = ((e.clientY - rect.top) / rect.height * 100).toFixed(1);
+  const x = (((e.clientX - rect.left) / rect.width) * 100).toFixed(1);
+  const y = (((e.clientY - rect.top) / rect.height) * 100).toFixed(1);
   button.style.setProperty('--ripple-pos', `${x}% ${y}%`);
 });
 ```
@@ -3242,8 +3358,8 @@ const button = document.querySelector<HTMLButtonElement>('.ripple-btn')!;
 
 button.addEventListener('mousedown', (e: MouseEvent) => {
   const rect = button.getBoundingClientRect();
-  const x = ((e.clientX - rect.left) / rect.width * 100).toFixed(1);
-  const y = ((e.clientY - rect.top) / rect.height * 100).toFixed(1);
+  const x = (((e.clientX - rect.left) / rect.width) * 100).toFixed(1);
+  const y = (((e.clientY - rect.top) / rect.height) * 100).toFixed(1);
   button.style.setProperty('--ripple-pos', `${x}% ${y}%`);
 });
 ```
@@ -3252,8 +3368,8 @@ button.addEventListener('mousedown', (e: MouseEvent) => {
 function RippleButton() {
   function handleMouseDown(e) {
     const rect = e.currentTarget.getBoundingClientRect();
-    const x = ((e.clientX - rect.left) / rect.width * 100).toFixed(1);
-    const y = ((e.clientY - rect.top) / rect.height * 100).toFixed(1);
+    const x = (((e.clientX - rect.left) / rect.width) * 100).toFixed(1);
+    const y = (((e.clientY - rect.top) / rect.height) * 100).toFixed(1);
     e.currentTarget.style.setProperty('--ripple-pos', `${x}% ${y}%`);
   }
 
@@ -3284,7 +3400,7 @@ function RippleButton() {
 
 
 **Why not just set `--tw-jib--ripple-position` directly?**
-You could — but using a custom variable via `ripple-position-(position:--ripple-pos)` keeps the contract explicit. Tailwind sees the utility in your markup and includes the ripple-position rule in the output. Setting the internal variable directly works at runtime, but the utility won't appear in your compiled CSS unless something else references it.
+You could – but using a custom variable via `ripple-position-(position:--ripple-pos)` keeps the contract explicit. Tailwind sees the utility in your markup and includes the ripple-position rule in the output. Setting the internal variable directly works at runtime, but the utility won't appear in your compiled CSS unless something else references it.
 
 ## Applying conditionally
 
@@ -3298,7 +3414,7 @@ Material-style ripple, pure CSS. Any colour, any origin, any speed.
 
 ## How it works
 
-Add `bg-ripple` to any element. On `:active`, a radial gradient expands outward from the origin point. No JavaScript, no event listeners — it's `@property` transitions on the gradient's size and opacity.
+Add `bg-ripple` to any element. On `:active`, a radial gradient expands outward from the origin point. No JavaScript, no event listeners – it's `@property` transitions on the gradient's size and opacity.
 
 
 ```html
@@ -3311,23 +3427,25 @@ Add `bg-ripple` to any element. On `:active`, a radial gradient expands outward 
 
 
 ```html
-<button class="bg-indigo-600 bg-ripple
+<button
+  class="bg-indigo-600 bg-ripple
   ripple-color-white/40
   ripple-position-center
-  ripple-duration-60">
+  ripple-duration-60"
+>
   Click me
 </button>
 ```
 
 ## Three modifier dimensions
 
-**Colour** — `ripple-color-{color}/{opacity}`. Default: white at 20% opacity.
+**Colour** – `ripple-color-{color}/{opacity}`. Default: white at 20% opacity.
 
-**Position** — `ripple-position-{origin}`. Options: `center`, `top`, `bottom`, `left`, `right`. Default: center.
+**Position** – `ripple-position-{origin}`. Options: `center`, `top`, `bottom`, `left`, `right`. Default: center.
 
-**Duration** — `ripple-duration-{n}`. Multiplied by 10ms. `ripple-duration-60` = 600ms. Default: 600ms.
+**Duration** – `ripple-duration-{n}`. Multiplied by 10ms. `ripple-duration-60` = 600ms. Default: 600ms.
 
-**Fade** — Add `ripple-fade` for opacity fade-out as the ripple expands.
+**Fade** – Add `ripple-fade` for opacity fade-out as the ripple expands.
 
 ## Reference
 
@@ -3337,7 +3455,7 @@ See the [Ripple reference](/guide/ripple) for the full class list, custom values
 
 # Comic Dots
 
-> comic module — CMYK halftone dot pattern backgrounds. Converts any colour to overlapping cyan, magenta, yellow and black dots using CSS relative colour syntax and radial gradients.
+> comic module – CMYK halftone dot pattern backgrounds. Converts any colour to overlapping cyan, magenta, yellow and black dots using CSS relative colour syntax and radial gradients.
 
 # Comic Dots
 
@@ -3345,9 +3463,11 @@ CMYK halftone dot backgrounds for any Tailwind colour. Pure CSS, no images.
 
 **Import**
 Included in `@import 'tw-jib-css'`. To import individually:
+
 ```css
 @import 'tw-jib-css/comic';
 ```
+
 
 **Browser Support**
 Uses CSS relative colour syntax with `max()` inside `rgb(from ...)`. Supported in Chrome 125+, Edge 125+, Firefox 128+, and Safari 16.4+.
@@ -3359,11 +3479,11 @@ Uses CSS relative colour syntax with `max()` inside `rgb(from ...)`. Supported i
 | `bg-comic-<color>` | `Sets colour and applies CMYK dot pattern with background-blend-mode: multiply` |
 | `bg-comic-<color>/<opacity>` | `Same with opacity modifier` |
 | `bg-comic-[<value>]` | `Arbitrary colour value` |
-| `comic-dot-<number>` | `--tw-jib--comic-dot: --spacing(<number>) — dot radius` |
+| `comic-dot-<number>` | `--tw-jib--comic-dot: --spacing(<number>) – dot radius` |
 | `comic-dot-[<value>]` | `--tw-jib--comic-dot: <value>` |
-| `comic-bleed-<number>` | `--tw-jib--comic-bleed: --spacing(<number>) / 4 — dot edge softness` |
+| `comic-bleed-<number>` | `--tw-jib--comic-bleed: --spacing(<number>) / 4 – dot edge softness` |
 | `comic-bleed-[<value>]` | `--tw-jib--comic-bleed: <value>` |
-| `comic-gap-<number>` | `--tw-jib--comic-gap: --spacing(<number>) / 4 — space between dots` |
+| `comic-gap-<number>` | `--tw-jib--comic-gap: --spacing(<number>) / 4 – space between dots` |
 | `comic-gap-[<value>]` | `--tw-jib--comic-gap: <value>` |
 
 
@@ -3371,14 +3491,14 @@ Uses CSS relative colour syntax with `max()` inside `rgb(from ...)`. Supported i
 
 Each colour is decomposed into CMYK channels using the inverse of its RGB values:
 
-| Dot | Colour | Opacity formula |
-|-----|--------|-----------------|
-| **C** (cyan) | `rgb(0 255 255)` | `(max(R,G,B) - R) / max(R,G,B)` |
+| Dot             | Colour           | Opacity formula                 |
+| --------------- | ---------------- | ------------------------------- |
+| **C** (cyan)    | `rgb(0 255 255)` | `(max(R,G,B) - R) / max(R,G,B)` |
 | **M** (magenta) | `rgb(255 0 255)` | `(max(R,G,B) - G) / max(R,G,B)` |
-| **Y** (yellow) | `rgb(255 255 0)` | `(max(R,G,B) - B) / max(R,G,B)` |
-| **K** (black) | `rgb(0 0 0)` | `1 - max(R,G,B) / 255` |
+| **Y** (yellow)  | `rgb(255 255 0)` | `(max(R,G,B) - B) / max(R,G,B)` |
+| **K** (black)   | `rgb(0 0 0)`     | `1 - max(R,G,B) / 255`          |
 
-The four dot layers are staggered at different grid offsets and composited with `background-blend-mode: multiply` for subtractive colour mixing — just like a printing press.
+The four dot layers are staggered at different grid offsets and composited with `background-blend-mode: multiply` for subtractive colour mixing – just like a printing press.
 
 ## Basic Usage
 
@@ -3411,7 +3531,7 @@ Control the space between dots with `comic-gap-{number}`. The value scales at `-
 ```
 
 
-Gap is additive to dot size — the grid cell is computed as `dot * 2 + gap`. This means changing `comic-dot-*` automatically scales the grid proportionally.
+Gap is additive to dot size – the grid cell is computed as `dot * 2 + gap`. This means changing `comic-dot-*` automatically scales the grid proportionally.
 
 ## Dot Size
 
@@ -3433,9 +3553,9 @@ Control the dot radius with `comic-dot-{number}` using the Tailwind spacing scal
 
 Control the dot edge softness with `comic-bleed-{number}`. The transparent gradient stop is positioned at `dot + bleed`, so:
 
-- `comic-bleed-0` — crisp hard-edged circles
-- `comic-bleed-1` — slight softness (default)
-- Larger values — increasingly blurred dot edges
+- `comic-bleed-0` – crisp hard-edged circles
+- `comic-bleed-1` – slight softness (default)
+- Larger values – increasingly blurred dot edges
 
 
 ```html
@@ -3451,7 +3571,7 @@ Control the dot edge softness with `comic-bleed-{number}`. The transparent gradi
 
 ## Opacity
 
-Add an opacity modifier with the `/` syntax to fade the entire pattern — all four CMYK dot layers and the white background. The value is a percentage (0–100).
+Add an opacity modifier with the `/` syntax to fade the entire pattern – all four CMYK dot layers and the white background. The value is a percentage (0–100).
 
 
 ```html
@@ -3486,7 +3606,7 @@ This scales the computed CMYK channel opacities proportionally and makes the whi
 
 ## CMYK Channel Behaviour
 
-Every Tailwind colour at every shade, rendered as Ben Day dots. Grays produce only K (black) dots with no colour cast — the key advantage of proper CMYK conversion over naive CMY.
+Every Tailwind colour at every shade, rendered as Ben Day dots. Grays produce only K (black) dots with no colour cast – the key advantage of proper CMYK conversion over naive CMY.
 
 <div class="space-y-4 my-6">
   <div>
@@ -3862,20 +3982,16 @@ Use the arbitrary value syntax for colours not in the Tailwind palette:
 All `bg-comic-*` and `comic-*` utilities support Tailwind's variant syntax:
 
 ```html
-<div class="bg-blue-500 hover:bg-comic-blue-500">
-  Dots on hover
-</div>
+<div class="bg-blue-500 hover:bg-comic-blue-500">Dots on hover</div>
 
-<div class="bg-comic-red-500 md:comic-gap-8">
-  Larger gaps on medium screens
-</div>
+<div class="bg-comic-red-500 md:comic-gap-8">Larger gaps on medium screens</div>
 ```
 
 ---
 
 # Pixel
 
-> pixel module — RGB pixel pattern backgrounds. Decomposes any colour into R, G, B rectangular columns using CSS relative colour syntax and repeating linear gradients with screen blend mode (additive mixing). Mimics LCD/CRT display phosphors.
+> pixel module – RGB pixel pattern backgrounds. Decomposes any colour into R, G, B rectangular columns using CSS relative colour syntax and repeating linear gradients with screen blend mode (additive mixing). Mimics LCD/CRT display phosphors.
 
 # Pixel
 
@@ -3883,9 +3999,11 @@ RGB pixel column backgrounds for any Tailwind colour. LCD or CRT phosphor look, 
 
 **Import**
 Included in `@import 'tw-jib-css'`. To import individually:
+
 ```css
 @import 'tw-jib-css/pixel';
 ```
+
 
 **Browser Support**
 Requires CSS relative colour syntax (`rgb(from ... r 0 0)`). Chrome 111+, Safari 16.4+, Firefox 128+.
@@ -3897,32 +4015,32 @@ Requires CSS relative colour syntax (`rgb(from ... r 0 0)`). Chrome 111+, Safari
 | `bg-pixel-<color>` | `Sets colour and applies RGB pixel pattern with background-blend-mode: screen` |
 | `bg-pixel-<color>/<opacity>` | `Same with opacity modifier` |
 | `bg-pixel-[<value>]` | `Arbitrary colour value` |
-| `pixel-size-<number>` | `--tw-jib--pixel-size: --spacing(<number>) / 4 — pixel size (width = size, height = size × 2)` |
+| `pixel-size-<number>` | `--tw-jib--pixel-size: --spacing(<number>) / 4 – pixel size (width = size, height = size × 2)` |
 | `pixel-size-[<value>]` | `--tw-jib--pixel-size: <value>` |
-| `pixel-gap-<number>` | `--tw-jib--pixel-gap: <number> — gap multiplier of pixel width` |
+| `pixel-gap-<number>` | `--tw-jib--pixel-gap: <number> – gap multiplier of pixel width` |
 | `pixel-gap-[<value>]` | `--tw-jib--pixel-gap: <value>` |
-| `pixel-bloom-<number>` | `--tw-jib--pixel-bloom: --spacing(<number>) / 4 — phosphor bloom (unbounded; saturates to solid)` |
+| `pixel-bloom-<number>` | `--tw-jib--pixel-bloom: --spacing(<number>) / 4 – phosphor bloom (unbounded; saturates to solid)` |
 | `pixel-bloom-[<value>]` | `--tw-jib--pixel-bloom: <value>` |
 
 
 ## How it works
 
-Each colour is split into its RGB channels — the direct components of additive light:
+Each colour is split into its RGB channels – the direct components of additive light:
 
-| Column | Colour | Extraction |
-|--------|--------|------------|
-| **R** (red) | `rgb(r 0 0)` | Red channel only |
+| Column        | Colour       | Extraction         |
+| ------------- | ------------ | ------------------ |
+| **R** (red)   | `rgb(r 0 0)` | Red channel only   |
 | **G** (green) | `rgb(0 g 0)` | Green channel only |
-| **B** (blue) | `rgb(0 0 b)` | Blue channel only |
+| **B** (blue)  | `rgb(0 0 b)` | Blue channel only  |
 
-Four background layers are composited — each channel needs its own layer for `screen` blending to work additively:
+Four background layers are composited – each channel needs its own layer for `screen` blending to work additively:
 
-1. **Row mask** — `repeating-linear-gradient(to bottom, ...)` with white rows and black gaps. Blended with `multiply` to punch out horizontal row separators.
-2. **Red column** — `repeating-linear-gradient(to right, ...)` at column position 0. Blended with `screen`.
-3. **Green column** — same, at column position 1. Blended with `screen`.
-4. **Blue column** — same, at column position 2. Blended with `screen`.
+1. **Row mask** – `repeating-linear-gradient(to bottom, ...)` with white rows and black gaps. Blended with `multiply` to punch out horizontal row separators.
+2. **Red column** – `repeating-linear-gradient(to right, ...)` at column position 0. Blended with `screen`.
+3. **Green column** – same, at column position 1. Blended with `screen`.
+4. **Blue column** – same, at column position 2. Blended with `screen`.
 
-Over a black `background-color`. The `screen` blend mode adds the channels together (additive mixing), creating tall rectangular pixels arranged in R|G|B triplets — just like a real LCD panel. When `pixel-bloom` > 0, each channel's column widens outward and adjacent channels overlap to produce secondary colours (yellow, cyan, magenta) — mimicking CRT phosphor glow. The dial is unbounded: at high values every channel saturates and the pattern dissolves into solid colour.
+Over a black `background-color`. The `screen` blend mode adds the channels together (additive mixing), creating tall rectangular pixels arranged in R|G|B triplets – just like a real LCD panel. When `pixel-bloom` > 0, each channel's column widens outward and adjacent channels overlap to produce secondary colours (yellow, cyan, magenta) – mimicking CRT phosphor glow. The dial is unbounded: at high values every channel saturates and the pattern dissolves into solid colour.
 
 ## Basic Usage
 
@@ -3941,7 +4059,7 @@ Add `bg-pixel-{color}` to any element:
 
 ## Gap
 
-Control the space between each R|G|B pixel triplet with `pixel-gap-{number}`. The value is a multiplier of the pixel width — `pixel-gap-1` = 1x pixel width, `pixel-gap-2` = 2x, etc. The default is 1.
+Control the space between each R|G|B pixel triplet with `pixel-gap-{number}`. The value is a multiplier of the pixel width – `pixel-gap-1` = 1x pixel width, `pixel-gap-2` = 2x, etc. The default is 1.
 
 
 ```html
@@ -3955,7 +4073,7 @@ Control the space between each R|G|B pixel triplet with `pixel-gap-{number}`. Th
 ```
 
 
-Gap scales proportionally with pixel size — changing `pixel-size-*` automatically adjusts the gap.
+Gap scales proportionally with pixel size – changing `pixel-size-*` automatically adjusts the gap.
 
 ## Size
 
@@ -3975,12 +4093,12 @@ Control the pixel size with `pixel-size-{number}`. Scales at spacing/4 so `pixel
 
 ## Bloom
 
-Control the phosphor bloom with `pixel-bloom-{number}`. Scales at spacing/4 so `pixel-bloom-1` = 1px. This widens each channel outward so adjacent columns overlap additively — the CRT glow effect. The dial is unbounded; at high values every channel saturates and the pixel structure dissolves into solid colour. The default is 1px.
+Control the phosphor bloom with `pixel-bloom-{number}`. Scales at spacing/4 so `pixel-bloom-1` = 1px. This widens each channel outward so adjacent columns overlap additively – the CRT glow effect. The dial is unbounded; at high values every channel saturates and the pixel structure dissolves into solid colour. The default is 1px.
 
-- `pixel-bloom-0` — crisp hard-edged rectangles (LCD look)
-- `pixel-bloom-1` — slight glow (default)
-- `pixel-bloom-2` — adjacent channels fully meet
-- Larger — saturation regime; structure fades into colour
+- `pixel-bloom-0` – crisp hard-edged rectangles (LCD look)
+- `pixel-bloom-1` – slight glow (default)
+- `pixel-bloom-2` – adjacent channels fully meet
+- Larger – saturation regime; structure fades into colour
 
 
 ```html
@@ -3996,7 +4114,7 @@ Control the phosphor bloom with `pixel-bloom-{number}`. Scales at spacing/4 so `
 
 ## Opacity
 
-Add an opacity modifier with the `/` syntax to fade the entire pattern — all three RGB channel layers, the row mask, and the black background. The value is a percentage (0–100).
+Add an opacity modifier with the `/` syntax to fade the entire pattern – all three RGB channel layers, the row mask, and the black background. The value is a percentage (0–100).
 
 
 ```html
@@ -4031,7 +4149,7 @@ This scales the RGB channel opacities proportionally and makes the black backgro
 
 ## RGB Channel Behaviour
 
-Every Tailwind colour at every shade, rendered as pixels. Whites light all three R|G|B columns equally. Pure hues light only the relevant channels — red lights R, blue lights B, yellow lights R+G.
+Every Tailwind colour at every shade, rendered as pixels. Whites light all three R|G|B columns equally. Pure hues light only the relevant channels – red lights R, blue lights B, yellow lights R+G.
 
 <div class="space-y-4 my-6">
   <div>
@@ -4295,30 +4413,36 @@ Use the arbitrary value syntax for colours not in the Tailwind palette:
 All `bg-pixel-*` and `pixel-*` utilities support Tailwind's variant syntax:
 
 ```html
-<div class="bg-blue-500 hover:bg-pixel-blue-500">
-  Sub-pixels on hover
-</div>
+<div class="bg-blue-500 hover:bg-pixel-blue-500">Sub-pixels on hover</div>
 
-<div class="bg-pixel-red-500 md:pixel-size-3">
-  Larger pixels on medium screens
-</div>
+<div class="bg-pixel-red-500 md:pixel-size-3">Larger pixels on medium screens</div>
 ```
 
 ---
 
 # Border Style
 
-> border-style module — per-side border styles (groove, ridge, inset, outset, etc.) that TailwindCSS v4 doesn't expose natively. Physical, axis, and logical side variants.
+> border-style module – per-side border styles (groove, ridge, inset, outset, etc.) that TailwindCSS v4 doesn't expose natively. Physical, axis, and logical side variants.
 
 # Border Style
 
 Per-side border styles. Set `border-t-dashed`, `border-b-dotted`, or any combination that TailwindCSS v4 doesn't expose natively.
 
+**Browser Support**
+Plain `border-*-style` declarations – no relative colour syntax, no `@property`
+registrations, nothing modern at all. These utilities work wherever Tailwind itself
+does.
+
 **Import**
 Included in `@import 'tw-jib-css'`. To import individually:
+
 ```css
 @import 'tw-jib-css/border-style';
 ```
+
+This entry carries none of the library's colour machinery, because these utilities
+read no colour. Taking it costs you nothing but the border styles below – see [take
+only what you need](/guide/installation#take-only-what-you-need).
 
 ## Quick Reference
 
@@ -4388,16 +4512,16 @@ Combine multiple per-side styles for decorative effects:
 
 ## Side Variants
 
-| Prefix | Sides | CSS Property |
-| --- | --- | --- |
-| `t` | Top | `border-top-style` |
-| `r` | Right | `border-right-style` |
-| `b` | Bottom | `border-bottom-style` |
-| `l` | Left | `border-left-style` |
-| `x` | Left + Right | `border-inline-style` |
-| `y` | Top + Bottom | `border-block-style` |
-| `s` | Inline start | `border-inline-start-style` |
-| `e` | Inline end | `border-inline-end-style` |
+| Prefix | Sides        | CSS Property                |
+| ------ | ------------ | --------------------------- |
+| `t`    | Top          | `border-top-style`          |
+| `r`    | Right        | `border-right-style`        |
+| `b`    | Bottom       | `border-bottom-style`       |
+| `l`    | Left         | `border-left-style`         |
+| `x`    | Left + Right | `border-inline-style`       |
+| `y`    | Top + Bottom | `border-block-style`        |
+| `s`    | Inline start | `border-inline-start-style` |
+| `e`    | Inline end   | `border-inline-end-style`   |
 
 ### Axis variants
 
@@ -4412,7 +4536,7 @@ Combine multiple per-side styles for decorative effects:
 
 ### Logical variants
 
-The logical variants (`s` and `e`) respect writing direction — in LTR layouts, `s` is left and `e` is right. In RTL, they swap.
+The logical variants (`s` and `e`) respect writing direction – in LTR layouts, `s` is left and `e` is right. In RTL, they swap.
 
 
 ```html
@@ -4440,17 +4564,27 @@ Prefix a border style utility with a state variant like `hover:*` to only apply 
 
 # Grid
 
-> grid module — CSS Grid template-areas and grid-area utilities. TailwindCSS v4 provides grid-cols and grid-rows but not grid-template-areas.
+> grid module – CSS Grid template-areas and grid-area utilities. TailwindCSS v4 provides grid-cols and grid-rows but not grid-template-areas.
 
 # Grid
 
 CSS Grid named template areas. Set `grid-template-areas` and `grid-area` via utility classes.
 
+**Browser Support**
+Plain `grid-template-areas` and `grid-area` – no relative colour syntax, no
+`@property` registrations, nothing modern at all. These utilities work wherever
+Tailwind itself does.
+
 **Import**
 Included in `@import 'tw-jib-css'`. To import individually:
+
 ```css
 @import 'tw-jib-css/grid';
 ```
+
+This entry carries none of the library's colour machinery, because these utilities
+read no colour. Taking it costs you nothing but the two utilities below – see [take
+only what you need](/guide/installation#take-only-what-you-need).
 
 ## Quick Reference
 
@@ -4512,8 +4646,8 @@ Since `grid-template-areas` requires complex string values, this utility uses ar
 
 - **Underscores** become spaces: `header_header` becomes `header header`
 - **Single quotes** delimit rows: `'header_header'` defines one row
-- **Multiple rows** — separate with underscores between quoted groups
-- **Empty cells** — use `.` (dot) to define empty areas
+- **Multiple rows** – separate with underscores between quoted groups
+- **Empty cells** – use `.` (dot) to define empty areas
 
 Use `grid-area-[<value>]` for spanning or complex placement:
 
@@ -4554,4 +4688,4 @@ For CSS variables, you can also use the `grid-area-(--custom-property)` syntax:
 ```
 
 
-This is shorthand for `grid-area-[var(--hero-area)]` — it adds the `var()` wrapper automatically.
+This is shorthand for `grid-area-[var(--hero-area)]` – it adds the `var()` wrapper automatically.

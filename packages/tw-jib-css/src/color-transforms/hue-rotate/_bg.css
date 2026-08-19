@@ -1,0 +1,85 @@
+@property --tw-jib--background-hue--amount {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+
+@theme inline {
+  --tw-jib--background-hue-interpolation-oklch: oklch(from var(--tw-jib--background-color-source) l c calc(h + var(--tw-jib--background-hue--amount)) / alpha);
+  --tw-jib--background-hue-interpolation-lch: lch(from var(--tw-jib--background-color-source) l c calc(h + var(--tw-jib--background-hue--amount)) / alpha);
+  --tw-jib--background-hue-interpolation-hsl: hsl(from var(--tw-jib--background-color-source) calc(h + var(--tw-jib--background-hue--amount)) s l / alpha);
+  --tw-jib--background-hue-interpolation-hwb: hwb(from var(--tw-jib--background-color-source) calc(h + var(--tw-jib--background-hue--amount)) w b / alpha);
+  --tw-jib--background-hue-interpolation-oklab: oklab(from var(--tw-jib--background-color-source) l calc(a * cos(var(--tw-jib--background-hue--amount) * 1deg) - b * sin(var(--tw-jib--background-hue--amount) * 1deg)) calc(a * sin(var(--tw-jib--background-hue--amount) * 1deg) + b * cos(var(--tw-jib--background-hue--amount) * 1deg)) / alpha);
+  --tw-jib--background-hue-interpolation-lab: lab(from var(--tw-jib--background-color-source) l calc(a * cos(var(--tw-jib--background-hue--amount) * 1deg) - b * sin(var(--tw-jib--background-hue--amount) * 1deg)) calc(a * sin(var(--tw-jib--background-hue--amount) * 1deg) + b * cos(var(--tw-jib--background-hue--amount) * 1deg)) / alpha);
+  --tw-jib--background-hue-interpolation-rgb: rgb(from var(--tw-jib--background-color-source) calc(r * (0.213 + 0.787 * cos(var(--tw-jib--background-hue--amount) * 1deg) - 0.213 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + g * (0.715 - 0.715 * cos(var(--tw-jib--background-hue--amount) * 1deg) - 0.715 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + b * (0.072 - 0.072 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.928 * sin(var(--tw-jib--background-hue--amount) * 1deg))) calc(r * (0.213 - 0.213 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.143 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + g * (0.715 + 0.285 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.14 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + b * (0.072 - 0.072 * cos(var(--tw-jib--background-hue--amount) * 1deg) - 0.283 * sin(var(--tw-jib--background-hue--amount) * 1deg))) calc(r * (0.213 - 0.213 * cos(var(--tw-jib--background-hue--amount) * 1deg) - 0.787 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + g * (0.715 - 0.715 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.715 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + b * (0.072 + 0.928 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.072 * sin(var(--tw-jib--background-hue--amount) * 1deg))) / alpha);
+  --tw-jib--background-hue-interpolation-srgb: color(from var(--tw-jib--background-color-source) srgb calc(r * (0.213 + 0.787 * cos(var(--tw-jib--background-hue--amount) * 1deg) - 0.213 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + g * (0.715 - 0.715 * cos(var(--tw-jib--background-hue--amount) * 1deg) - 0.715 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + b * (0.072 - 0.072 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.928 * sin(var(--tw-jib--background-hue--amount) * 1deg))) calc(r * (0.213 - 0.213 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.143 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + g * (0.715 + 0.285 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.14 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + b * (0.072 - 0.072 * cos(var(--tw-jib--background-hue--amount) * 1deg) - 0.283 * sin(var(--tw-jib--background-hue--amount) * 1deg))) calc(r * (0.213 - 0.213 * cos(var(--tw-jib--background-hue--amount) * 1deg) - 0.787 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + g * (0.715 - 0.715 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.715 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + b * (0.072 + 0.928 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.072 * sin(var(--tw-jib--background-hue--amount) * 1deg))) / alpha);
+  --tw-jib--background-hue-interpolation-srgb-linear: color(from var(--tw-jib--background-color-source) srgb-linear calc(r * (0.213 + 0.787 * cos(var(--tw-jib--background-hue--amount) * 1deg) - 0.213 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + g * (0.715 - 0.715 * cos(var(--tw-jib--background-hue--amount) * 1deg) - 0.715 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + b * (0.072 - 0.072 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.928 * sin(var(--tw-jib--background-hue--amount) * 1deg))) calc(r * (0.213 - 0.213 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.143 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + g * (0.715 + 0.285 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.14 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + b * (0.072 - 0.072 * cos(var(--tw-jib--background-hue--amount) * 1deg) - 0.283 * sin(var(--tw-jib--background-hue--amount) * 1deg))) calc(r * (0.213 - 0.213 * cos(var(--tw-jib--background-hue--amount) * 1deg) - 0.787 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + g * (0.715 - 0.715 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.715 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + b * (0.072 + 0.928 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.072 * sin(var(--tw-jib--background-hue--amount) * 1deg))) / alpha);
+  --tw-jib--background-hue-interpolation-display-p3: color(from var(--tw-jib--background-color-source) display-p3 calc(r * (0.213 + 0.787 * cos(var(--tw-jib--background-hue--amount) * 1deg) - 0.213 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + g * (0.715 - 0.715 * cos(var(--tw-jib--background-hue--amount) * 1deg) - 0.715 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + b * (0.072 - 0.072 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.928 * sin(var(--tw-jib--background-hue--amount) * 1deg))) calc(r * (0.213 - 0.213 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.143 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + g * (0.715 + 0.285 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.14 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + b * (0.072 - 0.072 * cos(var(--tw-jib--background-hue--amount) * 1deg) - 0.283 * sin(var(--tw-jib--background-hue--amount) * 1deg))) calc(r * (0.213 - 0.213 * cos(var(--tw-jib--background-hue--amount) * 1deg) - 0.787 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + g * (0.715 - 0.715 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.715 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + b * (0.072 + 0.928 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.072 * sin(var(--tw-jib--background-hue--amount) * 1deg))) / alpha);
+  --tw-jib--background-hue-interpolation-a98-rgb: color(from var(--tw-jib--background-color-source) a98-rgb calc(r * (0.213 + 0.787 * cos(var(--tw-jib--background-hue--amount) * 1deg) - 0.213 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + g * (0.715 - 0.715 * cos(var(--tw-jib--background-hue--amount) * 1deg) - 0.715 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + b * (0.072 - 0.072 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.928 * sin(var(--tw-jib--background-hue--amount) * 1deg))) calc(r * (0.213 - 0.213 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.143 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + g * (0.715 + 0.285 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.14 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + b * (0.072 - 0.072 * cos(var(--tw-jib--background-hue--amount) * 1deg) - 0.283 * sin(var(--tw-jib--background-hue--amount) * 1deg))) calc(r * (0.213 - 0.213 * cos(var(--tw-jib--background-hue--amount) * 1deg) - 0.787 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + g * (0.715 - 0.715 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.715 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + b * (0.072 + 0.928 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.072 * sin(var(--tw-jib--background-hue--amount) * 1deg))) / alpha);
+  --tw-jib--background-hue-interpolation-prophoto-rgb: color(from var(--tw-jib--background-color-source) prophoto-rgb calc(r * (0.213 + 0.787 * cos(var(--tw-jib--background-hue--amount) * 1deg) - 0.213 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + g * (0.715 - 0.715 * cos(var(--tw-jib--background-hue--amount) * 1deg) - 0.715 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + b * (0.072 - 0.072 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.928 * sin(var(--tw-jib--background-hue--amount) * 1deg))) calc(r * (0.213 - 0.213 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.143 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + g * (0.715 + 0.285 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.14 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + b * (0.072 - 0.072 * cos(var(--tw-jib--background-hue--amount) * 1deg) - 0.283 * sin(var(--tw-jib--background-hue--amount) * 1deg))) calc(r * (0.213 - 0.213 * cos(var(--tw-jib--background-hue--amount) * 1deg) - 0.787 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + g * (0.715 - 0.715 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.715 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + b * (0.072 + 0.928 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.072 * sin(var(--tw-jib--background-hue--amount) * 1deg))) / alpha);
+  --tw-jib--background-hue-interpolation-rec2020: color(from var(--tw-jib--background-color-source) rec2020 calc(r * (0.213 + 0.787 * cos(var(--tw-jib--background-hue--amount) * 1deg) - 0.213 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + g * (0.715 - 0.715 * cos(var(--tw-jib--background-hue--amount) * 1deg) - 0.715 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + b * (0.072 - 0.072 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.928 * sin(var(--tw-jib--background-hue--amount) * 1deg))) calc(r * (0.213 - 0.213 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.143 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + g * (0.715 + 0.285 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.14 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + b * (0.072 - 0.072 * cos(var(--tw-jib--background-hue--amount) * 1deg) - 0.283 * sin(var(--tw-jib--background-hue--amount) * 1deg))) calc(r * (0.213 - 0.213 * cos(var(--tw-jib--background-hue--amount) * 1deg) - 0.787 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + g * (0.715 - 0.715 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.715 * sin(var(--tw-jib--background-hue--amount) * 1deg)) + b * (0.072 + 0.928 * cos(var(--tw-jib--background-hue--amount) * 1deg) + 0.072 * sin(var(--tw-jib--background-hue--amount) * 1deg))) / alpha);
+  --tw-jib--background-hue-interpolation-xyz: color(from var(--tw-jib--background-color-source) xyz calc(y * 0.95047 + (x - y * 0.95047) * cos(var(--tw-jib--background-hue--amount) * -1deg) - (z - y * 1.08883) * sin(var(--tw-jib--background-hue--amount) * -1deg)) y calc(y * 1.08883 + (x - y * 0.95047) * sin(var(--tw-jib--background-hue--amount) * -1deg) + (z - y * 1.08883) * cos(var(--tw-jib--background-hue--amount) * -1deg)) / alpha);
+  --tw-jib--background-hue-interpolation-xyz-d50: color(from var(--tw-jib--background-color-source) xyz-d50 calc(y * 0.96422 + (x - y * 0.96422) * cos(var(--tw-jib--background-hue--amount) * -1deg) - (z - y * 0.82521) * sin(var(--tw-jib--background-hue--amount) * -1deg)) y calc(y * 0.82521 + (x - y * 0.96422) * sin(var(--tw-jib--background-hue--amount) * -1deg) + (z - y * 0.82521) * cos(var(--tw-jib--background-hue--amount) * -1deg)) / alpha);
+  --tw-jib--background-hue-interpolation-xyz-d65: color(from var(--tw-jib--background-color-source) xyz-d65 calc(y * 0.95047 + (x - y * 0.95047) * cos(var(--tw-jib--background-hue--amount) * -1deg) - (z - y * 1.08883) * sin(var(--tw-jib--background-hue--amount) * -1deg)) y calc(y * 1.08883 + (x - y * 0.95047) * sin(var(--tw-jib--background-hue--amount) * -1deg) + (z - y * 1.08883) * cos(var(--tw-jib--background-hue--amount) * -1deg)) / alpha);
+}
+
+/* Same-name @utility blocks stack per utility. The stable block sets the amount,
+ * then an inline oklch default, then a --modifier() override – later declarations
+ * win, so a /modifier replaces the default within the block. The second block is
+ * the @function dispatcher and must come after, so it wins in cascade where
+ * supported.
+ *
+ * That block is gated on @variant supports-hue-rotate, which is defined only in
+ * tw-jib-css-experimental/color-transforms/hue-rotate/_override.css. Without that import Tailwind
+ * falls back to its built-in supports-* variant and emits a test for a CSS
+ * property that does not exist – false everywhere, so the block is inert and the
+ * main entry never runs @function. */
+
+/* Pipeline stage: first. Reads --tw-jib--background-color-source, writes
+ * --tw-jib--background-color-after-hue-rotate. Every block also writes the composer
+ * for --tw-jib--background-color and rewrites background-color / --tw-jib--background-image
+ * from the composed value, so chaining and WCAG consumers Just Work. */
+
+@utility bg-hue-rotate-* {
+  &:not(._) {
+    --tw-jib--background-hue--amount: --value(integer, [number]);
+    --tw-jib--background-color-after-hue-rotate: oklch(from var(--tw-jib--background-color-source) l c calc(h + var(--tw-jib--background-hue--amount)) / alpha);
+    --tw-jib--background-color-after-hue-rotate: --modifier(--tw-jib--background-hue-interpolation- *);
+    --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
+    background-color: var(--tw-jib--background-color);
+    --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
+  }
+}
+
+@utility bg-hue-rotate-* {
+  &:not(._) {
+    @variant supports-hue-rotate {
+      --tw-jib--background-color-after-hue-rotate: --tw-jib--hue-rotate(var(--tw-jib--background-color-source), --value(integer, [number]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", --default(oklch)));
+      --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
+      background-color: var(--tw-jib--background-color);
+      --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
+    }
+  }
+}
+
+@utility -bg-hue-rotate-* {
+  &:not(._) {
+    --tw-jib--background-hue--amount: calc(--value(integer, [number]) * -1);
+    --tw-jib--background-color-after-hue-rotate: oklch(from var(--tw-jib--background-color-source) l c calc(h + var(--tw-jib--background-hue--amount)) / alpha);
+    --tw-jib--background-color-after-hue-rotate: --modifier(--tw-jib--background-hue-interpolation- *);
+    --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
+    background-color: var(--tw-jib--background-color);
+    --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
+  }
+}
+
+@utility -bg-hue-rotate-* {
+  &:not(._) {
+    @variant supports-hue-rotate {
+      --tw-jib--background-color-after-hue-rotate: --tw-jib--hue-rotate(var(--tw-jib--background-color-source), calc(--value(integer, [number]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", --default(oklch)));
+      --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
+      background-color: var(--tw-jib--background-color);
+      --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
+    }
+  }
+}

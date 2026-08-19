@@ -30,7 +30,15 @@ jobs:
           cache: pnpm
 
       - run: pnpm install --frozen-lockfile
+
+      # Two VitePress instances share this one Pages site: stable at the root,
+      # experimental nested beneath it so the tree matches the
+      # base: '/tw-jib-css/experimental/' that instance's config declares.
+      # Stable builds first – its build empties its own dist, which would take
+      # the nested copy with it.
       - run: pnpm run build:docs
+      - run: pnpm run build:docs:experimental
+      - run: cp -r docs-experimental/.vitepress/dist docs/.vitepress/dist/experimental
 
       - uses: actions/upload-pages-artifact@v3
         with:

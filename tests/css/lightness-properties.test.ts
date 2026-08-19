@@ -1,5 +1,6 @@
 import { describe, test, expect } from 'vitest';
-import { compile } from './helpers.js';
+import { compile, suiteScenarios } from './helpers.js';
+import { supportsFunction } from './constants.js';
 
 /**
  * Tests for lightness utilities across all non-bg color properties.
@@ -68,12 +69,20 @@ const STABLE_SPACE_MARKERS: [string, string][] = [
   ['display-p3', ') display-p3'],
 ];
 
-const SUPPORTS_FUNCTION =
-  '@supports (background: if(style(--value): red)) and (background: --tw-jib--oklch-lightness(red, 20))';
+const SUPPORTS_FUNCTION = supportsFunction('--tw-jib--oklch-lightness(red, 20)');
 
-describe.each(PROPERTIES)(
-  '%s-lightness (stable path)',
-  (prefix, cssProperty, captureVar, sourceVar, baseClass, baseMarker) => {
+const PROPERTY_SCENARIOS = PROPERTIES.flatMap((property) =>
+  suiteScenarios('color-transforms').map((scenario) => ({
+    label: `${property[0]}-lightness`,
+    scenario,
+    property,
+  })),
+);
+
+describe.each(PROPERTY_SCENARIOS)(
+  '$label (stable path) – $scenario.name',
+  ({ scenario: { compile }, property }) => {
+    const [prefix, cssProperty, captureVar, sourceVar, baseClass, baseMarker] = property;
     const amountVar = `--tw-jib--${prefix}-lightness--amount`;
     const lightInput = `var(${captureVar}-after-saturation, var(${captureVar}-after-hue-rotate, var(${sourceVar})))`;
 
@@ -83,7 +92,7 @@ describe.each(PROPERTIES)(
 
     const OKLCH = stableOklch(amountVar);
 
-    describe('darken — default amounts', () => {
+    describe('darken – default amounts', () => {
       test.each([0, 5, 10, 20, 50, 75, 100])(`${prefix}-darken-%i`, async (amount) => {
         const css = await compile(`${baseClass} ${prefix}-darken-${amount}`);
         expect(css).toContain(`${amountVar}: calc(${amount} * -0.01)`);
@@ -92,7 +101,7 @@ describe.each(PROPERTIES)(
       });
     });
 
-    describe('lighten — default amounts', () => {
+    describe('lighten – default amounts', () => {
       test.each([0, 5, 10, 20, 50, 75, 100])(`${prefix}-lighten-%i`, async (amount) => {
         const css = await compile(`${baseClass} ${prefix}-lighten-${amount}`);
         expect(css).toContain(`${amountVar}: calc(${amount} * 0.01)`);

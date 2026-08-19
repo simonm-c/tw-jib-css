@@ -21,11 +21,11 @@ This library uses TailwindCSS v4's CSS-first architecture exclusively. **No Java
 
 All utilities must use native TW4 directives:
 
-- `@utility` — define utility classes
-- `@custom-variant` — define custom variants
-- `@property` — typed CSS custom properties
-- `@theme inline` — modifier maps and design tokens
-- `@supports` — gate experimental features behind browser support checks
+- `@utility` – define utility classes
+- `@custom-variant` – define custom variants
+- `@property` – typed CSS custom properties
+- `@theme inline` – modifier maps and design tokens
+- `@supports` – gate experimental features behind browser support checks
 
 Do **not** use `plugin()`, `addUtilities()`, or any JS-based Tailwind plugin API.
 
@@ -77,12 +77,12 @@ pnpm test:integration
 
 Use [Conventional Commits](https://www.conventionalcommits.org/):
 
-- `feat:` — new utility or feature
-- `fix:` — bug fix
-- `docs:` — documentation changes
-- `refactor:` — code change that neither fixes a bug nor adds a feature
-- `test:` — adding or updating tests
-- `chore:` — tooling, CI, dependencies
+- `feat:` – new utility or feature
+- `fix:` – bug fix
+- `docs:` – documentation changes
+- `refactor:` – code change that neither fixes a bug nor adds a feature
+- `test:` – adding or updating tests
+- `chore:` – tooling, CI, dependencies
 
 Examples:
 
@@ -94,7 +94,7 @@ docs: add ripple usage examples to guide
 
 ## Pull Request Guidelines
 
-- Keep PRs focused — one feature or fix per PR
+- Keep PRs focused – one feature or fix per PR
 - Include tests for new utilities
 - Update documentation if adding user-facing changes
 - Ensure `pnpm test` and `pnpm lint` pass

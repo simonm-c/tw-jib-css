@@ -8,7 +8,7 @@ description: >
 license: MIT
 metadata:
   author: Simon Monk-Chipman
-  version: "1.0"
+  version: '1.0'
 compatibility: tw-jib-css project with TailwindCSS v4
 ---
 
@@ -27,6 +27,7 @@ specific utility category.
 ## When to Use
 
 Invoke this skill when:
+
 - A source CSS file in `src/` has been added, modified, or removed
 - The user asks you to audit, sync, or check documentation
 - The user says something like "I updated lightness.css, sync the docs"
@@ -36,10 +37,10 @@ Invoke this skill when:
 
 Determine your scope from the user's invocation:
 
-**Full audit** — User says "sync docs", "audit all docs", "check documentation",
+**Full audit** – User says "sync docs", "audit all docs", "check documentation",
 or gives no specific module. Scan ALL source files against ALL guide pages.
 
-**Targeted** — User names a specific module or file: "sync lightness docs",
+**Targeted** – User names a specific module or file: "sync lightness docs",
 "I updated scrollbar.css", "create docs for comic". Limit scope to that module
 and its corresponding guide page(s).
 
@@ -51,25 +52,36 @@ border) since they share the same source sub-files.
 
 ## Source-to-Documentation Map
 
-| Source Entry | Guide Page(s) | Import Path |
-|---|---|---|
-| `src/border-gradient.css` | `border-gradient.md` | `tw-jib-css/border-gradient` |
-| `src/border-style.css` | `border-style.md` | `tw-jib-css/border-style` |
-| `src/lightness.css` → `_bg.css` … `_border.css` | `lightness.md`, `text-lightness.md`, `fill-lightness.md`, `stroke-lightness.md`, `outline-lightness.md`, `accent-lightness.md`, `border-lightness.md` | `tw-jib-css/lightness` |
-| `src/saturation.css` → same pattern | `saturation.md`, `text-saturation.md`, etc. | `tw-jib-css/saturation` |
-| `src/hue-rotate.css` → same pattern | `hue-rotate.md`, `text-hue-rotate.md`, etc. | `tw-jib-css/hue-rotate` |
-| `src/ripple.css` | `ripple.md` | `tw-jib-css/ripple` |
-| `src/grid.css` | `grid.md` | `tw-jib-css/grid` |
-| `src/comic.css` | `comic.md` | `tw-jib-css/comic` |
-| `src/pixel.css` | `pixel.md` | `tw-jib-css/pixel` |
-| `src/experimental/corner.css` | `corner.md` | `tw-jib-css/experimental/corner` |
-| `src/experimental/interpolate.css` | `interpolate.md` | `tw-jib-css/experimental/interpolate` |
-| `src/experimental/picker.css` | `picker.md` | `tw-jib-css/experimental/picker` |
-| `src/wcag.css` → `_functions.css`, `_utilities.css` | `wcag.md`, `wcag-badge.md` | `tw-jib-css/experimental/wcag` |
+Paths are relative to `packages/`. `docs/guide/` holds the stable pages,
+`docs-experimental/` the experimental ones.
 
-Also check `src/index.css` for the stable import list and `src/experimental.css`
-for the experimental import list. If a source file is imported there but has no
-entry in this map, a new guide page is needed.
+| Source Partial                                                                  | Guide Page(s)                          | Import Path                           |
+| ------------------------------------------------------------------------------- | -------------------------------------- | ------------------------------------- |
+| `tw-jib-css/src/border-gradient/_index.css`                                     | `border-gradient.md`, `border-spin.md` | `tw-jib-css/border-gradient`          |
+| `tw-jib-css/src/border-style/_index.css`                                        | `border-style.md`                      | `tw-jib-css/border-style`             |
+| `tw-jib-css/src/color-transforms/lightness/` → `_bg.css` … `_border.css`        | `lightness.md`                         | `tw-jib-css/color-transforms`         |
+| `tw-jib-css/src/color-transforms/saturation/` → same pattern                    | `saturation.md`                        | `tw-jib-css/color-transforms`         |
+| `tw-jib-css/src/color-transforms/hue-rotate/` → same pattern                    | `hue-rotate.md`                        | `tw-jib-css/color-transforms`         |
+| `tw-jib-css/src/accessible-shade/_index.css`                                    | `wcag.md`, `accessible-color.md`       | `tw-jib-css/accessible-shade`         |
+| `tw-jib-css/src/ripple/_index.css`                                              | `ripple.md`, `ripples.md`              | `tw-jib-css/ripple`                   |
+| `tw-jib-css/src/grid/_index.css`                                                | `grid.md`                              | `tw-jib-css/grid`                     |
+| `tw-jib-css/src/comic/_index.css`                                               | `comic.md`                             | `tw-jib-css/comic`                    |
+| `tw-jib-css/src/pixel/_index.css`                                               | `pixel.md`                             | `tw-jib-css/pixel`                    |
+| `tw-jib-css-experimental/src/corner/_index.css`                                 | `corner.md`                            | `tw-jib-css-experimental/corner`      |
+| `tw-jib-css-experimental/src/interpolate/_index.css`                            | `interpolate.md`                       | `tw-jib-css-experimental/interpolate` |
+| `tw-jib-css-experimental/src/picker/_index.css`                                 | `picker.md`                            | `tw-jib-css-experimental/picker`      |
+| `tw-jib-css-experimental/src/wcag-badge/_index.css`                             | `wcag-badge.md`                        | `tw-jib-css-experimental/wcag-badge`  |
+| `tw-jib-css-experimental/src/{color-transforms,accessible-shade}/_override.css` | `functions.md`                         | `tw-jib-css-experimental/functions`   |
+
+A leading underscore marks a partial and its absence an entry; `_index.css` is a
+folder's barrel and `_override.css` re-implements a class another package
+already defines. The entry beside a folder is a bare import list, so read the
+partials for utilities and `package.json` `exports` for the import path.
+`core/` and `contrast/` publish nothing – they are shared by the suites that
+import them.
+
+Also check each package's `src/index.css` for its import list. If a partial is
+imported there but has no entry in this map, a new guide page is needed.
 
 ---
 
@@ -87,16 +99,18 @@ glob: src/**/*.css
 ```
 
 For each match, record:
+
 - **Utility name** (e.g., `bg-lightness-*`, `-bg-lightness-*`)
-- **Whether it has a wildcard** (`*`) — means it accepts values
+- **Whether it has a wildcard** (`*`) – means it accepts values
 - **Whether it is negative** (starts with `-`)
-- **Property count** per block — multiple same-name blocks with different
+- **Property count** per block – multiple same-name blocks with different
   property counts = TW4 specificity stacking. Note this but do not document
   each block separately; document the combined behaviour.
 
 ### 1b. Value Types
 
 Inside each `@utility` block, find `--value(...)` calls:
+
 - Named string values: `--value('solid', 'dashed', ...)` → enumerate them all
 - Type values: `--value(integer)`, `--value(number)`, `--value(--color-*, [color])`
 - Bracket types: `[number]`, `[color]`, `[length]`, `[angle]`, `[percentage]`,
@@ -105,34 +119,39 @@ Inside each `@utility` block, find `--value(...)` calls:
 ### 1c. Modifier Types
 
 Find `--modifier(...)` calls:
+
 - Theme map modifiers: `--modifier(--tw-jib--background-color-interpolation-*)` →
   read the `@theme inline` block to get available modifier names
 - Literal modifiers: `--modifier('oklch', 'lch', ...)` → enumerate all
 - Numeric modifiers: `--modifier(integer)` → typically opacity as percentage
-- Noop modifiers: `--tw-jib--noop: --modifier(...)` — these consume the modifier
+- Noop modifiers: `--tw-jib--noop: --modifier(...)` – these consume the modifier
   for validation only; still document them as available modifiers
 
 ### 1d. Custom Properties
 
-Find `@property` declarations in `src/core.css` and the module file:
+Find `@property` declarations in `src/core/_index.css` and the module file:
+
 - Record property name, syntax type, inherits flag, initial value
 - These inform the "How it works" section and animation documentation
 
 ### 1e. Custom Variants
 
 Find `@custom-variant` declarations:
+
 - Record variant name and `@supports` condition
 - These need documentation explaining usage and browser support
 
 ### 1f. Feature Gates
 
 Find `@supports` blocks wrapping utility content:
+
 - Record the support condition
 - This determines browser support callouts in docs
 
 ### 1g. Theme Inline Maps
 
 Read `@theme inline { ... }` blocks to extract:
+
 - Modifier option names (e.g., `--tw-jib--gradient-interpolation-oklch` → modifier `/oklch`)
 - Direction values (e.g., `--tw-jib--gradient-angle-to-t` → `border-linear-to-t`)
 - Size/unit tokens
@@ -146,6 +165,7 @@ different name (e.g., `bg-lighten-*` = `bg-lightness-*`, `bg-darken-*` =
 ### 1i. CSS Functions (Experimental)
 
 Find `@function --name() { ... }` blocks:
+
 - Record function name, parameters, return type
 - These are experimental and require `@supports` gating
 
@@ -157,21 +177,26 @@ For each source module, read its corresponding guide page(s) and check every
 item below. Mark each as pass ✓ or fail ✗.
 
 ### 2a. Page Existence
+
 - Guide page exists at `docs/guide/{name}.md`
 - Page is listed in sidebar at `docs/.vitepress/config.ts`
 - Page has correct frontmatter with `title:`
 
 ### 2b. LLM Context
+
 - `<!-- llm-context: ... -->` comment exists after frontmatter
 - Summary accurately describes the utility's purpose and technique
 
 ### 2c. Import Tip Block
+
 - Contains the `::: tip Import` block
 - Import path matches `package.json` exports for this module
-- Experimental modules note `@import 'tw-jib-css/experimental'` or their
-  specific experimental sub-path
+- Experimental modules note `@import 'tw-jib-css-experimental'` or their
+  specific experimental sub-path. It is a separate package, not a sub-path of
+  `tw-jib-css`, so `tw-jib-css/experimental/*` is always wrong
 
 ### 2d. Quick Reference Table
+
 - `<QuickReference :rows="[...]" />` component exists
 - Every utility name from Phase 1 has a corresponding row
 - Every negative utility has a row
@@ -181,40 +206,49 @@ item below. Mark each as pass ✓ or fail ✗.
 - CSS output in `styles` column is accurate to the actual declarations
 
 ### 2e. Basic Usage Section
+
 - At least one `<Example>` component with working demo HTML
 - Demo uses the primary utility in a realistic visual context
 - For colour transforms: both lighten/increase and darken/decrease demonstrated
 
 ### 2f. Colour Spaces Section (colour transforms only)
+
 - Section exists if utility supports colour space modifiers
 - Shows comparison across at least the default (oklch) + 3 alternatives
 - Links to the Colour Spaces guide: `/guide/colour-spaces`
 
 ### 2g. Scale Section (if applicable)
+
 - Range of values demonstrated (e.g., 10–90 in increments)
 - Both directions shown (lighten + darken, saturate + desaturate)
 
 ### 2h. Aliases Section (if applicable)
+
 - Table mapping alias → canonical utility
 - Code example showing both forms
 
 ### 2i. Applying Conditionally Section
+
 - Hover/focus state example with code
 - Demonstrates TW variant prefix pattern (`hover:utility-name`)
 
 ### 2j. Using a Custom Value Section
+
 - Bracket notation example: `utility-[value]`
 - `<Example>` demo with an arbitrary value
 
 ### 2k. Using a Custom Variable Section
+
 - CSS variable syntax example: `utility-(type:--var-name)`
 - `<Example>` demo with `style="--var: value"` inline
 
 ### 2l. Cross-references (colour transforms)
+
 - Links to all variant pages (bg, text, fill, stroke, outline, accent, border)
 - Links to Colour Spaces guide where relevant
 
 ### 2m. Stale References
+
 - No utility names in docs that do not exist in source
 - No modifiers documented that are not in the `@theme inline` map or
   `--modifier()` literal list
@@ -230,9 +264,11 @@ item below. Mark each as pass ✓ or fail ✗.
 ## Documentation Audit: {scope}
 
 ### Missing Pages
+
 - `src/foo.css` has no guide page → needs `docs/guide/foo.md`
 
 ### Incomplete Sections
+
 - `docs/guide/bar.md`:
   - Missing "Using a custom variable" section
   - QuickReference missing rows for: `bar-gutter-stable-both`
@@ -240,12 +276,15 @@ item below. Mark each as pass ✓ or fail ✗.
   - Stale reference to `bar-legacy-*` (removed from source)
 
 ### Sidebar Gaps
+
 - `docs/guide/foo.md` exists but is not in VitePress sidebar config
 
 ### Pages Fully in Sync
+
 - `docs/guide/baz.md` ✓
 
 ### Summary
+
 - X pages fully in sync
 - Y pages need updates (Z total gaps)
 - N new pages needed
@@ -263,10 +302,10 @@ Use this template. Replace placeholders with data extracted from Phase 1.
 
 ````markdown
 ---
-title: {Title}
+title: { Title }
 ---
 
-<!-- llm-context: {module-name} module — {brief technical description of what
+<!-- llm-context: {module-name} module – {brief technical description of what
 the utilities do, key CSS techniques used, and value/modifier patterns}. -->
 
 # {Title}
@@ -276,9 +315,11 @@ use it.}
 
 ::: tip Import
 Included in `@import 'tw-jib-css'`. To import individually:
+
 ```css
 @import 'tw-jib-css/{import-path}';
 ```
+
 :::
 
 {If experimental, add a warning block:}
@@ -324,15 +365,15 @@ Included in `@import 'tw-jib-css'`. To import individually:
 ## {Feature-specific sections}
 
 {Colour Spaces, Scale, Gradient Direction, Interpolation Modes, Named Shapes,
-etc. — whatever the utility warrants. Follow the pattern of existing pages
+etc. – whatever the utility warrants. Follow the pattern of existing pages
 in the same category.}
 
 ## Aliases
 
 {If the module has alias utilities:}
 
-| Alias | Equivalent |
-| --- | --- |
+| Alias          | Equivalent         |
+| -------------- | ------------------ |
 | `{alias-name}` | `{canonical-name}` |
 
 ## Applying conditionally
@@ -368,13 +409,13 @@ For CSS variables, use the typed bare-value syntax:
   </div>
 </Example>
 
-| Utility | Type hint | Example |
-| --- | --- | --- |
-| `{utility-name}` | `{type}` | `{utility-name}-({type}:--my-var)` |
+| Utility          | Type hint | Example                            |
+| ---------------- | --------- | ---------------------------------- |
+| `{utility-name}` | `{type}`  | `{utility-name}-({type}:--my-var)` |
 
 ## How It Works
 
-{Technical explanation of the CSS technique — background clipping, relative
+{Technical explanation of the CSS technique – background clipping, relative
 colour syntax, @property animation, etc. Include numbered steps for multi-layer
 approaches.}
 ````
@@ -387,7 +428,7 @@ When a page exists but is missing content:
 2. Identify the exact line range where the new section belongs
 3. Use `Edit` to insert or replace content at the correct position
 4. Preserve existing content that is still accurate
-5. Follow the established style of the page — match heading levels,
+5. Follow the established style of the page – match heading levels,
    Example component patterns, code formatting
 
 ### QuickReference Row Construction
@@ -403,7 +444,7 @@ For each `@utility name-* { ... }` block:
 
 2. **Styles column**: Show the user-visible CSS property and its value. For
    complex formulas, use abbreviated form (see `lightness.md` for the pattern).
-   Omit internal pipeline variables — show the final CSS declaration only.
+   Omit internal pipeline variables – show the final CSS declaration only.
 
 3. **Modifier rows**: For each modifier available (from `@theme inline` map or
    `--modifier()` literal list), add a row showing `utility-<value>/{modifier}`
@@ -425,6 +466,7 @@ For each `@utility name-* { ... }` block:
 ### Example Component Conventions
 
 When creating `<Example>` demos:
+
 - Use Tailwind's built-in utilities for layout: `flex`, `grid`, `gap-4`,
   `p-6`, `rounded-xl`
 - Use `size-24` or `h-24` for consistent demo sizing
@@ -433,7 +475,7 @@ When creating `<Example>` demos:
   that name the classes being demonstrated
 - Use `<Example stretch>` for full-width demos (colour space grids, scale strips)
 - Use `<Example>` (no stretch) for centred demos
-- Keep each Example focused — one concept per block
+- Keep each Example focused – one concept per block
 - For hover demos, add `cursor-pointer` and `transition-all duration-300`
 
 ### Sidebar Registration
@@ -449,11 +491,13 @@ correct section:
 - **Experimental**: corner, interpolate, picker, wcag, wcag-badge
 
 Use the existing format:
+
 ```ts
 { text: 'Display Name', link: '/guide/slug' }
 ```
 
 For nested groups:
+
 ```ts
 {
   text: 'Category',
@@ -471,13 +515,13 @@ For nested groups:
 
 After making changes, run these checks:
 
-1. **CSS unit tests** — `pnpm test:css` to verify no regressions
-2. **VitePress build** — `pnpm build:docs` to verify:
+1. **CSS unit tests** – `pnpm test:css` to verify no regressions
+2. **VitePress build** – `pnpm build:docs` to verify:
    - No broken internal links
    - No missing component imports
    - Valid Markdown structure
    - All Example components render without errors
-3. **Visual spot-check** — If the dev server is running (`pnpm dev:docs`),
+3. **Visual spot-check** – If the dev server is running (`pnpm dev:docs`),
    open the updated pages in a browser and verify demos render correctly
 
 Report any build errors and fix them before considering the sync complete.
@@ -488,19 +532,19 @@ Report any build errors and fix them before considering the sync complete.
 
 - **British spelling** in prose: colour, behaviour, customise. CSS property
   names stay American (per the spec).
-- **oklch is the default colour space** — always mention it first in examples
+- **oklch is the default colour space** – always mention it first in examples
   and reference tables.
 - **`<!-- llm-context: ... -->` comments** are visible to LLMs but hidden in
   VitePress. Keep them concise and technically accurate.
 - **2-space indentation** in code examples.
-- **Each guide page must be self-contained** — a user reading only that page
+- **Each guide page must be self-contained** – a user reading only that page
   should understand the utility without reading other pages first.
   Cross-reference for depth, not dependency.
 - **`docs/examples/` pages are test fixtures**, not documentation. Never
   conflate them with `docs/guide/` pages.
 - **Follow Tailwind docs quality**: Quick Reference for scanning, visual demos
   for understanding, conditional/custom sections for advanced usage.
-- **Never fabricate CSS output** — if uncertain about what a utility compiles
+- **Never fabricate CSS output** – if uncertain about what a utility compiles
   to, use the test helper to verify before documenting.
-- **Report before writing** — always present the gap report and get user
+- **Report before writing** – always present the gap report and get user
   confirmation before creating or editing documentation files.

@@ -8,7 +8,7 @@ Every colour transform interpolates in a colour space. Jibcss gives you seventee
 
 ## What colour space changes
 
-The colour space affects *how* a transform calculates, not *what* colours you can use. `bg-lighten-40/oklch` and `bg-lighten-40/hsl` both lighten the same input by the same amount — but the path from A to B is different, so the result looks different.
+The colour space affects _how_ a transform calculates, not _what_ colours you can use. `bg-lighten-40/oklch` and `bg-lighten-40/hsl` both lighten the same input by the same amount – but the path from A to B is different, so the result looks different.
 
 <Example stretch>
   <div class="flex flex-col gap-1">
@@ -59,15 +59,15 @@ Same input (`red-500`), same transform (`lighten-40`), four different results. T
 
 ## When to pick what
 
-**oklch** (default) — Perceptually uniform. A 20-point lightness shift looks the same whether you start from blue or yellow. Best general-purpose choice.
+**oklch** (default) – Perceptually uniform. A 20-point lightness shift looks the same whether you start from blue or yellow. Best general-purpose choice.
 
-**hsl** — Familiar if you've worked with CSS colour before. Less uniform — yellows blow out faster than blues — but sometimes that's the look you want.
+**hsl** – Familiar if you've worked with CSS colour before. Less uniform – yellows blow out faster than blues – but sometimes that's the look you want.
 
-**lab / oklab** — Perceptual spaces without a hue channel. Good for lightness and saturation where you want zero hue drift.
+**lab / oklab** – Perceptual spaces without a hue channel. Good for lightness and saturation where you want zero hue drift.
 
-**display-p3** — Wide gamut. Same interpolation as srgb but covers more of the visible spectrum. Use when targeting Apple displays or modern HDR screens.
+**display-p3** – Wide gamut. Same interpolation as srgb but covers more of the visible spectrum. Use when targeting Apple displays or modern HDR screens.
 
-**color-mix** — Falls back to `color-mix()` in oklab. Maximum browser compatibility. Slightly different results from native relative colour syntax.
+**color-mix** – Falls back to `color-mix()` in oklab. Maximum browser compatibility. Slightly different results from native relative colour syntax.
 
 For most work, the default (oklch) is the right answer. Switch spaces when you see a visual difference you don't like and want to compare alternatives.
 
@@ -75,14 +75,16 @@ For most work, the default (oklch) is the right answer. Switch spaces when you s
 
 ```html
 <div class="bg-blue-500 bg-lighten-30/oklch">
-<div class="bg-blue-500 bg-lighten-30/hsl">
-<div class="bg-blue-500 bg-hue-rotate-90/lab">
+  <div class="bg-blue-500 bg-lighten-30/hsl">
+    <div class="bg-blue-500 bg-hue-rotate-90/lab"></div>
+  </div>
+</div>
 ```
 
 The modifier applies per-utility, not per-element. You can mix spaces on one element if you have a reason to:
 
 ```html
-<div class="bg-blue-500 bg-lighten-20/oklch bg-hue-rotate-45/hsl">
+<div class="bg-blue-500 bg-lighten-20/oklch bg-hue-rotate-45/hsl"></div>
 ```
 
 ## Full list

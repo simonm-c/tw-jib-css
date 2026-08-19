@@ -40,7 +40,7 @@ const pages = [
 
 <template>
   <section
-    class="relative min-h-[70vh] snap-start flex items-center px-6 md:px-12 py-16 bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100"
+    class="relative min-h-[70vh] flex items-center px-6 md:px-12 py-16 bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100"
   >
     <div class="mx-auto w-full max-w-[1300px] space-y-8">
       <div class="space-y-2">

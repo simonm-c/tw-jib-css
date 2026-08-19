@@ -84,7 +84,7 @@ theme lookup rather than a branch: writing `bg-lightness-30/hsl` resolves
 `--modifier()` to the pre-built HSL expression.
 
 That is the whole mechanism, and it runs on **Chrome 111+, Safari 16.4+, Firefox 128+**.
-There is no JavaScript, no build step beyond Tailwind itself, and nothing to detect —
+There is no JavaScript, no build step beyond Tailwind itself, and nothing to detect –
 the same expression evaluates on every engine.
 
 ```css
@@ -95,6 +95,6 @@ the same expression evaluates on every engine.
 
 Each transform type has a full reference page with the complete class list, formulas, and all 17 colour spaces compared:
 
-- [Lightness](/guide/lightness) — lighten and darken
-- [Saturation](/guide/saturation) — saturate and desaturate
-- [Hue Rotate](/guide/hue-rotate) — shift hue by degrees
+- [Lightness](/guide/lightness) – lighten and darken
+- [Saturation](/guide/saturation) – saturate and desaturate
+- [Hue Rotate](/guide/hue-rotate) – shift hue by degrees

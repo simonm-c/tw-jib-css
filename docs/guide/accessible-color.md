@@ -8,7 +8,7 @@ title: Accessible Color
 
 ## The core idea
 
-Set a background colour. Add a `text-a11y-*` class. The CSS computes a text colour that passes the specified WCAG contrast ratio — 4.5:1 for AA, 3:1 for AA Large, 7:1 for AAA. Change the background, the text updates automatically.
+Set a background colour. Add a `text-a11y-*` class. The CSS computes a text colour that passes the specified WCAG contrast ratio – 4.5:1 for AA, 3:1 for AA Large, 7:1 for AAA. Change the background, the text updates automatically.
 
 <Example stretch>
   <div class="grid grid-cols-3 gap-2">
@@ -39,9 +39,9 @@ Set a background colour. Add a `text-a11y-*` class. The CSS computes a text colo
 
 ## How it works
 
-Powered by relative colour syntax. The WCAG ratio formula inverts to give a target luminance, and a colour with that luminance, the background's hue and the background's chroma is built in one relative-colour expression — so the shade is solved outright rather than searched for. All at render time, no JavaScript, no build step.
+Powered by relative colour syntax. The WCAG ratio formula inverts to give a target luminance, and a colour with that luminance, the background's hue and the background's chroma is built in one relative-colour expression – so the shade is solved outright rather than searched for. All at render time, no JavaScript, no build step.
 
-Because it is solved rather than searched, the whole thing expresses in plain relative colour syntax — `calc`, `clamp`, `min`, `max` and one nested colour expression. You get the same colour in Chromium, Firefox and Safari alike. Ships from the main entry:
+Because it is solved rather than searched, the whole thing expresses in plain relative colour syntax – `calc`, `clamp`, `min`, `max` and one nested colour expression. You get the same colour in Chromium, Firefox and Safari alike. Ships from the main entry:
 
 ```css
 @import 'tw-jib-css';

@@ -1,0 +1,10 @@
+/* Lightness, saturation and hue-rotate ship as one suite because they are one
+ * pipeline. Each stage reads the stage before it – the lightness expression for
+ * a background starts from --tw-jib--background-color-after-saturation, falling
+ * back to -after-hue-rotate, falling back to the source – so a suite taken alone
+ * would emit expressions naming stages nothing can ever write. They compose
+ * correctly only together, which is why they share one folder and one entry. */
+
+@import "./core/_index.css";
+
+@import "./color-transforms/_index.css";

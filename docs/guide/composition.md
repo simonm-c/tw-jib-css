@@ -11,7 +11,7 @@ Jibcss utilities compose. Stack transforms, combine textures with borders, apply
 Multiple transforms read the same base colour and apply independently:
 
 ```html
-<div class="bg-blue-500 bg-lighten-20 bg-hue-rotate-45 -bg-saturation-20">
+<div class="bg-blue-500 bg-lighten-20 bg-hue-rotate-45 -bg-saturation-20"></div>
 ```
 
 <Example stretch>
@@ -30,7 +30,7 @@ Lightness and saturation compose additively. Hue rotation is additive. Order in 
 Colour space modifiers apply per-utility, not per-element. You can mix spaces on one element:
 
 ```html
-<div class="bg-blue-500 bg-lighten-30/oklch bg-hue-rotate-90/hsl">
+<div class="bg-blue-500 bg-lighten-30/oklch bg-hue-rotate-90/hsl"></div>
 ```
 
 The lightness shift interpolates in oklch, the hue rotation in hsl. Each utility reads the base colour independently.
@@ -40,10 +40,12 @@ The lightness shift interpolates in oklch, the hue rotation in hsl. Each utility
 Print textures and gradient borders coexist on the same element:
 
 ```html
-<div class="bg-comic-indigo-600
+<div
+  class="bg-comic-indigo-600
   border-4 border-linear-to-br
   border-from-indigo-300 border-to-purple-300
-  rounded-xl p-6">
+  rounded-xl p-6"
+></div>
 ```
 
 The texture occupies the background. The gradient border occupies the border area via background-clip. They don't interfere.
@@ -63,16 +65,20 @@ The texture occupies the background. The gradient border occupies the border are
 A card with a texture background, auto-contrast text, a gradient border, and a lightened accent:
 
 ```html
-<div class="bg-comic-indigo-600
+<div
+  class="bg-comic-indigo-600
   border-4 border-linear-to-br
   border-from-indigo-300 border-to-cyan-300
   text-a11y-aa
-  rounded-xl p-6">
+  rounded-xl p-6"
+>
   <h3 class="text-lg font-bold">Card title</h3>
   <p class="text-sm">Body text, auto-contrasted.</p>
-  <button class="bg-indigo-500 bg-lighten-20
+  <button
+    class="bg-indigo-500 bg-lighten-20
     text-a11y-aa bg-ripple ripple-color-white/30
-    rounded px-4 py-2 mt-3 border-0 cursor-pointer">
+    rounded px-4 py-2 mt-3 border-0 cursor-pointer"
+  >
     Action
   </button>
 </div>

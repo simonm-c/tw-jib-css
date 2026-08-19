@@ -71,6 +71,6 @@ The text colour is the check: `text-a11y-aa` reads the composed background, so a
   </div>
 </div>
 
-## Sanity reference — pre-refactor behaviour
+## Sanity reference – pre-refactor behaviour
 
-If chaining is broken or WCAG sees the wrong colour, compare against `bg-red-500` alone above — the text colour and badge rating should match what a single applied transform produces individually, with no chained transforms losing their effect.
+If chaining is broken or WCAG sees the wrong colour, compare against `bg-red-500` alone above – the text colour and badge rating should match what a single applied transform produces individually, with no chained transforms losing their effect.

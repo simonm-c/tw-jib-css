@@ -7,7 +7,7 @@ import Example from './components/Example.vue';
 import QuickReference from './components/QuickReference.vue';
 import JibLogo from './components/JibLogo.vue';
 
-// Landing — this instance's own splash, mirroring the stable one's shape.
+// Landing – this instance's own splash, mirroring the stable one's shape.
 import ExpRoot from './components/landing/ExpRoot.vue';
 import ExpHero from './components/landing/ExpHero.vue';
 import ExpTwoKinds from './components/landing/ExpTwoKinds.vue';

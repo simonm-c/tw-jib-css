@@ -2,11 +2,11 @@
 title: Border Gradient
 ---
 
-<!-- llm-context: border-gradient module — gradient borders via CSS background padding-box/border-box clipping. Supports linear, radial, and conic gradients with 8 interpolation modes and animated spin. No pseudo-elements or JavaScript. -->
+<!-- llm-context: border-gradient module – gradient borders via CSS background padding-box/border-box clipping. Supports linear, radial, and conic gradients with 8 interpolation modes and animated spin. No pseudo-elements or JavaScript. -->
 
 # Border Gradient
 
-Linear, radial, and conic gradient borders — same grammar as Tailwind's `bg-linear-*`, applied to borders. 8 interpolation modes. For animated spinning borders, see [Border Spin](/guide/border-spin).
+Linear, radial, and conic gradient borders – same grammar as Tailwind's `bg-linear-*`, applied to borders. 8 interpolation modes. For animated spinning borders, see [Border Spin](/guide/border-spin).
 
 ::: info Browser Support
 Chrome 111+, Safari 16.4+, Firefox 128+. Interpolation modes (`/shorter`, `/longer`, etc.) require Chrome 111+, Safari 16.4+.
@@ -14,9 +14,11 @@ Chrome 111+, Safari 16.4+, Firefox 128+. Interpolation modes (`/shorter`, `/long
 
 ::: tip Import
 Included in `@import 'tw-jib-css'`. To import individually:
+
 ```css
 @import 'tw-jib-css/border-gradient';
 ```
+
 :::
 
 ## Quick Reference
@@ -73,7 +75,7 @@ Border gradients work alongside Tailwind's `bg-*` utilities. When you apply a `b
 
 #### Gradient backgrounds
 
-Tailwind gradient backgrounds and border gradients coexist — the background gradient layers inside the padding area while the border gradient fills the border area. The background and border gradient types don't need to match:
+Tailwind gradient backgrounds and border gradients coexist – the background gradient layers inside the padding area while the border gradient fills the border area. The background and border gradient types don't need to match:
 
 <Example>
   <div class="flex flex-col gap-3">
@@ -104,7 +106,7 @@ The background colour does not inherit from parent elements. The `--tw-jib--back
 
 #### Transparent and semi-transparent backgrounds
 
-The border-gradient technique works by stacking two background layers — a `padding-box` layer (your background) on top of a `border-box` layer (the gradient). A transparent or semi-transparent background lets the gradient layer show through into the content area, not just the border:
+The border-gradient technique works by stacking two background layers – a `padding-box` layer (your background) on top of a `border-box` layer (the gradient). A transparent or semi-transparent background lets the gradient layer show through into the content area, not just the border:
 
 <Example>
   <div class="flex gap-4">
@@ -115,7 +117,7 @@ The border-gradient technique works by stacking two background layers — a `pad
   </div>
 </Example>
 
-This is inherent to the clipping technique — the `padding-box` layer must be fully opaque to mask the gradient behind it. If you want a see-through content area with only a gradient border, this approach won't work; you'd need a pseudo-element or `border-image` technique instead.
+This is inherent to the clipping technique – the `padding-box` layer must be fully opaque to mask the gradient behind it. If you want a see-through content area with only a gradient border, this approach won't work; you'd need a pseudo-element or `border-image` technique instead.
 
 ### What doesn't work
 
@@ -126,14 +128,21 @@ Backgrounds set outside Tailwind's `bg-*` classes won't show through the border 
 A background set via a custom CSS class or inline style is overwritten by the border-gradient utility's `background` shorthand. The `--tw-bg-image` property stays at its initial value (`canvas`), so the element loses its intended background:
 
 ```html
-<!-- ✗ Custom class — background is overwritten -->
-<style>.my-card { background: #e0f2fe; }</style>
+<!-- ✗ Custom class – background is overwritten -->
+<style>
+  .my-card {
+    background: #e0f2fe;
+  }
+</style>
 <div class="my-card border-4 border-linear-to-r border-from-pink-500 border-to-cyan-500">
   Background will be canvas, not #e0f2fe
 </div>
 
-<!-- ✗ Inline style — same issue -->
-<div style="background-color: #e0f2fe" class="border-4 border-linear-to-r border-from-pink-500 border-to-cyan-500">
+<!-- ✗ Inline style – same issue -->
+<div
+  style="background-color: #e0f2fe"
+  class="border-4 border-linear-to-r border-from-pink-500 border-to-cyan-500"
+>
   Background will be canvas, not #e0f2fe
 </div>
 ```
@@ -158,7 +167,10 @@ Or set `--tw-bg-image` directly to bypass the `bg-*` utility:
 
 ```html
 <!-- ✓ Setting the custom property directly -->
-<div style="--tw-bg-image: linear-gradient(#e0f2fe 0 0)" class="border-4 border-linear-to-r border-from-pink-500 border-to-cyan-500">
+<div
+  style="--tw-bg-image: linear-gradient(#e0f2fe 0 0)"
+  class="border-4 border-linear-to-r border-from-pink-500 border-to-cyan-500"
+>
   ...
 </div>
 ```
@@ -210,7 +222,7 @@ Use `border-from-{color}`, `border-via-{color}`, and `border-to-{color}` to set 
   </div>
 </Example>
 
-<!-- llm-context: border-from-inherit sets --tw-jib--border-gradient-from: inherit. Because this property is registered with inherits: false and initial-value: #0000, inherit resolves to transparent — not currentColor or the text colour. -->
+<!-- llm-context: border-from-inherit sets --tw-jib--border-gradient-from: inherit. Because this property is registered with inherits: false and initial-value: #0000, inherit resolves to transparent – not currentColor or the text colour. -->
 
 ### Setting gradient stop positions
 
@@ -226,7 +238,7 @@ Use `border-from-{n}%`, `border-via-{n}%`, and `border-to-{n}%` to set where eac
 
 ## Radial Gradients
 
-Use `border-radial` for a gradient that radiates from the centre. Use bracket notation to set a custom position — either percentage-based or keyword-based:
+Use `border-radial` for a gradient that radiates from the centre. Use bracket notation to set a custom position – either percentage-based or keyword-based:
 
 <Example>
   <div class="flex gap-4">
@@ -324,20 +336,20 @@ The same 8 modifiers apply to `border-radial` and `border-conic` gradients: `bor
 
 See [Colour Spaces](./colour-spaces.md) for a deeper look at how each space affects blending.
 
-| Mode | Best for |
-| --- | --- |
-| `/oklab` (default) | Smooth, perceptually uniform blends. No hue shifts. Best general-purpose choice. |
-| `/srgb` | Classic RGB blending. Can produce muddy midpoints between complementary colours. |
-| `/hsl` | Hue-based blending. Predictable hue transitions but can produce unexpected bright or grey bands. |
-| `/oklch` | Perceptually uniform with hue control. Good for rainbow-like gradients. |
-| `/longer` | Takes the long way around the hue wheel in oklch. Creates rainbow effects between two colours. |
-| `/shorter` | Shortest path around the hue wheel (default hue interpolation in oklch). |
-| `/increasing` | Always moves clockwise around the hue wheel. |
-| `/decreasing` | Always moves counter-clockwise around the hue wheel. |
+| Mode               | Best for                                                                                         |
+| ------------------ | ------------------------------------------------------------------------------------------------ |
+| `/oklab` (default) | Smooth, perceptually uniform blends. No hue shifts. Best general-purpose choice.                 |
+| `/srgb`            | Classic RGB blending. Can produce muddy midpoints between complementary colours.                 |
+| `/hsl`             | Hue-based blending. Predictable hue transitions but can produce unexpected bright or grey bands. |
+| `/oklch`           | Perceptually uniform with hue control. Good for rainbow-like gradients.                          |
+| `/longer`          | Takes the long way around the hue wheel in oklch. Creates rainbow effects between two colours.   |
+| `/shorter`         | Shortest path around the hue wheel (default hue interpolation in oklch).                         |
+| `/increasing`      | Always moves clockwise around the hue wheel.                                                     |
+| `/decreasing`      | Always moves counter-clockwise around the hue wheel.                                             |
 
 ## Using a custom value
 
-Use bracket notation for custom colours and angles. Colour stops accept any CSS colour format — hex, `rgb()`, `hsl()`, `oklch()`, etc.:
+Use bracket notation for custom colours and angles. Colour stops accept any CSS colour format – hex, `rgb()`, `hsl()`, `oklch()`, etc.:
 
 <Example>
   <div class="flex flex-col gap-3 w-full max-w-xl">
@@ -368,15 +380,15 @@ Reference CSS custom properties with the typed bare-value syntax `(type:--var)`.
 
 All border gradient utilities that accept custom properties:
 
-| Utility | Type hint | Example |
-| --- | --- | --- |
-| `border-from-*` | `color` | `border-from-(color:--brand-from)` |
-| `border-via-*` | `color` | `border-via-(color:--brand-accent)` |
-| `border-to-*` | `color` | `border-to-(color:--brand-to)` |
-| `border-from-*` | `percentage` | `border-from-(percentage:--stop-start)` |
-| `border-to-*` | `percentage` | `border-to-(percentage:--stop-end)` |
-| `border-linear-*` | `number` | `border-linear-(number:--angle)` |
-| `border-conic-*` | `number` | `border-conic-(number:--start-angle)` |
+| Utility           | Type hint    | Example                                 |
+| ----------------- | ------------ | --------------------------------------- |
+| `border-from-*`   | `color`      | `border-from-(color:--brand-from)`      |
+| `border-via-*`    | `color`      | `border-via-(color:--brand-accent)`     |
+| `border-to-*`     | `color`      | `border-to-(color:--brand-to)`          |
+| `border-from-*`   | `percentage` | `border-from-(percentage:--stop-start)` |
+| `border-to-*`     | `percentage` | `border-to-(percentage:--stop-end)`     |
+| `border-linear-*` | `number`     | `border-linear-(number:--angle)`        |
+| `border-conic-*`  | `number`     | `border-conic-(number:--start-angle)`   |
 
 ## Applying conditionally
 
@@ -389,7 +401,6 @@ Prefix a border gradient utility with a state variant like `hover:*` to only app
     Hover to shift gradient
   </div>
 </Example>
-
 
 ## Border Width
 
@@ -415,7 +426,7 @@ The gradient is rendered as a background layer clipped to `border-box` with `bor
 
 ### Default (transparent border colour)
 
-With `border-color: transparent`, all border styles look identical — the gradient shows through everywhere:
+With `border-color: transparent`, all border styles look identical – the gradient shows through everywhere:
 
 <Example stretch>
   <div class="grid grid-cols-4 gap-3 w-full">
@@ -454,8 +465,8 @@ With `border-color: transparent`, all border styles look identical — the gradi
 
 The gradient border technique uses CSS background clipping. A transparent border is set, then two background layers are stacked:
 
-1. **Padding-box layer** — your background colour, clipped to the content + padding area
-2. **Border-box layer** — the gradient, filling the entire box including the border area
+1. **Padding-box layer** – your background colour, clipped to the content + padding area
+2. **Border-box layer** – the gradient, filling the entire box including the border area
 
 The border area shows the gradient because the padding-box background doesn't cover it. This is a pure CSS technique that works with `border-radius` and doesn't require pseudo-elements.
 

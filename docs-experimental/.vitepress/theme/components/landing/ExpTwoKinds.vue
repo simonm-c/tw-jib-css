@@ -20,7 +20,7 @@ const overrides = ['bg-lightness-*', 'bg-saturation-*', 'bg-hue-rotate-*', 'text
 
 <template>
   <section
-    class="relative min-h-screen snap-start flex items-center px-6 md:px-12 py-16 bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100"
+    class="relative min-h-screen flex items-center px-6 md:px-12 py-16 bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100"
   >
     <div class="mx-auto w-full max-w-[1300px] space-y-10">
       <div class="space-y-3 max-w-[60ch]">
@@ -34,7 +34,7 @@ const overrides = ['bg-lightness-*', 'bg-saturation-*', 'bg-hue-rotate-*', 'text
         </h2>
         <p class="text-lg leading-relaxed opacity-85">
           Importing the package root gives you both. Only one of them can change code you have
-          already written — which is the whole reason they are separable.
+          already written – which is the whole reason they are separable.
         </p>
       </div>
 
@@ -83,7 +83,7 @@ const overrides = ['bg-lightness-*', 'bg-saturation-*', 'bg-hue-rotate-*', 'text
           </div>
           <p class="text-sm leading-relaxed opacity-80">
             Classes the stable package already defines, replaced. Same names and the same results
-            where they overlap — but the functions behind them also reach where no class can, into a
+            where they overlap – but the functions behind them also reach where no class can, into a
             gradient stop or a layered shadow. That reach is the reason to take this half; that it
             changes pages you have already built is the reason to take it deliberately.
           </p>
@@ -95,7 +95,7 @@ const overrides = ['bg-lightness-*', 'bg-saturation-*', 'bg-hue-rotate-*', 'text
           <!-- mt-4 explicitly. The parent's space-y-4 puts margin-block-end on
                non-last children through a zero-specificity :where(), so the m-0
                on the <ul> above beat it and this box sat flush against the last
-               list row — measured 0px. Do not rely on space-y-* across a child
+               list row – measured 0px. Do not rely on space-y-* across a child
                that resets its own margin. -->
           <div
             class="mt-4 rounded-lg bg-gray-900 dark:bg-gray-800 px-3 py-2 font-mono text-[11px] text-gray-300"

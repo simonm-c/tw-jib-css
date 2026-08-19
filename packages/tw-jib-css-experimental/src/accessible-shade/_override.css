@@ -1,0 +1,38 @@
+/* text-a11y-*'s @function path. The utility is defined TWICE – the nested
+ * relative-colour chain in accessible-shade/_index.css is the all-engines fallback, this is
+ * the dispatcher. Both compute the same closed form and measured agreeing to
+ * serialisation precision, so which one runs is invisible in the output. Source
+ * order carries the override: the stable chain loads first and same-name
+ * @utility blocks never merge, so this wins where the gate holds.
+ *
+ * Requires contrast/_functions.css and contrast/_support.css; the functions
+ * entry imports the contrast barrel ahead of this file.
+ *
+ * This OVERRIDES a utility that already works everywhere, which is why it sits
+ * on the functions entry rather than the experimental one – nothing that merely
+ * ADDS a utility (badge, corner, picker) should reroute accessible contrast onto
+ * a non-baseline code path.
+ *
+ * One block covers both candidate shapes: --default() inside --modifier() picks
+ * up the bare one too. That default MUST stay oklch, in step with the stable
+ * path – if they diverged, a bare text-a11y-aa would seed one way with this
+ * entry loaded and another way without it.
+ *
+ * The level list is enumerated rather than read from the themeable
+ * --tw-jib--a11y-ratio-* namespace, so a consumer's own level does not match
+ * this block and stays on the stable path. That is the only available answer:
+ * --tw-jib--accessible-shade() maps a level ident to a ratio internally, so it
+ * cannot be told an unfamiliar level's ratio. */
+
+@utility text-a11y-* {
+  @variant supports-wcag {
+    /* Keep this call MULTI-LINE. Tailwind emits the resolved arguments with the
+       source's own line structure, and tests/css/wcag.test.ts asserts the
+       defaulted space lands on its own line – which is how it checks that both
+       shade paths default to oklch. Collapsing it to one line is a silent
+       failure of that check. Prettier at printWidth 100 will collapse it, so
+       the library CSS is in .prettierignore. */
+    --tw-jib--text-color: --tw-jib--accessible-shade(var(--tw-jib--background-color), --value("aa", "aaa", "aa-lg"), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+    color: var(--tw-jib--text-color);
+  }
+}

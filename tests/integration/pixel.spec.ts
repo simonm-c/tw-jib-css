@@ -1,12 +1,11 @@
 import { test, expect, type Page } from '@playwright/test';
-
-interface ElementStyles {
-  backgroundImage: string;
-  blendMode: string;
-  /** Number of gradient() functions in the background-image layer list. */
-  layerCount: number;
-  exists: boolean;
-}
+import {
+  extractRenderedColors,
+  extractStyles,
+  gotoExample,
+  splitLayers,
+  type ElementStyles,
+} from './helpers';
 
 /**
  * The background layers bg-pixel-* composites, in order:
@@ -14,7 +13,7 @@ interface ElementStyles {
  * gradient (the unused ones come from @property initial-values), so a healthy
  * pixel element always reports the full set.
  *
- * Asserting the count — rather than `toContain('gradient')` — is what catches a
+ * Asserting the count – rather than `toContain('gradient')` – is what catches a
  * partially invalid layer list. And because an invalid value anywhere in the
  * `background:` shorthand makes the whole declaration invalid at computed-value
  * time (dropping it to `none`), the count also catches wholesale failures such
@@ -23,73 +22,17 @@ interface ElementStyles {
 const PIXEL_LAYERS = 7;
 
 /**
- * Batch-extract computed background layers from [data-test] elements.
- * Texture modules render entirely through gradient layers — backgroundColor
- * is always transparent, so we check backgroundImage for gradient presence.
- */
-async function extractStyles(
-  page: Page,
-  selectors: string[],
-): Promise<Record<string, ElementStyles>> {
-  return page.evaluate((sels) => {
-    const out: Record<
-      string,
-      {
-        backgroundImage: string;
-        blendMode: string;
-        layerCount: number;
-        exists: boolean;
-      }
-    > = {};
-    for (const sel of sels) {
-      const el = document.querySelector(`[data-test="${sel}"]`);
-      if (!el) {
-        out[sel] = { backgroundImage: 'none', blendMode: '', layerCount: 0, exists: false };
-        continue;
-      }
-      const cs = getComputedStyle(el);
-      const bi = cs.backgroundImage;
-      out[sel] = {
-        backgroundImage: bi,
-        blendMode: cs.backgroundBlendMode,
-        layerCount: bi === 'none' ? 0 : bi.split('gradient(').length - 1,
-        exists: true,
-      };
-    }
-    return out;
-  }, selectors);
-}
-
-/**
  * Assert an element renders the complete pixel layer stack. Use this instead of
  * a bare `toContain('gradient')`, which passes as long as any single layer
  * survives and so cannot distinguish a healthy element from a degraded one.
  */
-function expectPixelLayers(s: Record<string, ElementStyles>, ids: string[]) {
+function expectPixelLayers(styles: Record<string, ElementStyles>, ids: string[]) {
   for (const id of ids) {
-    expect(s[id].exists, `${id} should exist`).toBe(true);
-    expect(s[id].backgroundImage, `${id} should not fall back to none`).not.toBe('none');
-    expect(s[id].layerCount, `${id} should composite ${PIXEL_LAYERS} gradient layers`).toBe(
+    expect(styles[id].backgroundImage, `${id} should not fall back to none`).not.toBe('none');
+    expect(styles[id].layerCount, `${id} should composite ${PIXEL_LAYERS} gradient layers`).toBe(
       PIXEL_LAYERS,
     );
   }
-}
-
-/** Split a comma-separated background-image list on top-level commas only. */
-function splitLayers(backgroundImage: string): string[] {
-  const parts: string[] = [];
-  let depth = 0;
-  let cur = '';
-  for (const ch of backgroundImage) {
-    if (ch === '(') depth++;
-    if (ch === ')') depth--;
-    if (ch === ',' && depth === 0) {
-      parts.push(cur.trim());
-      cur = '';
-    } else cur += ch;
-  }
-  if (cur.trim()) parts.push(cur.trim());
-  return parts;
 }
 
 /**
@@ -114,80 +57,12 @@ function channelMidAlpha(backgroundImage: string): number {
   return alphas.length ? Math.min(...alphas) : 1;
 }
 
-/**
- * Extract actual rendered pixel colour at each element's centre by taking
- * a full-page screenshot, loading it back into a browser canvas, and sampling.
- */
-async function extractRenderedColors(
-  page: Page,
-  selectors: string[],
-): Promise<Record<string, { r: number; g: number; b: number; a: number; luminance: number }>> {
-  const screenshot = await page.screenshot({ fullPage: true });
-  const imgBase64 = screenshot.toString('base64');
-
-  const boxes = await page.evaluate((sels) => {
-    const out: Record<string, { x: number; y: number; w: number; h: number } | null> = {};
-    for (const sel of sels) {
-      const el = document.querySelector(`[data-test="${sel}"]`);
-      if (!el) {
-        out[sel] = null;
-        continue;
-      }
-      const r = el.getBoundingClientRect();
-      out[sel] = { x: r.x + window.scrollX, y: r.y + window.scrollY, w: r.width, h: r.height };
-    }
-    return out;
-  }, selectors);
-
-  const colors = await page.evaluate(
-    async (args: {
-      img: string;
-      rects: Record<string, { x: number; y: number; w: number; h: number } | null>;
-    }) => {
-      const image = new Image();
-      image.src = `data:image/png;base64,${args.img}`;
-      await image.decode();
-      const canvas = document.createElement('canvas');
-      canvas.width = image.width;
-      canvas.height = image.height;
-      const ctx = canvas.getContext('2d')!;
-      ctx.drawImage(image, 0, 0);
-
-      const dpr = window.devicePixelRatio || 1;
-      const result: Record<string, { r: number; g: number; b: number; a: number }> = {};
-      for (const [sel, rect] of Object.entries(args.rects)) {
-        if (!rect) {
-          result[sel] = { r: 0, g: 0, b: 0, a: 0 };
-          continue;
-        }
-        const cx = Math.floor((rect.x + rect.w / 2) * dpr);
-        const cy = Math.floor((rect.y + rect.h / 2) * dpr);
-        const [r, g, b, a] = ctx.getImageData(cx, cy, 1, 1).data;
-        result[sel] = { r, g, b, a: a / 255 };
-      }
-      return result;
-    },
-    { img: imgBase64, rects: boxes },
-  );
-
-  const out: Record<string, { r: number; g: number; b: number; a: number; luminance: number }> = {};
-  for (const [sel, c] of Object.entries(colors)) {
-    out[sel] = {
-      ...c,
-      luminance: 0.2126 * (c.r / 255) + 0.7152 * (c.g / 255) + 0.0722 * (c.b / 255),
-    };
-  }
-  return out;
-}
-
 const PAGE = 'examples/pixel';
 
 async function gotoPage(page: Page) {
-  await page.goto(PAGE, { waitUntil: 'networkidle' });
-  await page.locator('[data-test="white"]').waitFor();
+  await gotoExample(page, PAGE, 'white');
 }
-
-test.describe('bg-pixel — primary colours render', () => {
+test.describe('bg-pixel – primary colours render', () => {
   test('all primary colours produce gradient layers', async ({ page }) => {
     await gotoPage(page);
     const ids = ['white', 'black', 'red', 'green', 'blue', 'cyan', 'magenta', 'yellow'];
@@ -195,13 +70,16 @@ test.describe('bg-pixel — primary colours render', () => {
   });
 
   test('white pixel is lighter than black pixel', async ({ page }) => {
+    // Arrange
     await gotoPage(page);
-    const c = await extractRenderedColors(page, ['white', 'black']);
-    expect(c['white'].luminance).toBeGreaterThan(c['black'].luminance);
+    // Act
+    const colors = await extractRenderedColors(page, ['white', 'black']);
+    // Assert
+    expect(colors['white'].luminance).toBeGreaterThan(colors['black'].luminance);
   });
 });
 
-test.describe('pixel-size — size variations', () => {
+test.describe('pixel-size – size variations', () => {
   test('all size variants render with gradients', async ({ page }) => {
     await gotoPage(page);
     const ids = ['size-1', 'size-2', 'size-3', 'size-4', 'size-6'];
@@ -209,7 +87,7 @@ test.describe('pixel-size — size variations', () => {
   });
 });
 
-test.describe('pixel-gap — gap variations', () => {
+test.describe('pixel-gap – gap variations', () => {
   test('all gap variants render', async ({ page }) => {
     await gotoPage(page);
     const ids = ['gap-0.5', 'gap-1', 'gap-1.5', 'gap-2', 'gap-4', 'gap-6'];
@@ -217,7 +95,7 @@ test.describe('pixel-gap — gap variations', () => {
   });
 });
 
-test.describe('pixel-bloom — bloom variations', () => {
+test.describe('pixel-bloom – bloom variations', () => {
   test('all bloom variants render', async ({ page }) => {
     await gotoPage(page);
     const ids = ['bloom-0', 'bloom-1', 'bloom-2', 'bloom-3', 'bloom-4'];
@@ -244,7 +122,7 @@ test.describe('pixel-bloom — bloom variations', () => {
    * value itself rises asymptotically toward full.
    *
    * These tests pin that ratio's output, because it is the part of the
-   * module most exposed to engine differences in calc() — a length-by-length
+   * module most exposed to engine differences in calc() – a length-by-length
    * division silently takes the entire background shorthand down with it. The
    * expected numbers below are derived from the geometry, not copied from a
    * browser: with the default pixel-size-1 (w = 1px) and pixel-gap-1,
@@ -253,14 +131,17 @@ test.describe('pixel-bloom — bloom variations', () => {
    * for bloom b in {0, 1, 2, 3, 4}px.
    */
   test('row-mask mid stop follows the bloom overflow ratio', async ({ page }) => {
+    // Arrange
     await gotoPage(page);
     const ids = ['bloom-0', 'bloom-1', 'bloom-2', 'bloom-3', 'bloom-4'];
-    const s = await extractStyles(page, ids);
-    expectPixelLayers(s, ids);
+    // Act
+    const styles = await extractStyles(page, ids);
+    // Assert
+    expectPixelLayers(styles, ids);
 
     // row cap = 0.5px, so mid = max(0, b - 0.5) / b, scaled to an 8-bit grey.
     const expected = [0, 0.5, 0.75, 5 / 6, 0.875].map((r) => r * 255);
-    const greys = ids.map((id) => rowMaskMidGrey(s[id].backgroundImage));
+    const greys = ids.map((id) => rowMaskMidGrey(styles[id].backgroundImage));
 
     for (const [i, id] of ids.entries()) {
       // +/- 2 of 255 absorbs the engines' rounding (e.g. 127 vs 128 at bloom-1).
@@ -276,12 +157,15 @@ test.describe('pixel-bloom — bloom variations', () => {
   });
 
   test('channel mid alpha stays 0 below the column cap and rises above it', async ({ page }) => {
+    // Arrange
     await gotoPage(page);
     const ids = ['bloom-0', 'bloom-1', 'bloom-2', 'bloom-3', 'bloom-4'];
-    const s = await extractStyles(page, ids);
-    expectPixelLayers(s, ids);
+    // Act
+    const styles = await extractStyles(page, ids);
+    // Assert
+    expectPixelLayers(styles, ids);
 
-    const alphas = ids.map((id) => channelMidAlpha(s[id].backgroundImage));
+    const alphas = ids.map((id) => channelMidAlpha(styles[id].backgroundImage));
 
     // col cap = 2px: bloom 0/1/2 are at or below it, so no overflow at all.
     expect(alphas[0], 'bloom-0 channel mid alpha').toBeCloseTo(0, 3);
@@ -347,8 +231,8 @@ test.describe('pixel + border gradient composition', () => {
   });
 });
 
-test.describe('pixel — colour scales', () => {
-  test('bloom colour comparison — representative colours render', async ({ page }) => {
+test.describe('pixel – colour scales', () => {
+  test('bloom colour comparison – representative colours render', async ({ page }) => {
     await gotoPage(page);
     const colors = ['red', 'blue', 'green', 'amber', 'cyan', 'violet', 'pink', 'slate'];
     const ids = colors.flatMap((c) => [`bloom-color-${c}-0`, `bloom-color-${c}-1`]);
@@ -356,10 +240,13 @@ test.describe('pixel — colour scales', () => {
   });
 
   test('blue scale 50–950 shows luminance gradient', async ({ page }) => {
+    // Arrange
     await gotoPage(page);
     const shades = ['blue-50', 'blue-200', 'blue-500', 'blue-800', 'blue-950'];
-    const c = await extractRenderedColors(page, shades);
-    expect(c['blue-50'].luminance).toBeGreaterThan(c['blue-950'].luminance);
+    // Act
+    const colors = await extractRenderedColors(page, shades);
+    // Assert
+    expect(colors['blue-50'].luminance).toBeGreaterThan(colors['blue-950'].luminance);
   });
 });
 
@@ -370,7 +257,7 @@ test.describe('pixel — colour scales', () => {
  * it. These sweeps assert against every bg-pixel-* element the fixture defines,
  * so coverage does not depend on which ids a test happens to list.
  */
-test.describe('bg-pixel — whole-page coverage', () => {
+test.describe('bg-pixel – whole-page coverage', () => {
   test('every bg-pixel element on the page renders its full layer stack', async ({ page }) => {
     await gotoPage(page);
 
@@ -398,13 +285,16 @@ test.describe('bg-pixel — whole-page coverage', () => {
   });
 
   test('pixel elements blend their channel layers additively', async ({ page }) => {
+    // Arrange
     await gotoPage(page);
-    const s = await extractStyles(page, ['blue-500']);
-    expectPixelLayers(s, ['blue-500']);
+    // Act
+    const styles = await extractStyles(page, ['blue-500']);
+    // Assert
+    expectPixelLayers(styles, ['blue-500']);
     // Row mask multiplies to punch out gaps; the channels screen together.
-    expect(s['blue-500'].blendMode, 'row mask should multiply').toContain('multiply');
+    expect(styles['blue-500'].blendMode, 'row mask should multiply').toContain('multiply');
     expect(
-      s['blue-500'].blendMode.match(/screen/g)?.length,
+      styles['blue-500'].blendMode.match(/screen/g)?.length,
       'all three channel layers should screen',
     ).toBe(3);
   });

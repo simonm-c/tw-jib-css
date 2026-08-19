@@ -2,7 +2,7 @@
 title: Saturation
 ---
 
-<!-- llm-context: saturation utility — adjusts colour saturation/chroma using CSS relative colour syntax across 17 colour spaces. {surface}-saturation-{n} to saturate, -{surface}-saturation-{n} to desaturate, with optional /{color-space} modifier. Works on background, text, fill, stroke, outline, accent, and border surfaces. -->
+<!-- llm-context: saturation utility – adjusts colour saturation/chroma using CSS relative colour syntax across 17 colour spaces. {surface}-saturation-{n} to saturate, -{surface}-saturation-{n} to desaturate, with optional /{color-space} modifier. Works on background, text, fill, stroke, outline, accent, and border surfaces. -->
 
 # Saturation
 
@@ -12,7 +12,7 @@ Adjust the saturation (chroma) of any colour. Positive values increase saturatio
 Included in `@import 'tw-jib-css'`. Individual import:
 
 ```css
-@import 'tw-jib-css/saturation';
+@import 'tw-jib-css/color-transforms';
 ```
 
 :::
@@ -360,15 +360,15 @@ Append a modifier: `bg-saturation-30/oklch`, `-bg-saturation-50/hsl`, etc. Defau
 See the [Colour Spaces reference](/guide/colour-spaces) for what each space is and when to choose one.
 
 ::: info How scaling works
-**oklch, lch** — Chroma interpolates toward the maximum (saturate) or 0 (desaturate). Lightness is held constant.
+**oklch, lch** – Chroma interpolates toward the maximum (saturate) or 0 (desaturate). Lightness is held constant.
 
-**oklab, lab** — Both chromatic axes (a, b) scale toward their theoretical maxima or toward 0.
+**oklab, lab** – Both chromatic axes (a, b) scale toward their theoretical maxima or toward 0.
 
-**HSL** — S interpolates toward 100% or 0%.
+**HSL** – S interpolates toward 100% or 0%.
 
-**RGB-family** — Each channel moves toward or away from its greyscale luma value (`0.213r + 0.715g + 0.072b`).
+**RGB-family** – Each channel moves toward or away from its greyscale luma value (`0.213r + 0.715g + 0.072b`).
 
-**colour-mix** — Blends toward grey (desaturation) or maximum chroma (saturation) via `color-mix()` in oklch.
+**colour-mix** – Blends toward grey (desaturation) or maximum chroma (saturation) via `color-mix()` in oklch.
 :::
 
 ## Aliases

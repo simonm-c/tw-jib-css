@@ -25,7 +25,7 @@ The second is an **override**: `bg-lightness-*`, `bg-saturation-*`, `bg-hue-rota
 | `--tw-jib--saturation(<color>, <number>, <space>)`      | the colour, saturation shifted                                          |
 | `--tw-jib--hue-rotate(<color>, <number>, <space>)`      | the colour, hue rotated by degrees                                      |
 | `--tw-jib--accessible-shade(<color>, <level>, <space>)` | a text colour at exactly the level's WCAG ratio against that background |
-| `--tw-jib--wcag-rating(<bg>, <fg>)`                     | the pair's rating as a string — `"AAA"`, `"AA"`, `"AA Large"`, `"Fail"` |
+| `--tw-jib--wcag-rating(<bg>, <fg>)`                     | the pair's rating as a string – `"AAA"`, `"AA"`, `"AA Large"`, `"Fail"` |
 
 The colour space argument is optional and defaults to `oklch`, matching every other transform in the library.
 
@@ -58,8 +58,8 @@ Both paths compute the same closed forms and were measured agreeing to serialisa
 
 ### How the stable package stays unaffected
 
-The `@utility` blocks that call these functions live in the _stable_ files, gated on `@variant supports-lightness` and its siblings. Those `@custom-variant`s are defined only in this package. Without it, Tailwind falls back to its built-in `supports-*` variant and emits `@supports (lightness: var(--tw))` — a test for a CSS property that does not exist, false in every engine, so the block never applies. Importing this entry supplies the real gate.
+The `@utility` blocks that call these functions live in the _stable_ files, gated on `@variant supports-lightness` and its siblings. Those `@custom-variant`s are defined only in this package. Without it, Tailwind falls back to its built-in `supports-*` variant and emits `@supports (lightness: var(--tw))` – a test for a CSS property that does not exist, false in every engine, so the block never applies. Importing this entry supplies the real gate.
 
 ## Browser support
 
-CSS `@function` is Chromium-only today. Firefox and Safari never take this path — they fall through to the stable implementation and produce the same result, so importing this entry is safe for them, it simply does nothing.
+CSS `@function` is Chromium-only today. Firefox and Safari never take this path – they fall through to the stable implementation and produce the same result, so importing this entry is safe for them, it simply does nothing.

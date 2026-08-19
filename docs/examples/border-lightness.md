@@ -7,7 +7,7 @@ layout: page
 
 Test page covering all border-darken/border-lighten × color space combinations.
 
-## Darken — Default (oklch, no modifier)
+## Darken – Default (oklch, no modifier)
 
 Darken amounts 0–100 on outline-blue-500.
 
@@ -35,7 +35,7 @@ Darken amounts 0–100 on outline-blue-500.
   </div>
 </div>
 
-## Lighten — Default (oklch, no modifier)
+## Lighten – Default (oklch, no modifier)
 
 Lighten amounts 0–100 on outline-blue-500.
 
@@ -63,7 +63,7 @@ Lighten amounts 0–100 on outline-blue-500.
   </div>
 </div>
 
-## Darken — All 17 Color Spaces
+## Darken – All 17 Color Spaces
 
 Each uses `outline-blue-500 border-darken-20/{space}`.
 
@@ -121,7 +121,7 @@ Each uses `outline-blue-500 border-darken-20/{space}`.
   </div>
 </div>
 
-## Lighten — All 17 Color Spaces
+## Lighten – All 17 Color Spaces
 
 Each uses `outline-blue-500 border-lighten-20/{space}`.
 

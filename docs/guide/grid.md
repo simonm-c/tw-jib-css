@@ -2,17 +2,28 @@
 title: Grid
 ---
 
-<!-- llm-context: grid module — CSS Grid template-areas and grid-area utilities. TailwindCSS v4 provides grid-cols and grid-rows but not grid-template-areas. -->
+<!-- llm-context: grid module – CSS Grid template-areas and grid-area utilities. TailwindCSS v4 provides grid-cols and grid-rows but not grid-template-areas. -->
 
 # Grid
 
 CSS Grid named template areas. Set `grid-template-areas` and `grid-area` via utility classes.
 
+::: info Browser Support
+Plain `grid-template-areas` and `grid-area` – no relative colour syntax, no
+`@property` registrations, nothing modern at all. These utilities work wherever
+Tailwind itself does.
+:::
+
 ::: tip Import
 Included in `@import 'tw-jib-css'`. To import individually:
+
 ```css
 @import 'tw-jib-css/grid';
 ```
+
+This entry carries none of the library's colour machinery, because these utilities
+read no colour. Taking it costs you nothing but the two utilities below – see [take
+only what you need](/guide/installation#take-only-what-you-need).
 :::
 
 ## Quick Reference
@@ -68,8 +79,8 @@ Since `grid-template-areas` requires complex string values, this utility uses ar
 
 - **Underscores** become spaces: `header_header` becomes `header header`
 - **Single quotes** delimit rows: `'header_header'` defines one row
-- **Multiple rows** — separate with underscores between quoted groups
-- **Empty cells** — use `.` (dot) to define empty areas
+- **Multiple rows** – separate with underscores between quoted groups
+- **Empty cells** – use `.` (dot) to define empty areas
 
 Use `grid-area-[<value>]` for spanning or complex placement:
 
@@ -104,5 +115,4 @@ For CSS variables, you can also use the `grid-area-(--custom-property)` syntax:
   </div>
 </Example>
 
-This is shorthand for `grid-area-[var(--hero-area)]` — it adds the `var()` wrapper automatically.
-
+This is shorthand for `grid-area-[var(--hero-area)]` – it adds the `var()` wrapper automatically.

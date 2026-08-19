@@ -6,9 +6,23 @@
 const HEART = `M11.645 20.91l-.007-.003-.022-.012a15.247 15.247 0 01-.383-.218 25.18 25.18 0 01-4.244-3.17C4.688 15.36 2.25 12.174 2.25 8.25 2.25 5.322 4.714 3 7.688 3A5.5 5.5 0 0112 5.052 5.5 5.5 0 0116.313 3c2.973 0 5.437 2.322 5.437 5.25 0 3.925-2.438 7.111-4.739 9.256a25.175 25.175 0 01-4.244 3.17 15.247 15.247 0 01-.383.219l-.022.012-.007.004-.003.001a.752.752 0 01-.704 0l-.003-.001z`;
 
 const SPACES = [
-  'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb', 'srgb',
-  'srgb-linear', 'display-p3', 'a98-rgb', 'prophoto-rgb', 'rec2020',
-  'xyz', 'xyz-d50', 'xyz-d65', 'color-mix',
+  'oklch',
+  'lch',
+  'lab',
+  'oklab',
+  'hsl',
+  'hwb',
+  'rgb',
+  'srgb',
+  'srgb-linear',
+  'display-p3',
+  'a98-rgb',
+  'prophoto-rgb',
+  'rec2020',
+  'xyz',
+  'xyz-d50',
+  'xyz-d65',
+  'color-mix',
 ];
 
 const AMOUNTS = [0, 5, 10, 20, 50, 75, 100];
@@ -18,9 +32,23 @@ const KEY_COLORS = ['red', 'blue', 'green', 'amber', 'slate'];
 const KEY_SHADES = [200, 500, 800];
 
 const ALL_COLORS = [
-  'orange', 'yellow', 'lime', 'emerald', 'teal', 'cyan', 'sky',
-  'indigo', 'violet', 'purple', 'fuchsia', 'pink', 'rose',
-  'gray', 'zinc', 'neutral', 'stone',
+  'orange',
+  'yellow',
+  'lime',
+  'emerald',
+  'teal',
+  'cyan',
+  'sky',
+  'indigo',
+  'violet',
+  'purple',
+  'fuchsia',
+  'pink',
+  'rose',
+  'gray',
+  'zinc',
+  'neutral',
+  'stone',
 ];
 
 function svg(fillClass: string, size = 'w-12 h-12') {
@@ -42,8 +70,15 @@ function icon(color: string, shade: number, op: string, amount: number, space: s
         </div>`;
 }
 
-function scaleRow(color: string, shade: number, op: string, space: string, label: string, bg: string) {
-  const items = SCALE_AMOUNTS.map(a => icon(color, shade, op, a, space, bg)).join('\n');
+function scaleRow(
+  color: string,
+  shade: number,
+  op: string,
+  space: string,
+  label: string,
+  bg: string,
+) {
+  const items = SCALE_AMOUNTS.map((a) => icon(color, shade, op, a, space, bg)).join('\n');
   return `    <div class="flex items-center gap-2">
       <span class="w-24 text-[10px] text-gray-500 text-right font-mono shrink-0">${label}</span>
       <div class="flex flex-1 gap-px">
@@ -53,8 +88,8 @@ ${items}
 }
 
 function allSpacesSection(color: string, shade: number, op: string, bg: string) {
-  const title = `${color}-${shade} (${shade <= 200 ? 'light' : shade <= 500 ? 'mid' : 'dark'} base) — ${op === 'lighten' ? 'Lighten' : 'Darken'} Scale`;
-  const rows = SPACES.map(s => scaleRow(color, shade, op, s, `/${s}`, bg)).join('\n');
+  const title = `${color}-${shade} (${shade <= 200 ? 'light' : shade <= 500 ? 'mid' : 'dark'} base) – ${op === 'lighten' ? 'Lighten' : 'Darken'} Scale`;
+  const rows = SPACES.map((s) => scaleRow(color, shade, op, s, `/${s}`, bg)).join('\n');
   return `#### ${title}
 
 <div class="flex flex-col gap-px my-4">
@@ -63,7 +98,7 @@ ${rows}
 }
 
 function defaultOnlySection(color: string, shade: number, op: string, bg: string) {
-  const title = `${color}-${shade} (${shade <= 200 ? 'light' : shade <= 500 ? 'mid' : 'dark'} base) — ${op === 'lighten' ? 'Lighten' : 'Darken'} Scale`;
+  const title = `${color}-${shade} (${shade <= 200 ? 'light' : shade <= 500 ? 'mid' : 'dark'} base) – ${op === 'lighten' ? 'Lighten' : 'Darken'} Scale`;
   const row = scaleRow(color, shade, op, 'default', '(default)', bg);
   return `#### ${title}
 
@@ -72,19 +107,26 @@ ${row}
 </div>`;
 }
 
-
-function simpleGrid(testPrefix: string, fillBase: string, op: string, amounts: number[], bg: string) {
-  return amounts.map(a => {
-    const cls = `${fillBase} ${lightnessCls(op, a, 'default')}`;
-    return `  <div data-test="${testPrefix}-${a}" class="h-20 rounded-lg flex items-center justify-center ${bg}">
+function simpleGrid(
+  testPrefix: string,
+  fillBase: string,
+  op: string,
+  amounts: number[],
+  bg: string,
+) {
+  return amounts
+    .map((a) => {
+      const cls = `${fillBase} ${lightnessCls(op, a, 'default')}`;
+      return `  <div data-test="${testPrefix}-${a}" class="h-20 rounded-lg flex items-center justify-center ${bg}">
     ${svg(cls)}
     <span class="text-[10px] font-mono text-gray-500 absolute bottom-1">${a}</span>
   </div>`;
-  }).join('\n');
+    })
+    .join('\n');
 }
 
 function spaceGrid(testPrefix: string, fillBase: string, op: string, amount: number, bg: string) {
-  return SPACES.map(s => {
+  return SPACES.map((s) => {
     const cls = `${fillBase} ${lightnessCls(op, amount, s)}`;
     const label = bg.includes('800') ? 'text-gray-400' : 'text-gray-500';
     return `  <div data-test="${testPrefix}-${s}" class="h-20 rounded-lg flex items-center justify-center ${bg}">
@@ -93,7 +135,6 @@ function spaceGrid(testPrefix: string, fillBase: string, op: string, amount: num
   </div>`;
   }).join('\n');
 }
-
 
 const lines: string[] = [];
 const p = (s: string) => lines.push(s);
@@ -107,7 +148,7 @@ layout: page
 
 Test page covering all fill-lightness / -fill-lightness × color space combinations.
 
-## Darken — Default (oklch, no modifier)
+## Darken – Default (oklch, no modifier)
 
 Darken amounts 0–100 on fill-blue-500 using \`-fill-lightness-{n}\`.
 
@@ -115,7 +156,7 @@ Darken amounts 0–100 on fill-blue-500 using \`-fill-lightness-{n}\`.
 ${simpleGrid('fill-darken', 'fill-blue-500', 'darken', AMOUNTS, 'bg-gray-100')}
 </div>
 
-## Lighten — Default (oklch, no modifier)
+## Lighten – Default (oklch, no modifier)
 
 Lighten amounts 0–100 on fill-blue-500 using \`fill-lightness-{n}\`.
 
@@ -123,7 +164,7 @@ Lighten amounts 0–100 on fill-blue-500 using \`fill-lightness-{n}\`.
 ${simpleGrid('fill-lighten', 'fill-blue-500', 'lighten', AMOUNTS, 'bg-gray-800')}
 </div>
 
-## Darken — All 17 Color Spaces
+## Darken – All 17 Color Spaces
 
 Each uses \`fill-blue-500 -fill-lightness-20/{space}\`.
 
@@ -131,7 +172,7 @@ Each uses \`fill-blue-500 -fill-lightness-20/{space}\`.
 ${spaceGrid('fill-darken', 'fill-blue-500', 'darken', 20, 'bg-gray-100')}
 </div>
 
-## Lighten — All 17 Color Spaces
+## Lighten – All 17 Color Spaces
 
 Each uses \`fill-blue-500 fill-lightness-20/{space}\`.
 
@@ -140,12 +181,12 @@ ${spaceGrid('fill-lighten', 'fill-blue-500', 'lighten', 20, 'bg-gray-800')}
 </div>`);
 
 p(`
-## Comprehensive Matrix — Key Colors × All Spaces
+## Comprehensive Matrix – Key Colors × All Spaces
 
 Full lightness scale (0–100) across all 17 colour spaces for 5 representative colours, each at 3 starting shades (200 light, 500 mid, 800 dark).`);
 
 for (const color of KEY_COLORS) {
-  p(`\n### ${color.charAt(0).toUpperCase() + color.slice(1)} — All Spaces`);
+  p(`\n### ${color.charAt(0).toUpperCase() + color.slice(1)} – All Spaces`);
   for (const shade of KEY_SHADES) {
     const bg = shade >= 500 ? 'bg-gray-800' : 'bg-gray-100';
     p('');
@@ -155,7 +196,7 @@ for (const color of KEY_COLORS) {
   }
 }
 
-p(`\n## All Tailwind Colors — Default (oklch)
+p(`\n## All Tailwind Colors – Default (oklch)
 
 Full lightness scale (0–100) in the default oklch colour space for every Tailwind colour, each at 3 starting shades.`);
 

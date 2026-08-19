@@ -7,7 +7,7 @@ layout: page
 
 Every TW default colour at all shade values with wcag-badge and white text. Integration tests extract the ::after content and verify the CSS rating matches the JS-computed WCAG rating.
 
-## All Colours — White Text + Badge
+## All Colours – White Text + Badge
 
 ### Red
 

@@ -2,7 +2,7 @@
 title: Interpolate Size
 ---
 
-<!-- llm-context: interpolate module (experimental) — CSS interpolate-size property for animating keyword sizes (auto, min-content, etc.). Chromium only, ~48% browser support. -->
+<!-- llm-context: interpolate module (experimental) – CSS interpolate-size property for animating keyword sizes (auto, min-content, etc.). Chromium only, ~48% browser support. -->
 
 # Interpolate Size
 
@@ -13,12 +13,15 @@ The CSS `interpolate-size` property enables smooth transitions to and from keywo
 :::
 
 ::: tip Import
-Included in `@import 'tw-jib-css/experimental'`. To import individually:
+Included in `@import 'tw-jib-css-experimental'`. To take it on its own – no other
+experimental module, and none of the [`@function` overrides](/functions):
 
 ```css
-@import 'tw-jib-css/experimental/interpolate';
+@import 'tw-jib-css-experimental/interpolate';
 ```
 
+This entry reads nothing from `tw-jib-css`, so it costs you no colour machinery you
+aren't using.
 :::
 
 ## Quick Reference
@@ -53,5 +56,5 @@ Add `interpolate-keywords` to a parent element to enable smooth height transitio
 
 | Value            | Behaviour                                                                                          |
 | ---------------- | -------------------------------------------------------------------------------------------------- |
-| `numeric-only`   | Default browser behaviour — only numeric-to-numeric transitions work. `0px` → `auto` will snap.    |
+| `numeric-only`   | Default browser behaviour – only numeric-to-numeric transitions work. `0px` → `auto` will snap.    |
 | `allow-keywords` | Enables transitions involving keyword sizes (`auto`, `min-content`, `max-content`, `fit-content`). |

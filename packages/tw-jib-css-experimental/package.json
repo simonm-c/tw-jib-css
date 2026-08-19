@@ -1,7 +1,7 @@
 {
   "name": "tw-jib-css-experimental",
   "version": "0.1.0",
-  "description": "Experimental tw-jib-css utilities — CSS @function colour transforms, corner-shape, interpolate-size, base-select picker, and a WCAG contrast badge. Limited browser support.",
+  "description": "Experimental tw-jib-css utilities – CSS @function colour transforms, corner-shape, interpolate-size, base-select picker, and a WCAG contrast badge. Limited browser support.",
   "type": "module",
   "license": "MIT",
   "author": "Simon Monk-Chipman",
@@ -58,9 +58,9 @@
       "style": "./src/picker.css",
       "default": "./src/picker.css"
     },
-    "./wcag": {
-      "style": "./src/wcag.css",
-      "default": "./src/wcag.css"
+    "./wcag-badge": {
+      "style": "./src/wcag-badge.css",
+      "default": "./src/wcag-badge.css"
     }
   },
   "peerDependencies": {

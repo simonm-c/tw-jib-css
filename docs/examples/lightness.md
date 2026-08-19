@@ -7,7 +7,7 @@ layout: page
 
 Test page covering all bg-darken/bg-lighten × color space × base color × border-gradient combinations.
 
-## Darken — Default (oklch, no modifier)
+## Darken – Default (oklch, no modifier)
 
 Darken amounts 0–100 on bg-blue-500.
 
@@ -35,7 +35,7 @@ Darken amounts 0–100 on bg-blue-500.
   </div>
 </div>
 
-## Lighten — Default (oklch, no modifier)
+## Lighten – Default (oklch, no modifier)
 
 Lighten amounts 0–100 on bg-blue-500.
 
@@ -63,7 +63,7 @@ Lighten amounts 0–100 on bg-blue-500.
   </div>
 </div>
 
-## Darken — All 17 Color Spaces
+## Darken – All 17 Color Spaces
 
 Each uses `bg-blue-500 bg-darken-20/{space}`.
 
@@ -121,7 +121,7 @@ Each uses `bg-blue-500 bg-darken-20/{space}`.
   </div>
 </div>
 
-## Lighten — All 17 Color Spaces
+## Lighten – All 17 Color Spaces
 
 Each uses `bg-blue-500 bg-lighten-20/{space}`.
 
@@ -179,15 +179,15 @@ Each uses `bg-blue-500 bg-lighten-20/{space}`.
   </div>
 </div>
 
-<!-- BEGIN GENERATED MATRIX — regenerate with: node scripts/generate-lightness-fixtures.mjs -->
+<!-- BEGIN GENERATED MATRIX – regenerate with: node scripts/generate-lightness-fixtures.mjs -->
 
-## Comprehensive Matrix — Key Colors × All Spaces
+## Comprehensive Matrix – Key Colors × All Spaces
 
 Full lightness scale (0–100) across all 17 colour spaces for 5 representative colours, each at 3 starting shades (200 light, 500 mid, 800 dark).
 
-### Red — All Spaces
+### Red – All Spaces
 
-#### red-200 (light base) — Lighten Scale
+#### red-200 (light base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -838,7 +838,7 @@ Full lightness scale (0–100) across all 17 colour spaces for 5 representative 
     </div>
 </div>
 
-#### red-200 (light base) — Darken Scale
+#### red-200 (light base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -1489,7 +1489,7 @@ Full lightness scale (0–100) across all 17 colour spaces for 5 representative 
     </div>
 </div>
 
-#### red-500 (mid base) — Lighten Scale
+#### red-500 (mid base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -2140,7 +2140,7 @@ Full lightness scale (0–100) across all 17 colour spaces for 5 representative 
     </div>
 </div>
 
-#### red-500 (mid base) — Darken Scale
+#### red-500 (mid base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -2791,7 +2791,7 @@ Full lightness scale (0–100) across all 17 colour spaces for 5 representative 
     </div>
 </div>
 
-#### red-800 (dark base) — Lighten Scale
+#### red-800 (dark base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -3442,7 +3442,7 @@ Full lightness scale (0–100) across all 17 colour spaces for 5 representative 
     </div>
 </div>
 
-#### red-800 (dark base) — Darken Scale
+#### red-800 (dark base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -4093,9 +4093,9 @@ Full lightness scale (0–100) across all 17 colour spaces for 5 representative 
     </div>
 </div>
 
-### Blue — All Spaces
+### Blue – All Spaces
 
-#### blue-200 (light base) — Lighten Scale
+#### blue-200 (light base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -4746,7 +4746,7 @@ Full lightness scale (0–100) across all 17 colour spaces for 5 representative 
     </div>
 </div>
 
-#### blue-200 (light base) — Darken Scale
+#### blue-200 (light base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -5397,7 +5397,7 @@ Full lightness scale (0–100) across all 17 colour spaces for 5 representative 
     </div>
 </div>
 
-#### blue-500 (mid base) — Lighten Scale
+#### blue-500 (mid base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -6048,7 +6048,7 @@ Full lightness scale (0–100) across all 17 colour spaces for 5 representative 
     </div>
 </div>
 
-#### blue-500 (mid base) — Darken Scale
+#### blue-500 (mid base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -6699,7 +6699,7 @@ Full lightness scale (0–100) across all 17 colour spaces for 5 representative 
     </div>
 </div>
 
-#### blue-800 (dark base) — Lighten Scale
+#### blue-800 (dark base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -7350,7 +7350,7 @@ Full lightness scale (0–100) across all 17 colour spaces for 5 representative 
     </div>
 </div>
 
-#### blue-800 (dark base) — Darken Scale
+#### blue-800 (dark base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -8001,9 +8001,9 @@ Full lightness scale (0–100) across all 17 colour spaces for 5 representative 
     </div>
 </div>
 
-### Green — All Spaces
+### Green – All Spaces
 
-#### green-200 (light base) — Lighten Scale
+#### green-200 (light base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -8654,7 +8654,7 @@ Full lightness scale (0–100) across all 17 colour spaces for 5 representative 
     </div>
 </div>
 
-#### green-200 (light base) — Darken Scale
+#### green-200 (light base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -9305,7 +9305,7 @@ Full lightness scale (0–100) across all 17 colour spaces for 5 representative 
     </div>
 </div>
 
-#### green-500 (mid base) — Lighten Scale
+#### green-500 (mid base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -9956,7 +9956,7 @@ Full lightness scale (0–100) across all 17 colour spaces for 5 representative 
     </div>
 </div>
 
-#### green-500 (mid base) — Darken Scale
+#### green-500 (mid base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -10607,7 +10607,7 @@ Full lightness scale (0–100) across all 17 colour spaces for 5 representative 
     </div>
 </div>
 
-#### green-800 (dark base) — Lighten Scale
+#### green-800 (dark base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -11258,7 +11258,7 @@ Full lightness scale (0–100) across all 17 colour spaces for 5 representative 
     </div>
 </div>
 
-#### green-800 (dark base) — Darken Scale
+#### green-800 (dark base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -11909,9 +11909,9 @@ Full lightness scale (0–100) across all 17 colour spaces for 5 representative 
     </div>
 </div>
 
-### Amber — All Spaces
+### Amber – All Spaces
 
-#### amber-200 (light base) — Lighten Scale
+#### amber-200 (light base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -12562,7 +12562,7 @@ Full lightness scale (0–100) across all 17 colour spaces for 5 representative 
     </div>
 </div>
 
-#### amber-200 (light base) — Darken Scale
+#### amber-200 (light base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -13213,7 +13213,7 @@ Full lightness scale (0–100) across all 17 colour spaces for 5 representative 
     </div>
 </div>
 
-#### amber-500 (mid base) — Lighten Scale
+#### amber-500 (mid base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -13864,7 +13864,7 @@ Full lightness scale (0–100) across all 17 colour spaces for 5 representative 
     </div>
 </div>
 
-#### amber-500 (mid base) — Darken Scale
+#### amber-500 (mid base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -14515,7 +14515,7 @@ Full lightness scale (0–100) across all 17 colour spaces for 5 representative 
     </div>
 </div>
 
-#### amber-800 (dark base) — Lighten Scale
+#### amber-800 (dark base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -15166,7 +15166,7 @@ Full lightness scale (0–100) across all 17 colour spaces for 5 representative 
     </div>
 </div>
 
-#### amber-800 (dark base) — Darken Scale
+#### amber-800 (dark base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -15817,9 +15817,9 @@ Full lightness scale (0–100) across all 17 colour spaces for 5 representative 
     </div>
 </div>
 
-### Slate — All Spaces
+### Slate – All Spaces
 
-#### slate-200 (light base) — Lighten Scale
+#### slate-200 (light base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -16470,7 +16470,7 @@ Full lightness scale (0–100) across all 17 colour spaces for 5 representative 
     </div>
 </div>
 
-#### slate-200 (light base) — Darken Scale
+#### slate-200 (light base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -17121,7 +17121,7 @@ Full lightness scale (0–100) across all 17 colour spaces for 5 representative 
     </div>
 </div>
 
-#### slate-500 (mid base) — Lighten Scale
+#### slate-500 (mid base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -17772,7 +17772,7 @@ Full lightness scale (0–100) across all 17 colour spaces for 5 representative 
     </div>
 </div>
 
-#### slate-500 (mid base) — Darken Scale
+#### slate-500 (mid base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -18423,7 +18423,7 @@ Full lightness scale (0–100) across all 17 colour spaces for 5 representative 
     </div>
 </div>
 
-#### slate-800 (dark base) — Lighten Scale
+#### slate-800 (dark base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -19074,7 +19074,7 @@ Full lightness scale (0–100) across all 17 colour spaces for 5 representative 
     </div>
 </div>
 
-#### slate-800 (dark base) — Darken Scale
+#### slate-800 (dark base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -19725,13 +19725,13 @@ Full lightness scale (0–100) across all 17 colour spaces for 5 representative 
     </div>
 </div>
 
-## All Tailwind Colors — Default (oklch)
+## All Tailwind Colors – Default (oklch)
 
 Full lightness scale (0–100) in the default oklch colour space for every Tailwind colour, each at 3 starting shades.
 
 ### Orange
 
-#### orange-200 (light base) — Lighten Scale
+#### orange-200 (light base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -19774,7 +19774,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### orange-200 (light base) — Darken Scale
+#### orange-200 (light base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -19817,7 +19817,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### orange-500 (mid base) — Lighten Scale
+#### orange-500 (mid base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -19860,7 +19860,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### orange-500 (mid base) — Darken Scale
+#### orange-500 (mid base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -19903,7 +19903,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### orange-800 (dark base) — Lighten Scale
+#### orange-800 (dark base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -19946,7 +19946,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### orange-800 (dark base) — Darken Scale
+#### orange-800 (dark base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -19991,7 +19991,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
 
 ### Yellow
 
-#### yellow-200 (light base) — Lighten Scale
+#### yellow-200 (light base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -20034,7 +20034,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### yellow-200 (light base) — Darken Scale
+#### yellow-200 (light base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -20077,7 +20077,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### yellow-500 (mid base) — Lighten Scale
+#### yellow-500 (mid base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -20120,7 +20120,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### yellow-500 (mid base) — Darken Scale
+#### yellow-500 (mid base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -20163,7 +20163,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### yellow-800 (dark base) — Lighten Scale
+#### yellow-800 (dark base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -20206,7 +20206,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### yellow-800 (dark base) — Darken Scale
+#### yellow-800 (dark base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -20251,7 +20251,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
 
 ### Lime
 
-#### lime-200 (light base) — Lighten Scale
+#### lime-200 (light base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -20294,7 +20294,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### lime-200 (light base) — Darken Scale
+#### lime-200 (light base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -20337,7 +20337,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### lime-500 (mid base) — Lighten Scale
+#### lime-500 (mid base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -20380,7 +20380,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### lime-500 (mid base) — Darken Scale
+#### lime-500 (mid base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -20423,7 +20423,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### lime-800 (dark base) — Lighten Scale
+#### lime-800 (dark base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -20466,7 +20466,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### lime-800 (dark base) — Darken Scale
+#### lime-800 (dark base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -20511,7 +20511,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
 
 ### Emerald
 
-#### emerald-200 (light base) — Lighten Scale
+#### emerald-200 (light base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -20554,7 +20554,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### emerald-200 (light base) — Darken Scale
+#### emerald-200 (light base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -20597,7 +20597,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### emerald-500 (mid base) — Lighten Scale
+#### emerald-500 (mid base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -20640,7 +20640,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### emerald-500 (mid base) — Darken Scale
+#### emerald-500 (mid base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -20683,7 +20683,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### emerald-800 (dark base) — Lighten Scale
+#### emerald-800 (dark base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -20726,7 +20726,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### emerald-800 (dark base) — Darken Scale
+#### emerald-800 (dark base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -20771,7 +20771,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
 
 ### Teal
 
-#### teal-200 (light base) — Lighten Scale
+#### teal-200 (light base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -20814,7 +20814,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### teal-200 (light base) — Darken Scale
+#### teal-200 (light base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -20857,7 +20857,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### teal-500 (mid base) — Lighten Scale
+#### teal-500 (mid base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -20900,7 +20900,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### teal-500 (mid base) — Darken Scale
+#### teal-500 (mid base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -20943,7 +20943,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### teal-800 (dark base) — Lighten Scale
+#### teal-800 (dark base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -20986,7 +20986,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### teal-800 (dark base) — Darken Scale
+#### teal-800 (dark base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -21031,7 +21031,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
 
 ### Cyan
 
-#### cyan-200 (light base) — Lighten Scale
+#### cyan-200 (light base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -21074,7 +21074,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### cyan-200 (light base) — Darken Scale
+#### cyan-200 (light base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -21117,7 +21117,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### cyan-500 (mid base) — Lighten Scale
+#### cyan-500 (mid base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -21160,7 +21160,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### cyan-500 (mid base) — Darken Scale
+#### cyan-500 (mid base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -21203,7 +21203,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### cyan-800 (dark base) — Lighten Scale
+#### cyan-800 (dark base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -21246,7 +21246,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### cyan-800 (dark base) — Darken Scale
+#### cyan-800 (dark base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -21291,7 +21291,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
 
 ### Sky
 
-#### sky-200 (light base) — Lighten Scale
+#### sky-200 (light base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -21334,7 +21334,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### sky-200 (light base) — Darken Scale
+#### sky-200 (light base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -21377,7 +21377,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### sky-500 (mid base) — Lighten Scale
+#### sky-500 (mid base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -21420,7 +21420,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### sky-500 (mid base) — Darken Scale
+#### sky-500 (mid base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -21463,7 +21463,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### sky-800 (dark base) — Lighten Scale
+#### sky-800 (dark base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -21506,7 +21506,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### sky-800 (dark base) — Darken Scale
+#### sky-800 (dark base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -21551,7 +21551,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
 
 ### Indigo
 
-#### indigo-200 (light base) — Lighten Scale
+#### indigo-200 (light base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -21594,7 +21594,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### indigo-200 (light base) — Darken Scale
+#### indigo-200 (light base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -21637,7 +21637,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### indigo-500 (mid base) — Lighten Scale
+#### indigo-500 (mid base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -21680,7 +21680,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### indigo-500 (mid base) — Darken Scale
+#### indigo-500 (mid base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -21723,7 +21723,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### indigo-800 (dark base) — Lighten Scale
+#### indigo-800 (dark base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -21766,7 +21766,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### indigo-800 (dark base) — Darken Scale
+#### indigo-800 (dark base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -21811,7 +21811,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
 
 ### Violet
 
-#### violet-200 (light base) — Lighten Scale
+#### violet-200 (light base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -21854,7 +21854,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### violet-200 (light base) — Darken Scale
+#### violet-200 (light base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -21897,7 +21897,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### violet-500 (mid base) — Lighten Scale
+#### violet-500 (mid base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -21940,7 +21940,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### violet-500 (mid base) — Darken Scale
+#### violet-500 (mid base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -21983,7 +21983,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### violet-800 (dark base) — Lighten Scale
+#### violet-800 (dark base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -22026,7 +22026,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### violet-800 (dark base) — Darken Scale
+#### violet-800 (dark base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -22071,7 +22071,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
 
 ### Purple
 
-#### purple-200 (light base) — Lighten Scale
+#### purple-200 (light base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -22114,7 +22114,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### purple-200 (light base) — Darken Scale
+#### purple-200 (light base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -22157,7 +22157,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### purple-500 (mid base) — Lighten Scale
+#### purple-500 (mid base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -22200,7 +22200,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### purple-500 (mid base) — Darken Scale
+#### purple-500 (mid base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -22243,7 +22243,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### purple-800 (dark base) — Lighten Scale
+#### purple-800 (dark base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -22286,7 +22286,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### purple-800 (dark base) — Darken Scale
+#### purple-800 (dark base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -22331,7 +22331,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
 
 ### Fuchsia
 
-#### fuchsia-200 (light base) — Lighten Scale
+#### fuchsia-200 (light base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -22374,7 +22374,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### fuchsia-200 (light base) — Darken Scale
+#### fuchsia-200 (light base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -22417,7 +22417,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### fuchsia-500 (mid base) — Lighten Scale
+#### fuchsia-500 (mid base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -22460,7 +22460,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### fuchsia-500 (mid base) — Darken Scale
+#### fuchsia-500 (mid base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -22503,7 +22503,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### fuchsia-800 (dark base) — Lighten Scale
+#### fuchsia-800 (dark base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -22546,7 +22546,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### fuchsia-800 (dark base) — Darken Scale
+#### fuchsia-800 (dark base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -22591,7 +22591,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
 
 ### Pink
 
-#### pink-200 (light base) — Lighten Scale
+#### pink-200 (light base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -22634,7 +22634,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### pink-200 (light base) — Darken Scale
+#### pink-200 (light base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -22677,7 +22677,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### pink-500 (mid base) — Lighten Scale
+#### pink-500 (mid base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -22720,7 +22720,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### pink-500 (mid base) — Darken Scale
+#### pink-500 (mid base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -22763,7 +22763,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### pink-800 (dark base) — Lighten Scale
+#### pink-800 (dark base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -22806,7 +22806,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### pink-800 (dark base) — Darken Scale
+#### pink-800 (dark base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -22851,7 +22851,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
 
 ### Rose
 
-#### rose-200 (light base) — Lighten Scale
+#### rose-200 (light base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -22894,7 +22894,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### rose-200 (light base) — Darken Scale
+#### rose-200 (light base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -22937,7 +22937,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### rose-500 (mid base) — Lighten Scale
+#### rose-500 (mid base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -22980,7 +22980,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### rose-500 (mid base) — Darken Scale
+#### rose-500 (mid base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -23023,7 +23023,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### rose-800 (dark base) — Lighten Scale
+#### rose-800 (dark base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -23066,7 +23066,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### rose-800 (dark base) — Darken Scale
+#### rose-800 (dark base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -23111,7 +23111,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
 
 ### Gray
 
-#### gray-200 (light base) — Lighten Scale
+#### gray-200 (light base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -23154,7 +23154,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### gray-200 (light base) — Darken Scale
+#### gray-200 (light base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -23197,7 +23197,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### gray-500 (mid base) — Lighten Scale
+#### gray-500 (mid base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -23240,7 +23240,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### gray-500 (mid base) — Darken Scale
+#### gray-500 (mid base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -23283,7 +23283,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### gray-800 (dark base) — Lighten Scale
+#### gray-800 (dark base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -23326,7 +23326,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### gray-800 (dark base) — Darken Scale
+#### gray-800 (dark base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -23371,7 +23371,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
 
 ### Zinc
 
-#### zinc-200 (light base) — Lighten Scale
+#### zinc-200 (light base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -23414,7 +23414,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### zinc-200 (light base) — Darken Scale
+#### zinc-200 (light base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -23457,7 +23457,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### zinc-500 (mid base) — Lighten Scale
+#### zinc-500 (mid base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -23500,7 +23500,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### zinc-500 (mid base) — Darken Scale
+#### zinc-500 (mid base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -23543,7 +23543,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### zinc-800 (dark base) — Lighten Scale
+#### zinc-800 (dark base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -23586,7 +23586,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### zinc-800 (dark base) — Darken Scale
+#### zinc-800 (dark base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -23631,7 +23631,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
 
 ### Neutral
 
-#### neutral-200 (light base) — Lighten Scale
+#### neutral-200 (light base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -23674,7 +23674,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### neutral-200 (light base) — Darken Scale
+#### neutral-200 (light base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -23717,7 +23717,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### neutral-500 (mid base) — Lighten Scale
+#### neutral-500 (mid base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -23760,7 +23760,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### neutral-500 (mid base) — Darken Scale
+#### neutral-500 (mid base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -23803,7 +23803,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### neutral-800 (dark base) — Lighten Scale
+#### neutral-800 (dark base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -23846,7 +23846,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### neutral-800 (dark base) — Darken Scale
+#### neutral-800 (dark base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -23891,7 +23891,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
 
 ### Stone
 
-#### stone-200 (light base) — Lighten Scale
+#### stone-200 (light base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -23934,7 +23934,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### stone-200 (light base) — Darken Scale
+#### stone-200 (light base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -23977,7 +23977,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### stone-500 (mid base) — Lighten Scale
+#### stone-500 (mid base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -24020,7 +24020,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### stone-500 (mid base) — Darken Scale
+#### stone-500 (mid base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -24063,7 +24063,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### stone-800 (dark base) — Lighten Scale
+#### stone-800 (dark base) – Lighten Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -24106,7 +24106,7 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-#### stone-800 (dark base) — Darken Scale
+#### stone-800 (dark base) – Darken Scale
 
 <div class="flex flex-col gap-px my-4">
     <div class="flex items-center gap-2">
@@ -24149,11 +24149,9 @@ Full lightness scale (0–100) in the default oklch colour space for every Tailw
     </div>
 </div>
 
-
-
 <!-- END GENERATED MATRIX -->
 
-## Base Color Range — Darken-20
+## Base Color Range – Darken-20
 
 Darken-20 (default oklch) across the full color spectrum + special values.
 
@@ -24220,7 +24218,7 @@ Darken-20 (default oklch) across the full color spectrum + special values.
   </div>
 </div>
 
-## Base Color Range — Lighten-20
+## Base Color Range – Lighten-20
 
 Lighten-20 (default oklch) across the full color spectrum + special values.
 
@@ -24287,7 +24285,7 @@ Lighten-20 (default oklch) across the full color spectrum + special values.
   </div>
 </div>
 
-## Special Base Colors — Darken & Lighten
+## Special Base Colors – Darken & Lighten
 
 Arbitrary, CSS variable, and extreme base colors.
 
@@ -24465,7 +24463,7 @@ Opacity modifiers across levels and amounts.
 
 ## Opacity + Color Space Modifiers
 
-Opacity with explicit color space — darken and lighten.
+Opacity with explicit color space – darken and lighten.
 
 <div class="grid grid-cols-4 gap-3 my-6">
   <div data-test="opacity-50-darken-oklch" class="h-20 rounded-lg flex items-center justify-center bg-blue-500/50 bg-darken-20/oklch">
@@ -24694,7 +24692,7 @@ Opacity with explicit color space — darken and lighten.
 
 ## Edge Cases: No Explicit Background
 
-Color transform without a bg-* class (uses --tw-jib--background-color default: canvas).
+Color transform without a bg-\* class (uses --tw-jib--background-color default: canvas).
 
 <div class="grid grid-cols-4 gap-3 my-6">
   <div data-test="edge-no-bg-darken" class="h-20 rounded-lg flex items-center justify-center bg-darken-20">

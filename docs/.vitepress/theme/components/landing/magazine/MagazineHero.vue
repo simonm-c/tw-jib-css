@@ -14,9 +14,7 @@ async function copy() {
 </script>
 
 <template>
-  <section
-    class="relative min-h-screen snap-start flex flex-col items-center justify-center px-6 py-16"
-  >
+  <section class="relative min-h-screen flex flex-col items-center justify-center px-6 py-16">
     <div class="flex flex-col items-center gap-8 text-center max-w-3xl">
       <JibLogo
         id="mag-hero-logo"
@@ -24,11 +22,11 @@ async function copy() {
       />
 
       <h1 class="text-4xl md:text-5xl font-black tracking-tight leading-tight">
-        The colour layer for Tailwind v4.
+        Do more with CSS than you thought possible, in the same familiar Tailwind syntax.
       </h1>
 
       <p class="text-lg opacity-80 leading-relaxed max-w-[48ch]">
-        Colour transforms, print textures, gradient borders, and WCAG-correct contrast — as utility
+        WCAG-correct contrast, gradient borders, colour transforms, and print textures – as utility
         classes. Zero JavaScript.
       </p>
 
@@ -43,6 +41,19 @@ async function copy() {
           {{ copied ? '✓' : 'Copy' }}
         </button>
       </div>
+
+      <!-- The counterweight to the copy box above it. "One import" is the easy
+           promise; the reason it is not a threat is that the one import is a
+           choice rather than a floor. Stated here because the objection lands at
+           the install moment, not three sections later. -->
+      <p class="-mt-4 font-mono text-xs opacity-50">
+        or just the part you want –
+        <a
+          href="/tw-jib-css/guide/installation#take-only-what-you-need"
+          class="text-sky-300 no-underline hover:underline"
+          >tw-jib-css/accessible-shade</a
+        >
+      </p>
 
       <div class="flex flex-wrap justify-center gap-2">
         <StatPill n="1" caption="import" />

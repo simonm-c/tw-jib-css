@@ -6,7 +6,7 @@
  * Usage:
  *   node scripts/generate-lightness-fixtures.mjs
  *
- * Outputs HTML to stdout — paste into the example page.
+ * Outputs HTML to stdout – paste into the example page.
  */
 
 // --- Data ---
@@ -45,9 +45,23 @@ const ALL_COLORS = [
 ];
 
 const SPACES = [
-  'oklch', 'lch', 'lab', 'oklab', 'hsl', 'hwb', 'rgb',
-  'srgb', 'srgb-linear', 'display-p3', 'a98-rgb', 'prophoto-rgb',
-  'rec2020', 'xyz', 'xyz-d50', 'xyz-d65', 'color-mix',
+  'oklch',
+  'lch',
+  'lab',
+  'oklab',
+  'hsl',
+  'hwb',
+  'rgb',
+  'srgb',
+  'srgb-linear',
+  'display-p3',
+  'a98-rgb',
+  'prophoto-rgb',
+  'rec2020',
+  'xyz',
+  'xyz-d50',
+  'xyz-d65',
+  'color-mix',
 ];
 
 const AMOUNTS = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
@@ -93,7 +107,7 @@ function scaleRow(color, shade, direction, space, withModifier) {
 
 function shadeBlock(color, shade, direction, spaces) {
   const label = shade === '200' ? 'light' : shade === '500' ? 'mid' : 'dark';
-  let html = `#### ${color}-${shade} (${label} base) — ${direction === 'darken' ? 'Darken' : 'Lighten'} Scale\n\n`;
+  let html = `#### ${color}-${shade} (${label} base) – ${direction === 'darken' ? 'Darken' : 'Lighten'} Scale\n\n`;
   html += `<div class="flex flex-col gap-px my-4">\n`;
 
   for (const space of spaces) {
@@ -120,16 +134,21 @@ function colorSection(color, shades, spaces, heading) {
 let output = '';
 
 // Section: Full matrix (5 key colors × all 17 spaces)
-output += `## Comprehensive Matrix — Key Colors × All Spaces\n\n`;
+output += `## Comprehensive Matrix – Key Colors × All Spaces\n\n`;
 output += `Full lightness scale (0–100) across all 17 colour spaces for 5 representative colours, each at 3 starting shades (200 light, 500 mid, 800 dark).\n\n`;
 
 for (const color of FULL_MATRIX_COLORS) {
   const shades = [color.light, color.mid, color.dark];
-  output += colorSection(color, shades, SPACES, `${color.name.charAt(0).toUpperCase() + color.name.slice(1)} — All Spaces`);
+  output += colorSection(
+    color,
+    shades,
+    SPACES,
+    `${color.name.charAt(0).toUpperCase() + color.name.slice(1)} – All Spaces`,
+  );
 }
 
 // Section: All 22 colors × oklch only
-output += `## All Tailwind Colors — Default (oklch)\n\n`;
+output += `## All Tailwind Colors – Default (oklch)\n\n`;
 output += `Full lightness scale (0–100) in the default oklch colour space for every Tailwind colour, each at 3 starting shades.\n\n`;
 
 for (const color of ALL_COLORS) {
@@ -137,7 +156,12 @@ for (const color of ALL_COLORS) {
   if (FULL_MATRIX_COLORS.some((c) => c.name === color.name)) continue;
 
   const shades = [color.light, color.mid, color.dark];
-  output += colorSection(color, shades, ['oklch'], `${color.name.charAt(0).toUpperCase() + color.name.slice(1)}`);
+  output += colorSection(
+    color,
+    shades,
+    ['oklch'],
+    `${color.name.charAt(0).toUpperCase() + color.name.slice(1)}`,
+  );
 }
 
 process.stdout.write(output);

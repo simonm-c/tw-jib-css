@@ -17,9 +17,7 @@ async function copy() {
 </script>
 
 <template>
-  <section
-    class="relative min-h-screen snap-start flex flex-col items-center justify-center px-6 py-16"
-  >
+  <section class="relative min-h-screen flex flex-col items-center justify-center px-6 py-16">
     <div class="flex flex-col items-center gap-7 text-center max-w-3xl">
       <div class="relative">
         <JibLogo
@@ -34,13 +32,13 @@ async function copy() {
       </div>
 
       <h1 class="text-4xl md:text-5xl font-black tracking-tight leading-tight">
-        The parts that aren’t baseline yet.
+        Bring the cutting edge of CSS to Tailwind.
       </h1>
 
       <p class="text-lg opacity-80 leading-relaxed max-w-[52ch]">
         A separate package. Colour transforms you can call anywhere, corner shapes beyond the
         circular arc, animation to <code class="font-mono">auto</code>, a styleable select, and a
-        live WCAG contrast badge. Mostly Chromium-only, and it degrades quietly everywhere else —
+        live WCAG contrast badge. Mostly Chromium-only, and it degrades quietly everywhere else –
         unsupported utilities become no-ops, and every stable class keeps working.
       </p>
 
@@ -63,7 +61,7 @@ async function copy() {
       <!-- Every pill has to say something specific to THIS package. A pill that
            restates the install line above it, or repeats a claim the stable
            package makes just as well, differentiates nothing. Quantify the risk
-           surface instead — that is what a reader weighing a second install
+           surface instead – that is what a reader weighing a second install
            wants to know. -->
       <div class="flex flex-wrap justify-center gap-2">
         <StatPill n="5" caption="callable CSS functions" />

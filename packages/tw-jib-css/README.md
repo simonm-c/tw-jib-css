@@ -8,7 +8,7 @@
   </a>
 </p>
 
-<p align="center"><strong>tw-jib-css</strong> — WCAG-exact text contrast, gradient borders, and colour transforms. Every engine.</p>
+<p align="center"><strong>tw-jib-css</strong> – WCAG-exact text contrast, gradient borders, and colour transforms. Every engine.</p>
 
 <p align="center">
   <a href="https://www.npmjs.com/package/tw-jib-css"><img src="https://img.shields.io/npm/v/tw-jib-css" alt="npm version"></a>
@@ -18,7 +18,7 @@
 
 A TailwindCSS v4 utility library built entirely with the CSS-first `@utility`, `@custom-variant`,
 `@theme` and `@property` syntax. No JavaScript plugin system, no `plugin()`, no `addUtilities()`, no
-build step — it ships raw CSS your Tailwind compiler consumes directly.
+build step – it ships raw CSS your Tailwind compiler consumes directly.
 
 Everything here works on every engine that supports CSS relative colour syntax: **Chrome 111+,
 Safari 16.4+, Firefox 128+**. Nothing in this package runs CSS `@function`; that is the guarantee that
@@ -45,9 +45,9 @@ Peer dependency: `tailwindcss >=4.3.0`.
 | ----------------------------- | ---------------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
 | `tw-jib-css`                  | everything       | all of the below, plus the colour pipeline that feeds them                                                                               |
 | `tw-jib-css/accessible-shade` | Accessible Shade | `text-a11y-aa` `text-a11y-aaa` `text-a11y-aa-lg`                                                                                         |
-| `tw-jib-css/lightness`        | Lightness        | `{surface}-lightness-*` `-{surface}-lightness-*` `{surface}-lighten-*` `{surface}-darken-*`                                              |
-| `tw-jib-css/saturation`       | Saturation       | `{surface}-saturation-*` `-{surface}-saturation-*` `{surface}-saturate-*` `{surface}-desaturate-*`                                       |
-| `tw-jib-css/hue-rotate`       | Hue Rotate       | `{surface}-hue-rotate-*` `-{surface}-hue-rotate-*`                                                                                       |
+| `tw-jib-css/color-transforms` | Lightness        | `{surface}-lightness-*` `-{surface}-lightness-*` `{surface}-lighten-*` `{surface}-darken-*`                                              |
+| `tw-jib-css/color-transforms` | Saturation       | `{surface}-saturation-*` `-{surface}-saturation-*` `{surface}-saturate-*` `{surface}-desaturate-*`                                       |
+| `tw-jib-css/color-transforms` | Hue Rotate       | `{surface}-hue-rotate-*` `-{surface}-hue-rotate-*`                                                                                       |
 | `tw-jib-css/border-gradient`  | Border Gradient  | `border-from-*` `border-via-*` `border-to-*` `border-linear-*` `border-radial-*` `border-conic-*` `border-spin` `border-spin-duration-*` |
 | `tw-jib-css/ripple`           | Ripple           | `bg-ripple` `ripple-color-*` `ripple-duration-*` `ripple-position-*` `ripple-fade-*`                                                     |
 | `tw-jib-css/comic`            | Comic Halftone   | `bg-comic-*` `comic-dot-*` `comic-gap-*` `comic-bleed-*`                                                                                 |
@@ -61,7 +61,7 @@ Tailwind's arbitrary-value syntax (`bg-lightness-[37]`) and composes with every 
 
 ## Accessible Shade
 
-A text colour whose WCAG 2.x contrast against the background **equals** the ratio you asked for —
+A text colour whose WCAG 2.x contrast against the background **equals** the ratio you asked for –
 solved in closed form from the ratio formula. Not a binary search, not a precomputed table, no
 JavaScript. Exact on Chromium, Firefox and Safari alike.
 
@@ -83,7 +83,7 @@ Levels are themeable. Define a ratio and the class exists:
 <span class="text-a11y-aa-plus">exactly 5:1</span>
 ```
 
-Its partner `wcag-badge` — which _measures_ a pair and prints its rating — needs `if(style())` and
+Its partner `wcag-badge` – which _measures_ a pair and prints its rating – needs `if(style())` and
 lives in [`tw-jib-css-experimental`](https://www.npmjs.com/package/tw-jib-css-experimental).
 
 ## The colour pipeline
@@ -101,14 +101,14 @@ lives in [`tw-jib-css-experimental`](https://www.npmjs.com/package/tw-jib-css-ex
 
 Append `/space` to any transform. Defaults to `oklch` everywhere.
 
-**Lightness, saturation, `text-a11y-*`** — 17 spaces:
+**Lightness, saturation, `text-a11y-*`** – 17 spaces:
 
 ```
 oklch  lch  lab  oklab  hsl  hwb  rgb  srgb  srgb-linear  display-p3
 a98-rgb  prophoto-rgb  rec2020  xyz  xyz-d50  xyz-d65  color-mix
 ```
 
-**Hue rotate** — the same 16, minus `color-mix`; there is no honest two-colour form of a rotation.
+**Hue rotate** – the same 16, minus `color-mix`; there is no honest two-colour form of a rotation.
 
 ```html
 <div class="bg-blue-500 bg-darken-20/oklch">20% darker in oklch</div>
@@ -116,24 +116,33 @@ a98-rgb  prophoto-rgb  rec2020  xyz  xyz-d50  xyz-d65  color-mix
 <div class="bg-emerald-500 bg-hue-rotate-45/lab">45° in lab</div>
 ```
 
-## Selective imports
+## Take only what you need
 
-Import only what you need:
+Every import in the [What you get](#what-you-get) table is its own entry point and stands entirely on
+its own. Somebody who wants accessible text shades imports that one module – they don't take comic
+halftones, ripples or gradient borders as the price of admission.
 
 ```css
 @import 'tailwindcss';
-@import 'tw-jib-css/border-gradient';
+@import 'tw-jib-css/accessible-shade';
 @import 'tw-jib-css/grid';
 ```
 
-> [!WARNING]
-> **Colour transforms need the root entry.** `lightness`, `saturation`, `hue-rotate` and
-> `accessible-shade` read a source colour that the pipeline's `bg-*` / `text-*` utilities write, and
-> those live in the root entry. Imported on their own the classes still compile, but nothing feeds
-> them. Use `@import 'tw-jib-css'` if you use any colour transform.
->
-> The self-contained modules are safe alone: `border-gradient`, `ripple`, `comic`, `pixel`,
-> `border-style`, `grid`.
+**Why it's worth doing.** Not bundle size – Tailwind's scanner purges classes you never write either
+way. What it saves is the part the scanner _cannot_ reach: `@property` registrations and `@theme` keys
+aren't classes, so they're emitted whether or not anything uses them. The colour pipeline behind
+`bg-lighten-*` and `text-a11y-*` is a few dozen registrations, and the root entry emits all of them.
+`tw-jib-css/grid` and `tw-jib-css/border-style` emit none – those utilities read no colour, so they
+carry no colour machinery and their browser-support floor is plain Tailwind's.
+
+Lightness, saturation and hue-rotate ship as one `color-transforms` module rather than three,
+because they are one pipeline: each stage's expression starts from the stage before it, so a stage
+taken alone would compute against a value nothing can write.
+
+Importing several modules costs no more than importing the root entry: the root is composed from the
+partials so the shared pipeline lands once rather than once per module. Both halves – that each module
+resolves every `var()` it emits alone, and that the combined entry doesn't re-emit the shared core –
+are covered by the test suite.
 
 ## Other modules
 
@@ -153,7 +162,7 @@ an animated spin.
 
 ### Ripple
 
-Material-style ripple — pure CSS, no JavaScript. Radial gradient animation driven by `@property`.
+Material-style ripple – pure CSS, no JavaScript. Radial gradient animation driven by `@property`.
 
 ```html
 <button class="bg-ripple ripple-color-blue-500">Click me</button>
@@ -178,7 +187,7 @@ in, textured surface out.
 ## The experimental package
 
 Not-yet-baseline features live in a separate package,
-[`tw-jib-css-experimental`](https://www.npmjs.com/package/tw-jib-css-experimental) — CSS `@function`
+[`tw-jib-css-experimental`](https://www.npmjs.com/package/tw-jib-css-experimental) – CSS `@function`
 colour transforms, `corner-shape`, `interpolate-size`, a styleable `<select>`, and the WCAG badge. It
 declares this package as a peer dependency.
 
@@ -189,19 +198,19 @@ pnpm add -D tw-jib-css tw-jib-css-experimental
 ```css
 @import 'tailwindcss';
 @import 'tw-jib-css';
-@import 'tw-jib-css-experimental'; /* always after stable — source order carries the override */
+@import 'tw-jib-css-experimental'; /* always after stable – source order carries the override */
 ```
 
 > [!WARNING]
 > **Half of that package overrides utilities this one ships.** Importing its root, or
 > `tw-jib-css-experimental/functions`, reroutes `bg-lightness-*`, `bg-saturation-*`,
-> `bg-hue-rotate-*` and `text-a11y-*` onto CSS `@function` — same names, same output, a different
+> `bg-hue-rotate-*` and `text-a11y-*` onto CSS `@function` – same names, same output, a different
 > code path.
 >
 > The reroute is progressive, not a swap. Each override sits inside an `@supports` test for
 > `@function` itself, so an engine that understands `@function` takes that path and every other
 > engine keeps running the stable declarations this package emitted first. Both paths stay in the
-> stylesheet and the class works everywhere either way — you are adding a better path for browsers
+> stylesheet and the class works everywhere either way – you are adding a better path for browsers
 > that have one, not trading away the one you had.
 >
 > Its additions (`corner-*`, `interpolate-*`, `appearance-base-select`, `wcag-badge`) are reachable
@@ -213,8 +222,8 @@ Full docs with live demos: **[Jibcss](https://simonm-c.github.io/tw-jib-css/)**
 
 For LLMs and agents, following the [llms.txt](https://llmstxt.org/) convention:
 
-- [llms.txt](https://simonm-c.github.io/tw-jib-css/llms.txt) — indexed map of every guide page
-- [llms-full.txt](https://simonm-c.github.io/tw-jib-css/llms-full.txt) — the whole corpus in one fetch
+- [llms.txt](https://simonm-c.github.io/tw-jib-css/llms.txt) – indexed map of every guide page
+- [llms-full.txt](https://simonm-c.github.io/tw-jib-css/llms-full.txt) – the whole corpus in one fetch
 
 The experimental package documents itself separately:
 [Jibcss Experimental](https://simonm-c.github.io/tw-jib-css/experimental/).

@@ -1,22 +1,32 @@
-/* Everything experimental. What importing it does splits by kind:
+/* Everything experimental. Composed from the PARTIALS, not from the per-suite
+ * entries beside them, because Tailwind does not de-duplicate @import – the
+ * same split, for the same reason, as the stable package's index.css. Here it
+ * also keeps contrast/ to a single copy, which the entries cannot do for each
+ * other: both functions.css and wcag-badge.css need it.
  *
- *   ADDITIONS   corner, interpolate, picker, wcag-badge — utilities with no
+ * What importing this does splits by kind:
+ *
+ *   ADDITIONS   corner, interpolate, picker, wcag-badge – utilities with no
  *               stable form, so importing them cannot change anything you
  *               already use. Each is reachable alone as
  *               'tw-jib-css-experimental/corner' and siblings.
- *   OVERRIDES   functions.css — the @function forms of lightness, saturation,
- *               hue-rotate and text-a11y-*, which REPLACE utilities the main
- *               entry already defines. Reachable alone as
+ *   OVERRIDES   the _override.css files – the @function forms of lightness,
+ *               saturation, hue-rotate and text-a11y-*, which REPLACE utilities
+ *               the main entry already defines. Reachable alone as
  *               'tw-jib-css-experimental/functions'.
  *
  * So importing THIS entry does change how bg-hue-rotate-*, bg-lighten-*,
  * bg-saturation-* and text-a11y-* compute. Import the individual subpaths for
  * the additions without that.
  *
- * Functions come last: source order is what carries the override. */
+ * The overrides come last: source order is what carries the override. */
 
-@import "./corner.css";
-@import "./interpolate.css";
-@import "./picker.css";
-@import "./wcag.css";
-@import "./functions.css";
+@import "./contrast/_index.css";
+
+@import "./corner/_index.css";
+@import "./interpolate/_index.css";
+@import "./picker/_index.css";
+@import "./wcag-badge/_index.css";
+
+@import "./color-transforms/_index.css";
+@import "./accessible-shade/_override.css";

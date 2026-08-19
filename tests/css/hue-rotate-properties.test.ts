@@ -1,5 +1,6 @@
 import { describe, test, expect } from 'vitest';
-import { compile } from './helpers.js';
+import { compile, suiteScenarios } from './helpers.js';
+import { supportsFunction } from './constants.js';
 
 /**
  * Tests for hue-rotate utilities across every non-bg color property.
@@ -90,16 +91,24 @@ const STABLE_SPACE_MARKERS: [string, string][] = [
   ['lab', 'lab('],
 ];
 
-const SUPPORTS_FUNCTION =
-  '@supports (background: if(style(--value): red)) and (background: --tw-jib--oklch-hue-rotate(red, 30))';
+const SUPPORTS_FUNCTION = supportsFunction('--tw-jib--oklch-hue-rotate(red, 30)');
 
-describe.each(PROPERTIES)(
-  '%s-hue-rotate (stable path)',
-  (prefix, cssProperty, captureVar, sourceVar, baseClass, baseMarker, hueSlug) => {
+const PROPERTY_SCENARIOS = PROPERTIES.flatMap((property) =>
+  suiteScenarios('color-transforms').map((scenario) => ({
+    label: `${property[0]}-hue-rotate`,
+    scenario,
+    property,
+  })),
+);
+
+describe.each(PROPERTY_SCENARIOS)(
+  '$label (stable path) – $scenario.name',
+  ({ scenario: { compile }, property }) => {
+    const [prefix, cssProperty, captureVar, sourceVar, baseClass, baseMarker, hueSlug] = property;
     const amountVar = `--tw-jib--${hueSlug}-hue--amount`;
     const STABLE_OKLCH = `oklch(from var(${sourceVar}) l c calc(h + var(${amountVar})) / alpha)`;
 
-    describe('positive rotation — default amounts', () => {
+    describe('positive rotation – default amounts', () => {
       test.each([0, 15, 30, 90, 180, 270, 359])(`${prefix}-hue-rotate-%i`, async (amount) => {
         const css = await compile(`${baseClass} ${prefix}-hue-rotate-${amount}`);
         expect(css).toContain(`${amountVar}: ${amount}`);
@@ -108,7 +117,7 @@ describe.each(PROPERTIES)(
       });
     });
 
-    describe('negative rotation — default amounts', () => {
+    describe('negative rotation – default amounts', () => {
       test.each([15, 30, 90, 180])(`-${prefix}-hue-rotate-%i`, async (amount) => {
         const css = await compile(`${baseClass} -${prefix}-hue-rotate-${amount}`);
         expect(css).toContain(`${amountVar}: calc(${amount} * -1)`);
@@ -197,7 +206,7 @@ describe.each(PROPERTIES)(
     });
 
     test('color-mix modifier is NOT supported', async () => {
-      // hue-rotate deliberately omits color-mix — the modifier should not match.
+      // hue-rotate deliberately omits color-mix – the modifier should not match.
       // The class compiles but without any hue-rotate output; no --tw-jib--hue-rotate() call.
       const css = await compile(`${baseClass} ${prefix}-hue-rotate-30/color-mix`, {
         functions: true,
@@ -210,14 +219,17 @@ describe.each(PROPERTIES)(
 /**
  * bg-specific: must also compose with border-gradient via --tw-jib--background-image.
  */
-describe('bg-hue-rotate composes with bg-image layer', () => {
-  test('writes --tw-jib--background-image with the composed color', async () => {
-    const css = await compile('bg-blue-500 bg-hue-rotate-30');
-    expect(css).toContain(
-      '--tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0)',
-    );
-  });
-});
+describe.each(suiteScenarios('color-transforms'))(
+  'bg-hue-rotate composes with bg-image layer – $name',
+  ({ compile }) => {
+    test('writes --tw-jib--background-image with the composed color', async () => {
+      const css = await compile('bg-blue-500 bg-hue-rotate-30');
+      expect(css).toContain(
+        '--tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0)',
+      );
+    });
+  },
+);
 
 describe('experimental inline function usage', () => {
   test('bg-[...] with hue-rotate router function', async () => {

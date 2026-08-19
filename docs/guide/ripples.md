@@ -8,7 +8,7 @@ Material-style ripple, pure CSS. Any colour, any origin, any speed.
 
 ## How it works
 
-Add `bg-ripple` to any element. On `:active`, a radial gradient expands outward from the origin point. No JavaScript, no event listeners — it's `@property` transitions on the gradient's size and opacity.
+Add `bg-ripple` to any element. On `:active`, a radial gradient expands outward from the origin point. No JavaScript, no event listeners – it's `@property` transitions on the gradient's size and opacity.
 
 <Example stretch>
   <div class="flex gap-3">
@@ -19,23 +19,25 @@ Add `bg-ripple` to any element. On `:active`, a radial gradient expands outward 
 </Example>
 
 ```html
-<button class="bg-indigo-600 bg-ripple
+<button
+  class="bg-indigo-600 bg-ripple
   ripple-color-white/40
   ripple-position-center
-  ripple-duration-60">
+  ripple-duration-60"
+>
   Click me
 </button>
 ```
 
 ## Three modifier dimensions
 
-**Colour** — `ripple-color-{color}/{opacity}`. Default: white at 20% opacity.
+**Colour** – `ripple-color-{color}/{opacity}`. Default: white at 20% opacity.
 
-**Position** — `ripple-position-{origin}`. Options: `center`, `top`, `bottom`, `left`, `right`. Default: center.
+**Position** – `ripple-position-{origin}`. Options: `center`, `top`, `bottom`, `left`, `right`. Default: center.
 
-**Duration** — `ripple-duration-{n}`. Multiplied by 10ms. `ripple-duration-60` = 600ms. Default: 600ms.
+**Duration** – `ripple-duration-{n}`. Multiplied by 10ms. `ripple-duration-60` = 600ms. Default: 600ms.
 
-**Fade** — Add `ripple-fade` for opacity fade-out as the ripple expands.
+**Fade** – Add `ripple-fade` for opacity fade-out as the ripple expands.
 
 ## Reference
 

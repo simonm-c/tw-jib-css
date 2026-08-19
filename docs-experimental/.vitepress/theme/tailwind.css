@@ -15,7 +15,7 @@
  * The stable package comes first because the @utility blocks that call the
  * @function dispatchers live in its files; the experimental package supplies
  * the @custom-variant and @function definitions that make their gates hold.
- * Order carries the override — experimental must come last.
+ * Order carries the override – experimental must come last.
  */
 
 @import 'tailwindcss';
@@ -33,7 +33,7 @@
 
 /* Brand tokens: same shape as the stable instance's, rotated off sky to violet,
  * so any page here is identifiable as the experimental wing at a glance. The
- * whole instance is violet including the chrome — the nav logo reads
+ * whole instance is violet including the chrome – the nav logo reads
  * --color-jib-brand, and a sky value there puts a blue mark above a violet page. */
 @theme {
   --color-jib-brand: oklch(0.42 0.24 293);
@@ -71,27 +71,27 @@
   0%,
   14% {
     --landing-base-color: oklch(0.541 0.281 293);
-  } /* violet-600 — mid */
+  } /* violet-600 – mid */
   17%,
   30% {
     --landing-base-color: oklch(0.396 0.141 21);
-  } /* rose-800 — dark */
+  } /* rose-800 – dark */
   33%,
   47% {
     --landing-base-color: oklch(0.871 0.15 85);
-  } /* amber-300 — light */
+  } /* amber-300 – light */
   50%,
   64% {
     --landing-base-color: oklch(0.508 0.118 165);
-  } /* emerald-700 — dark */
+  } /* emerald-700 – dark */
   67%,
   80% {
     --landing-base-color: oklch(0.811 0.111 293);
-  } /* violet-300 — light */
+  } /* violet-300 – light */
   83%,
   97% {
     --landing-base-color: oklch(0.645 0.246 16);
-  } /* rose-500 — mid */
+  } /* rose-500 – mid */
 }
 
 .landing-color-cycle {
@@ -100,10 +100,10 @@
 
 /*
  * Disclosure loop for the interpolate-size slide. Raw CSS because @keyframes has
- * no utility form — everything else on that slide is classes.
+ * no utility form – everything else on that slide is classes.
  *
  * Loops the 0 → auto transition rather than putting it behind a :hover, so a
- * reader scrolling past sees the evidence unprompted — this is the feature here
+ * reader scrolling past sees the evidence unprompted – this is the feature here
  * with the lowest browser support, and a closed panel demonstrates nothing. The
  * slide runs it on a pair of panels, one inside .interpolate-keywords and one
  * outside.
@@ -121,7 +121,7 @@
  * panel and reads as the eased panel stuttering. An eighth of a cycle moves the
  * flip to the instant the ease lands, and the demo becomes sequential: the eased
  * panel glides to its height, then the other pops to the same place. Equal steps
- * are what make that fraction hold — skew them and the snap drifts back inside
+ * are what make that fraction hold – skew them and the snap drifts back inside
  * the ease.
  */
 @keyframes landing-disclosure {
@@ -176,7 +176,7 @@
 }
 
 /* --tw-jib--wcag-rating() called directly, rather than via the wcag-badge
- * utility — the point of the demo is that the function returns a <string> that
+ * utility – the point of the demo is that the function returns a <string> that
  * any `content` can take. No utility form: content: with a function call and
  * custom properties is not expressible as a class. */
 .jib-wcag-rating-label::before {
@@ -203,7 +203,7 @@
 .home-landing main {
   padding: 0 !important;
 }
-/* Belt + braces — hide sidebar/aside/outline even if frontmatter flags miss */
+/* Belt + braces – hide sidebar/aside/outline even if frontmatter flags miss */
 .home-landing .VPSidebar,
 .home-landing .VPLocalNav,
 .home-landing .VPDocAside,

@@ -23,9 +23,9 @@ export interface ElementStyles {
   rgb: Rgb;
   /**
    * Gamma-encoded brightness proxy, not WCAG relative luminance – the channels
-   * are not linearised. It exists to order two colours by brightness, which is
-   * all the transform specs ask of it. Contrast work needs the real thing, and
-   * computes it separately in wcag.spec.ts.
+   * are not linearised. It exists to rank colours by brightness against each
+   * other, which is all the transform specs ask of it. Contrast work needs the
+   * real thing, and computes it separately in wcag.spec.ts.
    */
   luminance: number;
   alpha: number;

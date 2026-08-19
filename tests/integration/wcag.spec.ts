@@ -261,7 +261,6 @@ function expectNoMissingFixtures(missing: string[], page: string) {
 async function extractA11yResults(page: Page, ids: string[]): Promise<Record<string, A11yResult>> {
   const { out, missing } = await page.evaluate(
     ({ sels, helpersSrc }) => {
-      // eslint-disable-next-line @typescript-eslint/no-implied-eval, no-new-func
       new Function(
         helpersSrc + '; window.__wcagHelpers = { toLumAlpha, contrastRatio, wcagRating };',
       )();
@@ -310,7 +309,6 @@ async function extractBadgeResults(
 ): Promise<Record<string, BadgeResult>> {
   const { out, missing } = await page.evaluate(
     ({ sels, helpersSrc }) => {
-      // eslint-disable-next-line @typescript-eslint/no-implied-eval, no-new-func
       new Function(
         helpersSrc + '; window.__wcagHelpers = { toLumAlpha, contrastRatio, wcagRating };',
       )();

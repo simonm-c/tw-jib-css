@@ -1,0 +1,350 @@
+@property --tw-jib--background-color-source {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: canvas;
+}
+/* Composed output. Every utility in the family writes this composer, so the
+ * cascade winner yields the same value whichever wins. */
+@property --tw-jib--background-color {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: canvas;
+}
+/* syntax:'*' = guaranteed-invalid initial value, behaves as unset, so
+ * var(stage, fallback) still falls through. */
+@property --tw-jib--background-color-after-hue-rotate {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-jib--background-color-after-saturation {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-jib--background-color-after-lightness {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-jib--text-color-after-hue-rotate {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-jib--text-color-after-saturation {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-jib--text-color-after-lightness {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-jib--fill-color-after-hue-rotate {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-jib--fill-color-after-saturation {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-jib--fill-color-after-lightness {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-jib--stroke-color-after-hue-rotate {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-jib--stroke-color-after-saturation {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-jib--stroke-color-after-lightness {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-jib--outline-color-after-hue-rotate {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-jib--outline-color-after-saturation {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-jib--outline-color-after-lightness {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-jib--accent-color-after-hue-rotate {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-jib--accent-color-after-saturation {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-jib--accent-color-after-lightness {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-jib--border-color-after-hue-rotate {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-jib--border-color-after-saturation {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-jib--border-color-after-lightness {
+  syntax: "*";
+  inherits: false;
+}
+
+/* An unregistered, unset slot invalidates the whole shorthand at computed-value
+ * time: bg-none / bg-[url(…)] / bg-linear-* would paint nothing at all. */
+@property --tw-jib--ripple-image {
+  syntax: "<image>";
+  inherits: false;
+  initial-value: radial-gradient(circle at center, transparent 0%, transparent 0%, transparent 0%, transparent 100%);
+}
+@property --tw-jib--background-image {
+  syntax: "*";
+  inherits: false;
+  initial-value: linear-gradient(canvas 0 0);
+}
+@property --tw-jib--border-gradient {
+  syntax: "<image>";
+  inherits: false;
+  initial-value: linear-gradient(transparent 0 0);
+}
+
+/* Clip slots the shorthand reads, so bg-clip-* can reach a list it cannot
+ * otherwise touch. Two, because pattern layers default to padding-box and the
+ * border gradient to border-box. Closed ident list, not "*": a "*" slot
+ * substitutes whatever it holds, so one bad value invalidates the shorthand and
+ * takes every layer. */
+@property --tw-jib--background-clip {
+  syntax: "padding-box | border-box | content-box | text";
+  inherits: false;
+  initial-value: padding-box;
+}
+@property --tw-jib--border-gradient-clip {
+  syntax: "padding-box | border-box | content-box | text";
+  inherits: false;
+  initial-value: border-box;
+}
+@property --tw-jib--text-color-source {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: black;
+}
+@property --tw-jib--text-color {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: black;
+}
+@property --tw-jib--fill-color-source {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: black;
+}
+@property --tw-jib--fill-color {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: black;
+}
+@property --tw-jib--stroke-color-source {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: black;
+}
+@property --tw-jib--stroke-color {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: black;
+}
+@property --tw-jib--outline-color-source {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: black;
+}
+@property --tw-jib--outline-color {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: black;
+}
+@property --tw-jib--accent-color-source {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: black;
+}
+@property --tw-jib--accent-color {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: black;
+}
+@property --tw-jib--border-color-source {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: black;
+}
+@property --tw-jib--border-color {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: black;
+}
+
+@theme inline {
+  --tw-jib--size-unit-auto: auto;
+  --tw-jib--size-unit-px: 1px;
+  --tw-jib--size-unit-full: 100%;
+  --tw-jib--size-unit-screen: 100vh;
+  --tw-jib--size-unit-dvh: 100dvh;
+  --tw-jib--size-unit-dvw: 100dvw;
+  --tw-jib--size-unit-lvh: 100lvh;
+  --tw-jib--size-unit-lvw: 100lvw;
+  --tw-jib--size-unit-svh: 100svh;
+  --tw-jib--size-unit-svw: 100svw;
+  --tw-jib--size-unit-min: min-content;
+  --tw-jib--size-unit-max: max-content;
+  --tw-jib--size-unit-fit: fit-content;
+  --tw-jib--size-unit-lh: 1lh;
+  --tw-jib--size-unit-none: none;
+  --tw-jib--size-unit-stretch: stretch;
+}
+
+/* Carries TW's bg-clip-* value into a form the shorthand reads. Static blocks,
+ * so an unrecognised bg-clip-foo stays unmatched. */
+@utility bg-clip-border {
+  --tw-jib--background-clip: border-box;
+  --tw-jib--border-gradient-clip: border-box;
+}
+@utility bg-clip-padding {
+  --tw-jib--background-clip: padding-box;
+  --tw-jib--border-gradient-clip: padding-box;
+}
+@utility bg-clip-content {
+  --tw-jib--background-clip: content-box;
+  --tw-jib--border-gradient-clip: content-box;
+}
+@utility bg-clip-text {
+  --tw-jib--background-clip: text;
+  --tw-jib--border-gradient-clip: text;
+}
+
+@utility bg-none {
+  background:
+    var(--tw-jib--ripple-image) padding-box var(--tw-jib--background-clip),
+    none padding-box var(--tw-jib--background-clip),
+    var(--tw-jib--border-gradient) border-box var(--tw-jib--border-gradient-clip);
+}
+
+@utility bg-* {
+  --tw-jib--background-color-source: --value("inherit", "transparent", --color- *, [color]);
+  --tw-jib--background-color-source: --alpha(--value("inherit", "transparent", --color- *, [color]) / calc(--modifier(integer) * 1%));
+  --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
+  --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
+  --tw-jib--background-image: --value([url]);
+}
+
+@utility bg-* {
+  background:
+    var(--tw-jib--ripple-image) padding-box var(--tw-jib--background-clip),
+    --value([url]) padding-box var(--tw-jib--background-clip),
+    var(--tw-jib--border-gradient) border-box var(--tw-jib--border-gradient-clip);
+}
+@utility bg-current {
+  --tw-jib--background-color-source: currentColor;
+  --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
+  --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
+}
+
+/* Layers TW's gradients in rather than replacing. TW 4.3 needs a resolving
+ * --value() for a functional block to match at all, hence --tw-jib--noop:
+ * nothing reads it, it makes the block match. */
+@utility bg-linear-* {
+  --tw-jib--background-image: linear-gradient(var(--tw-gradient-stops));
+  --tw-jib--noop: --value(number, "to-r", "to-l", "to-t", "to-b", "to-tr", "to-tl", "to-br", "to-bl", [ *], --default(none));
+  --tw-jib--noop: --modifier("srgb", "hsl", "oklab", "oklch", "longer", "shorter", "increasing", "decreasing");
+  background:
+    var(--tw-jib--ripple-image) padding-box var(--tw-jib--background-clip),
+    var(--tw-jib--background-image) padding-box var(--tw-jib--background-clip),
+    var(--tw-jib--border-gradient) border-box var(--tw-jib--border-gradient-clip);
+}
+@utility -bg-linear-* {
+  --tw-jib--background-image: linear-gradient(var(--tw-gradient-stops));
+  --tw-jib--noop: --value(number, [ *]);
+  --tw-jib--noop: --modifier("srgb", "hsl", "oklab", "oklch", "longer", "shorter", "increasing", "decreasing");
+  background:
+    var(--tw-jib--ripple-image) padding-box var(--tw-jib--background-clip),
+    var(--tw-jib--background-image) padding-box var(--tw-jib--background-clip),
+    var(--tw-jib--border-gradient) border-box var(--tw-jib--border-gradient-clip);
+}
+@utility bg-radial-* {
+  --tw-jib--background-image: radial-gradient(var(--tw-gradient-stops));
+  --tw-jib--noop: --value([ *], --default(none));
+  --tw-jib--noop: --modifier("srgb", "hsl", "oklab", "oklch", "longer", "shorter", "increasing", "decreasing");
+  background:
+    var(--tw-jib--ripple-image) padding-box var(--tw-jib--background-clip),
+    var(--tw-jib--background-image) padding-box var(--tw-jib--background-clip),
+    var(--tw-jib--border-gradient) border-box var(--tw-jib--border-gradient-clip);
+}
+@utility -bg-radial-* {
+  --tw-jib--background-image: radial-gradient(var(--tw-gradient-stops));
+  --tw-jib--noop: --value([ *]);
+  --tw-jib--noop: --modifier("srgb", "hsl", "oklab", "oklch", "longer", "shorter", "increasing", "decreasing");
+  background:
+    var(--tw-jib--ripple-image) padding-box var(--tw-jib--background-clip),
+    var(--tw-jib--background-image) padding-box var(--tw-jib--background-clip),
+    var(--tw-jib--border-gradient) border-box var(--tw-jib--border-gradient-clip);
+}
+@utility bg-conic-* {
+  --tw-jib--background-image: conic-gradient(var(--tw-gradient-stops));
+  --tw-jib--noop: --value(number, [ *], --default(none));
+  --tw-jib--noop: --modifier("srgb", "hsl", "oklab", "oklch", "longer", "shorter", "increasing", "decreasing");
+  background:
+    var(--tw-jib--ripple-image) padding-box var(--tw-jib--background-clip),
+    var(--tw-jib--background-image) padding-box var(--tw-jib--background-clip),
+    var(--tw-jib--border-gradient) border-box var(--tw-jib--border-gradient-clip);
+}
+@utility -bg-conic-* {
+  --tw-jib--background-image: conic-gradient(var(--tw-gradient-stops));
+  --tw-jib--noop: --value(number, [ *]);
+  --tw-jib--noop: --modifier("srgb", "hsl", "oklab", "oklch", "longer", "shorter", "increasing", "decreasing");
+  background:
+    var(--tw-jib--ripple-image) padding-box var(--tw-jib--background-clip),
+    var(--tw-jib--background-image) padding-box var(--tw-jib--background-clip),
+    var(--tw-jib--border-gradient) border-box var(--tw-jib--border-gradient-clip);
+}
+
+@utility border-* {
+  --tw-jib--border-color-source: --value("inherit", "transparent", --color- *, [color]);
+  --tw-jib--border-color: var(--tw-jib--border-color-after-lightness, var(--tw-jib--border-color-after-saturation, var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source))));
+}
+
+@utility text-* {
+  --tw-jib--text-color-source: --value("inherit", "transparent", --color- *, [color]);
+  --tw-jib--text-color-source: --alpha(--value("inherit", "transparent", --color- *, [color]) / calc(--modifier(integer) * 1%));
+  --tw-jib--text-color: var(--tw-jib--text-color-after-lightness, var(--tw-jib--text-color-after-saturation, var(--tw-jib--text-color-after-hue-rotate, var(--tw-jib--text-color-source))));
+}
+
+@utility fill-* {
+  --tw-jib--fill-color-source: --value("inherit", "transparent", --color- *, [color]);
+  --tw-jib--fill-color-source: --alpha(--value("inherit", "transparent", --color- *, [color]) / calc(--modifier(integer) * 1%));
+  --tw-jib--fill-color: var(--tw-jib--fill-color-after-lightness, var(--tw-jib--fill-color-after-saturation, var(--tw-jib--fill-color-after-hue-rotate, var(--tw-jib--fill-color-source))));
+}
+
+@utility stroke-* {
+  --tw-jib--stroke-color-source: --value("inherit", "transparent", --color- *, [color]);
+  --tw-jib--stroke-color-source: --alpha(--value("inherit", "transparent", --color- *, [color]) / calc(--modifier(integer) * 1%));
+  --tw-jib--stroke-color: var(--tw-jib--stroke-color-after-lightness, var(--tw-jib--stroke-color-after-saturation, var(--tw-jib--stroke-color-after-hue-rotate, var(--tw-jib--stroke-color-source))));
+}
+
+@utility outline-* {
+  --tw-jib--outline-color-source: --value("inherit", "transparent", --color- *, [color]);
+  --tw-jib--outline-color-source: --alpha(--value("inherit", "transparent", --color- *, [color]) / calc(--modifier(integer) * 1%));
+  --tw-jib--outline-color: var(--tw-jib--outline-color-after-lightness, var(--tw-jib--outline-color-after-saturation, var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source))));
+}
+
+@utility accent-* {
+  --tw-jib--accent-color-source: --value("inherit", "transparent", --color- *, [color]);
+  --tw-jib--accent-color-source: --alpha(--value("inherit", "transparent", --color- *, [color]) / calc(--modifier(integer) * 1%));
+  --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
+}

@@ -1,0 +1,62 @@
+/* Per-dot opacity. K takes the neutral component so CMY carry only chroma,
+ * which is what lets the multiply stack reproduce the input:
+ *
+ *   K = 1 - max(R,G,B) / 255
+ *   C = (max(R,G,B) - R) / max(R,G,B)
+ *   M = (max(R,G,B) - G) / max(R,G,B)
+ *   Y = (max(R,G,B) - B) / max(R,G,B) */
+
+@property --tw-jib--comic-color {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: black;
+}
+@property --tw-jib--comic-dot {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 1px;
+}
+@property --tw-jib--comic-bleed {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 1px;
+}
+@property --tw-jib--comic-gap {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 2px;
+}
+@property --tw-jib--comic-opacity {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 1;
+}
+
+@utility bg-comic-* {
+  --tw-jib--comic-color: --value(--color- *, [color]);
+  --tw-jib--comic-opacity: calc(--modifier(integer) * 0.01);
+  /* Two dot pitches per cell: three of the four screens offset by cell/2. */
+  --tw-jib--comic-cell: calc(var(--tw-jib--comic-dot) * 2 + var(--tw-jib--comic-gap));
+  --tw-jib--background-image: radial-gradient(circle, rgb(from var(--tw-jib--comic-color) 0 255 255 / calc((max(r, g, b) - r) / max(max(r, g, b), 1) * var(--tw-jib--comic-opacity))) var(--tw-jib--comic-dot), transparent calc(var(--tw-jib--comic-dot) + var(--tw-jib--comic-bleed))) 0px 0px / var(--tw-jib--comic-cell) var(--tw-jib--comic-cell) padding-box var(--tw-jib--background-clip), radial-gradient(circle, rgb(from var(--tw-jib--comic-color) 255 0 255 / calc((max(r, g, b) - g) / max(max(r, g, b), 1) * var(--tw-jib--comic-opacity))) var(--tw-jib--comic-dot), transparent calc(var(--tw-jib--comic-dot) + var(--tw-jib--comic-bleed))) calc(var(--tw-jib--comic-cell) / 2) calc(var(--tw-jib--comic-cell) / 2) / var(--tw-jib--comic-cell) var(--tw-jib--comic-cell) padding-box var(--tw-jib--background-clip), radial-gradient(circle, rgb(from var(--tw-jib--comic-color) 255 255 0 / calc((max(r, g, b) - b) / max(max(r, g, b), 1) * var(--tw-jib--comic-opacity))) var(--tw-jib--comic-dot), transparent calc(var(--tw-jib--comic-dot) + var(--tw-jib--comic-bleed))) calc(var(--tw-jib--comic-cell) / 2) 0px / var(--tw-jib--comic-cell) var(--tw-jib--comic-cell) padding-box var(--tw-jib--background-clip), radial-gradient(circle, rgb(from var(--tw-jib--comic-color) 0 0 0 / calc((1 - max(r, g, b) / 255) * var(--tw-jib--comic-opacity))) var(--tw-jib--comic-dot), transparent calc(var(--tw-jib--comic-dot) + var(--tw-jib--comic-bleed))) 0px calc(var(--tw-jib--comic-cell) / 2) / var(--tw-jib--comic-cell) var(--tw-jib--comic-cell) padding-box var(--tw-jib--background-clip), linear-gradient(rgb(255 255 255 / var(--tw-jib--comic-opacity)) 0 0);
+  background:
+    var(--tw-jib--ripple-image) padding-box var(--tw-jib--background-clip),
+    var(--tw-jib--background-image) padding-box var(--tw-jib--background-clip),
+    var(--tw-jib--border-gradient) border-box var(--tw-jib--border-gradient-clip);
+  background-blend-mode: normal, multiply, multiply, multiply, multiply, normal, normal;
+}
+
+@utility comic-dot-* {
+  --tw-jib--comic-dot: --spacing(--value(number));
+  --tw-jib--comic-dot: --value([length]);
+}
+
+/* Quartered so softness and spacing get finer control than 0.25rem steps. */
+@utility comic-bleed-* {
+  --tw-jib--comic-bleed: calc(--spacing(--value(number)) / 4);
+  --tw-jib--comic-bleed: --value([length]);
+}
+
+@utility comic-gap-* {
+  --tw-jib--comic-gap: calc(--spacing(--value(number)) / 4);
+  --tw-jib--comic-gap: --value([length]);
+}

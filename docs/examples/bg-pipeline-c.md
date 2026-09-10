@@ -1,0 +1,8 @@
+---
+title: Pipeline C, Chained transforms + WCAG
+layout: page
+---
+
+<div data-test="all" class="h-32 w-64 rounded-lg flex items-center justify-center bg-red-500">
+  <span class="text-sm font-mono text-contrast-aa">badge + contrast</span>
+</div>

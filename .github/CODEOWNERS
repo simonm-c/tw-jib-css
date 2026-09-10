@@ -1,0 +1,6 @@
+# The sole reviewer for everything, which is what gates releasing.
+# A release-please PR touches package.json, the per-package CHANGELOGs and
+# .release-please-manifest.json, so owning the tree means owning every release
+# PR. Pair this with a ruleset on main that requires Code Owner review and
+# restricts who may push; CODEOWNERS on its own is advisory.
+* @simonm-c

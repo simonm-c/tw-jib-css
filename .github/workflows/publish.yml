@@ -1,0 +1,45 @@
+name: Publish
+
+# Two ways in, one gate.
+#
+# A v* tag covers 1.0.0, which predates the release-please manifest and so is
+# the one release the manifest cannot cut. Everything after it arrives through
+# release-please.yml calling this workflow when a release PR merges.
+#
+# Both routes run the same job, and that job sits behind the npm-publish
+# environment. Nothing reaches the registry until a required reviewer on that
+# environment approves the run, whichever route started it.
+on:
+  push:
+    tags: ['v*']
+  workflow_call:
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    environment: npm-publish
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+          registry-url: https://registry.npmjs.org
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test:css
+      # -r is load-bearing. The workspace root is private and publishes
+      # nothing, so a bare `pnpm publish` targets the root rather than the
+      # packages under packages/, and the release reaches npm empty.
+      - run: pnpm -r publish --no-git-checks --provenance
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      # release-please writes its own GitHub release, so this is only for the
+      # tag route.
+      - uses: softprops/action-gh-release@v2
+        if: github.event_name == 'push'
+        with:
+          generate_release_notes: true

@@ -1,0 +1,142 @@
+@import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bowlby+One+SC&family=Patrick+Hand+SC&display=swap');
+@import 'tailwindcss';
+
+@import '../../../packages/tw-jib-css/src/index.css';
+
+@source '../../**/*.md';
+@source '../../**/*.vue';
+@source '../../**/*.ts';
+@source '../../../docs-shared';
+
+@theme {
+  --docs-accent: var(--color-sky-400);
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Departure Mono: SIL OFL, departuremono.com */
+@font-face {
+  font-family: 'Departure Mono';
+  src: url('./fonts/DepartureMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@theme {
+  --font-departure: 'Departure Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-silkscreen: 'Silkscreen', ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-display:
+    'Archivo Black', 'Druk Wide', Impact, 'Haettenschweiler', 'Franklin Gothic Bold', sans-serif;
+}
+
+@theme {
+  --font-bowlby: 'Bowlby One', 'Archivo Black', 'Arial Black', sans-serif;
+  --font-comic: 'Comic Sans MS', 'Patrick Hand', cursive;
+}
+@property --landing-demo-hue {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+
+/* Absolute: a var() in a registered initial-value invalidates the @property
+ * rule and drops the registration. The keyframes below are exempt. */
+@property --landing-base-color {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: oklch(0.623 0.214 259);
+}
+@property --landing-tex-color {
+  syntax: '<color>';
+  inherits: true;
+  initial-value: oklch(0.55 0.22 265);
+}
+
+@keyframes landing-demo-hue-cycle {
+  from {
+    --landing-demo-hue: 0;
+  }
+  to {
+    --landing-demo-hue: 360;
+  }
+}
+
+/* The tex stops sit a step deeper than the base stops: they feed bg-comic-* and
+ * bg-pixel-*, and ink over a white base reads lighter than flat colour. */
+@keyframes landing-base-color {
+  0%,
+  14% {
+    --landing-base-color: var(--color-blue-500);
+  }
+  17%,
+  30% {
+    --landing-base-color: var(--color-red-900);
+  }
+  33%,
+  47% {
+    --landing-base-color: var(--color-amber-300);
+  }
+  50%,
+  64% {
+    --landing-base-color: var(--color-emerald-700);
+  }
+  67%,
+  80% {
+    --landing-base-color: var(--color-violet-300);
+  }
+  83%,
+  97% {
+    --landing-base-color: var(--color-rose-500);
+  }
+}
+@keyframes landing-tex-color {
+  0%,
+  14% {
+    --landing-tex-color: var(--color-blue-600);
+  }
+  17%,
+  30% {
+    --landing-tex-color: var(--color-red-900);
+  }
+  33%,
+  47% {
+    --landing-tex-color: var(--color-amber-300);
+  }
+  50%,
+  64% {
+    --landing-tex-color: var(--color-emerald-800);
+  }
+  67%,
+  80% {
+    --landing-tex-color: var(--color-violet-300);
+  }
+  83%,
+  97% {
+    --landing-tex-color: var(--color-rose-500);
+  }
+}
+
+@keyframes raster-retrace {
+  0% {
+    left: -30%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+@keyframes raster-live {
+  0%,
+  60% {
+    opacity: 1;
+  }
+  70%,
+  100% {
+    opacity: 0.2;
+  }
+}
+@theme {
+  --animate-raster-retrace: raster-retrace 4s linear infinite;
+  --animate-raster-live: raster-live 1s ease-in-out infinite;
+}

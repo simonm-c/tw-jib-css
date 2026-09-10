@@ -1,0 +1,149 @@
+/* Legacy rgb() would round-trip through gamma-encoded sRGB and lose precision
+ * in a signed direction, so the darker colour of a pair measures darker and
+ * every verdict skews low. */
+@function --tw-jib--linearize(--color type(<color>): black) returns <color> {
+  result: color(from var(--color) srgb-linear r g b);
+}
+
+/* Packed luminance: R = L, G = 1−L, B = 0. BT.709.
+ * --tw-jib--linearize() must be a separate call so it resolves first. */
+@function --tw-jib--luminance-packed(--color type(<color>): black) returns <color> {
+  --tw-jib--linearized: --tw-jib--linearize(var(--color));
+  result: color(from var(--tw-jib--linearized) srgb-linear calc(0.2126 * r + 0.7152 * g + 0.0722 * b) calc(1 - (0.2126 * r + 0.7152 * g + 0.0722 * b)) 0);
+}
+
+/* (L_hi + 0.05)/(L_lo + 0.05) >= T  →  L_hi − T·L_lo >= 0.05·(T−1).
+ * Per-channel T tests every threshold in one color-mix(). White = pass.
+ * Each channel is divided by T+1 and the pair mixed 50%, so the threshold is
+ * (0.05·(T−1) + T) / (2·(T+1)):
+ *   R  T = 3    /4    0.3875
+ *   G  T = 4.5  /5.5  0.425
+ *   B  T = 7    /8    0.45625
+ * Epsilon load-bearing: clamp(0, x·10000, 1) = 0 at exactly 0, and the shade
+ * lands ON the threshold. */
+@function --tw-jib--contrast-test-directed(--lighter type(<color>): white, --darker type(<color>): black) returns <color> {
+  --tw-jib--scaled-lighter: color(from var(--lighter) srgb-linear calc(r / 4) calc(r / 5.5) calc(r / 8));
+  --tw-jib--scaled-darker: color(from var(--darker) srgb-linear calc(g * 3 / 4) calc(g * 4.5 / 5.5) calc(g * 7 / 8));
+  --tw-jib--mixed: color-mix(in srgb-linear, var(--tw-jib--scaled-lighter) 50%, var(--tw-jib--scaled-darker) 50%);
+  result: color(from var(--tw-jib--mixed) srgb-linear clamp(0, (r - 0.3875 + 0.000001) * 10000, 1) clamp(0, (g - 0.425 + 0.000001) * 10000, 1) clamp(0, (b - 0.45625 + 0.000001) * 10000, 1));
+}
+
+/* Output colour IS the rating, srgb-linear:
+ *   1 1 1  AAA
+ *   1 1 0  AA
+ *   1 0 0  AA Large
+ *   0 0 0  Fail */
+@function --tw-jib--contrast-test-all(--color-1 type(<color>): black, --color-2 type(<color>): white) returns <color> {
+  --tw-jib--packed-1: --tw-jib--luminance-packed(var(--color-1));
+  --tw-jib--packed-2: --tw-jib--luminance-packed(var(--color-2));
+  --tw-jib--test-1-lighter: --tw-jib--contrast-test-directed(var(--tw-jib--packed-1), var(--tw-jib--packed-2));
+  --tw-jib--test-2-lighter: --tw-jib--contrast-test-directed(var(--tw-jib--packed-2), var(--tw-jib--packed-1));
+  --tw-jib--combined: color-mix(in srgb-linear, var(--tw-jib--test-1-lighter) 50%, var(--tw-jib--test-2-lighter) 50%);
+  result: color(from var(--tw-jib--combined) srgb-linear clamp(0, r * 10000, 1) clamp(0, g * 10000, 1) clamp(0, b * 10000, 1));
+}
+
+@function --tw-jib--wcag-rating(--color-1 type(<color>): black, --color-2 type(<color>): white) returns <string> {
+  --tw-jib--result: --tw-jib--contrast-test-all(var(--color-1), var(--color-2));
+  result: if(style(--tw-jib--result: color(srgb-linear 1 1 1)): "AAA" ; style(--tw-jib--result: color(srgb-linear 1 1 0)): "AA" ; style(--tw-jib--result: color(srgb-linear 1 0 0)): "AA Large" ; else: "Fail");
+}
+
+/* Expanded inline below; CSS has no local bindings inside a colour function.
+ * Derivation: docs/guide/automatic-contrast.md
+ *
+ *   Y     = 0.2126·r + 0.7152·g + 0.0722·b
+ *   S     = clamp(0, (0.1791 − Y) · 10⁶, 1)       1 → lighten, 0 → darken
+ *   Yt    = clamp(0, (1−S)·((Y+0.05)/R − 0.05)
+ *                   +   S ·(R·(Y+0.05) − 0.05), 1)
+ *   U_c   = Yt · (c − Y) / Y
+ *   caps  = min over channels of (1−Yt)/U_c and Yt/(−U_c)
+ *   out_c = Yt + min(1, caps) · U_c
+ *
+ * 0.05 is WCAG's flare constant, from its (L_hi + 0.05)/(L_lo + 0.05) rating.
+ * 0.1791 is the brightness with equal headroom to black and to white:
+ * (Y + 0.05)/0.05 = 1.05/(Y + 0.05), so (Y + 0.05)² = 0.05 × 1.05 = 0.0525 and
+ * Y = √0.0525 − 0.05. Each stage binds to a local property before its channels
+ * are read. */
+
+/* Carrier: linear channels, luminance in alpha. One origin per expression, so
+ * alpha is the only channel free to carry Y into another space. */
+@function --tw-jib--wcag-carrier(--color type(<color>): white) returns <color> {
+  result: color(from var(--color) srgb-linear r g b / calc(0.2126 * r + 0.7152 * g + 0.0722 * b));
+}
+
+/* Retarget: alpha becomes Yt. Input alpha is Y. */
+@function --tw-jib--wcag-target(--carrier type(<color>): white, --ratio type(<number>): 4.5) returns <color> {
+  result: color(from var(--carrier) srgb-linear r g b / calc(clamp(0, (1 - clamp(0, (0.1791 - alpha) * 1000000, 1)) * ((alpha + 0.05) / var(--ratio) - 0.05) + clamp(0, (0.1791 - alpha) * 1000000, 1) * (var(--ratio) * (alpha + 0.05) - 0.05), 1)));
+}
+
+/* U_c, alpha = Yt. The Yt/Y pre-scale makes scale 1 reproduce the background's
+ * own chromaticity, and lets the lift use one ceiling for every path. */
+@function --tw-jib--wcag-core-vector(--carrier type(<color>): white, --ratio type(<number>): 4.5) returns <color> {
+  result: color(from var(--carrier) srgb-linear calc(clamp(0, (1 - clamp(0, (0.1791 - alpha) * 1000000, 1)) * ((alpha + 0.05) / var(--ratio) - 0.05) + clamp(0, (0.1791 - alpha) * 1000000, 1) * (var(--ratio) * (alpha + 0.05) - 0.05), 1) * (r - alpha) / max(alpha, 0.000001)) calc(clamp(0, (1 - clamp(0, (0.1791 - alpha) * 1000000, 1)) * ((alpha + 0.05) / var(--ratio) - 0.05) + clamp(0, (0.1791 - alpha) * 1000000, 1) * (var(--ratio) * (alpha + 0.05) - 0.05), 1) * (g - alpha) / max(alpha, 0.000001)) calc(clamp(0, (1 - clamp(0, (0.1791 - alpha) * 1000000, 1)) * ((alpha + 0.05) / var(--ratio) - 0.05) + clamp(0, (0.1791 - alpha) * 1000000, 1) * (var(--ratio) * (alpha + 0.05) - 0.05), 1) * (b - alpha) / max(alpha, 0.000001)) / calc(clamp(0, (1 - clamp(0, (0.1791 - alpha) * 1000000, 1)) * ((alpha + 0.05) / var(--ratio) - 0.05) + clamp(0, (0.1791 - alpha) * 1000000, 1) * (var(--ratio) * (alpha + 0.05) - 0.05), 1)));
+}
+
+/* c − Yc, alpha passes through. */
+@function --tw-jib--wcag-chroma-vector(--candidate type(<color>): white) returns <color> {
+  result: color(from var(--candidate) srgb-linear calc(r - (0.2126 * r + 0.7152 * g + 0.0722 * b)) calc(g - (0.2126 * r + 0.7152 * g + 0.0722 * b)) calc(b - (0.2126 * r + 0.7152 * g + 0.0722 * b)) / alpha);
+}
+
+/* out_c. The vector carries no luminance and alpha is the target, so output
+ * luminance is exact. The 1 in min(1, caps) also gamut-maps at constant
+ * luminance. Alpha resets to 1. */
+@function --tw-jib--wcag-lift(--vector type(<color>): white) returns <color> {
+  result: color(from var(--vector) srgb-linear calc(alpha + min(1, (1 - alpha) / max(r, 0.001), alpha / max((0 - r), 0.001), (1 - alpha) / max(g, 0.001), alpha / max((0 - g), 0.001), (1 - alpha) / max(b, 0.001), alpha / max((0 - b), 0.001)) * r) calc(alpha + min(1, (1 - alpha) / max(r, 0.001), alpha / max((0 - r), 0.001), (1 - alpha) / max(g, 0.001), alpha / max((0 - g), 0.001), (1 - alpha) / max(b, 0.001), alpha / max((0 - b), 0.001)) * g) calc(alpha + min(1, (1 - alpha) / max(r, 0.001), alpha / max((0 - r), 0.001), (1 - alpha) / max(g, 0.001), alpha / max((0 - g), 0.001), (1 - alpha) / max(b, 0.001), alpha / max((0 - b), 0.001)) * b) / 1);
+}
+
+/* Modifier = aesthetic path only; the lift owns correctness, so an approximate
+ * seed is not a bug.
+ *   Class 1  RGB-family, linear transforms of linear-light RGB: core IS the path
+ *   Class 2  CIE Lab, L* invertible in luminance: exact seed
+ *   Class 3  perceptual-OK + legacy: approximate seed, lift corrects */
+
+@function --tw-jib--auto-contrast-core(--background type(<color>): white, --ratio type(<number>): 4.5) returns <color> {
+  --tw-jib--carrier: --tw-jib--wcag-carrier(var(--background));
+  --tw-jib--vector: --tw-jib--wcag-core-vector(var(--tw-jib--carrier), var(--ratio));
+  result: --tw-jib--wcag-lift(var(--tw-jib--vector));
+}
+
+/* oklch / oklab: L = Yt^(1/3). */
+@function --tw-jib--auto-contrast-oklch(--background type(<color>): white, --ratio type(<number>): 4.5) returns <color> {
+  --tw-jib--carrier: --tw-jib--wcag-carrier(var(--background));
+  --tw-jib--target: --tw-jib--wcag-target(var(--tw-jib--carrier), var(--ratio));
+  --tw-jib--seed: oklch(from var(--tw-jib--target) calc(pow(alpha, 0.333333)) c h / alpha);
+  --tw-jib--vector: --tw-jib--wcag-chroma-vector(var(--tw-jib--seed));
+  result: --tw-jib--wcag-lift(var(--tw-jib--vector));
+}
+
+/* CIE 1976 L* transfer, branchless: 116·Y^(1/3) − 16 above the knee,
+   * 903.3·Y below it, knee at 0.008856 = (6/29)³. */
+@function --tw-jib--auto-contrast-lch(--background type(<color>): white, --ratio type(<number>): 4.5) returns <color> {
+  --tw-jib--carrier: --tw-jib--wcag-carrier(var(--background));
+  --tw-jib--target: --tw-jib--wcag-target(var(--tw-jib--carrier), var(--ratio));
+  --tw-jib--seed: lch(from var(--tw-jib--target) calc(clamp(0, (alpha - 0.008856) * 1000000, 1) * (116 * pow(alpha, 0.333333) - 16) + (1 - clamp(0, (alpha - 0.008856) * 1000000, 1)) * (903.3 * alpha)) c h / alpha);
+  --tw-jib--vector: --tw-jib--wcag-chroma-vector(var(--tw-jib--seed));
+  result: --tw-jib--wcag-lift(var(--tw-jib--vector));
+}
+
+/* hsl: l = Yt. Saturation kept, so it washes out at extreme targets. */
+@function --tw-jib--auto-contrast-hsl(--background type(<color>): white, --ratio type(<number>): 4.5) returns <color> {
+  --tw-jib--carrier: --tw-jib--wcag-carrier(var(--background));
+  --tw-jib--target: --tw-jib--wcag-target(var(--tw-jib--carrier), var(--ratio));
+  --tw-jib--seed: hsl(from var(--tw-jib--target) h s calc(alpha * 100%) / alpha);
+  --tw-jib--vector: --tw-jib--wcag-chroma-vector(var(--tw-jib--seed));
+  result: --tw-jib--wcag-lift(var(--tw-jib--vector));
+}
+
+/* hwb: w+b split by target. w = Yt, b = 1−Yt sums to 100% → grey for every
+ * input. Driving only w turns a neutral background red. */
+@function --tw-jib--auto-contrast-hwb(--background type(<color>): white, --ratio type(<number>): 4.5) returns <color> {
+  --tw-jib--carrier: --tw-jib--wcag-carrier(var(--background));
+  --tw-jib--target: --tw-jib--wcag-target(var(--tw-jib--carrier), var(--ratio));
+  --tw-jib--seed: hwb(from var(--tw-jib--target) h calc(alpha * (w + b)) calc((1 - alpha) * (w + b)) / alpha);
+  --tw-jib--vector: --tw-jib--wcag-chroma-vector(var(--tw-jib--seed));
+  result: --tw-jib--wcag-lift(var(--tw-jib--vector));
+}
+
+@function --tw-jib--auto-contrast(--background type(<color>): white, --level type(<custom-ident>): aa, --interpolation type(<custom-ident>): oklch) returns <color> {
+  --tw-jib--ratio: if(style(--level: aaa): 7; style(--level: aa-lg): 3; else: 4.5);
+  result: if(style(--interpolation: oklch): --tw-jib--auto-contrast-oklch(var(--background), var(--tw-jib--ratio)) ; style(--interpolation: oklab): --tw-jib--auto-contrast-oklch(var(--background), var(--tw-jib--ratio)) ; style(--interpolation: lch): --tw-jib--auto-contrast-lch(var(--background), var(--tw-jib--ratio)) ; style(--interpolation: lab): --tw-jib--auto-contrast-lch(var(--background), var(--tw-jib--ratio)) ; style(--interpolation: hsl): --tw-jib--auto-contrast-hsl(var(--background), var(--tw-jib--ratio)) ; style(--interpolation: hwb): --tw-jib--auto-contrast-hwb(var(--background), var(--tw-jib--ratio)) ; else: --tw-jib--auto-contrast-core(var(--background), var(--tw-jib--ratio)));
+}

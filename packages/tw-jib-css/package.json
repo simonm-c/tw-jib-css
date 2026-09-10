@@ -1,0 +1,96 @@
+{
+  "name": "tw-jib-css",
+  "version": "1.0.0",
+  "description": "TailwindCSS v4 utility library – border gradients, CSS relative color transforms, ripple effects, and more – built entirely with CSS-first @utility and @custom-variant syntax.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Simon Monk-Chipman",
+  "homepage": "https://github.com/simonm-c/tw-jib-css#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simonm-c/tw-jib-css.git",
+    "directory": "packages/tw-jib-css"
+  },
+  "bugs": {
+    "url": "https://github.com/simonm-c/tw-jib-css/issues"
+  },
+  "keywords": [
+    "tailwindcss",
+    "tailwind",
+    "css",
+    "css-first",
+    "utilities",
+    "color-transform",
+    "relative-color",
+    "oklch",
+    "lighten",
+    "darken",
+    "saturate",
+    "desaturate",
+    "hue-rotate",
+    "wcag",
+    "a11y",
+    "contrast",
+    "automatic-contrast",
+    "accessible-color",
+    "border-gradient",
+    "gradient-border",
+    "border-style",
+    "ripple",
+    "comic",
+    "halftone",
+    "pixel",
+    "bg-clip",
+    "grid-template-areas"
+  ],
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "files": [
+    "src"
+  ],
+  "scripts": {
+    "prepack": "pnpm -w test:css && pnpm -w lint"
+  },
+  "exports": {
+    ".": {
+      "style": "./src/index.css",
+      "default": "./src/index.css"
+    },
+    "./border-gradient": {
+      "style": "./src/border-gradient.css",
+      "default": "./src/border-gradient.css"
+    },
+    "./color-transforms": {
+      "style": "./src/color-transforms.css",
+      "default": "./src/color-transforms.css"
+    },
+    "./automatic-contrast": {
+      "style": "./src/automatic-contrast.css",
+      "default": "./src/automatic-contrast.css"
+    },
+    "./ripple": {
+      "style": "./src/ripple.css",
+      "default": "./src/ripple.css"
+    },
+    "./border-style": {
+      "style": "./src/border-style.css",
+      "default": "./src/border-style.css"
+    },
+    "./grid": {
+      "style": "./src/grid.css",
+      "default": "./src/grid.css"
+    },
+    "./comic": {
+      "style": "./src/comic.css",
+      "default": "./src/comic.css"
+    },
+    "./pixel": {
+      "style": "./src/pixel.css",
+      "default": "./src/pixel.css"
+    }
+  },
+  "peerDependencies": {
+    "tailwindcss": ">=4.3.0"
+  }
+}

@@ -1,0 +1,43 @@
+name: Release Please
+
+# Keeps a release PR open against main. Every conventional commit that lands
+# adds to it, and merging it is what cuts a release: release-please writes the
+# version bumps, the per-package CHANGELOGs and the tags, then this workflow
+# hands off to publish.yml.
+#
+# Merging that PR is therefore the only route to npm, which is what makes the
+# branch rules on main the release permission. See CODEOWNERS.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      releases_created: ${{ steps.release.outputs.releases_created }}
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+          # A PR opened with GITHUB_TOKEN cannot trigger further workflows, so
+          # CI never runs on the release PR and a required status check on it
+          # can never clear. Setting RELEASE_PLEASE_TOKEN to a PAT lifts that;
+          # without one this falls back and the PR simply arrives unchecked.
+          token: ${{ secrets.RELEASE_PLEASE_TOKEN || secrets.GITHUB_TOKEN }}
+
+  publish:
+    needs: release-please
+    if: needs.release-please.outputs.releases_created == 'true'
+    permissions:
+      contents: write
+      id-token: write
+    uses: ./.github/workflows/publish.yml
+    secrets: inherit

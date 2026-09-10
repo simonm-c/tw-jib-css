@@ -1,0 +1,46 @@
+@import 'tailwindcss';
+
+@import '../../../packages/tw-jib-css/src/index.css';
+@import '../../../packages/tw-jib-css-experimental/src/index.css';
+
+@source '../..';
+@source '../../../docs-shared';
+
+@theme {
+  --docs-accent: var(--color-teal-500);
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@property --landing-demo-hue {
+  syntax: '<number>';
+  inherits: true;
+  initial-value: 0;
+}
+@keyframes landing-demo-hue-cycle {
+  from {
+    --landing-demo-hue: 0;
+  }
+  to {
+    --landing-demo-hue: 360;
+  }
+}
+
+/* Cycle length for the landing-disclosure animation, read by both panels. */
+@theme {
+  --landing-disclosure-cycle: 6s;
+}
+
+@keyframes landing-disclosure {
+  0%,
+  25% {
+    height: 0;
+  }
+  50%,
+  75% {
+    height: auto;
+  }
+  100% {
+    height: 0;
+  }
+}

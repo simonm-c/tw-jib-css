@@ -1,0 +1,41 @@
+/* Registered so style() sees a parsed number. Unregistered it computes to a raw
+ * token stream, prettier's space before `;` included, so "1 " never matches 1
+ * and the Max branch is unreachable.
+ *
+ * --tw-jib--wcag-display stays unregistered for the inverse: typed <string>
+ * substitutes into `content` as nothing, blanking the badge. */
+@property --tw-jib--wcag-shortfall {
+  syntax: "<integer>";
+  inherits: false;
+  initial-value: 0;
+}
+
+@utility wcag-badge {
+  @variant supports-wcag {
+    /* Force-resolves currentColor (the @property initial-value); it must not reach
+   the function unresolved. */
+    --tw-jib--wcag-badge-text: oklch(from var(--tw-jib--text-color) l c h);
+    --tw-jib--wcag-rating: --tw-jib--wcag-rating(var(--tw-jib--background-color), var(--tw-jib--wcag-badge-text));
+
+    /* Max = requested level unreachable, shade parked at the ceiling. The pair
+ * alone cannot show that, so the badge reads the recorded level. */
+    --tw-jib--wcag-shortfall: if(style(--tw-jib--contrast-level: aaa): if(style(--tw-jib--wcag-rating: "AAA"): 0; else: 1) ; style(--tw-jib--contrast-level: aa): if(style(--tw-jib--wcag-rating: "AAA"): 0; style(--tw-jib--wcag-rating: "AA"): 0; else: 1) ; style(--tw-jib--contrast-level: aa-lg): if(style(--tw-jib--wcag-rating: "Fail"): 1; else: 0) ; else: 0);
+    --tw-jib--wcag-display: if(style(--tw-jib--wcag-shortfall: 1): "Max" ; else: var(--tw-jib--wcag-rating));
+    position: relative;
+
+    &::after {
+      content: var(--tw-jib--wcag-display);
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: --spacing(0.5) --spacing(1.5);
+      font-size: var(--text-xs);
+      font-weight: 700;
+      line-height: 1;
+      border-radius: 0 0 0 var(--radius-sm, --spacing(1));
+      --tw-jib--wcag-badge-bg: if(style(--tw-jib--wcag-display: "AAA"): var(--color-green-500) ; style(--tw-jib--wcag-display: "AA"): var(--color-yellow-500) ; style(--tw-jib--wcag-display: "AA Large"): var(--color-orange-500) ; else: var(--color-red-500));
+      background: var(--tw-jib--wcag-badge-bg);
+      color: if(style(--tw-jib--wcag-display: "AA"): black; else: white);
+    }
+  }
+}

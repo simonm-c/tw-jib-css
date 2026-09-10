@@ -1,0 +1,11 @@
+@custom-variant supports-wcag {
+  @supports (background: if(style(--value): red)) and (background: --tw-jib--linearize(red)) {
+    @slot;
+  }
+}
+
+/* Requested level, so wcag-badge can tell a ceiling from a shortfall. */
+@property --tw-jib--contrast-level {
+  syntax: "*";
+  inherits: false;
+}

@@ -1,0 +1,76 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm format:check
+      - run: pnpm lint
+      - run: pnpm test:css
+
+  # Built once, here, rather than per engine. The integration specs run against
+  # a built site because a dev server recompiles the one stylesheet an instance
+  # emits while tests are reading from it – see playwright.config.ts. Building
+  # once also means the three engines below are looking at identical bytes, so
+  # a disagreement between them is a real engine difference and not a rebuild.
+  build-docs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      # Generated rather than committed, and generated here too so the artifact
+      # the browser matrix tests is the same tree Pages deploys.
+      - run: pnpm build:llm-docs
+      - run: pnpm build:docs
+      - run: pnpm build:docs:experimental
+      - uses: actions/upload-artifact@v4
+        with:
+          name: docs-dist
+          retention-days: 1
+          path: |
+            docs/.vitepress/dist
+            docs-experimental/.vitepress/dist
+
+  # One job per engine. The library's promise is that the stable package works
+  # on anything with relative colour syntax, and that claim is only worth as
+  # much as the engine that checked it: the unit suite reads emitted CSS and is
+  # blind to what a browser does with it. fail-fast is off so a break in one
+  # engine still reports the other two, which is usually what tells you whether
+  # it is a real bug or an engine quirk.
+  integration:
+    needs: build-docs
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        browser: [chromium, firefox, webkit]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - uses: actions/download-artifact@v4
+        with:
+          name: docs-dist
+      - run: pnpm exec playwright install --with-deps ${{ matrix.browser }}
+      - run: pnpm test:integration --project=${{ matrix.browser }}

@@ -1,0 +1,21 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "separate-pull-requests": false,
+  "packages": {
+    "packages/tw-jib-css": {
+      "release-type": "node",
+      "component": "tw-jib-css"
+    },
+    "packages/tw-jib-css-experimental": {
+      "release-type": "node",
+      "component": "tw-jib-css-experimental"
+    }
+  },
+  "plugins": [
+    {
+      "type": "linked-versions",
+      "groupName": "tw-jib-css",
+      "components": ["tw-jib-css", "tw-jib-css-experimental"]
+    }
+  ]
+}

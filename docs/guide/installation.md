@@ -142,5 +142,5 @@ not exist. Its modules are individually importable on the same principle as abov
 because half of that package _overrides_ utilities this one ships. Taking an addition
 should not reroute classes you already use, so it doesn't.
 
-Read [its overview](https://simonm-c.github.io/tw-jib-css/experimental/overview)
+Read [its installation guide](https://simonm-c.github.io/tw-jib-css/experimental/guide/installation)
 before installing.

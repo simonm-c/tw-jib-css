@@ -44,9 +44,9 @@ const INSTALL_SNIPPET = 'npm install -D tw-jib-css tw-jib-css-experimental';
 
       <div class="flex flex-wrap justify-center gap-3 mt-1">
         <a
-          href="/tw-jib-css/experimental/overview"
+          href="/tw-jib-css/experimental/guide/installation"
           class="rounded-xl bg-(color:--docs-accent) px-5 py-2.5 text-sm font-semibold text-white no-underline hover:bg-lighten-10"
-          >Read the overview</a
+          >Get started</a
         >
         <a
           href="/tw-jib-css/"

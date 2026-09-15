@@ -143,7 +143,7 @@ So the space is absent rather than approximated. `--tw-jib--color-mix-hue-rotate
 
 ## The override
 
-This module re-implements `bg-hue-rotate-*` on top of this function, on every surface, wherever `@function` is supported. See [the overrides](/overview#the-function-overrides).
+This module re-implements `bg-hue-rotate-*` on top of this function, on every surface, wherever `@function` is supported. See [the overrides](/guide/installation#the-function-overrides).
 
 ## Import
 

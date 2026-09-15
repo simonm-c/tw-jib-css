@@ -188,7 +188,7 @@ There is one deliberate tolerance. WCAG asks for a ratio of _at least_ the thres
 ## Import
 
 Included in `@import 'tw-jib-css-experimental'`. To take it on its own, with no other
-experimental module, and none of the [`@function` overrides](/overview#the-function-overrides):
+experimental module, and none of the [`@function` overrides](/guide/installation#the-function-overrides):
 
 ```css
 @import 'tw-jib-css-experimental/wcag-badge';

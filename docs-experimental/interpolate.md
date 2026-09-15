@@ -50,7 +50,7 @@ Add `interpolate-keywords` to a parent and its children can transition height:
 ## Import
 
 Included in `@import 'tw-jib-css-experimental'`. To take it on its own, with no other
-experimental module, and none of the [`@function` overrides](/overview#the-function-overrides):
+experimental module, and none of the [`@function` overrides](/guide/installation#the-function-overrides):
 
 ```css
 @import 'tw-jib-css-experimental/interpolate';

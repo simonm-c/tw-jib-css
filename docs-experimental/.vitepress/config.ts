@@ -43,14 +43,14 @@ export default defineConfig({
      * would resolve under this instance's own base. Only nav items are affected;
      * in-body links are raw <a href>. */
     nav: [
-      { text: 'Overview', link: '/overview' },
+      { text: 'Guide', link: '/guide/installation' },
       { text: 'Stable docs', link: 'https://simonm-c.github.io/tw-jib-css/' },
     ],
 
     sidebar: [
       {
-        text: 'Experimental',
-        items: [{ text: 'Overview', link: '/overview' }],
+        text: 'Getting started',
+        items: [{ text: 'Installation', link: '/guide/installation' }],
       },
       {
         text: 'Accessibility',

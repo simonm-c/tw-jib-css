@@ -106,9 +106,9 @@ const pages = [
 
       <div class="flex flex-wrap gap-3 pt-2">
         <a
-          href="/tw-jib-css/experimental/overview"
+          href="/tw-jib-css/experimental/guide/installation"
           class="rounded-xl bg-(color:--docs-accent) px-6 py-3 text-sm font-semibold text-white no-underline hover:bg-lighten-10"
-          >Read the overview</a
+          >Get started</a
         >
         <a
           href="/tw-jib-css/"

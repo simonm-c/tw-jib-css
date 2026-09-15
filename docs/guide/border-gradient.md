@@ -12,6 +12,10 @@ Linear, radial and conic gradient borders. Same grammar as Tailwind's `bg-linear
 Chrome 111+, Safari 16.4+, Firefox 128+. Interpolation modes (`/shorter`, `/longer`, etc.) require Chrome 111+, Safari 16.4+.
 :::
 
+::: warning Gradient stops from CSS variables must carry a type hint
+`border-from-*`, `border-via-*` and `border-to-*` take either a color or a position, so a CSS variable has to say which: `border-from-(color:--brand)` or `border-from-(percentage:--stop)`. The untyped `border-from-(--brand)` matches neither and emits no rule at all, so the stop silently keeps its default. The [full table](#using-a-custom-variable) is below.
+:::
+
 ## Quick reference
 
 <UtilityTable :rows="[
@@ -23,6 +27,7 @@ Chrome 111+, Safari 16.4+, Firefox 128+. Interpolation modes (`/shorter`, `/long
   { class: 'border-linear-to-bl', styles: '--tw-jib--border-gradient: linear-gradient(to bottom left var(--tw-jib--gradient-interpolation), var(--tw-jib--border-gradient-stops))' },
   { class: 'border-linear-to-l', styles: '--tw-jib--border-gradient: linear-gradient(to left var(--tw-jib--gradient-interpolation), var(--tw-jib--border-gradient-stops))' },
   { class: 'border-linear-to-tl', styles: '--tw-jib--border-gradient: linear-gradient(to top left var(--tw-jib--gradient-interpolation), var(--tw-jib--border-gradient-stops))' },
+  { class: 'border-linear-to-[<value>]', styles: '--tw-jib--border-gradient-position: <value>' },
   { class: 'border-linear-<angle>', styles: '--tw-jib--border-gradient: linear-gradient(<angle>deg var(--tw-jib--gradient-interpolation), var(--tw-jib--border-gradient-stops))' },
   { class: 'border-radial', styles: '--tw-jib--border-gradient: radial-gradient(var(--tw-jib--gradient-interpolation), var(--tw-jib--border-gradient-stops))' },
   { class: 'border-radial-[<value>]', styles: '--tw-jib--border-gradient: radial-gradient(<value>, var(--tw-jib--border-gradient-stops))' },
@@ -361,7 +366,7 @@ Use bracket notation for custom colors and angles. Color stops accept any CSS co
 
 ## Using a custom variable
 
-Reference CSS custom properties with the typed bare-value syntax `(type:--var)`. The type hint tells Tailwind how to interpret the variable:
+Reference CSS custom properties with `(--var)`. Where a utility accepts more than one kind of value, add a type hint — `(type:--var)` — so Tailwind knows which one you mean:
 
 <Example>
   <div class="border-4 border-linear-to-r border-from-(color:--brand-from) border-to-(color:--brand-to) rounded-xl p-6 bg-white text-center font-mono text-xs text-gray-500 [--brand-from:#ff6b35] [--brand-to:#6366f1]">
@@ -369,17 +374,22 @@ Reference CSS custom properties with the typed bare-value syntax `(type:--var)`.
   </div>
 </Example>
 
-All border gradient utilities that accept custom properties:
+The stop utilities take either a color or a position, so those need the hint. The rest take one kind of value and accept the plain form:
 
-| Utility           | Type hint    | Example                                 |
-| ----------------- | ------------ | --------------------------------------- |
-| `border-from-*`   | `color`      | `border-from-(color:--brand-from)`      |
-| `border-via-*`    | `color`      | `border-via-(color:--brand-accent)`     |
-| `border-to-*`     | `color`      | `border-to-(color:--brand-to)`          |
-| `border-from-*`   | `percentage` | `border-from-(percentage:--stop-start)` |
-| `border-to-*`     | `percentage` | `border-to-(percentage:--stop-end)`     |
-| `border-linear-*` | `number`     | `border-linear-(number:--angle)`        |
-| `border-conic-*`  | `number`     | `border-conic-(number:--start-angle)`   |
+| Utility                  | Hint         | Example                                 |
+| ------------------------ | ------------ | --------------------------------------- |
+| `border-from-*`          | **required** | `border-from-(color:--brand-from)`      |
+| `border-from-*`          | **required** | `border-from-(percentage:--stop-start)` |
+| `border-via-*`           | **required** | `border-via-(color:--brand-accent)`     |
+| `border-to-*`            | **required** | `border-to-(color:--brand-to)`          |
+| `border-to-*`            | **required** | `border-to-(percentage:--stop-end)`     |
+| `border-linear-*`        | none         | `border-linear-(--angle)`               |
+| `border-linear-to-*`     | none         | `border-linear-to-(--direction)`        |
+| `border-conic-*`         | none         | `border-conic-(--start-angle)`          |
+| `border-radial-*`        | none         | `border-radial-(--position)`            |
+| `border-spin-duration-*` | none         | `border-spin-duration-(--speed)`        |
+
+An untyped variable on `border-from-*`, `border-via-*` or `border-to-*` matches nothing and emits no rule, so the stop keeps its default rather than failing loudly.
 
 ## Applying conditionally
 

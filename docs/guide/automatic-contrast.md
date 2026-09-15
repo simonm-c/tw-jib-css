@@ -12,6 +12,10 @@ The shade is not searched for. It is **solved**. WCAG 2's contrast ratio constra
 
 Solving instead of searching is also what makes the utility portable. A search would need a way to call itself and a way to pick the candidate that passed; the closed form needs neither, so it is built from `calc`, `clamp`, `min`, `max` and relative color syntax, and works everywhere.
 
+::: warning A background from a CSS variable must carry the `color:` hint
+`text-contrast-*` solves against the background you set with `bg-*`, so the background has to reach it. `bg-(color:--brand)` does; `bg-(--brand)` does not, because Tailwind will not infer a type from inside a `var()`. Without the hint the element still gets its background, but the contrast solve runs against an unset value and returns the same shade whatever color you passed — a plausible-looking result that does not meet the ratio the class names. See [Colors from CSS variables need a type hint](/guide/composition#colors-from-css-variables-need-a-type-hint).
+:::
+
 ::: warning The ratio is exact, which cuts both ways
 Because the utilities hit the ratio _exactly_ rather than overshooting it, the result can land a hair either side of the named threshold, around ±2 × 10⁻⁵ in practice. A checker that rounds before it compares still reads AAA. One doing a bare `ratio >= 7` may not, and will report `text-contrast-aaa` as AA. That is arithmetic on a tie, not a contrast failure. The pair sits at 7:1 to four decimal places. If you need an external report to read AAA without argument, ask for a slightly higher ratio than the level you need.
 :::

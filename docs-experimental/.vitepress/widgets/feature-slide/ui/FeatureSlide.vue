@@ -39,7 +39,6 @@ const slide = computed<FeatureSlideData>(() => slides[props.index]);
             ]"
             >{{ slide.kind }}</span
           >
-          <span class="font-mono text-[11px] opacity-60">{{ slide.support }}</span>
         </div>
 
         <h2 class="text-3xl md:text-4xl font-black tracking-tight leading-tight">

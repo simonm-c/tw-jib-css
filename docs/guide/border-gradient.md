@@ -470,3 +470,5 @@ Included in `@import 'tw-jib-css'`. To import individually:
 ```css
 @import 'tw-jib-css/border-gradient';
 ```
+
+<BaselineSupport :features="['registered-custom-properties', 'gradient-interpolation']" />

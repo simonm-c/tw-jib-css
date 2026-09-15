@@ -163,3 +163,5 @@ or on its own:
 
 `text-contrast-*` takes the same modifier and ships in
 [`tw-jib-css/automatic-contrast`](/guide/automatic-contrast).
+
+<BaselineSupport :features="['relative-color', 'oklab']" />

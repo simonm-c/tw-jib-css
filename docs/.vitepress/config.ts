@@ -43,6 +43,11 @@ export default defineConfig({
           { text: 'Composition', link: '/guide/composition' },
         ],
       },
+  vue: {
+    template: {
+      compilerOptions: { isCustomElement: (tag) => tag === 'baseline-status' },
+    },
+  },
       {
         text: 'Accessibility',
         items: [{ text: 'Automatic contrast', link: '/guide/automatic-contrast' }],

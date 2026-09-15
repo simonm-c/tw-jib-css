@@ -151,3 +151,5 @@ This module re-implements `bg-hue-rotate-*` on top of this function, on every su
 @import 'tw-jib-css';
 @import 'tw-jib-css-experimental/functions';
 ```
+
+<BaselineSupport :features="['function', 'relative-color']" />

@@ -144,3 +144,5 @@ should not reroute classes you already use, so it doesn't.
 
 Read [its installation guide](https://simonm-c.github.io/tw-jib-css/experimental/guide/installation)
 before installing.
+
+<BaselineSupport :features="['relative-color', 'registered-custom-properties']" />

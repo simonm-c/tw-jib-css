@@ -4,63 +4,54 @@ const pages = [
     kind: 'override' as const,
     title: 'Lightness',
     href: '/tw-jib-css/experimental/guide/lightness',
-    support: 'Chromium only',
     blurb: 'A shade as a value, so it reaches a gradient stop, a shadow or an underline.',
   },
   {
     kind: 'override' as const,
     title: 'Saturation',
     href: '/tw-jib-css/experimental/guide/saturation',
-    support: 'Chromium only',
     blurb: 'Drain a color toward gray anywhere a color fits, lightness left alone.',
   },
   {
     kind: 'override' as const,
     title: 'Hue rotate',
     href: '/tw-jib-css/experimental/guide/hue-rotate',
-    support: 'Chromium only',
     blurb: 'Several rotations of one token in a single declaration: a whole scheme from one color.',
   },
   {
     kind: 'override' as const,
     title: 'Automatic contrast',
     href: '/tw-jib-css/experimental/guide/automatic-contrast',
-    support: 'Chromium only',
     blurb: 'The WCAG solve on a border, a stroke, an outline or a gradient stop, not only on text.',
   },
   {
     kind: 'addition' as const,
     title: 'WCAG rating',
     href: '/tw-jib-css/experimental/guide/wcag-rating',
-    support: 'Chromium only',
     blurb: 'The one that returns a string, so a pair can print its own rating.',
   },
   {
     kind: 'addition' as const,
     title: 'Corner Shape',
     href: '/tw-jib-css/experimental/corner',
-    support: 'Chrome 139+ · ~68%',
     blurb: 'Squircles, bevels, scoops, notches and arbitrary superellipses, per corner.',
   },
   {
     kind: 'addition' as const,
     title: 'Interpolate Size',
     href: '/tw-jib-css/experimental/interpolate',
-    support: 'Chromium · ~48%',
     blurb: 'Animate to auto and the other intrinsic keywords.',
   },
   {
     kind: 'addition' as const,
     title: 'Base Select Picker',
     href: '/tw-jib-css/experimental/picker',
-    support: 'Chromium, Firefox WIP',
     blurb: 'appearance: base-select, plus variants for the popup, icon and checkmark.',
   },
   {
     kind: 'addition' as const,
     title: 'WCAG Badge',
     href: '/tw-jib-css/experimental/wcag-badge',
-    support: 'Chromium only',
     blurb: 'A live contrast rating on any element, computed entirely in CSS.',
   },
 ];
@@ -95,7 +86,6 @@ const pages = [
               ]"
               >{{ p.kind }}</span
             >
-            <span class="font-mono text-[10px] opacity-55">{{ p.support }}</span>
           </div>
           <h3 class="text-lg font-bold m-0 group-hover:text-(color:--docs-accent)">
             {{ p.title }}

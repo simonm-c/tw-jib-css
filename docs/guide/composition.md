@@ -139,3 +139,5 @@ This page crosses modules, so it assumes the whole library:
 
 Every module is also its own entry, and they compose the same way taken separately. See
 [take only what you need](/guide/installation#take-only-what-you-need).
+
+<BaselineSupport :features="['relative-color', 'registered-custom-properties', 'color-mix']" />

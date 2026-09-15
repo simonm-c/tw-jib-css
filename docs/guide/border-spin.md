@@ -107,3 +107,5 @@ Included in `@import 'tw-jib-css'`. To import individually:
 ```
 
 Note: `border-spin` is part of the `border-gradient` module.
+
+<BaselineSupport :features="['registered-custom-properties', 'gradient-interpolation']" />

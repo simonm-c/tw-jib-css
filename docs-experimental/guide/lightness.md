@@ -192,3 +192,5 @@ Order matters: source order is what carries an override, so the stable package c
 @import 'tw-jib-css';
 @import 'tw-jib-css-experimental/functions';
 ```
+
+<BaselineSupport :features="['function', 'relative-color']" />

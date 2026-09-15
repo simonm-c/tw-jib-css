@@ -164,3 +164,5 @@ This module re-implements `text-contrast-*` on top of this function wherever `@f
 @import 'tw-jib-css';
 @import 'tw-jib-css-experimental/functions';
 ```
+
+<BaselineSupport :features="['function', 'relative-color']" />

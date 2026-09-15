@@ -198,3 +198,5 @@ Taking the badge deliberately does **not** reroute `text-contrast-*` onto `@func
 The badge reads `--tw-jib--contrast-level`, which both shade paths write, so it reports
 correctly either way. Automatic contrast itself is separate and stable:
 `@import 'tw-jib-css'`.
+
+<BaselineSupport :features="['function', 'if']" />

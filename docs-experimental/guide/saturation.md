@@ -155,3 +155,5 @@ This module re-implements `bg-saturation-*`, `bg-saturate-*` and `bg-desaturate-
 @import 'tw-jib-css';
 @import 'tw-jib-css-experimental/functions';
 ```
+
+<BaselineSupport :features="['function', 'relative-color']" />

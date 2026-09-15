@@ -27,8 +27,7 @@ const INSTALL_SNIPPET = 'npm install -D tw-jib-css tw-jib-css-experimental';
         A separate package from the stable one. Five color functions that reach where a class
         cannot, corner shapes past the circular arc, animation to
         <code class="font-mono">auto</code>, a select you can actually style, and a live WCAG rating
-        printed on any element. Mostly Chromium. Elsewhere the utilities no-op and every stable
-        class keeps working.
+        printed on any element.
       </p>
 
       <div

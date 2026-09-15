@@ -42,6 +42,11 @@ export default defineConfig({
     /* Absolute, because nav items go through withBase() and a root-relative form
      * would resolve under this instance's own base. Only nav items are affected;
      * in-body links are raw <a href>. */
+  vue: {
+    template: {
+      compilerOptions: { isCustomElement: (tag) => tag === 'baseline-status' },
+    },
+  },
     nav: [
       { text: 'Guide', link: '/guide/installation' },
       { text: 'Stable docs', link: 'https://simonm-c.github.io/tw-jib-css/' },

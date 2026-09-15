@@ -85,3 +85,5 @@ Reach for the raw function when you want the string somewhere a badge does not g
 @import 'tw-jib-css';
 @import 'tw-jib-css-experimental/functions';
 ```
+
+<BaselineSupport :features="['function', 'if']" />

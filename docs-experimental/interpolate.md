@@ -58,3 +58,5 @@ experimental module, and none of the [`@function` overrides](/guide/installation
 
 This entry reads nothing from `tw-jib-css`, so it costs you no color machinery you
 aren't using.
+
+<BaselineSupport :features="['interpolate-size']" />

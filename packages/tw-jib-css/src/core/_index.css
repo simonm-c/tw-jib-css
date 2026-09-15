@@ -133,7 +133,7 @@
 @property --tw-jib--text-color-source {
   syntax: "<color>";
   inherits: true;
-  initial-value: transparent;
+  initial-value: canvastext;
 }
 @property --tw-jib--text-color {
   syntax: "<color>";

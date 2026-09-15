@@ -634,6 +634,12 @@ All 8 interpolation modes on a linear border gradient. Same from/to colors to sh
   <div data-test="border-spin-motion-safe" class="h-20 rounded-lg border-4 flex items-center justify-center bg-slate-800 border-conic-0 motion-safe:border-spin border-from-rose-500 border-to-cyan-500">
     <span class="text-xs font-mono text-white/70">motion-safe:border-spin</span>
   </div>
+  <div data-test="border-spin-reverse" class="h-20 rounded-lg border-4 flex items-center justify-center bg-slate-800 border-conic-0 border-spin border-spin-reverse border-from-rose-500 border-via-yellow-400 border-to-cyan-500">
+    <span class="text-xs font-mono text-white/70">border-spin-reverse</span>
+  </div>
+  <div data-test="border-spin-var-duration" style="--spin-speed: 2.5s" class="h-20 rounded-lg border-4 flex items-center justify-center bg-slate-800 border-conic-0 border-spin border-spin-duration-(--spin-speed) border-from-rose-500 border-to-cyan-500">
+    <span class="text-xs font-mono text-white/70">duration-(--spin-speed)</span>
+  </div>
 </div>
 
 ## Edge cases: background modifiers + border gradient

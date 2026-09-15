@@ -17,9 +17,12 @@ Chrome 111+, Safari 16.4+, Firefox 128+. Two features set that floor: `@property
 <UtilityTable :rows="[
   { class: 'bg-ripple', styles: 'Enables ripple effect on :active via radial-gradient animation' },
   { class: 'ripple-color-<color>', styles: '--ripple-color: <color>' },
-  { class: 'ripple-color-<color>/<opacity>', styles: '--ripple-color: color-mix(in oklch, <color> calc(<opacity> * 1%), transparent)' },
+  { class: 'ripple-color-<color>/<opacity>', styles: '--ripple-color: <color> at <opacity>%' },
+  { class: 'ripple-color-<color>/[<percentage>]', styles: '--ripple-color: <color> at that percentage' },
+  { class: 'ripple-color-<color>/[<number>]', styles: '--ripple-color: <color> at <number> × 100%' },
   { class: 'ripple-color-current', styles: '--ripple-color: currentColor' },
   { class: 'ripple-color-[<value>]', styles: '--ripple-color: <value>' },
+  { class: 'ripple-color-(--var)', styles: '--ripple-color: var(--var)' },
   { class: 'ripple-duration-<number>', styles: '--ripple-duration: calc(<number> * 10ms)' },
   { class: 'ripple-duration-[<value>]', styles: '--ripple-duration: <value>' },
   { class: 'ripple-position-center', styles: '--ripple-position: center' },
@@ -28,7 +31,7 @@ Chrome 111+, Safari 16.4+, Firefox 128+. Two features set that floor: `@property
   { class: 'ripple-position-left', styles: '--ripple-position: left' },
   { class: 'ripple-position-right', styles: '--ripple-position: right' },
   { class: 'ripple-position-[<value>]', styles: '--ripple-position: <value>' },
-  { class: 'ripple-position-(position:--var)', styles: '--ripple-position: var(--var)' },
+  { class: 'ripple-position-(--var)', styles: '--ripple-position: var(--var)' },
   { class: 'ripple-fade', styles: '--ripple-fade-amount: 100%' },
   { class: 'ripple-fade-none', styles: '--ripple-fade-amount: 0%' },
   { class: 'ripple-fade-<number>', styles: '--ripple-fade-amount: calc(<number> * 1%)' },
@@ -61,9 +64,13 @@ Use `ripple-color-current` to match the ripple to the element's text color. Hand
 
 ## Opacity
 
-Opacity goes through `color-mix(in oklch)`. The [Color Spaces guide](/guide/color-spaces) covers why oklch is the default mixing space.
+Control ripple opacity with the slash modifier. It takes the same three spellings Tailwind's own opacity modifiers do — a bare number is a percentage, a bracketed percentage passes through, and a bracketed number is a 0–1 alpha:
 
-Control ripple opacity with the slash modifier:
+```html
+<div class="bg-ripple ripple-color-red-500/50"></div>
+<div class="bg-ripple ripple-color-red-500/[50%]"></div>
+<div class="bg-ripple ripple-color-red-500/[0.5]"></div>
+```
 
 <Example>
   <div class="flex gap-2">
@@ -137,24 +144,26 @@ Use the `ripple-color-[<value>]` syntax to pass a value the palette doesn't have
 
 ## Using a custom variable
 
-For CSS variables, use the typed bare-value syntax `ripple-color-(color:--var)`. The `color` type hint tells Tailwind to interpret the variable as a color:
+Reference a CSS variable with `(--var)`. Every ripple utility takes one kind of value, so none of them needs a type hint:
 
 <Example>
   <div class="flex gap-3">
-    <button class="bg-ripple ripple-color-(color:--theme-ripple) bg-gray-800 text-white px-8 py-4 rounded-lg font-medium cursor-pointer [--theme-ripple:#bada55]">
-      ripple-color-(color:--theme-ripple)
+    <button class="bg-ripple ripple-color-(--theme-ripple) bg-gray-800 text-white px-8 py-4 rounded-lg font-medium cursor-pointer [--theme-ripple:#bada55]">
+      ripple-color-(--theme-ripple)
     </button>
-    <button class="bg-ripple ripple-color-(color:--theme-ripple) bg-white text-gray-800 border border-gray-200 px-8 py-4 rounded-lg font-medium cursor-pointer [--theme-ripple:#6366f1]">
-      ripple-color-(color:--theme-ripple)
+    <button class="bg-ripple ripple-color-(--theme-ripple) bg-white text-gray-800 border border-gray-200 px-8 py-4 rounded-lg font-medium cursor-pointer [--theme-ripple:#6366f1]">
+      ripple-color-(--theme-ripple)
     </button>
   </div>
 </Example>
 
-The same pattern works for all ripple properties. For position, use the `position` type hint:
+The same applies to position, duration and fade:
 
 ```html
-<div class="bg-ripple ripple-position-(position:--ripple-pos) [--ripple-pos:25%_75%]"></div>
+<div class="bg-ripple ripple-position-(--ripple-pos) [--ripple-pos:25%_75%]"></div>
 ```
+
+A type hint is still accepted — `ripple-color-(color:--var)` works — and is needed on utilities whose namespace takes more than one kind of value, such as `bg-*` and the gradient stops. See [Colors from CSS variables need a type hint](/guide/composition#colors-from-css-variables-need-a-type-hint).
 
 ### Cursor-tracking ripple
 
@@ -162,7 +171,7 @@ By default, `ripple-position` is a fixed value, so the ripple always starts from
 
 <Example>
   <button
-    class="bg-ripple ripple-position-(position:--ripple-pos) ripple-color-amber-300 bg-blue-600 text-white px-12 py-6 rounded-lg font-medium cursor-pointer"
+    class="bg-ripple ripple-position-(--ripple-pos) ripple-color-amber-300 bg-blue-600 text-white px-12 py-6 rounded-lg font-medium cursor-pointer"
     @mousedown="(e) => {
       const rect = e.currentTarget.getBoundingClientRect();
       const x = ((e.clientX - rect.left) / rect.width * 100).toFixed(1);
@@ -179,7 +188,7 @@ The JavaScript is small. Convert the cursor position to a percentage and write i
 ::: code-group
 
 ```js [JavaScript]
-// HTML: <button class="ripple-btn bg-ripple ripple-position-(position:--ripple-pos)">Click me</button>
+// HTML: <button class="ripple-btn bg-ripple ripple-position-(--ripple-pos)">Click me</button>
 
 const button = document.querySelector('.ripple-btn');
 
@@ -192,7 +201,7 @@ button.addEventListener('mousedown', (e) => {
 ```
 
 ```ts [TypeScript]
-// HTML: <button class="ripple-btn bg-ripple ripple-position-(position:--ripple-pos)">Click me</button>
+// HTML: <button class="ripple-btn bg-ripple ripple-position-(--ripple-pos)">Click me</button>
 
 const button = document.querySelector<HTMLButtonElement>('.ripple-btn')!;
 
@@ -214,10 +223,7 @@ function RippleButton() {
   }
 
   return (
-    <button
-      className="bg-ripple ripple-position-(position:--ripple-pos)"
-      onMouseDown={handleMouseDown}
-    >
+    <button className="bg-ripple ripple-position-(--ripple-pos)" onMouseDown={handleMouseDown}>
       Click me
     </button>
   );
@@ -228,7 +234,7 @@ function RippleButton() {
 <template>
   <button
     ref="buttonRef"
-    class="bg-ripple ripple-position-(position:--ripple-pos)"
+    class="bg-ripple ripple-position-(--ripple-pos)"
     @mousedown="handleMouseDown"
   >
     Click me
@@ -252,7 +258,7 @@ function handleMouseDown(e) {
 :::
 
 ::: tip Why not just set `--tw-jib--ripple-position` directly?
-You could, but a custom variable via `ripple-position-(position:--ripple-pos)` keeps the contract explicit. Tailwind sees the utility in your markup and emits the ripple-position rule. Setting the internal variable directly works at runtime, but the utility won't appear in your compiled CSS unless something else references it.
+You could, but a custom variable via `ripple-position-(--ripple-pos)` keeps the contract explicit. Tailwind sees the utility in your markup and emits the ripple-position rule. Setting the internal variable directly works at runtime, but the utility won't appear in your compiled CSS unless something else references it.
 :::
 
 ## Applying conditionally

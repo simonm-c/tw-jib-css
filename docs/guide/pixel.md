@@ -22,8 +22,10 @@ The columns sit on a black base, so the surface a reader sees is part phosphor a
 
 <UtilityTable :rows="[
   { class: 'bg-pixel-<color>', styles: 'Sets color and applies RGB pixel pattern with background-blend-mode: screen' },
-  { class: 'bg-pixel-<color>/<opacity>', styles: 'Same with opacity modifier' },
+  { class: 'bg-pixel-<color>/<opacity>', styles: 'Same with opacity modifier, 0-100' },
+  { class: 'bg-pixel-<color>/[<number>]', styles: 'Same with a 0-1 opacity' },
   { class: 'bg-pixel-[<value>]', styles: 'Arbitrary color value' },
+  { class: 'bg-pixel-(--var)', styles: 'Color from a custom property' },
   { class: 'pixel-size-<number>', styles: '--tw-jib--pixel-size: --spacing(<number>) / 4. Pixel size; width = size, height = size × 2.' },
   { class: 'pixel-size-[<value>]', styles: '--tw-jib--pixel-size: <value>' },
   { class: 'pixel-gap-<number>', styles: '--tw-jib--pixel-gap: <number>. Gap as a multiple of pixel width.' },
@@ -162,7 +164,7 @@ Control the phosphor bloom with `pixel-bloom-<number>`. Scales at spacing/4 so `
 
 ## Opacity
 
-Add an opacity modifier with the `/` syntax to fade the whole pattern: all three RGB channel layers, the row mask and the black background. The value is a percentage (0–100).
+Add an opacity modifier with the `/` syntax to fade the whole pattern: all three RGB channel layers, the row mask and the black background. The bare value is a percentage (0–100); a bracketed value is a 0–1 alpha, so `/50` and `/[0.5]` are the same. The bracketed-percentage form `/[50%]` that the color utilities accept is not available here, because converting it would need `calc(x / 100%)`, which Firefox rejects.
 
 <Example>
   <div class="flex gap-3">

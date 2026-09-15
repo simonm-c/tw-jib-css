@@ -8,6 +8,10 @@ title: Lightness
 
 Adjust the lightness of any color. Positive values lighten, negative values darken. Works across all color-accepting properties and all 17 color spaces.
 
+::: warning A source color from a CSS variable must carry the `color:` hint
+These utilities transform the color already on the element, so that color has to reach them. `bg-(color:--brand)` does; `bg-(--brand)` does not, because Tailwind will not infer a type from inside a `var()`. Without the hint the class still compiles and the color still appears, but the transform runs against an unset source: `bg-*` washes out to near-white, the other six surfaces go fully transparent. See [Colors from CSS variables need a type hint](/guide/composition#colors-from-css-variables-need-a-type-hint).
+:::
+
 ## Quick reference
 
 <UtilityTable :rows="[
@@ -18,7 +22,7 @@ Adjust the lightness of any color. Positive values lighten, negative values dark
   { class: 'bg-lighten-<number>', styles: 'Alias for bg-lightness-<number>' },
   { class: 'bg-darken-<number>', styles: 'Alias for -bg-lightness-<number>' },
   { class: 'bg-lightness-[<value>]', styles: 'Lighten by an arbitrary amount' },
-  { class: 'bg-lightness-(number:--<var>)', styles: 'Lighten by a custom property' },
+  { class: 'bg-lightness-(--<var>)', styles: 'Lighten by a custom property' },
   { class: 'text-lightness-<number>', styles: 'Lighten text color' },
   { class: 'fill-lightness-<number>', styles: 'Lighten SVG fill' },
   { class: 'stroke-lightness-<number>', styles: 'Lighten SVG stroke' },

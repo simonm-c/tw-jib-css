@@ -22,8 +22,10 @@ The dots sit on a white base, so the surface a reader sees is part ink and part 
 
 <UtilityTable :rows="[
   { class: 'bg-comic-<color>', styles: 'Sets color and applies CMYK dot pattern with background-blend-mode: multiply' },
-  { class: 'bg-comic-<color>/<opacity>', styles: 'Same with opacity modifier' },
+  { class: 'bg-comic-<color>/<opacity>', styles: 'Same with opacity modifier, 0-100' },
+  { class: 'bg-comic-<color>/[<number>]', styles: 'Same with a 0-1 opacity' },
   { class: 'bg-comic-[<value>]', styles: 'Arbitrary color value' },
+  { class: 'bg-comic-(--var)', styles: 'Color from a custom property' },
   { class: 'comic-dot-<number>', styles: '--tw-jib--comic-dot: --spacing(<number>). Dot radius.' },
   { class: 'comic-dot-[<value>]', styles: '--tw-jib--comic-dot: <value>' },
   { class: 'comic-bleed-<number>', styles: '--tw-jib--comic-bleed: --spacing(<number>) / 4. Dot edge softness.' },
@@ -153,7 +155,7 @@ Control the dot edge softness with `comic-bleed-<number>`. The transparent gradi
 
 ## Opacity
 
-Add an opacity modifier with the `/` syntax to fade the whole pattern: all four CMYK dot layers and the white background. The value is a percentage (0–100).
+Add an opacity modifier with the `/` syntax to fade the whole pattern: all four CMYK dot layers and the white background. The bare value is a percentage (0–100); a bracketed value is a 0–1 alpha, so `/50` and `/[0.5]` are the same. The bracketed-percentage form `/[50%]` that the color utilities accept is not available here, because converting it would need `calc(x / 100%)`, which Firefox rejects.
 
 <Example>
   <div class="flex gap-3">

@@ -8,6 +8,10 @@ title: Hue rotate
 
 Rotate the hue of any color by a number of degrees. Positive values rotate clockwise, negative values counterclockwise. Works across all color-accepting properties and 16 color spaces, one fewer than lightness and saturation because rotation has no `color-mix` form.
 
+::: warning A source color from a CSS variable must carry the `color:` hint
+These utilities transform the color already on the element, so that color has to reach them. `bg-(color:--brand)` does; `bg-(--brand)` does not, because Tailwind will not infer a type from inside a `var()`. Without the hint the class still compiles and the color still appears, but the transform runs against an unset source: `bg-*` washes out to near-white, the other six surfaces go fully transparent. See [Colors from CSS variables need a type hint](/guide/composition#colors-from-css-variables-need-a-type-hint).
+:::
+
 ## Quick reference
 
 <UtilityTable :rows="[
@@ -15,7 +19,7 @@ Rotate the hue of any color by a number of degrees. Positive values rotate clock
   { class: '-bg-hue-rotate-<degrees>', styles: 'Rotate background hue counterclockwise' },
   { class: 'bg-hue-rotate-<degrees>/<space>', styles: 'Rotate in a specific color space' },
   { class: 'bg-hue-rotate-[<value>]', styles: 'Rotate by an arbitrary number of degrees' },
-  { class: 'bg-hue-rotate-(number:--<var>)', styles: 'Rotate by a custom property' },
+  { class: 'bg-hue-rotate-(--<var>)', styles: 'Rotate by a custom property' },
   { class: 'text-hue-rotate-<degrees>', styles: 'Rotate text color hue' },
   { class: 'fill-hue-rotate-<degrees>', styles: 'Rotate SVG fill hue' },
   { class: 'stroke-hue-rotate-<degrees>', styles: 'Rotate SVG stroke hue' },

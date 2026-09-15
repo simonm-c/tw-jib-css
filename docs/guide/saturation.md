@@ -8,6 +8,10 @@ title: Saturation
 
 Adjust the saturation (chroma) of any color. Positive values increase saturation, negative values desaturate. Works across all color-accepting properties and all 17 color spaces.
 
+::: warning A source color from a CSS variable must carry the `color:` hint
+These utilities transform the color already on the element, so that color has to reach them. `bg-(color:--brand)` does; `bg-(--brand)` does not, because Tailwind will not infer a type from inside a `var()`. Without the hint the class still compiles and the color still appears, but the transform runs against an unset source: `bg-*` washes out to near-white, the other six surfaces go fully transparent. See [Colors from CSS variables need a type hint](/guide/composition#colors-from-css-variables-need-a-type-hint).
+:::
+
 ## Quick reference
 
 <UtilityTable :rows="[
@@ -18,7 +22,7 @@ Adjust the saturation (chroma) of any color. Positive values increase saturation
   { class: 'bg-saturate-<number>', styles: 'Alias for bg-saturation-<number>' },
   { class: 'bg-desaturate-<number>', styles: 'Alias for -bg-saturation-<number>' },
   { class: 'bg-saturation-[<value>]', styles: 'Saturate by an arbitrary amount' },
-  { class: 'bg-saturation-(number:--<var>)', styles: 'Saturate by a custom property' },
+  { class: 'bg-saturation-(--<var>)', styles: 'Saturate by a custom property' },
   { class: 'text-saturation-<number>', styles: 'Adjust text color saturation' },
   { class: 'fill-saturation-<number>', styles: 'Adjust SVG fill saturation' },
   { class: 'stroke-saturation-<number>', styles: 'Adjust SVG stroke saturation' },

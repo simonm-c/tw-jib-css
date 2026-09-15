@@ -42,7 +42,7 @@
 
 @utility accent-lightness-* {
   &:not(._) {
-    --tw-jib--accent-lightness--amount: calc(--value(integer, [number]) * 0.01);
+    --tw-jib--accent-lightness--amount: calc(--value(integer, [number], [ *]) * 0.01);
     --tw-jib--accent-color-after-lightness: oklch(from var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))) calc(l * (1 - abs(var(--tw-jib--accent-lightness--amount))) + max(0, var(--tw-jib--accent-lightness--amount))) calc(c * min(1, (1 - abs(var(--tw-jib--accent-lightness--amount))) * 5)) h / alpha);
     --tw-jib--accent-color-after-lightness: --modifier(--tw-jib--accent-color-interpolation- *);
     --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
@@ -53,7 +53,7 @@
 @utility accent-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--accent-color-after-lightness: --tw-jib--lightness(var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))), --value(integer, [number]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --tw-jib--accent-color-after-lightness: --tw-jib--lightness(var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
       --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
       accent-color: var(--tw-jib--accent-color);
     }
@@ -62,7 +62,7 @@
 
 @utility -accent-lightness-* {
   &:not(._) {
-    --tw-jib--accent-lightness--amount: calc(--value(integer, [number]) * -0.01);
+    --tw-jib--accent-lightness--amount: calc(--value(integer, [number], [ *]) * -0.01);
     --tw-jib--accent-color-after-lightness: oklch(from var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))) calc(l * (1 - abs(var(--tw-jib--accent-lightness--amount))) + max(0, var(--tw-jib--accent-lightness--amount))) calc(c * min(1, (1 - abs(var(--tw-jib--accent-lightness--amount))) * 5)) h / alpha);
     --tw-jib--accent-color-after-lightness: --modifier(--tw-jib--accent-color-interpolation- *);
     --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
@@ -73,7 +73,7 @@
 @utility -accent-lightness-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--accent-color-after-lightness: --tw-jib--lightness(var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))), calc(--value(integer, [number]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --tw-jib--accent-color-after-lightness: --tw-jib--lightness(var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
       --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
       accent-color: var(--tw-jib--accent-color);
     }
@@ -82,7 +82,7 @@
 
 @utility accent-lighten-* {
   &:not(._) {
-    --tw-jib--accent-lightness--amount: calc(--value(integer, [number]) * 0.01);
+    --tw-jib--accent-lightness--amount: calc(--value(integer, [number], [ *]) * 0.01);
     --tw-jib--accent-color-after-lightness: oklch(from var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))) calc(l * (1 - abs(var(--tw-jib--accent-lightness--amount))) + max(0, var(--tw-jib--accent-lightness--amount))) calc(c * min(1, (1 - abs(var(--tw-jib--accent-lightness--amount))) * 5)) h / alpha);
     --tw-jib--accent-color-after-lightness: --modifier(--tw-jib--accent-color-interpolation- *);
     --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
@@ -93,7 +93,7 @@
 @utility accent-lighten-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--accent-color-after-lightness: --tw-jib--lightness(var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))), --value(integer, [number]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --tw-jib--accent-color-after-lightness: --tw-jib--lightness(var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
       --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
       accent-color: var(--tw-jib--accent-color);
     }
@@ -102,7 +102,7 @@
 
 @utility accent-darken-* {
   &:not(._) {
-    --tw-jib--accent-lightness--amount: calc(--value(integer, [number]) * -0.01);
+    --tw-jib--accent-lightness--amount: calc(--value(integer, [number], [ *]) * -0.01);
     --tw-jib--accent-color-after-lightness: oklch(from var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))) calc(l * (1 - abs(var(--tw-jib--accent-lightness--amount))) + max(0, var(--tw-jib--accent-lightness--amount))) calc(c * min(1, (1 - abs(var(--tw-jib--accent-lightness--amount))) * 5)) h / alpha);
     --tw-jib--accent-color-after-lightness: --modifier(--tw-jib--accent-color-interpolation- *);
     --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
@@ -113,7 +113,7 @@
 @utility accent-darken-* {
   &:not(._) {
     @variant supports-lightness {
-      --tw-jib--accent-color-after-lightness: --tw-jib--lightness(var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))), calc(--value(integer, [number]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --tw-jib--accent-color-after-lightness: --tw-jib--lightness(var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
       --tw-jib--accent-color: var(--tw-jib--accent-color-after-lightness, var(--tw-jib--accent-color-after-saturation, var(--tw-jib--accent-color-after-hue-rotate, var(--tw-jib--accent-color-source))));
       accent-color: var(--tw-jib--accent-color);
     }

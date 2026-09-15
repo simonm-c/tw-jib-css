@@ -6,7 +6,7 @@
 }
 @utility -corner-* {
   @supports (corner-shape: squircle) {
-    corner-shape: superellipse(calc(--value("infinity", number, [number]) * -1));
+    corner-shape: superellipse(calc(--value("infinity", number, [number], [ *]) * -1));
   }
 }
 @utility corner-s-* {
@@ -107,77 +107,77 @@
 }
 @utility -corner-s-* {
   @supports (corner-shape: squircle) {
-    corner-start-start-shape: superellipse(calc(--value("infinity", number, [number]) * -1));
-    corner-end-start-shape: superellipse(calc(--value("infinity", number, [number]) * -1));
+    corner-start-start-shape: superellipse(calc(--value("infinity", number, [number], [ *]) * -1));
+    corner-end-start-shape: superellipse(calc(--value("infinity", number, [number], [ *]) * -1));
   }
 }
 @utility -corner-e-* {
   @supports (corner-shape: squircle) {
-    corner-start-end-shape: superellipse(calc(--value("infinity", number, [number]) * -1));
-    corner-end-end-shape: superellipse(calc(--value("infinity", number, [number]) * -1));
+    corner-start-end-shape: superellipse(calc(--value("infinity", number, [number], [ *]) * -1));
+    corner-end-end-shape: superellipse(calc(--value("infinity", number, [number], [ *]) * -1));
   }
 }
 @utility -corner-t-* {
   @supports (corner-shape: squircle) {
-    corner-top-left-shape: superellipse(calc(--value("infinity", number, [number]) * -1));
-    corner-top-right-shape: superellipse(calc(--value("infinity", number, [number]) * -1));
+    corner-top-left-shape: superellipse(calc(--value("infinity", number, [number], [ *]) * -1));
+    corner-top-right-shape: superellipse(calc(--value("infinity", number, [number], [ *]) * -1));
   }
 }
 @utility -corner-b-* {
   @supports (corner-shape: squircle) {
-    corner-bottom-left-shape: superellipse(calc(--value("infinity", number, [number]) * -1));
-    corner-bottom-right-shape: superellipse(calc(--value("infinity", number, [number]) * -1));
+    corner-bottom-left-shape: superellipse(calc(--value("infinity", number, [number], [ *]) * -1));
+    corner-bottom-right-shape: superellipse(calc(--value("infinity", number, [number], [ *]) * -1));
   }
 }
 @utility -corner-r-* {
   @supports (corner-shape: squircle) {
-    corner-top-right-shape: superellipse(calc(--value("infinity", number, [number]) * -1));
-    corner-bottom-right-shape: superellipse(calc(--value("infinity", number, [number]) * -1));
+    corner-top-right-shape: superellipse(calc(--value("infinity", number, [number], [ *]) * -1));
+    corner-bottom-right-shape: superellipse(calc(--value("infinity", number, [number], [ *]) * -1));
   }
 }
 @utility -corner-l-* {
   @supports (corner-shape: squircle) {
-    corner-top-left-shape: superellipse(calc(--value("infinity", number, [number]) * -1));
-    corner-bottom-left-shape: superellipse(calc(--value("infinity", number, [number]) * -1));
+    corner-top-left-shape: superellipse(calc(--value("infinity", number, [number], [ *]) * -1));
+    corner-bottom-left-shape: superellipse(calc(--value("infinity", number, [number], [ *]) * -1));
   }
 }
 @utility -corner-ss-* {
   @supports (corner-shape: squircle) {
-    corner-start-start-shape: superellipse(calc(--value("infinity", number, [number]) * -1));
+    corner-start-start-shape: superellipse(calc(--value("infinity", number, [number], [ *]) * -1));
   }
 }
 @utility -corner-se-* {
   @supports (corner-shape: squircle) {
-    corner-start-end-shape: superellipse(calc(--value("infinity", number, [number]) * -1));
+    corner-start-end-shape: superellipse(calc(--value("infinity", number, [number], [ *]) * -1));
   }
 }
 @utility -corner-ee-* {
   @supports (corner-shape: squircle) {
-    corner-end-end-shape: superellipse(calc(--value("infinity", number, [number]) * -1));
+    corner-end-end-shape: superellipse(calc(--value("infinity", number, [number], [ *]) * -1));
   }
 }
 @utility -corner-es-* {
   @supports (corner-shape: squircle) {
-    corner-end-start-shape: superellipse(calc(--value("infinity", number, [number]) * -1));
+    corner-end-start-shape: superellipse(calc(--value("infinity", number, [number], [ *]) * -1));
   }
 }
 @utility -corner-tl-* {
   @supports (corner-shape: squircle) {
-    corner-top-left-shape: superellipse(calc(--value("infinity", number, [number]) * -1));
+    corner-top-left-shape: superellipse(calc(--value("infinity", number, [number], [ *]) * -1));
   }
 }
 @utility -corner-tr-* {
   @supports (corner-shape: squircle) {
-    corner-top-right-shape: superellipse(calc(--value("infinity", number, [number]) * -1));
+    corner-top-right-shape: superellipse(calc(--value("infinity", number, [number], [ *]) * -1));
   }
 }
 @utility -corner-bl-* {
   @supports (corner-shape: squircle) {
-    corner-bottom-left-shape: superellipse(calc(--value("infinity", number, [number]) * -1));
+    corner-bottom-left-shape: superellipse(calc(--value("infinity", number, [number], [ *]) * -1));
   }
 }
 @utility -corner-br-* {
   @supports (corner-shape: squircle) {
-    corner-bottom-right-shape: superellipse(calc(--value("infinity", number, [number]) * -1));
+    corner-bottom-right-shape: superellipse(calc(--value("infinity", number, [number], [ *]) * -1));
   }
 }

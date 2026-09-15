@@ -245,6 +245,24 @@ describe.each(suiteScenarios('border-gradient'))(
       expect(css).toContain('border-color: transparent');
       expect(css).toContain(BG_LAYER);
     });
+
+    test('border-linear-to-[…] passes an arbitrary position through verbatim', async () => {
+      const css = await compile(
+        'bg-slate-800 border-linear-to-[to_top_left_in_oklch] border-from-rose-500 border-to-cyan-500',
+      );
+      expect(css, 'the arbitrary position did not reach the gradient').toContain(
+        '--tw-jib--border-gradient-position: to top left in oklch',
+      );
+    });
+
+    test('border-linear-to-(--v) resolves the untyped custom-property shorthand', async () => {
+      const css = await compile(
+        'bg-slate-800 border-linear-to-(--v) border-from-rose-500 border-to-cyan-500',
+      );
+      expect(css, 'the shorthand did not reach the gradient').toContain(
+        '--tw-jib--border-gradient-position: var(--v)',
+      );
+    });
   },
 );
 

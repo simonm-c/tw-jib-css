@@ -337,7 +337,7 @@ pageClass: showcase
         <ul class="space-y-2">
           <li class="hover:text-stone-100 cursor-pointer">Installation</li>
           <li class="hover:text-stone-100 cursor-pointer">Pixel reference</li>
-          <li class="hover:text-stone-100 cursor-pointer">Print textures</li>
+          <li class="hover:text-stone-100 cursor-pointer">Texture reference</li>
         </ul>
       </div>
       <div>

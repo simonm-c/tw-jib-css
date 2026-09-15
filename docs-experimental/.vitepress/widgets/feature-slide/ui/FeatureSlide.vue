@@ -39,7 +39,6 @@ const slide = computed<FeatureSlideData>(() => slides[props.index]);
             ]"
             >{{ slide.kind }}</span
           >
-          <span class="font-mono text-[11px] opacity-60">{{ slide.support }}</span>
         </div>
 
         <h2 class="text-3xl md:text-4xl font-black tracking-tight leading-tight">
@@ -52,6 +51,7 @@ const slide = computed<FeatureSlideData>(() => slides[props.index]);
         <div class="flex flex-wrap items-baseline gap-x-6 gap-y-2">
           <a
             :href="slide.link.href"
+            :target="slide.link.crossSite ? '_self' : undefined"
             class="text-sm font-semibold text-(color:--docs-accent) no-underline hover:opacity-70"
             >{{ slide.link.text }} &rarr;</a
           >

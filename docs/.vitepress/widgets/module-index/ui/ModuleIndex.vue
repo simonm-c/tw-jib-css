@@ -60,9 +60,8 @@ import CodePanel from '@shared/shared/ui/CodePanel.vue';
              deliberately the last thing on the page and deliberately states the
              cost before the contents: a reader who never scrolls this far has
              lost nothing, and a reader who does gets the trade, not a teaser.
-             Nothing here is version-pinned. Cutting edge and mostly Chromium is
-             the whole claim, and the experimental instance carries the
-             per-module detail. -->
+             No support claim is made here; the experimental instance carries
+             it per module. -->
         <div class="space-y-3">
           <div class="flex flex-wrap items-center gap-2">
             <h3 class="text-lg font-bold">Cutting-Edge CSS</h3>
@@ -75,7 +74,7 @@ import CodePanel from '@shared/shared/ui/CodePanel.vue';
             A second, optional install for the newest things CSS can do. Corner shapes past the
             circular arc, animation to <code class="font-mono text-xs">auto</code>, a styleable
             <code class="font-mono text-xs">select</code>, a live WCAG badge, and the color
-            transforms as callable CSS functions. Mostly Chromium-only.
+            transforms as callable CSS functions.
           </p>
           <p class="text-sm opacity-70 leading-relaxed">
             Nothing above depends on it. Half of it does replace utilities on this page with
@@ -88,6 +87,7 @@ import CodePanel from '@shared/shared/ui/CodePanel.vue';
           >
           <a
             href="https://simonm-c.github.io/tw-jib-css/experimental/"
+            target="_self"
             class="inline-block text-sm font-semibold text-(color:--docs-accent) no-underline hover:text-lighten-15"
             >Experimental docs &rarr;</a
           >

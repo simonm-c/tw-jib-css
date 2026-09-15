@@ -182,7 +182,7 @@ The spaces render identically to the utility's `/<space>` modifier, because it i
 
 ## The override
 
-Importing this module also re-implements `bg-lightness-*`, `bg-lighten-*` and `bg-darken-*` on top of this function, on every surface, wherever `@function` is supported. Same class names, same output. See [the overrides](/overview#the-function-overrides) for how that swap is gated and why it cannot affect an engine that lacks `@function`.
+Importing this module also re-implements `bg-lightness-*`, `bg-lighten-*` and `bg-darken-*` on top of this function, on every surface, wherever `@function` is supported. Same class names, same output. See [the overrides](/guide/installation#the-function-overrides) for how that swap is gated and why it cannot affect an engine that lacks `@function`.
 
 ## Import
 
@@ -192,3 +192,5 @@ Order matters: source order is what carries an override, so the stable package c
 @import 'tw-jib-css';
 @import 'tw-jib-css-experimental/functions';
 ```
+
+<BaselineSupport :features="['function', 'relative-color']" />

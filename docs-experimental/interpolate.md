@@ -1,10 +1,10 @@
 ---
-title: Interpolate Size
+title: Interpolate size
 ---
 
 <!-- llm-context: interpolate module (experimental). CSS interpolate-size property for animating keyword sizes (auto, min-content, etc.). Chromium only, ~48% browser support. -->
 
-# Interpolate Size
+# Interpolate size
 
 The CSS `interpolate-size` property enables smooth transitions to and from keyword sizes like `auto`, `min-content`, and `max-content`. Without it, CSS cannot animate between a fixed size and `auto`.
 
@@ -50,7 +50,7 @@ Add `interpolate-keywords` to a parent and its children can transition height:
 ## Import
 
 Included in `@import 'tw-jib-css-experimental'`. To take it on its own, with no other
-experimental module, and none of the [`@function` overrides](/overview#the-function-overrides):
+experimental module, and none of the [`@function` overrides](/guide/installation#the-function-overrides):
 
 ```css
 @import 'tw-jib-css-experimental/interpolate';
@@ -58,3 +58,5 @@ experimental module, and none of the [`@function` overrides](/overview#the-funct
 
 This entry reads nothing from `tw-jib-css`, so it costs you no color machinery you
 aren't using.
+
+<BaselineSupport :features="['interpolate-size']" />

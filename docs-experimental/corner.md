@@ -1,10 +1,10 @@
 ---
-title: Corner Shape
+title: Corner shape
 ---
 
 <!-- llm-context: corner module (experimental). CSS corner-shape property for squircle, bevel, scoop, notch, and superellipse corner rendering. Chrome 139+, ~68% browser support. All utilities wrapped in @supports (corner-shape: squircle). -->
 
-# Corner Shape
+# Corner shape
 
 The CSS `corner-shape` property controls how border-radius curves are drawn. Instead of standard circular arcs, you can use squircles (iOS-style), bevels, scoops, notches, and arbitrary superellipse values.
 
@@ -218,7 +218,7 @@ Prefix a corner utility with a variant like `hover:*`:
 ## Import
 
 Included in `@import 'tw-jib-css-experimental'`. To take it on its own, with no other
-experimental module, and none of the [`@function` overrides](/overview#the-function-overrides):
+experimental module, and none of the [`@function` overrides](/guide/installation#the-function-overrides):
 
 ```css
 @import 'tw-jib-css-experimental/corner';
@@ -226,3 +226,5 @@ experimental module, and none of the [`@function` overrides](/overview#the-funct
 
 This entry reads nothing from `tw-jib-css`, so it costs you no color machinery you
 aren't using.
+
+<BaselineSupport :features="['corner-shape']" />

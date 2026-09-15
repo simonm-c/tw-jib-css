@@ -125,3 +125,5 @@ them, including a single-module one:
 ```css
 @import 'tw-jib-css/comic';
 ```
+
+<BaselineSupport :features="['background-clip-text', 'relative-color']" />

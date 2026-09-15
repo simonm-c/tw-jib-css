@@ -156,7 +156,7 @@ The space argument shapes the chroma of the returned shade. It does not affect c
 
 ## The override
 
-This module re-implements `text-contrast-*` on top of this function wherever `@function` is supported, keeping the class name and its output. See [the overrides](/overview#the-function-overrides).
+This module re-implements `text-contrast-*` on top of this function wherever `@function` is supported, keeping the class name and its output. See [the overrides](/guide/installation#the-function-overrides).
 
 ## Import
 
@@ -164,3 +164,5 @@ This module re-implements `text-contrast-*` on top of this function wherever `@f
 @import 'tw-jib-css';
 @import 'tw-jib-css-experimental/functions';
 ```
+
+<BaselineSupport :features="['function', 'relative-color']" />

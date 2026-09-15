@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import SiteHero from '../../../widgets/site-hero/ui/SiteHero.vue';
-import PackageSplit from '../../../widgets/package-split/ui/PackageSplit.vue';
 import FeatureSlide from '../../../widgets/feature-slide/ui/FeatureSlide.vue';
 import WcagBadgeShowcase from '../../../widgets/wcag-badge-showcase/ui/WcagBadgeShowcase.vue';
 import PageIndex from '../../../widgets/page-index/ui/PageIndex.vue';
@@ -9,8 +8,6 @@ import PageIndex from '../../../widgets/page-index/ui/PageIndex.vue';
 <template>
   <div>
     <SiteHero />
-
-    <PackageSplit />
 
     <!-- 0 · functions, the reach-in. Static colors throughout: the point of this
          slide is where a function can be called, not that it can animate. -->

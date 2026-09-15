@@ -1,10 +1,10 @@
 ---
-title: WCAG Badge
+title: WCAG badge
 ---
 
 <!-- llm-context: wcag badge module (experimental). wcag-badge overlays a ::after pseudo-element showing the WCAG 2.x contrast rating (AAA/AA/AA Large/Fail, plus Max) for the element's bg + text color combination. Badge background is green/yellow/orange/red using TW color tokens; Max shares Fail's red. Max appears only when text-contrast-* is on the same element and the level it requested is physically unreachable from that background. Badge text is black on yellow (AA), white on all others. All computation in CSS via @function + if(style()). Chromium only, and unlike text-contrast-* it cannot be made portable: color-to-string needs if(style()). Ships from tw-jib-css-experimental, importable alone as tw-jib-css-experimental/wcag-badge; text-contrast-* ships from the stable tw-jib-css main entry. -->
 
-# WCAG Badge
+# WCAG badge
 
 `wcag-badge` overlays a live WCAG contrast rating on any element with a background and text color. The badge shows AAA, AA, AA Large or Fail, all computed in CSS at render time. Paired with `text-contrast-*` it adds a fifth state, Max, for a level the background cannot physically reach.
 
@@ -188,7 +188,7 @@ There is one deliberate tolerance. WCAG asks for a ratio of _at least_ the thres
 ## Import
 
 Included in `@import 'tw-jib-css-experimental'`. To take it on its own, with no other
-experimental module, and none of the [`@function` overrides](/overview#the-function-overrides):
+experimental module, and none of the [`@function` overrides](/guide/installation#the-function-overrides):
 
 ```css
 @import 'tw-jib-css-experimental/wcag-badge';
@@ -198,3 +198,5 @@ Taking the badge deliberately does **not** reroute `text-contrast-*` onto `@func
 The badge reads `--tw-jib--contrast-level`, which both shade paths write, so it reports
 correctly either way. Automatic contrast itself is separate and stable:
 `@import 'tw-jib-css'`.
+
+<BaselineSupport :features="['function', 'if']" />

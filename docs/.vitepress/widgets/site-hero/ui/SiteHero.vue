@@ -13,7 +13,7 @@ const INSTALL_SNIPPET = "@import 'tw-jib-css';";
       />
 
       <h1 class="text-4xl md:text-5xl font-black tracking-tight leading-tight">
-        Tailwind utilities for color, borders and texture.
+        Simple Tailwind utilities for complicated CSS.
       </h1>
 
       <p class="text-lg opacity-80 leading-relaxed max-w-[48ch]">

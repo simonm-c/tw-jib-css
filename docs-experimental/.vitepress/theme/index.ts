@@ -6,6 +6,7 @@ import './tailwind.css';
 import JibLogo from '@shared/shared/ui/JibLogo.vue';
 import Example from '@shared/entities/example/ui/Example.vue';
 import UtilityTable from '@shared/entities/utility/ui/UtilityTable.vue';
+import BaselineSupport from '@shared/shared/ui/BaselineSupport.vue';
 
 import HomePage from '../pages/home/ui/HomePage.vue';
 
@@ -25,6 +26,7 @@ export default {
     app.component('UtilityTable', (props, { slots }) =>
       h(UtilityTable, { surfaceClass: SURFACE, ...props }, slots),
     );
+    app.component('BaselineSupport', BaselineSupport);
     app.component('HomePage', HomePage);
 
     if (typeof window !== 'undefined' && router) {

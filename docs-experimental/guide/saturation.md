@@ -147,7 +147,7 @@ For which space to reach for and the full per-space matrix, see [Color spaces](h
 
 ## The override
 
-This module re-implements `bg-saturation-*`, `bg-saturate-*` and `bg-desaturate-*` on top of this function, on every surface, wherever `@function` is supported. See [the overrides](/overview#the-function-overrides).
+This module re-implements `bg-saturation-*`, `bg-saturate-*` and `bg-desaturate-*` on top of this function, on every surface, wherever `@function` is supported. See [the overrides](/guide/installation#the-function-overrides).
 
 ## Import
 
@@ -155,3 +155,5 @@ This module re-implements `bg-saturation-*`, `bg-saturate-*` and `bg-desaturate-
 @import 'tw-jib-css';
 @import 'tw-jib-css-experimental/functions';
 ```
+
+<BaselineSupport :features="['function', 'relative-color']" />

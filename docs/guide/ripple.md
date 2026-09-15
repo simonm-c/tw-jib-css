@@ -270,3 +270,5 @@ Included in `@import 'tw-jib-css'`. To import individually:
 ```css
 @import 'tw-jib-css/ripple';
 ```
+
+<BaselineSupport :features="['registered-custom-properties', 'color-mix']" />

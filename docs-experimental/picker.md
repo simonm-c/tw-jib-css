@@ -1,10 +1,10 @@
 ---
-title: Base Select Picker
+title: Base select picker
 ---
 
 <!-- llm-context: picker module (experimental). CSS appearance: base-select and custom variants for ::picker(select), ::picker-icon, and ::checkmark pseudo-elements. Chromium only, Firefox WIP. -->
 
-# Base Select Picker
+# Base select picker
 
 The `appearance: base-select` value opts a `<select>` into rendering you can reach. With the `::picker(select)`, `::picker-icon` and `::checkmark` pseudo-elements, you can style a native dropdown without JavaScript.
 
@@ -85,7 +85,7 @@ Targets the `::checkmark` pseudo-element that appears next to the selected optio
 ## Import
 
 Included in `@import 'tw-jib-css-experimental'`. To take it on its own, with no other
-experimental module, and none of the [`@function` overrides](/overview#the-function-overrides):
+experimental module, and none of the [`@function` overrides](/guide/installation#the-function-overrides):
 
 ```css
 @import 'tw-jib-css-experimental/picker';
@@ -93,3 +93,5 @@ experimental module, and none of the [`@function` overrides](/overview#the-funct
 
 This entry reads nothing from `tw-jib-css`, so it costs you no color machinery you
 aren't using.
+
+<BaselineSupport :features="['customizable-select']" />

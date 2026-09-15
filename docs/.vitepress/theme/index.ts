@@ -6,6 +6,7 @@ import './tailwind.css';
 import JibLogo from '@shared/shared/ui/JibLogo.vue';
 import Example from '@shared/entities/example/ui/Example.vue';
 import UtilityTable from '@shared/entities/utility/ui/UtilityTable.vue';
+import BaselineSupport from '@shared/shared/ui/BaselineSupport.vue';
 
 import HomePage from '../pages/home/ui/HomePage.vue';
 
@@ -19,6 +20,7 @@ export default {
   enhanceApp({ app, router }) {
     app.component('Example', Example);
     app.component('UtilityTable', UtilityTable);
+    app.component('BaselineSupport', BaselineSupport);
     app.component('HomePage', HomePage);
 
     if (typeof window !== 'undefined' && router) {

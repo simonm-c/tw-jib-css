@@ -373,3 +373,5 @@ Included in `@import 'tw-jib-css'`, or on its own:
 ```css
 @import 'tw-jib-css/color-transforms';
 ```
+
+<BaselineSupport :features="['relative-color', 'registered-custom-properties']" />

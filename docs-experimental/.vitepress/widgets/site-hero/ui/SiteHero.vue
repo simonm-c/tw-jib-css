@@ -20,15 +20,14 @@ const INSTALL_SNIPPET = 'npm install -D tw-jib-css tw-jib-css-experimental';
       </div>
 
       <h1 class="text-4xl md:text-5xl font-black tracking-tight leading-tight">
-        Tailwind utilities for the cutting edge of CSS.
+        Simple Tailwind utilities for cutting-edge CSS.
       </h1>
 
       <p class="text-lg opacity-80 leading-relaxed max-w-[52ch]">
-        A separate package from the stable one. Five color functions that reach where a class
-        cannot, corner shapes past the circular arc, animation to
+        Five color functions that reach where a class cannot, corner shapes past the circular arc,
+        animation to
         <code class="font-mono">auto</code>, a select you can actually style, and a live WCAG rating
-        printed on any element. Mostly Chromium. Elsewhere the utilities no-op and every stable
-        class keeps working.
+        printed on any element.
       </p>
 
       <div
@@ -44,12 +43,13 @@ const INSTALL_SNIPPET = 'npm install -D tw-jib-css tw-jib-css-experimental';
 
       <div class="flex flex-wrap justify-center gap-3 mt-1">
         <a
-          href="/tw-jib-css/experimental/overview"
+          href="/tw-jib-css/experimental/guide/installation"
           class="rounded-xl bg-(color:--docs-accent) px-5 py-2.5 text-sm font-semibold text-white no-underline hover:bg-lighten-10"
-          >Read the overview</a
+          >Get started</a
         >
         <a
           href="/tw-jib-css/"
+          target="_self"
           class="rounded-xl border border-(color:--docs-accent)/50 px-5 py-2.5 text-sm font-semibold text-(color:--docs-accent) dark:text-lighten-20 no-underline hover:bg-(color:--docs-accent)/10"
           >Stable docs</a
         >

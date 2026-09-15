@@ -149,9 +149,9 @@ Material-style ripple effect. Pure CSS, no JavaScript, radial gradient animation
 <button class="bg-ripple ripple-color-blue-500">Click me</button>
 ```
 
-### Print Textures
+### CMYK Dots and RGB Pixels
 
-Pure CSS print-inspired texture effects via layered gradient composition. `bg-comic-*` renders CMYK
+Pure CSS texture effects via layered gradient composition. `bg-comic-*` renders CMYK
 halftone dots through radial gradients and multiply blending; `bg-pixel-*` renders RGB phosphor columns
 through repeating gradients and screen blending. Any colour in, textured surface out.
 

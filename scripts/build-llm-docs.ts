@@ -189,7 +189,7 @@ function main() {
   const indexLines: string[] = [
     '# tw-jib-css',
     '',
-    '> TailwindCSS v4 utility library: WCAG-exact text contrast, border gradients, CSS relative color transforms, ripple effects, print-inspired texture backgrounds, and more.',
+    '> TailwindCSS v4 utility library: WCAG-exact text contrast, border gradients, CSS relative color transforms, ripple effects, CMYK and RGB texture backgrounds, and more.',
     '',
     '## Docs',
     '',

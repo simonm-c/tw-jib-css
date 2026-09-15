@@ -23,7 +23,7 @@ export const slides: FeatureSlideData[] = [
   {
     kind: 'override',
     kicker: 'functions',
-    headline: 'Color transforms as callable CSS functions.',
+    headline: 'Shadows, gradients, and more: one color, transformed.',
     body: "Utilities own the single-property case: bg, text, border. A gradient stop, a layered shadow, an SVG stroke, a text-decoration color. A class cannot reach in there. These functions can, anywhere a <color> fits, on any token, with no relationship to the element's own background.",
     code: `.card {\n  /* a stop inside a gradient */\n  background: linear-gradient(135deg,\n    var(--color-sky-400),\n    --tw-jib--saturation(var(--color-sky-400), -60));\n\n  /* two derived shadows */\n  box-shadow:\n    0 0 0 3px --tw-jib--lightness(var(--color-sky-400), -30),\n    0 16px 32px -4px --tw-jib--lightness(var(--color-sky-400), -40);\n}`,
     lang: 'css',
@@ -33,7 +33,7 @@ export const slides: FeatureSlideData[] = [
   {
     kind: 'override',
     kicker: 'automatic contrast',
-    headline: 'Accessible text color, on any property.',
+    headline: 'Rings, borders, icons, and more: all auto-contrast.',
     body: "text-contrast-* paints one thing: text color, on this element, from this element's own background. The function goes anywhere. A border, an SVG stroke, a gradient stop, generated content, each solved for the ratio you named, from whatever color you hand it.",
     /*
      * teal-500, NOT teal-600: AAA is unreachable from teal-600, the solve
@@ -69,7 +69,7 @@ export const slides: FeatureSlideData[] = [
   {
     kind: 'addition',
     kicker: 'base select',
-    headline: 'A native select you can style.',
+    headline: 'A select you can finally style.',
     body: 'appearance: base-select opts a native <select> into rendering you can reach. The popup, the arrow and the checkmark each get a variant, so the dropdown takes the same classes as everything else. Still a real select, with real keyboard and accessibility behavior.',
     code: `<select class="appearance-base-select\n  picker:rounded-xl picker:shadow-lg picker:p-2\n  picker-icon:text-teal-600\n  open:picker-icon:rotate-180\n  checkmark:text-teal-600">\n  <option>Apple</option>\n  <option>Banana</option>\n</select>`,
     lang: 'html',

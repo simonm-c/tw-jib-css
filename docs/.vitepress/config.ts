@@ -112,7 +112,7 @@ export default defineConfig({
      * would resolve under this instance's own base. */
     nav: [
       { text: 'Guide', link: '/guide/installation' },
-      { text: 'Experimental', link: 'https://simonm-c.github.io/tw-jib-css/experimental/' },
+      { text: 'Experimental docs', link: 'https://simonm-c.github.io/tw-jib-css/experimental/' },
     ],
 
     sidebar: [

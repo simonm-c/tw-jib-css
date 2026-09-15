@@ -28,13 +28,10 @@ const cards = [
               class="rounded-full border border-emerald-500/40 bg-emerald-500/15 px-2.5 py-0.5 font-mono text-[10px] font-bold uppercase tracking-widest text-emerald-700 dark:text-emerald-300"
               >addition</span
             >
-            <span class="font-mono text-[11px] uppercase tracking-widest opacity-50"
-              >chromium only</span
-            >
           </div>
 
           <h2 class="text-4xl md:text-5xl lg:text-6xl font-black tracking-tight leading-[0.95]">
-            A live WCAG rating<br />on any element.
+            A live WCAG rating<br />on every element.
           </h2>
 
           <p class="text-lg leading-relaxed opacity-85">

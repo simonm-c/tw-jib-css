@@ -52,7 +52,7 @@ const engines = ['Chromium', 'Firefox', 'Safari'];
       <div class="grid gap-x-10 gap-y-3 md:grid-cols-[auto_1fr] md:items-end">
         <div class="space-y-1.5">
           <h2 class="text-4xl md:text-5xl font-black tracking-tight leading-[0.95]">
-            Text color that<br />always passes WCAG.
+            Text that adapts<br />to any background.
           </h2>
         </div>
         <p class="max-w-[60ch] text-base md:text-lg leading-relaxed opacity-80 md:pb-1">

@@ -20,12 +20,12 @@ const INSTALL_SNIPPET = 'npm install -D tw-jib-css tw-jib-css-experimental';
       </div>
 
       <h1 class="text-4xl md:text-5xl font-black tracking-tight leading-tight">
-        Tailwind utilities for the cutting edge of CSS.
+        Simple Tailwind utilities for cutting-edge CSS.
       </h1>
 
       <p class="text-lg opacity-80 leading-relaxed max-w-[52ch]">
-        A separate package from the stable one. Five color functions that reach where a class
-        cannot, corner shapes past the circular arc, animation to
+        Five color functions that reach where a class cannot, corner shapes past the circular arc,
+        animation to
         <code class="font-mono">auto</code>, a select you can actually style, and a live WCAG rating
         printed on any element.
       </p>

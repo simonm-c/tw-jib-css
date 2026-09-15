@@ -133,17 +133,17 @@
 @property --tw-jib--text-color-source {
   syntax: "<color>";
   inherits: true;
-  initial-value: black;
+  initial-value: transparent;
 }
 @property --tw-jib--text-color {
   syntax: "<color>";
   inherits: true;
-  initial-value: black;
+  initial-value: canvastext;
 }
 @property --tw-jib--fill-color-source {
   syntax: "<color>";
   inherits: true;
-  initial-value: black;
+  initial-value: transparent;
 }
 @property --tw-jib--fill-color {
   syntax: "<color>";
@@ -153,7 +153,7 @@
 @property --tw-jib--stroke-color-source {
   syntax: "<color>";
   inherits: true;
-  initial-value: black;
+  initial-value: transparent;
 }
 @property --tw-jib--stroke-color {
   syntax: "<color>";
@@ -163,7 +163,7 @@
 @property --tw-jib--outline-color-source {
   syntax: "<color>";
   inherits: false;
-  initial-value: black;
+  initial-value: transparent;
 }
 @property --tw-jib--outline-color {
   syntax: "<color>";
@@ -173,7 +173,7 @@
 @property --tw-jib--accent-color-source {
   syntax: "<color>";
   inherits: true;
-  initial-value: black;
+  initial-value: transparent;
 }
 @property --tw-jib--accent-color {
   syntax: "<color>";
@@ -183,7 +183,7 @@
 @property --tw-jib--border-color-source {
   syntax: "<color>";
   inherits: false;
-  initial-value: black;
+  initial-value: transparent;
 }
 @property --tw-jib--border-color {
   syntax: "<color>";

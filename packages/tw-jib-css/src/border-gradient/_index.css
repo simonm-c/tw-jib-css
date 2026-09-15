@@ -190,8 +190,7 @@
  * border-conic-*'s own angle declaration by cascade origin rather than selector
  * weight, so this carries no specificity of its own. */
 @utility border-spin {
-  animation: border-spin var(--tw-jib--border-spin-duration) linear infinite
-    var(--tw-jib--border-spin-direction);
+  animation: border-spin var(--tw-jib--border-spin-duration) linear infinite var(--tw-jib--border-spin-direction);
 }
 @utility border-spin-reverse {
   --tw-jib--border-spin-direction: reverse;

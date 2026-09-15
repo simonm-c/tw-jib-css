@@ -23,7 +23,7 @@ playwright-report/
 *.tgz
 
 # Generated docs
-# llms.txt and llms-full.txt are built from docs/guide by scripts/build-llm-docs.ts.
+# llms.txt and llms-full.txt are built from both docs instances by scripts/build-llm-docs.ts.
 # Committed, they went stale silently and shipped a removed API to anything reading
 # them, so they are generated in CI instead and never held in the tree.
 docs/public/llms.txt

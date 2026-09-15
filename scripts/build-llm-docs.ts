@@ -1,10 +1,9 @@
 import { readFileSync, readdirSync, writeFileSync, mkdirSync } from 'node:fs';
 import { join, basename } from 'node:path';
 
-const GUIDE_DIR = join(import.meta.dirname, '..', 'docs', 'guide');
-const OUTPUT_DIR = join(import.meta.dirname, '..', 'docs', 'public');
+const ROOT = join(import.meta.dirname, '..');
+const OUTPUT_DIR = join(ROOT, 'docs', 'public');
 const SITE_URL = 'https://simonm-c.github.io/tw-jib-css';
-const BASE_URL = `${SITE_URL}/guide`;
 
 const PAGE_ORDER = [
   'installation',
@@ -24,11 +23,71 @@ const PAGE_ORDER = [
   'grid',
 ];
 
+const EXPERIMENTAL_PAGE_ORDER = [
+  'installation',
+  'automatic-contrast',
+  'wcag-rating',
+  'lightness',
+  'saturation',
+  'hue-rotate',
+  'corner',
+  'interpolate',
+  'picker',
+  'wcag-badge',
+];
+
+interface Source {
+  dir: string;
+  /** Path under SITE_URL, which is also where a sibling `./page.md` resolves. */
+  urlPath: string;
+  skip?: string[];
+}
+
+interface Instance {
+  /** Section heading in llms.txt. */
+  label: string;
+  /** What a root-absolute `](/page)` link resolves against. */
+  root: string;
+  sources: Source[];
+  order: string[];
+  /** Appended to page titles in llms-full.txt, which has no section structure
+   *  to tell two same-named pages apart. */
+  titleSuffix: string;
+  banner?: string;
+}
+
+const INSTANCES: Instance[] = [
+  {
+    label: 'Docs',
+    root: SITE_URL,
+    sources: [{ dir: join(ROOT, 'docs', 'guide'), urlPath: 'guide' }],
+    order: PAGE_ORDER,
+    titleSuffix: '',
+  },
+  {
+    label: 'Experimental',
+    root: `${SITE_URL}/experimental`,
+    sources: [
+      { dir: join(ROOT, 'docs-experimental', 'guide'), urlPath: 'experimental/guide' },
+      { dir: join(ROOT, 'docs-experimental'), urlPath: 'experimental', skip: ['index.md'] },
+    ],
+    order: EXPERIMENTAL_PAGE_ORDER,
+    titleSuffix: ' (experimental)',
+    banner:
+      'Everything below documents `tw-jib-css-experimental`, a separate package that declares ' +
+      '`tw-jib-css` as a peer dependency. It re-implements some utilities the stable package ' +
+      'defines, so where a class name appears in both sections the behaviour described here ' +
+      'applies only when this package is installed and the engine supports the feature it is ' +
+      'gated on. Most of it is Chromium-only today.',
+  },
+];
+
 interface Page {
   slug: string;
   title: string;
   description: string;
   content: string;
+  url: string;
 }
 
 function extractFrontmatter(raw: string): { title: string; body: string } {
@@ -103,7 +162,7 @@ function dropDemoBlocks(body: string): string {
   return kept.join('\n');
 }
 
-function processContent(body: string): string {
+function processContent(body: string, instanceRoot: string, pageDirUrl: string): string {
   let out = body;
 
   out = out.replace(/<!--\s*llm-context:\s*([\s\S]*?)\s*-->/g, '> $1');
@@ -141,8 +200,8 @@ function processContent(body: string): string {
   out = out.replace(/^::: ?code-group\s*$/gm, '');
   out = out.replace(/^:::\s*$/gm, '');
 
-  out = out.replace(/\]\(\/([^)]*)\)/g, `](${SITE_URL}/$1)`);
-  out = out.replace(/\]\(\.\/([^)#]*)\.md(#[^)]*)?\)/g, `](${BASE_URL}/$1$2)`);
+  out = out.replace(/\]\(\/([^)]*)\)/g, `](${instanceRoot}/$1)`);
+  out = out.replace(/\]\(\.\/([^)#]*)\.md(#[^)]*)?\)/g, `](${pageDirUrl}/$1$2)`);
 
   out = out.replace(/^#\s+.*\n/m, '');
 
@@ -151,37 +210,50 @@ function processContent(body: string): string {
   return out.trim();
 }
 
-function main() {
-  mkdirSync(OUTPUT_DIR, { recursive: true });
-
-  const files = readdirSync(GUIDE_DIR).filter((f) => f.endsWith('.md'));
-
+function collect(instance: Instance): Page[] {
   const pages: Page[] = [];
 
-  for (const file of files) {
-    const slug = basename(file, '.md');
-    const raw = readFileSync(join(GUIDE_DIR, file), 'utf-8');
-    const { title, body } = extractFrontmatter(raw);
-    const description = extractDescription(body);
-    const content = processContent(body);
+  for (const source of instance.sources) {
+    const files = readdirSync(source.dir)
+      .filter((f) => f.endsWith('.md'))
+      .filter((f) => !source.skip?.includes(f));
 
-    pages.push({
-      slug,
-      title: title || slug,
-      description,
-      content,
-    });
+    for (const file of files) {
+      const slug = basename(file, '.md');
+      const raw = readFileSync(join(source.dir, file), 'utf-8');
+      const { title, body } = extractFrontmatter(raw);
+      const pageDirUrl = `${SITE_URL}/${source.urlPath}`;
+
+      pages.push({
+        slug,
+        title: title || slug,
+        description: extractDescription(body),
+        content: processContent(body, instance.root, pageDirUrl),
+        url: `${pageDirUrl}/${slug}`,
+      });
+    }
   }
 
   pages.sort((a, b) => {
-    const ai = PAGE_ORDER.indexOf(a.slug);
-    const bi = PAGE_ORDER.indexOf(b.slug);
+    const ai = instance.order.indexOf(a.slug);
+    const bi = instance.order.indexOf(b.slug);
     return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
   });
 
+  return pages;
+}
+
+function main() {
+  mkdirSync(OUTPUT_DIR, { recursive: true });
+
+  const collected = INSTANCES.map((instance) => ({ instance, pages: collect(instance) }));
+
   const fullParts: string[] = [];
-  for (const page of pages) {
-    fullParts.push(`# ${page.title}\n\n${page.content}`);
+  for (const { instance, pages } of collected) {
+    if (instance.banner) fullParts.push(`# ${instance.label}\n\n> ${instance.banner}`);
+    for (const page of pages) {
+      fullParts.push(`# ${page.title}${instance.titleSuffix}\n\n${page.content}`);
+    }
   }
   const fullTxt = fullParts.join('\n\n---\n\n');
   writeFileSync(join(OUTPUT_DIR, 'llms-full.txt'), fullTxt, 'utf-8');
@@ -191,16 +263,20 @@ function main() {
     '',
     '> TailwindCSS v4 utility library: WCAG-exact text contrast, border gradients, CSS relative color transforms, ripple effects, CMYK and RGB texture backgrounds, and more.',
     '',
-    '## Docs',
-    '',
   ];
-  for (const page of pages) {
-    indexLines.push(`- [${page.title}](${BASE_URL}/${page.slug}): ${page.description}`);
+  for (const { instance, pages } of collected) {
+    indexLines.push(`## ${instance.label}`, '');
+    if (instance.banner) indexLines.push(`> ${instance.banner}`, '');
+    for (const page of pages) {
+      indexLines.push(`- [${page.title}](${page.url}): ${page.description}`);
+    }
+    indexLines.push('');
   }
-  indexLines.push('');
   writeFileSync(join(OUTPUT_DIR, 'llms.txt'), indexLines.join('\n'), 'utf-8');
 
-  console.log(`llms.txt: ${pages.length} pages indexed`);
+  for (const { instance, pages } of collected) {
+    console.log(`llms.txt: ${pages.length} ${instance.label} pages indexed`);
+  }
   console.log(`llms-full.txt: ${fullTxt.length} characters`);
 }
 

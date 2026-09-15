@@ -1,0 +1,31 @@
+{
+  "name": "Jibcss Experimental",
+  "short_name": "Jibcss Exp",
+  "description": "Experimental tw-jib-css utilities: CSS @function color transforms, corner-shape, interpolate-size, base-select picker, and a WCAG contrast badge.",
+  "id": "/tw-jib-css/experimental/",
+  "start_url": "/tw-jib-css/experimental/",
+  "scope": "/tw-jib-css/experimental/",
+  "display": "standalone",
+  "theme_color": "#05121d",
+  "background_color": "#05121d",
+  "icons": [
+    {
+      "src": "/tw-jib-css/experimental/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/tw-jib-css/experimental/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/tw-jib-css/experimental/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

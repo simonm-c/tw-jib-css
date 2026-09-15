@@ -7,7 +7,16 @@ export interface FeatureSlideData {
   code: string;
   lang: 'html' | 'css';
   flipped?: boolean;
-  link: { text: string; href: string };
+  link: {
+    text: string;
+    href: string;
+    /**
+     * Same origin, other VitePress base. The router intercepts such a click
+     * and resolves it against this site's route map, so the anchor needs a
+     * `target` to escape back into a real navigation.
+     */
+    crossSite?: true;
+  };
 }
 
 export const slides: FeatureSlideData[] = [
@@ -32,7 +41,11 @@ export const slides: FeatureSlideData[] = [
      */
     code: `.cta {\n  /* both from one background token, solved for 7:1 */\n  color:        --tw-jib--auto-contrast(\n                  var(--color-teal-500), aaa, oklch);\n  border-color: --tw-jib--auto-contrast(\n                  var(--color-teal-500), aaa, oklch);\n}`,
     lang: 'css',
-    link: { text: 'Stable automatic contrast', href: '/tw-jib-css/guide/automatic-contrast' },
+    link: {
+      text: 'Stable automatic contrast',
+      href: '/tw-jib-css/guide/automatic-contrast',
+      crossSite: true,
+    },
   },
   {
     kind: 'addition',

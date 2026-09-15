@@ -102,6 +102,7 @@ const pages = [
         >
         <a
           href="/tw-jib-css/"
+          target="_self"
           class="rounded-xl border border-(color:--docs-accent)/50 px-6 py-3 text-sm font-semibold text-(color:--docs-accent) dark:text-lighten-20 no-underline hover:bg-(color:--docs-accent)/10"
           >Stable docs</a
         >

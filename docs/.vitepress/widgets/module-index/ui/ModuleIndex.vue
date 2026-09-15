@@ -87,6 +87,7 @@ import CodePanel from '@shared/shared/ui/CodePanel.vue';
           >
           <a
             href="https://simonm-c.github.io/tw-jib-css/experimental/"
+            target="_self"
             class="inline-block text-sm font-semibold text-(color:--docs-accent) no-underline hover:text-lighten-15"
             >Experimental docs &rarr;</a
           >

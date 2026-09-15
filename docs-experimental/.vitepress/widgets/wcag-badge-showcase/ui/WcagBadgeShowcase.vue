@@ -60,6 +60,7 @@ const cards = [
             >
             <a
               href="/tw-jib-css/guide/automatic-contrast"
+              target="_self"
               class="text-sm font-semibold opacity-60 no-underline hover:opacity-100"
               >The stable shade, every engine &rarr;</a
             >

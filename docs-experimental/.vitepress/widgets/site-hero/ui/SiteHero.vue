@@ -49,6 +49,7 @@ const INSTALL_SNIPPET = 'npm install -D tw-jib-css tw-jib-css-experimental';
         >
         <a
           href="/tw-jib-css/"
+          target="_self"
           class="rounded-xl border border-(color:--docs-accent)/50 px-5 py-2.5 text-sm font-semibold text-(color:--docs-accent) dark:text-lighten-20 no-underline hover:bg-(color:--docs-accent)/10"
           >Stable docs</a
         >

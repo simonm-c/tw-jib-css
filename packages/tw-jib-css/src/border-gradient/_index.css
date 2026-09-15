@@ -1,210 +1,210 @@
-@property --tw-jib--border-gradient-from-position {
+@property --jib-border-gradient-from-position {
   syntax: "<length-percentage>";
   inherits: false;
   initial-value: 0%;
 }
-@property --tw-jib--border-gradient-to-position {
+@property --jib-border-gradient-to-position {
   syntax: "<length-percentage>";
   inherits: false;
   initial-value: 100%;
 }
-@property --tw-jib--border-gradient-via-position {
+@property --jib-border-gradient-via-position {
   syntax: "<length-percentage>";
   inherits: false;
   initial-value: 50%;
 }
-@property --tw-jib--border-gradient-stops {
+@property --jib-border-gradient-stops {
   syntax: "*";
   inherits: false;
 }
-@property --tw-jib--border-gradient-position {
+@property --jib-border-gradient-position {
   syntax: "*";
   inherits: false;
 }
 
-@property --tw-jib--gradient-interpolation {
+@property --jib-gradient-interpolation {
   syntax: "*";
   inherits: false;
   initial-value: in oklab;
 }
 
-@property --tw-jib--border-gradient-angle {
+@property --jib-border-gradient-angle {
   syntax: "<angle>";
   inherits: false;
   initial-value: 0deg;
 }
 
-@property --tw-jib--border-gradient-from {
+@property --jib-border-gradient-from {
   syntax: "<color>";
   inherits: false;
   initial-value: #0000;
 }
 
-@property --tw-jib--border-gradient-to {
+@property --jib-border-gradient-to {
   syntax: "<color>";
   inherits: false;
   initial-value: #0000;
 }
-@property --tw-jib--border-gradient-via {
+@property --jib-border-gradient-via {
   syntax: "<color>";
   inherits: false;
   initial-value: #0000;
 }
 
-@property --tw-jib--border-spin-duration {
+@property --jib-border-spin-duration {
   syntax: "<time>";
   inherits: false;
   initial-value: 1s;
 }
 
-@property --tw-jib--border-spin-direction {
+@property --jib-border-spin-direction {
   syntax: "*";
   inherits: false;
   initial-value: normal;
 }
 
 @theme inline {
-  --tw-jib--border-gradient-direction-t: top;
-  --tw-jib--border-gradient-direction-tr: top right;
-  --tw-jib--border-gradient-direction-r: right;
-  --tw-jib--border-gradient-direction-br: bottom right;
-  --tw-jib--border-gradient-direction-b: bottom;
-  --tw-jib--border-gradient-direction-bl: bottom left;
-  --tw-jib--border-gradient-direction-l: left;
-  --tw-jib--border-gradient-direction-tl: top left;
-  --tw-jib--gradient-interpolation-srgb: in srgb;
-  --tw-jib--gradient-interpolation-hsl: in hsl;
-  --tw-jib--gradient-interpolation-oklab: in oklab;
-  --tw-jib--gradient-interpolation-oklch: in oklch;
-  --tw-jib--gradient-interpolation-longer: in oklch longer hue;
-  --tw-jib--gradient-interpolation-shorter: in oklch shorter hue;
-  --tw-jib--gradient-interpolation-increasing: in oklch increasing hue;
-  --tw-jib--gradient-interpolation-decreasing: in oklch decreasing hue;
-  --tw-jib--border-gradient-type-conic: conic-gradient(from var(--tw-jib--border-gradient-angle) var(--tw-jib--border-gradient-stops));
-  --tw-jib--border-gradient-type-radial: radial-gradient(var(--tw-jib--border-gradient-stops));
-  --tw-jib--border-gradient-type-linear: linear-gradient(var(--tw-jib--border-gradient-stops));
+  --jib-border-gradient-direction-t: top;
+  --jib-border-gradient-direction-tr: top right;
+  --jib-border-gradient-direction-r: right;
+  --jib-border-gradient-direction-br: bottom right;
+  --jib-border-gradient-direction-b: bottom;
+  --jib-border-gradient-direction-bl: bottom left;
+  --jib-border-gradient-direction-l: left;
+  --jib-border-gradient-direction-tl: top left;
+  --jib-gradient-interpolation-srgb: in srgb;
+  --jib-gradient-interpolation-hsl: in hsl;
+  --jib-gradient-interpolation-oklab: in oklab;
+  --jib-gradient-interpolation-oklch: in oklch;
+  --jib-gradient-interpolation-longer: in oklch longer hue;
+  --jib-gradient-interpolation-shorter: in oklch shorter hue;
+  --jib-gradient-interpolation-increasing: in oklch increasing hue;
+  --jib-gradient-interpolation-decreasing: in oklch decreasing hue;
+  --jib-border-gradient-type-conic: conic-gradient(from var(--jib-border-gradient-angle) var(--jib-border-gradient-stops));
+  --jib-border-gradient-type-radial: radial-gradient(var(--jib-border-gradient-stops));
+  --jib-border-gradient-type-linear: linear-gradient(var(--jib-border-gradient-stops));
 }
 
 @utility border-* {
-  --tw-jib--border-gradient: --value(--tw-jib--border-gradient-type- *);
-  --tw-jib--gradient-interpolation: --modifier(--tw-jib--gradient-interpolation- *);
-  --tw-jib--border-gradient-position: var(--tw-jib--gradient-interpolation);
+  --jib-border-gradient: --value(--jib-border-gradient-type- *);
+  --jib-gradient-interpolation: --modifier(--jib-gradient-interpolation- *);
+  --jib-border-gradient-position: var(--jib-gradient-interpolation);
   background:
-    var(--tw-jib--ripple-image) padding-box var(--tw-jib--background-clip),
-    var(--tw-jib--background-image) padding-box var(--tw-jib--background-clip),
-    var(--tw-jib--border-gradient) border-box var(--tw-jib--border-gradient-clip);
+    var(--jib-ripple-image) padding-box var(--jib-background-clip),
+    var(--jib-background-image) padding-box var(--jib-background-clip),
+    var(--jib-border-gradient) border-box var(--jib-border-gradient-clip);
   border-color: transparent;
-  --tw-jib--border-style: --value("groove", "ridge", "inset", "outset");
+  --jib-border-style: --value("groove", "ridge", "inset", "outset");
   border-style: --value("groove", "ridge", "inset", "outset", [border-style]);
 }
 
 @utility border-linear-* {
-  --tw-jib--gradient-interpolation: --modifier(--tw-jib--gradient-interpolation- *);
-  --tw-jib--border-gradient-stops: var(--tw-jib--border-gradient-position), --value([ *]);
-  --tw-jib--border-gradient-position: calc(--value(number, [number]) * 1deg);
-  --tw-jib--border-gradient-position: --value([angle]) var(--tw-jib--gradient-interpolation);
-  --tw-jib--border-gradient: linear-gradient(var(--tw-jib--border-gradient-stops));
+  --jib-gradient-interpolation: --modifier(--jib-gradient-interpolation- *);
+  --jib-border-gradient-stops: var(--jib-border-gradient-position), --value([ *]);
+  --jib-border-gradient-position: calc(--value(number, [number]) * 1deg);
+  --jib-border-gradient-position: --value([angle]) var(--jib-gradient-interpolation);
+  --jib-border-gradient: linear-gradient(var(--jib-border-gradient-stops));
   background:
-    var(--tw-jib--ripple-image) padding-box var(--tw-jib--background-clip),
-    var(--tw-jib--background-image) padding-box var(--tw-jib--background-clip),
-    var(--tw-jib--border-gradient) border-box var(--tw-jib--border-gradient-clip);
+    var(--jib-ripple-image) padding-box var(--jib-background-clip),
+    var(--jib-background-image) padding-box var(--jib-background-clip),
+    var(--jib-border-gradient) border-box var(--jib-border-gradient-clip);
   border-color: transparent;
 }
 @utility -border-linear-* {
-  --tw-jib--gradient-interpolation: --modifier(--tw-jib--gradient-interpolation- *);
-  --tw-jib--border-gradient-stops: var(--tw-jib--border-gradient-position), --value([ *]);
-  --tw-jib--border-gradient-position: calc(--value(number, [number]) * -1deg);
-  --tw-jib--border-gradient-position: calc(--value([angle]) * -1) var(--tw-jib--gradient-interpolation);
-  --tw-jib--border-gradient: linear-gradient(var(--tw-jib--border-gradient-stops));
+  --jib-gradient-interpolation: --modifier(--jib-gradient-interpolation- *);
+  --jib-border-gradient-stops: var(--jib-border-gradient-position), --value([ *]);
+  --jib-border-gradient-position: calc(--value(number, [number]) * -1deg);
+  --jib-border-gradient-position: calc(--value([angle]) * -1) var(--jib-gradient-interpolation);
+  --jib-border-gradient: linear-gradient(var(--jib-border-gradient-stops));
   background:
-    var(--tw-jib--ripple-image) padding-box var(--tw-jib--background-clip),
-    var(--tw-jib--background-image) padding-box var(--tw-jib--background-clip),
-    var(--tw-jib--border-gradient) border-box var(--tw-jib--border-gradient-clip);
+    var(--jib-ripple-image) padding-box var(--jib-background-clip),
+    var(--jib-background-image) padding-box var(--jib-background-clip),
+    var(--jib-border-gradient) border-box var(--jib-border-gradient-clip);
   border-color: transparent;
 }
 @utility border-linear-to-* {
-  --tw-jib--gradient-interpolation: --modifier(--tw-jib--gradient-interpolation- *);
-  --tw-jib--border-gradient-position: to --value(--tw-jib--border-gradient-direction- *) var(--tw-jib--gradient-interpolation);
-  --tw-jib--border-gradient-position: --value(number) var(--tw-jib--gradient-interpolation), var(--tw-jib--border-gradient-stops);
-  --tw-jib--border-gradient-position: --value([ *]);
-  --tw-jib--border-gradient: linear-gradient(var(--tw-jib--border-gradient-stops));
+  --jib-gradient-interpolation: --modifier(--jib-gradient-interpolation- *);
+  --jib-border-gradient-position: to --value(--jib-border-gradient-direction- *) var(--jib-gradient-interpolation);
+  --jib-border-gradient-position: --value(number) var(--jib-gradient-interpolation), var(--jib-border-gradient-stops);
+  --jib-border-gradient-position: --value([ *]);
+  --jib-border-gradient: linear-gradient(var(--jib-border-gradient-stops));
   background:
-    var(--tw-jib--ripple-image) padding-box var(--tw-jib--background-clip),
-    var(--tw-jib--background-image) padding-box var(--tw-jib--background-clip),
-    var(--tw-jib--border-gradient) border-box var(--tw-jib--border-gradient-clip);
+    var(--jib-ripple-image) padding-box var(--jib-background-clip),
+    var(--jib-background-image) padding-box var(--jib-background-clip),
+    var(--jib-border-gradient) border-box var(--jib-border-gradient-clip);
   border-color: transparent;
 }
 @utility border-radial-* {
-  --tw-jib--border-gradient-position: --value([ *], --default(var(--tw-jib--gradient-interpolation)));
-  --tw-jib--border-gradient: radial-gradient(var(--tw-jib--border-gradient-stops));
+  --jib-border-gradient-position: --value([ *], --default(var(--jib-gradient-interpolation)));
+  --jib-border-gradient: radial-gradient(var(--jib-border-gradient-stops));
   background:
-    var(--tw-jib--ripple-image) padding-box var(--tw-jib--background-clip),
-    var(--tw-jib--background-image) padding-box var(--tw-jib--background-clip),
-    var(--tw-jib--border-gradient) border-box var(--tw-jib--border-gradient-clip);
+    var(--jib-ripple-image) padding-box var(--jib-background-clip),
+    var(--jib-background-image) padding-box var(--jib-background-clip),
+    var(--jib-border-gradient) border-box var(--jib-border-gradient-clip);
   border-color: transparent;
 }
 @utility border-conic-* {
-  --tw-jib--gradient-interpolation: --modifier(--tw-jib--gradient-interpolation- *);
-  --tw-jib--border-gradient-stops: var(--tw-jib--border-gradient-position), --value([ *]);
-  --tw-jib--border-gradient-angle: calc(--value(number) * 1deg);
-  --tw-jib--border-gradient-angle: --value([angle]);
-  --tw-jib--border-gradient-position: var(--tw-jib--gradient-interpolation);
-  --tw-jib--border-gradient: conic-gradient(from var(--tw-jib--border-gradient-angle) var(--tw-jib--border-gradient-stops));
+  --jib-gradient-interpolation: --modifier(--jib-gradient-interpolation- *);
+  --jib-border-gradient-stops: var(--jib-border-gradient-position), --value([ *]);
+  --jib-border-gradient-angle: calc(--value(number) * 1deg);
+  --jib-border-gradient-angle: --value([angle]);
+  --jib-border-gradient-position: var(--jib-gradient-interpolation);
+  --jib-border-gradient: conic-gradient(from var(--jib-border-gradient-angle) var(--jib-border-gradient-stops));
   background:
-    var(--tw-jib--ripple-image) padding-box var(--tw-jib--background-clip),
-    var(--tw-jib--background-image) padding-box var(--tw-jib--background-clip),
-    var(--tw-jib--border-gradient) border-box var(--tw-jib--border-gradient-clip);
+    var(--jib-ripple-image) padding-box var(--jib-background-clip),
+    var(--jib-background-image) padding-box var(--jib-background-clip),
+    var(--jib-border-gradient) border-box var(--jib-border-gradient-clip);
   border-color: transparent;
 }
 @utility -border-conic-* {
-  --tw-jib--gradient-interpolation: --modifier(--tw-jib--gradient-interpolation- *);
-  --tw-jib--border-gradient-stops: var(--tw-jib--border-gradient-position), --value([ *]);
-  --tw-jib--border-gradient-angle: calc(--value(number) * -1deg);
-  --tw-jib--border-gradient-angle: calc(--value([angle]) * -1);
-  --tw-jib--border-gradient-position: var(--tw-jib--gradient-interpolation);
-  --tw-jib--border-gradient: conic-gradient(from var(--tw-jib--border-gradient-angle) var(--tw-jib--border-gradient-stops));
+  --jib-gradient-interpolation: --modifier(--jib-gradient-interpolation- *);
+  --jib-border-gradient-stops: var(--jib-border-gradient-position), --value([ *]);
+  --jib-border-gradient-angle: calc(--value(number) * -1deg);
+  --jib-border-gradient-angle: calc(--value([angle]) * -1);
+  --jib-border-gradient-position: var(--jib-gradient-interpolation);
+  --jib-border-gradient: conic-gradient(from var(--jib-border-gradient-angle) var(--jib-border-gradient-stops));
   background:
-    var(--tw-jib--ripple-image) padding-box var(--tw-jib--background-clip),
-    var(--tw-jib--background-image) padding-box var(--tw-jib--background-clip),
-    var(--tw-jib--border-gradient) border-box var(--tw-jib--border-gradient-clip);
+    var(--jib-ripple-image) padding-box var(--jib-background-clip),
+    var(--jib-background-image) padding-box var(--jib-background-clip),
+    var(--jib-border-gradient) border-box var(--jib-border-gradient-clip);
   border-color: transparent;
 }
 @utility border-from-* {
-  --tw-jib--border-gradient-from: --value("inherit", "transparent", --color- *, [color]);
-  --tw-jib--border-gradient-from-position: --value(percentage, [percentage]);
-  --tw-jib--border-gradient-stops: var(--tw-jib--border-gradient-via-stops, var(--tw-jib--border-gradient-position), var(--tw-jib--border-gradient-from) var(--tw-jib--border-gradient-from-position), var(--tw-jib--border-gradient-to) var(--tw-jib--border-gradient-to-position));
+  --jib-border-gradient-from: --value("inherit", "transparent", --color- *, [color]);
+  --jib-border-gradient-from-position: --value(percentage, [percentage]);
+  --jib-border-gradient-stops: var(--jib-border-gradient-via-stops, var(--jib-border-gradient-position), var(--jib-border-gradient-from) var(--jib-border-gradient-from-position), var(--jib-border-gradient-to) var(--jib-border-gradient-to-position));
 }
 
 @utility border-via-* {
-  --tw-jib--border-gradient-via: --value("inherit", "transparent", --color- *, [color]);
-  --tw-jib--border-gradient-via-position: --value(percentage, [percentage]);
-  --tw-jib--border-gradient-via-stops: var(--tw-jib--border-gradient-position), var(--tw-jib--border-gradient-from) var(--tw-jib--border-gradient-from-position), var(--tw-jib--border-gradient-via) var(--tw-jib--border-gradient-via-position), var(--tw-jib--border-gradient-to) var(--tw-jib--border-gradient-to-position);
-  --tw-jib--border-gradient-stops: var(--tw-jib--border-gradient-via-stops);
+  --jib-border-gradient-via: --value("inherit", "transparent", --color- *, [color]);
+  --jib-border-gradient-via-position: --value(percentage, [percentage]);
+  --jib-border-gradient-via-stops: var(--jib-border-gradient-position), var(--jib-border-gradient-from) var(--jib-border-gradient-from-position), var(--jib-border-gradient-via) var(--jib-border-gradient-via-position), var(--jib-border-gradient-to) var(--jib-border-gradient-to-position);
+  --jib-border-gradient-stops: var(--jib-border-gradient-via-stops);
 }
 @utility border-to-* {
-  --tw-jib--border-gradient-to: --value("inherit", "transparent", --color- *, [color]);
-  --tw-jib--border-gradient-to-position: --value(percentage, [percentage]);
-  --tw-jib--border-gradient-stops: var(--tw-jib--border-gradient-via-stops, var(--tw-jib--border-gradient-position), var(--tw-jib--border-gradient-from) var(--tw-jib--border-gradient-from-position), var(--tw-jib--border-gradient-to) var(--tw-jib--border-gradient-to-position));
+  --jib-border-gradient-to: --value("inherit", "transparent", --color- *, [color]);
+  --jib-border-gradient-to-position: --value(percentage, [percentage]);
+  --jib-border-gradient-stops: var(--jib-border-gradient-via-stops, var(--jib-border-gradient-position), var(--jib-border-gradient-from) var(--jib-border-gradient-from-position), var(--jib-border-gradient-to) var(--jib-border-gradient-to-position));
 }
 /* The keyframes animate a registered custom property, which beats
  * border-conic-*'s own angle declaration by cascade origin rather than selector
  * weight, so this carries no specificity of its own. */
 @utility border-spin {
-  animation: border-spin var(--tw-jib--border-spin-duration) linear infinite var(--tw-jib--border-spin-direction);
+  animation: border-spin var(--jib-border-spin-duration) linear infinite var(--jib-border-spin-direction);
 }
 @utility border-spin-reverse {
-  --tw-jib--border-spin-direction: reverse;
+  --jib-border-spin-direction: reverse;
 }
 @utility border-spin-duration-* {
-  --tw-jib--border-spin-duration: calc(--value(number) * 1000ms);
-  --tw-jib--border-spin-duration: --value(--tw-jib--border-spin-duration- *, [ *]);
+  --jib-border-spin-duration: calc(--value(number) * 1000ms);
+  --jib-border-spin-duration: --value(--jib-border-spin-duration- *, [ *]);
 }
 
 @keyframes border-spin {
   0% {
-    --tw-jib--border-gradient-angle: 0deg;
+    --jib-border-gradient-angle: 0deg;
   }
   100% {
-    --tw-jib--border-gradient-angle: 360deg;
+    --jib-border-gradient-angle: 360deg;
   }
 }

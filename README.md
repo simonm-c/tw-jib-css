@@ -190,11 +190,12 @@ Full documentation with interactive demos: [tw-jib-css docs](https://simonm-c.gi
 
 For LLMs and agents, following the [llms.txt](https://llmstxt.org/) convention:
 
-- [llms.txt](https://simonm-c.github.io/tw-jib-css/llms.txt) maps every guide page
+- [llms.txt](https://simonm-c.github.io/tw-jib-css/llms.txt) maps every guide page, stable and experimental
 - [llms-full.txt](https://simonm-c.github.io/tw-jib-css/llms-full.txt) is the whole corpus in one fetch
 
-The experimental package documents itself separately:
-[Jibcss Experimental](https://simonm-c.github.io/tw-jib-css/experimental/).
+The experimental package documents itself on a separate site:
+[Jibcss Experimental](https://simonm-c.github.io/tw-jib-css/experimental/). Both files above cover it,
+in a section of their own, since a class it overrides behaves differently from the same name here.
 
 ## License
 

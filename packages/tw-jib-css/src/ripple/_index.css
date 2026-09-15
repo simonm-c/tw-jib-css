@@ -1,95 +1,95 @@
-@property --tw-jib--ripple-distance {
+@property --jib-ripple-distance {
   syntax: "<percentage>";
   inherits: false;
   initial-value: 100%;
 }
-@property --tw-jib--ripple-opacity {
+@property --jib-ripple-opacity {
   syntax: "<number>";
   inherits: false;
   initial-value: 0;
 }
-@property --tw-jib--ripple-position {
+@property --jib-ripple-position {
   syntax: "<length-percentage>+ | <custom-ident>";
   inherits: false;
   initial-value: center;
 }
-@property --tw-jib--ripple-duration {
+@property --jib-ripple-duration {
   syntax: "<time>";
   inherits: false;
   initial-value: 0.3s;
 }
-@property --tw-jib--ripple-color {
+@property --jib-ripple-color {
   syntax: "<color>";
   inherits: true;
   initial-value: oklch(1 0 0 / 20%);
 }
-@property --tw-jib--ripple-color-mix {
+@property --jib-ripple-color-mix {
   syntax: "<percentage>";
   inherits: false;
   initial-value: 0%;
 }
-@property --tw-jib--ripple-fade-amount {
+@property --jib-ripple-fade-amount {
   syntax: "<percentage>";
   inherits: false;
   initial-value: 0%;
 }
 
 @utility bg-ripple {
-  --tw-jib--mixed-ripple-color: color-mix(in oklch, var(--tw-jib--ripple-color) calc(var(--tw-jib--ripple-opacity) * (100% - var(--tw-jib--ripple-color-mix))), transparent);
+  --jib-mixed-ripple-color: color-mix(in oklch, var(--jib-ripple-color) calc(var(--jib-ripple-opacity) * (100% - var(--jib-ripple-color-mix))), transparent);
 
-  --tw-jib--ripple-image: radial-gradient(circle at var(--tw-jib--ripple-position), var(--tw-jib--mixed-ripple-color) 0%, var(--tw-jib--mixed-ripple-color) var(--tw-jib--ripple-distance), transparent var(--tw-jib--ripple-distance), transparent 100%);
+  --jib-ripple-image: radial-gradient(circle at var(--jib-ripple-position), var(--jib-mixed-ripple-color) 0%, var(--jib-mixed-ripple-color) var(--jib-ripple-distance), transparent var(--jib-ripple-distance), transparent 100%);
 
   background:
-    var(--tw-jib--ripple-image) padding-box var(--tw-jib--background-clip),
-    var(--tw-jib--background-image) padding-box var(--tw-jib--background-clip),
-    var(--tw-jib--border-gradient) border-box var(--tw-jib--border-gradient-clip);
+    var(--jib-ripple-image) padding-box var(--jib-background-clip),
+    var(--jib-background-image) padding-box var(--jib-background-clip),
+    var(--jib-border-gradient) border-box var(--jib-border-gradient-clip);
 
-  --tw-jib--ripple-distance: 100%;
-  --tw-jib--ripple-color-mix: var(--tw-jib--ripple-fade-amount);
-  --tw-jib--ripple-opacity: 0;
+  --jib-ripple-distance: 100%;
+  --jib-ripple-color-mix: var(--jib-ripple-fade-amount);
+  --jib-ripple-opacity: 0;
 
   transition:
-    --tw-jib--ripple-distance var(--tw-jib--ripple-duration) ease-in,
-    --tw-jib--ripple-color-mix var(--tw-jib--ripple-duration) ease-in,
-    --tw-jib--ripple-opacity 0s var(--tw-jib--ripple-duration);
+    --jib-ripple-distance var(--jib-ripple-duration) ease-in,
+    --jib-ripple-color-mix var(--jib-ripple-duration) ease-in,
+    --jib-ripple-opacity 0s var(--jib-ripple-duration);
 
   -webkit-tap-highlight-color: transparent;
 
   &:active {
-    --tw-jib--ripple-distance: 0%;
-    --tw-jib--ripple-color-mix: 0%;
-    --tw-jib--ripple-opacity: 1;
+    --jib-ripple-distance: 0%;
+    --jib-ripple-color-mix: 0%;
+    --jib-ripple-opacity: 1;
     transition:
-      --tw-jib--ripple-distance 0s,
-      --tw-jib--ripple-color-mix 0s,
-      --tw-jib--ripple-opacity 0s;
+      --jib-ripple-distance 0s,
+      --jib-ripple-color-mix 0s,
+      --jib-ripple-opacity 0s;
   }
 }
 
 @utility ripple-color-* {
-  --tw-jib--ripple-color: --value("inherit", --color- *, [color], [ *]);
-  --tw-jib--ripple-color: --alpha(--value(--color- *, [color], [ *]) / calc(--modifier(integer) * 1%));
-  --tw-jib--ripple-color: --alpha(--value(--color- *, [color], [ *]) / --modifier([percentage]));
-  --tw-jib--ripple-color: --alpha(--value(--color- *, [color], [ *]) / calc(--modifier([number]) * 100%));
+  --jib-ripple-color: --value("inherit", --color- *, [color], [ *]);
+  --jib-ripple-color: --alpha(--value(--color- *, [color], [ *]) / calc(--modifier(integer) * 1%));
+  --jib-ripple-color: --alpha(--value(--color- *, [color], [ *]) / --modifier([percentage]));
+  --jib-ripple-color: --alpha(--value(--color- *, [color], [ *]) / calc(--modifier([number]) * 100%));
 }
 
 @utility ripple-color-current {
-  --tw-jib--ripple-color: currentColor;
+  --jib-ripple-color: currentColor;
 }
 
 @utility ripple-duration-* {
   /* The integer is centiseconds, so ripple-duration-50 is 500ms. */
-  --tw-jib--ripple-duration: calc(--value(integer) * 10ms);
-  --tw-jib--ripple-duration: --value([ *]);
+  --jib-ripple-duration: calc(--value(integer) * 10ms);
+  --jib-ripple-duration: --value([ *]);
 }
 
 @utility ripple-position-* {
-  --tw-jib--ripple-position: --value("top", "left", "right", "bottom", "center", [position], [ *]);
+  --jib-ripple-position: --value("top", "left", "right", "bottom", "center", [position], [ *]);
 }
 @utility ripple-fade-none {
-  --tw-jib--ripple-fade-amount: 0%;
+  --jib-ripple-fade-amount: 0%;
 }
 
 @utility ripple-fade-* {
-  --tw-jib--ripple-fade-amount: calc(--value(integer, [ *], --default(100)) * 1%);
+  --jib-ripple-fade-amount: calc(--value(integer, [ *], --default(100)) * 1%);
 }

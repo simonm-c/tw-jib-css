@@ -7,48 +7,48 @@ const PROPERTIES: [string, string, string, string, string, string][] = [
   [
     'text',
     'color',
-    '--tw-jib--text-color',
-    '--tw-jib--text-color-source',
+    '--jib-text-color',
+    '--jib-text-color-source',
     'text-blue-500',
     '--color-blue-500',
   ],
   [
     'fill',
     'fill',
-    '--tw-jib--fill-color',
-    '--tw-jib--fill-color-source',
+    '--jib-fill-color',
+    '--jib-fill-color-source',
     'fill-blue-500',
     '--color-blue-500',
   ],
   [
     'stroke',
     'stroke',
-    '--tw-jib--stroke-color',
-    '--tw-jib--stroke-color-source',
+    '--jib-stroke-color',
+    '--jib-stroke-color-source',
     'stroke-blue-500',
     '--color-blue-500',
   ],
   [
     'outline',
     'outline-color',
-    '--tw-jib--outline-color',
-    '--tw-jib--outline-color-source',
+    '--jib-outline-color',
+    '--jib-outline-color-source',
     'outline-blue-500',
     '--color-blue-500',
   ],
   [
     'accent',
     'accent-color',
-    '--tw-jib--accent-color',
-    '--tw-jib--accent-color-source',
+    '--jib-accent-color',
+    '--jib-accent-color-source',
     'accent-blue-500',
     '--color-blue-500',
   ],
   [
     'border',
     'border-color',
-    '--tw-jib--border-color',
-    '--tw-jib--border-color-source',
+    '--jib-border-color',
+    '--jib-border-color-source',
     'border-blue-500',
     '--color-blue-500',
   ],
@@ -62,7 +62,7 @@ const STABLE_SPACE_MARKERS: [string, string][] = [
   ['display-p3', ') display-p3'],
 ];
 
-const SUPPORTS_FUNCTION = supportsFunction('--tw-jib--oklch-lightness(red, 20)');
+const SUPPORTS_FUNCTION = supportsFunction('--jib-oklch-lightness(red, 20)');
 
 const PROPERTY_SCENARIOS = PROPERTIES.flatMap((property) =>
   suiteScenarios('color-transforms').map((scenario) => ({
@@ -76,7 +76,7 @@ describe.each(PROPERTY_SCENARIOS)(
   '$label (stable path): $scenario.name',
   ({ scenario: { compile }, property }) => {
     const [prefix, cssProperty, captureVar, sourceVar, baseClass, baseMarker] = property;
-    const amountVar = `--tw-jib--${prefix}-lightness--amount`;
+    const amountVar = `--jib-${prefix}-lightness-amount`;
     const lightInput = `var(${captureVar}-after-saturation, var(${captureVar}-after-hue-rotate, var(${sourceVar})))`;
 
     function stableOklch(av: string) {
@@ -159,7 +159,7 @@ describe.each(PROPERTIES)(
       test.each([0, 20, 50, 100])(`${prefix}-darken-%i`, async (amount) => {
         const css = await compile(`${baseClass} ${prefix}-darken-${amount}`, { functions: true });
         expect(css).toContain(SUPPORTS_FUNCTION);
-        expect(css).toContain(`--tw-jib--lightness(${lightInput}, calc(${amount} * -1), oklch)`);
+        expect(css).toContain(`--jib-lightness(${lightInput}, calc(${amount} * -1), oklch)`);
       });
     });
 
@@ -167,7 +167,7 @@ describe.each(PROPERTIES)(
       test.each([0, 20, 50, 100])(`${prefix}-lighten-%i`, async (amount) => {
         const css = await compile(`${baseClass} ${prefix}-lighten-${amount}`, { functions: true });
         expect(css).toContain(SUPPORTS_FUNCTION);
-        expect(css).toContain(`--tw-jib--lightness(${lightInput}, ${amount}, oklch)`);
+        expect(css).toContain(`--jib-lightness(${lightInput}, ${amount}, oklch)`);
       });
     });
 
@@ -179,7 +179,7 @@ describe.each(PROPERTIES)(
             functions: true,
           });
           expect(css).toContain(SUPPORTS_FUNCTION);
-          expect(css).toContain('--tw-jib--lightness(');
+          expect(css).toContain('--jib-lightness(');
           expect(css).toMatch(new RegExp(`calc\\(20 \\* -1\\),\\s+${space.replace('-', '\\-')}`));
         },
       );

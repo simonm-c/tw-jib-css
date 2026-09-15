@@ -16,7 +16,7 @@ const CLIP_KEYWORDS = [
   ['bg-clip-text', 'text'],
 ] as const;
 
-const SLOTS = ['--tw-jib--background-clip', '--tw-jib--border-gradient-clip'] as const;
+const SLOTS = ['--jib-background-clip', '--jib-border-gradient-clip'] as const;
 
 function registration(css: string, name: string): string | undefined {
   return css.match(new RegExp(`@property ${name} \\{[\\s\\S]*?\\n\\}`))?.[0];

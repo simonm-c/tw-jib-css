@@ -2,7 +2,7 @@
 title: Automatic contrast
 ---
 
-<!-- llm-context: Solves a text color whose WCAG contrast ratio against its own background equals the level you asked for, and ships from the main entry. text-contrast-{aa,aaa,aa-lg} solves in closed form for a same-hue text color whose WCAG 2.x contrast ratio against the background equals the requested ratio exactly. No candidate search, no verification pass. Optional /<space> modifier for all 17 color spaces selects the aesthetic path only; correctness is owned by a shared final stage. All computation happens in CSS relative color syntax at render time, no JS. Verified exact on Chromium, Firefox and WebKit. Levels are themeable via the --tw-jib--contrast-ratio-* namespace. -->
+<!-- llm-context: Solves a text color whose WCAG contrast ratio against its own background equals the level you asked for, and ships from the main entry. text-contrast-{aa,aaa,aa-lg} solves in closed form for a same-hue text color whose WCAG 2.x contrast ratio against the background equals the requested ratio exactly. No candidate search, no verification pass. Optional /<space> modifier for all 17 color spaces selects the aesthetic path only; correctness is owned by a shared final stage. All computation happens in CSS relative color syntax at render time, no JS. Verified exact on Chromium, Firefox and WebKit. Levels are themeable via the --jib-contrast-ratio-* namespace. -->
 
 # Automatic contrast
 
@@ -37,11 +37,11 @@ Works in Chromium, Firefox and Safari. Every engine gets the requested ratio exa
 
 ### Levels are themeable
 
-The three levels are not hard-coded. They are entries in the `--tw-jib--contrast-ratio-*` theme namespace. Add a key and you get a working utility:
+The three levels are not hard-coded. They are entries in the `--jib-contrast-ratio-*` theme namespace. Add a key and you get a working utility:
 
 ```css
 @theme {
-  --tw-jib--contrast-ratio-aa-plus: 5;
+  --jib-contrast-ratio-aa-plus: 5;
 }
 ```
 
@@ -472,7 +472,7 @@ two call sites that can drift apart. So levels come from your theme:
 
 ```css
 @theme {
-  --tw-jib--contrast-ratio-brand: 5.5;
+  --jib-contrast-ratio-brand: 5.5;
 }
 ```
 
@@ -533,7 +533,7 @@ Two details of that arrangement are load-bearing rather than stylistic:
   alpha is roughly 0.04 of contrast ratio. Measured over 27 cells, Firefox falls from 23 exact to 9. Unregistered, all three engines are exact.
 - **The color-space modifier is a theme lookup, not a branch.** `@theme inline` holds one
   expression per space and the utility declares its result twice: oklch inline as the default,
-  then again as `--modifier(--tw-jib--contrast-shade-interpolation-*)`, which Tailwind emits only when
+  then again as `--modifier(--jib-contrast-shade-interpolation-*)`, which Tailwind emits only when
   a modifier is present. That is the same dispatch the [lightness](/guide/lightness) and
   [saturation](/guide/saturation) modules use.
 

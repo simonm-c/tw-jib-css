@@ -19,7 +19,7 @@ describe.each(suiteScenarios('comic'))('comic utilities, $name', ({ compile }) =
       expect(css).toContain('0 0 0');
     });
 
-    test('bg-comic-red-500 has white base layer in --tw-jib--background-image', async () => {
+    test('bg-comic-red-500 has white base layer in --jib-background-image', async () => {
       const css = await compile('bg-comic-red-500');
       expect(css).toContain('linear-gradient(rgb(255 255 255');
     });
@@ -39,36 +39,36 @@ describe.each(suiteScenarios('comic'))('comic utilities, $name', ({ compile }) =
   describe('comic-dot-*', () => {
     test('comic-dot-2 sets dot radius from spacing scale', async () => {
       const css = await compile('comic-dot-2');
-      expect(css).toContain('--tw-jib--comic-dot');
+      expect(css).toContain('--jib-comic-dot');
     });
 
     test('comic-dot-[3px] accepts arbitrary length', async () => {
       const css = await compile('comic-dot-[3px]');
-      expect(css).toContain('--tw-jib--comic-dot: 3px');
+      expect(css).toContain('--jib-comic-dot: 3px');
     });
   });
 
   describe('comic-bleed-*', () => {
     test('comic-bleed-2 sets bleed with spacing/4 scaling', async () => {
       const css = await compile('comic-bleed-2');
-      expect(css).toContain('--tw-jib--comic-bleed');
+      expect(css).toContain('--jib-comic-bleed');
     });
 
     test('comic-bleed-[2px] accepts arbitrary length', async () => {
       const css = await compile('comic-bleed-[2px]');
-      expect(css).toContain('--tw-jib--comic-bleed: 2px');
+      expect(css).toContain('--jib-comic-bleed: 2px');
     });
   });
 
   describe('comic-gap-*', () => {
     test('comic-gap-4 sets gap with spacing/4 scaling', async () => {
       const css = await compile('comic-gap-4');
-      expect(css).toContain('--tw-jib--comic-gap');
+      expect(css).toContain('--jib-comic-gap');
     });
 
     test('comic-gap-[5px] accepts arbitrary length', async () => {
       const css = await compile('comic-gap-[5px]');
-      expect(css).toContain('--tw-jib--comic-gap: 5px');
+      expect(css).toContain('--jib-comic-gap: 5px');
     });
   });
 });

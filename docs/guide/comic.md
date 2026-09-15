@@ -26,12 +26,12 @@ The dots sit on a white base, so the surface a reader sees is part ink and part 
   { class: 'bg-comic-<color>/[<number>]', styles: 'Same with a 0-1 opacity' },
   { class: 'bg-comic-[<value>]', styles: 'Arbitrary color value' },
   { class: 'bg-comic-(--var)', styles: 'Color from a custom property' },
-  { class: 'comic-dot-<number>', styles: '--tw-jib--comic-dot: --spacing(<number>). Dot radius.' },
-  { class: 'comic-dot-[<value>]', styles: '--tw-jib--comic-dot: <value>' },
-  { class: 'comic-bleed-<number>', styles: '--tw-jib--comic-bleed: --spacing(<number>) / 4. Dot edge softness.' },
-  { class: 'comic-bleed-[<value>]', styles: '--tw-jib--comic-bleed: <value>' },
-  { class: 'comic-gap-<number>', styles: '--tw-jib--comic-gap: --spacing(<number>) / 4. Space between dots.' },
-  { class: 'comic-gap-[<value>]', styles: '--tw-jib--comic-gap: <value>' },
+  { class: 'comic-dot-<number>', styles: '--jib-comic-dot: --spacing(<number>). Dot radius.' },
+  { class: 'comic-dot-[<value>]', styles: '--jib-comic-dot: <value>' },
+  { class: 'comic-bleed-<number>', styles: '--jib-comic-bleed: --spacing(<number>) / 4. Dot edge softness.' },
+  { class: 'comic-bleed-[<value>]', styles: '--jib-comic-bleed: <value>' },
+  { class: 'comic-gap-<number>', styles: '--jib-comic-gap: --spacing(<number>) / 4. Space between dots.' },
+  { class: 'comic-gap-[<value>]', styles: '--jib-comic-gap: <value>' },
 ]" />
 
 ## How it works

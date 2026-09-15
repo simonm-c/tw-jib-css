@@ -416,7 +416,7 @@ test.describe('border spin', () => {
     const element = page.locator('[data-test="border-spin-conic"]');
     const angle = () =>
       element.evaluate((node) =>
-        getComputedStyle(node).getPropertyValue('--tw-jib--border-gradient-angle'),
+        getComputedStyle(node).getPropertyValue('--jib-border-gradient-angle'),
       );
     // Act
     const before = await angle();

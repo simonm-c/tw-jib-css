@@ -2,7 +2,7 @@
 title: Composition
 ---
 
-<!-- llm-context: How tw-jib-css utilities combine on one element. The three color transforms are one fixed pipeline (hue-rotate then saturation then lightness) carried by a custom-property chain, so markup class order is irrelevant. Each of the seven surfaces has its own independent chain. text-contrast-* solves against a SINGLE background color and therefore cannot be used with the comic or pixel textures: those paint a background-image, dots or columns over a white (comic) or black (pixel) base, whose effective luminance depends on the gap, dot and bleed settings. Adding a flat bg-* color alongside a texture does not fix it and makes it worse, because bg-* and bg-comic-* write the same --tw-jib--background-image, so the flat color reaches the solve but never the paint. -->
+<!-- llm-context: How tw-jib-css utilities combine on one element. The three color transforms are one fixed pipeline (hue-rotate then saturation then lightness) carried by a custom-property chain, so markup class order is irrelevant. Each of the seven surfaces has its own independent chain. text-contrast-* solves against a SINGLE background color and therefore cannot be used with the comic or pixel textures: those paint a background-image, dots or columns over a white (comic) or black (pixel) base, whose effective luminance depends on the gap, dot and bleed settings. Adding a flat bg-* color alongside a texture does not fix it and makes it worse, because bg-* and bg-comic-* write the same --jib-background-image, so the flat color reaches the solve but never the paint. -->
 
 # Composition
 
@@ -105,7 +105,7 @@ Adding the flat color alongside the texture does not rescue it, and quietly make
 <div class="bg-violet-600 bg-comic-violet-600 text-contrast-aa">…</div>
 ```
 
-`bg-*` and `bg-comic-*` both write `--tw-jib--background-image`, so the flat layer never reaches the paint. It still reaches the solve, which is the trap: you get a shade computed for a violet that nobody sees.
+`bg-*` and `bg-comic-*` both write `--jib-background-image`, so the flat layer never reaches the paint. It still reaches the solve, which is the trap: you get a shade computed for a violet that nobody sees.
 
 Choose the text color yourself over a texture, and keep `text-contrast-*` for flat backgrounds.
 :::
@@ -116,9 +116,9 @@ These three occupy different parts of a single `background` shorthand, so they s
 
 ```css
 background:
-  var(--tw-jib--ripple-image) padding-box,
-  var(--tw-jib--background-image) padding-box,
-  var(--tw-jib--border-gradient) border-box;
+  var(--jib-ripple-image) padding-box,
+  var(--jib-background-image) padding-box,
+  var(--jib-border-gradient) border-box;
 ```
 
 The ripple and the texture paint inside the padding box, the gradient border paints in the border box. Nothing needs a pseudo-element:

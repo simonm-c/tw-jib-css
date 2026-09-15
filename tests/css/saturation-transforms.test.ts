@@ -8,55 +8,55 @@ import {
   supportsFunction,
 } from './constants.js';
 
-const SUPPORTS_FUNCTION = supportsFunction('--tw-jib--oklch-saturation(red, 20)');
+const SUPPORTS_FUNCTION = supportsFunction('--jib-oklch-saturation(red, 20)');
 
 const STABLE_OKLCH =
-  'oklch(from var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source)) l calc(c * (1 - abs(var(--tw-jib--background-saturation--amount))) + max(0, var(--tw-jib--background-saturation--amount)) * 0.4) h / alpha)';
+  'oklch(from var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source)) l calc(c * (1 - abs(var(--jib-background-saturation-amount))) + max(0, var(--jib-background-saturation-amount)) * 0.4) h / alpha)';
 
 /** [space-name, unique substring found in compiled CSS] */
 const STABLE_SPACE_MARKERS: [string, string][] = [
   ['oklch', 'oklch('],
-  ['lch', 'max(0, var(--tw-jib--background-saturation--amount)) * 150)'],
-  ['lab', 'max(0, var(--tw-jib--background-saturation--amount)) * 125 * sign(a)'],
+  ['lch', 'max(0, var(--jib-background-saturation-amount)) * 150)'],
+  ['lab', 'max(0, var(--jib-background-saturation-amount)) * 125 * sign(a)'],
   ['oklab', 'oklab('],
   ['hsl', 'hsl('],
   ['hwb', 'hwb('],
   ['rgb', '0.213 * r + 0.715 * g + 0.072 * b'],
   [
     'srgb',
-    'from var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source)) srgb',
+    'from var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source)) srgb',
   ],
   [
     'srgb-linear',
-    'from var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source)) srgb-linear',
+    'from var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source)) srgb-linear',
   ],
   [
     'display-p3',
-    'from var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source)) display-p3',
+    'from var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source)) display-p3',
   ],
   [
     'a98-rgb',
-    'from var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source)) a98-rgb',
+    'from var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source)) a98-rgb',
   ],
   [
     'prophoto-rgb',
-    'from var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source)) prophoto-rgb',
+    'from var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source)) prophoto-rgb',
   ],
   [
     'rec2020',
-    'from var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source)) rec2020',
+    'from var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source)) rec2020',
   ],
   [
     'xyz',
-    'from var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source)) xyz',
+    'from var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source)) xyz',
   ],
   [
     'xyz-d50',
-    'from var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source)) xyz-d50',
+    'from var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source)) xyz-d50',
   ],
   [
     'xyz-d65',
-    'from var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source)) xyz-d65',
+    'from var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source)) xyz-d65',
   ],
 ];
 
@@ -66,18 +66,18 @@ describe.each(suiteScenarios('color-transforms'))(
     describe('desaturate: default amounts', () => {
       test.each([0, 5, 10, 20, 50, 75, 100])('bg-desaturate-%i', async (amount) => {
         const css = await compile(`bg-blue-500 bg-desaturate-${amount}`);
-        expect(css).toContain(`--tw-jib--background-saturation--amount: calc(${amount} * -0.01)`);
+        expect(css).toContain(`--jib-background-saturation-amount: calc(${amount} * -0.01)`);
         expect(css).toContain(STABLE_OKLCH);
-        expect(css).toContain('--tw-jib--background-color-source: var(--color-blue-500)');
+        expect(css).toContain('--jib-background-color-source: var(--color-blue-500)');
       });
     });
 
     describe('saturate: default amounts', () => {
       test.each([0, 5, 10, 20, 50, 75, 100])('bg-saturate-%i', async (amount) => {
         const css = await compile(`bg-blue-500 bg-saturate-${amount}`);
-        expect(css).toContain(`--tw-jib--background-saturation--amount: calc(${amount} * 0.01)`);
+        expect(css).toContain(`--jib-background-saturation-amount: calc(${amount} * 0.01)`);
         expect(css).toContain(STABLE_OKLCH);
-        expect(css).toContain('--tw-jib--background-color-source: var(--color-blue-500)');
+        expect(css).toContain('--jib-background-color-source: var(--color-blue-500)');
       });
     });
 
@@ -85,13 +85,13 @@ describe.each(suiteScenarios('color-transforms'))(
       test.each(STABLE_SPACE_MARKERS)('bg-desaturate-20/%s', async (space, marker) => {
         const css = await compile(`bg-blue-500 bg-desaturate-20/${space}`);
         expect(css).toContain(marker);
-        expect(css).toContain('--tw-jib--background-saturation--amount: calc(20 * -0.01)');
+        expect(css).toContain('--jib-background-saturation-amount: calc(20 * -0.01)');
       });
 
       test('bg-desaturate-20/color-mix', async () => {
         const css = await compile('bg-blue-500 bg-desaturate-20/color-mix');
         expect(css).toContain('color-mix(');
-        expect(css).toContain('--tw-jib--background-saturation--amount: calc(20 * -0.01)');
+        expect(css).toContain('--jib-background-saturation-amount: calc(20 * -0.01)');
       });
     });
 
@@ -99,13 +99,13 @@ describe.each(suiteScenarios('color-transforms'))(
       test.each(STABLE_SPACE_MARKERS)('bg-saturate-20/%s', async (space, marker) => {
         const css = await compile(`bg-blue-500 bg-saturate-20/${space}`);
         expect(css).toContain(marker);
-        expect(css).toContain('--tw-jib--background-saturation--amount: calc(20 * 0.01)');
+        expect(css).toContain('--jib-background-saturation-amount: calc(20 * 0.01)');
       });
 
       test('bg-saturate-20/color-mix', async () => {
         const css = await compile('bg-blue-500 bg-saturate-20/color-mix');
         expect(css).toContain('color-mix(');
-        expect(css).toContain('--tw-jib--background-saturation--amount: calc(20 * 0.01)');
+        expect(css).toContain('--jib-background-saturation-amount: calc(20 * 0.01)');
       });
     });
 
@@ -170,7 +170,7 @@ describe.each(suiteScenarios('color-transforms'))(
           async (space) => {
             const css = await compile(`bg-red-500 bg-desaturate-20/${space}`);
             expect(css).toContain('--color-red-500');
-            expect(css).toContain('--tw-jib--background-saturation--amount: calc(20 * -0.01)');
+            expect(css).toContain('--jib-background-saturation-amount: calc(20 * -0.01)');
           },
         );
       });
@@ -181,7 +181,7 @@ describe.each(suiteScenarios('color-transforms'))(
           async (space) => {
             const css = await compile(`bg-purple-600 bg-saturate-20/${space}`);
             expect(css).toContain('--color-purple-600');
-            expect(css).toContain('--tw-jib--background-saturation--amount: calc(20 * 0.01)');
+            expect(css).toContain('--jib-background-saturation-amount: calc(20 * 0.01)');
           },
         );
       });
@@ -196,7 +196,7 @@ describe.each(suiteScenarios('color-transforms'))(
         const css = await compile(`bg-blue-500/${opacity} bg-desaturate-${amount}`);
         expect(css).toContain('color-mix');
         expect(css).toContain(STABLE_OKLCH);
-        expect(css).toContain(`--tw-jib--background-saturation--amount: calc(${amount} * -0.01)`);
+        expect(css).toContain(`--jib-background-saturation-amount: calc(${amount} * -0.01)`);
       });
     });
 
@@ -209,7 +209,7 @@ describe.each(suiteScenarios('color-transforms'))(
         const css = await compile(`bg-blue-500/${opacity} bg-saturate-${amount}`);
         expect(css).toContain('color-mix');
         expect(css).toContain(STABLE_OKLCH);
-        expect(css).toContain(`--tw-jib--background-saturation--amount: calc(${amount} * 0.01)`);
+        expect(css).toContain(`--jib-background-saturation-amount: calc(${amount} * 0.01)`);
       });
     });
 
@@ -219,8 +219,8 @@ describe.each(suiteScenarios('color-transforms'))(
         const cssB = await compile('bg-blue-500 bg-saturate-20');
         expect(cssA).toContain(STABLE_OKLCH);
         expect(cssB).toContain(STABLE_OKLCH);
-        expect(cssA).toContain('--tw-jib--background-saturation--amount: calc(20 * 0.01)');
-        expect(cssB).toContain('--tw-jib--background-saturation--amount: calc(20 * 0.01)');
+        expect(cssA).toContain('--jib-background-saturation-amount: calc(20 * 0.01)');
+        expect(cssB).toContain('--jib-background-saturation-amount: calc(20 * 0.01)');
       });
 
       test('-bg-saturation-20 = bg-desaturate-20', async () => {
@@ -228,8 +228,8 @@ describe.each(suiteScenarios('color-transforms'))(
         const cssB = await compile('bg-blue-500 bg-desaturate-20');
         expect(cssA).toContain(STABLE_OKLCH);
         expect(cssB).toContain(STABLE_OKLCH);
-        expect(cssA).toContain('--tw-jib--background-saturation--amount: calc(20 * -0.01)');
-        expect(cssB).toContain('--tw-jib--background-saturation--amount: calc(20 * -0.01)');
+        expect(cssA).toContain('--jib-background-saturation-amount: calc(20 * -0.01)');
+        expect(cssB).toContain('--jib-background-saturation-amount: calc(20 * -0.01)');
       });
     });
 
@@ -237,13 +237,13 @@ describe.each(suiteScenarios('color-transforms'))(
       test('bg-desaturate-20 alone', async () => {
         const css = await compile('bg-desaturate-20');
         expect(css).toContain(STABLE_OKLCH);
-        expect(css).toContain('--tw-jib--background-saturation--amount: calc(20 * -0.01)');
+        expect(css).toContain('--jib-background-saturation-amount: calc(20 * -0.01)');
       });
 
       test('bg-saturate-20 alone', async () => {
         const css = await compile('bg-saturate-20');
         expect(css).toContain(STABLE_OKLCH);
-        expect(css).toContain('--tw-jib--background-saturation--amount: calc(20 * 0.01)');
+        expect(css).toContain('--jib-background-saturation-amount: calc(20 * 0.01)');
       });
 
       test('hover:bg-desaturate-20', async () => {
@@ -267,7 +267,7 @@ describe('experimental path (@function + @supports)', () => {
       const css = await compile(`bg-blue-500 bg-desaturate-${amount}`, { functions: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
       expect(css).toContain(
-        `--tw-jib--saturation(var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source)), calc(${amount} * -1), oklch)`,
+        `--jib-saturation(var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source)), calc(${amount} * -1), oklch)`,
       );
     });
   });
@@ -277,7 +277,7 @@ describe('experimental path (@function + @supports)', () => {
       const css = await compile(`bg-blue-500 bg-saturate-${amount}`, { functions: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
       expect(css).toContain(
-        `--tw-jib--saturation(var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source)), ${amount}, oklch)`,
+        `--jib-saturation(var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source)), ${amount}, oklch)`,
       );
     });
   });
@@ -286,7 +286,7 @@ describe('experimental path (@function + @supports)', () => {
     test.each(ALL_SPACES)('bg-desaturate-20/%s', async (space) => {
       const css = await compile(`bg-blue-500 bg-desaturate-20/${space}`, { functions: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
-      expect(css).toContain('--tw-jib--saturation(');
+      expect(css).toContain('--jib-saturation(');
       expect(css).toMatch(new RegExp(`calc\\(20 \\* -1\\),\\s+${space.replace(/-/g, '\\-')}\\b`));
     });
   });
@@ -295,7 +295,7 @@ describe('experimental path (@function + @supports)', () => {
     test.each(ALL_SPACES)('bg-saturate-20/%s', async (space) => {
       const css = await compile(`bg-blue-500 bg-saturate-20/${space}`, { functions: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
-      expect(css).toContain('--tw-jib--saturation(');
+      expect(css).toContain('--jib-saturation(');
       expect(css).toMatch(new RegExp(`20,\\s+${space.replace(/-/g, '\\-')}\\b`));
     });
   });
@@ -305,7 +305,7 @@ describe('experimental path (@function + @supports)', () => {
       const css = await compile(`bg-${color} bg-desaturate-20`, { functions: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
       expect(css).toContain(
-        '--tw-jib--saturation(var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source)), calc(20 * -1), oklch)',
+        '--jib-saturation(var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source)), calc(20 * -1), oklch)',
       );
       expect(css).toContain(marker);
     });
@@ -314,7 +314,7 @@ describe('experimental path (@function + @supports)', () => {
       const css = await compile(`bg-${color} bg-saturate-20`, { functions: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
       expect(css).toContain(
-        '--tw-jib--saturation(var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source)), 20, oklch)',
+        '--jib-saturation(var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source)), 20, oklch)',
       );
       expect(css).toContain(marker);
     });
@@ -325,7 +325,7 @@ describe('experimental path (@function + @supports)', () => {
       const css = await compile('bg-[#ff6b35] bg-desaturate-20', { functions: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
       expect(css).toContain(
-        '--tw-jib--saturation(var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source)), calc(20 * -1), oklch)',
+        '--jib-saturation(var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source)), calc(20 * -1), oklch)',
       );
       expect(css).toContain('#ff6b35');
     });
@@ -334,7 +334,7 @@ describe('experimental path (@function + @supports)', () => {
       const css = await compile('bg-[oklch(0.7_0.15_200)] bg-saturate-20', { functions: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
       expect(css).toContain(
-        '--tw-jib--saturation(var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source)), 20, oklch)',
+        '--jib-saturation(var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source)), 20, oklch)',
       );
     });
 
@@ -344,7 +344,7 @@ describe('experimental path (@function + @supports)', () => {
       });
       expect(css).toContain(SUPPORTS_FUNCTION);
       expect(css).toContain(
-        '--tw-jib--saturation(var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source)), calc(20 * -1), oklch)',
+        '--jib-saturation(var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source)), calc(20 * -1), oklch)',
       );
     });
   });
@@ -357,7 +357,7 @@ describe('experimental path (@function + @supports)', () => {
       );
       expect(css).toContain(SUPPORTS_FUNCTION);
       expect(css).toContain(
-        '--tw-jib--saturation(var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source)), calc(20 * -1), oklch)',
+        '--jib-saturation(var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source)), calc(20 * -1), oklch)',
       );
       expect(css).toContain(BG_LAYER);
     });
@@ -369,7 +369,7 @@ describe('experimental path (@function + @supports)', () => {
       );
       expect(css).toContain(SUPPORTS_FUNCTION);
       expect(css).toContain(
-        '--tw-jib--saturation(var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source)), 20, oklch)',
+        '--jib-saturation(var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source)), 20, oklch)',
       );
       expect(css).toContain(BG_LAYER);
     });
@@ -390,7 +390,7 @@ describe('experimental path (@function + @supports)', () => {
       const css = await compile('bg-blue-500 hover:bg-desaturate-20', { functions: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
       expect(css).toContain(
-        '--tw-jib--saturation(var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source)), calc(20 * -1), oklch)',
+        '--jib-saturation(var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source)), calc(20 * -1), oklch)',
       );
       expect(css).toContain('&:hover');
     });
@@ -399,7 +399,7 @@ describe('experimental path (@function + @supports)', () => {
       const css = await compile('bg-desaturate-20', { functions: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
       expect(css).toContain(
-        '--tw-jib--saturation(var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source)), calc(20 * -1), oklch)',
+        '--jib-saturation(var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source)), calc(20 * -1), oklch)',
       );
     });
 
@@ -407,7 +407,7 @@ describe('experimental path (@function + @supports)', () => {
       const css = await compile('bg-saturate-20', { functions: true });
       expect(css).toContain(SUPPORTS_FUNCTION);
       expect(css).toContain(
-        '--tw-jib--saturation(var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source)), 20, oklch)',
+        '--jib-saturation(var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source)), 20, oklch)',
       );
     });
   });
@@ -415,38 +415,38 @@ describe('experimental path (@function + @supports)', () => {
 
 describe('experimental inline function usage', () => {
   test('bg-[...] with saturation router function (desaturate)', async () => {
-    const css = await compile('bg-[--tw-jib--saturation(var(--color-blue-500),-40)]', {
+    const css = await compile('bg-[--jib-saturation(var(--color-blue-500),-40)]', {
       functions: true,
     });
-    expect(css).toContain('--tw-jib--saturation(');
+    expect(css).toContain('--jib-saturation(');
     expect(css).toContain('background-color:');
   });
 
   test('bg-[...] with color space argument', async () => {
-    const css = await compile('bg-[--tw-jib--saturation(var(--color-blue-500),-40,oklch)]', {
+    const css = await compile('bg-[--jib-saturation(var(--color-blue-500),-40,oklch)]', {
       functions: true,
     });
-    expect(css).toContain('--tw-jib--saturation(');
+    expect(css).toContain('--jib-saturation(');
     expect(css).toContain('oklch');
   });
 
   test('from-[...] gradient stop with desaturated color', async () => {
     const css = await compile(
-      'bg-linear-to-r from-[--tw-jib--saturation(var(--color-blue-500),-60)] to-blue-500',
+      'bg-linear-to-r from-[--jib-saturation(var(--color-blue-500),-60)] to-blue-500',
       { functions: true },
     );
-    expect(css).toContain('--tw-jib--saturation(');
+    expect(css).toContain('--jib-saturation(');
     expect(css).toContain('--tw-gradient-from:');
   });
 
   test('from-[...] + to-[...] saturated gradient', async () => {
     const css = await compile(
-      'bg-linear-to-r from-[--tw-jib--saturation(var(--color-slate-400),60)] to-[--tw-jib--saturation(var(--color-slate-400),-60)]',
+      'bg-linear-to-r from-[--jib-saturation(var(--color-slate-400),60)] to-[--jib-saturation(var(--color-slate-400),-60)]',
       { functions: true },
     );
     expect(css).toContain('--tw-gradient-from:');
     expect(css).toContain('--tw-gradient-to:');
-    const matches = css.match(/--tw-jib--saturation\(/g);
+    const matches = css.match(/--jib-saturation\(/g);
     expect(matches?.length).toBeGreaterThanOrEqual(2);
   });
 });

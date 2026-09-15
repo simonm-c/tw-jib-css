@@ -94,22 +94,28 @@ than only where a utility exists: a gradient stop, a layered shadow, an SVG stro
   background: linear-gradient(
     135deg,
     var(--color-sky-400),
-    --tw-jib--saturation(var(--color-sky-400), -60)
+    --jib-saturation(var(--color-sky-400), -60)
   );
-  box-shadow: 0 0 0 3px --tw-jib--lightness(var(--color-sky-400), -30);
-  border-color: --tw-jib--auto-contrast(var(--color-violet-600), aaa, oklch);
+  box-shadow: 0 0 0 3px --jib-lightness(var(--color-sky-400), -30);
+  border-color: --jib-auto-contrast(var(--color-violet-600), aaa, oklch);
 }
 ```
 
-| Function                                             | Returns                                                                    |
-| ---------------------------------------------------- | -------------------------------------------------------------------------- |
-| `--tw-jib--lightness(<color>, <number>, <space>)`    | the colour, lightness shifted                                              |
-| `--tw-jib--saturation(<color>, <number>, <space>)`   | the colour, saturation shifted                                             |
-| `--tw-jib--hue-rotate(<color>, <number>, <space>)`   | the colour, hue rotated by degrees                                         |
-| `--tw-jib--auto-contrast(<color>, <level>, <space>)` | a text colour at exactly that level's WCAG ratio                           |
-| `--tw-jib--wcag-rating(<bg>, <fg>)`                  | the pair's rating as a `<string>`: `"AAA"`, `"AA"`, `"AA Large"`, `"Fail"` |
+| Function                                         | Returns                                                                    |
+| ------------------------------------------------ | -------------------------------------------------------------------------- |
+| `--jib-lightness(<color>, <number>, <space>)`    | the colour, lightness shifted                                              |
+| `--jib-lighten(<color>, <number>, <space>)`      | the same, named for the direction                                          |
+| `--jib-darken(<color>, <number>, <space>)`       | the same with the amount negated                                           |
+| `--jib-saturation(<color>, <number>, <space>)`   | the colour, saturation shifted                                             |
+| `--jib-saturate(<color>, <number>, <space>)`     | the same, named for the direction                                          |
+| `--jib-desaturate(<color>, <number>, <space>)`   | the same with the amount negated                                           |
+| `--jib-hue-rotate(<color>, <number>, <space>)`   | the colour, hue rotated by degrees                                         |
+| `--jib-auto-contrast(<color>, <level>, <space>)` | a text colour at exactly that level's WCAG ratio                           |
+| `--jib-wcag-rating(<bg>, <fg>)`                  | the pair's rating as a `<string>`: `"AAA"`, `"AA"`, `"AA Large"`, `"Fail"` |
 
 The space argument is optional and defaults to `oklch`, matching every other transform in the library.
+
+The directional aliases mirror the class API, so `--jib-darken(c, 20)` is `bg-darken-20`. Neither clamps: `--jib-darken(c, -20)` lightens, which is what lets one custom property animate through zero.
 
 ### Corner Shape
 

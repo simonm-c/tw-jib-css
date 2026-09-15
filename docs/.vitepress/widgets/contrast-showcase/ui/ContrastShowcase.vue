@@ -124,8 +124,7 @@ const engines = ['Chromium', 'Firefox', 'Safari'];
           <p class="text-sm leading-relaxed opacity-60">
             It lands on the threshold with no padding, so a pixel-sampled reading can sit a few
             thousandths either side. Want headroom? Raise
-            <code class="font-mono text-xs">--tw-jib--contrast-ratio-*</code> and every utility
-            follows.
+            <code class="font-mono text-xs">--jib-contrast-ratio-*</code> and every utility follows.
           </p>
           <a
             href="/tw-jib-css/guide/automatic-contrast"

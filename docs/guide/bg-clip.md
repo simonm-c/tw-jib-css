@@ -99,8 +99,8 @@ reads is what removes that.
 
 Two registered custom properties carry the keyword, and the shorthand reads both:
 
-1. `--tw-jib--background-clip` clips the pattern layers. It defaults to `padding-box`.
-2. `--tw-jib--border-gradient-clip` clips the border-gradient layer. It defaults to
+1. `--jib-background-clip` clips the pattern layers. It defaults to `padding-box`.
+2. `--jib-border-gradient-clip` clips the border-gradient layer. It defaults to
    `border-box`, because a border gradient has to reach the border edge to be visible.
 
 The two defaults differ, which is why there are two slots. The utilities write to **both**,

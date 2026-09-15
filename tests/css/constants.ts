@@ -1,7 +1,7 @@
 /** Every layer carries a second box value so `bg-clip-*` can reach a clip the
  *  shorthand would otherwise overwrite. */
 export const BG_LAYER =
-  'var(--tw-jib--ripple-image) padding-box var(--tw-jib--background-clip), var(--tw-jib--background-image) padding-box var(--tw-jib--background-clip), var(--tw-jib--border-gradient) border-box var(--tw-jib--border-gradient-clip)';
+  'var(--jib-ripple-image) padding-box var(--jib-background-clip), var(--jib-background-image) padding-box var(--jib-background-clip), var(--jib-border-gradient) border-box var(--jib-border-gradient-clip)';
 
 /** [tailwind-class-suffix, unique CSS substring marker] */
 export const DARKEN_PALETTE: [string, string][] = [

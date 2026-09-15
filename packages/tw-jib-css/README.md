@@ -75,7 +75,7 @@ Levels are themeable. Define a ratio and the class exists:
 
 ```css
 @theme {
-  --tw-jib--contrast-ratio-aa-plus: 5;
+  --jib-contrast-ratio-aa-plus: 5;
 }
 ```
 

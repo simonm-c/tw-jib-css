@@ -2,11 +2,11 @@
 title: Saturation
 ---
 
-<!-- llm-context: --tw-jib--saturation(<color>, <number>, <space>) is the CSS @function form of the stable saturation utilities. It returns a <color>, so a saturated or muted derivative can go anywhere a color goes: a gradient stop, a box-shadow or text-shadow color, text-decoration-color, a caret, a column rule. Positive amounts saturate, negative amounts drain toward gray. The space argument is optional and defaults to oklch; seventeen spaces are available including color-mix, and per-space functions such as --tw-jib--oklch-saturation can be called directly. Importing the functions entry also re-implements bg-saturation-*, bg-saturate-* and bg-desaturate-* on top of this function wherever CSS @function is supported. Chromium only. -->
+<!-- llm-context: --jib-saturation(<color>, <number>, <space>) is the CSS @function form of the stable saturation utilities. It returns a <color>, so a saturated or muted derivative can go anywhere a color goes: a gradient stop, a box-shadow or text-shadow color, text-decoration-color, a caret, a column rule. Positive amounts saturate, negative amounts drain toward gray. The space argument is optional and defaults to oklch; seventeen spaces are available including color-mix, and per-space functions such as --jib-oklch-saturation can be called directly. --jib-saturate and --jib-desaturate are directional aliases over the same three arguments; --jib-desaturate negates the amount, so --jib-desaturate(c, 20) equals --jib-saturation(c, -20) and matches bg-desaturate-20. Neither clamps, so a negative amount inverts the direction. Importing the functions entry also re-implements bg-saturation-*, bg-saturate-* and bg-desaturate-* on top of this function wherever CSS @function is supported. Chromium only. -->
 
 # Saturation
 
-`--tw-jib--saturation()` is the saturation transform as a callable value. Positive amounts push a color further from gray, negative amounts drain it toward gray, and the result is a color you can put anywhere a color is accepted.
+`--jib-saturation()` is the saturation transform as a callable value. Positive amounts push a color further from gray, negative amounts drain it toward gray, and the result is a color you can put anywhere a color is accepted.
 
 `bg-saturation-*` and its siblings already cover the seven utility surfaces. What follows is everything else.
 
@@ -18,14 +18,18 @@ For a muted background, border, text, fill, stroke, outline or accent in every e
 
 ## Quick reference
 
-| Call                                               | Returns                                             |
-| -------------------------------------------------- | --------------------------------------------------- |
-| `--tw-jib--saturation(<color>, <number>)`          | the color, saturated `n`% further from gray         |
-| `--tw-jib--saturation(<color>, -<number>)`         | the color, drained `n`% of the way to gray          |
-| `--tw-jib--saturation(<color>, <number>, <space>)` | the same, computed in the named color space         |
-| `--tw-jib--<space>-saturation(<color>, <number>)`  | the per-space function, called without the dispatch |
+| Call                                           | Returns                                                |
+| ---------------------------------------------- | ------------------------------------------------------ |
+| `--jib-saturation(<color>, <number>)`          | the color, saturated `n`% further from gray            |
+| `--jib-saturation(<color>, -<number>)`         | the color, drained `n`% of the way to gray             |
+| `--jib-saturation(<color>, <number>, <space>)` | the same, computed in the named color space            |
+| `--jib-saturate(<color>, <number>)`            | the same as a positive amount, named for the direction |
+| `--jib-desaturate(<color>, <number>)`          | the same as a negative amount, named for the direction |
+| `--jib-<space>-saturation(<color>, <number>)`  | the per-space function, called without the dispatch    |
 
 Amount runs 0–100 as a percentage of the remaining distance, so `-100` is fully gray and keeps the original lightness. The space argument is optional and defaults to `oklch`.
+
+The directional aliases take the same three arguments and mirror the class API, so `--jib-desaturate(c, 20)` is `bg-desaturate-20`. Neither clamps: `--jib-desaturate(c, -20)` saturates, which is what lets one custom property animate through zero.
 
 ## What the utility cannot reach
 
@@ -35,16 +39,16 @@ The clearest case for a function. A ramp from a color to its own desaturated sel
 
 <Example stretch>
   <div class="flex flex-col gap-3 p-6">
-    <div class="h-12 rounded-lg bg-[linear-gradient(90deg,var(--color-teal-500),--tw-jib--saturation(var(--color-teal-500),-100))]"></div>
-    <div class="h-12 rounded-lg bg-[linear-gradient(90deg,var(--color-rose-500),--tw-jib--saturation(var(--color-rose-500),-100))]"></div>
-    <div class="h-12 rounded-lg bg-[linear-gradient(90deg,var(--color-amber-400),--tw-jib--saturation(var(--color-amber-400),-100))]"></div>
+    <div class="h-12 rounded-lg bg-[linear-gradient(90deg,var(--color-teal-500),--jib-saturation(var(--color-teal-500),-100))]"></div>
+    <div class="h-12 rounded-lg bg-[linear-gradient(90deg,var(--color-rose-500),--jib-saturation(var(--color-rose-500),-100))]"></div>
+    <div class="h-12 rounded-lg bg-[linear-gradient(90deg,var(--color-amber-400),--jib-saturation(var(--color-amber-400),-100))]"></div>
   </div>
 </Example>
 
 ```html
 <div
   class="bg-[linear-gradient(90deg,var(--color-teal-500),
-             --tw-jib--saturation(var(--color-teal-500),-100))]"
+             --jib-saturation(var(--color-teal-500),-100))]"
 ></div>
 ```
 
@@ -54,16 +58,16 @@ Lightness is preserved across the ramp, so the bar reads as color draining out r
 
 <Example stretch>
   <div class="flex flex-wrap gap-8 p-8">
-    <div class="size-24 rounded-full bg-fuchsia-500 shadow-[0_0_0_6px_--tw-jib--saturation(var(--color-fuchsia-500),-70)]"></div>
-    <div class="size-24 rounded-full bg-teal-500 shadow-[0_0_0_6px_--tw-jib--saturation(var(--color-teal-500),-70)]"></div>
-    <div class="size-24 rounded-full bg-indigo-500 shadow-[0_0_0_6px_--tw-jib--saturation(var(--color-indigo-500),-70)]"></div>
+    <div class="size-24 rounded-full bg-fuchsia-500 shadow-[0_0_0_6px_--jib-saturation(var(--color-fuchsia-500),-70)]"></div>
+    <div class="size-24 rounded-full bg-teal-500 shadow-[0_0_0_6px_--jib-saturation(var(--color-teal-500),-70)]"></div>
+    <div class="size-24 rounded-full bg-indigo-500 shadow-[0_0_0_6px_--jib-saturation(var(--color-indigo-500),-70)]"></div>
   </div>
 </Example>
 
 ```html
 <div
   class="bg-fuchsia-500
-         shadow-[0_0_0_6px_--tw-jib--saturation(var(--color-fuchsia-500),-70)]"
+         shadow-[0_0_0_6px_--jib-saturation(var(--color-fuchsia-500),-70)]"
 ></div>
 ```
 
@@ -73,15 +77,15 @@ Arbitrary values take Tailwind's variants like anything else, so the function ca
 
 <Example stretch>
   <div class="flex flex-col gap-4 p-6 text-lg font-semibold">
-    <span class="cursor-pointer text-teal-600 dark:text-teal-300 underline decoration-4 underline-offset-4 decoration-[--tw-jib--saturation(var(--color-teal-600),-90)] hover:decoration-[--tw-jib--saturation(var(--color-teal-600),40)] transition-all duration-300">hover to saturate the underline</span>
+    <span class="cursor-pointer text-teal-600 dark:text-teal-300 underline decoration-4 underline-offset-4 decoration-[--jib-saturation(var(--color-teal-600),-90)] hover:decoration-[--jib-saturation(var(--color-teal-600),40)] transition-all duration-300">hover to saturate the underline</span>
   </div>
 </Example>
 
 ```html
 <a
   class="text-teal-600 underline decoration-4 transition-all
-         decoration-[--tw-jib--saturation(var(--color-teal-600),-90)]
-         hover:decoration-[--tw-jib--saturation(var(--color-teal-600),40)]"
+         decoration-[--jib-saturation(var(--color-teal-600),-90)]
+         hover:decoration-[--jib-saturation(var(--color-teal-600),40)]"
 >
   hover to saturate the underline
 </a>
@@ -93,9 +97,9 @@ Arbitrary values take Tailwind's variants like anything else, so the function ca
   <div class="flex flex-col gap-5 p-6">
     <input
       value="a vivid caret in muted text"
-      class="w-full rounded-lg border-2 [border-color:--tw-jib--saturation(var(--color-teal-500),-75)] bg-transparent px-3 py-2 text-sm caret-[--tw-jib--saturation(var(--color-teal-500),50)]"
+      class="w-full rounded-lg border-2 [border-color:--jib-saturation(var(--color-teal-500),-75)] bg-transparent px-3 py-2 text-sm caret-[--jib-saturation(var(--color-teal-500),50)]"
     />
-    <div class="columns-2 gap-6 text-sm [column-rule:2px_solid_--tw-jib--saturation(var(--color-teal-500),-60)]">
+    <div class="columns-2 gap-6 text-sm [column-rule:2px_solid_--jib-saturation(var(--color-teal-500),-60)]">
       <span>The rule between these columns is the same token the border above uses, drained most of the way to gray so it separates without competing.</span>
     </div>
   </div>
@@ -103,8 +107,8 @@ Arbitrary values take Tailwind's variants like anything else, so the function ca
 
 ```html
 <input
-  class="[border-color:--tw-jib--saturation(var(--color-teal-500),-75)]
-         caret-[--tw-jib--saturation(var(--color-teal-500),50)]"
+  class="[border-color:--jib-saturation(var(--color-teal-500),-75)]
+         caret-[--jib-saturation(var(--color-teal-500),50)]"
 />
 ```
 
@@ -113,9 +117,9 @@ Arbitrary values take Tailwind's variants like anything else, so the function ca
 <Example stretch>
   <div class="grid grid-cols-2 gap-px p-6">
     <div class="bg-teal-500 bg-saturate-40 p-5 text-center font-mono text-[11px] text-teal-950">bg-saturate-40</div>
-    <div class="[background-color:--tw-jib--saturation(var(--color-teal-500),40)] p-5 text-center font-mono text-[11px] text-teal-950">saturation(…,40)</div>
+    <div class="[background-color:--jib-saturation(var(--color-teal-500),40)] p-5 text-center font-mono text-[11px] text-teal-950">saturation(…,40)</div>
     <div class="bg-teal-500 bg-desaturate-70 p-5 text-center font-mono text-[11px] text-teal-950">bg-desaturate-70</div>
-    <div class="[background-color:--tw-jib--saturation(var(--color-teal-500),-70)] p-5 text-center font-mono text-[11px] text-teal-950">saturation(…,-70)</div>
+    <div class="[background-color:--jib-saturation(var(--color-teal-500),-70)] p-5 text-center font-mono text-[11px] text-teal-950">saturation(…,-70)</div>
   </div>
 </Example>
 
@@ -123,23 +127,23 @@ Where a class covers the surface, use the class. It reads better and it works ev
 
 ## Per-space variants
 
-| Space family           | Functions                                                                                                                                                                                                                            |
-| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| Perceptual polar       | `--tw-jib--oklch-saturation`, `--tw-jib--lch-saturation`                                                                                                                                                                             |
-| Perceptual rectangular | `--tw-jib--oklab-saturation`, `--tw-jib--lab-saturation`                                                                                                                                                                             |
-| Legacy                 | `--tw-jib--hsl-saturation`, `--tw-jib--hwb-saturation`                                                                                                                                                                               |
-| RGB family             | `--tw-jib--rgb-saturation`, `--tw-jib--srgb-saturation`, `--tw-jib--srgb-linear-saturation`, `--tw-jib--display-p3-saturation`, `--tw-jib--a98-rgb-saturation`, `--tw-jib--prophoto-rgb-saturation`, `--tw-jib--rec-2020-saturation` |
-| Device-independent     | `--tw-jib--xyz-saturation`, `--tw-jib--xyz-d50-saturation`, `--tw-jib--xyz-d65-saturation`                                                                                                                                           |
-| Blend                  | `--tw-jib--color-mix-saturation`                                                                                                                                                                                                     |
+| Space family           | Functions                                                                                                                                                                                                |
+| ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Perceptual polar       | `--jib-oklch-saturation`, `--jib-lch-saturation`                                                                                                                                                         |
+| Perceptual rectangular | `--jib-oklab-saturation`, `--jib-lab-saturation`                                                                                                                                                         |
+| Legacy                 | `--jib-hsl-saturation`, `--jib-hwb-saturation`                                                                                                                                                           |
+| RGB family             | `--jib-rgb-saturation`, `--jib-srgb-saturation`, `--jib-srgb-linear-saturation`, `--jib-display-p3-saturation`, `--jib-a98-rgb-saturation`, `--jib-prophoto-rgb-saturation`, `--jib-rec-2020-saturation` |
+| Device-independent     | `--jib-xyz-saturation`, `--jib-xyz-d50-saturation`, `--jib-xyz-d65-saturation`                                                                                                                           |
+| Blend                  | `--jib-color-mix-saturation`                                                                                                                                                                             |
 
 Saturation has a `color-mix` path because it has an endpoint to mix toward: gray. An unrecognised space falls back to `oklch`.
 
 <Example stretch>
   <div class="grid grid-cols-4 gap-2 p-6">
-    <div class="h-16 rounded-md [background-color:--tw-jib--saturation(var(--color-teal-500),-60,oklch)] flex items-end p-1.5"><span class="font-mono text-[9px] text-teal-950">oklch</span></div>
-    <div class="h-16 rounded-md [background-color:--tw-jib--saturation(var(--color-teal-500),-60,hsl)] flex items-end p-1.5"><span class="font-mono text-[9px] text-teal-950">hsl</span></div>
-    <div class="h-16 rounded-md [background-color:--tw-jib--saturation(var(--color-teal-500),-60,lab)] flex items-end p-1.5"><span class="font-mono text-[9px] text-teal-950">lab</span></div>
-    <div class="h-16 rounded-md [background-color:--tw-jib--saturation(var(--color-teal-500),-60,color-mix)] flex items-end p-1.5"><span class="font-mono text-[9px] text-teal-950">color-mix</span></div>
+    <div class="h-16 rounded-md [background-color:--jib-saturation(var(--color-teal-500),-60,oklch)] flex items-end p-1.5"><span class="font-mono text-[9px] text-teal-950">oklch</span></div>
+    <div class="h-16 rounded-md [background-color:--jib-saturation(var(--color-teal-500),-60,hsl)] flex items-end p-1.5"><span class="font-mono text-[9px] text-teal-950">hsl</span></div>
+    <div class="h-16 rounded-md [background-color:--jib-saturation(var(--color-teal-500),-60,lab)] flex items-end p-1.5"><span class="font-mono text-[9px] text-teal-950">lab</span></div>
+    <div class="h-16 rounded-md [background-color:--jib-saturation(var(--color-teal-500),-60,color-mix)] flex items-end p-1.5"><span class="font-mono text-[9px] text-teal-950">color-mix</span></div>
   </div>
 </Example>
 

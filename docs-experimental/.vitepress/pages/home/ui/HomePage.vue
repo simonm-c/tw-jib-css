@@ -18,14 +18,14 @@ import PageIndex from '../../../widgets/page-index/ui/PageIndex.vue';
             >text + text-decoration</span
           >
           <span
-            class="font-mono text-base font-bold text-sky-400 underline decoration-wavy decoration-2 underline-offset-4 decoration-[--tw-jib--lightness(var(--color-sky-400),35)]"
+            class="font-mono text-base font-bold text-sky-400 underline decoration-wavy decoration-2 underline-offset-4 decoration-[--jib-lightness(var(--color-sky-400),35)]"
             >color: base<br />underline: +35</span
           >
         </div>
 
         <div class="aspect-4/3 rounded-xl p-3 flex items-center justify-center bg-gray-950">
           <div
-            class="w-20 h-20 rounded-lg flex items-center justify-center font-mono text-[9px] font-bold text-white/80 bg-sky-400 shadow-[0_0_0_3px_--tw-jib--lightness(var(--color-sky-400),-30),0_16px_32px_-4px_--tw-jib--lightness(var(--color-sky-400),-40)]"
+            class="w-20 h-20 rounded-lg flex items-center justify-center font-mono text-[9px] font-bold text-white/80 bg-sky-400 shadow-[0_0_0_3px_--jib-lightness(var(--color-sky-400),-30),0_16px_32px_-4px_--jib-lightness(var(--color-sky-400),-40)]"
           >
             bg: base<br />ring: −30
           </div>
@@ -38,7 +38,7 @@ import PageIndex from '../../../widgets/page-index/ui/PageIndex.vue';
               cy="24"
               r="16"
               stroke-width="4"
-              class="fill-sky-400 stroke-[--tw-jib--lightness(var(--color-sky-400),-35)]"
+              class="fill-sky-400 stroke-[--jib-lightness(var(--color-sky-400),-35)]"
             />
             <text
               x="24"
@@ -68,7 +68,7 @@ import PageIndex from '../../../widgets/page-index/ui/PageIndex.vue';
         <div class="aspect-4/3 rounded-xl p-3 flex flex-col gap-2 bg-gray-950">
           <span class="font-mono text-[9px] opacity-60 text-white">linear-gradient stops</span>
           <div
-            class="flex-1 rounded-md flex items-center justify-center font-mono text-[9px] font-bold text-white bg-[linear-gradient(135deg,var(--color-sky-400),--tw-jib--saturation(var(--color-sky-400),-60))]"
+            class="flex-1 rounded-md flex items-center justify-center font-mono text-[9px] font-bold text-white bg-[linear-gradient(135deg,var(--color-sky-400),--jib-saturation(var(--color-sky-400),-60))]"
           >
             base → sat(−60)
           </div>
@@ -86,11 +86,11 @@ import PageIndex from '../../../widgets/page-index/ui/PageIndex.vue';
     <FeatureSlide :index="1">
       <div class="grid grid-cols-2 gap-3 w-full max-w-md">
         <div
-          class="aspect-4/3 rounded-xl p-3 flex flex-col justify-between bg-teal-500 text-[--tw-jib--auto-contrast(var(--color-teal-500),aaa,oklch)]"
+          class="aspect-4/3 rounded-xl p-3 flex flex-col justify-between bg-teal-500 text-[--jib-auto-contrast(var(--color-teal-500),aaa,oklch)]"
         >
           <span class="font-mono text-[9px] opacity-80">button border + text</span>
           <button
-            class="rounded-md px-3 py-1.5 font-semibold text-xs cursor-pointer bg-transparent self-start border-2 border-[--tw-jib--auto-contrast(var(--color-teal-500),aaa,oklch)] text-[--tw-jib--auto-contrast(var(--color-teal-500),aaa,oklch)]"
+            class="rounded-md px-3 py-1.5 font-semibold text-xs cursor-pointer bg-transparent self-start border-2 border-[--jib-auto-contrast(var(--color-teal-500),aaa,oklch)] text-[--jib-auto-contrast(var(--color-teal-500),aaa,oklch)]"
           >
             Continue →
           </button>
@@ -107,7 +107,7 @@ import PageIndex from '../../../widgets/page-index/ui/PageIndex.vue';
               stroke-width="4"
               stroke-linecap="round"
               stroke-linejoin="round"
-              class="stroke-[--tw-jib--auto-contrast(var(--color-teal-500),aaa,oklch)]"
+              class="stroke-[--jib-auto-contrast(var(--color-teal-500),aaa,oklch)]"
             />
           </svg>
         </div>
@@ -123,7 +123,7 @@ import PageIndex from '../../../widgets/page-index/ui/PageIndex.vue';
           <span class="font-mono text-[9px] opacity-80">the shade, as a gradient stop</span>
           <div class="space-y-1.5">
             <div
-              class="rounded-md h-8 bg-[linear-gradient(90deg,var(--color-teal-500),--tw-jib--auto-contrast(var(--color-teal-500),aaa,oklch))]"
+              class="rounded-md h-8 bg-[linear-gradient(90deg,var(--color-teal-500),--jib-auto-contrast(var(--color-teal-500),aaa,oklch))]"
             ></div>
             <div class="flex justify-between font-mono text-[8px] opacity-70">
               <span>teal-500</span>
@@ -138,7 +138,7 @@ import PageIndex from '../../../widgets/page-index/ui/PageIndex.vue';
           <span class="font-mono text-[9px] opacity-80">solved, not searched</span>
           <div class="rounded-md h-10 flex items-center justify-center bg-teal-500">
             <span
-              class="font-mono text-[10px] font-bold text-[--tw-jib--auto-contrast(var(--color-teal-500),aaa,oklch)]"
+              class="font-mono text-[10px] font-bold text-[--jib-auto-contrast(var(--color-teal-500),aaa,oklch)]"
               >solved for 7:1</span
             >
           </div>

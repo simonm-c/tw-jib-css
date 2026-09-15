@@ -68,7 +68,7 @@ const cards = [
           >&lt;div class="bg-blue-600 text-white wcag-badge"&gt; Reads: AA &lt;/div&gt; &lt;!--
           shade + badge together --&gt; &lt;div class="bg-yellow-200 text-contrast-aaa
           wcag-badge"&gt; Auto-contrast, plus its rating &lt;/div&gt; /* or call the function
-          directly */ .label::before { content: --tw-jib--wcag-rating( var(--bg), var(--fg));
+          directly */ .label::before { content: --jib-wcag-rating( var(--bg), var(--fg));
           }</CodePanel
         >
       </div>

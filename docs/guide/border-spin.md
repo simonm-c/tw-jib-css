@@ -28,11 +28,11 @@ to out-rank.
 ## Quick reference
 
 <UtilityTable :rows="[
-  { class: 'border-spin', styles: 'animation: border-spin var(--tw-jib--border-spin-duration) linear infinite var(--tw-jib--border-spin-direction)' },
-  { class: 'border-spin-reverse', styles: '--tw-jib--border-spin-direction: reverse' },
-  { class: 'border-spin-duration-<number>', styles: '--tw-jib--border-spin-duration: <number> * 1000ms' },
-  { class: 'border-spin-duration-<name>', styles: '--tw-jib--border-spin-duration: var(--tw-jib--border-spin-duration-<name>)' },
-  { class: 'border-spin-duration-[<value>]', styles: '--tw-jib--border-spin-duration: <value>' },
+  { class: 'border-spin', styles: 'animation: border-spin var(--jib-border-spin-duration) linear infinite var(--jib-border-spin-direction)' },
+  { class: 'border-spin-reverse', styles: '--jib-border-spin-direction: reverse' },
+  { class: 'border-spin-duration-<number>', styles: '--jib-border-spin-duration: <number> * 1000ms' },
+  { class: 'border-spin-duration-<name>', styles: '--jib-border-spin-duration: var(--jib-border-spin-duration-<name>)' },
+  { class: 'border-spin-duration-[<value>]', styles: '--jib-border-spin-duration: <value>' },
 ]" />
 
 ## Basic usage
@@ -123,13 +123,13 @@ Use bracket notation for custom durations:
 
 ## Naming your own durations
 
-`border-spin-duration-*` reads the `--tw-jib--border-spin-duration-*` theme namespace, so a project
+`border-spin-duration-*` reads the `--jib-border-spin-duration-*` theme namespace, so a project
 can name its speeds once and use them everywhere:
 
 ```css
 @theme {
-  --tw-jib--border-spin-duration-slow: 4s;
-  --tw-jib--border-spin-duration-brisk: 600ms;
+  --jib-border-spin-duration-slow: 4s;
+  --jib-border-spin-duration-brisk: 600ms;
 }
 ```
 
@@ -157,7 +157,7 @@ follows. Changing it at runtime retimes them together:
 
 ## How it works
 
-Registering `--tw-jib--border-gradient-angle` as an `<angle>` through `@property` is what makes it animatable. Every conic border gradient starts from that angle, so `border-conic-45` is a declaration of it, and a `@keyframes` animation rotates it from `0deg` to `360deg`. An animation beats a declaration by cascade origin rather than by selector weight, which is how `border-spin` takes the angle over while carrying no specificity of its own. `--tw-jib--border-spin-duration` sets how long one turn takes, defaulting to `1s`, and `--tw-jib--border-spin-direction` is the `animation-direction` slot of the same shorthand, defaulting to `normal`. Because both are read out of the shorthand rather than redeclared beside it, `border-spin-reverse` and the duration utilities never restate the animation and so never have to out-rank it.
+Registering `--jib-border-gradient-angle` as an `<angle>` through `@property` is what makes it animatable. Every conic border gradient starts from that angle, so `border-conic-45` is a declaration of it, and a `@keyframes` animation rotates it from `0deg` to `360deg`. An animation beats a declaration by cascade origin rather than by selector weight, which is how `border-spin` takes the angle over while carrying no specificity of its own. `--jib-border-spin-duration` sets how long one turn takes, defaulting to `1s`, and `--jib-border-spin-direction` is the `animation-direction` slot of the same shorthand, defaulting to `normal`. Because both are read out of the shorthand rather than redeclared beside it, `border-spin-reverse` and the duration utilities never restate the animation and so never have to out-rank it.
 
 ## Import
 

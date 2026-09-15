@@ -120,7 +120,7 @@
   --tw-jib--gradient-interpolation: --modifier(--tw-jib--gradient-interpolation- *);
   --tw-jib--border-gradient-position: to --value(--tw-jib--border-gradient-direction- *) var(--tw-jib--gradient-interpolation);
   --tw-jib--border-gradient-position: --value(number) var(--tw-jib--gradient-interpolation), var(--tw-jib--border-gradient-stops);
-  --tw-jib--border-gradient-position: --value([value]);
+  --tw-jib--border-gradient-position: --value([ *]);
   --tw-jib--border-gradient: linear-gradient(var(--tw-jib--border-gradient-stops));
   background:
     var(--tw-jib--ripple-image) padding-box var(--tw-jib--background-clip),

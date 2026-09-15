@@ -28,6 +28,7 @@ const INITIAL_VALUES: Record<string, string> = {
   '--jib-border-hue-amount': '0',
   '--jib-border-lightness-amount': '0',
   '--jib-border-saturation-amount': '0',
+  '--jib-border-spin-direction': 'normal',
   '--jib-border-spin-duration': '1s',
   '--jib-comic-bleed': '1px',
   '--jib-comic-color': 'black',

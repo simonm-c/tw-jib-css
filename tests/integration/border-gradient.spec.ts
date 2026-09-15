@@ -424,6 +424,26 @@ test.describe('border spin', () => {
     await expect.poll(angle).not.toBe(before);
   });
 
+  test('border-spin-reverse turns the spin round without stopping it', async ({ page }) => {
+    // Arrange
+    await gotoPage(page);
+    // Act
+    const styles = await extractStyles(page, ['border-spin-conic', 'border-spin-reverse']);
+    // Assert
+    expect(styles['border-spin-conic'].animationDirection).toBe('normal');
+    expect(styles['border-spin-reverse'].animationDirection).toBe('reverse');
+    expect(styles['border-spin-reverse'].animation).toContain('border-spin');
+  });
+
+  test('an inherited custom property drives the spin duration', async ({ page }) => {
+    // Arrange
+    await gotoPage(page);
+    // Act
+    const styles = await extractStyles(page, ['border-spin-var-duration']);
+    // Assert
+    expect(styles['border-spin-var-duration'].animation).toContain('2.5s');
+  });
+
   test('motion-safe:border-spin stops for a reduced-motion reader', async ({ page }) => {
     // Arrange
     await page.emulateMedia({ reducedMotion: 'no-preference' });

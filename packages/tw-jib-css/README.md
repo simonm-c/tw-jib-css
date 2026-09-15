@@ -41,19 +41,19 @@ Peer dependency: `tailwindcss >=4.3.0`.
 
 ## What you get
 
-| Import                          | Module             | Class patterns                                                                                                                           |
-| ------------------------------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `tw-jib-css`                    | everything         | all of the below, plus the colour pipeline that feeds them                                                                               |
-| `tw-jib-css/automatic-contrast` | Automatic Contrast | `text-contrast-aa` `text-contrast-aaa` `text-contrast-aa-lg`                                                                             |
-| `tw-jib-css/color-transforms`   | Lightness          | `<surface>-lightness-*` `-<surface>-lightness-*` `<surface>-lighten-*` `<surface>-darken-*`                                              |
-| `tw-jib-css/color-transforms`   | Saturation         | `<surface>-saturation-*` `-<surface>-saturation-*` `<surface>-saturate-*` `<surface>-desaturate-*`                                       |
-| `tw-jib-css/color-transforms`   | Hue Rotate         | `<surface>-hue-rotate-*` `-<surface>-hue-rotate-*`                                                                                       |
-| `tw-jib-css/border-gradient`    | Border Gradient    | `border-from-*` `border-via-*` `border-to-*` `border-linear-*` `border-radial-*` `border-conic-*` `border-spin` `border-spin-duration-*` |
-| `tw-jib-css/ripple`             | Ripple             | `bg-ripple` `ripple-color-*` `ripple-duration-*` `ripple-position-*` `ripple-fade-*`                                                     |
-| `tw-jib-css/comic`              | Comic Halftone     | `bg-comic-*` `comic-dot-*` `comic-gap-*` `comic-bleed-*`                                                                                 |
-| `tw-jib-css/pixel`              | CRT Pixel          | `bg-pixel-*` `pixel-size-*` `pixel-gap-*` `pixel-bloom-*`                                                                                |
-| `tw-jib-css/border-style`       | Border Style       | `border-{t,r,b,l,x,y,s,e}-{solid,dashed,dotted,double,groove,ridge,inset,outset,none,hidden}`                                            |
-| `tw-jib-css/grid`               | Grid Areas         | `grid-template-areas-*` `grid-area-*`                                                                                                    |
+| Import                          | Module             | Class patterns                                                                                                                                                 |
+| ------------------------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `tw-jib-css`                    | everything         | all of the below, plus the colour pipeline that feeds them                                                                                                     |
+| `tw-jib-css/automatic-contrast` | Automatic Contrast | `text-contrast-aa` `text-contrast-aaa` `text-contrast-aa-lg`                                                                                                   |
+| `tw-jib-css/color-transforms`   | Lightness          | `<surface>-lightness-*` `-<surface>-lightness-*` `<surface>-lighten-*` `<surface>-darken-*`                                                                    |
+| `tw-jib-css/color-transforms`   | Saturation         | `<surface>-saturation-*` `-<surface>-saturation-*` `<surface>-saturate-*` `<surface>-desaturate-*`                                                             |
+| `tw-jib-css/color-transforms`   | Hue Rotate         | `<surface>-hue-rotate-*` `-<surface>-hue-rotate-*`                                                                                                             |
+| `tw-jib-css/border-gradient`    | Border Gradient    | `border-from-*` `border-via-*` `border-to-*` `border-linear-*` `border-radial-*` `border-conic-*` `border-spin` `border-spin-reverse` `border-spin-duration-*` |
+| `tw-jib-css/ripple`             | Ripple             | `bg-ripple` `ripple-color-*` `ripple-duration-*` `ripple-position-*` `ripple-fade-*`                                                                           |
+| `tw-jib-css/comic`              | Comic Halftone     | `bg-comic-*` `comic-dot-*` `comic-gap-*` `comic-bleed-*`                                                                                                       |
+| `tw-jib-css/pixel`              | CRT Pixel          | `bg-pixel-*` `pixel-size-*` `pixel-gap-*` `pixel-bloom-*`                                                                                                      |
+| `tw-jib-css/border-style`       | Border Style       | `border-{t,r,b,l,x,y,s,e}-{solid,dashed,dotted,double,groove,ridge,inset,outset,none,hidden}`                                                                  |
+| `tw-jib-css/grid`               | Grid Areas         | `grid-template-areas-*` `grid-area-*`                                                                                                                          |
 
 `<surface>` is one of `bg` `text` `fill` `stroke` `outline` `accent` `border`. Every utility accepts
 Tailwind's arbitrary-value syntax (`bg-lightness-[37]`) and composes with every variant (`hover:`,

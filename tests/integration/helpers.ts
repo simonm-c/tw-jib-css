@@ -11,6 +11,7 @@ export interface ElementStyles {
   backgroundImage: string;
   borderColor: string;
   animation: string;
+  animationDirection: string;
   blendMode: string;
   layerCount: number;
   backgroundClip: string;
@@ -74,6 +75,7 @@ export async function extractStyles(
         backgroundImage,
         borderColor: computed.borderColor,
         animation: computed.animation,
+        animationDirection: computed.animationDirection,
         blendMode: computed.backgroundBlendMode,
         layerCount: backgroundImage === 'none' ? 0 : backgroundImage.split('gradient(').length - 1,
         backgroundClip: computed.backgroundClip,

@@ -636,6 +636,34 @@ describe.each(suiteScenarios('border-gradient'))('border spin, $name', ({ compil
     expect(css).toContain(BG_LAYER);
   });
 
+  test('the animation shorthand reads the direction, so a later utility can turn the spin round', async () => {
+    const css = await compile('border-conic-0 border-spin');
+    expect(css).toMatch(
+      /animation: border-spin var\(--jib-border-spin-duration\)[^;]*var\(--jib-border-spin-direction\)/,
+    );
+  });
+
+  test('border-spin-reverse sets the direction without redeclaring the animation', async () => {
+    const css = await compile(
+      'bg-slate-800 border-conic-0 border-spin border-spin-reverse border-from-rose-500 border-to-cyan-500',
+    );
+    expect(css).toContain('--jib-border-spin-direction: reverse');
+    expect(css).toMatch(/\.border-spin-reverse \{\s*--jib-border-spin-direction: reverse;\s*\}/);
+    expect(css).toContain(BG_LAYER);
+  });
+
+  test('border-spin-duration accepts a theme name, so a project can name its own speeds', async () => {
+    const css = await compile('border-conic-0 border-spin border-spin-duration-slow', {
+      extra: '@theme { --jib-border-spin-duration-slow: 4s; }',
+    });
+    expect(css).toContain('--jib-border-spin-duration: var(--jib-border-spin-duration-slow)');
+  });
+
+  test('border-spin-duration accepts a bare custom property, so the duration can be driven at runtime', async () => {
+    const css = await compile('border-conic-0 border-spin border-spin-duration-(--spin-speed)');
+    expect(css).toContain('--jib-border-spin-duration: var(--spin-speed)');
+  });
+
   test('border-spin with /longer interpolation', async () => {
     const css = await compile(
       'bg-slate-800 border-conic/longer border-conic-0 border-spin border-from-red-500 border-to-blue-500',

@@ -9,8 +9,8 @@ describe.each(suiteScenarios('border-gradient'))(
   ({ compile }) => {
     test('bg-blue-500', async () => {
       const css = await compile(`bg-blue-500 ${BORDER}`);
-      expect(css).toContain('--tw-jib--background-color');
-      expect(css).toContain('--tw-jib--border-gradient-from');
+      expect(css).toContain('--jib-background-color');
+      expect(css).toContain('--jib-border-gradient-from');
       expect(css).toContain('border-color: transparent');
       expect(css).toContain(BG_LAYER);
     });
@@ -251,7 +251,7 @@ describe.each(suiteScenarios('border-gradient'))(
         'bg-slate-800 border-linear-to-[to_top_left_in_oklch] border-from-rose-500 border-to-cyan-500',
       );
       expect(css, 'the arbitrary position did not reach the gradient').toContain(
-        '--tw-jib--border-gradient-position: to top left in oklch',
+        '--jib-border-gradient-position: to top left in oklch',
       );
     });
 
@@ -260,7 +260,7 @@ describe.each(suiteScenarios('border-gradient'))(
         'bg-slate-800 border-linear-to-(--v) border-from-rose-500 border-to-cyan-500',
       );
       expect(css, 'the shorthand did not reach the gradient').toContain(
-        '--tw-jib--border-gradient-position: var(--v)',
+        '--jib-border-gradient-position: var(--v)',
       );
     });
   },
@@ -402,7 +402,7 @@ describe.each(suiteScenarios('border-gradient'))(
         const css = await compile(
           `bg-slate-800 ${cls} border-linear-to-r border-from-red-500 border-to-blue-500`,
         );
-        expect(css).toContain(`--tw-jib--gradient-interpolation: ${expected}`);
+        expect(css).toContain(`--jib-gradient-interpolation: ${expected}`);
         expect(css).toContain('linear-gradient');
         expect(css).toContain('border-color: transparent');
         expect(css).toContain(BG_LAYER);
@@ -419,7 +419,7 @@ describe.each(suiteScenarios('border-gradient'))(
         const css = await compile(
           `bg-slate-800 ${cls} border-radial border-from-red-500 border-to-blue-500`,
         );
-        expect(css).toContain(`--tw-jib--gradient-interpolation: ${expected}`);
+        expect(css).toContain(`--jib-gradient-interpolation: ${expected}`);
         expect(css).toContain('radial-gradient');
         expect(css).toContain(BG_LAYER);
       });
@@ -435,7 +435,7 @@ describe.each(suiteScenarios('border-gradient'))(
         const css = await compile(
           `bg-slate-800 ${cls} border-conic-0 border-from-red-500 border-via-yellow-400 border-to-blue-500`,
         );
-        expect(css).toContain(`--tw-jib--gradient-interpolation: ${expected}`);
+        expect(css).toContain(`--jib-gradient-interpolation: ${expected}`);
         expect(css).toContain('conic-gradient');
         expect(css).toContain(BG_LAYER);
       });
@@ -453,7 +453,7 @@ describe.each(suiteScenarios('border-gradient'))(
         ['border-linear-to-r/decreasing', 'in oklch decreasing hue'],
       ])('%s', async (cls, expected) => {
         const css = await compile(`bg-slate-800 ${cls} border-from-red-500 border-to-blue-500`);
-        expect(css).toContain(`--tw-jib--gradient-interpolation: ${expected}`);
+        expect(css).toContain(`--jib-gradient-interpolation: ${expected}`);
         expect(css).toContain('linear-gradient');
         expect(css).toContain('border-color: transparent');
         expect(css).toContain(BG_LAYER);
@@ -465,7 +465,7 @@ describe.each(suiteScenarios('border-gradient'))(
           const css = await compile(
             `bg-slate-800 border-linear-${dir}/oklch border-from-red-500 border-to-blue-500`,
           );
-          expect(css).toContain('--tw-jib--gradient-interpolation: in oklch');
+          expect(css).toContain('--jib-gradient-interpolation: in oklch');
           expect(css).toContain('linear-gradient');
         },
       );
@@ -477,7 +477,7 @@ describe.each(suiteScenarios('border-gradient'))(
         ['border-linear-90/srgb', 'in srgb'],
       ])('%s', async (cls, expected) => {
         const css = await compile(`bg-slate-800 ${cls} border-from-red-500 border-to-blue-500`);
-        expect(css).toContain(`--tw-jib--gradient-interpolation: ${expected}`);
+        expect(css).toContain(`--jib-gradient-interpolation: ${expected}`);
         expect(css).toContain('linear-gradient');
       });
     });
@@ -490,7 +490,7 @@ describe.each(suiteScenarios('border-gradient'))(
         const css = await compile(
           `bg-slate-800 ${cls} border-from-red-500 border-via-yellow-400 border-to-blue-500`,
         );
-        expect(css).toContain(`--tw-jib--gradient-interpolation: ${expected}`);
+        expect(css).toContain(`--jib-gradient-interpolation: ${expected}`);
         expect(css).toContain('conic-gradient');
       });
     });
@@ -504,8 +504,8 @@ describe.each(suiteScenarios('border-gradient'))(
       const css = await compile(
         'bg-slate-800 border-linear-to-r border-from-blue-500 border-to-purple-500',
       );
-      expect(css).toContain('--tw-jib--border-gradient-from: var(--color-blue-500)');
-      expect(css).toContain('--tw-jib--border-gradient-to: var(--color-purple-500)');
+      expect(css).toContain('--jib-border-gradient-from: var(--color-blue-500)');
+      expect(css).toContain('--jib-border-gradient-to: var(--color-purple-500)');
       expect(css).toContain(BG_LAYER);
     });
 
@@ -513,8 +513,8 @@ describe.each(suiteScenarios('border-gradient'))(
       const css = await compile(
         'bg-slate-800 border-linear-to-r border-from-[#ff6b35] border-to-[#00b4d8]',
       );
-      expect(css).toContain('--tw-jib--border-gradient-from: #ff6b35');
-      expect(css).toContain('--tw-jib--border-gradient-to: #00b4d8');
+      expect(css).toContain('--jib-border-gradient-from: #ff6b35');
+      expect(css).toContain('--jib-border-gradient-to: #00b4d8');
       expect(css).toContain(BG_LAYER);
     });
 
@@ -522,8 +522,8 @@ describe.each(suiteScenarios('border-gradient'))(
       const css = await compile(
         'bg-slate-800 border-linear-to-r border-from-(color:--custom-border-from) border-to-(color:--custom-border-to)',
       );
-      expect(css).toContain('--tw-jib--border-gradient-from');
-      expect(css).toContain('--tw-jib--border-gradient-to');
+      expect(css).toContain('--jib-border-gradient-from');
+      expect(css).toContain('--jib-border-gradient-to');
       expect(css).toContain(BG_LAYER);
     });
 
@@ -531,7 +531,7 @@ describe.each(suiteScenarios('border-gradient'))(
       const css = await compile(
         'bg-slate-800 border-linear-to-r border-from-transparent border-to-blue-500',
       );
-      expect(css).toContain('--tw-jib--border-gradient-from: transparent');
+      expect(css).toContain('--jib-border-gradient-from: transparent');
       expect(css).toContain(BG_LAYER);
     });
 
@@ -539,7 +539,7 @@ describe.each(suiteScenarios('border-gradient'))(
       const css = await compile(
         'bg-slate-800 border-linear-to-r border-from-blue-500 border-to-transparent',
       );
-      expect(css).toContain('--tw-jib--border-gradient-to: transparent');
+      expect(css).toContain('--jib-border-gradient-to: transparent');
       expect(css).toContain(BG_LAYER);
     });
 
@@ -547,7 +547,7 @@ describe.each(suiteScenarios('border-gradient'))(
       const css = await compile(
         'bg-slate-800 border-linear-to-r border-from-inherit border-to-cyan-500',
       );
-      expect(css).toContain('--tw-jib--border-gradient-from: inherit');
+      expect(css).toContain('--jib-border-gradient-from: inherit');
       expect(css).toContain(BG_LAYER);
     });
 
@@ -555,8 +555,8 @@ describe.each(suiteScenarios('border-gradient'))(
       const css = await compile(
         'bg-slate-800 border-linear-to-r border-from-rose-500 border-via-yellow-400 border-to-cyan-500',
       );
-      expect(css).toContain('--tw-jib--border-gradient-via: var(--color-yellow-400)');
-      expect(css).toContain('--tw-jib--border-gradient-via-stops');
+      expect(css).toContain('--jib-border-gradient-via: var(--color-yellow-400)');
+      expect(css).toContain('--jib-border-gradient-via-stops');
       expect(css).toContain(BG_LAYER);
     });
 
@@ -564,9 +564,9 @@ describe.each(suiteScenarios('border-gradient'))(
       const css = await compile(
         'bg-slate-800 border-linear-to-r border-from-[#ff0000] border-via-[#00ff00] border-to-[#0000ff]',
       );
-      expect(css).toContain('--tw-jib--border-gradient-from: #ff0000');
-      expect(css).toContain('--tw-jib--border-gradient-via: #00ff00');
-      expect(css).toContain('--tw-jib--border-gradient-to: #0000ff');
+      expect(css).toContain('--jib-border-gradient-from: #ff0000');
+      expect(css).toContain('--jib-border-gradient-via: #00ff00');
+      expect(css).toContain('--jib-border-gradient-to: #0000ff');
       expect(css).toContain(BG_LAYER);
     });
 
@@ -574,7 +574,7 @@ describe.each(suiteScenarios('border-gradient'))(
       const css = await compile(
         'bg-slate-800 border-linear-to-r border-from-rose-500 border-via-transparent border-to-cyan-500',
       );
-      expect(css).toContain('--tw-jib--border-gradient-via: transparent');
+      expect(css).toContain('--jib-border-gradient-via: transparent');
       expect(css).toContain(BG_LAYER);
     });
   },
@@ -587,13 +587,13 @@ describe.each(suiteScenarios('border-gradient'))(
       const css = await compile(
         'bg-slate-800 border-linear-to-r border-from-rose-500 border-from-20% border-to-cyan-500',
       );
-      expect(css).toContain('--tw-jib--border-gradient-from-position: 20%');
+      expect(css).toContain('--jib-border-gradient-from-position: 20%');
       expect(css).toContain(BG_LAYER);
     });
 
     test('border-to-80%', async () => {
       const css = await compile(`bg-slate-800 ${BORDER} border-to-80%`);
-      expect(css).toContain('--tw-jib--border-gradient-to-position: 80%');
+      expect(css).toContain('--jib-border-gradient-to-position: 80%');
       expect(css).toContain(BG_LAYER);
     });
 
@@ -601,7 +601,7 @@ describe.each(suiteScenarios('border-gradient'))(
       const css = await compile(
         'bg-slate-800 border-linear-to-r border-from-rose-500 border-via-yellow-400 border-via-25% border-to-cyan-500',
       );
-      expect(css).toContain('--tw-jib--border-gradient-via-position: 25%');
+      expect(css).toContain('--jib-border-gradient-via-position: 25%');
       expect(css).toContain(BG_LAYER);
     });
 
@@ -609,9 +609,9 @@ describe.each(suiteScenarios('border-gradient'))(
       const css = await compile(
         'bg-slate-800 border-linear-to-r border-from-rose-500 border-from-10% border-via-yellow-400 border-via-30% border-to-cyan-500 border-to-90%',
       );
-      expect(css).toContain('--tw-jib--border-gradient-from-position: 10%');
-      expect(css).toContain('--tw-jib--border-gradient-via-position: 30%');
-      expect(css).toContain('--tw-jib--border-gradient-to-position: 90%');
+      expect(css).toContain('--jib-border-gradient-from-position: 10%');
+      expect(css).toContain('--jib-border-gradient-via-position: 30%');
+      expect(css).toContain('--jib-border-gradient-to-position: 90%');
       expect(css).toContain(BG_LAYER);
     });
   },
@@ -624,7 +624,7 @@ describe.each(suiteScenarios('border-gradient'))('border spin, $name', ({ compil
     );
     expect(css).toContain('animation: border-spin');
     expect(css).toContain('@keyframes border-spin');
-    expect(css).toContain('--tw-jib--border-gradient-angle');
+    expect(css).toContain('--jib-border-gradient-angle');
     expect(css).toContain(BG_LAYER);
   });
 
@@ -632,7 +632,7 @@ describe.each(suiteScenarios('border-gradient'))('border spin, $name', ({ compil
     const css = await compile(
       'bg-slate-800 border-conic-0 border-spin border-spin-duration-3 border-from-rose-500 border-to-cyan-500',
     );
-    expect(css).toContain('--tw-jib--border-spin-duration: calc(3 * 1000ms)');
+    expect(css).toContain('--jib-border-spin-duration: calc(3 * 1000ms)');
     expect(css).toContain(BG_LAYER);
   });
 
@@ -640,7 +640,7 @@ describe.each(suiteScenarios('border-gradient'))('border spin, $name', ({ compil
     const css = await compile(
       'bg-slate-800 border-conic/longer border-conic-0 border-spin border-from-red-500 border-to-blue-500',
     );
-    expect(css).toContain('--tw-jib--gradient-interpolation: in oklch longer hue');
+    expect(css).toContain('--jib-gradient-interpolation: in oklch longer hue');
     expect(css).toContain('animation: border-spin');
     expect(css).toContain(BG_LAYER);
   });
@@ -675,7 +675,7 @@ describe.each(suiteScenarios('border-gradient'))(
         `bg-indigo-500/50 ${cls} border-linear-to-r border-from-red-500 border-to-blue-500`,
       );
       expect(css).toContain('color-mix');
-      expect(css).toContain(`--tw-jib--gradient-interpolation: ${expected}`);
+      expect(css).toContain(`--jib-gradient-interpolation: ${expected}`);
       expect(css).toContain('border-color: transparent');
       expect(css).toContain(BG_LAYER);
     });

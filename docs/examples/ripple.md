@@ -32,7 +32,7 @@ Default ripple (white 20% opacity, 400ms, center).
 
 ## Ripple over linear gradients
 
-`bg-ripple` composes with TW gradient utilities via `--tw-jib--background-image`.
+`bg-ripple` composes with TW gradient utilities via `--jib-background-image`.
 
 <div class="grid grid-cols-3 gap-4 my-6">
   <div>

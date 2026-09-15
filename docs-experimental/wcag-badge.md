@@ -165,20 +165,20 @@ Two things follow from how it is derived:
   background or accept a lower level.
 
 ::: warning Badge must be on the text color element
-`wcag-badge` reads `--tw-jib--text-color` from the element it's placed on. It measures the contrast between **its own** background and text color, and cannot see or predict the contrast of child elements.
+`wcag-badge` reads `--jib-text-color` from the element it's placed on. It measures the contrast between **its own** background and text color, and cannot see or predict the contrast of child elements.
 
 Place the badge on the same element that has the text color, or on a child element that carries the text color. Do **not** place it on a parent and expect it to measure a child's `text-contrast-*` color.
 :::
 
 ## How it works
 
-The badge reads the captured `--tw-jib--background-color` and `--tw-jib--text-color` custom properties (set by `bg-*` and `text-*` utilities in `core/_index.css`), and runs them through an exact contrast pipeline:
+The badge reads the captured `--jib-background-color` and `--jib-text-color` custom properties (set by `bg-*` and `text-*` utilities in `core/_index.css`), and runs them through an exact contrast pipeline:
 
-1. **`--tw-jib--luminance-packed()`.** Packs each color's relative luminance into R and its complement into G, so a single `color-mix()` becomes a luminance subtraction.
-2. **`--tw-jib--contrast-test-all()`.** A multi-channel `color-mix()` tests all three WCAG thresholds (3, 4.5, 7) at once. Each output channel encodes one threshold; running both directional orderings handles either-can-be-lighter without branching.
-3. **`--tw-jib--wcag-rating()`.** Matches the result color against the four exact states: white = AAA, yellow = AA, red = AA Large, black = Fail (returns `<string>`).
-4. **`--tw-jib--wcag-shortfall`.** Compares the rating against the level `text-contrast-*` recorded in `--tw-jib--contrast-level`, which is what yields the Max state described above.
-5. **`::after` pseudo-element.** `content: var(--tw-jib--wcag-display)` displays the rating, or `Max`.
+1. **`--jib-luminance-packed()`.** Packs each color's relative luminance into R and its complement into G, so a single `color-mix()` becomes a luminance subtraction.
+2. **`--jib-contrast-test-all()`.** A multi-channel `color-mix()` tests all three WCAG thresholds (3, 4.5, 7) at once. Each output channel encodes one threshold; running both directional orderings handles either-can-be-lighter without branching.
+3. **`--jib-wcag-rating()`.** Matches the result color against the four exact states: white = AAA, yellow = AA, red = AA Large, black = Fail (returns `<string>`).
+4. **`--jib-wcag-shortfall`.** Compares the rating against the level `text-contrast-*` recorded in `--jib-contrast-level`, which is what yields the Max state described above.
+5. **`::after` pseudo-element.** `content: var(--jib-wcag-display)` displays the rating, or `Max`.
 6. **Conditional badge color.** `if(style())` maps the displayed value to green/yellow/orange/red using TW color tokens; badge text is black on yellow (AA), white on all others.
 
 Because the comparison stays in color space the whole way through, never extracting a numeric luminance, there is no quantization error and no uncertainty band. Every step works in `srgb-linear`; routing the luminance through the legacy `rgb()` function instead costs 10⁻⁵-scale precision, always signed so the darker color of a pair measures darker, which is enough to decide a verdict for a pair sitting on a threshold.
@@ -195,7 +195,7 @@ experimental module, and none of the [`@function` overrides](/guide/installation
 ```
 
 Taking the badge deliberately does **not** reroute `text-contrast-*` onto `@function`.
-The badge reads `--tw-jib--contrast-level`, which both shade paths write, so it reports
+The badge reads `--jib-contrast-level`, which both shade paths write, so it reports
 correctly either way. Automatic contrast itself is separate and stable:
 `@import 'tw-jib-css'`.
 

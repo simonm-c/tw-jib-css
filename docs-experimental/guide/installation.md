@@ -2,7 +2,7 @@
 title: Installation
 ---
 
-<!-- llm-context: Adds tw-jib-css-experimental to a TailwindCSS v4 project. It is a SEPARATE package from tw-jib-css and declares it as a peer dependency, so both must be installed; tw-jib-css/experimental does not exist as a sub-path. Import order is load-bearing: experimental must come after stable, because source order is what carries the overrides. Peer dependencies are tailwindcss >=4.3.0 and tw-jib-css. Every module is importable on its own via a package sub-path export: functions (override), corner, interpolate, picker, wcag-badge (additions). corner, interpolate and picker read nothing from tw-jib-css and carry no colour machinery. The functions module is both a callable-CSS-function API and an override that re-implements bg-lightness-*, bg-saturation-*, bg-hue-rotate- and text-contrast-* on top of @function; both paths compute the same closed forms. Automatic contrast itself is stable, not experimental; only the WCAG badge that names a rating stayed here. Everything sits behind @supports, so an engine without the feature gets a no-op rather than a break. -->
+<!-- llm-context: Adds tw-jib-css-experimental to a TailwindCSS v4 project. It is a SEPARATE package from tw-jib-css and declares it as a peer dependency, so both must be installed; tw-jib-css/experimental does not exist as a sub-path. Import order is load-bearing: experimental must come after stable, because source order is what carries the overrides. Peer dependencies are tailwindcss >=4.3.0 and tw-jib-css. Every module is importable on its own via a package sub-path export: functions (override), corner, interpolate, picker, wcag-badge (additions). corner, interpolate and picker read nothing from tw-jib-css and carry no colour machinery. The functions module is both a callable-CSS-function API and an override that re-implements bg-lightness-*, bg-saturation-*, bg-hue-rotate- and text-contrast-* on top of @function; both paths compute the same closed forms. The API also carries directional aliases --jib-lighten/--jib-darken and --jib-saturate/--jib-desaturate, which forward to the lightness and saturation primitives with the sign already applied and do not clamp, so a negative amount inverts the direction. Automatic contrast itself is stable, not experimental; only the WCAG badge that names a rating stayed here. Everything sits behind @supports, so an engine without the feature gets a no-op rather than a break. -->
 
 # Installation
 
@@ -91,18 +91,19 @@ The `functions` module brings two things worth separating.
 
 The first is an **API**: the colour transforms and the contrast solve as callable CSS functions, so a
 derived colour can go anywhere a colour goes rather than only where a utility happens to exist. Each
-function has its own page in the sidebar.
+primitive has its own page in the sidebar; the directional aliases `--jib-lighten`, `--jib-darken`,
+`--jib-saturate` and `--jib-desaturate` are documented alongside the primitive each one forwards to.
 
 The second is an **override**. The module re-implements four families on top of those functions, and they
 win over the stable versions wherever CSS `@function` is supported. Same class names, same output,
 different machinery.
 
-| Utility family                                        | Stable implementation        | With this module            |
-| ----------------------------------------------------- | ---------------------------- | --------------------------- |
-| `bg-lightness-*`, `bg-lighten-*`, `bg-darken-*`       | relative colour syntax       | `--tw-jib--lightness()`     |
-| `bg-saturation-*`, `bg-saturate-*`, `bg-desaturate-*` | relative colour syntax       | `--tw-jib--saturation()`    |
-| `bg-hue-rotate-*`                                     | relative colour syntax       | `--tw-jib--hue-rotate()`    |
-| `text-contrast-*`                                     | nested relative-colour chain | `--tw-jib--auto-contrast()` |
+| Utility family                                        | Stable implementation        | With this module        |
+| ----------------------------------------------------- | ---------------------------- | ----------------------- |
+| `bg-lightness-*`, `bg-lighten-*`, `bg-darken-*`       | relative colour syntax       | `--jib-lightness()`     |
+| `bg-saturation-*`, `bg-saturate-*`, `bg-desaturate-*` | relative colour syntax       | `--jib-saturation()`    |
+| `bg-hue-rotate-*`                                     | relative colour syntax       | `--jib-hue-rotate()`    |
+| `text-contrast-*`                                     | nested relative-colour chain | `--jib-auto-contrast()` |
 
 Both paths compute the same closed forms. Measured against each other they agree to serialisation
 precision, so you cannot tell from the output which one ran. The override exists because `@function`
@@ -124,7 +125,7 @@ than breaking on it. For the four overridden families that means falling through
 implementation and producing the same result — importing this package is safe everywhere, it simply does
 less in some places.
 
-The one capability with no stable fallback is [`--tw-jib--wcag-rating()`](/guide/wcag-rating), which
+The one capability with no stable fallback is [`--jib-wcag-rating()`](/guide/wcag-rating), which
 returns a string rather than a colour. Nothing in relative colour syntax can turn a colour into a word,
 so that one is genuinely absent elsewhere rather than differently implemented.
 

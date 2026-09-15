@@ -25,7 +25,7 @@ export const slides: FeatureSlideData[] = [
     kicker: 'functions',
     headline: 'Shadows, gradients, and more: one color, transformed.',
     body: "Utilities own the single-property case: bg, text, border. A gradient stop, a layered shadow, an SVG stroke, a text-decoration color. A class cannot reach in there. These functions can, anywhere a <color> fits, on any token, with no relationship to the element's own background.",
-    code: `.card {\n  /* a stop inside a gradient */\n  background: linear-gradient(135deg,\n    var(--color-sky-400),\n    --tw-jib--saturation(var(--color-sky-400), -60));\n\n  /* two derived shadows */\n  box-shadow:\n    0 0 0 3px --tw-jib--lightness(var(--color-sky-400), -30),\n    0 16px 32px -4px --tw-jib--lightness(var(--color-sky-400), -40);\n}`,
+    code: `.card {\n  /* a stop inside a gradient */\n  background: linear-gradient(135deg,\n    var(--color-sky-400),\n    --jib-saturation(var(--color-sky-400), -60));\n\n  /* two derived shadows */\n  box-shadow:\n    0 0 0 3px --jib-lightness(var(--color-sky-400), -30),\n    0 16px 32px -4px --jib-lightness(var(--color-sky-400), -40);\n}`,
     lang: 'css',
     flipped: true,
     link: { text: 'Lightness as a function', href: '/tw-jib-css/experimental/guide/lightness' },
@@ -39,7 +39,7 @@ export const slides: FeatureSlideData[] = [
      * teal-500, NOT teal-600: AAA is unreachable from teal-600, the solve
      * clamps to black and the badge correctly calls it Max.
      */
-    code: `.cta {\n  /* both from one background token, solved for 7:1 */\n  color:        --tw-jib--auto-contrast(\n                  var(--color-teal-500), aaa, oklch);\n  border-color: --tw-jib--auto-contrast(\n                  var(--color-teal-500), aaa, oklch);\n}`,
+    code: `.cta {\n  /* both from one background token, solved for 7:1 */\n  color:        --jib-auto-contrast(\n                  var(--color-teal-500), aaa, oklch);\n  border-color: --jib-auto-contrast(\n                  var(--color-teal-500), aaa, oklch);\n}`,
     lang: 'css',
     link: {
       text: 'Stable automatic contrast',

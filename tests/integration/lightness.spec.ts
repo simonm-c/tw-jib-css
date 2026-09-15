@@ -2,7 +2,7 @@ import { test, expect, type Page } from '@playwright/test';
 import { extractStyles, gotoExample, supportsQuery, expectBorderGradient } from './helpers';
 
 const SUPPORTS_QUERY =
-  '(background: if(style(--value): red)) and (background: --tw-jib--oklch-lightness(red, 20))';
+  '(background: if(style(--value): red)) and (background: --jib-oklch-lightness(red, 20))';
 
 async function detectFunctionSupport(page: Page): Promise<boolean> {
   return supportsQuery(page, SUPPORTS_QUERY);
@@ -89,7 +89,7 @@ test.describe('the served CSS never runs @function', () => {
       }
       const unique = [...new Set(conditions)];
       return {
-        namingATwJibFunction: unique.filter((condition) => condition.includes('--tw-jib--')),
+        namingATwJibFunction: unique.filter((condition) => condition.includes('--jib-')),
         lightnessGates: unique
           .filter((condition) => condition.includes('lightness'))
           .map((condition) => ({ condition, holds: CSS.supports(condition) })),

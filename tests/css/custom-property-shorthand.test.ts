@@ -2,21 +2,21 @@ import { describe, test, expect } from 'vitest';
 import { compile } from './helpers.js';
 
 const SLOTS: Array<[string, string]> = [
-  ['bg-lightness-(--v)', '--tw-jib--background-lightness--amount: calc(var(--v) * 0.01)'],
-  ['-bg-lightness-(--v)', '--tw-jib--background-lightness--amount: calc(var(--v) * -0.01)'],
-  ['text-saturate-(--v)', '--tw-jib--text-saturation--amount: calc(var(--v) * 0.01)'],
-  ['fill-hue-rotate-(--v)', '--tw-jib--fill-hue--amount: var(--v)'],
-  ['-fill-hue-rotate-(--v)', '--tw-jib--fill-hue--amount: calc(var(--v) * -1)'],
-  ['bg-comic-(--v)', '--tw-jib--comic-color: var(--v)'],
-  ['comic-dot-(--v)', '--tw-jib--comic-dot: var(--v)'],
-  ['comic-gap-(--v)', '--tw-jib--comic-gap: var(--v)'],
-  ['comic-bleed-(--v)', '--tw-jib--comic-bleed: var(--v)'],
-  ['bg-pixel-(--v)', '--tw-jib--pixel-color: var(--v)'],
-  ['pixel-size-(--v)', '--tw-jib--pixel-size: var(--v)'],
-  ['pixel-bloom-(--v)', '--tw-jib--pixel-bloom: var(--v)'],
-  ['ripple-color-(--v)', '--tw-jib--ripple-color: var(--v)'],
-  ['ripple-position-(--v)', '--tw-jib--ripple-position: var(--v)'],
-  ['ripple-fade-(--v)', '--tw-jib--ripple-fade-amount: calc(var(--v) * 1%)'],
+  ['bg-lightness-(--v)', '--jib-background-lightness-amount: calc(var(--v) * 0.01)'],
+  ['-bg-lightness-(--v)', '--jib-background-lightness-amount: calc(var(--v) * -0.01)'],
+  ['text-saturate-(--v)', '--jib-text-saturation-amount: calc(var(--v) * 0.01)'],
+  ['fill-hue-rotate-(--v)', '--jib-fill-hue-amount: var(--v)'],
+  ['-fill-hue-rotate-(--v)', '--jib-fill-hue-amount: calc(var(--v) * -1)'],
+  ['bg-comic-(--v)', '--jib-comic-color: var(--v)'],
+  ['comic-dot-(--v)', '--jib-comic-dot: var(--v)'],
+  ['comic-gap-(--v)', '--jib-comic-gap: var(--v)'],
+  ['comic-bleed-(--v)', '--jib-comic-bleed: var(--v)'],
+  ['bg-pixel-(--v)', '--jib-pixel-color: var(--v)'],
+  ['pixel-size-(--v)', '--jib-pixel-size: var(--v)'],
+  ['pixel-bloom-(--v)', '--jib-pixel-bloom: var(--v)'],
+  ['ripple-color-(--v)', '--jib-ripple-color: var(--v)'],
+  ['ripple-position-(--v)', '--jib-ripple-position: var(--v)'],
+  ['ripple-fade-(--v)', '--jib-ripple-fade-amount: calc(var(--v) * 1%)'],
 ];
 
 describe('the untyped custom-property shorthand', () => {
@@ -37,20 +37,20 @@ describe('the untyped custom-property shorthand', () => {
   test('bg-lightness-(--v) reaches the @function path too', async () => {
     const css = await compile('bg-blue-500 bg-lightness-(--v)', { functions: true });
     expect(css, 'the @function block rejected the shorthand its calc twin accepts').toContain(
-      '--tw-jib--lightness(var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))), var(--v), oklch)',
+      '--jib-lightness(var(--jib-background-color-after-saturation, var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source))), var(--v), oklch)',
     );
   });
 
   test('widening a slot leaves its named types matching as before', async () => {
     const css = await compile('bg-lightness-20 comic-dot-[3px] ripple-position-top');
     expect(css, 'the bare integer stopped reaching the lightness slot').toContain(
-      '--tw-jib--background-lightness--amount: calc(20 * 0.01)',
+      '--jib-background-lightness-amount: calc(20 * 0.01)',
     );
     expect(css, 'the arbitrary length stopped reaching the dot slot').toContain(
-      '--tw-jib--comic-dot: 3px',
+      '--jib-comic-dot: 3px',
     );
     expect(css, 'the named keyword stopped reaching the position slot').toContain(
-      '--tw-jib--ripple-position: top',
+      '--jib-ripple-position: top',
     );
   });
 });
@@ -75,10 +75,8 @@ describe('the alpha modifier matches Tailwind on every spelling', () => {
 
   test('an opacity slot takes the bracketed number unscaled', async () => {
     const css = await compile('bg-comic-red-500/[0.5] bg-pixel-blue-500/[0.25]');
-    expect(css, 'the comic opacity rescaled a 0-1 alpha').toContain('--tw-jib--comic-opacity: 0.5');
-    expect(css, 'the pixel opacity rescaled a 0-1 alpha').toContain(
-      '--tw-jib--pixel-opacity: 0.25',
-    );
+    expect(css, 'the comic opacity rescaled a 0-1 alpha').toContain('--jib-comic-opacity: 0.5');
+    expect(css, 'the pixel opacity rescaled a 0-1 alpha').toContain('--jib-pixel-opacity: 0.25');
   });
 
   test('a percentage never reaches the alpha arithmetic', async () => {

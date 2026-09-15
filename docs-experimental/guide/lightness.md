@@ -2,11 +2,11 @@
 title: Lightness
 ---
 
-<!-- llm-context: --tw-jib--lightness(<color>, <number>, <space>) is the CSS @function form of the stable lightness utilities. It returns a <color>, so a derived shade can go anywhere a color goes: text-decoration-color, a box-shadow or text-shadow color, a caret, a column rule, or a gradient stop, none of which have a utility form. Positive amounts lighten toward white, negative darken toward black. The space argument is optional and defaults to oklch; seventeen spaces are available, and per-space functions such as --tw-jib--oklch-lightness can be called directly. Importing the functions entry also re-implements bg-lightness-*, bg-lighten-* and bg-darken-* on top of this function wherever CSS @function is supported. Chromium only. -->
+<!-- llm-context: --jib-lightness(<color>, <number>, <space>) is the CSS @function form of the stable lightness utilities. It returns a <color>, so a derived shade can go anywhere a color goes: text-decoration-color, a box-shadow or text-shadow color, a caret, a column rule, or a gradient stop, none of which have a utility form. Positive amounts lighten toward white, negative darken toward black. The space argument is optional and defaults to oklch; seventeen spaces are available, and per-space functions such as --jib-oklch-lightness can be called directly. --jib-lighten and --jib-darken are directional aliases over the same three arguments; --jib-darken negates the amount, so --jib-darken(c, 20) equals --jib-lightness(c, -20) and matches bg-darken-20. Neither clamps, so a negative amount inverts the direction. Importing the functions entry also re-implements bg-lightness-*, bg-lighten-* and bg-darken-* on top of this function wherever CSS @function is supported. Chromium only. -->
 
 # Lightness
 
-`--tw-jib--lightness()` is the lightness transform as a callable value. It takes a color and returns a color, which is the whole point: a derived shade can go wherever a color goes, not only where a utility happens to exist.
+`--jib-lightness()` is the lightness transform as a callable value. It takes a color and returns a color, which is the whole point: a derived shade can go wherever a color goes, not only where a utility happens to exist.
 
 The stable package covers seven surfaces with `bg-lightness-*` and its siblings. This page is about the properties it does not reach.
 
@@ -18,14 +18,18 @@ The utility form has no such limit. If you need a lightened background, border, 
 
 ## Quick reference
 
-| Call                                              | Returns                                             |
-| ------------------------------------------------- | --------------------------------------------------- |
-| `--tw-jib--lightness(<color>, <number>)`          | the color, lightened `n`% of the way to white       |
-| `--tw-jib--lightness(<color>, -<number>)`         | the color, darkened `n`% of the way to black        |
-| `--tw-jib--lightness(<color>, <number>, <space>)` | the same, computed in the named color space         |
-| `--tw-jib--<space>-lightness(<color>, <number>)`  | the per-space function, called without the dispatch |
+| Call                                          | Returns                                                |
+| --------------------------------------------- | ------------------------------------------------------ |
+| `--jib-lightness(<color>, <number>)`          | the color, lightened `n`% of the way to white          |
+| `--jib-lightness(<color>, -<number>)`         | the color, darkened `n`% of the way to black           |
+| `--jib-lightness(<color>, <number>, <space>)` | the same, computed in the named color space            |
+| `--jib-lighten(<color>, <number>)`            | the same as a positive amount, named for the direction |
+| `--jib-darken(<color>, <number>)`             | the same as a negative amount, named for the direction |
+| `--jib-<space>-lightness(<color>, <number>)`  | the per-space function, called without the dispatch    |
 
 Amount runs 0–100 and is a percentage of the remaining distance, so `50` travels halfway to white and `100` arrives exactly. The space argument is optional and defaults to `oklch`, matching every other transform in the library.
+
+The directional aliases take the same three arguments and mirror the class API, so `--jib-darken(c, 20)` is `bg-darken-20`. Neither clamps: `--jib-darken(c, -20)` lightens, which is what lets one custom property animate through zero.
 
 ## What the utility cannot reach
 
@@ -45,15 +49,15 @@ into the same layer. The demos below are spans for exactly this reason: this sit
 
 <Example stretch>
   <div class="flex flex-col gap-4 p-6 text-lg font-semibold">
-    <span class="text-teal-700 dark:text-teal-300 underline decoration-4 underline-offset-4 decoration-[--tw-jib--lightness(var(--color-teal-700),45)]">a tinted underline</span>
-    <span class="text-teal-700 dark:text-teal-300 underline decoration-4 underline-offset-4 decoration-[--tw-jib--lightness(var(--color-teal-700),-25)]">a deepened underline</span>
+    <span class="text-teal-700 dark:text-teal-300 underline decoration-4 underline-offset-4 decoration-[--jib-lightness(var(--color-teal-700),45)]">a tinted underline</span>
+    <span class="text-teal-700 dark:text-teal-300 underline decoration-4 underline-offset-4 decoration-[--jib-lightness(var(--color-teal-700),-25)]">a deepened underline</span>
   </div>
 </Example>
 
 ```html
 <a
   class="text-teal-700 underline decoration-4
-         decoration-[--tw-jib--lightness(var(--color-teal-700),45)]"
+         decoration-[--jib-lightness(var(--color-teal-700),45)]"
 >
   a tinted underline
 </a>
@@ -65,16 +69,16 @@ into the same layer. The demos below are spans for exactly this reason: this sit
 
 <Example stretch>
   <div class="flex flex-wrap gap-8 p-8">
-    <div class="size-24 rounded-2xl bg-teal-500 shadow-[0_0_0_5px_--tw-jib--lightness(var(--color-teal-500),40)]"></div>
-    <div class="size-24 rounded-2xl bg-teal-500 shadow-[0_0_0_5px_--tw-jib--lightness(var(--color-teal-500),-30)]"></div>
-    <div class="size-24 rounded-2xl bg-rose-500 shadow-[0_0_0_5px_--tw-jib--lightness(var(--color-rose-500),40)]"></div>
+    <div class="size-24 rounded-2xl bg-teal-500 shadow-[0_0_0_5px_--jib-lightness(var(--color-teal-500),40)]"></div>
+    <div class="size-24 rounded-2xl bg-teal-500 shadow-[0_0_0_5px_--jib-lightness(var(--color-teal-500),-30)]"></div>
+    <div class="size-24 rounded-2xl bg-rose-500 shadow-[0_0_0_5px_--jib-lightness(var(--color-rose-500),40)]"></div>
   </div>
 </Example>
 
 ```html
 <div
   class="bg-teal-500
-         shadow-[0_0_0_5px_--tw-jib--lightness(var(--color-teal-500),40)]"
+         shadow-[0_0_0_5px_--jib-lightness(var(--color-teal-500),40)]"
 ></div>
 ```
 
@@ -84,16 +88,16 @@ This is the case with no utility answer at all. A gradient needs two colors; her
 
 <Example stretch>
   <div class="flex flex-col gap-3 p-6">
-    <div class="h-12 rounded-lg bg-[linear-gradient(90deg,var(--color-teal-600),--tw-jib--lightness(var(--color-teal-600),60))]"></div>
-    <div class="h-12 rounded-lg bg-[linear-gradient(90deg,var(--color-indigo-600),--tw-jib--lightness(var(--color-indigo-600),60))]"></div>
-    <div class="h-12 rounded-lg bg-[linear-gradient(90deg,var(--color-amber-500),--tw-jib--lightness(var(--color-amber-500),-45))]"></div>
+    <div class="h-12 rounded-lg bg-[linear-gradient(90deg,var(--color-teal-600),--jib-lightness(var(--color-teal-600),60))]"></div>
+    <div class="h-12 rounded-lg bg-[linear-gradient(90deg,var(--color-indigo-600),--jib-lightness(var(--color-indigo-600),60))]"></div>
+    <div class="h-12 rounded-lg bg-[linear-gradient(90deg,var(--color-amber-500),--jib-lightness(var(--color-amber-500),-45))]"></div>
   </div>
 </Example>
 
 ```html
 <div
   class="bg-[linear-gradient(90deg,var(--color-teal-600),
-             --tw-jib--lightness(var(--color-teal-600),60))]"
+             --jib-lightness(var(--color-teal-600),60))]"
 ></div>
 ```
 
@@ -101,14 +105,14 @@ This is the case with no utility answer at all. A gradient needs two colors; her
 
 <Example stretch>
   <div class="p-8 text-4xl font-black tracking-tight text-teal-400">
-    <span class="[text-shadow:0_3px_0_--tw-jib--lightness(var(--color-teal-400),-45)]">pressed into the page</span>
+    <span class="[text-shadow:0_3px_0_--jib-lightness(var(--color-teal-400),-45)]">pressed into the page</span>
   </div>
 </Example>
 
 ```html
 <span
   class="text-teal-400
-         [text-shadow:0_3px_0_--tw-jib--lightness(var(--color-teal-400),-45)]"
+         [text-shadow:0_3px_0_--jib-lightness(var(--color-teal-400),-45)]"
 >
   pressed into the page
 </span>
@@ -122,20 +126,20 @@ Two more properties with no utility form, both taking the function the same way.
   <div class="flex flex-col gap-5 p-6">
     <input
       value="the caret is a darker teal"
-      class="w-full rounded-lg border-2 border-teal-500 bg-transparent px-3 py-2 text-sm caret-[--tw-jib--lightness(var(--color-teal-500),-35)]"
+      class="w-full rounded-lg border-2 border-teal-500 bg-transparent px-3 py-2 text-sm caret-[--jib-lightness(var(--color-teal-500),-35)]"
     />
-    <div class="columns-2 gap-6 text-sm [column-rule:2px_solid_--tw-jib--lightness(var(--color-teal-500),25)]">
+    <div class="columns-2 gap-6 text-sm [column-rule:2px_solid_--jib-lightness(var(--color-teal-500),25)]">
       <span>A column rule takes a color like any border does, and the rule here is a lighter cut of the same token the text is set in, so the pair moves together.</span>
     </div>
   </div>
 </Example>
 
 ```html
-<input class="caret-[--tw-jib--lightness(var(--color-teal-500),-35)]" />
+<input class="caret-[--jib-lightness(var(--color-teal-500),-35)]" />
 
 <div
   class="columns-2
-         [column-rule:2px_solid_--tw-jib--lightness(var(--color-teal-500),25)]"
+         [column-rule:2px_solid_--jib-lightness(var(--color-teal-500),25)]"
 ></div>
 ```
 
@@ -146,9 +150,9 @@ Where a utility does exist, the two forms are the same arithmetic and land on th
 <Example stretch>
   <div class="grid grid-cols-2 gap-px p-6">
     <div class="bg-teal-500 bg-lighten-35 p-5 text-center font-mono text-[11px] text-teal-950">bg-lighten-35</div>
-    <div class="[background-color:--tw-jib--lightness(var(--color-teal-500),35)] p-5 text-center font-mono text-[11px] text-teal-950">lightness(…,35)</div>
+    <div class="[background-color:--jib-lightness(var(--color-teal-500),35)] p-5 text-center font-mono text-[11px] text-teal-950">lightness(…,35)</div>
     <div class="bg-teal-500 bg-darken-35 p-5 text-center font-mono text-[11px] text-teal-50">bg-darken-35</div>
-    <div class="[background-color:--tw-jib--lightness(var(--color-teal-500),-35)] p-5 text-center font-mono text-[11px] text-teal-50">lightness(…,-35)</div>
+    <div class="[background-color:--jib-lightness(var(--color-teal-500),-35)] p-5 text-center font-mono text-[11px] text-teal-50">lightness(…,-35)</div>
   </div>
 </Example>
 
@@ -158,23 +162,23 @@ Reach for the class when a utility covers the surface. It works in every engine,
 
 The third argument names the space the arithmetic happens in. Every space also exists as a function of its own, which skips the dispatch when you already know the space you want.
 
-| Space family           | Functions                                                                                                                                                                                                                     |
-| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Perceptual polar       | `--tw-jib--oklch-lightness`, `--tw-jib--lch-lightness`                                                                                                                                                                        |
-| Perceptual rectangular | `--tw-jib--oklab-lightness`, `--tw-jib--lab-lightness`                                                                                                                                                                        |
-| Legacy                 | `--tw-jib--hsl-lightness`, `--tw-jib--hwb-lightness`                                                                                                                                                                          |
-| RGB family             | `--tw-jib--rgb-lightness`, `--tw-jib--srgb-lightness`, `--tw-jib--srgb-linear-lightness`, `--tw-jib--display-p3-lightness`, `--tw-jib--a98-rgb-lightness`, `--tw-jib--prophoto-rgb-lightness`, `--tw-jib--rec-2020-lightness` |
-| Device-independent     | `--tw-jib--xyz-lightness`, `--tw-jib--xyz-d50-lightness`, `--tw-jib--xyz-d65-lightness`                                                                                                                                       |
-| Blend                  | `--tw-jib--color-mix-lightness`                                                                                                                                                                                               |
+| Space family           | Functions                                                                                                                                                                                         |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Perceptual polar       | `--jib-oklch-lightness`, `--jib-lch-lightness`                                                                                                                                                    |
+| Perceptual rectangular | `--jib-oklab-lightness`, `--jib-lab-lightness`                                                                                                                                                    |
+| Legacy                 | `--jib-hsl-lightness`, `--jib-hwb-lightness`                                                                                                                                                      |
+| RGB family             | `--jib-rgb-lightness`, `--jib-srgb-lightness`, `--jib-srgb-linear-lightness`, `--jib-display-p3-lightness`, `--jib-a98-rgb-lightness`, `--jib-prophoto-rgb-lightness`, `--jib-rec-2020-lightness` |
+| Device-independent     | `--jib-xyz-lightness`, `--jib-xyz-d50-lightness`, `--jib-xyz-d65-lightness`                                                                                                                       |
+| Blend                  | `--jib-color-mix-lightness`                                                                                                                                                                       |
 
 An unrecognised space falls back to `oklch` rather than failing.
 
 <Example stretch>
   <div class="grid grid-cols-4 gap-2 p-6">
-    <div class="h-16 rounded-md [background-color:--tw-jib--lightness(var(--color-teal-600),40,oklch)] flex items-end p-1.5"><span class="font-mono text-[9px] text-teal-950">oklch</span></div>
-    <div class="h-16 rounded-md [background-color:--tw-jib--lightness(var(--color-teal-600),40,hsl)] flex items-end p-1.5"><span class="font-mono text-[9px] text-teal-950">hsl</span></div>
-    <div class="h-16 rounded-md [background-color:--tw-jib--lightness(var(--color-teal-600),40,lab)] flex items-end p-1.5"><span class="font-mono text-[9px] text-teal-950">lab</span></div>
-    <div class="h-16 rounded-md [background-color:--tw-jib--lightness(var(--color-teal-600),40,rgb)] flex items-end p-1.5"><span class="font-mono text-[9px] text-teal-950">rgb</span></div>
+    <div class="h-16 rounded-md [background-color:--jib-lightness(var(--color-teal-600),40,oklch)] flex items-end p-1.5"><span class="font-mono text-[9px] text-teal-950">oklch</span></div>
+    <div class="h-16 rounded-md [background-color:--jib-lightness(var(--color-teal-600),40,hsl)] flex items-end p-1.5"><span class="font-mono text-[9px] text-teal-950">hsl</span></div>
+    <div class="h-16 rounded-md [background-color:--jib-lightness(var(--color-teal-600),40,lab)] flex items-end p-1.5"><span class="font-mono text-[9px] text-teal-950">lab</span></div>
+    <div class="h-16 rounded-md [background-color:--jib-lightness(var(--color-teal-600),40,rgb)] flex items-end p-1.5"><span class="font-mono text-[9px] text-teal-950">rgb</span></div>
   </div>
 </Example>
 

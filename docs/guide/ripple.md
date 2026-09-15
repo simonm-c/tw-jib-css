@@ -257,7 +257,7 @@ function handleMouseDown(e) {
 
 :::
 
-::: tip Why not just set `--tw-jib--ripple-position` directly?
+::: tip Why not just set `--jib-ripple-position` directly?
 You could, but a custom variable via `ripple-position-(--ripple-pos)` keeps the contract explicit. Tailwind sees the utility in your markup and emits the ripple-position rule. Setting the internal variable directly works at runtime, but the utility won't appear in your compiled CSS unless something else references it.
 :::
 

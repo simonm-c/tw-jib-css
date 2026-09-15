@@ -1,0 +1,18 @@
+/* Sign mirrors the class API: --jib-darken(c, 20) matches bg-darken-20, so the
+ * directional pair negates rather than clamping. A negative amount therefore
+ * inverts the direction, which is what lets a variable animate through zero. */
+@function --jib-lighten(--color type(<color>): currentColor, --amount type(<number>): 0, --interpolation type(<custom-ident>): oklch) returns <color> {
+  result: --jib-lightness(var(--color), var(--amount), var(--interpolation));
+}
+
+@function --jib-darken(--color type(<color>): currentColor, --amount type(<number>): 0, --interpolation type(<custom-ident>): oklch) returns <color> {
+  result: --jib-lightness(var(--color), calc(var(--amount) * -1), var(--interpolation));
+}
+
+@function --jib-saturate(--color type(<color>): currentColor, --amount type(<number>): 0, --interpolation type(<custom-ident>): oklch) returns <color> {
+  result: --jib-saturation(var(--color), var(--amount), var(--interpolation));
+}
+
+@function --jib-desaturate(--color type(<color>): currentColor, --amount type(<number>): 0, --interpolation type(<custom-ident>): oklch) returns <color> {
+  result: --jib-saturation(var(--color), calc(var(--amount) * -1), var(--interpolation));
+}

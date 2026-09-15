@@ -30,6 +30,6 @@ property instead of a class name. Every shared component reaches for
 Consequently `bg-(color:--docs-accent)` rather than `bg-sky-400`. The type hint
 is required: `bg-(--docs-accent)` parses the property as a length. Relative
 colour utilities still compose on top, because the `bg-(color:…)` form sets
-`--tw-jib--background-color-source` alongside `background-color`.
+`--jib-background-color-source` alongside `background-color`.
 
 [fsd]: https://feature-sliced.design

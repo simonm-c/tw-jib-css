@@ -120,11 +120,11 @@ Inside each `@utility` block, find `--value(...)` calls:
 
 Find `--modifier(...)` calls:
 
-- Theme map modifiers: `--modifier(--tw-jib--background-color-interpolation-*)` →
+- Theme map modifiers: `--modifier(--jib-background-color-interpolation-*)` →
   read the `@theme inline` block to get available modifier names
 - Literal modifiers: `--modifier('oklch', 'lch', ...)` → enumerate all
 - Numeric modifiers: `--modifier(integer)` → typically opacity as percentage
-- Noop modifiers: `--tw-jib--noop: --modifier(...)`. These consume the modifier
+- Noop modifiers: `--jib-noop: --modifier(...)`. These consume the modifier
   for validation only; still document them as available modifiers
 
 ### 1d. Custom Properties
@@ -152,8 +152,8 @@ Find `@supports` blocks wrapping utility content:
 
 Read `@theme inline { ... }` blocks to extract:
 
-- Modifier option names (e.g., `--tw-jib--gradient-interpolation-oklch` → modifier `/oklch`)
-- Direction values (e.g., `--tw-jib--gradient-angle-to-t` → `border-linear-to-t`)
+- Modifier option names (e.g., `--jib-gradient-interpolation-oklch` → modifier `/oklch`)
+- Direction values (e.g., `--jib-gradient-angle-to-t` → `border-linear-to-t`)
 - Size/unit tokens
 
 ### 1h. Aliases

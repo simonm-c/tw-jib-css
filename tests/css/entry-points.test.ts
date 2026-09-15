@@ -7,13 +7,13 @@ import { compile } from './helpers';
  * Tailwind emits a test for a property that does not exist. The gate changes.
  */
 const OVERRIDES = [
-  { module: 'lightness', cls: 'bg-lightness-20', gate: '--tw-jib--oklch-lightness(red, 20)' },
-  { module: 'saturation', cls: 'bg-saturation-20', gate: '--tw-jib--oklch-saturation(red, 20)' },
-  { module: 'hue-rotate', cls: 'bg-hue-rotate-45', gate: '--tw-jib--oklch-hue-rotate(red, 30)' },
+  { module: 'lightness', cls: 'bg-lightness-20', gate: '--jib-oklch-lightness(red, 20)' },
+  { module: 'saturation', cls: 'bg-saturation-20', gate: '--jib-oklch-saturation(red, 20)' },
+  { module: 'hue-rotate', cls: 'bg-hue-rotate-45', gate: '--jib-oklch-hue-rotate(red, 30)' },
   {
     module: 'wcag shade',
     cls: 'text-contrast-aa',
-    gate: '--tw-jib--text-color: --tw-jib--auto-contrast(',
+    gate: '--jib-text-color: --jib-auto-contrast(',
   },
 ] as const;
 
@@ -84,11 +84,11 @@ describe('what each published entry point delivers', () => {
 
   test('wcag-badge stays on the experimental entry', async () => {
     const onExperimental = await compile('bg-blue-500 wcag-badge', { experimental: true });
-    expect(onExperimental).toContain('--tw-jib--wcag-display:');
+    expect(onExperimental).toContain('--jib-wcag-display:');
 
     const onFunctions = await compile('bg-blue-500 wcag-badge', { functions: true });
     expect(onFunctions, 'wcag-badge leaked into the functions entry').not.toContain(
-      '--tw-jib--wcag-display:',
+      '--jib-wcag-display:',
     );
   });
 });

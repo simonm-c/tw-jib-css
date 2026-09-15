@@ -36,7 +36,7 @@ const CONTRAST_AALG_IDS = TW_HUES.flatMap((h) => TW_SHADES.map((s) => `aalg-${h}
 const BADGE_IDS = TW_HUES.flatMap((h) => TW_SHADES.map((s) => `badge-${h}-${s}`));
 
 const SUPPORTS_WCAG =
-  '(background: if(style(--value): red)) and (background: --tw-jib--linearize(red))';
+  '(background: if(style(--value): red)) and (background: --jib-linearize(red))';
 
 const CONTRAST_PAGE = 'examples/wcag';
 const BADGE_PAGE = `${EXPERIMENTAL_BASE}examples/wcag-badge`;
@@ -828,7 +828,7 @@ test.describe('text-contrast: the utility and the @function API agree', () => {
             const el = document.querySelector(`[data-test="${sel}"]`);
             return [
               sel,
-              el ? getComputedStyle(el).getPropertyValue('--tw-jib--contrast--shade').trim() : '',
+              el ? getComputedStyle(el).getPropertyValue('--jib-contrast-shade').trim() : '',
             ];
           }),
         ),
@@ -838,7 +838,7 @@ test.describe('text-contrast: the utility and the @function API agree', () => {
     // Assert
     expect(
       broken,
-      `${broken.length} readouts have no chain to read, --tw-jib--contrast--shade did not reach the child, so the agreement test is comparing the @function path against itself:\n${broken
+      `${broken.length} readouts have no chain to read, --jib-contrast-shade did not reach the child, so the agreement test is comparing the @function path against itself:\n${broken
         .map((id) => `${id}: "${chains[id]}"`)
         .join('\n')}`,
     ).toHaveLength(0);

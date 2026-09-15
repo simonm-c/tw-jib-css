@@ -31,8 +31,8 @@ const SUITES = [
  */
 function danglingReads(css: string): string[] {
   const registered = new Set([...css.matchAll(/@property (--[\w-]+)/g)].map((m) => m[1]));
-  const written = new Set([...css.matchAll(/(--tw-jib--[\w-]+)\s*:/g)].map((m) => m[1]));
-  const read = [...css.matchAll(/var\((--tw-jib--[\w-]+)\s*\)/g)].map((m) => m[1]);
+  const written = new Set([...css.matchAll(/(--jib-[\w-]+)\s*:/g)].map((m) => m[1]));
+  const read = [...css.matchAll(/var\((--jib-[\w-]+)\s*\)/g)].map((m) => m[1]);
   return [...new Set(read)].filter((name) => !registered.has(name) && !written.has(name));
 }
 
@@ -65,15 +65,11 @@ describe('per-suite subpaths', () => {
   });
 
   describe('the background shorthand carries every layer', () => {
-    const LAYERS = [
-      '--tw-jib--ripple-image',
-      '--tw-jib--background-image',
-      '--tw-jib--border-gradient',
-    ];
+    const LAYERS = ['--jib-ripple-image', '--jib-background-image', '--jib-border-gradient'];
     for (const { subpath, classes } of SUITES) {
       test(`${subpath}`, async () => {
         const css = await compileEntries([`${SRC}/${subpath}.css`], classes);
-        if (!css.includes('background: var(--tw-jib--ripple-image)')) return;
+        if (!css.includes('background: var(--jib-ripple-image)')) return;
         for (const layer of LAYERS) {
           expect(css, `${subpath} writes the shorthand without registering ${layer}`).toContain(
             `@property ${layer} `,
@@ -90,7 +86,7 @@ describe('per-suite subpaths', () => {
     );
     for (const stage of ['lightness', 'saturation', 'hue-rotate']) {
       expect(css, `${stage} is missing from the color-transforms suite`).toContain(
-        `--tw-jib--background-color-after-${stage}:`,
+        `--jib-background-color-after-${stage}:`,
       );
     }
   });

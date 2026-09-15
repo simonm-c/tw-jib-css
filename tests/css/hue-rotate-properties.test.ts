@@ -3,13 +3,13 @@ import { compile, suiteScenarios } from './helpers.js';
 import { supportsFunction } from './constants.js';
 
 /** [prefix, cssProperty, captureVar, sourceVar, baseClass, baseMarker, hueSlug]
- *  hueSlug matches --tw-jib--{hueSlug}-hue--amount */
+ *  hueSlug matches --jib-{hueSlug}-hue-amount */
 const PROPERTIES: [string, string, string, string, string, string, string][] = [
   [
     'bg',
     'background-color',
-    '--tw-jib--background-color',
-    '--tw-jib--background-color-source',
+    '--jib-background-color',
+    '--jib-background-color-source',
     'bg-blue-500',
     '--color-blue-500',
     'background',
@@ -17,8 +17,8 @@ const PROPERTIES: [string, string, string, string, string, string, string][] = [
   [
     'text',
     'color',
-    '--tw-jib--text-color',
-    '--tw-jib--text-color-source',
+    '--jib-text-color',
+    '--jib-text-color-source',
     'text-blue-500',
     '--color-blue-500',
     'text',
@@ -26,8 +26,8 @@ const PROPERTIES: [string, string, string, string, string, string, string][] = [
   [
     'fill',
     'fill',
-    '--tw-jib--fill-color',
-    '--tw-jib--fill-color-source',
+    '--jib-fill-color',
+    '--jib-fill-color-source',
     'fill-blue-500',
     '--color-blue-500',
     'fill',
@@ -35,8 +35,8 @@ const PROPERTIES: [string, string, string, string, string, string, string][] = [
   [
     'stroke',
     'stroke',
-    '--tw-jib--stroke-color',
-    '--tw-jib--stroke-color-source',
+    '--jib-stroke-color',
+    '--jib-stroke-color-source',
     'stroke-blue-500',
     '--color-blue-500',
     'stroke',
@@ -44,8 +44,8 @@ const PROPERTIES: [string, string, string, string, string, string, string][] = [
   [
     'outline',
     'outline-color',
-    '--tw-jib--outline-color',
-    '--tw-jib--outline-color-source',
+    '--jib-outline-color',
+    '--jib-outline-color-source',
     'outline-blue-500',
     '--color-blue-500',
     'outline',
@@ -53,8 +53,8 @@ const PROPERTIES: [string, string, string, string, string, string, string][] = [
   [
     'accent',
     'accent-color',
-    '--tw-jib--accent-color',
-    '--tw-jib--accent-color-source',
+    '--jib-accent-color',
+    '--jib-accent-color-source',
     'accent-blue-500',
     '--color-blue-500',
     'accent',
@@ -62,8 +62,8 @@ const PROPERTIES: [string, string, string, string, string, string, string][] = [
   [
     'border',
     'border-color',
-    '--tw-jib--border-color',
-    '--tw-jib--border-color-source',
+    '--jib-border-color',
+    '--jib-border-color-source',
     'border-blue-500',
     '--color-blue-500',
     'border',
@@ -80,7 +80,7 @@ const STABLE_SPACE_MARKERS: [string, string][] = [
   ['lab', 'lab('],
 ];
 
-const SUPPORTS_FUNCTION = supportsFunction('--tw-jib--oklch-hue-rotate(red, 30)');
+const SUPPORTS_FUNCTION = supportsFunction('--jib-oklch-hue-rotate(red, 30)');
 
 const PROPERTY_SCENARIOS = PROPERTIES.flatMap((property) =>
   suiteScenarios('color-transforms').map((scenario) => ({
@@ -94,7 +94,7 @@ describe.each(PROPERTY_SCENARIOS)(
   '$label (stable path): $scenario.name',
   ({ scenario: { compile }, property }) => {
     const [prefix, cssProperty, captureVar, sourceVar, baseClass, baseMarker, hueSlug] = property;
-    const amountVar = `--tw-jib--${hueSlug}-hue--amount`;
+    const amountVar = `--jib-${hueSlug}-hue-amount`;
     const STABLE_OKLCH = `oklch(from var(${sourceVar}) l c calc(h + var(${amountVar})) / alpha)`;
 
     describe('positive rotation: default amounts', () => {
@@ -163,7 +163,7 @@ describe.each(PROPERTIES)(
           functions: true,
         });
         expect(css).toContain(SUPPORTS_FUNCTION);
-        expect(css).toContain(`--tw-jib--hue-rotate(var(${sourceVar}), ${amount}, oklch)`);
+        expect(css).toContain(`--jib-hue-rotate(var(${sourceVar}), ${amount}, oklch)`);
       });
     });
 
@@ -173,9 +173,7 @@ describe.each(PROPERTIES)(
           functions: true,
         });
         expect(css).toContain(SUPPORTS_FUNCTION);
-        expect(css).toContain(
-          `--tw-jib--hue-rotate(var(${sourceVar}), calc(${amount} * -1), oklch)`,
-        );
+        expect(css).toContain(`--jib-hue-rotate(var(${sourceVar}), calc(${amount} * -1), oklch)`);
       });
     });
 
@@ -187,7 +185,7 @@ describe.each(PROPERTIES)(
             functions: true,
           });
           expect(css).toContain(SUPPORTS_FUNCTION);
-          expect(css).toContain('--tw-jib--hue-rotate(');
+          expect(css).toContain('--jib-hue-rotate(');
           expect(css).toMatch(new RegExp(`30,\\s+${space.replace('-', '\\-')}`));
         },
       );
@@ -205,10 +203,10 @@ describe.each(PROPERTIES)(
 describe.each(suiteScenarios('color-transforms'))(
   'bg-hue-rotate composes with bg-image layer, $name',
   ({ compile }) => {
-    test('writes --tw-jib--background-image with the composed color', async () => {
+    test('writes --jib-background-image with the composed color', async () => {
       const css = await compile('bg-blue-500 bg-hue-rotate-30');
       expect(css).toContain(
-        '--tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0)',
+        '--jib-background-image: linear-gradient(var(--jib-background-color) 0 0)',
       );
     });
   },
@@ -216,38 +214,38 @@ describe.each(suiteScenarios('color-transforms'))(
 
 describe('experimental inline function usage', () => {
   test('bg-[...] with hue-rotate router function', async () => {
-    const css = await compile('bg-[--tw-jib--hue-rotate(var(--color-red-500),180)]', {
+    const css = await compile('bg-[--jib-hue-rotate(var(--color-red-500),180)]', {
       functions: true,
     });
-    expect(css).toContain('--tw-jib--hue-rotate(');
+    expect(css).toContain('--jib-hue-rotate(');
     expect(css).toContain('background-color:');
   });
 
   test('bg-[...] with color space argument', async () => {
-    const css = await compile('bg-[--tw-jib--hue-rotate(var(--color-red-500),120,oklch)]', {
+    const css = await compile('bg-[--jib-hue-rotate(var(--color-red-500),120,oklch)]', {
       functions: true,
     });
-    expect(css).toContain('--tw-jib--hue-rotate(');
+    expect(css).toContain('--jib-hue-rotate(');
     expect(css).toContain('oklch');
   });
 
   test('from-[...] gradient stop with hue-rotated color', async () => {
     const css = await compile(
-      'bg-linear-to-r from-[--tw-jib--hue-rotate(var(--color-red-500),120)] to-red-500',
+      'bg-linear-to-r from-[--jib-hue-rotate(var(--color-red-500),120)] to-red-500',
       { functions: true },
     );
-    expect(css).toContain('--tw-jib--hue-rotate(');
+    expect(css).toContain('--jib-hue-rotate(');
     expect(css).toContain('--tw-gradient-from:');
   });
 
   test('from-[...] + to-[...] hue-rotated gradient', async () => {
     const css = await compile(
-      'bg-linear-to-r from-[--tw-jib--hue-rotate(var(--color-red-500),60)] to-[--tw-jib--hue-rotate(var(--color-red-500),180)]',
+      'bg-linear-to-r from-[--jib-hue-rotate(var(--color-red-500),60)] to-[--jib-hue-rotate(var(--color-red-500),180)]',
       { functions: true },
     );
     expect(css).toContain('--tw-gradient-from:');
     expect(css).toContain('--tw-gradient-to:');
-    const matches = css.match(/--tw-jib--hue-rotate\(/g);
+    const matches = css.match(/--jib-hue-rotate\(/g);
     expect(matches?.length).toBeGreaterThanOrEqual(2);
   });
 });

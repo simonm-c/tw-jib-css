@@ -28,9 +28,9 @@ to out-rank.
 ## Quick reference
 
 <UtilityTable :rows="[
-  { class: 'border-spin', styles: 'animation: border-spin var(--tw-jib--border-spin-duration) linear infinite' },
-  { class: 'border-spin-duration-<number>', styles: '--tw-jib--border-spin-duration: <number> * 1000ms' },
-  { class: 'border-spin-duration-[<value>]', styles: '--tw-jib--border-spin-duration: <value>' },
+  { class: 'border-spin', styles: 'animation: border-spin var(--jib-border-spin-duration) linear infinite' },
+  { class: 'border-spin-duration-<number>', styles: '--jib-border-spin-duration: <number> * 1000ms' },
+  { class: 'border-spin-duration-[<value>]', styles: '--jib-border-spin-duration: <value>' },
 ]" />
 
 ## Basic usage
@@ -96,7 +96,7 @@ Reference CSS custom properties with the typed bare-value syntax `(type:--var)`:
 
 ## How it works
 
-Registering `--tw-jib--border-gradient-angle` as an `<angle>` through `@property` is what makes it animatable. Every conic border gradient starts from that angle, so `border-conic-45` is a declaration of it, and a `@keyframes` animation rotates it from `0deg` to `360deg`. An animation beats a declaration by cascade origin rather than by selector weight, which is how `border-spin` takes the angle over while carrying no specificity of its own. `--tw-jib--border-spin-duration` sets how long one turn takes, defaulting to `1s`.
+Registering `--jib-border-gradient-angle` as an `<angle>` through `@property` is what makes it animatable. Every conic border gradient starts from that angle, so `border-conic-45` is a declaration of it, and a `@keyframes` animation rotates it from `0deg` to `360deg`. An animation beats a declaration by cascade origin rather than by selector weight, which is how `border-spin` takes the angle over while carrying no specificity of its own. `--jib-border-spin-duration` sets how long one turn takes, defaulting to `1s`.
 
 ## Import
 

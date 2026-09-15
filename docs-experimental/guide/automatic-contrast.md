@@ -2,11 +2,11 @@
 title: Automatic contrast
 ---
 
-<!-- llm-context: --tw-jib--auto-contrast(<color>, <level>, <space>) is the CSS @function form of the stable text-contrast-* utilities. It returns a <color> whose WCAG 2.x contrast ratio against the color you pass equals the requested level exactly, solved in closed form rather than searched. Because it returns a value it reaches properties text-contrast-* cannot: border-color, an SVG stroke, an outline, a box-shadow, a gradient stop. Levels are aa (4.5:1), aaa (7:1) and aa-lg (3:1). The space argument is optional and defaults to oklch; oklch, oklab, lch, lab, hsl and hwb are recognised and anything else uses the shared core path. A level is only reachable if the base color can carry it; where it cannot, the solve clamps to white or black and returns the maximum available instead. Importing the functions entry also re-implements text-contrast-* on top of this function wherever CSS @function is supported. Chromium only. -->
+<!-- llm-context: --jib-auto-contrast(<color>, <level>, <space>) is the CSS @function form of the stable text-contrast-* utilities. It returns a <color> whose WCAG 2.x contrast ratio against the color you pass equals the requested level exactly, solved in closed form rather than searched. Because it returns a value it reaches properties text-contrast-* cannot: border-color, an SVG stroke, an outline, a box-shadow, a gradient stop. Levels are aa (4.5:1), aaa (7:1) and aa-lg (3:1). The space argument is optional and defaults to oklch; oklch, oklab, lch, lab, hsl and hwb are recognised and anything else uses the shared core path. A level is only reachable if the base color can carry it; where it cannot, the solve clamps to white or black and returns the maximum available instead. Importing the functions entry also re-implements text-contrast-* on top of this function wherever CSS @function is supported. Chromium only. -->
 
 # Automatic contrast
 
-`--tw-jib--auto-contrast()` takes a background color and a WCAG level and returns a text color whose contrast ratio against that background equals the level exactly. The shade is not searched for, it is solved: WCAG's ratio constrains one quantity, relative luminance, and luminance is linear in linear-light RGB, so the target inverts algebraically.
+`--jib-auto-contrast()` takes a background color and a WCAG level and returns a text color whose contrast ratio against that background equals the level exactly. The shade is not searched for, it is solved: WCAG's ratio constrains one quantity, relative luminance, and luminance is linear in linear-light RGB, so the target inverts algebraically.
 
 `text-contrast-*` paints exactly one thing, `color`, on the element carrying its own background. The function has no such limit, and that is the reason to reach for it.
 
@@ -18,12 +18,12 @@ The class form is stable and works in every engine, verified exact against all 2
 
 ## Quick reference
 
-| Call                                                 | Returns                                               |
-| ---------------------------------------------------- | ----------------------------------------------------- |
-| `--tw-jib--auto-contrast(<color>)`                   | a shade at exactly WCAG AA, 4.5:1, against that color |
-| `--tw-jib--auto-contrast(<color>, aaa)`              | a shade at exactly WCAG AAA, 7:1                      |
-| `--tw-jib--auto-contrast(<color>, aa-lg)`            | a shade at exactly WCAG AA Large, 3:1                 |
-| `--tw-jib--auto-contrast(<color>, <level>, <space>)` | the same, with chroma shaped by the named space       |
+| Call                                             | Returns                                               |
+| ------------------------------------------------ | ----------------------------------------------------- |
+| `--jib-auto-contrast(<color>)`                   | a shade at exactly WCAG AA, 4.5:1, against that color |
+| `--jib-auto-contrast(<color>, aaa)`              | a shade at exactly WCAG AAA, 7:1                      |
+| `--jib-auto-contrast(<color>, aa-lg)`            | a shade at exactly WCAG AA Large, 3:1                 |
+| `--jib-auto-contrast(<color>, <level>, <space>)` | the same, with chroma shaped by the named space       |
 
 The level is a bare identifier, not a string. `aaa` maps to 7, `aa-lg` to 3, and anything else to 4.5. The space is optional and defaults to `oklch`.
 
@@ -35,7 +35,7 @@ The element's background, its border color and its text color all derive from a 
 
 <Example stretch>
   <div class="flex justify-center p-8">
-    <div class="w-64 rounded-xl border-4 bg-teal-500 p-4 [border-color:--tw-jib--auto-contrast(var(--color-teal-500),aaa)] [color:--tw-jib--auto-contrast(var(--color-teal-500),aaa)]">
+    <div class="w-64 rounded-xl border-4 bg-teal-500 p-4 [border-color:--jib-auto-contrast(var(--color-teal-500),aaa)] [color:--jib-auto-contrast(var(--color-teal-500),aaa)]">
       <div class="font-mono text-[10px] uppercase tracking-widest opacity-80">solved for 7:1</div>
       <div class="mt-2 text-lg font-bold">Border and text</div>
     </div>
@@ -45,8 +45,8 @@ The element's background, its border color and its text color all derive from a 
 ```html
 <div
   class="bg-teal-500 border-4
-         [border-color:--tw-jib--auto-contrast(var(--color-teal-500),aaa)]
-         [color:--tw-jib--auto-contrast(var(--color-teal-500),aaa)]"
+         [border-color:--jib-auto-contrast(var(--color-teal-500),aaa)]
+         [color:--jib-auto-contrast(var(--color-teal-500),aaa)]"
 >
   Border and text
 </div>
@@ -60,7 +60,7 @@ A stroke is not text, so no amount of `text-contrast-*` reaches it.
   <div class="flex justify-center p-8">
     <svg viewBox="0 0 48 48" class="size-28">
       <rect x="4" y="4" width="40" height="40" rx="8" class="fill-teal-500" />
-      <path d="M15 25 L21 31 L33 17" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="stroke-[--tw-jib--auto-contrast(var(--color-teal-500),aaa)]" />
+      <path d="M15 25 L21 31 L33 17" fill="none" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" class="stroke-[--jib-auto-contrast(var(--color-teal-500),aaa)]" />
     </svg>
   </div>
 </Example>
@@ -68,7 +68,7 @@ A stroke is not text, so no amount of `text-contrast-*` reaches it.
 ```html
 <svg viewBox="0 0 48 48">
   <rect class="fill-teal-500" />
-  <path class="stroke-[--tw-jib--auto-contrast(var(--color-teal-500),aaa)]" />
+  <path class="stroke-[--jib-auto-contrast(var(--color-teal-500),aaa)]" />
 </svg>
 ```
 
@@ -78,7 +78,7 @@ The far stop of this bar is the accessible pair of the near stop, which makes th
 
 <Example stretch>
   <div class="flex flex-col gap-2 p-6">
-    <div class="h-12 rounded-lg bg-[linear-gradient(90deg,var(--color-teal-500),--tw-jib--auto-contrast(var(--color-teal-500),aaa))]"></div>
+    <div class="h-12 rounded-lg bg-[linear-gradient(90deg,var(--color-teal-500),--jib-auto-contrast(var(--color-teal-500),aaa))]"></div>
     <div class="flex justify-between font-mono text-[10px] opacity-70">
       <span>teal-500</span>
       <span>shade(aaa)</span>
@@ -89,7 +89,7 @@ The far stop of this bar is the accessible pair of the near stop, which makes th
 ```html
 <div
   class="bg-[linear-gradient(90deg,var(--color-teal-500),
-             --tw-jib--auto-contrast(var(--color-teal-500),aaa))]"
+             --jib-auto-contrast(var(--color-teal-500),aaa))]"
 ></div>
 ```
 
@@ -99,7 +99,7 @@ Nothing is written inside the bar. The shade is the far stop, so text painted in
 
 <Example stretch>
   <div class="flex justify-center p-8">
-    <button class="rounded-lg border-0 bg-teal-500 px-5 py-2.5 text-sm font-semibold cursor-pointer [color:--tw-jib--auto-contrast(var(--color-teal-500),aaa)] outline-offset-2 focus:[outline:3px_solid_--tw-jib--auto-contrast(var(--color-teal-500),aa)]">
+    <button class="rounded-lg border-0 bg-teal-500 px-5 py-2.5 text-sm font-semibold cursor-pointer [color:--jib-auto-contrast(var(--color-teal-500),aaa)] outline-offset-2 focus:[outline:3px_solid_--jib-auto-contrast(var(--color-teal-500),aa)]">
       focus me
     </button>
   </div>
@@ -108,8 +108,8 @@ Nothing is written inside the bar. The shade is the far stop, so text painted in
 ```html
 <button
   class="bg-teal-500 outline-offset-2
-         [color:--tw-jib--auto-contrast(var(--color-teal-500),aaa)]
-         focus:[outline:3px_solid_--tw-jib--auto-contrast(var(--color-teal-500),aa)]"
+         [color:--jib-auto-contrast(var(--color-teal-500),aaa)]
+         focus:[outline:3px_solid_--jib-auto-contrast(var(--color-teal-500),aa)]"
 >
   focus me
 </button>
@@ -119,9 +119,9 @@ Nothing is written inside the bar. The shade is the far stop, so text painted in
 
 <Example stretch>
   <div class="grid grid-cols-3 gap-3 p-6">
-    <div class="rounded-lg bg-teal-500 p-5 text-center [color:--tw-jib--auto-contrast(var(--color-teal-500),aa-lg)]"><span class="font-mono text-xs font-bold">aa-lg · 3:1</span></div>
-    <div class="rounded-lg bg-teal-500 p-5 text-center [color:--tw-jib--auto-contrast(var(--color-teal-500),aa)]"><span class="font-mono text-xs font-bold">aa · 4.5:1</span></div>
-    <div class="rounded-lg bg-teal-500 p-5 text-center [color:--tw-jib--auto-contrast(var(--color-teal-500),aaa)]"><span class="font-mono text-xs font-bold">aaa · 7:1</span></div>
+    <div class="rounded-lg bg-teal-500 p-5 text-center [color:--jib-auto-contrast(var(--color-teal-500),aa-lg)]"><span class="font-mono text-xs font-bold">aa-lg · 3:1</span></div>
+    <div class="rounded-lg bg-teal-500 p-5 text-center [color:--jib-auto-contrast(var(--color-teal-500),aa)]"><span class="font-mono text-xs font-bold">aa · 4.5:1</span></div>
+    <div class="rounded-lg bg-teal-500 p-5 text-center [color:--jib-auto-contrast(var(--color-teal-500),aaa)]"><span class="font-mono text-xs font-bold">aaa · 7:1</span></div>
   </div>
 </Example>
 
@@ -130,7 +130,7 @@ The solve is exact, but it is bounded by white and black. Ask for a ratio a colo
 
 `teal-500` carries AAA: measured in Chromium it solves to 7.151:1. `teal-600` does not. Its solve clamps to black and delivers 5.724:1, which is the ceiling for that color, not a 7:1 pair. Mid-to-dark saturated colors are where this bites.
 
-If a ratio matters, measure the pair rather than trusting the request. [`--tw-jib--wcag-rating()`](/guide/wcag-rating) reports what a pair actually achieved, and puts the answer on the page.
+If a ratio matters, measure the pair rather than trusting the request. [`--jib-wcag-rating()`](/guide/wcag-rating) reports what a pair actually achieved, and puts the answer on the page.
 :::
 
 ## Color spaces
@@ -147,10 +147,10 @@ The space argument shapes the chroma of the returned shade. It does not affect c
 
 <Example stretch>
   <div class="grid grid-cols-4 gap-2 p-6">
-    <div class="rounded-md bg-teal-500 p-4 text-center [color:--tw-jib--auto-contrast(var(--color-teal-500),aaa,oklch)]"><span class="font-mono text-[10px] font-bold">oklch</span></div>
-    <div class="rounded-md bg-teal-500 p-4 text-center [color:--tw-jib--auto-contrast(var(--color-teal-500),aaa,lch)]"><span class="font-mono text-[10px] font-bold">lch</span></div>
-    <div class="rounded-md bg-teal-500 p-4 text-center [color:--tw-jib--auto-contrast(var(--color-teal-500),aaa,hsl)]"><span class="font-mono text-[10px] font-bold">hsl</span></div>
-    <div class="rounded-md bg-teal-500 p-4 text-center [color:--tw-jib--auto-contrast(var(--color-teal-500),aaa,hwb)]"><span class="font-mono text-[10px] font-bold">hwb</span></div>
+    <div class="rounded-md bg-teal-500 p-4 text-center [color:--jib-auto-contrast(var(--color-teal-500),aaa,oklch)]"><span class="font-mono text-[10px] font-bold">oklch</span></div>
+    <div class="rounded-md bg-teal-500 p-4 text-center [color:--jib-auto-contrast(var(--color-teal-500),aaa,lch)]"><span class="font-mono text-[10px] font-bold">lch</span></div>
+    <div class="rounded-md bg-teal-500 p-4 text-center [color:--jib-auto-contrast(var(--color-teal-500),aaa,hsl)]"><span class="font-mono text-[10px] font-bold">hsl</span></div>
+    <div class="rounded-md bg-teal-500 p-4 text-center [color:--jib-auto-contrast(var(--color-teal-500),aaa,hwb)]"><span class="font-mono text-[10px] font-bold">hwb</span></div>
   </div>
 </Example>
 

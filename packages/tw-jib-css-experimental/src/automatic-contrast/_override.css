@@ -1,6 +1,6 @@
 @utility text-contrast-* {
   @variant supports-wcag {
-    --tw-jib--text-color: --tw-jib--auto-contrast(var(--tw-jib--background-color), --value("aa", "aaa", "aa-lg"), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
-    color: var(--tw-jib--text-color);
+    --jib-text-color: --jib-auto-contrast(var(--jib-background-color), --value("aa", "aaa", "aa-lg"), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+    color: var(--jib-text-color);
   }
 }

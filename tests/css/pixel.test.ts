@@ -18,7 +18,7 @@ describe.each(suiteScenarios('pixel'))('pixel utilities, $name', ({ compile }) =
       expect(css).toContain('0 0 b');
     });
 
-    test('bg-pixel-red-500 has black base layer in --tw-jib--background-image', async () => {
+    test('bg-pixel-red-500 has black base layer in --jib-background-image', async () => {
       const css = await compile('bg-pixel-red-500');
       expect(css).toContain('linear-gradient(rgb(0 0 0');
     });
@@ -38,36 +38,36 @@ describe.each(suiteScenarios('pixel'))('pixel utilities, $name', ({ compile }) =
   describe('pixel-size-*', () => {
     test('pixel-size-2 sets pixel size from spacing scale', async () => {
       const css = await compile('pixel-size-2');
-      expect(css).toContain('--tw-jib--pixel-size');
+      expect(css).toContain('--jib-pixel-size');
     });
 
     test('pixel-size-[5px] accepts arbitrary length', async () => {
       const css = await compile('pixel-size-[5px]');
-      expect(css).toContain('--tw-jib--pixel-size: 5px');
+      expect(css).toContain('--jib-pixel-size: 5px');
     });
   });
 
   describe('pixel-gap-*', () => {
     test('pixel-gap-2 sets gap multiplier', async () => {
       const css = await compile('pixel-gap-2');
-      expect(css).toContain('--tw-jib--pixel-gap: 2');
+      expect(css).toContain('--jib-pixel-gap: 2');
     });
 
     test('pixel-gap-[number:0.5] accepts arbitrary number', async () => {
       const css = await compile('pixel-gap-[number:0.5]');
-      expect(css).toContain('--tw-jib--pixel-gap:');
+      expect(css).toContain('--jib-pixel-gap:');
     });
   });
 
   describe('pixel-bloom-*', () => {
     test('pixel-bloom-1 sets bloom with spacing/4 scaling', async () => {
       const css = await compile('pixel-bloom-1');
-      expect(css).toContain('--tw-jib--pixel-bloom');
+      expect(css).toContain('--jib-pixel-bloom');
     });
 
     test('pixel-bloom-[2px] accepts arbitrary length', async () => {
       const css = await compile('pixel-bloom-[2px]');
-      expect(css).toContain('--tw-jib--pixel-bloom: 2px');
+      expect(css).toContain('--jib-pixel-bloom: 2px');
     });
   });
 
@@ -85,9 +85,9 @@ describe.each(suiteScenarios('pixel'))('pixel utilities, $name', ({ compile }) =
 
       // Assert
       expect(
-        decl(css, '--tw-jib--pixel-channel-gap'),
+        decl(css, '--jib-pixel-channel-gap'),
         'the gap must be half a channel width, not some other fraction',
-      ).toBe('max(0.5px, calc(var(--tw-jib--pixel-width) / 2))');
+      ).toBe('max(0.5px, calc(var(--jib-pixel-width) / 2))');
     });
 
     test('the 0.5px floor wins only at or below a 1px channel', async () => {
@@ -97,7 +97,7 @@ describe.each(suiteScenarios('pixel'))('pixel utilities, $name', ({ compile }) =
 
       // Assert
       expect(
-        decl(css, '--tw-jib--pixel-channel-gap'),
+        decl(css, '--jib-pixel-channel-gap'),
         'the floor keeps the gap at one device pixel for a sub-pixel channel',
       ).toContain('max(0.5px');
     });
@@ -108,8 +108,8 @@ describe.each(suiteScenarios('pixel'))('pixel utilities, $name', ({ compile }) =
       const css = await compile('bg-pixel-red-500');
 
       // Assert
-      expect(decl(css, '--tw-jib--pixel-triplet-width')).toBe(
-        'calc(var(--tw-jib--pixel-width) * 3 + var(--tw-jib--pixel-channel-gap) * 2)',
+      expect(decl(css, '--jib-pixel-triplet-width')).toBe(
+        'calc(var(--jib-pixel-width) * 3 + var(--jib-pixel-channel-gap) * 2)',
       );
     });
 
@@ -120,10 +120,10 @@ describe.each(suiteScenarios('pixel'))('pixel utilities, $name', ({ compile }) =
 
       // Assert
       expect(css, 'green sits one channel plus one gap along').toContain(
-        'calc(var(--tw-jib--pixel-width) + var(--tw-jib--pixel-channel-gap)) 0',
+        'calc(var(--jib-pixel-width) + var(--jib-pixel-channel-gap)) 0',
       );
       expect(css, 'blue sits two channels plus two gaps along').toContain(
-        'calc(var(--tw-jib--pixel-width) * 2 + var(--tw-jib--pixel-channel-gap) * 2) 0',
+        'calc(var(--jib-pixel-width) * 2 + var(--jib-pixel-channel-gap) * 2) 0',
       );
     });
 
@@ -134,10 +134,10 @@ describe.each(suiteScenarios('pixel'))('pixel utilities, $name', ({ compile }) =
 
       // Assert
       expect(
-        decl(css, '--tw-jib--pixel-bloom-col-cap'),
+        decl(css, '--jib-pixel-bloom-col-cap'),
         'the cap must track the gap, or bloom stops short of the neighbour',
       ).toBe(
-        'calc(var(--tw-jib--pixel-width) + var(--tw-jib--pixel-channel-gap) + var(--tw-jib--pixel-gap-actual) / 2)',
+        'calc(var(--jib-pixel-width) + var(--jib-pixel-channel-gap) + var(--jib-pixel-gap-actual) / 2)',
       );
     });
   });
@@ -154,7 +154,7 @@ describe.each(suiteScenarios('pixel'))('pixel utilities, $name', ({ compile }) =
       return m![1];
     };
 
-    test.each([['--tw-jib--pixel-row-mid-alpha'], ['--tw-jib--pixel-col-mid-alpha']])(
+    test.each([['--jib-pixel-row-mid-alpha'], ['--jib-pixel-col-mid-alpha']])(
       '%s derives its ratio without dividing by a length',
       async (prop) => {
         const value = ratioDecl(await compile('bg-pixel-red-500'), prop);
@@ -167,8 +167,8 @@ describe.each(suiteScenarios('pixel'))('pixel utilities, $name', ({ compile }) =
     test('the caps and overflows feeding the ratio stay lengths', async () => {
       const css = await compile('bg-pixel-red-500');
       // atan2 rejects mismatched units
-      expect(ratioDecl(css, '--tw-jib--pixel-bloom-row-overflow')).toContain('max(0px');
-      expect(ratioDecl(css, '--tw-jib--pixel-bloom-col-overflow')).toContain('max(0px');
+      expect(ratioDecl(css, '--jib-pixel-bloom-row-overflow')).toContain('max(0px');
+      expect(ratioDecl(css, '--jib-pixel-bloom-col-overflow')).toContain('max(0px');
     });
   });
 });

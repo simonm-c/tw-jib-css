@@ -26,12 +26,12 @@ The columns sit on a black base, so the surface a reader sees is part phosphor a
   { class: 'bg-pixel-<color>/[<number>]', styles: 'Same with a 0-1 opacity' },
   { class: 'bg-pixel-[<value>]', styles: 'Arbitrary color value' },
   { class: 'bg-pixel-(--var)', styles: 'Color from a custom property' },
-  { class: 'pixel-size-<number>', styles: '--tw-jib--pixel-size: --spacing(<number>) / 4. Pixel size; width = size, height = size × 2.' },
-  { class: 'pixel-size-[<value>]', styles: '--tw-jib--pixel-size: <value>' },
-  { class: 'pixel-gap-<number>', styles: '--tw-jib--pixel-gap: <number>. Gap as a multiple of pixel width.' },
-  { class: 'pixel-gap-[<value>]', styles: '--tw-jib--pixel-gap: <value>' },
-  { class: 'pixel-bloom-<number>', styles: '--tw-jib--pixel-bloom: --spacing(<number>) / 4. Phosphor bloom; unbounded, saturates to solid.' },
-  { class: 'pixel-bloom-[<value>]', styles: '--tw-jib--pixel-bloom: <value>' },
+  { class: 'pixel-size-<number>', styles: '--jib-pixel-size: --spacing(<number>) / 4. Pixel size; width = size, height = size × 2.' },
+  { class: 'pixel-size-[<value>]', styles: '--jib-pixel-size: <value>' },
+  { class: 'pixel-gap-<number>', styles: '--jib-pixel-gap: <number>. Gap as a multiple of pixel width.' },
+  { class: 'pixel-gap-[<value>]', styles: '--jib-pixel-gap: <value>' },
+  { class: 'pixel-bloom-<number>', styles: '--jib-pixel-bloom: --spacing(<number>) / 4. Phosphor bloom; unbounded, saturates to solid.' },
+  { class: 'pixel-bloom-[<value>]', styles: '--jib-pixel-bloom: <value>' },
 ]" />
 
 ## How it works

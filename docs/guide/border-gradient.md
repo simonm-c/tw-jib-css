@@ -19,28 +19,28 @@ Chrome 111+, Safari 16.4+, Firefox 128+. Interpolation modes (`/shorter`, `/long
 ## Quick reference
 
 <UtilityTable :rows="[
-  { class: 'border-linear-to-t', styles: '--tw-jib--border-gradient: linear-gradient(to top var(--tw-jib--gradient-interpolation), var(--tw-jib--border-gradient-stops))' },
-  { class: 'border-linear-to-tr', styles: '--tw-jib--border-gradient: linear-gradient(to top right var(--tw-jib--gradient-interpolation), var(--tw-jib--border-gradient-stops))' },
-  { class: 'border-linear-to-r', styles: '--tw-jib--border-gradient: linear-gradient(to right var(--tw-jib--gradient-interpolation), var(--tw-jib--border-gradient-stops))' },
-  { class: 'border-linear-to-br', styles: '--tw-jib--border-gradient: linear-gradient(to bottom right var(--tw-jib--gradient-interpolation), var(--tw-jib--border-gradient-stops))' },
-  { class: 'border-linear-to-b', styles: '--tw-jib--border-gradient: linear-gradient(to bottom var(--tw-jib--gradient-interpolation), var(--tw-jib--border-gradient-stops))' },
-  { class: 'border-linear-to-bl', styles: '--tw-jib--border-gradient: linear-gradient(to bottom left var(--tw-jib--gradient-interpolation), var(--tw-jib--border-gradient-stops))' },
-  { class: 'border-linear-to-l', styles: '--tw-jib--border-gradient: linear-gradient(to left var(--tw-jib--gradient-interpolation), var(--tw-jib--border-gradient-stops))' },
-  { class: 'border-linear-to-tl', styles: '--tw-jib--border-gradient: linear-gradient(to top left var(--tw-jib--gradient-interpolation), var(--tw-jib--border-gradient-stops))' },
-  { class: 'border-linear-to-[<value>]', styles: '--tw-jib--border-gradient-position: <value>' },
-  { class: 'border-linear-<angle>', styles: '--tw-jib--border-gradient: linear-gradient(<angle>deg var(--tw-jib--gradient-interpolation), var(--tw-jib--border-gradient-stops))' },
-  { class: 'border-radial', styles: '--tw-jib--border-gradient: radial-gradient(var(--tw-jib--gradient-interpolation), var(--tw-jib--border-gradient-stops))' },
-  { class: 'border-radial-[<value>]', styles: '--tw-jib--border-gradient: radial-gradient(<value>, var(--tw-jib--border-gradient-stops))' },
-  { class: 'border-conic-<angle>', styles: '--tw-jib--border-gradient-angle: <angle>deg; --tw-jib--border-gradient: conic-gradient(from var(--tw-jib--border-gradient-angle) var(--tw-jib--gradient-interpolation), var(--tw-jib--border-gradient-stops))' },
-  { class: 'border-from-<color>', styles: '--tw-jib--border-gradient-from: <color>' },
-  { class: 'border-from-<percentage>', styles: '--tw-jib--border-gradient-from-position: <percentage>' },
-  { class: 'border-from-[<value>]', styles: '--tw-jib--border-gradient-from: <value>' },
-  { class: 'border-via-<color>', styles: '--tw-jib--border-gradient-via: <color>' },
-  { class: 'border-via-<percentage>', styles: '--tw-jib--border-gradient-via-position: <percentage>' },
-  { class: 'border-via-[<value>]', styles: '--tw-jib--border-gradient-via: <value>' },
-  { class: 'border-to-<color>', styles: '--tw-jib--border-gradient-to: <color>' },
-  { class: 'border-to-<percentage>', styles: '--tw-jib--border-gradient-to-position: <percentage>' },
-  { class: 'border-to-[<value>]', styles: '--tw-jib--border-gradient-to: <value>' },
+  { class: 'border-linear-to-t', styles: '--jib-border-gradient: linear-gradient(to top var(--jib-gradient-interpolation), var(--jib-border-gradient-stops))' },
+  { class: 'border-linear-to-tr', styles: '--jib-border-gradient: linear-gradient(to top right var(--jib-gradient-interpolation), var(--jib-border-gradient-stops))' },
+  { class: 'border-linear-to-r', styles: '--jib-border-gradient: linear-gradient(to right var(--jib-gradient-interpolation), var(--jib-border-gradient-stops))' },
+  { class: 'border-linear-to-br', styles: '--jib-border-gradient: linear-gradient(to bottom right var(--jib-gradient-interpolation), var(--jib-border-gradient-stops))' },
+  { class: 'border-linear-to-b', styles: '--jib-border-gradient: linear-gradient(to bottom var(--jib-gradient-interpolation), var(--jib-border-gradient-stops))' },
+  { class: 'border-linear-to-bl', styles: '--jib-border-gradient: linear-gradient(to bottom left var(--jib-gradient-interpolation), var(--jib-border-gradient-stops))' },
+  { class: 'border-linear-to-l', styles: '--jib-border-gradient: linear-gradient(to left var(--jib-gradient-interpolation), var(--jib-border-gradient-stops))' },
+  { class: 'border-linear-to-tl', styles: '--jib-border-gradient: linear-gradient(to top left var(--jib-gradient-interpolation), var(--jib-border-gradient-stops))' },
+  { class: 'border-linear-to-[<value>]', styles: '--jib-border-gradient-position: <value>' },
+  { class: 'border-linear-<angle>', styles: '--jib-border-gradient: linear-gradient(<angle>deg var(--jib-gradient-interpolation), var(--jib-border-gradient-stops))' },
+  { class: 'border-radial', styles: '--jib-border-gradient: radial-gradient(var(--jib-gradient-interpolation), var(--jib-border-gradient-stops))' },
+  { class: 'border-radial-[<value>]', styles: '--jib-border-gradient: radial-gradient(<value>, var(--jib-border-gradient-stops))' },
+  { class: 'border-conic-<angle>', styles: '--jib-border-gradient-angle: <angle>deg; --jib-border-gradient: conic-gradient(from var(--jib-border-gradient-angle) var(--jib-gradient-interpolation), var(--jib-border-gradient-stops))' },
+  { class: 'border-from-<color>', styles: '--jib-border-gradient-from: <color>' },
+  { class: 'border-from-<percentage>', styles: '--jib-border-gradient-from-position: <percentage>' },
+  { class: 'border-from-[<value>]', styles: '--jib-border-gradient-from: <value>' },
+  { class: 'border-via-<color>', styles: '--jib-border-gradient-via: <color>' },
+  { class: 'border-via-<percentage>', styles: '--jib-border-gradient-via-position: <percentage>' },
+  { class: 'border-via-[<value>]', styles: '--jib-border-gradient-via: <value>' },
+  { class: 'border-to-<color>', styles: '--jib-border-gradient-to: <color>' },
+  { class: 'border-to-<percentage>', styles: '--jib-border-gradient-to-position: <percentage>' },
+  { class: 'border-to-[<value>]', styles: '--jib-border-gradient-to: <value>' },
 ]" />
 
 ## Basic usage
@@ -88,7 +88,7 @@ Tailwind gradient backgrounds and border gradients coexist. The background gradi
 
 #### Inherited backgrounds
 
-The background color does not inherit from parent elements. The module registers `--tw-jib--background-image` with `inherits: false`, so a child without its own `bg-*` class gets the initial value, `canvas`, rather than the parent's color:
+The background color does not inherit from parent elements. The module registers `--jib-background-image` with `inherits: false`, so a child without its own `bg-*` class gets the initial value, `canvas`, rather than the parent's color:
 
 <Example>
   <div class="bg-slate-800 rounded-xl p-6">
@@ -218,7 +218,7 @@ Use `border-from-<color>`, `border-via-<color>`, and `border-to-<color>` to set 
   </div>
 </Example>
 
-<!-- llm-context: border-from-inherit sets --tw-jib--border-gradient-from: inherit. Because this property is registered with inherits: false and initial-value: #0000, inherit resolves to transparent, not currentColor or the text color. -->
+<!-- llm-context: border-from-inherit sets --jib-border-gradient-from: inherit. Because this property is registered with inherits: false and initial-value: #0000, inherit resolves to transparent, not currentColor or the text color. -->
 
 ### Setting gradient stop positions
 

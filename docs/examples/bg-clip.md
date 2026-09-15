@@ -87,11 +87,11 @@ time, and these cells would paint no background at all.
 
 <div class="grid grid-cols-4 gap-4 my-6">
   <div>
-    <div data-test="invalid-comic" class="bg-comic-red-500 comic-dot-2 comic-gap-4 border-8 border-linear-to-r border-from-emerald-400 border-to-yellow-300 [--tw-jib--background-clip:nonsense] [--tw-jib--border-gradient-clip:nonsense] h-24 p-2 text-2xl font-black">Ag</div>
+    <div data-test="invalid-comic" class="bg-comic-red-500 comic-dot-2 comic-gap-4 border-8 border-linear-to-r border-from-emerald-400 border-to-yellow-300 [--jib-background-clip:nonsense] [--jib-border-gradient-clip:nonsense] h-24 p-2 text-2xl font-black">Ag</div>
     <p class="text-xs font-mono text-center mt-1">comic, both slots</p>
   </div>
   <div>
-    <div data-test="invalid-pixel" class="bg-pixel-red-500 pixel-size-3 pixel-gap-2 border-8 border-linear-to-r border-from-emerald-400 border-to-yellow-300 [--tw-jib--background-clip:nonsense] [--tw-jib--border-gradient-clip:nonsense] h-24 p-2 text-2xl font-black">Ag</div>
+    <div data-test="invalid-pixel" class="bg-pixel-red-500 pixel-size-3 pixel-gap-2 border-8 border-linear-to-r border-from-emerald-400 border-to-yellow-300 [--jib-background-clip:nonsense] [--jib-border-gradient-clip:nonsense] h-24 p-2 text-2xl font-black">Ag</div>
     <p class="text-xs font-mono text-center mt-1">pixel, both slots</p>
   </div>
 </div>

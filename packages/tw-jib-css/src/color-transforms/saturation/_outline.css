@@ -39,7 +39,7 @@
 
 @utility outline-saturation-* {
   &:not(._) {
-    --tw-jib--outline-saturation--amount: calc(--value(integer, [number]) * 0.01);
+    --tw-jib--outline-saturation--amount: calc(--value(integer, [number], [ *]) * 0.01);
     --tw-jib--outline-color-after-saturation: oklch(from var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source)) l calc(c * (1 - abs(var(--tw-jib--outline-saturation--amount))) + max(0, var(--tw-jib--outline-saturation--amount)) * 0.4) h / alpha);
     --tw-jib--outline-color-after-saturation: --modifier(--tw-jib--outline-saturation-interpolation- *);
     --tw-jib--outline-color: var(--tw-jib--outline-color-after-lightness, var(--tw-jib--outline-color-after-saturation, var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source))));
@@ -50,7 +50,7 @@
 @utility outline-saturation-* {
   &:not(._) {
     @variant supports-saturation {
-      --tw-jib--outline-color-after-saturation: --tw-jib--saturation(var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source)), --value(integer, [number]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --tw-jib--outline-color-after-saturation: --tw-jib--saturation(var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source)), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
       --tw-jib--outline-color: var(--tw-jib--outline-color-after-lightness, var(--tw-jib--outline-color-after-saturation, var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source))));
       outline-color: var(--tw-jib--outline-color);
     }
@@ -59,7 +59,7 @@
 
 @utility -outline-saturation-* {
   &:not(._) {
-    --tw-jib--outline-saturation--amount: calc(--value(integer, [number]) * -0.01);
+    --tw-jib--outline-saturation--amount: calc(--value(integer, [number], [ *]) * -0.01);
     --tw-jib--outline-color-after-saturation: oklch(from var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source)) l calc(c * (1 - abs(var(--tw-jib--outline-saturation--amount))) + max(0, var(--tw-jib--outline-saturation--amount)) * 0.4) h / alpha);
     --tw-jib--outline-color-after-saturation: --modifier(--tw-jib--outline-saturation-interpolation- *);
     --tw-jib--outline-color: var(--tw-jib--outline-color-after-lightness, var(--tw-jib--outline-color-after-saturation, var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source))));
@@ -70,7 +70,7 @@
 @utility -outline-saturation-* {
   &:not(._) {
     @variant supports-saturation {
-      --tw-jib--outline-color-after-saturation: --tw-jib--saturation(var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source)), calc(--value(integer, [number]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --tw-jib--outline-color-after-saturation: --tw-jib--saturation(var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source)), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
       --tw-jib--outline-color: var(--tw-jib--outline-color-after-lightness, var(--tw-jib--outline-color-after-saturation, var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source))));
       outline-color: var(--tw-jib--outline-color);
     }
@@ -79,7 +79,7 @@
 
 @utility outline-saturate-* {
   &:not(._) {
-    --tw-jib--outline-saturation--amount: calc(--value(integer, [number]) * 0.01);
+    --tw-jib--outline-saturation--amount: calc(--value(integer, [number], [ *]) * 0.01);
     --tw-jib--outline-color-after-saturation: oklch(from var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source)) l calc(c * (1 - abs(var(--tw-jib--outline-saturation--amount))) + max(0, var(--tw-jib--outline-saturation--amount)) * 0.4) h / alpha);
     --tw-jib--outline-color-after-saturation: --modifier(--tw-jib--outline-saturation-interpolation- *);
     --tw-jib--outline-color: var(--tw-jib--outline-color-after-lightness, var(--tw-jib--outline-color-after-saturation, var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source))));
@@ -90,7 +90,7 @@
 @utility outline-saturate-* {
   &:not(._) {
     @variant supports-saturation {
-      --tw-jib--outline-color-after-saturation: --tw-jib--saturation(var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source)), --value(integer, [number]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --tw-jib--outline-color-after-saturation: --tw-jib--saturation(var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source)), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
       --tw-jib--outline-color: var(--tw-jib--outline-color-after-lightness, var(--tw-jib--outline-color-after-saturation, var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source))));
       outline-color: var(--tw-jib--outline-color);
     }
@@ -99,7 +99,7 @@
 
 @utility outline-desaturate-* {
   &:not(._) {
-    --tw-jib--outline-saturation--amount: calc(--value(integer, [number]) * -0.01);
+    --tw-jib--outline-saturation--amount: calc(--value(integer, [number], [ *]) * -0.01);
     --tw-jib--outline-color-after-saturation: oklch(from var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source)) l calc(c * (1 - abs(var(--tw-jib--outline-saturation--amount))) + max(0, var(--tw-jib--outline-saturation--amount)) * 0.4) h / alpha);
     --tw-jib--outline-color-after-saturation: --modifier(--tw-jib--outline-saturation-interpolation- *);
     --tw-jib--outline-color: var(--tw-jib--outline-color-after-lightness, var(--tw-jib--outline-color-after-saturation, var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source))));
@@ -110,7 +110,7 @@
 @utility outline-desaturate-* {
   &:not(._) {
     @variant supports-saturation {
-      --tw-jib--outline-color-after-saturation: --tw-jib--saturation(var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source)), calc(--value(integer, [number]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --tw-jib--outline-color-after-saturation: --tw-jib--saturation(var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source)), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
       --tw-jib--outline-color: var(--tw-jib--outline-color-after-lightness, var(--tw-jib--outline-color-after-saturation, var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source))));
       outline-color: var(--tw-jib--outline-color);
     }

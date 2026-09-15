@@ -27,8 +27,9 @@
 }
 
 @utility bg-pixel-* {
-  --tw-jib--pixel-color: --value(--color- *, [color]);
+  --tw-jib--pixel-color: --value(--color- *, [color], [ *]);
   --tw-jib--pixel-opacity: calc(--modifier(integer) * 0.01);
+  --tw-jib--pixel-opacity: --modifier([number]);
 
   --tw-jib--pixel-width: var(--tw-jib--pixel-size);
   /* A phosphor stripe is twice as tall as it is wide. */
@@ -110,7 +111,7 @@
  * for subpixels. */
 @utility pixel-size-* {
   --tw-jib--pixel-size: calc(--spacing(--value(number)) / 4);
-  --tw-jib--pixel-size: --value([length]);
+  --tw-jib--pixel-size: --value([length], [ *]);
 }
 
 @utility pixel-gap-* {
@@ -119,5 +120,5 @@
 
 @utility pixel-bloom-* {
   --tw-jib--pixel-bloom: calc(--spacing(--value(number)) / 4);
-  --tw-jib--pixel-bloom: --value([length]);
+  --tw-jib--pixel-bloom: --value([length], [ *]);
 }

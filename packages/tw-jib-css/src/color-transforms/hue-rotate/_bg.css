@@ -29,7 +29,7 @@
 
 @utility bg-hue-rotate-* {
   &:not(._) {
-    --tw-jib--background-hue--amount: --value(integer, [number]);
+    --tw-jib--background-hue--amount: --value(integer, [number], [ *]);
     --tw-jib--background-color-after-hue-rotate: oklch(from var(--tw-jib--background-color-source) l c calc(h + var(--tw-jib--background-hue--amount)) / alpha);
     --tw-jib--background-color-after-hue-rotate: --modifier(--tw-jib--background-hue-interpolation- *);
     --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
@@ -41,7 +41,7 @@
 @utility bg-hue-rotate-* {
   &:not(._) {
     @variant supports-hue-rotate {
-      --tw-jib--background-color-after-hue-rotate: --tw-jib--hue-rotate(var(--tw-jib--background-color-source), --value(integer, [number]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", --default(oklch)));
+      --tw-jib--background-color-after-hue-rotate: --tw-jib--hue-rotate(var(--tw-jib--background-color-source), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", --default(oklch)));
       --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
       background-color: var(--tw-jib--background-color);
       --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);
@@ -51,7 +51,7 @@
 
 @utility -bg-hue-rotate-* {
   &:not(._) {
-    --tw-jib--background-hue--amount: calc(--value(integer, [number]) * -1);
+    --tw-jib--background-hue--amount: calc(--value(integer, [number], [ *]) * -1);
     --tw-jib--background-color-after-hue-rotate: oklch(from var(--tw-jib--background-color-source) l c calc(h + var(--tw-jib--background-hue--amount)) / alpha);
     --tw-jib--background-color-after-hue-rotate: --modifier(--tw-jib--background-hue-interpolation- *);
     --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
@@ -63,7 +63,7 @@
 @utility -bg-hue-rotate-* {
   &:not(._) {
     @variant supports-hue-rotate {
-      --tw-jib--background-color-after-hue-rotate: --tw-jib--hue-rotate(var(--tw-jib--background-color-source), calc(--value(integer, [number]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", --default(oklch)));
+      --tw-jib--background-color-after-hue-rotate: --tw-jib--hue-rotate(var(--tw-jib--background-color-source), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", --default(oklch)));
       --tw-jib--background-color: var(--tw-jib--background-color-after-lightness, var(--tw-jib--background-color-after-saturation, var(--tw-jib--background-color-after-hue-rotate, var(--tw-jib--background-color-source))));
       background-color: var(--tw-jib--background-color);
       --tw-jib--background-image: linear-gradient(var(--tw-jib--background-color) 0 0);

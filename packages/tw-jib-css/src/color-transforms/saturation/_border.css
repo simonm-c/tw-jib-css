@@ -39,7 +39,7 @@
 
 @utility border-saturation-* {
   &:not(._) {
-    --tw-jib--border-saturation--amount: calc(--value(integer, [number]) * 0.01);
+    --tw-jib--border-saturation--amount: calc(--value(integer, [number], [ *]) * 0.01);
     --tw-jib--border-color-after-saturation: oklch(from var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)) l calc(c * (1 - abs(var(--tw-jib--border-saturation--amount))) + max(0, var(--tw-jib--border-saturation--amount)) * 0.4) h / alpha);
     --tw-jib--border-color-after-saturation: --modifier(--tw-jib--border-saturation-interpolation- *);
     --tw-jib--border-color: var(--tw-jib--border-color-after-lightness, var(--tw-jib--border-color-after-saturation, var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source))));
@@ -50,7 +50,7 @@
 @utility border-saturation-* {
   &:not(._) {
     @variant supports-saturation {
-      --tw-jib--border-color-after-saturation: --tw-jib--saturation(var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)), --value(integer, [number]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --tw-jib--border-color-after-saturation: --tw-jib--saturation(var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
       --tw-jib--border-color: var(--tw-jib--border-color-after-lightness, var(--tw-jib--border-color-after-saturation, var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source))));
       border-color: var(--tw-jib--border-color);
     }
@@ -59,7 +59,7 @@
 
 @utility -border-saturation-* {
   &:not(._) {
-    --tw-jib--border-saturation--amount: calc(--value(integer, [number]) * -0.01);
+    --tw-jib--border-saturation--amount: calc(--value(integer, [number], [ *]) * -0.01);
     --tw-jib--border-color-after-saturation: oklch(from var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)) l calc(c * (1 - abs(var(--tw-jib--border-saturation--amount))) + max(0, var(--tw-jib--border-saturation--amount)) * 0.4) h / alpha);
     --tw-jib--border-color-after-saturation: --modifier(--tw-jib--border-saturation-interpolation- *);
     --tw-jib--border-color: var(--tw-jib--border-color-after-lightness, var(--tw-jib--border-color-after-saturation, var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source))));
@@ -70,7 +70,7 @@
 @utility -border-saturation-* {
   &:not(._) {
     @variant supports-saturation {
-      --tw-jib--border-color-after-saturation: --tw-jib--saturation(var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)), calc(--value(integer, [number]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --tw-jib--border-color-after-saturation: --tw-jib--saturation(var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
       --tw-jib--border-color: var(--tw-jib--border-color-after-lightness, var(--tw-jib--border-color-after-saturation, var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source))));
       border-color: var(--tw-jib--border-color);
     }
@@ -79,7 +79,7 @@
 
 @utility border-saturate-* {
   &:not(._) {
-    --tw-jib--border-saturation--amount: calc(--value(integer, [number]) * 0.01);
+    --tw-jib--border-saturation--amount: calc(--value(integer, [number], [ *]) * 0.01);
     --tw-jib--border-color-after-saturation: oklch(from var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)) l calc(c * (1 - abs(var(--tw-jib--border-saturation--amount))) + max(0, var(--tw-jib--border-saturation--amount)) * 0.4) h / alpha);
     --tw-jib--border-color-after-saturation: --modifier(--tw-jib--border-saturation-interpolation- *);
     --tw-jib--border-color: var(--tw-jib--border-color-after-lightness, var(--tw-jib--border-color-after-saturation, var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source))));
@@ -90,7 +90,7 @@
 @utility border-saturate-* {
   &:not(._) {
     @variant supports-saturation {
-      --tw-jib--border-color-after-saturation: --tw-jib--saturation(var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)), --value(integer, [number]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --tw-jib--border-color-after-saturation: --tw-jib--saturation(var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
       --tw-jib--border-color: var(--tw-jib--border-color-after-lightness, var(--tw-jib--border-color-after-saturation, var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source))));
       border-color: var(--tw-jib--border-color);
     }
@@ -99,7 +99,7 @@
 
 @utility border-desaturate-* {
   &:not(._) {
-    --tw-jib--border-saturation--amount: calc(--value(integer, [number]) * -0.01);
+    --tw-jib--border-saturation--amount: calc(--value(integer, [number], [ *]) * -0.01);
     --tw-jib--border-color-after-saturation: oklch(from var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)) l calc(c * (1 - abs(var(--tw-jib--border-saturation--amount))) + max(0, var(--tw-jib--border-saturation--amount)) * 0.4) h / alpha);
     --tw-jib--border-color-after-saturation: --modifier(--tw-jib--border-saturation-interpolation- *);
     --tw-jib--border-color: var(--tw-jib--border-color-after-lightness, var(--tw-jib--border-color-after-saturation, var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source))));
@@ -110,7 +110,7 @@
 @utility border-desaturate-* {
   &:not(._) {
     @variant supports-saturation {
-      --tw-jib--border-color-after-saturation: --tw-jib--saturation(var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)), calc(--value(integer, [number]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --tw-jib--border-color-after-saturation: --tw-jib--saturation(var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source)), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
       --tw-jib--border-color: var(--tw-jib--border-color-after-lightness, var(--tw-jib--border-color-after-saturation, var(--tw-jib--border-color-after-hue-rotate, var(--tw-jib--border-color-source))));
       border-color: var(--tw-jib--border-color);
     }

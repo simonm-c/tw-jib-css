@@ -29,7 +29,7 @@
 
 @utility outline-hue-rotate-* {
   &:not(._) {
-    --tw-jib--outline-hue--amount: --value(integer, [number]);
+    --tw-jib--outline-hue--amount: --value(integer, [number], [ *]);
     --tw-jib--outline-color-after-hue-rotate: oklch(from var(--tw-jib--outline-color-source) l c calc(h + var(--tw-jib--outline-hue--amount)) / alpha);
     --tw-jib--outline-color-after-hue-rotate: --modifier(--tw-jib--outline-hue-interpolation- *);
     --tw-jib--outline-color: var(--tw-jib--outline-color-after-lightness, var(--tw-jib--outline-color-after-saturation, var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source))));
@@ -40,7 +40,7 @@
 @utility outline-hue-rotate-* {
   &:not(._) {
     @variant supports-hue-rotate {
-      --tw-jib--outline-color-after-hue-rotate: --tw-jib--hue-rotate(var(--tw-jib--outline-color-source), --value(integer, [number]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", --default(oklch)));
+      --tw-jib--outline-color-after-hue-rotate: --tw-jib--hue-rotate(var(--tw-jib--outline-color-source), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", --default(oklch)));
       --tw-jib--outline-color: var(--tw-jib--outline-color-after-lightness, var(--tw-jib--outline-color-after-saturation, var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source))));
       outline-color: var(--tw-jib--outline-color);
     }
@@ -49,7 +49,7 @@
 
 @utility -outline-hue-rotate-* {
   &:not(._) {
-    --tw-jib--outline-hue--amount: calc(--value(integer, [number]) * -1);
+    --tw-jib--outline-hue--amount: calc(--value(integer, [number], [ *]) * -1);
     --tw-jib--outline-color-after-hue-rotate: oklch(from var(--tw-jib--outline-color-source) l c calc(h + var(--tw-jib--outline-hue--amount)) / alpha);
     --tw-jib--outline-color-after-hue-rotate: --modifier(--tw-jib--outline-hue-interpolation- *);
     --tw-jib--outline-color: var(--tw-jib--outline-color-after-lightness, var(--tw-jib--outline-color-after-saturation, var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source))));
@@ -60,7 +60,7 @@
 @utility -outline-hue-rotate-* {
   &:not(._) {
     @variant supports-hue-rotate {
-      --tw-jib--outline-color-after-hue-rotate: --tw-jib--hue-rotate(var(--tw-jib--outline-color-source), calc(--value(integer, [number]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", --default(oklch)));
+      --tw-jib--outline-color-after-hue-rotate: --tw-jib--hue-rotate(var(--tw-jib--outline-color-source), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", --default(oklch)));
       --tw-jib--outline-color: var(--tw-jib--outline-color-after-lightness, var(--tw-jib--outline-color-after-saturation, var(--tw-jib--outline-color-after-hue-rotate, var(--tw-jib--outline-color-source))));
       outline-color: var(--tw-jib--outline-color);
     }

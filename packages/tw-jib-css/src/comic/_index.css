@@ -33,8 +33,9 @@
 }
 
 @utility bg-comic-* {
-  --tw-jib--comic-color: --value(--color- *, [color]);
+  --tw-jib--comic-color: --value(--color- *, [color], [ *]);
   --tw-jib--comic-opacity: calc(--modifier(integer) * 0.01);
+  --tw-jib--comic-opacity: --modifier([number]);
   /* Two dot pitches per cell: three of the four screens offset by cell/2. */
   --tw-jib--comic-cell: calc(var(--tw-jib--comic-dot) * 2 + var(--tw-jib--comic-gap));
   --tw-jib--background-image: radial-gradient(circle, rgb(from var(--tw-jib--comic-color) 0 255 255 / calc((max(r, g, b) - r) / max(max(r, g, b), 1) * var(--tw-jib--comic-opacity))) var(--tw-jib--comic-dot), transparent calc(var(--tw-jib--comic-dot) + var(--tw-jib--comic-bleed))) 0px 0px / var(--tw-jib--comic-cell) var(--tw-jib--comic-cell) padding-box var(--tw-jib--background-clip), radial-gradient(circle, rgb(from var(--tw-jib--comic-color) 255 0 255 / calc((max(r, g, b) - g) / max(max(r, g, b), 1) * var(--tw-jib--comic-opacity))) var(--tw-jib--comic-dot), transparent calc(var(--tw-jib--comic-dot) + var(--tw-jib--comic-bleed))) calc(var(--tw-jib--comic-cell) / 2) calc(var(--tw-jib--comic-cell) / 2) / var(--tw-jib--comic-cell) var(--tw-jib--comic-cell) padding-box var(--tw-jib--background-clip), radial-gradient(circle, rgb(from var(--tw-jib--comic-color) 255 255 0 / calc((max(r, g, b) - b) / max(max(r, g, b), 1) * var(--tw-jib--comic-opacity))) var(--tw-jib--comic-dot), transparent calc(var(--tw-jib--comic-dot) + var(--tw-jib--comic-bleed))) calc(var(--tw-jib--comic-cell) / 2) 0px / var(--tw-jib--comic-cell) var(--tw-jib--comic-cell) padding-box var(--tw-jib--background-clip), radial-gradient(circle, rgb(from var(--tw-jib--comic-color) 0 0 0 / calc((1 - max(r, g, b) / 255) * var(--tw-jib--comic-opacity))) var(--tw-jib--comic-dot), transparent calc(var(--tw-jib--comic-dot) + var(--tw-jib--comic-bleed))) 0px calc(var(--tw-jib--comic-cell) / 2) / var(--tw-jib--comic-cell) var(--tw-jib--comic-cell) padding-box var(--tw-jib--background-clip), linear-gradient(rgb(255 255 255 / var(--tw-jib--comic-opacity)) 0 0);
@@ -47,16 +48,16 @@
 
 @utility comic-dot-* {
   --tw-jib--comic-dot: --spacing(--value(number));
-  --tw-jib--comic-dot: --value([length]);
+  --tw-jib--comic-dot: --value([length], [ *]);
 }
 
 /* Quartered so softness and spacing get finer control than 0.25rem steps. */
 @utility comic-bleed-* {
   --tw-jib--comic-bleed: calc(--spacing(--value(number)) / 4);
-  --tw-jib--comic-bleed: --value([length]);
+  --tw-jib--comic-bleed: --value([length], [ *]);
 }
 
 @utility comic-gap-* {
   --tw-jib--comic-gap: calc(--spacing(--value(number)) / 4);
-  --tw-jib--comic-gap: --value([length]);
+  --tw-jib--comic-gap: --value([length], [ *]);
 }

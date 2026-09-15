@@ -58,6 +58,31 @@ The lightness step interpolates in oklch and the hue rotation in hsl. See [Color
 </div>
 ```
 
+## Colors from CSS variables need a type hint
+
+A color passed as a CSS variable must say that it is a color:
+
+```html
+<!-- correct -->
+<div class="bg-(color:--brand) bg-lighten-20"></div>
+
+<!-- wrong: the transform runs against nothing -->
+<div class="bg-(--brand) bg-lighten-20"></div>
+```
+
+Tailwind works out the type of an arbitrary value by looking at it, and it will not look inside a `var()`. `bg-[#0047ab]` is a color because it reads as one; `bg-(--brand)` could be anything, so the type hint is how you say which. This is [Tailwind's own rule](https://tailwindcss.com/docs/adding-custom-styles#resolving-ambiguities), and it applies to all seven surfaces: `bg-`, `text-`, `fill-`, `stroke-`, `outline-`, `accent-` and `border-`.
+
+Without the hint the class still compiles, and the color still appears — Tailwind's own utility sets it. What does not happen is the color entering the pipeline above, so every transform reads an unset source:
+
+|               | with `(color:--brand)`      | with `(--brand)`        |
+| ------------- | --------------------------- | ----------------------- |
+| `bg-*`        | the transformed brand color | a washed-out near-white |
+| the other six | the transformed brand color | fully transparent       |
+
+The tell is that the result stops depending on the color you passed. Two different brand colors giving the same output means the transform is working on the default rather than on yours.
+
+The hint is only needed where a namespace accepts more than a color, which is all seven of these: `bg-` also takes an image, `text-` a font size, `border-`, `outline-` and `stroke-` a width, `fill-` a paint reference like `url(#gradient)`, and `accent-` the keyword `auto`. Utilities that accept nothing but a color take the plain form: `ripple-color-(--brand)`, `bg-comic-(--brand)`, `bg-pixel-(--brand)`.
+
 ## What automatic contrast can see
 
 `text-contrast-*` reads the end of the background pipeline, so it tracks whatever the transforms left there. Lighten the background and the text color follows:

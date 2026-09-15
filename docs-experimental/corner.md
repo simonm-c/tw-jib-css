@@ -1,10 +1,10 @@
 ---
-title: Corner Shape
+title: Corner shape
 ---
 
 <!-- llm-context: corner module (experimental). CSS corner-shape property for squircle, bevel, scoop, notch, and superellipse corner rendering. Chrome 139+, ~68% browser support. All utilities wrapped in @supports (corner-shape: squircle). -->
 
-# Corner Shape
+# Corner shape
 
 The CSS `corner-shape` property controls how border-radius curves are drawn. Instead of standard circular arcs, you can use squircles (iOS-style), bevels, scoops, notches, and arbitrary superellipse values.
 

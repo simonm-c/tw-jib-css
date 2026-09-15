@@ -1,10 +1,10 @@
 ---
-title: Interpolate Size
+title: Interpolate size
 ---
 
 <!-- llm-context: interpolate module (experimental). CSS interpolate-size property for animating keyword sizes (auto, min-content, etc.). Chromium only, ~48% browser support. -->
 
-# Interpolate Size
+# Interpolate size
 
 The CSS `interpolate-size` property enables smooth transitions to and from keyword sizes like `auto`, `min-content`, and `max-content`. Without it, CSS cannot animate between a fixed size and `auto`.
 

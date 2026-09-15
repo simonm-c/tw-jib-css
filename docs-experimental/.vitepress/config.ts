@@ -75,10 +75,10 @@ export default defineConfig({
       {
         text: 'Additions',
         items: [
-          { text: 'Corner Shape', link: '/corner' },
-          { text: 'Interpolate Size', link: '/interpolate' },
-          { text: 'Base Select Picker', link: '/picker' },
-          { text: 'WCAG Badge', link: '/wcag-badge' },
+          { text: 'Corner shape', link: '/corner' },
+          { text: 'Interpolate size', link: '/interpolate' },
+          { text: 'Base select picker', link: '/picker' },
+          { text: 'WCAG badge', link: '/wcag-badge' },
         ],
       },
     ],

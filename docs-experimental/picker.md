@@ -1,10 +1,10 @@
 ---
-title: Base Select Picker
+title: Base select picker
 ---
 
 <!-- llm-context: picker module (experimental). CSS appearance: base-select and custom variants for ::picker(select), ::picker-icon, and ::checkmark pseudo-elements. Chromium only, Firefox WIP. -->
 
-# Base Select Picker
+# Base select picker
 
 The `appearance: base-select` value opts a `<select>` into rendering you can reach. With the `::picker(select)`, `::picker-icon` and `::checkmark` pseudo-elements, you can style a native dropdown without JavaScript.
 

@@ -42,7 +42,7 @@ export const slides: FeatureSlideData[] = [
     body: 'border-radius only ever drew a circular arc. corner-shape draws that same radius as a squircle, a bevel, a scoop, a notch, or any superellipse exponent you name. rounded-* still sets the size. You pick the curve.',
     code: `<div class="rounded-2xl corner-round">\n<div class="rounded-2xl corner-squircle">\n<div class="rounded-2xl corner-bevel">\n<div class="rounded-2xl corner-scoop">\n<div class="rounded-2xl corner-notch">\n<div class="rounded-2xl corner-square">\n\n<!-- per corner, and any superellipse exponent -->\n<div class="rounded-2xl corner-t-squircle corner-b-bevel">\n<div class="rounded-2xl corner-4">`,
     lang: 'html',
-    link: { text: 'Corner Shape docs', href: '/tw-jib-css/experimental/corner' },
+    link: { text: 'Corner shape docs', href: '/tw-jib-css/experimental/corner' },
   },
   {
     kind: 'addition',
@@ -51,7 +51,7 @@ export const slides: FeatureSlideData[] = [
     body: '0 to auto has always snapped, because CSS cannot transition to an intrinsic keyword. interpolate-size: allow-keywords lifts that, on the parent, for every child. Accordions and disclosure panels stop needing a measured height in JavaScript.',
     code: `<!-- the utility goes on an ANCESTOR -->\n<div class="interpolate-keywords">\n\n  <!-- transition to auto -->\n  <div class="group">\n    <button>Expand</button>\n    <div class="h-0 group-hover:h-auto\n      transition-all duration-300 overflow-hidden">…</div>\n  </div>\n\n  <!-- or animate to it, as the panels here do -->\n  <div class="h-0 overflow-hidden\n    animate-[disclosure_6s_ease-in-out_infinite]">…</div>\n</div>`,
     lang: 'html',
-    link: { text: 'Interpolate Size docs', href: '/tw-jib-css/experimental/interpolate' },
+    link: { text: 'Interpolate size docs', href: '/tw-jib-css/experimental/interpolate' },
   },
   {
     kind: 'addition',
@@ -61,6 +61,6 @@ export const slides: FeatureSlideData[] = [
     code: `<select class="appearance-base-select\n  picker:rounded-xl picker:shadow-lg picker:p-2\n  picker-icon:text-teal-600\n  open:picker-icon:rotate-180\n  checkmark:text-teal-600">\n  <option>Apple</option>\n  <option>Banana</option>\n</select>`,
     lang: 'html',
     flipped: true,
-    link: { text: 'Base Select docs', href: '/tw-jib-css/experimental/picker' },
+    link: { text: 'Base select docs', href: '/tw-jib-css/experimental/picker' },
   },
 ];

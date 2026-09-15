@@ -56,7 +56,7 @@ const cards = [
             <a
               href="/tw-jib-css/experimental/wcag-badge"
               class="text-sm font-semibold text-(color:--docs-accent) no-underline hover:opacity-70"
-              >WCAG Badge docs &rarr;</a
+              >WCAG badge docs &rarr;</a
             >
             <a
               href="/tw-jib-css/guide/automatic-contrast"

@@ -1,2 +1,7 @@
 packages:
   - 'packages/*'
+
+# esbuild's postinstall only relinks the platform binary the optional dep
+# already supplies. Left unbuilt, as it was under pnpm 10's default.
+allowBuilds:
+  esbuild: false

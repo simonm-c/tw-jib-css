@@ -14,9 +14,9 @@
   "bugs": {
     "url": "https://github.com/simonm-c/tw-jib-css/issues"
   },
-  "packageManager": "pnpm@10.32.1",
+  "packageManager": "pnpm@12.4.2",
   "engines": {
-    "node": ">=20"
+    "node": ">=22.13"
   },
   "scripts": {
     "test": "vitest run",

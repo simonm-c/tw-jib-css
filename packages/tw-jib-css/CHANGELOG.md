@@ -1,5 +1,12 @@
 # Changelog
 
+## [3.0.0](https://github.com/simonm-c/tw-jib-css/compare/tw-jib-css-v2.0.0...tw-jib-css-v3.0.0) (2026-09-16)
+
+
+### Miscellaneous Chores
+
+* **tw-jib-css:** Synchronize tw-jib-css versions
+
 ## [2.0.0](https://github.com/simonm-c/tw-jib-css/compare/tw-jib-css-v1.0.0...tw-jib-css-v2.0.0) (2026-09-16)
 
 

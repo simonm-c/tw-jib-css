@@ -47,16 +47,6 @@
   }
 }
 
-@utility stroke-saturation-* {
-  &:not(._) {
-    @variant supports-saturation {
-      --jib-stroke-color-after-saturation: --jib-saturation(var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source)), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
-      --jib-stroke-color: var(--jib-stroke-color-after-lightness, var(--jib-stroke-color-after-saturation, var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source))));
-      stroke: var(--jib-stroke-color);
-    }
-  }
-}
-
 @utility -stroke-saturation-* {
   &:not(._) {
     --jib-stroke-saturation-amount: calc(--value(integer, [number], [ *]) * -0.01);
@@ -64,16 +54,6 @@
     --jib-stroke-color-after-saturation: --modifier(--jib-stroke-saturation-interpolation- *);
     --jib-stroke-color: var(--jib-stroke-color-after-lightness, var(--jib-stroke-color-after-saturation, var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source))));
     stroke: var(--jib-stroke-color);
-  }
-}
-
-@utility -stroke-saturation-* {
-  &:not(._) {
-    @variant supports-saturation {
-      --jib-stroke-color-after-saturation: --jib-saturation(var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source)), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
-      --jib-stroke-color: var(--jib-stroke-color-after-lightness, var(--jib-stroke-color-after-saturation, var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source))));
-      stroke: var(--jib-stroke-color);
-    }
   }
 }
 
@@ -87,16 +67,6 @@
   }
 }
 
-@utility stroke-saturate-* {
-  &:not(._) {
-    @variant supports-saturation {
-      --jib-stroke-color-after-saturation: --jib-saturation(var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source)), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
-      --jib-stroke-color: var(--jib-stroke-color-after-lightness, var(--jib-stroke-color-after-saturation, var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source))));
-      stroke: var(--jib-stroke-color);
-    }
-  }
-}
-
 @utility stroke-desaturate-* {
   &:not(._) {
     --jib-stroke-saturation-amount: calc(--value(integer, [number], [ *]) * -0.01);
@@ -104,15 +74,5 @@
     --jib-stroke-color-after-saturation: --modifier(--jib-stroke-saturation-interpolation- *);
     --jib-stroke-color: var(--jib-stroke-color-after-lightness, var(--jib-stroke-color-after-saturation, var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source))));
     stroke: var(--jib-stroke-color);
-  }
-}
-
-@utility stroke-desaturate-* {
-  &:not(._) {
-    @variant supports-saturation {
-      --jib-stroke-color-after-saturation: --jib-saturation(var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source)), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
-      --jib-stroke-color: var(--jib-stroke-color-after-lightness, var(--jib-stroke-color-after-saturation, var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source))));
-      stroke: var(--jib-stroke-color);
-    }
   }
 }

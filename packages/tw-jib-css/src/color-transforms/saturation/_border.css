@@ -47,16 +47,6 @@
   }
 }
 
-@utility border-saturation-* {
-  &:not(._) {
-    @variant supports-saturation {
-      --jib-border-color-after-saturation: --jib-saturation(var(--jib-border-color-after-hue-rotate, var(--jib-border-color-source)), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
-      --jib-border-color: var(--jib-border-color-after-lightness, var(--jib-border-color-after-saturation, var(--jib-border-color-after-hue-rotate, var(--jib-border-color-source))));
-      border-color: var(--jib-border-color);
-    }
-  }
-}
-
 @utility -border-saturation-* {
   &:not(._) {
     --jib-border-saturation-amount: calc(--value(integer, [number], [ *]) * -0.01);
@@ -64,16 +54,6 @@
     --jib-border-color-after-saturation: --modifier(--jib-border-saturation-interpolation- *);
     --jib-border-color: var(--jib-border-color-after-lightness, var(--jib-border-color-after-saturation, var(--jib-border-color-after-hue-rotate, var(--jib-border-color-source))));
     border-color: var(--jib-border-color);
-  }
-}
-
-@utility -border-saturation-* {
-  &:not(._) {
-    @variant supports-saturation {
-      --jib-border-color-after-saturation: --jib-saturation(var(--jib-border-color-after-hue-rotate, var(--jib-border-color-source)), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
-      --jib-border-color: var(--jib-border-color-after-lightness, var(--jib-border-color-after-saturation, var(--jib-border-color-after-hue-rotate, var(--jib-border-color-source))));
-      border-color: var(--jib-border-color);
-    }
   }
 }
 
@@ -87,16 +67,6 @@
   }
 }
 
-@utility border-saturate-* {
-  &:not(._) {
-    @variant supports-saturation {
-      --jib-border-color-after-saturation: --jib-saturation(var(--jib-border-color-after-hue-rotate, var(--jib-border-color-source)), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
-      --jib-border-color: var(--jib-border-color-after-lightness, var(--jib-border-color-after-saturation, var(--jib-border-color-after-hue-rotate, var(--jib-border-color-source))));
-      border-color: var(--jib-border-color);
-    }
-  }
-}
-
 @utility border-desaturate-* {
   &:not(._) {
     --jib-border-saturation-amount: calc(--value(integer, [number], [ *]) * -0.01);
@@ -104,15 +74,5 @@
     --jib-border-color-after-saturation: --modifier(--jib-border-saturation-interpolation- *);
     --jib-border-color: var(--jib-border-color-after-lightness, var(--jib-border-color-after-saturation, var(--jib-border-color-after-hue-rotate, var(--jib-border-color-source))));
     border-color: var(--jib-border-color);
-  }
-}
-
-@utility border-desaturate-* {
-  &:not(._) {
-    @variant supports-saturation {
-      --jib-border-color-after-saturation: --jib-saturation(var(--jib-border-color-after-hue-rotate, var(--jib-border-color-source)), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
-      --jib-border-color: var(--jib-border-color-after-lightness, var(--jib-border-color-after-saturation, var(--jib-border-color-after-hue-rotate, var(--jib-border-color-source))));
-      border-color: var(--jib-border-color);
-    }
   }
 }

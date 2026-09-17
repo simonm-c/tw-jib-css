@@ -37,16 +37,6 @@
   }
 }
 
-@utility border-hue-rotate-* {
-  &:not(._) {
-    @variant supports-hue-rotate {
-      --jib-border-color-after-hue-rotate: --jib-hue-rotate(var(--jib-border-color-source), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", --default(oklch)));
-      --jib-border-color: var(--jib-border-color-after-lightness, var(--jib-border-color-after-saturation, var(--jib-border-color-after-hue-rotate, var(--jib-border-color-source))));
-      border-color: var(--jib-border-color);
-    }
-  }
-}
-
 @utility -border-hue-rotate-* {
   &:not(._) {
     --jib-border-hue-amount: calc(--value(integer, [number], [ *]) * -1);
@@ -54,15 +44,5 @@
     --jib-border-color-after-hue-rotate: --modifier(--jib-border-hue-interpolation- *);
     --jib-border-color: var(--jib-border-color-after-lightness, var(--jib-border-color-after-saturation, var(--jib-border-color-after-hue-rotate, var(--jib-border-color-source))));
     border-color: var(--jib-border-color);
-  }
-}
-
-@utility -border-hue-rotate-* {
-  &:not(._) {
-    @variant supports-hue-rotate {
-      --jib-border-color-after-hue-rotate: --jib-hue-rotate(var(--jib-border-color-source), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", --default(oklch)));
-      --jib-border-color: var(--jib-border-color-after-lightness, var(--jib-border-color-after-saturation, var(--jib-border-color-after-hue-rotate, var(--jib-border-color-source))));
-      border-color: var(--jib-border-color);
-    }
   }
 }

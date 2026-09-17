@@ -48,17 +48,6 @@
   }
 }
 
-@utility bg-saturation-* {
-  &:not(._) {
-    @variant supports-saturation {
-      --jib-background-color-after-saturation: --jib-saturation(var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source)), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
-      --jib-background-color: var(--jib-background-color-after-lightness, var(--jib-background-color-after-saturation, var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source))));
-      background-color: var(--jib-background-color);
-      --jib-background-image: linear-gradient(var(--jib-background-color) 0 0);
-    }
-  }
-}
-
 @utility -bg-saturation-* {
   &:not(._) {
     --jib-background-saturation-amount: calc(--value(integer, [number], [ *]) * -0.01);
@@ -67,17 +56,6 @@
     --jib-background-color: var(--jib-background-color-after-lightness, var(--jib-background-color-after-saturation, var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source))));
     background-color: var(--jib-background-color);
     --jib-background-image: linear-gradient(var(--jib-background-color) 0 0);
-  }
-}
-
-@utility -bg-saturation-* {
-  &:not(._) {
-    @variant supports-saturation {
-      --jib-background-color-after-saturation: --jib-saturation(var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source)), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
-      --jib-background-color: var(--jib-background-color-after-lightness, var(--jib-background-color-after-saturation, var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source))));
-      background-color: var(--jib-background-color);
-      --jib-background-image: linear-gradient(var(--jib-background-color) 0 0);
-    }
   }
 }
 
@@ -92,17 +70,6 @@
   }
 }
 
-@utility bg-saturate-* {
-  &:not(._) {
-    @variant supports-saturation {
-      --jib-background-color-after-saturation: --jib-saturation(var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source)), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
-      --jib-background-color: var(--jib-background-color-after-lightness, var(--jib-background-color-after-saturation, var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source))));
-      background-color: var(--jib-background-color);
-      --jib-background-image: linear-gradient(var(--jib-background-color) 0 0);
-    }
-  }
-}
-
 @utility bg-desaturate-* {
   &:not(._) {
     --jib-background-saturation-amount: calc(--value(integer, [number], [ *]) * -0.01);
@@ -111,16 +78,5 @@
     --jib-background-color: var(--jib-background-color-after-lightness, var(--jib-background-color-after-saturation, var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source))));
     background-color: var(--jib-background-color);
     --jib-background-image: linear-gradient(var(--jib-background-color) 0 0);
-  }
-}
-
-@utility bg-desaturate-* {
-  &:not(._) {
-    @variant supports-saturation {
-      --jib-background-color-after-saturation: --jib-saturation(var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source)), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
-      --jib-background-color: var(--jib-background-color-after-lightness, var(--jib-background-color-after-saturation, var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source))));
-      background-color: var(--jib-background-color);
-      --jib-background-image: linear-gradient(var(--jib-background-color) 0 0);
-    }
   }
 }

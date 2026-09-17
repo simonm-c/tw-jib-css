@@ -82,3 +82,289 @@
     @slot;
   }
 }
+
+/* Stacks after the stable block, never replaces it: same-name @utility blocks
+ * sort most-declarations-first, and these carry fewer. */
+@utility bg-saturation-* {
+  &:not(._) {
+    @variant supports-saturation {
+      --jib-background-color-after-saturation: --jib-saturation(var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source)), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --jib-background-color: var(--jib-background-color-after-lightness, var(--jib-background-color-after-saturation, var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source))));
+      background-color: var(--jib-background-color);
+      --jib-background-image: linear-gradient(var(--jib-background-color) 0 0);
+    }
+  }
+}
+
+@utility -bg-saturation-* {
+  &:not(._) {
+    @variant supports-saturation {
+      --jib-background-color-after-saturation: --jib-saturation(var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source)), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --jib-background-color: var(--jib-background-color-after-lightness, var(--jib-background-color-after-saturation, var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source))));
+      background-color: var(--jib-background-color);
+      --jib-background-image: linear-gradient(var(--jib-background-color) 0 0);
+    }
+  }
+}
+
+@utility bg-saturate-* {
+  &:not(._) {
+    @variant supports-saturation {
+      --jib-background-color-after-saturation: --jib-saturation(var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source)), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --jib-background-color: var(--jib-background-color-after-lightness, var(--jib-background-color-after-saturation, var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source))));
+      background-color: var(--jib-background-color);
+      --jib-background-image: linear-gradient(var(--jib-background-color) 0 0);
+    }
+  }
+}
+
+@utility bg-desaturate-* {
+  &:not(._) {
+    @variant supports-saturation {
+      --jib-background-color-after-saturation: --jib-saturation(var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source)), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --jib-background-color: var(--jib-background-color-after-lightness, var(--jib-background-color-after-saturation, var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source))));
+      background-color: var(--jib-background-color);
+      --jib-background-image: linear-gradient(var(--jib-background-color) 0 0);
+    }
+  }
+}
+
+@utility text-saturation-* {
+  &:not(._) {
+    @variant supports-saturation {
+      --jib-text-color-after-saturation: --jib-saturation(var(--jib-text-color-after-hue-rotate, var(--jib-text-color-source)), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --jib-text-color: var(--jib-text-color-after-lightness, var(--jib-text-color-after-saturation, var(--jib-text-color-after-hue-rotate, var(--jib-text-color-source))));
+      color: var(--jib-text-color);
+    }
+  }
+}
+
+@utility -text-saturation-* {
+  &:not(._) {
+    @variant supports-saturation {
+      --jib-text-color-after-saturation: --jib-saturation(var(--jib-text-color-after-hue-rotate, var(--jib-text-color-source)), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --jib-text-color: var(--jib-text-color-after-lightness, var(--jib-text-color-after-saturation, var(--jib-text-color-after-hue-rotate, var(--jib-text-color-source))));
+      color: var(--jib-text-color);
+    }
+  }
+}
+
+@utility text-saturate-* {
+  &:not(._) {
+    @variant supports-saturation {
+      --jib-text-color-after-saturation: --jib-saturation(var(--jib-text-color-after-hue-rotate, var(--jib-text-color-source)), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --jib-text-color: var(--jib-text-color-after-lightness, var(--jib-text-color-after-saturation, var(--jib-text-color-after-hue-rotate, var(--jib-text-color-source))));
+      color: var(--jib-text-color);
+    }
+  }
+}
+
+@utility text-desaturate-* {
+  &:not(._) {
+    @variant supports-saturation {
+      --jib-text-color-after-saturation: --jib-saturation(var(--jib-text-color-after-hue-rotate, var(--jib-text-color-source)), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --jib-text-color: var(--jib-text-color-after-lightness, var(--jib-text-color-after-saturation, var(--jib-text-color-after-hue-rotate, var(--jib-text-color-source))));
+      color: var(--jib-text-color);
+    }
+  }
+}
+
+@utility fill-saturation-* {
+  &:not(._) {
+    @variant supports-saturation {
+      --jib-fill-color-after-saturation: --jib-saturation(var(--jib-fill-color-after-hue-rotate, var(--jib-fill-color-source)), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --jib-fill-color: var(--jib-fill-color-after-lightness, var(--jib-fill-color-after-saturation, var(--jib-fill-color-after-hue-rotate, var(--jib-fill-color-source))));
+      fill: var(--jib-fill-color);
+    }
+  }
+}
+
+@utility -fill-saturation-* {
+  &:not(._) {
+    @variant supports-saturation {
+      --jib-fill-color-after-saturation: --jib-saturation(var(--jib-fill-color-after-hue-rotate, var(--jib-fill-color-source)), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --jib-fill-color: var(--jib-fill-color-after-lightness, var(--jib-fill-color-after-saturation, var(--jib-fill-color-after-hue-rotate, var(--jib-fill-color-source))));
+      fill: var(--jib-fill-color);
+    }
+  }
+}
+
+@utility fill-saturate-* {
+  &:not(._) {
+    @variant supports-saturation {
+      --jib-fill-color-after-saturation: --jib-saturation(var(--jib-fill-color-after-hue-rotate, var(--jib-fill-color-source)), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --jib-fill-color: var(--jib-fill-color-after-lightness, var(--jib-fill-color-after-saturation, var(--jib-fill-color-after-hue-rotate, var(--jib-fill-color-source))));
+      fill: var(--jib-fill-color);
+    }
+  }
+}
+
+@utility fill-desaturate-* {
+  &:not(._) {
+    @variant supports-saturation {
+      --jib-fill-color-after-saturation: --jib-saturation(var(--jib-fill-color-after-hue-rotate, var(--jib-fill-color-source)), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --jib-fill-color: var(--jib-fill-color-after-lightness, var(--jib-fill-color-after-saturation, var(--jib-fill-color-after-hue-rotate, var(--jib-fill-color-source))));
+      fill: var(--jib-fill-color);
+    }
+  }
+}
+
+@utility stroke-saturation-* {
+  &:not(._) {
+    @variant supports-saturation {
+      --jib-stroke-color-after-saturation: --jib-saturation(var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source)), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --jib-stroke-color: var(--jib-stroke-color-after-lightness, var(--jib-stroke-color-after-saturation, var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source))));
+      stroke: var(--jib-stroke-color);
+    }
+  }
+}
+
+@utility -stroke-saturation-* {
+  &:not(._) {
+    @variant supports-saturation {
+      --jib-stroke-color-after-saturation: --jib-saturation(var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source)), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --jib-stroke-color: var(--jib-stroke-color-after-lightness, var(--jib-stroke-color-after-saturation, var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source))));
+      stroke: var(--jib-stroke-color);
+    }
+  }
+}
+
+@utility stroke-saturate-* {
+  &:not(._) {
+    @variant supports-saturation {
+      --jib-stroke-color-after-saturation: --jib-saturation(var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source)), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --jib-stroke-color: var(--jib-stroke-color-after-lightness, var(--jib-stroke-color-after-saturation, var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source))));
+      stroke: var(--jib-stroke-color);
+    }
+  }
+}
+
+@utility stroke-desaturate-* {
+  &:not(._) {
+    @variant supports-saturation {
+      --jib-stroke-color-after-saturation: --jib-saturation(var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source)), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --jib-stroke-color: var(--jib-stroke-color-after-lightness, var(--jib-stroke-color-after-saturation, var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source))));
+      stroke: var(--jib-stroke-color);
+    }
+  }
+}
+
+@utility outline-saturation-* {
+  &:not(._) {
+    @variant supports-saturation {
+      --jib-outline-color-after-saturation: --jib-saturation(var(--jib-outline-color-after-hue-rotate, var(--jib-outline-color-source)), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --jib-outline-color: var(--jib-outline-color-after-lightness, var(--jib-outline-color-after-saturation, var(--jib-outline-color-after-hue-rotate, var(--jib-outline-color-source))));
+      outline-color: var(--jib-outline-color);
+    }
+  }
+}
+
+@utility -outline-saturation-* {
+  &:not(._) {
+    @variant supports-saturation {
+      --jib-outline-color-after-saturation: --jib-saturation(var(--jib-outline-color-after-hue-rotate, var(--jib-outline-color-source)), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --jib-outline-color: var(--jib-outline-color-after-lightness, var(--jib-outline-color-after-saturation, var(--jib-outline-color-after-hue-rotate, var(--jib-outline-color-source))));
+      outline-color: var(--jib-outline-color);
+    }
+  }
+}
+
+@utility outline-saturate-* {
+  &:not(._) {
+    @variant supports-saturation {
+      --jib-outline-color-after-saturation: --jib-saturation(var(--jib-outline-color-after-hue-rotate, var(--jib-outline-color-source)), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --jib-outline-color: var(--jib-outline-color-after-lightness, var(--jib-outline-color-after-saturation, var(--jib-outline-color-after-hue-rotate, var(--jib-outline-color-source))));
+      outline-color: var(--jib-outline-color);
+    }
+  }
+}
+
+@utility outline-desaturate-* {
+  &:not(._) {
+    @variant supports-saturation {
+      --jib-outline-color-after-saturation: --jib-saturation(var(--jib-outline-color-after-hue-rotate, var(--jib-outline-color-source)), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --jib-outline-color: var(--jib-outline-color-after-lightness, var(--jib-outline-color-after-saturation, var(--jib-outline-color-after-hue-rotate, var(--jib-outline-color-source))));
+      outline-color: var(--jib-outline-color);
+    }
+  }
+}
+
+@utility accent-saturation-* {
+  &:not(._) {
+    @variant supports-saturation {
+      --jib-accent-color-after-saturation: --jib-saturation(var(--jib-accent-color-after-hue-rotate, var(--jib-accent-color-source)), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --jib-accent-color: var(--jib-accent-color-after-lightness, var(--jib-accent-color-after-saturation, var(--jib-accent-color-after-hue-rotate, var(--jib-accent-color-source))));
+      accent-color: var(--jib-accent-color);
+    }
+  }
+}
+
+@utility -accent-saturation-* {
+  &:not(._) {
+    @variant supports-saturation {
+      --jib-accent-color-after-saturation: --jib-saturation(var(--jib-accent-color-after-hue-rotate, var(--jib-accent-color-source)), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --jib-accent-color: var(--jib-accent-color-after-lightness, var(--jib-accent-color-after-saturation, var(--jib-accent-color-after-hue-rotate, var(--jib-accent-color-source))));
+      accent-color: var(--jib-accent-color);
+    }
+  }
+}
+
+@utility accent-saturate-* {
+  &:not(._) {
+    @variant supports-saturation {
+      --jib-accent-color-after-saturation: --jib-saturation(var(--jib-accent-color-after-hue-rotate, var(--jib-accent-color-source)), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --jib-accent-color: var(--jib-accent-color-after-lightness, var(--jib-accent-color-after-saturation, var(--jib-accent-color-after-hue-rotate, var(--jib-accent-color-source))));
+      accent-color: var(--jib-accent-color);
+    }
+  }
+}
+
+@utility accent-desaturate-* {
+  &:not(._) {
+    @variant supports-saturation {
+      --jib-accent-color-after-saturation: --jib-saturation(var(--jib-accent-color-after-hue-rotate, var(--jib-accent-color-source)), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --jib-accent-color: var(--jib-accent-color-after-lightness, var(--jib-accent-color-after-saturation, var(--jib-accent-color-after-hue-rotate, var(--jib-accent-color-source))));
+      accent-color: var(--jib-accent-color);
+    }
+  }
+}
+
+@utility border-saturation-* {
+  &:not(._) {
+    @variant supports-saturation {
+      --jib-border-color-after-saturation: --jib-saturation(var(--jib-border-color-after-hue-rotate, var(--jib-border-color-source)), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --jib-border-color: var(--jib-border-color-after-lightness, var(--jib-border-color-after-saturation, var(--jib-border-color-after-hue-rotate, var(--jib-border-color-source))));
+      border-color: var(--jib-border-color);
+    }
+  }
+}
+
+@utility -border-saturation-* {
+  &:not(._) {
+    @variant supports-saturation {
+      --jib-border-color-after-saturation: --jib-saturation(var(--jib-border-color-after-hue-rotate, var(--jib-border-color-source)), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --jib-border-color: var(--jib-border-color-after-lightness, var(--jib-border-color-after-saturation, var(--jib-border-color-after-hue-rotate, var(--jib-border-color-source))));
+      border-color: var(--jib-border-color);
+    }
+  }
+}
+
+@utility border-saturate-* {
+  &:not(._) {
+    @variant supports-saturation {
+      --jib-border-color-after-saturation: --jib-saturation(var(--jib-border-color-after-hue-rotate, var(--jib-border-color-source)), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --jib-border-color: var(--jib-border-color-after-lightness, var(--jib-border-color-after-saturation, var(--jib-border-color-after-hue-rotate, var(--jib-border-color-source))));
+      border-color: var(--jib-border-color);
+    }
+  }
+}
+
+@utility border-desaturate-* {
+  &:not(._) {
+    @variant supports-saturation {
+      --jib-border-color-after-saturation: --jib-saturation(var(--jib-border-color-after-hue-rotate, var(--jib-border-color-source)), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
+      --jib-border-color: var(--jib-border-color-after-lightness, var(--jib-border-color-after-saturation, var(--jib-border-color-after-hue-rotate, var(--jib-border-color-source))));
+      border-color: var(--jib-border-color);
+    }
+  }
+}

@@ -37,16 +37,6 @@
   }
 }
 
-@utility accent-hue-rotate-* {
-  &:not(._) {
-    @variant supports-hue-rotate {
-      --jib-accent-color-after-hue-rotate: --jib-hue-rotate(var(--jib-accent-color-source), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", --default(oklch)));
-      --jib-accent-color: var(--jib-accent-color-after-lightness, var(--jib-accent-color-after-saturation, var(--jib-accent-color-after-hue-rotate, var(--jib-accent-color-source))));
-      accent-color: var(--jib-accent-color);
-    }
-  }
-}
-
 @utility -accent-hue-rotate-* {
   &:not(._) {
     --jib-accent-hue-amount: calc(--value(integer, [number], [ *]) * -1);
@@ -54,15 +44,5 @@
     --jib-accent-color-after-hue-rotate: --modifier(--jib-accent-hue-interpolation- *);
     --jib-accent-color: var(--jib-accent-color-after-lightness, var(--jib-accent-color-after-saturation, var(--jib-accent-color-after-hue-rotate, var(--jib-accent-color-source))));
     accent-color: var(--jib-accent-color);
-  }
-}
-
-@utility -accent-hue-rotate-* {
-  &:not(._) {
-    @variant supports-hue-rotate {
-      --jib-accent-color-after-hue-rotate: --jib-hue-rotate(var(--jib-accent-color-source), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", --default(oklch)));
-      --jib-accent-color: var(--jib-accent-color-after-lightness, var(--jib-accent-color-after-saturation, var(--jib-accent-color-after-hue-rotate, var(--jib-accent-color-source))));
-      accent-color: var(--jib-accent-color);
-    }
   }
 }

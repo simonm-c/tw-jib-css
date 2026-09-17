@@ -47,16 +47,6 @@
   }
 }
 
-@utility fill-saturation-* {
-  &:not(._) {
-    @variant supports-saturation {
-      --jib-fill-color-after-saturation: --jib-saturation(var(--jib-fill-color-after-hue-rotate, var(--jib-fill-color-source)), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
-      --jib-fill-color: var(--jib-fill-color-after-lightness, var(--jib-fill-color-after-saturation, var(--jib-fill-color-after-hue-rotate, var(--jib-fill-color-source))));
-      fill: var(--jib-fill-color);
-    }
-  }
-}
-
 @utility -fill-saturation-* {
   &:not(._) {
     --jib-fill-saturation-amount: calc(--value(integer, [number], [ *]) * -0.01);
@@ -64,16 +54,6 @@
     --jib-fill-color-after-saturation: --modifier(--jib-fill-saturation-interpolation- *);
     --jib-fill-color: var(--jib-fill-color-after-lightness, var(--jib-fill-color-after-saturation, var(--jib-fill-color-after-hue-rotate, var(--jib-fill-color-source))));
     fill: var(--jib-fill-color);
-  }
-}
-
-@utility -fill-saturation-* {
-  &:not(._) {
-    @variant supports-saturation {
-      --jib-fill-color-after-saturation: --jib-saturation(var(--jib-fill-color-after-hue-rotate, var(--jib-fill-color-source)), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
-      --jib-fill-color: var(--jib-fill-color-after-lightness, var(--jib-fill-color-after-saturation, var(--jib-fill-color-after-hue-rotate, var(--jib-fill-color-source))));
-      fill: var(--jib-fill-color);
-    }
   }
 }
 
@@ -87,16 +67,6 @@
   }
 }
 
-@utility fill-saturate-* {
-  &:not(._) {
-    @variant supports-saturation {
-      --jib-fill-color-after-saturation: --jib-saturation(var(--jib-fill-color-after-hue-rotate, var(--jib-fill-color-source)), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
-      --jib-fill-color: var(--jib-fill-color-after-lightness, var(--jib-fill-color-after-saturation, var(--jib-fill-color-after-hue-rotate, var(--jib-fill-color-source))));
-      fill: var(--jib-fill-color);
-    }
-  }
-}
-
 @utility fill-desaturate-* {
   &:not(._) {
     --jib-fill-saturation-amount: calc(--value(integer, [number], [ *]) * -0.01);
@@ -104,15 +74,5 @@
     --jib-fill-color-after-saturation: --modifier(--jib-fill-saturation-interpolation- *);
     --jib-fill-color: var(--jib-fill-color-after-lightness, var(--jib-fill-color-after-saturation, var(--jib-fill-color-after-hue-rotate, var(--jib-fill-color-source))));
     fill: var(--jib-fill-color);
-  }
-}
-
-@utility fill-desaturate-* {
-  &:not(._) {
-    @variant supports-saturation {
-      --jib-fill-color-after-saturation: --jib-saturation(var(--jib-fill-color-after-hue-rotate, var(--jib-fill-color-source)), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
-      --jib-fill-color: var(--jib-fill-color-after-lightness, var(--jib-fill-color-after-saturation, var(--jib-fill-color-after-hue-rotate, var(--jib-fill-color-source))));
-      fill: var(--jib-fill-color);
-    }
   }
 }

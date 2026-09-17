@@ -37,16 +37,6 @@
   }
 }
 
-@utility text-hue-rotate-* {
-  &:not(._) {
-    @variant supports-hue-rotate {
-      --jib-text-color-after-hue-rotate: --jib-hue-rotate(var(--jib-text-color-source), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", --default(oklch)));
-      --jib-text-color: var(--jib-text-color-after-lightness, var(--jib-text-color-after-saturation, var(--jib-text-color-after-hue-rotate, var(--jib-text-color-source))));
-      color: var(--jib-text-color);
-    }
-  }
-}
-
 @utility -text-hue-rotate-* {
   &:not(._) {
     --jib-text-hue-amount: calc(--value(integer, [number], [ *]) * -1);
@@ -54,15 +44,5 @@
     --jib-text-color-after-hue-rotate: --modifier(--jib-text-hue-interpolation- *);
     --jib-text-color: var(--jib-text-color-after-lightness, var(--jib-text-color-after-saturation, var(--jib-text-color-after-hue-rotate, var(--jib-text-color-source))));
     color: var(--jib-text-color);
-  }
-}
-
-@utility -text-hue-rotate-* {
-  &:not(._) {
-    @variant supports-hue-rotate {
-      --jib-text-color-after-hue-rotate: --jib-hue-rotate(var(--jib-text-color-source), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", --default(oklch)));
-      --jib-text-color: var(--jib-text-color-after-lightness, var(--jib-text-color-after-saturation, var(--jib-text-color-after-hue-rotate, var(--jib-text-color-source))));
-      color: var(--jib-text-color);
-    }
   }
 }

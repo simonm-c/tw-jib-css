@@ -1,5 +1,5 @@
 {
-  ".": "1.0.0",
-  "packages/tw-jib-css": "1.0.0",
-  "packages/tw-jib-css-experimental": "1.0.0"
+  ".": "2.0.0",
+  "packages/tw-jib-css": "2.0.0",
+  "packages/tw-jib-css-experimental": "2.0.0"
 }

@@ -1,9 +1,19 @@
 name: Deploy VitePress to GitHub Pages
 
+# Dispatch-only, and deliberately not on a push to main or on the release
+# being cut. publish.yml stages the version rather than releasing it: the
+# packages are unresolvable by `pnpm install` until a maintainer runs `pnpm
+# stage approve` locally, which takes the 2FA and so cannot be a CI step and
+# raises no event. A deploy wired to any automatic trigger would therefore
+# publish docs for a version that may still be rejected. Run this by hand
+# immediately after the approve, naming the tag that was approved.
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Release tag whose docs to deploy, e.g. tw-jib-css-v2.0.0'
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -18,8 +28,13 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+      # refs/tags/ rather than the bare input is the whole validation: a branch
+      # name or a typo fails to resolve here instead of quietly deploying
+      # whatever main points at, which is the drift this workflow exists to
+      # avoid.
       - uses: actions/checkout@v4
         with:
+          ref: refs/tags/${{ inputs.tag }}
           fetch-depth: 0
 
       - uses: pnpm/action-setup@v4

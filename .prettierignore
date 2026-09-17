@@ -8,3 +8,4 @@ docs-experimental/.vitepress/cache
 coverage
 test-results
 playwright-report
+packages/*/CHANGELOG.md

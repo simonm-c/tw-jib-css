@@ -55,6 +55,11 @@
     }
   ],
   "packages": {
+    ".": {
+      "release-type": "node",
+      "component": "workspace",
+      "skip-github-release": true
+    },
     "packages/tw-jib-css": {
       "release-type": "node",
       "component": "tw-jib-css"
@@ -68,7 +73,7 @@
     {
       "type": "linked-versions",
       "groupName": "tw-jib-css",
-      "components": ["tw-jib-css", "tw-jib-css-experimental"]
+      "components": ["workspace", "tw-jib-css", "tw-jib-css-experimental"]
     }
   ]
 }

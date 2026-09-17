@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.0.1](https://github.com/simonm-c/tw-jib-css/compare/tw-jib-css-v2.0.0...tw-jib-css-v2.0.1) (2026-09-17)
+
+
+### Code Refactoring
+
+* **css:** move `[@function](https://github.com/function)` call sites into the experimental package ([0f7a753](https://github.com/simonm-c/tw-jib-css/commit/0f7a7533ea04c161bf4d956fe2d185f691b988f6))
+* **css:** move `[@function](https://github.com/function)` call sites into the experimental package ([90a3038](https://github.com/simonm-c/tw-jib-css/commit/90a3038510f09eefd4df31b80f1206908cd57078))
+
 ## [2.0.0](https://github.com/simonm-c/tw-jib-css/compare/tw-jib-css-v1.0.0...tw-jib-css-v2.0.0) (2026-09-16)
 
 

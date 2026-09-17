@@ -1,11 +1,17 @@
 import { describe, expect, test } from 'vitest';
-import { compile } from './helpers';
+import { readdirSync, readFileSync } from 'node:fs';
+import { resolve } from 'node:path';
+import { compile, compileEntries } from './helpers';
 
-/*
- * The call text is present either way: the call blocks live in the stable files
- * behind a @custom-variant only the experimental package defines, and undefined
- * Tailwind emits a test for a property that does not exist. The gate changes.
- */
+const SRC = './packages/tw-jib-css/src';
+const srcDir = resolve(import.meta.dirname, '../../packages/tw-jib-css/src');
+
+/* @function appears as a definition, or as a call: a --jib-* name followed by
+ * "(", which var(--jib-*) never is because it closes on ")". */
+const FUNCTION_TEXT = /@function\b|--jib-[a-z0-9-]+\(/;
+
+/* gate: the @supports condition experimental's @custom-variant wraps the
+ * re-implementation in. Its presence is what says the @function branch compiled. */
 const OVERRIDES = [
   { module: 'lightness', cls: 'bg-lightness-20', gate: '--jib-oklch-lightness(red, 20)' },
   { module: 'saturation', cls: 'bg-saturation-20', gate: '--jib-oklch-saturation(red, 20)' },
@@ -17,35 +23,46 @@ const OVERRIDES = [
   },
 ] as const;
 
-// what the stable files compile to when the real variant is undefined
-const INERT_GATES = [
-  '(lightness: var(--tw))',
-  '(saturation: var(--tw))',
-  '(hue-rotate: var(--tw))',
-];
+const TRANSFORMED = [
+  { entry: 'index', classes: 'bg-blue-500 bg-lightness-20 bg-saturation-20 bg-hue-rotate-45' },
+  {
+    entry: 'color-transforms',
+    classes:
+      'bg-blue-500 bg-lighten-20 text-saturate-40/lab -border-hue-rotate-45 stroke-darken-10',
+  },
+  { entry: 'automatic-contrast', classes: 'bg-blue-500 text-contrast-aa text-contrast-aaa/lch' },
+] as const;
 
 describe('what each published entry point delivers', () => {
-  describe('the MAIN entry never runs @function', () => {
+  describe('the MAIN package ships no @function', () => {
+    test('no source file defines or calls one', () => {
+      const offenders = readdirSync(srcDir, { recursive: true, encoding: 'utf8' })
+        .filter((name) => name.endsWith('.css'))
+        .filter((name) => FUNCTION_TEXT.test(readFileSync(resolve(srcDir, name), 'utf8')));
+      expect(
+        offenders,
+        'the stable package holds no @function text at all; these files reintroduce it',
+      ).toEqual([]);
+    });
+
+    for (const { entry, classes } of TRANSFORMED) {
+      test(`${entry} compiles to no @function call`, async () => {
+        const css = await compileEntries([`${SRC}/${entry}.css`], classes);
+        expect(
+          css.match(FUNCTION_TEXT)?.[0],
+          `${entry} emitted an @function call; a consumer who opted into nothing would run it`,
+        ).toBeUndefined();
+      });
+    }
+
     for (const { module, cls, gate } of OVERRIDES) {
-      test(`${module}: ${cls} has no live @function gate`, async () => {
+      test(`${module}: ${cls} has no @function branch from the main entry`, async () => {
         const css = await compile(`bg-blue-500 ${cls}`);
         expect(css, `${cls} reached a live @function path from the main entry alone`).not.toContain(
           gate,
         );
       });
     }
-
-    // A Tailwind version that resolved the variant to something satisfiable would
-    // start running @function unasked.
-    test('the disabled blocks compile to a gate that cannot hold', async () => {
-      const css = await compile('bg-blue-500 bg-lightness-20 bg-saturation-20 bg-hue-rotate-45');
-      for (const gate of INERT_GATES) {
-        expect(
-          css,
-          `expected the inert gate ${gate}; the stable entry may now run @function`,
-        ).toContain(gate);
-      }
-    });
   });
 
   describe('the experimental entry includes the overrides', () => {

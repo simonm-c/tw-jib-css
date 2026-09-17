@@ -47,16 +47,6 @@
   }
 }
 
-@utility accent-saturation-* {
-  &:not(._) {
-    @variant supports-saturation {
-      --jib-accent-color-after-saturation: --jib-saturation(var(--jib-accent-color-after-hue-rotate, var(--jib-accent-color-source)), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
-      --jib-accent-color: var(--jib-accent-color-after-lightness, var(--jib-accent-color-after-saturation, var(--jib-accent-color-after-hue-rotate, var(--jib-accent-color-source))));
-      accent-color: var(--jib-accent-color);
-    }
-  }
-}
-
 @utility -accent-saturation-* {
   &:not(._) {
     --jib-accent-saturation-amount: calc(--value(integer, [number], [ *]) * -0.01);
@@ -64,16 +54,6 @@
     --jib-accent-color-after-saturation: --modifier(--jib-accent-saturation-interpolation- *);
     --jib-accent-color: var(--jib-accent-color-after-lightness, var(--jib-accent-color-after-saturation, var(--jib-accent-color-after-hue-rotate, var(--jib-accent-color-source))));
     accent-color: var(--jib-accent-color);
-  }
-}
-
-@utility -accent-saturation-* {
-  &:not(._) {
-    @variant supports-saturation {
-      --jib-accent-color-after-saturation: --jib-saturation(var(--jib-accent-color-after-hue-rotate, var(--jib-accent-color-source)), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
-      --jib-accent-color: var(--jib-accent-color-after-lightness, var(--jib-accent-color-after-saturation, var(--jib-accent-color-after-hue-rotate, var(--jib-accent-color-source))));
-      accent-color: var(--jib-accent-color);
-    }
   }
 }
 
@@ -87,16 +67,6 @@
   }
 }
 
-@utility accent-saturate-* {
-  &:not(._) {
-    @variant supports-saturation {
-      --jib-accent-color-after-saturation: --jib-saturation(var(--jib-accent-color-after-hue-rotate, var(--jib-accent-color-source)), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
-      --jib-accent-color: var(--jib-accent-color-after-lightness, var(--jib-accent-color-after-saturation, var(--jib-accent-color-after-hue-rotate, var(--jib-accent-color-source))));
-      accent-color: var(--jib-accent-color);
-    }
-  }
-}
-
 @utility accent-desaturate-* {
   &:not(._) {
     --jib-accent-saturation-amount: calc(--value(integer, [number], [ *]) * -0.01);
@@ -104,15 +74,5 @@
     --jib-accent-color-after-saturation: --modifier(--jib-accent-saturation-interpolation- *);
     --jib-accent-color: var(--jib-accent-color-after-lightness, var(--jib-accent-color-after-saturation, var(--jib-accent-color-after-hue-rotate, var(--jib-accent-color-source))));
     accent-color: var(--jib-accent-color);
-  }
-}
-
-@utility accent-desaturate-* {
-  &:not(._) {
-    @variant supports-saturation {
-      --jib-accent-color-after-saturation: --jib-saturation(var(--jib-accent-color-after-hue-rotate, var(--jib-accent-color-source)), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
-      --jib-accent-color: var(--jib-accent-color-after-lightness, var(--jib-accent-color-after-saturation, var(--jib-accent-color-after-hue-rotate, var(--jib-accent-color-source))));
-      accent-color: var(--jib-accent-color);
-    }
   }
 }

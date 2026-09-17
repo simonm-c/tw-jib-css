@@ -60,7 +60,7 @@ const ALL_SPACES = [
 ];
 
 test.describe('the served CSS never runs @function', () => {
-  test('no live @function gate reaches the page, whatever the engine supports', async ({
+  test('no @supports condition on the page names one, on an engine that runs them', async ({
     page,
   }) => {
     // Arrange
@@ -68,7 +68,7 @@ test.describe('the served CSS never runs @function', () => {
     const engineSupportsFunction = await detectFunctionSupport(page);
 
     // Act
-    const gates = await page.evaluate(() => {
+    const namingATwJibFunction = await page.evaluate(() => {
       const conditions: string[] = [];
       const walk = (rules: CSSRuleList) => {
         for (const rule of Array.from(rules)) {
@@ -87,30 +87,14 @@ test.describe('the served CSS never runs @function', () => {
           /* a cross-origin sheet is not one of ours */
         }
       }
-      const unique = [...new Set(conditions)];
-      return {
-        namingATwJibFunction: unique.filter((condition) => condition.includes('--jib-')),
-        lightnessGates: unique
-          .filter((condition) => condition.includes('lightness'))
-          .map((condition) => ({ condition, holds: CSS.supports(condition) })),
-      };
+      return [...new Set(conditions)].filter((condition) => condition.includes('--jib-'));
     });
 
     // Assert
     expect(
-      gates.namingATwJibFunction,
-      'the main entry shipped a gate naming a @function; consumers who opted into nothing would run it',
+      namingATwJibFunction,
+      `the stable docs build shipped a gate naming a @function (engine @function support: ${engineSupportsFunction}); consumers who opted into nothing would run it`,
     ).toEqual([]);
-    expect(
-      gates.lightnessGates.length,
-      'expected the inert lightness gate to be emitted',
-    ).toBeGreaterThan(0);
-    for (const { condition, holds } of gates.lightnessGates) {
-      expect(
-        holds,
-        `${condition} is satisfiable (engine @function support: ${engineSupportsFunction}), the stable entry may now run @function`,
-      ).toBe(false);
-    }
   });
 });
 

@@ -50,16 +50,6 @@
   }
 }
 
-@utility stroke-lightness-* {
-  &:not(._) {
-    @variant supports-lightness {
-      --jib-stroke-color-after-lightness: --jib-lightness(var(--jib-stroke-color-after-saturation, var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source))), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
-      --jib-stroke-color: var(--jib-stroke-color-after-lightness, var(--jib-stroke-color-after-saturation, var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source))));
-      stroke: var(--jib-stroke-color);
-    }
-  }
-}
-
 @utility -stroke-lightness-* {
   &:not(._) {
     --jib-stroke-lightness-amount: calc(--value(integer, [number], [ *]) * -0.01);
@@ -67,16 +57,6 @@
     --jib-stroke-color-after-lightness: --modifier(--jib-stroke-color-interpolation- *);
     --jib-stroke-color: var(--jib-stroke-color-after-lightness, var(--jib-stroke-color-after-saturation, var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source))));
     stroke: var(--jib-stroke-color);
-  }
-}
-
-@utility -stroke-lightness-* {
-  &:not(._) {
-    @variant supports-lightness {
-      --jib-stroke-color-after-lightness: --jib-lightness(var(--jib-stroke-color-after-saturation, var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source))), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
-      --jib-stroke-color: var(--jib-stroke-color-after-lightness, var(--jib-stroke-color-after-saturation, var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source))));
-      stroke: var(--jib-stroke-color);
-    }
   }
 }
 
@@ -90,16 +70,6 @@
   }
 }
 
-@utility stroke-lighten-* {
-  &:not(._) {
-    @variant supports-lightness {
-      --jib-stroke-color-after-lightness: --jib-lightness(var(--jib-stroke-color-after-saturation, var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source))), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
-      --jib-stroke-color: var(--jib-stroke-color-after-lightness, var(--jib-stroke-color-after-saturation, var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source))));
-      stroke: var(--jib-stroke-color);
-    }
-  }
-}
-
 @utility stroke-darken-* {
   &:not(._) {
     --jib-stroke-lightness-amount: calc(--value(integer, [number], [ *]) * -0.01);
@@ -107,15 +77,5 @@
     --jib-stroke-color-after-lightness: --modifier(--jib-stroke-color-interpolation- *);
     --jib-stroke-color: var(--jib-stroke-color-after-lightness, var(--jib-stroke-color-after-saturation, var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source))));
     stroke: var(--jib-stroke-color);
-  }
-}
-
-@utility stroke-darken-* {
-  &:not(._) {
-    @variant supports-lightness {
-      --jib-stroke-color-after-lightness: --jib-lightness(var(--jib-stroke-color-after-saturation, var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source))), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix", --default(oklch)));
-      --jib-stroke-color: var(--jib-stroke-color-after-lightness, var(--jib-stroke-color-after-saturation, var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source))));
-      stroke: var(--jib-stroke-color);
-    }
   }
 }

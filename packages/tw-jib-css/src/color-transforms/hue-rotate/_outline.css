@@ -37,16 +37,6 @@
   }
 }
 
-@utility outline-hue-rotate-* {
-  &:not(._) {
-    @variant supports-hue-rotate {
-      --jib-outline-color-after-hue-rotate: --jib-hue-rotate(var(--jib-outline-color-source), --value(integer, [number], [ *]), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", --default(oklch)));
-      --jib-outline-color: var(--jib-outline-color-after-lightness, var(--jib-outline-color-after-saturation, var(--jib-outline-color-after-hue-rotate, var(--jib-outline-color-source))));
-      outline-color: var(--jib-outline-color);
-    }
-  }
-}
-
 @utility -outline-hue-rotate-* {
   &:not(._) {
     --jib-outline-hue-amount: calc(--value(integer, [number], [ *]) * -1);
@@ -54,15 +44,5 @@
     --jib-outline-color-after-hue-rotate: --modifier(--jib-outline-hue-interpolation- *);
     --jib-outline-color: var(--jib-outline-color-after-lightness, var(--jib-outline-color-after-saturation, var(--jib-outline-color-after-hue-rotate, var(--jib-outline-color-source))));
     outline-color: var(--jib-outline-color);
-  }
-}
-
-@utility -outline-hue-rotate-* {
-  &:not(._) {
-    @variant supports-hue-rotate {
-      --jib-outline-color-after-hue-rotate: --jib-hue-rotate(var(--jib-outline-color-source), calc(--value(integer, [number], [ *]) * -1), --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", --default(oklch)));
-      --jib-outline-color: var(--jib-outline-color-after-lightness, var(--jib-outline-color-after-saturation, var(--jib-outline-color-after-hue-rotate, var(--jib-outline-color-source))));
-      outline-color: var(--jib-outline-color);
-    }
   }
 }

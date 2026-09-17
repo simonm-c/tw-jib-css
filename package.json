@@ -1,6 +1,6 @@
 {
   "name": "tw-jib-css-workspace",
-  "version": "0.0.0",
+  "version": "2.0.0",
   "private": true,
   "description": "Workspace root for tw-jib-css and tw-jib-css-experimental. Publishes nothing; the packages under packages/ do.",
   "type": "module",

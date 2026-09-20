@@ -57,8 +57,7 @@
   "packages": {
     ".": {
       "release-type": "node",
-      "component": "workspace",
-      "skip-github-release": true
+      "component": "workspace"
     },
     "packages/tw-jib-css": {
       "release-type": "node",

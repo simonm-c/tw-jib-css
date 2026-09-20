@@ -318,6 +318,9 @@
 
 @utility border-* {
   --jib-border-color-source: --value("inherit", "transparent", --color- *, [color]);
+  --jib-border-color-source: --alpha(--value("inherit", "transparent", --color- *, [color]) / calc(--modifier(integer) * 1%));
+  --jib-border-color-source: --alpha(--value("inherit", "transparent", --color- *, [color]) / --modifier([percentage]));
+  --jib-border-color-source: --alpha(--value("inherit", "transparent", --color- *, [color]) / calc(--modifier([number]) * 100%));
   --jib-border-color: var(--jib-border-color-after-lightness, var(--jib-border-color-after-saturation, var(--jib-border-color-after-hue-rotate, var(--jib-border-color-source))));
 }
 

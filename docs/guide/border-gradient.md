@@ -33,12 +33,15 @@ Chrome 111+, Safari 16.4+, Firefox 128+. Interpolation modes (`/shorter`, `/long
   { class: 'border-radial-[<value>]', styles: '--jib-border-gradient: radial-gradient(<value>, var(--jib-border-gradient-stops))' },
   { class: 'border-conic-<angle>', styles: '--jib-border-gradient-angle: <angle>deg; --jib-border-gradient: conic-gradient(from var(--jib-border-gradient-angle) var(--jib-gradient-interpolation), var(--jib-border-gradient-stops))' },
   { class: 'border-from-<color>', styles: '--jib-border-gradient-from: <color>' },
+  { class: 'border-from-<color>/<alpha>', styles: '--jib-border-gradient-from: color-mix(in oklab, <color> <alpha>, transparent)' },
   { class: 'border-from-<percentage>', styles: '--jib-border-gradient-from-position: <percentage>' },
   { class: 'border-from-[<value>]', styles: '--jib-border-gradient-from: <value>' },
   { class: 'border-via-<color>', styles: '--jib-border-gradient-via: <color>' },
+  { class: 'border-via-<color>/<alpha>', styles: '--jib-border-gradient-via: color-mix(in oklab, <color> <alpha>, transparent)' },
   { class: 'border-via-<percentage>', styles: '--jib-border-gradient-via-position: <percentage>' },
   { class: 'border-via-[<value>]', styles: '--jib-border-gradient-via: <value>' },
   { class: 'border-to-<color>', styles: '--jib-border-gradient-to: <color>' },
+  { class: 'border-to-<color>/<alpha>', styles: '--jib-border-gradient-to: color-mix(in oklab, <color> <alpha>, transparent)' },
   { class: 'border-to-<percentage>', styles: '--jib-border-gradient-to-position: <percentage>' },
   { class: 'border-to-[<value>]', styles: '--jib-border-gradient-to: <value>' },
 ]" />
@@ -219,6 +222,26 @@ Use `border-from-<color>`, `border-via-<color>`, and `border-to-<color>` to set 
 </Example>
 
 <!-- llm-context: border-from-inherit sets --jib-border-gradient-from: inherit. Because this property is registered with inherits: false and initial-value: #0000, inherit resolves to transparent, not currentColor or the text color. -->
+
+### Stop opacity
+
+Every stop takes an opacity modifier in the three spellings Tailwind's own color utilities accept — a bare number is a percentage, a bracketed percentage passes through, and a bracketed number is a 0–1 alpha:
+
+```html
+<div class="border-linear-to-r border-from-pink-500/50 border-to-cyan-500"></div>
+<div class="border-linear-to-r border-from-pink-500/[50%] border-to-cyan-500"></div>
+<div class="border-linear-to-r border-from-pink-500/[.5] border-to-cyan-500"></div>
+```
+
+Pair a faded stop with `border-to-transparent` for a glow that falls off rather than ending on a hard edge:
+
+<Example>
+  <div class="flex flex-col gap-3 w-full max-w-xl">
+    <div class="border-4 border-linear-to-r border-from-pink-500/50 border-to-cyan-500 rounded-lg p-4 bg-white font-mono text-xs text-gray-500">border-from-pink-500/50 border-to-cyan-500</div>
+    <div class="border-4 border-linear-to-r border-from-pink-500 border-via-white/[50%] border-to-cyan-500 rounded-lg p-4 bg-white font-mono text-xs text-gray-500">border-via-white/[50%]</div>
+    <div class="border-8 border-radial border-from-pink-500/50 border-to-transparent rounded-lg p-4 bg-white font-mono text-xs text-gray-500">border-radial border-from-pink-500/50 border-to-transparent</div>
+  </div>
+</Example>
 
 ### Setting gradient stop positions
 

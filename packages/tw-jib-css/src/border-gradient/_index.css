@@ -171,18 +171,27 @@
 }
 @utility border-from-* {
   --jib-border-gradient-from: --value("inherit", "transparent", --color- *, [color]);
+  --jib-border-gradient-from: --alpha(--value("inherit", "transparent", --color- *, [color]) / calc(--modifier(integer) * 1%));
+  --jib-border-gradient-from: --alpha(--value("inherit", "transparent", --color- *, [color]) / --modifier([percentage]));
+  --jib-border-gradient-from: --alpha(--value("inherit", "transparent", --color- *, [color]) / calc(--modifier([number]) * 100%));
   --jib-border-gradient-from-position: --value(percentage, [percentage]);
   --jib-border-gradient-stops: var(--jib-border-gradient-via-stops, var(--jib-border-gradient-position), var(--jib-border-gradient-from) var(--jib-border-gradient-from-position), var(--jib-border-gradient-to) var(--jib-border-gradient-to-position));
 }
 
 @utility border-via-* {
   --jib-border-gradient-via: --value("inherit", "transparent", --color- *, [color]);
+  --jib-border-gradient-via: --alpha(--value("inherit", "transparent", --color- *, [color]) / calc(--modifier(integer) * 1%));
+  --jib-border-gradient-via: --alpha(--value("inherit", "transparent", --color- *, [color]) / --modifier([percentage]));
+  --jib-border-gradient-via: --alpha(--value("inherit", "transparent", --color- *, [color]) / calc(--modifier([number]) * 100%));
   --jib-border-gradient-via-position: --value(percentage, [percentage]);
   --jib-border-gradient-via-stops: var(--jib-border-gradient-position), var(--jib-border-gradient-from) var(--jib-border-gradient-from-position), var(--jib-border-gradient-via) var(--jib-border-gradient-via-position), var(--jib-border-gradient-to) var(--jib-border-gradient-to-position);
   --jib-border-gradient-stops: var(--jib-border-gradient-via-stops);
 }
 @utility border-to-* {
   --jib-border-gradient-to: --value("inherit", "transparent", --color- *, [color]);
+  --jib-border-gradient-to: --alpha(--value("inherit", "transparent", --color- *, [color]) / calc(--modifier(integer) * 1%));
+  --jib-border-gradient-to: --alpha(--value("inherit", "transparent", --color- *, [color]) / --modifier([percentage]));
+  --jib-border-gradient-to: --alpha(--value("inherit", "transparent", --color- *, [color]) / calc(--modifier([number]) * 100%));
   --jib-border-gradient-to-position: --value(percentage, [percentage]);
   --jib-border-gradient-stops: var(--jib-border-gradient-via-stops, var(--jib-border-gradient-position), var(--jib-border-gradient-from) var(--jib-border-gradient-from-position), var(--jib-border-gradient-to) var(--jib-border-gradient-to-position));
 }

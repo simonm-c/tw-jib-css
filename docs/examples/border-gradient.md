@@ -616,6 +616,23 @@ All 8 interpolation modes on a linear border gradient. Same from/to colors to sh
   </div>
 </div>
 
+### Semi-transparent stops
+
+<div class="grid grid-cols-4 gap-3 my-6">
+  <div data-test="border-stops-alpha-from" class="h-20 rounded-lg border-4 flex items-center justify-center bg-slate-800 border-linear-to-r border-from-rose-500/50 border-to-cyan-500">
+    <span class="text-xs font-mono text-white/70">from /50</span>
+  </div>
+  <div data-test="border-stops-alpha-via" class="h-20 rounded-lg border-4 flex items-center justify-center bg-slate-800 border-linear-to-r border-from-rose-500 border-via-white/[50%] border-to-cyan-500">
+    <span class="text-xs font-mono text-white/70">via /[50%]</span>
+  </div>
+  <div data-test="border-stops-alpha-to" class="h-20 rounded-lg border-4 flex items-center justify-center bg-slate-800 border-linear-to-r border-from-rose-500 border-to-cyan-500/[.5]">
+    <span class="text-xs font-mono text-white/70">to /[.5]</span>
+  </div>
+  <div data-test="border-stops-alpha-fade" class="h-20 rounded-lg border-4 flex items-center justify-center bg-slate-800 border-radial border-from-pink-500/50 border-to-transparent">
+    <span class="text-xs font-mono text-white/70">fade out</span>
+  </div>
+</div>
+
 ## Border spin
 
 <div class="grid grid-cols-4 gap-3 my-6">

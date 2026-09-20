@@ -1,5 +1,5 @@
 import { test, expect, type Page } from '@playwright/test';
-import { extractStyles, gotoExample, expectBorderGradient } from './helpers';
+import { extractStyles, gotoExample, expectBorderGradient, splitLayers } from './helpers';
 
 const PAGE = 'examples/border-gradient';
 
@@ -362,6 +362,27 @@ test.describe('border gradient color stops', () => {
     // Assert
     for (const id of ids) {
       expectBorderGradient(styles, [id]);
+    }
+  });
+
+  test('semi-transparent stops keep their alpha in the gradient layer', async ({ page }) => {
+    // Arrange
+    await gotoPage(page);
+    const ids = [
+      'border-stops-alpha-from',
+      'border-stops-alpha-via',
+      'border-stops-alpha-to',
+      'border-stops-alpha-fade',
+    ];
+    // Act
+    const styles = await extractStyles(page, ids);
+    // Assert
+    for (const id of ids) {
+      expectBorderGradient(styles, [id]);
+      expect(
+        splitLayers(styles[id].backgroundImage).at(-1),
+        `${id}: a stop whose class carries /alpha must not fall back to the initial #0000`,
+      ).toMatch(/\/\s*0\.5\d*\s*\)/);
     }
   });
 

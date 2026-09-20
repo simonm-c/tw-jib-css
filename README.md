@@ -122,11 +122,14 @@ The matching `wcag-badge`, which _measures_ a pair and prints its rating, needs
 
 ### Border Gradient
 
-Gradient borders via `background: padding-box/border-box` clipping. Linear, radial, conic gradients with 8 interpolation modes and animated spin.
+Gradient borders via `background: padding-box/border-box` clipping. Linear, radial, conic gradients with 8 interpolation modes and animated spin. Stops take the `/alpha` modifier in the same three spellings as `bg-*`.
 
 ```html
 <div class="border-2 border-from-blue-500 border-to-purple-500 border-linear-to-r rounded-lg p-4">
   Gradient border
+</div>
+<div class="border-2 border-from-pink-500/50 border-to-transparent border-radial rounded-lg p-4">
+  Faded gradient border
 </div>
 ```
 

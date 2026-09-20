@@ -197,3 +197,20 @@ Verify `border-lightness-{n}` and `border-lighten-{n}` produce the same result.
     <span class="text-xs font-mono text-gray-500">border-darken-20</span>
   </div>
 </div>
+
+## Semi-transparent base color
+
+<div class="grid grid-cols-4 gap-3 my-6">
+  <div data-test="border-alpha-lighten" class="h-20 rounded-lg flex items-center justify-center bg-gray-800 border-8 border-blue-500/50 border-lighten-20">
+    <span class="text-xs font-mono text-white/70">lighten-20</span>
+  </div>
+  <div data-test="border-alpha-darken" class="h-20 rounded-lg flex items-center justify-center bg-gray-100 border-8 border-blue-500/50 border-darken-20">
+    <span class="text-xs font-mono text-gray-500">darken-20</span>
+  </div>
+  <div data-test="border-alpha-saturate" class="h-20 rounded-lg flex items-center justify-center bg-gray-100 border-8 border-blue-500/50 border-saturate-20">
+    <span class="text-xs font-mono text-gray-500">saturate-20</span>
+  </div>
+  <div data-test="border-alpha-hue-rotate" class="h-20 rounded-lg flex items-center justify-center bg-gray-100 border-8 border-blue-500/50 border-hue-rotate-30">
+    <span class="text-xs font-mono text-gray-500">hue-rotate-30</span>
+  </div>
+</div>

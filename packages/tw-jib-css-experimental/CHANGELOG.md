@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.2](https://github.com/simonm-c/tw-jib-css/compare/tw-jib-css-experimental-v2.0.1...tw-jib-css-experimental-v2.0.2) (2026-09-20)
+
+
+### Miscellaneous Chores
+
+* **tw-jib-css-experimental:** Synchronize tw-jib-css versions
+
 ## [2.0.1](https://github.com/simonm-c/tw-jib-css/compare/tw-jib-css-experimental-v1.0.0...tw-jib-css-experimental-v2.0.1) (2026-09-17)
 
 

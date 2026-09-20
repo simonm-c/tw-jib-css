@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.0.2](https://github.com/simonm-c/tw-jib-css/compare/tw-jib-css-v2.0.1...tw-jib-css-v2.0.2) (2026-09-20)
+
+
+### Bug Fixes
+
+* **core:** accept the `/alpha` modifier on border and gradient stop c… ([b94457f](https://github.com/simonm-c/tw-jib-css/commit/b94457fd8535c9caf9bbcb10f3231ec05959c065))
+
 ## [2.0.1](https://github.com/simonm-c/tw-jib-css/compare/tw-jib-css-v1.0.0...tw-jib-css-v2.0.1) (2026-09-17)
 
 

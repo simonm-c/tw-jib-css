@@ -9,7 +9,7 @@ title: Border spin
 Animated rotating gradient borders. Add `border-spin` to any element with a conic border gradient to spin it continuously.
 
 ::: info Browser support
-Chrome 111+, Safari 16.4+, Firefox 128+. The animated angle needs `@property`, which is older than that, but there is nothing to spin without a [border gradient](/guide/border-gradient), so the gradient's floor is the one that applies.
+The animated angle needs `@property`, which is the older of the two, but there is nothing to spin without a [border gradient](/guide/border-gradient), so the gradient's floor is the one that applies. Live status for both is at the foot of this page.
 :::
 
 ::: warning This animation does not stop itself

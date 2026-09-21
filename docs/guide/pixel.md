@@ -11,7 +11,7 @@ RGB pixel column backgrounds for any Tailwind color. LCD or CRT phosphor look, p
 Pixel mixes additively, the way a display emits light. Its sibling [Comic dots](/guide/comic) mixes subtractively, the way ink lands on paper. Left at their defaults both read back as the color you passed in; turn the knobs up and the channels come apart.
 
 ::: warning Browser support
-Requires CSS relative color syntax (`rgb(from ... r 0 0)`). Chrome 111+, Safari 16.4+, Firefox 128+.
+Built on CSS relative color syntax (`rgb(from ... r 0 0)`), registered custom properties and the `tan()` and `atan2()` trig functions. Live status for each is at the foot of this page.
 :::
 
 ::: danger Do not pair this with `text-contrast-*`
@@ -526,4 +526,4 @@ Included in `@import 'tw-jib-css'`. To import individually:
 @import 'tw-jib-css/pixel';
 ```
 
-<BaselineSupport :features="['relative-color']" />
+<BaselineSupport :features="['relative-color', 'registered-custom-properties', 'trig-functions']" />

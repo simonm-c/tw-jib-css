@@ -23,7 +23,9 @@ Because the utilities hit the ratio _exactly_ rather than overshooting it, the r
 ::: tip Browser support
 Works in Chromium, Firefox and Safari. Every engine gets the requested ratio exactly, verified against all 242 Tailwind colors at all three levels on each. The only per-engine difference is cosmetic; see [Color Spaces](#color-spaces) below.
 
-`text-contrast-*` needs relative color syntax and `@property` and nothing else: Chrome 111+, Safari 16.4+, Firefox 128+.
+`text-contrast-*` needs relative color syntax and `@property` and nothing else. The `pow()`
+seed described under [Color Spaces](#color-spaces) sits behind an `@supports` gate, so an
+engine without it takes the linear path rather than losing the utility.
 :::
 
 ## Quick reference

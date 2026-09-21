@@ -9,7 +9,7 @@ title: Ripple
 Material-style ripple effect on click. Pure CSS, no JavaScript. The ripple always runs its full duration, even if you let go early.
 
 ::: info Browser support
-Chrome 111+, Safari 16.4+, Firefox 128+. Two features set that floor: `@property`, which carries the animated transitions, and `color-mix()`, which builds the ripple color itself. `@property` landed earlier than this in Chrome, but without `color-mix()` the ripple color is invalid and nothing paints, so the later of the two is the number that matters.
+Two features set the floor: `@property`, which carries the animated transitions, and `color-mix()`, which builds the ripple color itself. `@property` landed first in every engine, but without `color-mix()` the ripple color is invalid and nothing paints, so `color-mix()` is the one that matters. No relative color syntax is involved. Live status for both is at the foot of this page.
 :::
 
 ## Quick reference

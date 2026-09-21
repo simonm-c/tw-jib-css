@@ -1,12 +1,12 @@
 import { describe, test, expect } from 'vitest';
 import { suiteScenarios, type Suite } from './helpers.js';
-import { BG_LAYER } from './constants.js';
+import { BG_LAYER, BG_LAYER_TEXTURED } from './constants.js';
 
-const COMPOSITED: { suite: Suite; utility: string }[] = [
-  { suite: 'comic', utility: 'bg-comic-red-500' },
-  { suite: 'pixel', utility: 'bg-pixel-red-500' },
-  { suite: 'ripple', utility: 'bg-ripple' },
-  { suite: 'border-gradient', utility: 'border-linear-to-r' },
+const COMPOSITED: { suite: Suite; utility: string; layer: string }[] = [
+  { suite: 'comic', utility: 'bg-comic-red-500', layer: BG_LAYER_TEXTURED },
+  { suite: 'pixel', utility: 'bg-pixel-red-500', layer: BG_LAYER_TEXTURED },
+  { suite: 'ripple', utility: 'bg-ripple', layer: BG_LAYER },
+  { suite: 'border-gradient', utility: 'border-linear-to-r', layer: BG_LAYER },
 ];
 
 const CLIP_KEYWORDS = [
@@ -62,10 +62,10 @@ describe.each(suiteScenarios('comic'))('bg-clip-* companions, $name', ({ compile
 });
 
 describe('every composited shorthand reads both clip slots', () => {
-  test.each(COMPOSITED)('$suite via $utility', async ({ suite, utility }) => {
+  test.each(COMPOSITED)('$suite via $utility', async ({ suite, utility, layer }) => {
     const [stable] = suiteScenarios(suite);
     const css = await stable.compile(utility);
-    expect(css).toContain(BG_LAYER);
+    expect(css).toContain(layer);
   });
 });
 
@@ -91,6 +91,6 @@ describe.each(suiteScenarios('comic'))('Tailwind gradients composite too, $name'
     for (const slot of SLOTS) {
       expect(css).toContain(`${slot}: text;`);
     }
-    expect(css).toContain(BG_LAYER);
+    expect(css).toContain(BG_LAYER_TEXTURED);
   });
 });

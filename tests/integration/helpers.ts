@@ -10,6 +10,8 @@ export interface ElementStyles {
   backgroundColor: string;
   backgroundImage: string;
   borderColor: string;
+  /** Physical order: top, right, bottom, left. */
+  borderStyles: [string, string, string, string];
   animation: string;
   animationDirection: string;
   blendMode: string;
@@ -74,6 +76,12 @@ export async function extractStyles(
         backgroundColor: computed.backgroundColor,
         backgroundImage,
         borderColor: computed.borderColor,
+        borderStyles: [
+          computed.borderTopStyle,
+          computed.borderRightStyle,
+          computed.borderBottomStyle,
+          computed.borderLeftStyle,
+        ],
         animation: computed.animation,
         animationDirection: computed.animationDirection,
         blendMode: computed.backgroundBlendMode,

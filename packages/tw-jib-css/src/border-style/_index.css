@@ -1,25 +1,164 @@
-@utility border-l-* {
-  border-left-style: --value("groove", "ridge", "inset", "outset", "solid", "dashed", "dotted", "double", "none", "hidden");
+/* Every Tailwind width utility also emits border-style: var(--tw-border-style),
+ * one value for all four sides, so a per-side style is reset by any width
+ * utility sorting after it — a variant, typically.
+ *
+ * The four-value shorthand form must never reach --tw-border-style: a longhand
+ * takes one <line-style>, a list is invalid at computed-value time, and the
+ * side computes to none, dropping the border rather than mis-styling it.
+ *
+ * Tailwind's ltr/rtl variants select [dir="ltr"], [dir="ltr"] *, whose
+ * descendant branch reaches through a nested dir="rtl" and writes the left and
+ * right slots at once. :dir() matches inherited directionality, so it resolves
+ * per element. */
+
+@utility border-* {
+  --tw-border-style: --value("groove", "ridge", "inset", "outset", [border-style]);
+  border-style: --value("groove", "ridge", "inset", "outset", [border-style]);
 }
 
-@utility border-r-* {
-  border-right-style: --value("groove", "ridge", "inset", "outset", "solid", "dashed", "dotted", "double", "none", "hidden");
-}
 @utility border-t-* {
-  border-top-style: --value("groove", "ridge", "inset", "outset", "solid", "dashed", "dotted", "double", "none", "hidden");
+  --jib-border-t-style: --value("groove", "ridge", "inset", "outset", "solid", "dashed", "dotted", "double", "none", "hidden", [border-style]);
+  border-top-style: --value("groove", "ridge", "inset", "outset", "solid", "dashed", "dotted", "double", "none", "hidden", [border-style]);
+}
+@utility border-r-* {
+  --jib-border-r-style: --value("groove", "ridge", "inset", "outset", "solid", "dashed", "dotted", "double", "none", "hidden", [border-style]);
+  border-right-style: --value("groove", "ridge", "inset", "outset", "solid", "dashed", "dotted", "double", "none", "hidden", [border-style]);
 }
 @utility border-b-* {
-  border-bottom-style: --value("groove", "ridge", "inset", "outset", "solid", "dashed", "dotted", "double", "none", "hidden");
+  --jib-border-b-style: --value("groove", "ridge", "inset", "outset", "solid", "dashed", "dotted", "double", "none", "hidden", [border-style]);
+  border-bottom-style: --value("groove", "ridge", "inset", "outset", "solid", "dashed", "dotted", "double", "none", "hidden", [border-style]);
 }
+@utility border-l-* {
+  --jib-border-l-style: --value("groove", "ridge", "inset", "outset", "solid", "dashed", "dotted", "double", "none", "hidden", [border-style]);
+  border-left-style: --value("groove", "ridge", "inset", "outset", "solid", "dashed", "dotted", "double", "none", "hidden", [border-style]);
+}
+
 @utility border-x-* {
-  border-inline-style: --value("groove", "ridge", "inset", "outset", "solid", "dashed", "dotted", "double", "none", "hidden");
+  --jib-border-l-style: --value("groove", "ridge", "inset", "outset", "solid", "dashed", "dotted", "double", "none", "hidden", [border-style]);
+  --jib-border-r-style: --value("groove", "ridge", "inset", "outset", "solid", "dashed", "dotted", "double", "none", "hidden", [border-style]);
+  border-inline-style: --value("groove", "ridge", "inset", "outset", "solid", "dashed", "dotted", "double", "none", "hidden", [border-style]);
 }
 @utility border-y-* {
-  border-block-style: --value("groove", "ridge", "inset", "outset", "solid", "dashed", "dotted", "double", "none", "hidden");
+  --jib-border-t-style: --value("groove", "ridge", "inset", "outset", "solid", "dashed", "dotted", "double", "none", "hidden", [border-style]);
+  --jib-border-b-style: --value("groove", "ridge", "inset", "outset", "solid", "dashed", "dotted", "double", "none", "hidden", [border-style]);
+  border-block-style: --value("groove", "ridge", "inset", "outset", "solid", "dashed", "dotted", "double", "none", "hidden", [border-style]);
 }
+
 @utility border-s-* {
-  border-inline-start-style: --value("groove", "ridge", "inset", "outset", "solid", "dashed", "dotted", "double", "none", "hidden");
+  &:where(:dir(ltr)) {
+    --jib-border-l-style: --value("groove", "ridge", "inset", "outset", "solid", "dashed", "dotted", "double", "none", "hidden", [border-style]);
+  }
+  &:where(:dir(rtl)) {
+    --jib-border-r-style: --value("groove", "ridge", "inset", "outset", "solid", "dashed", "dotted", "double", "none", "hidden", [border-style]);
+  }
+  border-inline-start-style: --value("groove", "ridge", "inset", "outset", "solid", "dashed", "dotted", "double", "none", "hidden", [border-style]);
 }
 @utility border-e-* {
-  border-inline-end-style: --value("groove", "ridge", "inset", "outset", "solid", "dashed", "dotted", "double", "none", "hidden");
+  &:where(:dir(ltr)) {
+    --jib-border-r-style: --value("groove", "ridge", "inset", "outset", "solid", "dashed", "dotted", "double", "none", "hidden", [border-style]);
+  }
+  &:where(:dir(rtl)) {
+    --jib-border-l-style: --value("groove", "ridge", "inset", "outset", "solid", "dashed", "dotted", "double", "none", "hidden", [border-style]);
+  }
+  border-inline-end-style: --value("groove", "ridge", "inset", "outset", "solid", "dashed", "dotted", "double", "none", "hidden", [border-style]);
+}
+
+/* A functional @utility with no resolving --value() never matches; --jib-noop
+ * is that match. */
+
+@utility border {
+  border-top-style: var(--jib-border-t-style, var(--tw-border-style));
+  border-right-style: var(--jib-border-r-style, var(--tw-border-style));
+  border-bottom-style: var(--jib-border-b-style, var(--tw-border-style));
+  border-left-style: var(--jib-border-l-style, var(--tw-border-style));
+}
+@utility border-* {
+  --jib-noop: --value(number, [length]);
+  border-top-style: var(--jib-border-t-style, var(--tw-border-style));
+  border-right-style: var(--jib-border-r-style, var(--tw-border-style));
+  border-bottom-style: var(--jib-border-b-style, var(--tw-border-style));
+  border-left-style: var(--jib-border-l-style, var(--tw-border-style));
+}
+
+@utility border-t {
+  border-top-style: var(--jib-border-t-style, var(--tw-border-style));
+}
+@utility border-t-* {
+  --jib-noop: --value(number, [length]);
+  border-top-style: var(--jib-border-t-style, var(--tw-border-style));
+}
+@utility border-r {
+  border-right-style: var(--jib-border-r-style, var(--tw-border-style));
+}
+@utility border-r-* {
+  --jib-noop: --value(number, [length]);
+  border-right-style: var(--jib-border-r-style, var(--tw-border-style));
+}
+@utility border-b {
+  border-bottom-style: var(--jib-border-b-style, var(--tw-border-style));
+}
+@utility border-b-* {
+  --jib-noop: --value(number, [length]);
+  border-bottom-style: var(--jib-border-b-style, var(--tw-border-style));
+}
+@utility border-l {
+  border-left-style: var(--jib-border-l-style, var(--tw-border-style));
+}
+@utility border-l-* {
+  --jib-noop: --value(number, [length]);
+  border-left-style: var(--jib-border-l-style, var(--tw-border-style));
+}
+
+@utility border-x {
+  border-left-style: var(--jib-border-l-style, var(--tw-border-style));
+  border-right-style: var(--jib-border-r-style, var(--tw-border-style));
+}
+@utility border-x-* {
+  --jib-noop: --value(number, [length]);
+  border-left-style: var(--jib-border-l-style, var(--tw-border-style));
+  border-right-style: var(--jib-border-r-style, var(--tw-border-style));
+}
+@utility border-y {
+  border-top-style: var(--jib-border-t-style, var(--tw-border-style));
+  border-bottom-style: var(--jib-border-b-style, var(--tw-border-style));
+}
+@utility border-y-* {
+  --jib-noop: --value(number, [length]);
+  border-top-style: var(--jib-border-t-style, var(--tw-border-style));
+  border-bottom-style: var(--jib-border-b-style, var(--tw-border-style));
+}
+
+@utility border-s {
+  &:where(:dir(ltr)) {
+    border-inline-start-style: var(--jib-border-l-style, var(--tw-border-style));
+  }
+  &:where(:dir(rtl)) {
+    border-inline-start-style: var(--jib-border-r-style, var(--tw-border-style));
+  }
+}
+@utility border-s-* {
+  --jib-noop: --value(number, [length]);
+  &:where(:dir(ltr)) {
+    border-inline-start-style: var(--jib-border-l-style, var(--tw-border-style));
+  }
+  &:where(:dir(rtl)) {
+    border-inline-start-style: var(--jib-border-r-style, var(--tw-border-style));
+  }
+}
+@utility border-e {
+  &:where(:dir(ltr)) {
+    border-inline-end-style: var(--jib-border-r-style, var(--tw-border-style));
+  }
+  &:where(:dir(rtl)) {
+    border-inline-end-style: var(--jib-border-l-style, var(--tw-border-style));
+  }
+}
+@utility border-e-* {
+  --jib-noop: --value(number, [length]);
+  &:where(:dir(ltr)) {
+    border-inline-end-style: var(--jib-border-r-style, var(--tw-border-style));
+  }
+  &:where(:dir(rtl)) {
+    border-inline-end-style: var(--jib-border-l-style, var(--tw-border-style));
+  }
 }

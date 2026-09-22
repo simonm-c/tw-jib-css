@@ -94,8 +94,6 @@
     var(--jib-background-image) padding-box var(--jib-background-clip),
     var(--jib-border-gradient) border-box var(--jib-border-gradient-clip);
   border-color: transparent;
-  --jib-border-style: --value("groove", "ridge", "inset", "outset");
-  border-style: --value("groove", "ridge", "inset", "outset", [border-style]);
 }
 
 @utility border-linear-* {

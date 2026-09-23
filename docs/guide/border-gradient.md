@@ -91,7 +91,7 @@ Tailwind gradient backgrounds and border gradients coexist. The background gradi
 
 #### Inherited backgrounds
 
-The background color does not inherit from parent elements. The module registers `--jib-background-image` with `inherits: false`, so a child without its own `bg-*` class gets the initial value, `canvas`, rather than the parent's color:
+The background color does not inherit from parent elements. The module registers `--jib-background-image` with `inherits: false`, so a child without its own `bg-*` class gets the initial value, `linear-gradient(canvas 0 0)`, rather than the parent's color:
 
 <Example>
   <div class="bg-slate-800 rounded-xl p-6">
@@ -110,7 +110,6 @@ The border-gradient technique works by stacking two background layers: a `paddin
 <Example>
   <div class="flex gap-4">
     <div class="flex-1 bg-white border-4 border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-xl p-6 text-center font-mono text-xs text-gray-500">bg-white (opaque)</div>
-    <!-- TODO: fix bg-*/opacity modifier not working with border-gradient (--tw-bg-image not receiving opacity value) -->
     <div class="flex-1 bg-white/50 border-4 border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-xl p-6 text-center font-mono text-xs text-gray-500">bg-white/50 (gradient bleeds through)</div>
     <div class="flex-1 bg-transparent border-4 border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-xl p-6 text-center font-mono text-xs text-gray-500">bg-transparent (fully visible)</div>
   </div>
@@ -124,7 +123,7 @@ This falls out of the clipping technique. The `padding-box` layer must be fully 
 Backgrounds set outside Tailwind's `bg-*` classes won't show through the border gradient. The border-gradient utilities set a `background` shorthand that replaces any `background` or `background-color` from custom CSS classes or inline styles.
 :::
 
-The border-gradient utility's `background` shorthand overwrites a background set by a custom CSS class or an inline style. `--tw-bg-image` stays at its initial value, `canvas`, so the element loses the background you meant it to have:
+The border-gradient utility's `background` shorthand overwrites a background set by a custom CSS class or an inline style. `--jib-background-image` stays at its initial value, `linear-gradient(canvas 0 0)`, so the element loses the background you meant it to have:
 
 ```html
 <!-- ✗ Custom class: the background gets overwritten -->
@@ -148,7 +147,7 @@ The border-gradient utility's `background` shorthand overwrites a background set
 
 #### Workarounds
 
-Route the color through Tailwind's `bg-*` pipeline so it feeds into `--tw-bg-image`:
+Route the color through Tailwind's `bg-*` pipeline so it feeds into `--jib-background-image`:
 
 ```html
 <!-- ✓ Arbitrary value -->
@@ -162,12 +161,12 @@ Route the color through Tailwind's `bg-*` pipeline so it feeds into `--tw-bg-ima
 </div>
 ```
 
-Or set `--tw-bg-image` directly to bypass the `bg-*` utility:
+Or set `--jib-background-image` directly to bypass the `bg-*` utility:
 
 ```html
 <!-- ✓ Setting the custom property directly -->
 <div
-  style="--tw-bg-image: linear-gradient(#e0f2fe 0 0)"
+  style="--jib-background-image: linear-gradient(#e0f2fe 0 0)"
   class="border-4 border-linear-to-r border-from-pink-500 border-to-cyan-500"
 >
   ...
@@ -262,7 +261,6 @@ Use `border-radial` for a gradient that radiates from the center. Use bracket no
 <Example>
   <div class="flex gap-4">
     <div class="flex flex-col items-center gap-2">
-      <!-- TODO: fix bug where border-from-% and border-to-% stop positions don't apply without a border-via-* stop present -->
       <div class="size-36 border-16 border-radial border-from-yellow-400 border-from-0% border-via-yellow-400  border-via-30% border-to-violet-600 border-to-100% rounded-full bg-white"></div>
       <span class="font-mono text-[11px] text-gray-500">border-radial border-via-30% border-to-100%</span>
     </div>

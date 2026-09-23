@@ -45,10 +45,6 @@ const engines = ['Chromium', 'Firefox', 'Safari'];
     class="relative bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100 px-6 md:px-12 py-12"
   >
     <div class="mx-auto w-full max-w-[1300px] space-y-7">
-      <!-- Heading and lede share a row so the swatches below clear the fold:
-           the copy costs no height of its own, it fills the space beside a
-           two-line title. Everything that explains rather than demonstrates
-           sits after the demo. -->
       <div class="grid gap-x-10 gap-y-3 md:grid-cols-[auto_1fr] md:items-end">
         <div class="space-y-1.5">
           <h2 class="text-4xl md:text-5xl font-black tracking-tight leading-[0.95]">
@@ -116,11 +112,6 @@ const engines = ['Chromium', 'Firefox', 'Safari'];
             the ratio formula for a target luminance, build a color that carries it. Plain relative
             color syntax, so it ships from the main entry.
           </p>
-          <!-- The solve targets the threshold with zero headroom, so 8-bit
-               rasterisation can round either way and about half the time rounds
-               down, and an eyedropper or a screenshot-sampling audit then reads a
-               hair under. Say so here rather than let a reader discover it with
-               a color picker. -->
           <p class="text-sm leading-relaxed opacity-60">
             It lands on the threshold with no padding, so a pixel-sampled reading can sit a few
             thousandths either side. Want headroom? Raise

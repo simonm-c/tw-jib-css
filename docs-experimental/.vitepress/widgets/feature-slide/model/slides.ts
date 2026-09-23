@@ -35,10 +35,8 @@ export const slides: FeatureSlideData[] = [
     kicker: 'automatic contrast',
     headline: 'Rings, borders, icons, and more: all auto-contrast.',
     body: "text-contrast-* paints one thing: text color, on this element, from this element's own background. The function goes anywhere. A border, an SVG stroke, a gradient stop, generated content, each solved for the ratio you named, from whatever color you hand it.",
-    /*
-     * teal-500, NOT teal-600: AAA is unreachable from teal-600, the solve
-     * clamps to black and the badge correctly calls it Max.
-     */
+    /* AAA is unreachable from teal-600: the solve clamps to black and the badge
+     * calls it Max. */
     code: `.cta {\n  /* both from one background token, solved for 7:1 */\n  color:        --jib-auto-contrast(\n                  var(--color-teal-500), aaa, oklch);\n  border-color: --jib-auto-contrast(\n                  var(--color-teal-500), aaa, oklch);\n}`,
     lang: 'css',
     link: {

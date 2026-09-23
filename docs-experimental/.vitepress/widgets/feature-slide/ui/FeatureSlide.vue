@@ -27,8 +27,6 @@ const slide = computed<FeatureSlideData>(() => slides[props.index]);
       </div>
 
       <div :class="['space-y-5', slide.flipped ? 'md:order-1' : '']">
-        <!-- Addition vs override is the thing a reader most needs to know before
-             they copy anything off this page, so it leads every slide. -->
         <div class="flex flex-wrap items-center gap-2">
           <span
             :class="[

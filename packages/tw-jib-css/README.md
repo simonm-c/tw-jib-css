@@ -20,9 +20,13 @@ A TailwindCSS v4 utility library built entirely with the CSS-first `@utility`, `
 `@theme` and `@property` syntax. No JavaScript plugin system, no `plugin()`, no `addUtilities()`, no
 build step. It ships raw CSS your Tailwind compiler reads directly.
 
-Everything here works on every engine that supports CSS relative colour syntax: **Chrome 111+,
-Safari 16.4+, Firefox 128+**. Nothing in this package runs CSS `@function`; that is the guarantee that
-covers consumers who opted into nothing.
+Everything that transforms a colour works on **Chrome 138+, Safari 16.4+, Firefox 128+**. Relative
+colour syntax (Chrome 119+) and `@property` account for most of that floor; the lightness and
+saturation transforms also use `abs()` and `sign()`, which Chromium shipped only in 138.
+`border-style` and `grid` need none of it. Live per-feature status is on every
+[guide page](https://simonm-c.github.io/tw-jib-css/) and on the
+[Web Platform Dashboard](https://webstatus.dev/features/abs-sign). Nothing in this package runs CSS
+`@function`; that is the guarantee that covers consumers who opted into nothing.
 
 ## Installation
 

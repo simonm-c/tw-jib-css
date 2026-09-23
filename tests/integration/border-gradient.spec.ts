@@ -5,6 +5,7 @@ import {
   gotoExample,
   expectBorderGradient,
   splitLayers,
+  borderStopPositions,
   colorDistance,
 } from './helpers';
 
@@ -413,6 +414,22 @@ test.describe('border gradient color stops', () => {
     }
   });
 
+  test('from and to positions apply with no via stop present', async ({ page }) => {
+    // Arrange
+    await gotoPage(page);
+    const ids = ['border-stops-from-pos', 'border-stops-to-pos'];
+    // Act
+    const styles = await extractStyles(page, ids);
+    // Assert
+    expect(
+      borderStopPositions(styles['border-stops-from-pos']),
+      'border-from-20% must move the first stop off its 0% initial value with no via stop to carry it',
+    ).toEqual(['20%', '100%']);
+    expect(
+      borderStopPositions(styles['border-stops-to-pos']),
+      'border-to-80% must move the last stop off its 100% initial value with no via stop to carry it',
+    ).toEqual(['0%', '80%']);
+  });
 });
 
 test.describe('border spin', () => {

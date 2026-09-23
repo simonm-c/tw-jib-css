@@ -114,8 +114,9 @@ initial value stands.
 
 ## Browser support
 
-`background-clip` is universal. `background-clip: text` needs Chrome 120+, Safari 14+ or
-Firefox 49+; older engines want the `-webkit-` prefix, which Tailwind emits for you.
+`background-clip` is universal. `background-clip: text` is the narrower of the two; older
+engines want the `-webkit-` prefix, which Tailwind emits for you. Live status is at the
+foot of this page.
 
 ## Import
 

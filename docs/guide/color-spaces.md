@@ -133,7 +133,7 @@ Transform a P3 color inside srgb and the result clips. Transform it in `display-
 
 Each transform is CSS relative color syntax, and `@theme inline` holds one finished expression per space, built when Tailwind compiles. Writing `bg-lightness-30/hsl` resolves `--modifier()` to the hsl expression already sitting in the theme, so a modifier costs a lookup rather than a branch at render time.
 
-Nothing here is detected, polyfilled or precomputed. The same expression evaluates on **Chrome 111+, Safari 16.4+ and Firefox 128+**, and the arithmetic runs in `calc()` on every paint.
+Nothing here is detected, polyfilled or precomputed. The same expression evaluates on every engine that has the features listed at the foot of this page, and the arithmetic runs in `calc()` on every paint.
 
 ## Why hue rotation has no color-mix
 
@@ -164,4 +164,4 @@ or on its own:
 `text-contrast-*` takes the same modifier and ships in
 [`tw-jib-css/automatic-contrast`](/guide/automatic-contrast).
 
-<BaselineSupport :features="['relative-color', 'oklab']" />
+<BaselineSupport :features="['relative-color', 'registered-custom-properties', 'oklab', 'abs-sign']" />

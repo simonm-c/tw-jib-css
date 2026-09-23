@@ -94,8 +94,6 @@
     var(--jib-background-image) var(--jib-background-position) / var(--jib-background-size) var(--jib-background-repeat) var(--jib-background-attachment) var(--jib-background-origin) var(--jib-background-clip),
     var(--jib-border-gradient) 0% 0% / auto repeat scroll var(--jib-border-gradient-origin) var(--jib-border-gradient-clip) var(--jib-background-color-layer);
   border-color: transparent;
-  --jib-border-style: --value("groove", "ridge", "inset", "outset");
-  border-style: --value("groove", "ridge", "inset", "outset", [border-style]);
 }
 
 @utility border-linear-* {

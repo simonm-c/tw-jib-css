@@ -1,7 +1,17 @@
 import { test, expect, type Page } from '@playwright/test';
-import { extractStyles, gotoExample, expectBorderGradient, splitLayers } from './helpers';
+import {
+  extractStyles,
+  extractRenderedColors,
+  gotoExample,
+  expectBorderGradient,
+  splitLayers,
+  colorDistance,
+} from './helpers';
 
 const PAGE = 'examples/border-gradient';
+
+/** Antialiasing where the borders meet. */
+const STOPLESS_TOLERANCE = 12;
 
 async function gotoPage(page: Page) {
   await gotoExample(page, PAGE, 'bg-named');
@@ -402,6 +412,7 @@ test.describe('border gradient color stops', () => {
       expectBorderGradient(styles, [id]);
     }
   });
+
 });
 
 test.describe('border spin', () => {
@@ -599,6 +610,23 @@ test.describe('edge cases', () => {
       expect(styles[id].borderColor, `${id}`).toBe('rgba(0, 0, 0, 0)');
     }
     expect(styles['edge-no-bg-spin'].animation).toContain('border-spin');
+  });
+
+  test('a background gradient with no colour stop keeps the border gradient', async ({ page }) => {
+    // Arrange
+    await gotoPage(page);
+    const ids = ['stopless-linear', 'stopless-radial', 'stopless-conic'];
+    // Act
+    const styles = await extractStyles(page, ids);
+    const colors = await extractRenderedColors(page, [...ids, 'stopless-control']);
+    // Assert
+    for (const id of ids) {
+      expectBorderGradient(styles, [id]);
+      expect(
+        colorDistance(colors[id], colors['stopless-control']),
+        `${id} paints a different border pixel than the same border gradient carries without it, so the stopless background layer reached the shorthand`,
+      ).toBeLessThanOrEqual(STOPLESS_TOLERANCE);
+    }
   });
 });
 

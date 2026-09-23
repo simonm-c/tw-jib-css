@@ -889,6 +889,18 @@ Border gradient with no explicit background set.
   </div>
 </div>
 
+## Edge cases: background gradient with no colour stop
+
+A background gradient utility with no `from-*`, `via-*` or `to-*` alongside it.
+Sized so the four borders meet: the centre pixel samples the border gradient.
+
+<div class="grid grid-cols-4 gap-3 my-6">
+  <div data-test="stopless-linear" class="h-4 w-4 border-8 bg-linear-to-r border-linear-to-r border-from-rose-500 border-to-cyan-500"></div>
+  <div data-test="stopless-radial" class="h-4 w-4 border-8 bg-radial border-linear-to-r border-from-rose-500 border-to-cyan-500"></div>
+  <div data-test="stopless-conic" class="h-4 w-4 border-8 bg-conic border-linear-to-r border-from-rose-500 border-to-cyan-500"></div>
+  <div data-test="stopless-control" class="h-4 w-4 border-8 border-linear-to-r border-from-rose-500 border-to-cyan-500"></div>
+</div>
+
 ## Edge cases: state variants
 
 <div class="grid grid-cols-4 gap-3 my-6">

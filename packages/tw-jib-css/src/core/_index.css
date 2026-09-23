@@ -3,8 +3,7 @@
   inherits: true;
   initial-value: canvas;
 }
-/* Composed output. Every utility in the family writes this composer, so the
- * cascade winner yields the same value whichever wins. */
+/* Composed output. */
 @property --jib-background-color {
   syntax: "<color>";
   inherits: true;
@@ -98,7 +97,7 @@
 }
 
 /* An unregistered, unset slot invalidates the whole shorthand at computed-value
- * time: bg-none / bg-[url(…)] / bg-linear-* would paint nothing at all. */
+ * time. */
 @property --jib-ripple-image {
   syntax: "<image>";
   inherits: false;
@@ -116,10 +115,8 @@
 }
 
 /* Clip slots the shorthand reads, so bg-clip-* can reach a list it cannot
- * otherwise touch. Two, because pattern layers default to padding-box and the
- * border gradient to border-box. Closed ident list, not "*": a "*" slot
- * substitutes whatever it holds, so one bad value invalidates the shorthand and
- * takes every layer. */
+ * otherwise touch. Closed ident list, not "*": a "*" slot substitutes whatever
+ * it holds, so one bad value takes the whole shorthand. */
 @property --jib-background-clip {
   syntax: "padding-box | border-box | content-box | text";
   inherits: false;
@@ -210,8 +207,7 @@
   --jib-size-unit-stretch: stretch;
 }
 
-/* Carries TW's bg-clip-* value into a form the shorthand reads. Static blocks,
- * so an unrecognised bg-clip-foo stays unmatched. */
+/* Carries TW's bg-clip-* value into a form the shorthand reads. */
 @utility bg-clip-border {
   --jib-background-clip: border-box;
   --jib-border-gradient-clip: border-box;
@@ -258,58 +254,48 @@
   --jib-background-image: linear-gradient(var(--jib-background-color) 0 0);
 }
 
-/* Layers TW's gradients in rather than replacing. TW 4.3 needs a resolving
- * --value() for a functional block to match at all, hence --jib-noop:
- * nothing reads it, it makes the block match. */
+/* Tailwind matches a functional block only where a --value() resolves, and
+ * strips --tw-sort from the compiled output. */
 @utility bg-linear-* {
-  --jib-background-image: linear-gradient(var(--tw-gradient-stops));
-  --jib-noop: --value(number, "to-r", "to-l", "to-t", "to-b", "to-tr", "to-tl", "to-br", "to-bl", [ *], --default(none));
-  --jib-noop: --modifier("srgb", "hsl", "oklab", "oklch", "longer", "shorter", "increasing", "decreasing");
+  --jib-background-image: linear-gradient(var(--tw-gradient-stops, transparent 0 0));
+  --tw-sort: (--value(number, "to-r", "to-l", "to-t", "to-b", "to-tr", "to-tl", "to-br", "to-bl", [ *]));
+  --tw-sort: (--value(number, "to-r", "to-l", "to-t", "to-b", "to-tr", "to-tl", "to-br", "to-bl") --modifier("srgb", "hsl", "oklab", "oklch", "longer", "shorter", "increasing", "decreasing", [ *]));
   background:
     var(--jib-ripple-image) padding-box var(--jib-background-clip),
     var(--jib-background-image) padding-box var(--jib-background-clip),
     var(--jib-border-gradient) border-box var(--jib-border-gradient-clip);
 }
 @utility -bg-linear-* {
-  --jib-background-image: linear-gradient(var(--tw-gradient-stops));
-  --jib-noop: --value(number, [ *]);
-  --jib-noop: --modifier("srgb", "hsl", "oklab", "oklch", "longer", "shorter", "increasing", "decreasing");
+  --jib-background-image: linear-gradient(var(--tw-gradient-stops, transparent 0 0));
+  --tw-sort: (--value(number, [ *]));
+  --tw-sort: (--value(number) --modifier("srgb", "hsl", "oklab", "oklch", "longer", "shorter", "increasing", "decreasing", [ *]));
   background:
     var(--jib-ripple-image) padding-box var(--jib-background-clip),
     var(--jib-background-image) padding-box var(--jib-background-clip),
     var(--jib-border-gradient) border-box var(--jib-border-gradient-clip);
 }
 @utility bg-radial-* {
-  --jib-background-image: radial-gradient(var(--tw-gradient-stops));
-  --jib-noop: --value([ *], --default(none));
-  --jib-noop: --modifier("srgb", "hsl", "oklab", "oklch", "longer", "shorter", "increasing", "decreasing");
-  background:
-    var(--jib-ripple-image) padding-box var(--jib-background-clip),
-    var(--jib-background-image) padding-box var(--jib-background-clip),
-    var(--jib-border-gradient) border-box var(--jib-border-gradient-clip);
-}
-@utility -bg-radial-* {
-  --jib-background-image: radial-gradient(var(--tw-gradient-stops));
-  --jib-noop: --value([ *]);
-  --jib-noop: --modifier("srgb", "hsl", "oklab", "oklch", "longer", "shorter", "increasing", "decreasing");
+  --jib-background-image: radial-gradient(var(--tw-gradient-stops, transparent 0 0));
+  --tw-sort: (--value([ *], --default(none)));
+  --tw-sort: (--value(--default(none)) --modifier("srgb", "hsl", "oklab", "oklch", "longer", "shorter", "increasing", "decreasing", [ *]));
   background:
     var(--jib-ripple-image) padding-box var(--jib-background-clip),
     var(--jib-background-image) padding-box var(--jib-background-clip),
     var(--jib-border-gradient) border-box var(--jib-border-gradient-clip);
 }
 @utility bg-conic-* {
-  --jib-background-image: conic-gradient(var(--tw-gradient-stops));
-  --jib-noop: --value(number, [ *], --default(none));
-  --jib-noop: --modifier("srgb", "hsl", "oklab", "oklch", "longer", "shorter", "increasing", "decreasing");
+  --jib-background-image: conic-gradient(var(--tw-gradient-stops, transparent 0 0));
+  --tw-sort: (--value(number, [ *], --default(none)));
+  --tw-sort: (--value(number, --default(none)) --modifier("srgb", "hsl", "oklab", "oklch", "longer", "shorter", "increasing", "decreasing", [ *]));
   background:
     var(--jib-ripple-image) padding-box var(--jib-background-clip),
     var(--jib-background-image) padding-box var(--jib-background-clip),
     var(--jib-border-gradient) border-box var(--jib-border-gradient-clip);
 }
 @utility -bg-conic-* {
-  --jib-background-image: conic-gradient(var(--tw-gradient-stops));
-  --jib-noop: --value(number, [ *]);
-  --jib-noop: --modifier("srgb", "hsl", "oklab", "oklch", "longer", "shorter", "increasing", "decreasing");
+  --jib-background-image: conic-gradient(var(--tw-gradient-stops, transparent 0 0));
+  --tw-sort: (--value(number, [ *], --default(none)));
+  --tw-sort: (--value(number, --default(none)) --modifier("srgb", "hsl", "oklab", "oklch", "longer", "shorter", "increasing", "decreasing", [ *]));
   background:
     var(--jib-ripple-image) padding-box var(--jib-background-clip),
     var(--jib-background-image) padding-box var(--jib-background-clip),

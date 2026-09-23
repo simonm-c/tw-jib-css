@@ -10,11 +10,18 @@ export interface ElementStyles {
   backgroundColor: string;
   backgroundImage: string;
   borderColor: string;
+  /** Physical order: top, right, bottom, left. */
+  borderStyles: [string, string, string, string];
   animation: string;
   animationDirection: string;
   blendMode: string;
   layerCount: number;
   backgroundClip: string;
+  backgroundOrigin: string;
+  backgroundSize: string;
+  backgroundPosition: string;
+  backgroundRepeat: string;
+  backgroundAttachment: string;
   rgb: Rgb;
   /** Gamma-encoded brightness proxy, not WCAG relative luminance: the channels
    *  are not linearised. */
@@ -74,11 +81,22 @@ export async function extractStyles(
         backgroundColor: computed.backgroundColor,
         backgroundImage,
         borderColor: computed.borderColor,
+        borderStyles: [
+          computed.borderTopStyle,
+          computed.borderRightStyle,
+          computed.borderBottomStyle,
+          computed.borderLeftStyle,
+        ],
         animation: computed.animation,
         animationDirection: computed.animationDirection,
         blendMode: computed.backgroundBlendMode,
         layerCount: backgroundImage === 'none' ? 0 : backgroundImage.split('gradient(').length - 1,
         backgroundClip: computed.backgroundClip,
+        backgroundOrigin: computed.backgroundOrigin,
+        backgroundSize: computed.backgroundSize,
+        backgroundPosition: computed.backgroundPosition,
+        backgroundRepeat: computed.backgroundRepeat,
+        backgroundAttachment: computed.backgroundAttachment,
         rgb: { r, g, b, a },
         luminance: 0.2126 * (r / 255) + 0.7152 * (g / 255) + 0.0722 * (b / 255),
         alpha: a,

@@ -357,7 +357,9 @@ Every hue-rotate utility works with Tailwind's variant prefixes:
 
 ## Browser support
 
-Requires CSS relative color syntax: Chrome 111+, Safari 16.4+, Firefox 128+. Lab-space trig functions (`cos()`, `sin()`) require Chrome 125+.
+Built on CSS relative color syntax and registered custom properties. The lab-space
+modifiers additionally use the `cos()` and `sin()` trig functions. Live status for each is
+at the foot of this page.
 
 ::: info Rendering paths
 Hue-rotate utilities are plain CSS relative color syntax, and every modern browser evaluates them at render time. [How it works](/guide/color-spaces#how-a-modifier-resolves) covers the mechanism.
@@ -374,4 +376,4 @@ Included in `@import 'tw-jib-css'`, or on its own:
 @import 'tw-jib-css/color-transforms';
 ```
 
-<BaselineSupport :features="['relative-color', 'registered-custom-properties']" />
+<BaselineSupport :features="['relative-color', 'registered-custom-properties', 'trig-functions']" />

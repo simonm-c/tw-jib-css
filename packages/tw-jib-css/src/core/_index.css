@@ -127,6 +127,45 @@
   inherits: false;
   initial-value: border-box;
 }
+/* The shorthand's only writable positions for the content layer. @property has
+ * no <position> or <bg-size> component, so these accept a narrower grammar than
+ * the CSS properties do: no `left 10px top 20px`, no `auto 50%`. */
+@property --jib-background-position {
+  syntax: "<length-percentage>+ | <custom-ident>+";
+  inherits: false;
+  initial-value: 0% 0%;
+}
+@property --jib-background-size {
+  syntax: "auto | cover | contain | <length-percentage>+";
+  inherits: false;
+  initial-value: auto;
+}
+@property --jib-background-repeat {
+  syntax: "<custom-ident>+";
+  inherits: false;
+  initial-value: repeat;
+}
+@property --jib-background-attachment {
+  syntax: "scroll | fixed | local";
+  inherits: false;
+  initial-value: scroll;
+}
+@property --jib-background-origin {
+  syntax: "padding-box | border-box | content-box";
+  inherits: false;
+  initial-value: padding-box;
+}
+@property --jib-border-gradient-origin {
+  syntax: "padding-box | border-box | content-box";
+  inherits: false;
+  initial-value: border-box;
+}
+/* Painted under every layer, so bg-none and a translucent image both reveal it. */
+@property --jib-background-color-layer {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: transparent;
+}
 @property --jib-text-color-source {
   syntax: "<color>";
   inherits: true;
@@ -225,11 +264,102 @@
   --jib-border-gradient-clip: text;
 }
 
+/* Carries TW's size, position, repeat, attachment and origin into a form the
+ * shorthand reads. Static blocks, so an unrecognised bg-cover-alike stays
+ * unmatched. */
+@utility bg-auto {
+  --jib-background-size: auto;
+}
+@utility bg-cover {
+  --jib-background-size: cover;
+}
+@utility bg-contain {
+  --jib-background-size: contain;
+}
+@utility bg-size-* {
+  --jib-background-size: --value([ *]);
+}
+@utility bg-* {
+  --jib-background-size: --value([size]);
+}
+@utility bg-top {
+  --jib-background-position: top;
+}
+@utility bg-bottom {
+  --jib-background-position: bottom;
+}
+@utility bg-left {
+  --jib-background-position: left;
+}
+@utility bg-right {
+  --jib-background-position: right;
+}
+@utility bg-center {
+  --jib-background-position: center;
+}
+@utility bg-top-left {
+  --jib-background-position: left top;
+}
+@utility bg-top-right {
+  --jib-background-position: right top;
+}
+@utility bg-bottom-left {
+  --jib-background-position: left bottom;
+}
+@utility bg-bottom-right {
+  --jib-background-position: right bottom;
+}
+@utility bg-position-* {
+  --jib-background-position: --value([ *]);
+}
+@utility bg-* {
+  --jib-background-position: --value([position]);
+}
+@utility bg-repeat {
+  --jib-background-repeat: repeat;
+}
+@utility bg-no-repeat {
+  --jib-background-repeat: no-repeat;
+}
+@utility bg-repeat-x {
+  --jib-background-repeat: repeat-x;
+}
+@utility bg-repeat-y {
+  --jib-background-repeat: repeat-y;
+}
+@utility bg-repeat-space {
+  --jib-background-repeat: space;
+}
+@utility bg-repeat-round {
+  --jib-background-repeat: round;
+}
+@utility bg-fixed {
+  --jib-background-attachment: fixed;
+}
+@utility bg-local {
+  --jib-background-attachment: local;
+}
+@utility bg-scroll {
+  --jib-background-attachment: scroll;
+}
+@utility bg-origin-border {
+  --jib-background-origin: border-box;
+  --jib-border-gradient-origin: border-box;
+}
+@utility bg-origin-padding {
+  --jib-background-origin: padding-box;
+  --jib-border-gradient-origin: padding-box;
+}
+@utility bg-origin-content {
+  --jib-background-origin: content-box;
+  --jib-border-gradient-origin: content-box;
+}
+
 @utility bg-none {
   background:
-    var(--jib-ripple-image) padding-box var(--jib-background-clip),
-    none padding-box var(--jib-background-clip),
-    var(--jib-border-gradient) border-box var(--jib-border-gradient-clip);
+    var(--jib-ripple-image) 0% 0% / auto repeat scroll var(--jib-background-origin) var(--jib-background-clip),
+    none var(--jib-background-position) / var(--jib-background-size) var(--jib-background-repeat) var(--jib-background-attachment) var(--jib-background-origin) var(--jib-background-clip),
+    var(--jib-border-gradient) 0% 0% / auto repeat scroll var(--jib-border-gradient-origin) var(--jib-border-gradient-clip) var(--jib-background-color-layer);
 }
 
 @utility bg-* {
@@ -239,17 +369,25 @@
   --jib-background-color-source: --alpha(--value("inherit", "transparent", --color- *, [color]) / calc(--modifier([number]) * 100%));
   --jib-background-color: var(--jib-background-color-after-lightness, var(--jib-background-color-after-saturation, var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source))));
   --jib-background-image: linear-gradient(var(--jib-background-color) 0 0);
-  --jib-background-image: --value([url]);
+  --jib-background-image: --value([image]);
 }
 
 @utility bg-* {
   background:
-    var(--jib-ripple-image) padding-box var(--jib-background-clip),
-    --value([url]) padding-box var(--jib-background-clip),
-    var(--jib-border-gradient) border-box var(--jib-border-gradient-clip);
+    var(--jib-ripple-image) 0% 0% / auto repeat scroll var(--jib-background-origin) var(--jib-background-clip),
+    --value([image]) var(--jib-background-position) / var(--jib-background-size) var(--jib-background-repeat) var(--jib-background-attachment) var(--jib-background-origin) var(--jib-background-clip),
+    var(--jib-border-gradient) 0% 0% / auto repeat scroll var(--jib-border-gradient-origin) var(--jib-border-gradient-clip) var(--jib-background-color-layer);
+}
+@utility bg-* {
+  --jib-noop: --value("inherit", "transparent", --color- *, [color]);
+  --jib-noop: --alpha(--value("inherit", "transparent", --color- *, [color]) / calc(--modifier(integer) * 1%));
+  --jib-noop: --alpha(--value("inherit", "transparent", --color- *, [color]) / --modifier([percentage]));
+  --jib-noop: --alpha(--value("inherit", "transparent", --color- *, [color]) / calc(--modifier([number]) * 100%));
+  --jib-background-color-layer: var(--jib-background-color);
 }
 @utility bg-current {
   --jib-background-color-source: currentColor;
+  --jib-background-color-layer: var(--jib-background-color);
   --jib-background-color: var(--jib-background-color-after-lightness, var(--jib-background-color-after-saturation, var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source))));
   --jib-background-image: linear-gradient(var(--jib-background-color) 0 0);
 }
@@ -261,45 +399,45 @@
   --tw-sort: (--value(number, "to-r", "to-l", "to-t", "to-b", "to-tr", "to-tl", "to-br", "to-bl", [ *]));
   --tw-sort: (--value(number, "to-r", "to-l", "to-t", "to-b", "to-tr", "to-tl", "to-br", "to-bl") --modifier("srgb", "hsl", "oklab", "oklch", "longer", "shorter", "increasing", "decreasing", [ *]));
   background:
-    var(--jib-ripple-image) padding-box var(--jib-background-clip),
-    var(--jib-background-image) padding-box var(--jib-background-clip),
-    var(--jib-border-gradient) border-box var(--jib-border-gradient-clip);
+    var(--jib-ripple-image) 0% 0% / auto repeat scroll var(--jib-background-origin) var(--jib-background-clip),
+    var(--jib-background-image) var(--jib-background-position) / var(--jib-background-size) var(--jib-background-repeat) var(--jib-background-attachment) var(--jib-background-origin) var(--jib-background-clip),
+    var(--jib-border-gradient) 0% 0% / auto repeat scroll var(--jib-border-gradient-origin) var(--jib-border-gradient-clip) var(--jib-background-color-layer);
 }
 @utility -bg-linear-* {
   --jib-background-image: linear-gradient(var(--tw-gradient-stops, transparent 0 0));
   --tw-sort: (--value(number, [ *]));
   --tw-sort: (--value(number) --modifier("srgb", "hsl", "oklab", "oklch", "longer", "shorter", "increasing", "decreasing", [ *]));
   background:
-    var(--jib-ripple-image) padding-box var(--jib-background-clip),
-    var(--jib-background-image) padding-box var(--jib-background-clip),
-    var(--jib-border-gradient) border-box var(--jib-border-gradient-clip);
+    var(--jib-ripple-image) 0% 0% / auto repeat scroll var(--jib-background-origin) var(--jib-background-clip),
+    var(--jib-background-image) var(--jib-background-position) / var(--jib-background-size) var(--jib-background-repeat) var(--jib-background-attachment) var(--jib-background-origin) var(--jib-background-clip),
+    var(--jib-border-gradient) 0% 0% / auto repeat scroll var(--jib-border-gradient-origin) var(--jib-border-gradient-clip) var(--jib-background-color-layer);
 }
 @utility bg-radial-* {
   --jib-background-image: radial-gradient(var(--tw-gradient-stops, transparent 0 0));
   --tw-sort: (--value([ *], --default(none)));
   --tw-sort: (--value(--default(none)) --modifier("srgb", "hsl", "oklab", "oklch", "longer", "shorter", "increasing", "decreasing", [ *]));
   background:
-    var(--jib-ripple-image) padding-box var(--jib-background-clip),
-    var(--jib-background-image) padding-box var(--jib-background-clip),
-    var(--jib-border-gradient) border-box var(--jib-border-gradient-clip);
+    var(--jib-ripple-image) 0% 0% / auto repeat scroll var(--jib-background-origin) var(--jib-background-clip),
+    var(--jib-background-image) var(--jib-background-position) / var(--jib-background-size) var(--jib-background-repeat) var(--jib-background-attachment) var(--jib-background-origin) var(--jib-background-clip),
+    var(--jib-border-gradient) 0% 0% / auto repeat scroll var(--jib-border-gradient-origin) var(--jib-border-gradient-clip) var(--jib-background-color-layer);
 }
 @utility bg-conic-* {
   --jib-background-image: conic-gradient(var(--tw-gradient-stops, transparent 0 0));
   --tw-sort: (--value(number, [ *], --default(none)));
   --tw-sort: (--value(number, --default(none)) --modifier("srgb", "hsl", "oklab", "oklch", "longer", "shorter", "increasing", "decreasing", [ *]));
   background:
-    var(--jib-ripple-image) padding-box var(--jib-background-clip),
-    var(--jib-background-image) padding-box var(--jib-background-clip),
-    var(--jib-border-gradient) border-box var(--jib-border-gradient-clip);
+    var(--jib-ripple-image) 0% 0% / auto repeat scroll var(--jib-background-origin) var(--jib-background-clip),
+    var(--jib-background-image) var(--jib-background-position) / var(--jib-background-size) var(--jib-background-repeat) var(--jib-background-attachment) var(--jib-background-origin) var(--jib-background-clip),
+    var(--jib-border-gradient) 0% 0% / auto repeat scroll var(--jib-border-gradient-origin) var(--jib-border-gradient-clip) var(--jib-background-color-layer);
 }
 @utility -bg-conic-* {
   --jib-background-image: conic-gradient(var(--tw-gradient-stops, transparent 0 0));
   --tw-sort: (--value(number, [ *], --default(none)));
   --tw-sort: (--value(number, --default(none)) --modifier("srgb", "hsl", "oklab", "oklch", "longer", "shorter", "increasing", "decreasing", [ *]));
   background:
-    var(--jib-ripple-image) padding-box var(--jib-background-clip),
-    var(--jib-background-image) padding-box var(--jib-background-clip),
-    var(--jib-border-gradient) border-box var(--jib-border-gradient-clip);
+    var(--jib-ripple-image) 0% 0% / auto repeat scroll var(--jib-background-origin) var(--jib-background-clip),
+    var(--jib-background-image) var(--jib-background-position) / var(--jib-background-size) var(--jib-background-repeat) var(--jib-background-attachment) var(--jib-background-origin) var(--jib-background-clip),
+    var(--jib-border-gradient) 0% 0% / auto repeat scroll var(--jib-border-gradient-origin) var(--jib-border-gradient-clip) var(--jib-background-color-layer);
 }
 
 @utility border-* {

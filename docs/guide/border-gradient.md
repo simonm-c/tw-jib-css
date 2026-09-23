@@ -9,7 +9,7 @@ title: Border gradient
 Linear, radial and conic gradient borders. Same grammar as Tailwind's `bg-linear-*`, applied to borders. 8 interpolation modes. For animated spinning borders, see [Border Spin](/guide/border-spin).
 
 ::: info Browser support
-Chrome 111+, Safari 16.4+, Firefox 128+. Interpolation modes (`/shorter`, `/longer`, etc.) require Chrome 111+, Safari 16.4+.
+Built on registered custom properties and gradient color interpolation, which is also what the interpolation modes (`/shorter`, `/longer`, etc.) ride on. No relative color syntax is involved. Live status for both is at the foot of this page.
 :::
 
 ::: warning Gradient stops from CSS variables must carry a type hint

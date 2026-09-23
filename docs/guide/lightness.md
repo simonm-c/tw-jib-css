@@ -446,7 +446,10 @@ Every lightness utility works with Tailwind's variant prefixes:
 
 ## Browser support
 
-Requires CSS relative color syntax: Chrome 111+, Safari 16.4+, Firefox 128+.
+Built on CSS relative color syntax, registered custom properties, `color-mix()` and the
+`abs()` and `sign()` math functions. `abs()` and `sign()` were the last of those to reach
+Chromium, so they are what sets the floor here. Live status for each is at the foot of
+this page.
 
 ::: info Rendering paths
 Lightness utilities are plain CSS relative color syntax, and every modern browser evaluates them at render time. [How it works](/guide/color-spaces#how-a-modifier-resolves) covers the mechanism.
@@ -464,4 +467,4 @@ Included in `@import 'tw-jib-css'`, or on its own:
 @import 'tw-jib-css/color-transforms';
 ```
 
-<BaselineSupport :features="['relative-color', 'registered-custom-properties']" />
+<BaselineSupport :features="['relative-color', 'registered-custom-properties', 'color-mix', 'abs-sign']" />

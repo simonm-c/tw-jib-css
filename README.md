@@ -94,9 +94,13 @@ the shared pipeline lands once, not once per module. The test suite covers both 
 ## Requirements
 
 - **TailwindCSS 4.3+**, declared as a peer dependency (`tailwindcss >=4.3.0`).
-- **Chrome 111+, Safari 16.4+, Firefox 128+** for anything that transforms a colour. That means CSS
-  relative colour syntax plus `@property`. `border-style` and `grid` need neither and work wherever
-  Tailwind does.
+- **Chrome 138+, Safari 16.4+, Firefox 128+** for anything that transforms a colour. Relative colour
+  syntax (Chrome 119+) and `@property` account for most of that, but the lightness and saturation
+  transforms also use `abs()` and `sign()`, which Chromium shipped only in 138. `border-style` and
+  `grid` need none of it and work wherever Tailwind does. Every
+  [guide page](https://simonm-c.github.io/tw-jib-css/) carries live Baseline status for the features
+  it is built on; `abs()`/`sign()` is
+  [tracked here](https://webstatus.dev/features/abs-sign).
 
 Nothing in this package runs CSS `@function`. That is deliberate. It is the guarantee that covers
 consumers who opted into nothing.

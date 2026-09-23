@@ -108,10 +108,12 @@ taken alone, and that the combined entry never re-emits the shared core.
   `--default()` functional-utility forms that 4.3 requires. It declares
   `tailwindcss >=4.3.0` as a peer dependency.
 - **Color utilities.** Anything that transforms a color needs CSS relative
-  color syntax and `@property`: **Chrome 111+, Safari 16.4+, Firefox 128+**. That
-  covers automatic contrast, the color transforms, border gradients, ripple, comic
-  and pixel. A few individual features want a little more, and each module page
-  says so.
+  color syntax and `@property`. That covers automatic contrast, the color
+  transforms, comic and pixel; border gradients and ripple need `@property` but no
+  relative color syntax. The lightness and saturation transforms also use the
+  `abs()` and `sign()` math functions, which reached Chromium later than the rest
+  and so set the floor for the whole package. Each module page carries live
+  Baseline pills for the features it is built on.
 - **`border-style` and `grid`.** Plain CSS properties, no relative color syntax,
   no registrations. They work wherever Tailwind itself does.
 
@@ -145,4 +147,4 @@ should not reroute classes you already use, so it doesn't.
 Read [its installation guide](https://simonm-c.github.io/tw-jib-css/experimental/guide/installation)
 before installing.
 
-<BaselineSupport :features="['relative-color', 'registered-custom-properties']" />
+<BaselineSupport :features="['relative-color', 'registered-custom-properties', 'color-mix', 'abs-sign']" />

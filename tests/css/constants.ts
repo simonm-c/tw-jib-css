@@ -1,7 +1,13 @@
 /** Every layer carries a second box value so `bg-clip-*` can reach a clip the
- *  shorthand would otherwise overwrite. */
+ *  shorthand would otherwise overwrite, and the content layer carries the slots
+ *  Tailwind's own size, position, repeat and attachment longhands write. */
 export const BG_LAYER =
-  'var(--jib-ripple-image) padding-box var(--jib-background-clip), var(--jib-background-image) padding-box var(--jib-background-clip), var(--jib-border-gradient) border-box var(--jib-border-gradient-clip)';
+  'var(--jib-ripple-image) 0% 0% / auto repeat scroll var(--jib-background-origin) var(--jib-background-clip), var(--jib-background-image) var(--jib-background-position) / var(--jib-background-size) var(--jib-background-repeat) var(--jib-background-attachment) var(--jib-background-origin) var(--jib-background-clip), var(--jib-border-gradient) 0% 0% / auto repeat scroll var(--jib-border-gradient-origin) var(--jib-border-gradient-clip) var(--jib-background-color-layer)';
+
+/** A texture writes its per-layer geometry inside `--jib-background-image`, so
+ *  the shorthand around it reads only the box slots and the colour underlay. */
+export const BG_LAYER_TEXTURED =
+  'var(--jib-ripple-image) var(--jib-background-origin) var(--jib-background-clip), var(--jib-background-image) var(--jib-background-origin) var(--jib-background-clip), var(--jib-border-gradient) var(--jib-border-gradient-origin) var(--jib-border-gradient-clip) var(--jib-background-color-layer)';
 
 /** [tailwind-class-suffix, unique CSS substring marker] */
 export const DARKEN_PALETTE: [string, string][] = [

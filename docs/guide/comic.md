@@ -11,7 +11,7 @@ CMYK halftone dot backgrounds for any Tailwind color. Pure CSS, no images.
 Comic mixes subtractively, the way ink lands on paper. Its sibling [Pixel](/guide/pixel) mixes additively, the way a display emits light. Left at their defaults both read back as the color you passed in; turn the knobs up and the channels come apart.
 
 ::: info Browser support
-Uses CSS relative color syntax with `max()` inside `rgb(from ...)`. Supported in Chrome 125+, Edge 125+, Firefox 128+, and Safari 16.4+.
+Built on CSS relative color syntax with `max()` inside `rgb(from ...)`, and registered custom properties. Live status for each is at the foot of this page.
 :::
 
 ::: danger Do not pair this with `text-contrast-*`
@@ -617,4 +617,4 @@ Included in `@import 'tw-jib-css'`. To import individually:
 @import 'tw-jib-css/comic';
 ```
 
-<BaselineSupport :features="['relative-color']" />
+<BaselineSupport :features="['relative-color', 'registered-custom-properties']" />

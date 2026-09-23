@@ -40,9 +40,9 @@
   --jib-comic-cell: calc(var(--jib-comic-dot) * 2 + var(--jib-comic-gap));
   --jib-background-image: radial-gradient(circle, rgb(from var(--jib-comic-color) 0 255 255 / calc((max(r, g, b) - r) / max(max(r, g, b), 1) * var(--jib-comic-opacity))) var(--jib-comic-dot), transparent calc(var(--jib-comic-dot) + var(--jib-comic-bleed))) 0px 0px / var(--jib-comic-cell) var(--jib-comic-cell) padding-box var(--jib-background-clip), radial-gradient(circle, rgb(from var(--jib-comic-color) 255 0 255 / calc((max(r, g, b) - g) / max(max(r, g, b), 1) * var(--jib-comic-opacity))) var(--jib-comic-dot), transparent calc(var(--jib-comic-dot) + var(--jib-comic-bleed))) calc(var(--jib-comic-cell) / 2) calc(var(--jib-comic-cell) / 2) / var(--jib-comic-cell) var(--jib-comic-cell) padding-box var(--jib-background-clip), radial-gradient(circle, rgb(from var(--jib-comic-color) 255 255 0 / calc((max(r, g, b) - b) / max(max(r, g, b), 1) * var(--jib-comic-opacity))) var(--jib-comic-dot), transparent calc(var(--jib-comic-dot) + var(--jib-comic-bleed))) calc(var(--jib-comic-cell) / 2) 0px / var(--jib-comic-cell) var(--jib-comic-cell) padding-box var(--jib-background-clip), radial-gradient(circle, rgb(from var(--jib-comic-color) 0 0 0 / calc((1 - max(r, g, b) / 255) * var(--jib-comic-opacity))) var(--jib-comic-dot), transparent calc(var(--jib-comic-dot) + var(--jib-comic-bleed))) 0px calc(var(--jib-comic-cell) / 2) / var(--jib-comic-cell) var(--jib-comic-cell) padding-box var(--jib-background-clip), linear-gradient(rgb(255 255 255 / var(--jib-comic-opacity)) 0 0);
   background:
-    var(--jib-ripple-image) padding-box var(--jib-background-clip),
-    var(--jib-background-image) padding-box var(--jib-background-clip),
-    var(--jib-border-gradient) border-box var(--jib-border-gradient-clip);
+    var(--jib-ripple-image) var(--jib-background-origin) var(--jib-background-clip),
+    var(--jib-background-image) var(--jib-background-origin) var(--jib-background-clip),
+    var(--jib-border-gradient) var(--jib-border-gradient-origin) var(--jib-border-gradient-clip) var(--jib-background-color-layer);
   background-blend-mode: normal, multiply, multiply, multiply, multiply, normal, normal;
 }
 

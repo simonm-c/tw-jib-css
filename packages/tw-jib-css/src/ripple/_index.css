@@ -40,9 +40,9 @@
   --jib-ripple-image: radial-gradient(circle at var(--jib-ripple-position), var(--jib-mixed-ripple-color) 0%, var(--jib-mixed-ripple-color) var(--jib-ripple-distance), transparent var(--jib-ripple-distance), transparent 100%);
 
   background:
-    var(--jib-ripple-image) padding-box var(--jib-background-clip),
-    var(--jib-background-image) padding-box var(--jib-background-clip),
-    var(--jib-border-gradient) border-box var(--jib-border-gradient-clip);
+    var(--jib-ripple-image) 0% 0% / auto repeat scroll var(--jib-background-origin) var(--jib-background-clip),
+    var(--jib-background-image) var(--jib-background-position) / var(--jib-background-size) var(--jib-background-repeat) var(--jib-background-attachment) var(--jib-background-origin) var(--jib-background-clip),
+    var(--jib-border-gradient) 0% 0% / auto repeat scroll var(--jib-border-gradient-origin) var(--jib-border-gradient-clip) var(--jib-background-color-layer);
 
   --jib-ripple-distance: 100%;
   --jib-ripple-color-mix: var(--jib-ripple-fade-amount);

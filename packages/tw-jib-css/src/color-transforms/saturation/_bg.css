@@ -4,18 +4,11 @@
   initial-value: 0;
 }
 
-/* Per-space saturation, lerped toward each space's own chroma ceiling:
- * 0.4 for OKLab/OKLCh, 150 for CIE LCh, 125 for CIE Lab a/b, 100% for HSL.
- * rgb-family sends each channel to 255 or 0 by its sign against luma, and
- * desaturates toward luma itself; 0.213/0.715/0.072 are the rounded BT.709
- * weights. xyz-family desaturates toward the white point scaled by y:
- * D65 x 0.95047 z 1.08883, D50 x 0.96422 z 0.82521.
- *
- * The /color-mix pair gives both colours an explicit percentage, so the two set
- * a ratio rather than one implying 100% minus the other. Doubling to 200% and
- * clamping pins whichever side is nearer its end at 100% while the other falls,
- * sweeping the ratio 1:0 → 1:1 → 0:1 with clamps alone. The sum never drops
- * below 100%, so alpha is never reduced.
+/* - Chroma ceilings: 0.4 OKLab/OKLCh, 150 CIE LCh, 125 CIE Lab a/b, 100% HSL.
+ * - 0.213/0.715/0.072 = rounded BT.709 luma weights.
+ * - White points at Y=1: D65 x 0.95047 z 1.08883, D50 x 0.96422 z 0.82521.
+ * - /color-mix: both percentages doubled to 200% and clamped, so they sum to at
+ *   least 100% and color-mix() never reduces alpha.
  */
 @theme inline {
   --jib-background-saturation-interpolation-lch: lch(from var(--jib-background-color-after-hue-rotate, var(--jib-background-color-source)) l calc(c * (1 - abs(var(--jib-background-saturation-amount))) + max(0, var(--jib-background-saturation-amount)) * 150) h / alpha);

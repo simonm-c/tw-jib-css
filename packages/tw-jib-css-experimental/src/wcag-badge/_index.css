@@ -1,9 +1,8 @@
-/* Registered so style() sees a parsed number. Unregistered it computes to a raw
- * token stream, prettier's space before `;` included, so "1 " never matches 1
- * and the Max branch is unreachable.
- *
- * --jib-wcag-display stays unregistered for the inverse: typed <string>
- * substitutes into `content` as nothing, blanking the badge. */
+/* - Registered so style() sees a parsed number. Unregistered it computes to a
+ *   raw token stream, prettier's space before `;` included, so "1 " never
+ *   matches 1 and the Max branch is unreachable.
+ * - --jib-wcag-display stays unregistered for the inverse: typed <string>
+ *   substitutes into `content` as nothing, blanking the badge. */
 @property --jib-wcag-shortfall {
   syntax: "<integer>";
   inherits: false;

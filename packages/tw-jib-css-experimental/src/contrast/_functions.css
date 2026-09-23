@@ -93,8 +93,7 @@
   result: color(from var(--vector) srgb-linear calc(alpha + min(1, (1 - alpha) / max(r, 0.001), alpha / max((0 - r), 0.001), (1 - alpha) / max(g, 0.001), alpha / max((0 - g), 0.001), (1 - alpha) / max(b, 0.001), alpha / max((0 - b), 0.001)) * r) calc(alpha + min(1, (1 - alpha) / max(r, 0.001), alpha / max((0 - r), 0.001), (1 - alpha) / max(g, 0.001), alpha / max((0 - g), 0.001), (1 - alpha) / max(b, 0.001), alpha / max((0 - b), 0.001)) * g) calc(alpha + min(1, (1 - alpha) / max(r, 0.001), alpha / max((0 - r), 0.001), (1 - alpha) / max(g, 0.001), alpha / max((0 - g), 0.001), (1 - alpha) / max(b, 0.001), alpha / max((0 - b), 0.001)) * b) / 1);
 }
 
-/* Modifier = aesthetic path only; the lift owns correctness, so an approximate
- * seed is not a bug.
+/* Modifier = aesthetic path only; the lift owns correctness.
  *   Class 1  RGB-family, linear transforms of linear-light RGB: core IS the path
  *   Class 2  CIE Lab, L* invertible in luminance: exact seed
  *   Class 3  perceptual-OK + legacy: approximate seed, lift corrects */

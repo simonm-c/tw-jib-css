@@ -12,6 +12,20 @@ per package, from the commits that went into it:
 - [`packages/tw-jib-css/CHANGELOG.md`](packages/tw-jib-css/CHANGELOG.md)
 - [`packages/tw-jib-css-experimental/CHANGELOG.md`](packages/tw-jib-css-experimental/CHANGELOG.md)
 
+## [2.0.3](https://github.com/simonm-c/tw-jib-css/compare/workspace-v2.0.2...workspace-v2.0.3) (2026-09-24)
+
+
+### Bug Fixes
+
+* **automatic-contrast:** fold the bare candidate into the seeded block ([08539ad](https://github.com/simonm-c/tw-jib-css/commit/08539ad4f59c00ce5fb4ab16a9e51e6367d01d6a))
+* **border-style:** keep a per-side style through a later width utility ([22c80ce](https://github.com/simonm-c/tw-jib-css/commit/22c80ce616a532c3447f395a92b897d2a78a1698))
+* **border-style:** keep a per-side style through a later width utility ([60b03b1](https://github.com/simonm-c/tw-jib-css/commit/60b03b1942301c20ab3ed36eae413cecf9be4f5e))
+* **border-style:** register the per-side style slots ([8ca638b](https://github.com/simonm-c/tw-jib-css/commit/8ca638b2a8df91509af2ba45ce74319531c9a9c3))
+* **core:** carry Tailwind's background longhands through the shorthand ([28916e5](https://github.com/simonm-c/tw-jib-css/commit/28916e56d730beaa198d27fa66d3e031af8089ca))
+* **core:** carry Tailwind's background longhands through the shorthand ([06c59dc](https://github.com/simonm-c/tw-jib-css/commit/06c59dccf2e5bd25ceba8dc0329411b8be0fd10e))
+* **core:** keep the border gradient when a background gradient has no stop ([46c1d91](https://github.com/simonm-c/tw-jib-css/commit/46c1d91dfb61c098608270734b864a1d52705a13))
+* **core:** paint a background colour once in every composited shorthand ([b677128](https://github.com/simonm-c/tw-jib-css/commit/b677128831de02c4df861573cc9ff85ba079558b))
+
 ## [2.0.2](https://github.com/simonm-c/tw-jib-css/compare/workspace-v2.0.1...workspace-v2.0.2) (2026-09-20)
 
 

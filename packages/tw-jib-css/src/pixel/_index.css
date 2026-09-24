@@ -81,7 +81,7 @@
   background:
     var(--jib-ripple-image) var(--jib-background-origin) var(--jib-background-clip),
     var(--jib-background-image) var(--jib-background-origin) var(--jib-background-clip),
-    var(--jib-border-gradient) var(--jib-border-gradient-origin) var(--jib-border-gradient-clip) var(--jib-background-color-layer);
+    var(--jib-border-gradient) var(--jib-border-gradient-origin) var(--jib-border-gradient-clip);
   background-position:
     0 0,
     0 0,

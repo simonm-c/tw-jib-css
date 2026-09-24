@@ -80,8 +80,9 @@ box so `bg-cover` and `bg-contain` are observable.
 
 ## The colour underlay
 
-`bg-none` removes the image layer. The colour a `bg-*` utility set stays,
-because it is painted beneath every layer rather than inside the image slot.
+`bg-none` takes the image position for itself. The colour a `bg-*` utility set
+stays, because it fills an underlay as well as the image slot, and a shorthand
+that replaces the image position carries that underlay beneath every layer.
 
 <div class="grid grid-cols-4 gap-4 my-6">
   <div>
@@ -153,11 +154,11 @@ the stack still paints.
   </div>
 </div>
 
-## Where the colour underlay stops
+## Where the last layer stops
 
-The underlay is painted beneath every layer, so it takes the clip of the last
-one: the border box, as a `background-color` does in stock Tailwind. The image
-layers still stop at the padding box. `bg-clip-padding` moves both.
+The last layer in the shorthand takes the border box, as a `background-color`
+does in stock Tailwind, while the image layers stop at the padding box.
+`bg-clip-padding` moves both.
 
 <div class="grid grid-cols-3 gap-4 my-6">
   <div>
@@ -171,5 +172,105 @@ layers still stop at the padding box. `bg-clip-padding` moves both.
   <div>
     <div data-test="underlay-behind-gradient" class="bg-red-500 border-8 border-linear-to-r border-from-lime-400 border-to-cyan-400 h-24"></div>
     <div class="text-xs font-mono text-center mt-1">under a border gradient</div>
+  </div>
+</div>
+
+## One paint, not two
+
+Each row is one composition, four times: `bg-white/50` and `bg-transparent`, each over a
+black and a white backdrop. The gap between the two backdrops is how much of the backdrop
+the element still lets through, which isolates coverage from whatever colour the layers
+themselves contribute. `bg-white/50` must cut that gap in half exactly once.
+
+<div class="grid gap-4 my-6">
+  <div class="text-xs font-mono text-slate-400">no other background utility</div>
+  <div class="grid grid-cols-4 gap-2">
+    <div class="bg-black p-3">
+      <div data-test="paint-alone-colour-black" class="h-16 border-4 border-transparent bg-white/50"></div>
+    </div>
+    <div class="bg-white p-3">
+      <div data-test="paint-alone-colour-white" class="h-16 border-4 border-transparent bg-white/50"></div>
+    </div>
+    <div class="bg-black p-3">
+      <div data-test="paint-alone-clear-black" class="h-16 border-4 border-transparent bg-transparent"></div>
+    </div>
+    <div class="bg-white p-3">
+      <div data-test="paint-alone-clear-white" class="h-16 border-4 border-transparent bg-transparent"></div>
+    </div>
+  </div>
+  <div class="text-xs font-mono text-slate-400">bg-ripple</div>
+  <div class="grid grid-cols-4 gap-2">
+    <div class="bg-black p-3">
+      <div data-test="paint-ripple-colour-black" class="h-16 border-4 border-transparent bg-white/50 bg-ripple"></div>
+    </div>
+    <div class="bg-white p-3">
+      <div data-test="paint-ripple-colour-white" class="h-16 border-4 border-transparent bg-white/50 bg-ripple"></div>
+    </div>
+    <div class="bg-black p-3">
+      <div data-test="paint-ripple-clear-black" class="h-16 border-4 border-transparent bg-transparent bg-ripple"></div>
+    </div>
+    <div class="bg-white p-3">
+      <div data-test="paint-ripple-clear-white" class="h-16 border-4 border-transparent bg-transparent bg-ripple"></div>
+    </div>
+  </div>
+  <div class="text-xs font-mono text-slate-400">bg-comic-slate-500</div>
+  <div class="grid grid-cols-4 gap-2">
+    <div class="bg-black p-3">
+      <div data-test="paint-comic-colour-black" class="h-16 border-4 border-transparent bg-white/50 bg-comic-slate-500"></div>
+    </div>
+    <div class="bg-white p-3">
+      <div data-test="paint-comic-colour-white" class="h-16 border-4 border-transparent bg-white/50 bg-comic-slate-500"></div>
+    </div>
+    <div class="bg-black p-3">
+      <div data-test="paint-comic-clear-black" class="h-16 border-4 border-transparent bg-transparent bg-comic-slate-500"></div>
+    </div>
+    <div class="bg-white p-3">
+      <div data-test="paint-comic-clear-white" class="h-16 border-4 border-transparent bg-transparent bg-comic-slate-500"></div>
+    </div>
+  </div>
+  <div class="text-xs font-mono text-slate-400">a border gradient with fully clear stops</div>
+  <div class="grid grid-cols-4 gap-2">
+    <div class="bg-black p-3">
+      <div data-test="paint-gradient-clear-colour-black" class="h-16 border-4 bg-white/50 border-linear-to-r border-from-transparent border-to-transparent"></div>
+    </div>
+    <div class="bg-white p-3">
+      <div data-test="paint-gradient-clear-colour-white" class="h-16 border-4 bg-white/50 border-linear-to-r border-from-transparent border-to-transparent"></div>
+    </div>
+    <div class="bg-black p-3">
+      <div data-test="paint-gradient-clear-clear-black" class="h-16 border-4 bg-transparent border-linear-to-r border-from-transparent border-to-transparent"></div>
+    </div>
+    <div class="bg-white p-3">
+      <div data-test="paint-gradient-clear-clear-white" class="h-16 border-4 bg-transparent border-linear-to-r border-from-transparent border-to-transparent"></div>
+    </div>
+  </div>
+  <div class="text-xs font-mono text-slate-400">a border gradient with stops at /30</div>
+  <div class="grid grid-cols-4 gap-2">
+    <div class="bg-black p-3">
+      <div data-test="paint-gradient-30-colour-black" class="h-16 border-4 bg-white/50 border-linear-to-r border-from-rose-500/30 border-to-cyan-500/30"></div>
+    </div>
+    <div class="bg-white p-3">
+      <div data-test="paint-gradient-30-colour-white" class="h-16 border-4 bg-white/50 border-linear-to-r border-from-rose-500/30 border-to-cyan-500/30"></div>
+    </div>
+    <div class="bg-black p-3">
+      <div data-test="paint-gradient-30-clear-black" class="h-16 border-4 bg-transparent border-linear-to-r border-from-rose-500/30 border-to-cyan-500/30"></div>
+    </div>
+    <div class="bg-white p-3">
+      <div data-test="paint-gradient-30-clear-white" class="h-16 border-4 bg-transparent border-linear-to-r border-from-rose-500/30 border-to-cyan-500/30"></div>
+    </div>
+  </div>
+  <div class="text-xs font-mono text-slate-400">a border gradient with opaque stops</div>
+  <div class="grid grid-cols-4 gap-2">
+    <div class="bg-black p-3">
+      <div data-test="paint-gradient-opaque-colour-black" class="h-16 border-4 bg-white/50 border-linear-to-r border-from-rose-500 border-to-cyan-500"></div>
+    </div>
+    <div class="bg-white p-3">
+      <div data-test="paint-gradient-opaque-colour-white" class="h-16 border-4 bg-white/50 border-linear-to-r border-from-rose-500 border-to-cyan-500"></div>
+    </div>
+    <div class="bg-black p-3">
+      <div data-test="paint-gradient-opaque-clear-black" class="h-16 border-4 bg-transparent border-linear-to-r border-from-rose-500 border-to-cyan-500"></div>
+    </div>
+    <div class="bg-white p-3">
+      <div data-test="paint-gradient-opaque-clear-white" class="h-16 border-4 bg-transparent border-linear-to-r border-from-rose-500 border-to-cyan-500"></div>
+    </div>
   </div>
 </div>

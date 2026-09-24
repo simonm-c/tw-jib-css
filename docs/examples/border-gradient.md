@@ -61,6 +61,40 @@ Each element pairs a background color variant with a standard linear border grad
   </div>
 </div>
 
+## Solid colours mask the gradient
+
+The body of the box is the background colour: the padding-box layer paints over the
+border-gradient layer, leaving the gradient visible only in the border. Each pair is one
+colour with and without the gradient, and the cells carry no text so the centre pixel is
+the background.
+
+<div class="grid grid-cols-4 gap-3 my-6">
+  <div data-test="mask-white-plain" class="h-20 rounded-lg border-4 border-transparent bg-white"></div>
+  <div data-test="mask-white-gradient" class="h-20 rounded-lg border-4 bg-white border-linear-to-r border-from-rose-500 border-to-cyan-500"></div>
+  <div data-test="mask-dark-plain" class="h-20 rounded-lg border-4 border-transparent bg-gray-900"></div>
+  <div data-test="mask-dark-gradient" class="h-20 rounded-lg border-4 bg-gray-900 border-linear-to-r border-from-rose-500 border-to-cyan-500"></div>
+</div>
+
+## Colour over the gradient
+
+Each cell is one background over the same border gradient, with no text, so the centre
+pixel is the background. `cover-reference` carries the gradient alone.
+
+<div class="grid grid-cols-4 gap-3 my-6">
+  <div data-test="cover-reference" class="h-20 rounded-lg border-4 border-linear-to-r border-from-rose-500 border-to-cyan-500 bg-transparent"></div>
+  <div data-test="cover-named" class="h-20 rounded-lg border-4 border-linear-to-r border-from-rose-500 border-to-cyan-500 bg-blue-500"></div>
+  <div data-test="cover-named-alt" class="h-20 rounded-lg border-4 border-linear-to-r border-from-rose-500 border-to-cyan-500 bg-emerald-600"></div>
+  <div data-test="cover-black" class="h-20 rounded-lg border-4 border-linear-to-r border-from-rose-500 border-to-cyan-500 bg-black"></div>
+  <div data-test="cover-white" class="h-20 rounded-lg border-4 border-linear-to-r border-from-rose-500 border-to-cyan-500 bg-white"></div>
+  <div data-test="cover-hex" class="h-20 rounded-lg border-4 border-linear-to-r border-from-rose-500 border-to-cyan-500 bg-[#ff6b35]"></div>
+  <div data-test="cover-rgb" class="h-20 rounded-lg border-4 border-linear-to-r border-from-rose-500 border-to-cyan-500 bg-[rgb(50,215,30)]"></div>
+  <div data-test="cover-oklch" class="h-20 rounded-lg border-4 border-linear-to-r border-from-rose-500 border-to-cyan-500 bg-[oklch(0.7_0.15_200)]"></div>
+  <div data-test="cover-var" class="h-20 rounded-lg border-4 border-linear-to-r border-from-rose-500 border-to-cyan-500 bg-(color:--custom-bg-color) [--custom-bg-color:oklch(0.65_0.15_250)]"></div>
+  <div data-test="cover-a50" class="h-20 rounded-lg border-4 border-linear-to-r border-from-rose-500 border-to-cyan-500 bg-blue-500/50"></div>
+  <div data-test="cover-a25" class="h-20 rounded-lg border-4 border-linear-to-r border-from-rose-500 border-to-cyan-500 bg-blue-500/25"></div>
+  <div data-test="cover-a0" class="h-20 rounded-lg border-4 border-linear-to-r border-from-rose-500 border-to-cyan-500 bg-blue-500/0"></div>
+</div>
+
 ## Background linear gradients
 
 Background gradients (all directions) with a standard border gradient.
@@ -787,68 +821,6 @@ All 8 border styles with gradient and default transparent border color.
     <span class="text-xs font-mono text-gray-500">inset</span>
   </div>
   <div data-test="style-outset" class="h-20 rounded-lg border-8 border-outset flex items-center justify-center bg-white border-linear-to-r border-from-rose-500 border-to-cyan-500">
-    <span class="text-xs font-mono text-gray-500">outset</span>
-  </div>
-</div>
-
-## Border styles: solid border color
-
-All 8 border styles with gradient and a solid border color (border-amber-500). Solid color hides gradient on painted segments; gradient shows through gaps.
-
-<div class="grid grid-cols-4 gap-3 my-6">
-  <div data-test="style-color-solid" class="h-20 rounded-lg border-8 border-amber-500 border-solid flex items-center justify-center bg-white border-linear-to-r border-from-rose-500 border-to-cyan-500">
-    <span class="text-xs font-mono text-gray-500">solid</span>
-  </div>
-  <div data-test="style-color-dashed" class="h-20 rounded-lg border-8 border-amber-500 border-dashed flex items-center justify-center bg-white border-linear-to-r border-from-rose-500 border-to-cyan-500">
-    <span class="text-xs font-mono text-gray-500">dashed</span>
-  </div>
-  <div data-test="style-color-dotted" class="h-20 rounded-lg border-8 border-amber-500 border-dotted flex items-center justify-center bg-white border-linear-to-r border-from-rose-500 border-to-cyan-500">
-    <span class="text-xs font-mono text-gray-500">dotted</span>
-  </div>
-  <div data-test="style-color-double" class="h-20 rounded-lg border-8 border-amber-500 border-double flex items-center justify-center bg-white border-linear-to-r border-from-rose-500 border-to-cyan-500">
-    <span class="text-xs font-mono text-gray-500">double</span>
-  </div>
-  <div data-test="style-color-groove" class="h-20 rounded-lg border-8 border-amber-500 border-groove flex items-center justify-center bg-white border-linear-to-r border-from-rose-500 border-to-cyan-500">
-    <span class="text-xs font-mono text-gray-500">groove</span>
-  </div>
-  <div data-test="style-color-ridge" class="h-20 rounded-lg border-8 border-amber-500 border-ridge flex items-center justify-center bg-white border-linear-to-r border-from-rose-500 border-to-cyan-500">
-    <span class="text-xs font-mono text-gray-500">ridge</span>
-  </div>
-  <div data-test="style-color-inset" class="h-20 rounded-lg border-8 border-amber-500 border-inset flex items-center justify-center bg-white border-linear-to-r border-from-rose-500 border-to-cyan-500">
-    <span class="text-xs font-mono text-gray-500">inset</span>
-  </div>
-  <div data-test="style-color-outset" class="h-20 rounded-lg border-8 border-amber-500 border-outset flex items-center justify-center bg-white border-linear-to-r border-from-rose-500 border-to-cyan-500">
-    <span class="text-xs font-mono text-gray-500">outset</span>
-  </div>
-</div>
-
-## Border styles: Semi-Transparent border color
-
-All 8 border styles with gradient and a semi-transparent border color (border-amber-500/50). Color tints gradient on painted segments; full gradient in gaps.
-
-<div class="grid grid-cols-4 gap-3 my-6">
-  <div data-test="style-alpha-solid" class="h-20 rounded-lg border-8 border-amber-500/50 border-solid flex items-center justify-center bg-white border-linear-to-r border-from-rose-500 border-to-cyan-500">
-    <span class="text-xs font-mono text-gray-500">solid</span>
-  </div>
-  <div data-test="style-alpha-dashed" class="h-20 rounded-lg border-8 border-amber-500/50 border-dashed flex items-center justify-center bg-white border-linear-to-r border-from-rose-500 border-to-cyan-500">
-    <span class="text-xs font-mono text-gray-500">dashed</span>
-  </div>
-  <div data-test="style-alpha-dotted" class="h-20 rounded-lg border-8 border-amber-500/50 border-dotted flex items-center justify-center bg-white border-linear-to-r border-from-rose-500 border-to-cyan-500">
-    <span class="text-xs font-mono text-gray-500">dotted</span>
-  </div>
-  <div data-test="style-alpha-double" class="h-20 rounded-lg border-8 border-amber-500/50 border-double flex items-center justify-center bg-white border-linear-to-r border-from-rose-500 border-to-cyan-500">
-    <span class="text-xs font-mono text-gray-500">double</span>
-  </div>
-  <div data-test="style-alpha-groove" class="h-20 rounded-lg border-8 border-amber-500/50 border-groove flex items-center justify-center bg-white border-linear-to-r border-from-rose-500 border-to-cyan-500">
-    <span class="text-xs font-mono text-gray-500">groove</span>
-  </div>
-  <div data-test="style-alpha-ridge" class="h-20 rounded-lg border-8 border-amber-500/50 border-ridge flex items-center justify-center bg-white border-linear-to-r border-from-rose-500 border-to-cyan-500">
-    <span class="text-xs font-mono text-gray-500">ridge</span>
-  </div>
-  <div data-test="style-alpha-inset" class="h-20 rounded-lg border-8 border-amber-500/50 border-inset flex items-center justify-center bg-white border-linear-to-r border-from-rose-500 border-to-cyan-500">
-    <span class="text-xs font-mono text-gray-500">inset</span>
-  </div>
-  <div data-test="style-alpha-outset" class="h-20 rounded-lg border-8 border-amber-500/50 border-outset flex items-center justify-center bg-white border-linear-to-r border-from-rose-500 border-to-cyan-500">
     <span class="text-xs font-mono text-gray-500">outset</span>
   </div>
 </div>

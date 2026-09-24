@@ -3,14 +3,14 @@
   inherits: true;
   initial-value: canvas;
 }
-/* Composed output. */
+/* The end of the transform chain; -source is what a utility writes into it. */
 @property --jib-background-color {
   syntax: "<color>";
   inherits: true;
   initial-value: canvas;
 }
-/* syntax:'*' = guaranteed-invalid initial value, behaves as unset, so
- * var(stage, fallback) still falls through. */
+/* No initial-value, so each holds the guaranteed-invalid value, which behaves
+ * as unset and lets var(stage, fallback) fall through. */
 @property --jib-background-color-after-hue-rotate {
   syntax: "*";
   inherits: false;
@@ -160,7 +160,9 @@
   inherits: false;
   initial-value: border-box;
 }
-/* Painted under every layer, so bg-none and a translucent image both reveal it. */
+/* bg-* fills this and the image slot both, so taking this position in a
+ * shorthand that reads var(--jib-background-image) paints the colour a second
+ * time beneath its own image layer. */
 @property --jib-background-color-layer {
   syntax: "<color>";
   inherits: false;
@@ -379,10 +381,10 @@
     var(--jib-border-gradient) 0% 0% / auto repeat scroll var(--jib-border-gradient-origin) var(--jib-border-gradient-clip) var(--jib-background-color-layer);
 }
 @utility bg-* {
-  --jib-noop: --value("inherit", "transparent", --color- *, [color]);
-  --jib-noop: --alpha(--value("inherit", "transparent", --color- *, [color]) / calc(--modifier(integer) * 1%));
-  --jib-noop: --alpha(--value("inherit", "transparent", --color- *, [color]) / --modifier([percentage]));
-  --jib-noop: --alpha(--value("inherit", "transparent", --color- *, [color]) / calc(--modifier([number]) * 100%));
+  --tw-sort: (--value("inherit", "transparent", --color- *, [color]));
+  --tw-sort: (--alpha(--value("inherit", "transparent", --color- *, [color]) / calc(--modifier(integer) * 1%)));
+  --tw-sort: (--alpha(--value("inherit", "transparent", --color- *, [color]) / --modifier([percentage])));
+  --tw-sort: (--alpha(--value("inherit", "transparent", --color- *, [color]) / calc(--modifier([number]) * 100%)));
   --jib-background-color-layer: var(--jib-background-color);
 }
 @utility bg-current {
@@ -392,8 +394,13 @@
   --jib-background-image: linear-gradient(var(--jib-background-color) 0 0);
 }
 
-/* Tailwind matches a functional block only where a --value() resolves, and
- * strips --tw-sort from the compiled output. */
+/* @utility only compiles with valid --value() provided.
+ * --tw-sort is Tailwind internal, and not compiled into CSS, but still counts
+ * for compilation purposes.
+ * --tw-sort used by tailwind for utility compile order, based on property
+ * names, e.g. background-image;
+ * invalid values for --tw-sort do nothing to sort order, but still allow
+ * utility block to compile, so function as a safe no-op to allow compiling */
 @utility bg-linear-* {
   --jib-background-image: linear-gradient(var(--tw-gradient-stops, transparent 0 0));
   --tw-sort: (--value(number, "to-r", "to-l", "to-t", "to-b", "to-tr", "to-tl", "to-br", "to-bl", [ *]));

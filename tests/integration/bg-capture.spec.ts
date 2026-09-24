@@ -6,6 +6,7 @@ import {
   gotoExample,
   splitLayers,
   colorDistance,
+  type Rgb,
 } from './helpers';
 
 /**
@@ -256,4 +257,60 @@ test.describe("the colour underlay takes the last layer's box", () => {
     // Assert
     expectBorderGradient(styles, ['underlay-behind-gradient'], 'linear');
   });
+});
+
+/** Share of the backdrop the element still lets through, from the gap between the same
+ *  cell over black and over white. Independent of any colour the layers add, which is
+ *  the same over both. */
+function transmittance(painted: Record<string, Rgb>, prefix: string): number {
+  const black = painted[`${prefix}-black`];
+  const white = painted[`${prefix}-white`];
+  return (white.r - black.r + (white.g - black.g) + (white.b - black.b)) / (3 * 255);
+}
+
+const PAINT_SCENARIOS = [
+  ['alone', 'no other background utility'],
+  ['ripple', 'bg-ripple'],
+  ['comic', 'bg-comic-slate-500'],
+  ['gradient-clear', 'a border gradient with fully clear stops'],
+  ['gradient-30', 'a border gradient with stops at /30'],
+  ['gradient-opaque', 'a border gradient with opaque stops'],
+] as const;
+
+test.describe('bg-white/50 covers the backdrop once, whatever owns the shorthand', () => {
+  for (const [key, label] of PAINT_SCENARIOS) {
+    test(`over ${label}`, async ({ page }) => {
+      // Arrange
+      await gotoPage(page);
+      const ids = (['colour', 'clear'] as const).flatMap((fill) =>
+        (['black', 'white'] as const).map((backdrop) => `paint-${key}-${fill}-${backdrop}`),
+      );
+      // Act
+      const painted = await extractRenderedColors(page, ids);
+      const behind = transmittance(painted, `paint-${key}-clear`);
+      const withColour = transmittance(painted, `paint-${key}-colour`);
+      // Assert
+      expect(
+        withColour,
+        `the layers behind transmit ${behind.toFixed(3)}, so one paint of bg-white/50 leaves ${(behind * 0.5).toFixed(3)} and two leave ${(behind * 0.25).toFixed(3)}; measured ${withColour.toFixed(3)}`,
+      ).toBeCloseTo(behind * 0.5, 1);
+    });
+  }
+});
+
+test('an opaque border gradient admits no backdrop, so a second paint cannot show', async ({
+  page,
+}) => {
+  // Arrange
+  await gotoPage(page);
+  // Act
+  const painted = await extractRenderedColors(page, [
+    'paint-gradient-opaque-clear-black',
+    'paint-gradient-opaque-clear-white',
+  ]);
+  // Assert
+  expect(
+    transmittance(painted, 'paint-gradient-opaque-clear'),
+    'an opaque gradient layer is why doubling is invisible here, not the absence of doubling',
+  ).toBeCloseTo(0, 1);
 });

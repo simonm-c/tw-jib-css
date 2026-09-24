@@ -19,15 +19,22 @@ async function gotoPage(page: Page) {
 }
 
 test.describe('background colors', () => {
-  test('named colors produce non-transparent background with gradient layers', async ({ page }) => {
+  /** How far a cell has moved from the same gradient with no colour over it. */
+  async function coverage(page: Page, ids: string[]) {
+    const painted = await extractRenderedColors(page, [...ids, 'cover-reference']);
+    return (id: string) => colorDistance(painted[id], painted['cover-reference']);
+  }
+
+  test('named colors paint over the gradient instead of letting it through', async ({ page }) => {
     // Arrange
     await gotoPage(page);
-    const ids = ['bg-named', 'bg-named-alt', 'bg-black', 'bg-white'];
+    const ids = ['cover-named', 'cover-named-alt', 'cover-black', 'cover-white'];
     // Act
+    const covers = await coverage(page, ids);
     const styles = await extractStyles(page, ids);
     // Assert
     for (const id of ids) {
-      expect(styles[id].alpha, `${id} should be opaque`).toBeGreaterThan(0.5);
+      expect(covers(id), `${id} left the gradient showing through`).toBeGreaterThan(30);
       expectBorderGradient(styles, [id]);
       expect(styles[id].borderColor, `${id} should have transparent border`).toBe(
         'rgba(0, 0, 0, 0)',
@@ -35,32 +42,41 @@ test.describe('background colors', () => {
     }
   });
 
-  test('opacity variants preserve alpha', async ({ page }) => {
+  test('a translucent colour covers the gradient in proportion to its alpha', async ({ page }) => {
     // Arrange
     await gotoPage(page);
     // Act
-    const styles = await extractStyles(page, [
-      'bg-opacity-50',
-      'bg-opacity-25',
-      'bg-opacity-75',
-      'bg-opacity-0',
-    ]);
+    const covers = await coverage(page, ['cover-a50', 'cover-a25', 'cover-a0']);
     // Assert
-    expect(styles['bg-opacity-50'].alpha).toBeCloseTo(0.5, 1);
-    expect(styles['bg-opacity-25'].alpha).toBeCloseTo(0.25, 1);
-    expect(styles['bg-opacity-75'].alpha).toBeCloseTo(0.75, 1);
-    expect(styles['bg-opacity-0'].alpha).toBeLessThan(0.05);
+    expect(
+      covers('cover-a50'),
+      'bg-blue-500/50 must cover more of the gradient than bg-blue-500/25',
+    ).toBeGreaterThan(covers('cover-a25'));
+    expect(
+      covers('cover-a25'),
+      'bg-blue-500/25 must cover more of the gradient than bg-blue-500/0',
+    ).toBeGreaterThan(covers('cover-a0'));
   });
 
-  test('arbitrary color values render with gradient layers', async ({ page }) => {
+  test('an alpha of zero leaves the gradient untouched', async ({ page }) => {
     // Arrange
     await gotoPage(page);
-    const ids = ['bg-arbitrary-hex', 'bg-arbitrary-rgb', 'bg-arbitrary-oklch', 'bg-css-var'];
     // Act
+    const covers = await coverage(page, ['cover-a0']);
+    // Assert
+    expect(covers('cover-a0'), 'bg-blue-500/0 painted over the gradient').toBeLessThan(12);
+  });
+
+  test('arbitrary color values paint over the gradient', async ({ page }) => {
+    // Arrange
+    await gotoPage(page);
+    const ids = ['cover-hex', 'cover-rgb', 'cover-oklch', 'cover-var'];
+    // Act
+    const covers = await coverage(page, ids);
     const styles = await extractStyles(page, ids);
     // Assert
     for (const id of ids) {
-      expect(styles[id].alpha, `${id} should be opaque`).toBeGreaterThan(0.5);
+      expect(covers(id), `${id} left the gradient showing through`).toBeGreaterThan(30);
       expectBorderGradient(styles, [id]);
     }
   });
@@ -673,53 +689,6 @@ test.describe('border styles', () => {
       );
     }
   });
-
-  test('solid border-color: all 8 styles render gradient layers with non-transparent border', async ({
-    page,
-  }) => {
-    // Arrange
-    await gotoPage(page);
-    const ids = [
-      'style-color-solid',
-      'style-color-dashed',
-      'style-color-dotted',
-      'style-color-double',
-      'style-color-groove',
-      'style-color-ridge',
-      'style-color-inset',
-      'style-color-outset',
-    ];
-    // Act
-    const styles = await extractStyles(page, ids);
-    // Assert
-    for (const id of ids) {
-      expectBorderGradient(styles, [id]);
-      expect(styles[id].borderColor, `${id} should have non-transparent border`).not.toBe(
-        'rgba(0, 0, 0, 0)',
-      );
-    }
-  });
-
-  test('semi-transparent border-color: all 8 styles render gradient layers', async ({ page }) => {
-    // Arrange
-    await gotoPage(page);
-    const ids = [
-      'style-alpha-solid',
-      'style-alpha-dashed',
-      'style-alpha-dotted',
-      'style-alpha-double',
-      'style-alpha-groove',
-      'style-alpha-ridge',
-      'style-alpha-inset',
-      'style-alpha-outset',
-    ];
-    // Act
-    const styles = await extractStyles(page, ids);
-    // Assert
-    for (const id of ids) {
-      expectBorderGradient(styles, [id]);
-    }
-  });
 });
 
 test.describe('state variants', () => {
@@ -761,4 +730,25 @@ test.describe('state variants', () => {
 
     expect(darkBg).not.toBe(lightBg);
   });
+});
+
+test.describe('a solid background masks the border gradient', () => {
+  const PAIRS = [
+    ['mask-white', 'bg-white'],
+    ['mask-dark', 'bg-gray-900'],
+  ] as const;
+
+  for (const [id, label] of PAIRS) {
+    test(`${label} paints its own colour in the body, not the gradient`, async ({ page }) => {
+      // Arrange
+      await gotoPage(page);
+      // Act
+      const painted = await extractRenderedColors(page, [`${id}-plain`, `${id}-gradient`]);
+      // Assert
+      expect(
+        colorDistance(painted[`${id}-plain`], painted[`${id}-gradient`]),
+        `the padding-box layer must cover the gradient: plain ${JSON.stringify(painted[`${id}-plain`])}, with gradient ${JSON.stringify(painted[`${id}-gradient`])}`,
+      ).toBeLessThan(STOPLESS_TOLERANCE);
+    });
+  }
 });

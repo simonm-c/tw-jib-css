@@ -439,16 +439,7 @@ The gradient fills whatever border width you set. Thicker borders show more of t
 
 ## Border style and border color
 
-The gradient is a background layer clipped to `border-box` with `border-color: transparent`. What you see depends on how `border-color` and `border-style` paint over it.
-
-With the default transparent `border-color`, every border style shows the gradient. A solid `border-color` hides it, a semi-transparent one tints it, and dashed, dotted or double styles show the gradient in their gaps.
-
-<details>
-<summary>Detailed interaction examples</summary>
-
-### Default (transparent border color)
-
-With `border-color: transparent`, all border styles look identical. The gradient shows through everywhere:
+The gradient is a background layer clipped to `border-box`, with `border-color` held at `transparent` so it shows through. A `border-*` colour on the same element does not override that, so every border style looks the same:
 
 <Example stretch>
   <div class="grid grid-cols-4 gap-3 w-full">
@@ -458,30 +449,6 @@ With `border-color: transparent`, all border styles look identical. The gradient
     <div class="border-8 border-double border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">double</div>
   </div>
 </Example>
-
-### Solid border color hides the gradient
-
-<Example stretch>
-  <div class="grid grid-cols-4 gap-3 w-full">
-    <div class="border-8 border-amber-500 border-solid border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">solid</div>
-    <div class="border-8 border-amber-500 border-dashed border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">dashed</div>
-    <div class="border-8 border-amber-500 border-dotted border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">dotted</div>
-    <div class="border-8 border-amber-500 border-double border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">double</div>
-  </div>
-</Example>
-
-### Semi-transparent border color tints the gradient
-
-<Example stretch>
-  <div class="grid grid-cols-4 gap-3 w-full">
-    <div class="border-8 border-amber-500/50 border-solid border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">solid</div>
-    <div class="border-8 border-amber-500/50 border-dashed border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">dashed</div>
-    <div class="border-8 border-amber-500/50 border-dotted border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">dotted</div>
-    <div class="border-8 border-amber-500/50 border-double border-linear-to-r border-from-pink-500 border-to-cyan-500 rounded-lg p-4 text-center font-mono text-[11px] text-gray-500 bg-white">double</div>
-  </div>
-</Example>
-
-</details>
 
 ## How it works
 

@@ -47,6 +47,10 @@ Each color decomposes into CMYK channels from the inverse of its RGB values:
 
 The four dot layers sit at different grid offsets and composite through `background-blend-mode: multiply` for subtractive color mixing, just like a printing press.
 
+::: warning `bg-blend-*` overwrites that list
+`background-blend-mode` repeats a single value across every layer, and Tailwind's `bg-blend-*` sets one. It sorts after the halftone, so `bg-comic-* bg-blend-multiply` blends nothing with the halftone — it replaces the per-layer list the CMYK mixing is built from, including the `normal` entries that keep a ripple, a border gradient and the colour underlay out of the mix.
+:::
+
 ## Basic usage
 
 Add `bg-comic-<color>` to any element:

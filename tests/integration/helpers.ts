@@ -234,3 +234,11 @@ export function colorDistance(a: Rgb, b: Rgb): number {
 export async function supportsQuery(page: Page, query: string): Promise<boolean> {
   return page.evaluate((q) => CSS.supports(q), query);
 }
+
+export function borderStopPositions(styles: ElementStyles): string[] {
+  const layer = splitLayers(styles.backgroundImage).at(-1) ?? '';
+  const args = layer.slice(layer.indexOf('(') + 1, layer.lastIndexOf(')'));
+  return splitLayers(args)
+    .map((stop) => /(-?[\d.]+%)$/.exec(stop.trim())?.[1])
+    .filter((position): position is string => position !== undefined);
+}

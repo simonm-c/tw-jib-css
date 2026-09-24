@@ -15,9 +15,6 @@ import CodePanel from '@shared/shared/ui/CodePanel.vue';
       </div>
 
       <div class="grid md:grid-cols-2 gap-8">
-        <!-- The two modules that read no color at all. They carry none of the
-             color machinery and their support floor is plain Tailwind's, which
-             is the reason they are worth naming rather than burying. -->
         <div class="space-y-8">
           <div class="space-y-3">
             <h3 class="text-lg font-bold">Border Styles</h3>
@@ -56,12 +53,6 @@ import CodePanel from '@shared/shared/ui/CodePanel.vue';
           </div>
         </div>
 
-        <!-- The only pointer from this instance to the experimental one. It is
-             deliberately the last thing on the page and deliberately states the
-             cost before the contents: a reader who never scrolls this far has
-             lost nothing, and a reader who does gets the trade, not a teaser.
-             No support claim is made here; the experimental instance carries
-             it per module. -->
         <div class="space-y-3">
           <div class="flex flex-wrap items-center gap-2">
             <h3 class="text-lg font-bold">Cutting-Edge CSS</h3>

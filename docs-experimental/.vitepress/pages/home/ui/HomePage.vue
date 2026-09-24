@@ -9,8 +9,7 @@ import PageIndex from '../../../widgets/page-index/ui/PageIndex.vue';
   <div>
     <SiteHero />
 
-    <!-- 0 · functions, the reach-in. Static colors throughout: the point of this
-         slide is where a function can be called, not that it can animate. -->
+    <!-- 0 · functions -->
     <FeatureSlide :index="0">
       <div class="grid grid-cols-2 gap-3 w-full max-w-md">
         <div class="aspect-4/3 rounded-xl p-4 flex flex-col justify-center bg-gray-950">
@@ -77,12 +76,8 @@ import PageIndex from '../../../widgets/page-index/ui/PageIndex.vue';
     </FeatureSlide>
 
     <!-- 1 · automatic contrast as a function, reaching properties the class cannot.
-
-         teal-500 THROUGHOUT, never teal-600. AAA is physically unreachable from
-         teal-600. The solve clamps to black and delivers 5.724:1, which is the
-         Max state, not a 7:1 state. This slide's every claim is the ratio, so the
-         demo color has to be one that can carry it. teal-500 renders 7.151.
-         Check with a picker before changing any color on this slide. -->
+         AAA is unreachable from teal-600: the solve clamps to black at 5.724:1, the Max
+         state. teal-500 renders 7.151. -->
     <FeatureSlide :index="1">
       <div class="grid grid-cols-2 gap-3 w-full max-w-md">
         <div
@@ -112,11 +107,8 @@ import PageIndex from '../../../widgets/page-index/ui/PageIndex.vue';
           </svg>
         </div>
 
-        <!-- No text INSIDE this bar. The shade of teal-500 is a near-black, and the
-             gradient's far stop IS that shade, so text painted in the shade color
-             ran to 1:1 against its own background at the right-hand end. The card
-             demonstrates that a function can BE a gradient stop; the two endpoint
-             swatches below say which color is which without needing to overlay it. -->
+        <!-- The gradient's far stop is teal-500's shade, a near-black, so text painted in
+             the shade colour runs to 1:1 against its own background at the right-hand end. -->
         <div
           class="aspect-4/3 rounded-xl p-3 flex flex-col justify-between bg-gray-100 dark:bg-gray-900"
         >
@@ -147,13 +139,11 @@ import PageIndex from '../../../widgets/page-index/ui/PageIndex.vue';
     </FeatureSlide>
 
     <!-- 2 · corner shape.
-         Every named shape the module defines, `square` included: it carries the
-         same rounded-[40%] as its neighbors and shows no curve, which is what
-         proves corner-shape is independent of the radius.
-         rounded-[40%], not [28%]: at 28% the round and squircle cells are near
-         indistinguishable, and that is the comparison the headline rests on.
-         Labels are CENTERED because these shapes cut the corners away, and scoop
-         and notch clip a caption placed in one. -->
+         - square carries the same rounded-[40%] as its neighbours and shows no curve,
+           so corner-shape is independent of the radius.
+         - rounded-[40%], not [28%]: at 28% the round and squircle cells are near
+           indistinguishable.
+         - Labels centred: scoop and notch clip a caption placed in a corner. -->
     <FeatureSlide :index="2">
       <div class="grid grid-cols-4 gap-3 w-full max-w-md">
         <div
@@ -200,18 +190,9 @@ import PageIndex from '../../../widgets/page-index/ui/PageIndex.vue';
     </FeatureSlide>
 
     <!-- 3 · interpolate size.
-         Two panels running the identical 0 → auto keyframe animation, differing only
-         in whether an ancestor carries interpolate-keywords. The left one eases, the
-         right one snaps. Both run on a loop rather than on :hover, so the evidence
-         is on screen for a reader who never touches the page. This is the lowest-
-         support feature in the package and it previously showed nothing at rest.
-         The two are side by side, and the grid is pinned to the top of the cell with
-         its rows aligned to their own start, so a panel can only ever grow downward
-         into empty space. Stacked and centered, the snapping panel's pop resized the
-         whole block and shunted the eased panel mid-flight, which read as the eased
-         panel stuttering, the one thing this slide must not show.
-         Labels and cards are separate grid rows rather than two column wrappers so
-         the cards share a start line however the labels wrap. -->
+         Rows aligned to their own start, so a panel can only grow downward into empty
+         space; otherwise the snapping panel resizes the block and shunts the eased panel
+         mid-flight, reading as a stutter in the panel that is easing correctly. -->
     <FeatureSlide :index="3">
       <div class="grid w-full max-w-2xl grid-cols-2 items-start gap-x-4 gap-y-1.5 self-start">
         <p class="flex items-center gap-2 m-0">
@@ -250,9 +231,8 @@ import PageIndex from '../../../widgets/page-index/ui/PageIndex.vue';
           >
             Disclosure panel
           </div>
-          <!-- The delay in the shorthand holds this panel back so it pops at the
-               moment the panel beside it finishes easing, never during. Same keyframes
-               either way; the landing-disclosure comment has the arithmetic. -->
+          <!-- The delay in the shorthand holds this panel back so it pops as the panel beside
+               it finishes easing, never during. -->
           <div
             class="animate-[landing-disclosure_var(--landing-disclosure-cycle)_ease-in-out_calc(var(--landing-disclosure-cycle)/8)_infinite] motion-reduce:animate-none h-0 motion-reduce:h-auto overflow-hidden"
           >
@@ -267,17 +247,12 @@ import PageIndex from '../../../widgets/page-index/ui/PageIndex.vue';
     <!-- 4 · base select picker -->
     <FeatureSlide :index="4">
       <div class="w-full max-w-xs space-y-3">
-        <!-- *:text-gray-200 colors the <option>s. They do NOT inherit the select's
-             color in base-select mode, because the UA sheet sets option color explicitly,
-             so a dark picker background leaves black-on-dark text without this.
-             The wrapper and the ▾ span are a fallback arrow for engines without
-             base-select. Gecko drops its native dropdown indicator as soon as an
-             author sets a background-color on a select, which has nothing to do with
-             appearance-base-select and is correctly ignored there, so this demo
-             rendered as a plain box with no affordance in Firefox, on the slide whose
-             whole subject is selects. supports-[appearance:base-select]:hidden takes
-             the fallback back out wherever the real picker-icon is drawn, so the two
-             never both appear. -->
+        <!-- - *:text-gray-200 colours the <option>s: they do not inherit the select's colour
+               in base-select mode, because the UA sheet sets option colour explicitly.
+             - Gecko drops its native dropdown indicator once an author sets a
+               background-color on a select, leaving no affordance, hence the fallback arrow.
+             - supports-[appearance:base-select]:hidden removes that fallback wherever the
+               real picker-icon draws. -->
         <div class="relative">
           <select
             class="appearance-base-select w-full px-4 py-3 rounded-xl border-2 border-teal-500/50 bg-gray-900 text-sm text-gray-200 picker:bg-gray-900 picker:border-2 picker:border-teal-500/40 picker:rounded-xl picker:shadow-lg picker:p-2 picker-icon:text-teal-400 picker-icon:transition-all open:picker-icon:rotate-180 checkmark:text-teal-400 *:text-gray-200 *:rounded-md *:px-2 *:py-1.5"

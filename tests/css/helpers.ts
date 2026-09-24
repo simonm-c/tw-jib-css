@@ -77,3 +77,7 @@ export function suiteScenarios(...suites: Suite[]): Scenario[] {
     },
   ];
 }
+
+export function registration(css: string, name: string): string | undefined {
+  return css.match(new RegExp(`@property ${name} \\{[\\s\\S]*?\\n\\}`))?.[0];
+}

@@ -124,8 +124,9 @@ Find `--modifier(...)` calls:
   read the `@theme inline` block to get available modifier names
 - Literal modifiers: `--modifier('oklch', 'lch', ...)` → enumerate all
 - Numeric modifiers: `--modifier(integer)` → typically opacity as percentage
-- Noop modifiers: `--jib-noop: --modifier(...)`. These consume the modifier
-  for validation only; still document them as available modifiers
+- Sort-key modifiers: a `--modifier(...)` inside a `--tw-sort: (...)` group,
+  always paired with a `--value(...)`. These consume the modifier for validation
+  only; still document them as available modifiers
 
 ### 1d. Custom Properties
 

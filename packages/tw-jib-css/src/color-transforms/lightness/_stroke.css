@@ -4,19 +4,12 @@
   initial-value: 0;
 }
 
-/* Per-space lightness. 255 is the 8-bit channel maximum, 100 the percentage
- * maximum for the spaces whose lightness is a percentage.
- *
- * min(1, (1 - abs(amount)) * 5) holds chroma flat until |amount| reaches 0.8,
- * then tapers it to zero at 1.0, where the gamut has no room left; 5 = 1/0.2,
- * the width of that taper. The 0.5 floor in the hsl divisor is a
- * divide-by-zero guard.
- *
- * The /color-mix pair gives both colours an explicit percentage, so the two set
- * a ratio rather than one implying 100% minus the other. Doubling to 200% and
- * clamping pins whichever side is nearer its end at 100% while the other falls,
- * sweeping the ratio 1:0 → 1:1 → 0:1 with clamps alone. The sum never drops
- * below 100%, so alpha is never reduced.
+/* - 255 = 8-bit channel max; 100 = percentage max where lightness is a percentage.
+ * - 5 = 1/0.2 in min(1, (1 - abs(amount)) * 5): chroma flat to |amount| 0.8,
+ *   zero at 1.0.
+ * - 0.5 in the hsl divisor: divide-by-zero guard.
+ * - /color-mix: both percentages doubled to 200% and clamped, so they sum to at
+ *   least 100% and color-mix() never reduces alpha.
  */
 @theme inline {
   --jib-stroke-color-interpolation-lch: lch(from var(--jib-stroke-color-after-saturation, var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source))) calc(l * (1 - abs(var(--jib-stroke-lightness-amount))) + max(0, var(--jib-stroke-lightness-amount)) * 100) calc(c * min(1, (1 - abs(var(--jib-stroke-lightness-amount))) * 5)) h / alpha);
@@ -35,9 +28,8 @@
   --jib-stroke-color-interpolation-xyz: color(from var(--jib-stroke-color-after-saturation, var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source))) xyz calc(x * (1 - abs(var(--jib-stroke-lightness-amount))) + max(0, var(--jib-stroke-lightness-amount))) calc(y * (1 - abs(var(--jib-stroke-lightness-amount))) + max(0, var(--jib-stroke-lightness-amount))) calc(z * (1 - abs(var(--jib-stroke-lightness-amount))) + max(0, var(--jib-stroke-lightness-amount))) / alpha);
   --jib-stroke-color-interpolation-xyz-d50: color(from var(--jib-stroke-color-after-saturation, var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source))) xyz-d50 calc(x * (1 - abs(var(--jib-stroke-lightness-amount))) + max(0, var(--jib-stroke-lightness-amount))) calc(y * (1 - abs(var(--jib-stroke-lightness-amount))) + max(0, var(--jib-stroke-lightness-amount))) calc(z * (1 - abs(var(--jib-stroke-lightness-amount))) + max(0, var(--jib-stroke-lightness-amount))) / alpha);
   --jib-stroke-color-interpolation-xyz-d65: color(from var(--jib-stroke-color-after-saturation, var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source))) xyz-d65 calc(x * (1 - abs(var(--jib-stroke-lightness-amount))) + max(0, var(--jib-stroke-lightness-amount))) calc(y * (1 - abs(var(--jib-stroke-lightness-amount))) + max(0, var(--jib-stroke-lightness-amount))) calc(z * (1 - abs(var(--jib-stroke-lightness-amount))) + max(0, var(--jib-stroke-lightness-amount))) / alpha);
-  --jib-stroke-color-interpolation-color-mix: color-mix(in oklab, var(--jib-stroke-color-after-saturation, var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source))) clamp(0%, calc((1 - abs(var(--jib-stroke-lightness-amount))) * 200%), 100%), /* White/black endpoint, built relative to the source so `/ alpha` carries
-       the source's alpha. color-mix() interpolates alpha too, so an opaque
-       endpoint would drag a translucent colour toward opaque. */ rgb(from var(--jib-stroke-color-after-saturation, var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source))) calc(max(0, sign(var(--jib-stroke-lightness-amount))) * 255) calc(max(0, sign(var(--jib-stroke-lightness-amount))) * 255) calc(max(0, sign(var(--jib-stroke-lightness-amount))) * 255) / alpha) clamp(0%, calc(abs(var(--jib-stroke-lightness-amount)) * 200%), 100%));
+  --jib-stroke-color-interpolation-color-mix: color-mix(in oklab, var(--jib-stroke-color-after-saturation, var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source))) clamp(0%, calc((1 - abs(var(--jib-stroke-lightness-amount))) * 200%), 100%), /* color-mix() interpolates alpha, so an opaque endpoint would drag a
+       translucent colour toward opaque. */ rgb(from var(--jib-stroke-color-after-saturation, var(--jib-stroke-color-after-hue-rotate, var(--jib-stroke-color-source))) calc(max(0, sign(var(--jib-stroke-lightness-amount))) * 255) calc(max(0, sign(var(--jib-stroke-lightness-amount))) * 255) calc(max(0, sign(var(--jib-stroke-lightness-amount))) * 255) / alpha) clamp(0%, calc(abs(var(--jib-stroke-lightness-amount)) * 200%), 100%));
 }
 
 @utility stroke-lightness-* {

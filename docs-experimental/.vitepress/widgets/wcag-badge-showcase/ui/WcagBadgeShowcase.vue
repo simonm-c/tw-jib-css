@@ -1,13 +1,8 @@
 <script setup lang="ts">
 import CodePanel from '@shared/shared/ui/CodePanel.vue';
-/*
- * `select-none` on the animated wrapper: a drag across a continuously
- * repainting grid selects nothing a reader wants.
- */
-/*
- * Labels must not name a colour: bg-hue-rotate-* moves the background hue every
- * frame, so "white on blue" is false a second later.
- */
+/* `select-none`: the wrapper repaints continuously, so a drag selects nothing. */
+/* bg-hue-rotate-* moves the background hue every frame, so a label naming a
+ * colour is false a second later. */
 const cards = [
   { bg: 'bg-indigo-900', text: 'text-white', label: 'Light on dark', pair: 'white on 900' },
   { bg: 'bg-blue-600', text: 'text-white', label: 'Light on mid', pair: 'white on 600' },
@@ -73,8 +68,7 @@ const cards = [
         >
       </div>
 
-      <!-- Animated background + a rating re-solved every frame. On `select-none`,
-           see the script comment above. -->
+      <!-- Animated background + a rating re-solved every frame. -->
       <div class="space-y-3">
         <p class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
           <span class="font-mono text-[11px] uppercase tracking-wider text-(color:--docs-accent)"

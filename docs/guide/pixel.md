@@ -55,6 +55,10 @@ All of it over a black `background-color`. `screen` adds the channels back toget
 
 Raise `pixel-bloom` above 0 and each column widens until neighbors overlap into secondary colors: yellow, cyan, magenta. That overlap is the CRT phosphor glow.
 
+::: warning `bg-blend-*` overwrites that list
+`background-blend-mode` repeats a single value across every layer, and Tailwind's `bg-blend-*` sets one. It sorts after the texture, so `bg-pixel-* bg-blend-screen` flattens the row mask's `multiply` and the columns' `screen` into one mode, and the additive mix stops adding up.
+:::
+
 ## Basic usage
 
 Add `bg-pixel-<color>` to any element:

@@ -34,6 +34,14 @@ const COLOR_SPACES = [
 
 const POW_SEEDED = ['oklch', 'oklab', 'lch', 'lab'] as const;
 
+/** The space each cube-root seed computes in. */
+const GATE_SEED: Record<(typeof POW_SEEDED)[number], string> = {
+  oklch: 'oklch',
+  oklab: 'oklch',
+  lch: 'lch',
+  lab: 'lch',
+};
+
 describe('text-contrast utilities: stable path', () => {
   describe('present WITHOUT the experimental flag', () => {
     test.each(LEVELS)('text-contrast-%s compiles from the core entry', async (level) => {
@@ -192,6 +200,38 @@ describe('text-contrast utilities: stable path', () => {
         expect(css).not.toContain('pow(alpha');
       },
     );
+
+    test.each(LEVELS)('text-contrast-%s gates a seed rather than nothing', async (level) => {
+      const css = await compile(`bg-blue-500 text-contrast-${level}`);
+      const empty = css.match(/@supports[^{]*\{\s*\}/g) ?? [];
+      expect(empty, `text-contrast-${level} emitted an empty gate`).toEqual([]);
+    });
+
+    test.each(LEVELS)(
+      'text-contrast-%s emits no rule that only restates its ratio',
+      async (level) => {
+        const css = await compile(`bg-blue-500 text-contrast-${level}`);
+        const inert = new RegExp(
+          `\\.text-contrast-${level} \\{\\s*--jib-contrast-ratio: var\\(--jib-contrast-ratio-${level}\\);\\s*\\}`,
+        );
+        expect(
+          css,
+          `text-contrast-${level} emitted a rule that does nothing but repeat its ratio`,
+        ).not.toMatch(inert);
+      },
+    );
+
+    test.each(POW_SEEDED)('text-contrast-aa/%s ends its gate on that space', async (space) => {
+      const css = await compile(`bg-blue-500 text-contrast-aa/${space}`);
+      const gate = css.slice(css.indexOf(SUPPORTS_CHANNEL_POW));
+      const seeded = [...gate.matchAll(/--jib-contrast-vector: color\(from (\w+)\(/g)].map(
+        (match) => match[1],
+      );
+      expect(
+        seeded.at(-1),
+        `the gate for /${space} ends on ${seeded.at(-1)}, so that is the seed the engine keeps`,
+      ).toBe(GATE_SEED[space]);
+    });
   });
 
   describe.each(stableScenarios('automatic-contrast'))('registration, $name', ({ compile }) => {

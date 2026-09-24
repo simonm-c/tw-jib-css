@@ -4,10 +4,9 @@
   initial-value: 0;
 }
 
-/* Per-space hue rotation. rgb-family uses the SVG feColorMatrix
- * type="hueRotate" matrix, whose 0.213/0.715/0.072 are its rounded BT.709 luma
- * weights. xyz-family rotates about the white point: 0.95047/1.08883 are D65's
- * X and Z at Y=1, 0.96422/0.82521 are D50's. */
+/* - rgb-family: the SVG feColorMatrix type="hueRotate" matrix; its
+ *   0.213/0.715/0.072 are rounded BT.709 luma weights.
+ * - White points at Y=1: D65 x 0.95047 z 1.08883, D50 x 0.96422 z 0.82521. */
 @theme inline {
   --jib-outline-hue-interpolation-oklch: oklch(from var(--jib-outline-color-source) l c calc(h + var(--jib-outline-hue-amount)) / alpha);
   --jib-outline-hue-interpolation-lch: lch(from var(--jib-outline-color-source) l c calc(h + var(--jib-outline-hue-amount)) / alpha);

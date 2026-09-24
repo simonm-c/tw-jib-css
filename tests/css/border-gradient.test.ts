@@ -158,6 +158,23 @@ describe.each(suiteScenarios('border-gradient'))(
 );
 
 describe.each(suiteScenarios('border-gradient'))(
+  'a gradient with no colour stop, $name',
+  ({ compile }) => {
+    test.each(['bg-linear-to-r', 'bg-radial', 'bg-conic'])(
+      '%s keeps the border gradient when nothing sets --tw-gradient-stops',
+      async (cls) => {
+        const css = await compile(`${cls} ${BORDER}`);
+        expect(
+          css,
+          `${cls} reads --tw-gradient-stops with no fallback, so a gradient whose colour stops are absent or behind a breakpoint takes the whole shorthand to none`,
+        ).toContain('var(--tw-gradient-stops, transparent 0 0)');
+        expect(css).toContain(BG_LAYER);
+      },
+    );
+  },
+);
+
+describe.each(suiteScenarios('border-gradient'))(
   'background radial and conic gradients with border gradient, $name',
   ({ compile }) => {
     test('bg-radial', async () => {

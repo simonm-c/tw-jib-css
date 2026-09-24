@@ -62,8 +62,8 @@
 }
 
 @function --jib-color-mix-lightness(--color type(<color>): currentColor, --amount type(<number>): 0) returns <color> {
-  /* Endpoint relative to --color so `/ alpha` carries source alpha; color-mix()
-   interpolates alpha, so an opaque white/black drags it opaque. */
+  /* color-mix() interpolates alpha, so an opaque white/black endpoint drags it
+   opaque. */
   result: if(style(--amount > 0): color-mix(in oklab, var(--color) min(100%, calc((100 - var(--amount)) * 2%)), rgb(from var(--color) 255 255 255 / alpha) min(100%, calc(var(--amount) * 2%))) ; else: color-mix(in oklab, var(--color) min(100%, calc((100 + var(--amount)) * 2%)), rgb(from var(--color) 0 0 0 / alpha) min(100%, calc(var(--amount) * -2%))) ;);
 }
 

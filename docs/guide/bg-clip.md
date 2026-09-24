@@ -2,7 +2,7 @@
 title: Background clip
 ---
 
-<!-- llm-context: bg-clip-* against composited backgrounds. Every background this library draws is one `background` shorthand holding several layers, and background-clip is a list, so Tailwind's own single-value bg-clip-* would be overwritten by the shorthand. Core re-declares bg-clip-border, bg-clip-padding, bg-clip-content and bg-clip-text as stacking companions that route the keyword through two registered slots the shorthand reads. Applies to comic, pixel, ripple, border gradients and Tailwind's own bg-linear-*, bg-radial-* and bg-conic-*, so bg-clip-text over a gradient behaves the way it reads. -->
+<!-- llm-context: bg-clip-* against composited backgrounds. Every background this library draws is one `background` shorthand holding several layers, and background-clip is a list, so Tailwind's own single-value bg-clip-* would be overwritten by the shorthand. Core re-declares bg-clip-border, bg-clip-padding, bg-clip-content and bg-clip-text as stacking companions that route the keyword through two registered slots the shorthand reads. Applies to comic, pixel, ripple, border gradients and Tailwind's own bg-linear-*, bg-radial-* and bg-conic-*, so bg-clip-text over a gradient behaves the way it reads. The same capture covers background-size, background-position, background-repeat, background-attachment and background-origin, each on a registered slot of its own, plus a colour underlay that a shorthand carries only where it replaces the image position, bg-none and an arbitrary image among them. @property has no <position> or <bg-size> component, so bg-position-[left_10px_top_20px] and bg-size-[auto_50%] are rejected at computed-value time and their slot keeps its initial value. -->
 
 # Background clip
 
@@ -112,6 +112,39 @@ reach the shorthand and invalidate it at computed-value time, taking every layer
 rather than just the clip. Constrained, a bad value is rejected at assignment and the
 initial value stands.
 
+## The other captured longhands
+
+`background-clip` is not the only longhand the shorthand would reset. Size, position,
+repeat, attachment and origin each route through a registered slot of their own, so
+Tailwind's utilities for them keep working over a composited background:
+
+<UtilityTable :rows="[
+  { class: 'bg-auto, bg-cover, bg-contain, bg-size-*', styles: '--jib-background-size' },
+  { class: 'bg-top, bg-center, bg-bottom-right, bg-position-*', styles: '--jib-background-position' },
+  { class: 'bg-repeat, bg-no-repeat, bg-repeat-x, bg-repeat-space', styles: '--jib-background-repeat' },
+  { class: 'bg-fixed, bg-local, bg-scroll', styles: '--jib-background-attachment' },
+  { class: 'bg-origin-border, bg-origin-padding, bg-origin-content', styles: '--jib-background-origin and --jib-border-gradient-origin' },
+]" />
+
+These reach the **content layer**. A texture packs geometry into each of its own layers —
+a halftone offsets its four screens against each other by half a cell — so `bg-cover` over
+`bg-comic-*` changes nothing.
+
+## Grammar the slots cannot carry
+
+`@property` has no `<position>` or `<bg-size>` component, so each slot is registered
+against the nearest grammar that does exist. Two forms the CSS properties themselves
+accept do not survive the round trip:
+
+| Utility                            | Rejected because                                                                   |
+| ---------------------------------- | ---------------------------------------------------------------------------------- |
+| `bg-position-[left_10px_top_20px]` | the four-value offset form is neither `<length-percentage>+` nor `<custom-ident>+` |
+| `bg-size-[auto_50%]`               | `auto` is its own alternative and cannot be mixed into `<length-percentage>+`      |
+
+A rejected value is dropped at computed-value time and the slot keeps its initial value:
+`0% 0%` for position, `auto` for size. Only that one longhand is lost — the rest of the
+stack still paints.
+
 ## Browser support
 
 `background-clip` is universal. `background-clip: text` is the narrower of the two; older
@@ -127,4 +160,4 @@ them, including a single-module one:
 @import 'tw-jib-css/comic';
 ```
 
-<BaselineSupport :features="['background-clip-text', 'relative-color']" />
+<BaselineSupport :features="['background-clip-text', 'registered-custom-properties', 'relative-color']" />

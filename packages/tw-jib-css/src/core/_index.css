@@ -3,15 +3,14 @@
   inherits: true;
   initial-value: canvas;
 }
-/* Composed output. Every utility in the family writes this composer, so the
- * cascade winner yields the same value whichever wins. */
+/* The end of the transform chain; -source is what a utility writes into it. */
 @property --jib-background-color {
   syntax: "<color>";
   inherits: true;
   initial-value: canvas;
 }
-/* syntax:'*' = guaranteed-invalid initial value, behaves as unset, so
- * var(stage, fallback) still falls through. */
+/* No initial-value, so each holds the guaranteed-invalid value, which behaves
+ * as unset and lets var(stage, fallback) fall through. */
 @property --jib-background-color-after-hue-rotate {
   syntax: "*";
   inherits: false;
@@ -98,7 +97,7 @@
 }
 
 /* An unregistered, unset slot invalidates the whole shorthand at computed-value
- * time: bg-none / bg-[url(…)] / bg-linear-* would paint nothing at all. */
+ * time. */
 @property --jib-ripple-image {
   syntax: "<image>";
   inherits: false;
@@ -116,10 +115,8 @@
 }
 
 /* Clip slots the shorthand reads, so bg-clip-* can reach a list it cannot
- * otherwise touch. Two, because pattern layers default to padding-box and the
- * border gradient to border-box. Closed ident list, not "*": a "*" slot
- * substitutes whatever it holds, so one bad value invalidates the shorthand and
- * takes every layer. */
+ * otherwise touch. Closed ident list, not "*": a "*" slot substitutes whatever
+ * it holds, so one bad value takes the whole shorthand. */
 @property --jib-background-clip {
   syntax: "padding-box | border-box | content-box | text";
   inherits: false;
@@ -163,7 +160,9 @@
   inherits: false;
   initial-value: border-box;
 }
-/* Painted under every layer, so bg-none and a translucent image both reveal it. */
+/* bg-* fills this and the image slot both, so taking this position in a
+ * shorthand that reads var(--jib-background-image) paints the colour a second
+ * time beneath its own image layer. */
 @property --jib-background-color-layer {
   syntax: "<color>";
   inherits: false;
@@ -249,8 +248,7 @@
   --jib-size-unit-stretch: stretch;
 }
 
-/* Carries TW's bg-clip-* value into a form the shorthand reads. Static blocks,
- * so an unrecognised bg-clip-foo stays unmatched. */
+/* Carries TW's bg-clip-* value into a form the shorthand reads. */
 @utility bg-clip-border {
   --jib-background-clip: border-box;
   --jib-border-gradient-clip: border-box;
@@ -383,10 +381,10 @@
     var(--jib-border-gradient) 0% 0% / auto repeat scroll var(--jib-border-gradient-origin) var(--jib-border-gradient-clip) var(--jib-background-color-layer);
 }
 @utility bg-* {
-  --jib-noop: --value("inherit", "transparent", --color- *, [color]);
-  --jib-noop: --alpha(--value("inherit", "transparent", --color- *, [color]) / calc(--modifier(integer) * 1%));
-  --jib-noop: --alpha(--value("inherit", "transparent", --color- *, [color]) / --modifier([percentage]));
-  --jib-noop: --alpha(--value("inherit", "transparent", --color- *, [color]) / calc(--modifier([number]) * 100%));
+  --tw-sort: (--value("inherit", "transparent", --color- *, [color]));
+  --tw-sort: (--alpha(--value("inherit", "transparent", --color- *, [color]) / calc(--modifier(integer) * 1%)));
+  --tw-sort: (--alpha(--value("inherit", "transparent", --color- *, [color]) / --modifier([percentage])));
+  --tw-sort: (--alpha(--value("inherit", "transparent", --color- *, [color]) / calc(--modifier([number]) * 100%)));
   --jib-background-color-layer: var(--jib-background-color);
 }
 @utility bg-current {
@@ -396,58 +394,53 @@
   --jib-background-image: linear-gradient(var(--jib-background-color) 0 0);
 }
 
-/* Layers TW's gradients in rather than replacing. TW 4.3 needs a resolving
- * --value() for a functional block to match at all, hence --jib-noop:
- * nothing reads it, it makes the block match. */
+/* @utility only compiles with valid --value() provided.
+ * --tw-sort is Tailwind internal, and not compiled into CSS, but still counts
+ * for compilation purposes.
+ * --tw-sort used by tailwind for utility compile order, based on property
+ * names, e.g. background-image;
+ * invalid values for --tw-sort do nothing to sort order, but still allow
+ * utility block to compile, so function as a safe no-op to allow compiling */
 @utility bg-linear-* {
-  --jib-background-image: linear-gradient(var(--tw-gradient-stops));
-  --jib-noop: --value(number, "to-r", "to-l", "to-t", "to-b", "to-tr", "to-tl", "to-br", "to-bl", [ *], --default(none));
-  --jib-noop: --modifier("srgb", "hsl", "oklab", "oklch", "longer", "shorter", "increasing", "decreasing");
+  --jib-background-image: linear-gradient(var(--tw-gradient-stops, transparent 0 0));
+  --tw-sort: (--value(number, "to-r", "to-l", "to-t", "to-b", "to-tr", "to-tl", "to-br", "to-bl", [ *]));
+  --tw-sort: (--value(number, "to-r", "to-l", "to-t", "to-b", "to-tr", "to-tl", "to-br", "to-bl") --modifier("srgb", "hsl", "oklab", "oklch", "longer", "shorter", "increasing", "decreasing", [ *]));
   background:
     var(--jib-ripple-image) 0% 0% / auto repeat scroll var(--jib-background-origin) var(--jib-background-clip),
     var(--jib-background-image) var(--jib-background-position) / var(--jib-background-size) var(--jib-background-repeat) var(--jib-background-attachment) var(--jib-background-origin) var(--jib-background-clip),
     var(--jib-border-gradient) 0% 0% / auto repeat scroll var(--jib-border-gradient-origin) var(--jib-border-gradient-clip) var(--jib-background-color-layer);
 }
 @utility -bg-linear-* {
-  --jib-background-image: linear-gradient(var(--tw-gradient-stops));
-  --jib-noop: --value(number, [ *]);
-  --jib-noop: --modifier("srgb", "hsl", "oklab", "oklch", "longer", "shorter", "increasing", "decreasing");
+  --jib-background-image: linear-gradient(var(--tw-gradient-stops, transparent 0 0));
+  --tw-sort: (--value(number, [ *]));
+  --tw-sort: (--value(number) --modifier("srgb", "hsl", "oklab", "oklch", "longer", "shorter", "increasing", "decreasing", [ *]));
   background:
     var(--jib-ripple-image) 0% 0% / auto repeat scroll var(--jib-background-origin) var(--jib-background-clip),
     var(--jib-background-image) var(--jib-background-position) / var(--jib-background-size) var(--jib-background-repeat) var(--jib-background-attachment) var(--jib-background-origin) var(--jib-background-clip),
     var(--jib-border-gradient) 0% 0% / auto repeat scroll var(--jib-border-gradient-origin) var(--jib-border-gradient-clip) var(--jib-background-color-layer);
 }
 @utility bg-radial-* {
-  --jib-background-image: radial-gradient(var(--tw-gradient-stops));
-  --jib-noop: --value([ *], --default(none));
-  --jib-noop: --modifier("srgb", "hsl", "oklab", "oklch", "longer", "shorter", "increasing", "decreasing");
-  background:
-    var(--jib-ripple-image) 0% 0% / auto repeat scroll var(--jib-background-origin) var(--jib-background-clip),
-    var(--jib-background-image) var(--jib-background-position) / var(--jib-background-size) var(--jib-background-repeat) var(--jib-background-attachment) var(--jib-background-origin) var(--jib-background-clip),
-    var(--jib-border-gradient) 0% 0% / auto repeat scroll var(--jib-border-gradient-origin) var(--jib-border-gradient-clip) var(--jib-background-color-layer);
-}
-@utility -bg-radial-* {
-  --jib-background-image: radial-gradient(var(--tw-gradient-stops));
-  --jib-noop: --value([ *]);
-  --jib-noop: --modifier("srgb", "hsl", "oklab", "oklch", "longer", "shorter", "increasing", "decreasing");
+  --jib-background-image: radial-gradient(var(--tw-gradient-stops, transparent 0 0));
+  --tw-sort: (--value([ *], --default(none)));
+  --tw-sort: (--value(--default(none)) --modifier("srgb", "hsl", "oklab", "oklch", "longer", "shorter", "increasing", "decreasing", [ *]));
   background:
     var(--jib-ripple-image) 0% 0% / auto repeat scroll var(--jib-background-origin) var(--jib-background-clip),
     var(--jib-background-image) var(--jib-background-position) / var(--jib-background-size) var(--jib-background-repeat) var(--jib-background-attachment) var(--jib-background-origin) var(--jib-background-clip),
     var(--jib-border-gradient) 0% 0% / auto repeat scroll var(--jib-border-gradient-origin) var(--jib-border-gradient-clip) var(--jib-background-color-layer);
 }
 @utility bg-conic-* {
-  --jib-background-image: conic-gradient(var(--tw-gradient-stops));
-  --jib-noop: --value(number, [ *], --default(none));
-  --jib-noop: --modifier("srgb", "hsl", "oklab", "oklch", "longer", "shorter", "increasing", "decreasing");
+  --jib-background-image: conic-gradient(var(--tw-gradient-stops, transparent 0 0));
+  --tw-sort: (--value(number, [ *], --default(none)));
+  --tw-sort: (--value(number, --default(none)) --modifier("srgb", "hsl", "oklab", "oklch", "longer", "shorter", "increasing", "decreasing", [ *]));
   background:
     var(--jib-ripple-image) 0% 0% / auto repeat scroll var(--jib-background-origin) var(--jib-background-clip),
     var(--jib-background-image) var(--jib-background-position) / var(--jib-background-size) var(--jib-background-repeat) var(--jib-background-attachment) var(--jib-background-origin) var(--jib-background-clip),
     var(--jib-border-gradient) 0% 0% / auto repeat scroll var(--jib-border-gradient-origin) var(--jib-border-gradient-clip) var(--jib-background-color-layer);
 }
 @utility -bg-conic-* {
-  --jib-background-image: conic-gradient(var(--tw-gradient-stops));
-  --jib-noop: --value(number, [ *]);
-  --jib-noop: --modifier("srgb", "hsl", "oklab", "oklch", "longer", "shorter", "increasing", "decreasing");
+  --jib-background-image: conic-gradient(var(--tw-gradient-stops, transparent 0 0));
+  --tw-sort: (--value(number, [ *], --default(none)));
+  --tw-sort: (--value(number, --default(none)) --modifier("srgb", "hsl", "oklab", "oklch", "longer", "shorter", "increasing", "decreasing", [ *]));
   background:
     var(--jib-ripple-image) 0% 0% / auto repeat scroll var(--jib-background-origin) var(--jib-background-clip),
     var(--jib-background-image) var(--jib-background-position) / var(--jib-background-size) var(--jib-background-repeat) var(--jib-background-attachment) var(--jib-background-origin) var(--jib-background-clip),

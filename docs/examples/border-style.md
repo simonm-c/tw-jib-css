@@ -74,3 +74,14 @@ style. Hover each cell; the style must not change.
   <div data-test="stock-dashed" class="border-8 border-dashed border-gray-400 h-20"></div>
   <div data-test="stock-dotted" class="border-8 border-dotted border-gray-400 h-20"></div>
 </div>
+
+## Nested boxes
+
+A child's own width utility re-reads the four side slots. The parent's per-side
+style must not reach it.
+
+<div class="my-6">
+  <div data-test="nest-parent" class="border-8 border-t-groove border-gray-400 p-4">
+    <div data-test="nest-child" class="border-8 border-gray-400 h-20"></div>
+  </div>
+</div>

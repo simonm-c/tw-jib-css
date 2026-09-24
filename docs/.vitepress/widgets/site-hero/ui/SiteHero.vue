@@ -22,10 +22,6 @@ const INSTALL_SNIPPET = "@import 'tw-jib-css';";
         no image files. One stylesheet, no plugin, no config.
       </p>
 
-      <!-- The install line wears the library. A conic border-spin is the rotating
-           ring every AI chat input has, and putting it here means the first
-           thing a reader sees working is the thing the page is selling.
-           See guide/border-spin. -->
       <div
         class="flex items-center gap-2 rounded-xl bg-gray-800 border-2 border-conic-0 border-spin border-spin-duration-4 border-from-sky-400 border-via-violet-500 border-to-sky-400 motion-reduce:[animation:none]! px-4 py-2 font-mono text-sm text-gray-300"
       >
@@ -33,10 +29,6 @@ const INSTALL_SNIPPET = "@import 'tw-jib-css';";
         <CopyButton :text="INSTALL_SNIPPET" class="ml-2" />
       </div>
 
-      <!-- The counterweight to the copy box above it. "One import" is the easy
-           promise; the reason it is not a threat is that the one import is a
-           choice rather than a floor. Stated here because the objection lands at
-           the install moment, not three sections later. -->
       <p class="-mt-4 font-mono text-xs opacity-50">
         or only the part you want:
         <a

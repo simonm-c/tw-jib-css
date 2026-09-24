@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest';
-import { suiteScenarios } from './helpers.js';
+import { registration, suiteScenarios } from './helpers.js';
 import { BG_LAYER } from './constants.js';
 
 describe.each(suiteScenarios('border-style'))('border-style utilities, $name', ({ compile }) => {
@@ -225,4 +225,27 @@ describe.each(suiteScenarios('border-style'))('width readers, $name', ({ compile
       /--tw-border-style:\s*var\([^;]*var\(/,
     );
   });
+
+  test.each(['t', 'r', 'b', 'l'])(
+    'the --jib-border-%s-style slot is registered, so it cannot reach a descendant',
+    async (key) => {
+      const decl = registration(await compile('border-4'), `--jib-border-${key}-style`);
+      expect(decl, `@property --jib-border-${key}-style not emitted`).toBeTruthy();
+      expect(
+        decl,
+        'an unregistered slot inherits, and a nested border-* would read the ancestor’s side style',
+      ).toContain('inherits: false');
+    },
+  );
+
+  test.each(['t', 'r', 'b', 'l'])(
+    'the --jib-border-%s-style slot carries no initial value, so the width reader falls back',
+    async (key) => {
+      const decl = registration(await compile('border-4'), `--jib-border-${key}-style`);
+      expect(
+        decl,
+        'an initial value makes the slot valid and var(slot, var(--tw-border-style)) stops falling through',
+      ).not.toContain('initial-value');
+    },
+  );
 });

@@ -1,5 +1,5 @@
 import { describe, test, expect } from 'vitest';
-import { compile, suiteScenarios } from './helpers.js';
+import { compile, registration, suiteScenarios } from './helpers.js';
 import { BG_LAYER, BG_LAYER_TEXTURED } from './constants.js';
 
 const GEOMETRY_SLOTS = [
@@ -49,10 +49,6 @@ const ORIGIN = [
   ['bg-origin-padding', 'padding-box'],
   ['bg-origin-content', 'content-box'],
 ] as const;
-
-function registration(css: string, name: string): string | undefined {
-  return css.match(new RegExp(`@property ${name} \\{[\\s\\S]*?\\n\\}`))?.[0];
-}
 
 describe('slot registration', () => {
   test.each([...GEOMETRY_SLOTS, '--jib-background-origin', '--jib-border-gradient-origin'])(
@@ -108,9 +104,29 @@ describe('the composited shorthand', () => {
     ).toContain(`var(${slot})`);
   });
 
-  test('paints the colour underlay beneath every layer', () => {
-    expect(BG_LAYER).toContain('var(--jib-background-color-layer)');
-  });
+  const COLOUR_POSITION = 'var(--jib-border-gradient-clip) var(--jib-background-color-layer)';
+
+  test.each(['bg-none', 'bg-[url(/a.png)]', 'bg-linear-to-r'])(
+    '%s replaces the image position, so its shorthand carries the colour underlay',
+    async (utility) => {
+      const css = await compile(utility);
+      expect(
+        css,
+        'the colour is evicted from the image layer, leaving the underlay the only place it can paint',
+      ).toContain(COLOUR_POSITION);
+    },
+  );
+
+  test.each(['bg-ripple', 'bg-comic-slate-500', 'bg-pixel-blue-500', 'border-linear-to-r'])(
+    '%s reads the image slot, so its shorthand leaves the colour underlay off',
+    async (utility) => {
+      const css = await compile(utility);
+      expect(
+        css,
+        'the colour already rides in its image layer; carrying it underneath as well paints it twice',
+      ).not.toContain(COLOUR_POSITION);
+    },
+  );
 
   test.each(GEOMETRY_SLOTS)('leaves %s off a texture, which supplies its own geometry', (slot) => {
     expect(BG_LAYER_TEXTURED).not.toContain(`var(${slot})`);

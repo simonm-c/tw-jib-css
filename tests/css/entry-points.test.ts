@@ -2,6 +2,7 @@ import { describe, expect, test } from 'vitest';
 import { readdirSync, readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { compile, compileEntries } from './helpers';
+import { BG_LAYER } from './constants.js';
 
 const SRC = './packages/tw-jib-css/src';
 const srcDir = resolve(import.meta.dirname, '../../packages/tw-jib-css/src');
@@ -21,6 +22,44 @@ const OVERRIDES = [
     cls: 'text-contrast-aa',
     gate: '--jib-text-color: --jib-auto-contrast(',
   },
+] as const;
+
+const COMPOSITED_GRADIENTS = [
+  'bg-linear-45',
+  'bg-linear-to-r',
+  'bg-linear-to-br/oklch',
+  '-bg-linear-45',
+  'bg-linear-[25deg]',
+  'bg-radial',
+  'bg-radial-[at_top]',
+  'bg-conic',
+  'bg-conic-180/longer',
+  'bg-conic-[from_45deg]',
+  '-bg-conic-90',
+] as const;
+
+const TAILWIND_PARITY = [
+  'bg-linear-to-r',
+  'bg-linear-45',
+  'bg-linear-[25deg]',
+  'bg-linear',
+  'bg-linear-to-r/oklch',
+  'bg-linear-[25deg]/oklch',
+  'bg-linear-nonsense',
+  '-bg-linear-45',
+  '-bg-linear-to-r',
+  '-bg-linear-45/oklch',
+  'bg-radial',
+  'bg-radial/oklch',
+  'bg-radial-[at_top]',
+  'bg-radial-[at_top]/oklch',
+  '-bg-radial-[at_top]',
+  'bg-linear-to-r/[in_oklch]',
+  'bg-conic',
+  'bg-conic-180/longer',
+  'bg-conic-[from_45deg]/oklch',
+  '-bg-conic',
+  '-bg-conic-90/oklch',
 ] as const;
 
 const TRANSFORMED = [
@@ -63,6 +102,56 @@ describe('what each published entry point delivers', () => {
         );
       });
     }
+  });
+
+  describe('the gradient composites ship no matcher', () => {
+    test.each(COMPOSITED_GRADIENTS)(
+      '%s emits the image slot and the shorthand alone',
+      async (cls) => {
+        const css = await compile(`${cls} from-red-500 to-blue-500`);
+        const layered = css.indexOf(BG_LAYER);
+        expect(layered, `${cls} emitted no composited background`).toBeGreaterThan(-1);
+        const rule = css.slice(css.lastIndexOf('{', layered) + 1, css.indexOf('\n  }', layered));
+        const properties = [...rule.matchAll(/^\s*([\w-]+):/gm)].map((match) => match[1]);
+        expect(
+          properties,
+          `${cls} shipped a declaration that exists only to make its block match`,
+        ).toEqual(['--jib-background-image', 'background']);
+      },
+    );
+
+    test('a value naming a CSS property does not become the sort key', async () => {
+      const css = await compile('bg-linear-[display] from-red-500 to-blue-500');
+      const layered = css.indexOf(BG_LAYER);
+      const replaced = css.search(
+        /\n\s+background-image: linear-gradient\(var\(--tw-gradient-stops/,
+      );
+      expect(layered, 'the composited background is missing').toBeGreaterThan(-1);
+      expect(replaced, "Tailwind's own gradient declaration is missing").toBeGreaterThan(-1);
+      expect(
+        layered,
+        'the composite sorted ahead of the background-image it layers, so the shorthand drops the gradient',
+      ).toBeGreaterThan(replaced);
+    });
+  });
+
+  describe('the gradient composites match what Tailwind matches', () => {
+    test.each(TAILWIND_PARITY)(
+      '%s composites exactly when Tailwind emits a gradient',
+      async (cls) => {
+        const tailwind = await compileEntries([], cls);
+        const layer = tailwind.slice(tailwind.indexOf('@layer utilities'));
+        const emitted = !layer.startsWith('@layer utilities;');
+
+        const withLibrary = await compile(cls);
+        expect(
+          withLibrary.includes(BG_LAYER),
+          emitted
+            ? `Tailwind emits a gradient for ${cls} and the composite is missing`
+            : `Tailwind rejects ${cls} and the composite is emitted anyway`,
+        ).toBe(emitted);
+      },
+    );
   });
 
   describe('the experimental entry includes the overrides', () => {

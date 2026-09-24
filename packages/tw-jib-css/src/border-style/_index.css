@@ -11,6 +11,25 @@
  * right slots at once. :dir() matches inherited directionality, so it resolves
  * per element. */
 
+/* No initial-value: guaranteed-invalid is what lets
+ * var(--jib-border-t-style, var(--tw-border-style)) reach the fallback. */
+@property --jib-border-t-style {
+  syntax: "*";
+  inherits: false;
+}
+@property --jib-border-r-style {
+  syntax: "*";
+  inherits: false;
+}
+@property --jib-border-b-style {
+  syntax: "*";
+  inherits: false;
+}
+@property --jib-border-l-style {
+  syntax: "*";
+  inherits: false;
+}
+
 @utility border-* {
   --tw-border-style: --value("groove", "ridge", "inset", "outset", [border-style]);
   border-style: --value("groove", "ridge", "inset", "outset", [border-style]);
@@ -63,8 +82,13 @@
   border-inline-end-style: --value("groove", "ridge", "inset", "outset", "solid", "dashed", "dotted", "double", "none", "hidden", [border-style]);
 }
 
-/* A functional @utility with no resolving --value() never matches; --jib-noop
- * is that match. */
+/* @utility only compiles with valid --value() provided.
+ * --tw-sort is Tailwind internal, and not compiled into CSS, but still counts
+ * for compilation purposes.
+ * --tw-sort used by tailwind for utility compile order, based on property
+ * names, e.g. background-image;
+ * invalid values for --tw-sort do nothing to sort order, but still allow
+ * utility block to compile, so function as a safe no-op to allow compiling */
 
 @utility border {
   border-top-style: var(--jib-border-t-style, var(--tw-border-style));
@@ -73,7 +97,7 @@
   border-left-style: var(--jib-border-l-style, var(--tw-border-style));
 }
 @utility border-* {
-  --jib-noop: --value(number, [length]);
+  --tw-sort: (--value(number, [length]));
   border-top-style: var(--jib-border-t-style, var(--tw-border-style));
   border-right-style: var(--jib-border-r-style, var(--tw-border-style));
   border-bottom-style: var(--jib-border-b-style, var(--tw-border-style));
@@ -84,28 +108,28 @@
   border-top-style: var(--jib-border-t-style, var(--tw-border-style));
 }
 @utility border-t-* {
-  --jib-noop: --value(number, [length]);
+  --tw-sort: (--value(number, [length]));
   border-top-style: var(--jib-border-t-style, var(--tw-border-style));
 }
 @utility border-r {
   border-right-style: var(--jib-border-r-style, var(--tw-border-style));
 }
 @utility border-r-* {
-  --jib-noop: --value(number, [length]);
+  --tw-sort: (--value(number, [length]));
   border-right-style: var(--jib-border-r-style, var(--tw-border-style));
 }
 @utility border-b {
   border-bottom-style: var(--jib-border-b-style, var(--tw-border-style));
 }
 @utility border-b-* {
-  --jib-noop: --value(number, [length]);
+  --tw-sort: (--value(number, [length]));
   border-bottom-style: var(--jib-border-b-style, var(--tw-border-style));
 }
 @utility border-l {
   border-left-style: var(--jib-border-l-style, var(--tw-border-style));
 }
 @utility border-l-* {
-  --jib-noop: --value(number, [length]);
+  --tw-sort: (--value(number, [length]));
   border-left-style: var(--jib-border-l-style, var(--tw-border-style));
 }
 
@@ -114,7 +138,7 @@
   border-right-style: var(--jib-border-r-style, var(--tw-border-style));
 }
 @utility border-x-* {
-  --jib-noop: --value(number, [length]);
+  --tw-sort: (--value(number, [length]));
   border-left-style: var(--jib-border-l-style, var(--tw-border-style));
   border-right-style: var(--jib-border-r-style, var(--tw-border-style));
 }
@@ -123,7 +147,7 @@
   border-bottom-style: var(--jib-border-b-style, var(--tw-border-style));
 }
 @utility border-y-* {
-  --jib-noop: --value(number, [length]);
+  --tw-sort: (--value(number, [length]));
   border-top-style: var(--jib-border-t-style, var(--tw-border-style));
   border-bottom-style: var(--jib-border-b-style, var(--tw-border-style));
 }
@@ -137,7 +161,7 @@
   }
 }
 @utility border-s-* {
-  --jib-noop: --value(number, [length]);
+  --tw-sort: (--value(number, [length]));
   &:where(:dir(ltr)) {
     border-inline-start-style: var(--jib-border-l-style, var(--tw-border-style));
   }
@@ -154,7 +178,7 @@
   }
 }
 @utility border-e-* {
-  --jib-noop: --value(number, [length]);
+  --tw-sort: (--value(number, [length]));
   &:where(:dir(ltr)) {
     border-inline-end-style: var(--jib-border-r-style, var(--tw-border-style));
   }

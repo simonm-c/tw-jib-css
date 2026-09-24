@@ -1,10 +1,10 @@
-/* The --jib-contrast-* chain below: unregistered, element-scoped.
- * Registered <color>: Gecko stores it at reduced precision, and the carrier's
- * alpha IS the background brightness every later stage solves from, so the
- * error reaches the ratio.
- * On :root: a property resolves its var()s against :root, so the background
- * reads as `canvas`.
- * --jib-contrast-ratio, registered <number>: unaffected. */
+/* --jib-contrast-* is unregistered and element-scoped:
+ * - Registered <color>: Gecko stores it at reduced precision, and the carrier's
+ *   alpha carries the background brightness the later stages solve from, so the
+ *   error reaches the ratio.
+ * - On :root: a property resolves its var()s against :root, so the background
+ *   reads as `canvas`.
+ * - --jib-contrast-ratio, registered <number>: unaffected. */
 
 /* Firefox rejects a channel keyword in pow(). The 0.5 exponent is arbitrary;
  * the probe only has to parse. */
@@ -27,7 +27,7 @@
 }
 
 /* Same-name @utility blocks never merge, sorted most-declarations-first, so C
- * and D land after A and override its vector. */
+ * lands after A and overrides its vector. */
 
 /* A: the shade. */
 @utility text-contrast-* {
@@ -36,21 +36,17 @@
   /* Carrier. One origin per expression, so alpha carries background luminance. */
   --jib-contrast-carrier: color(from var(--jib-background-color) srgb-linear r g b / calc(0.2126 * r + 0.7152 * g + 0.0722 * b));
 
-  /* Pre-scaled by target/background brightness, so at scale 1 the output
-   * reproduces the background's own chromaticity and the last stage can use one
-   * ceiling for every path.
-   *
-   * 0.1791 is the brightness with equal headroom to black and to white. WCAG
-   * rates a pair (L_hi + 0.05)/(L_lo + 0.05), where 0.05 is its own flare
-   * constant, so equal headroom is (Y + 0.05)/0.05 = 1.05/(Y + 0.05), giving
-   * (Y + 0.05)² = 0.05 × 1.05 = 0.0525 and Y = √0.0525 − 0.05. */
+  /* - Pre-scaled by target/background brightness: at scale 1 the output
+   *   reproduces the background's own chromaticity.
+   * - 0.1791 is the brightness with equal headroom to black and to white. WCAG
+   *   rates a pair (L_hi + 0.05)/(L_lo + 0.05), where 0.05 is its own flare
+   *   constant, so equal headroom is (Y + 0.05)/0.05 = 1.05/(Y + 0.05), giving
+   *   (Y + 0.05)² = 0.05 × 1.05 = 0.0525 and Y = √0.0525 − 0.05. */
   --jib-contrast-core: color(from var(--jib-contrast-carrier) srgb-linear calc(clamp(0, (1 - clamp(0, (0.1791 - alpha) * 1000000, 1)) * ((alpha + 0.05) / var(--jib-contrast-ratio) - 0.05) + clamp(0, (0.1791 - alpha) * 1000000, 1) * (var(--jib-contrast-ratio) * (alpha + 0.05) - 0.05), 1) * (r - alpha) / max(alpha, 0.000001)) calc(clamp(0, (1 - clamp(0, (0.1791 - alpha) * 1000000, 1)) * ((alpha + 0.05) / var(--jib-contrast-ratio) - 0.05) + clamp(0, (0.1791 - alpha) * 1000000, 1) * (var(--jib-contrast-ratio) * (alpha + 0.05) - 0.05), 1) * (g - alpha) / max(alpha, 0.000001)) calc(clamp(0, (1 - clamp(0, (0.1791 - alpha) * 1000000, 1)) * ((alpha + 0.05) / var(--jib-contrast-ratio) - 0.05) + clamp(0, (0.1791 - alpha) * 1000000, 1) * (var(--jib-contrast-ratio) * (alpha + 0.05) - 0.05), 1) * (b - alpha) / max(alpha, 0.000001)) / calc(clamp(0, (1 - clamp(0, (0.1791 - alpha) * 1000000, 1)) * ((alpha + 0.05) / var(--jib-contrast-ratio) - 0.05) + clamp(0, (0.1791 - alpha) * 1000000, 1) * (var(--jib-contrast-ratio) * (alpha + 0.05) - 0.05), 1)));
 
-  /* Same channels, alpha swapped to the target brightness. Class 1 reads that
-   * out of --jib-contrast-core instead. */
   --jib-contrast-target: color(from var(--jib-contrast-carrier) srgb-linear r g b / calc(clamp(0, (1 - clamp(0, (0.1791 - alpha) * 1000000, 1)) * ((alpha + 0.05) / var(--jib-contrast-ratio) - 0.05) + clamp(0, (0.1791 - alpha) * 1000000, 1) * (var(--jib-contrast-ratio) * (alpha + 0.05) - 0.05), 1)));
 
-  /* oklch = default space, so needed with no modifier. Cube-root twin in C/D. */
+  /* oklch = default space, so needed with no modifier. */
   --jib-contrast-oklch: color(from oklch(from var(--jib-contrast-target) calc(alpha) c h / alpha) srgb-linear calc(r - (0.2126 * r + 0.7152 * g + 0.0722 * b)) calc(g - (0.2126 * r + 0.7152 * g + 0.0722 * b)) calc(b - (0.2126 * r + 0.7152 * g + 0.0722 * b)) / alpha);
 
   --jib-contrast-vector: var(--jib-contrast-oklch);
@@ -104,7 +100,7 @@
 /* Cube-root seeds for the spaces that have one. Elsewhere the --modifier()
  * lookup fails, dropping the gated block that reads this map. */
 @theme inline {
-  /* Cube root of the target brightness. pow() only inside gated blocks C/D. */
+  /* Cube root of the target brightness. */
   --jib-contrast-shade-precise-oklch: color(from oklch(from var(--jib-contrast-target) calc(pow(alpha, 0.333333)) c h / alpha) srgb-linear calc(r - (0.2126 * r + 0.7152 * g + 0.0722 * b)) calc(g - (0.2126 * r + 0.7152 * g + 0.0722 * b)) calc(b - (0.2126 * r + 0.7152 * g + 0.0722 * b)) / alpha);
   --jib-contrast-shade-precise-oklab: color(from oklch(from var(--jib-contrast-target) calc(pow(alpha, 0.333333)) c h / alpha) srgb-linear calc(r - (0.2126 * r + 0.7152 * g + 0.0722 * b)) calc(g - (0.2126 * r + 0.7152 * g + 0.0722 * b)) calc(b - (0.2126 * r + 0.7152 * g + 0.0722 * b)) / alpha);
 
@@ -115,27 +111,20 @@
 }
 
 /* B: requested level, for wcag-badge.
- * Absent modifier drops only that declaration, block stands, covers the bare
- * candidate. Present-but-unresolved drops the block, keeping C off spaces with
- * no precise entry. */
+ * - Absent modifier drops only that declaration, so the block stands and covers
+ *   the bare candidate.
+ * - Present-but-unresolved drops the block, keeping C off spaces with no
+ *   precise entry. */
 @utility text-contrast-* {
   --jib-contrast-level: --value("aa", "aaa", "aa-lg");
   --jib-contrast-level-space: --modifier("oklch", "lch", "lab", "oklab", "hsl", "hwb", "rgb", "srgb", "srgb-linear", "display-p3", "a98-rgb", "prophoto-rgb", "rec2020", "xyz", "xyz-d50", "xyz-d65", "color-mix");
 }
 
-/* C: cube-root seed. Only spaces with a precise entry match. */
-@utility text-contrast-* {
-  --jib-contrast-ratio: --value(--jib-contrast-ratio- *);
-  @variant supports-channel-pow {
-    --jib-contrast-vector: --modifier(--jib-contrast-shade-precise- *);
-  }
-}
-
-/* D: bare candidate. C cannot cover it, since bare drops C's --modifier(), and
- * --default() strips whitespace. */
+/* C: cube-root seed. */
 @utility text-contrast-* {
   --jib-contrast-ratio: --value(--jib-contrast-ratio- *);
   @variant supports-channel-pow {
     --jib-contrast-vector: color(from oklch(from var(--jib-contrast-target) calc(pow(alpha, 0.333333)) c h / alpha) srgb-linear calc(r - (0.2126 * r + 0.7152 * g + 0.0722 * b)) calc(g - (0.2126 * r + 0.7152 * g + 0.0722 * b)) calc(b - (0.2126 * r + 0.7152 * g + 0.0722 * b)) / alpha);
+    --jib-contrast-vector: --modifier(--jib-contrast-shade-precise- *);
   }
 }

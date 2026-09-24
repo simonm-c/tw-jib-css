@@ -142,3 +142,27 @@ test.describe('stock Tailwind border styles are unchanged', () => {
     });
   }
 });
+
+test.describe('a per-side style stops at the element that set it', () => {
+  test('the parent keeps border-t-groove on its own top side', async ({ page }) => {
+    // Arrange
+    await gotoPage(page);
+    // Act
+    const all = await extractStyles(page, ['nest-parent']);
+    // Assert
+    expect(styles(all, 'nest-parent'), 'nest-parent: top right bottom left').toBe(
+      'groove solid solid solid',
+    );
+  });
+
+  test('a nested width utility reads none of the parent’s side styles', async ({ page }) => {
+    // Arrange
+    await gotoPage(page);
+    // Act
+    const all = await extractStyles(page, ['nest-child']);
+    // Assert
+    expect(styles(all, 'nest-child'), 'an inheriting slot would give the child a groove top').toBe(
+      'solid solid solid solid',
+    );
+  });
+});

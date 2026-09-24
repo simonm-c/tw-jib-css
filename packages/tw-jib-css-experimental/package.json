@@ -1,6 +1,6 @@
 {
   "name": "tw-jib-css-experimental",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Experimental tw-jib-css utilities – CSS @function colour transforms, corner-shape, interpolate-size, base-select picker, and a WCAG contrast badge. Limited browser support.",
   "type": "module",
   "license": "MIT",

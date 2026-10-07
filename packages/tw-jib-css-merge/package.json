@@ -1,0 +1,93 @@
+{
+  "name": "tw-jib-css-merge",
+  "version": "2.0.3",
+  "description": "tailwind-merge config for tw-jib-css and tw-jib-css-experimental, so twMerge keeps jib classes that compose and resolves the ones that conflict.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Simon Monk-Chipman",
+  "homepage": "https://github.com/simonm-c/tw-jib-css#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/simonm-c/tw-jib-css.git",
+    "directory": "packages/tw-jib-css-merge"
+  },
+  "bugs": {
+    "url": "https://github.com/simonm-c/tw-jib-css/issues"
+  },
+  "keywords": [
+    "tailwindcss",
+    "tailwind",
+    "tailwind-merge",
+    "twmerge",
+    "tw-jib-css"
+  ],
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "prepack": "pnpm run build && pnpm -w test:merge && pnpm -w lint"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./automatic-contrast": {
+      "types": "./dist/automatic-contrast.d.ts",
+      "default": "./dist/automatic-contrast.js"
+    },
+    "./border-gradient": {
+      "types": "./dist/border-gradient.d.ts",
+      "default": "./dist/border-gradient.js"
+    },
+    "./border-style": {
+      "types": "./dist/border-style.d.ts",
+      "default": "./dist/border-style.js"
+    },
+    "./color-transforms": {
+      "types": "./dist/color-transforms.d.ts",
+      "default": "./dist/color-transforms.js"
+    },
+    "./comic": {
+      "types": "./dist/comic.d.ts",
+      "default": "./dist/comic.js"
+    },
+    "./grid": {
+      "types": "./dist/grid.d.ts",
+      "default": "./dist/grid.js"
+    },
+    "./pixel": {
+      "types": "./dist/pixel.d.ts",
+      "default": "./dist/pixel.js"
+    },
+    "./ripple": {
+      "types": "./dist/ripple.d.ts",
+      "default": "./dist/ripple.js"
+    },
+    "./experimental": {
+      "types": "./dist/experimental.d.ts",
+      "default": "./dist/experimental.js"
+    },
+    "./experimental/corner": {
+      "types": "./dist/experimental/corner.d.ts",
+      "default": "./dist/experimental/corner.js"
+    },
+    "./experimental/interpolate": {
+      "types": "./dist/experimental/interpolate.d.ts",
+      "default": "./dist/experimental/interpolate.js"
+    },
+    "./experimental/picker": {
+      "types": "./dist/experimental/picker.d.ts",
+      "default": "./dist/experimental/picker.js"
+    },
+    "./experimental/wcag-badge": {
+      "types": "./dist/experimental/wcag-badge.d.ts",
+      "default": "./dist/experimental/wcag-badge.js"
+    }
+  },
+  "peerDependencies": {
+    "tailwind-merge": "^3.6.0"
+  }
+}

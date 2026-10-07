@@ -141,7 +141,10 @@ export default defineConfig({
     sidebar: [
       {
         text: 'Getting started',
-        items: [{ text: 'Installation', link: '/guide/installation' }],
+        items: [
+          { text: 'Installation', link: '/guide/installation' },
+          { text: 'tailwind-merge', link: '/guide/tailwind-merge' },
+        ],
       },
       {
         text: 'Accessibility',

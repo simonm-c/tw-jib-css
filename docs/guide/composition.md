@@ -2,7 +2,7 @@
 title: Composition
 ---
 
-<!-- llm-context: How tw-jib-css utilities combine on one element. The three color transforms are one fixed pipeline (hue-rotate then saturation then lightness) carried by a custom-property chain, so markup class order is irrelevant. Each of the seven surfaces has its own independent chain. text-contrast-* solves against a SINGLE background color and therefore cannot be used with the comic or pixel textures: those paint a background-image, dots or columns over a white (comic) or black (pixel) base, whose effective luminance depends on the gap, dot and bleed settings. Adding a flat bg-* color alongside a texture does not fix it and makes it worse, because bg-* and bg-comic-* write the same --jib-background-image, so the flat color reaches the solve but never the paint. -->
+<!-- llm-context: How tw-jib-css utilities combine on one element. The three color transforms are one fixed pipeline (hue-rotate then saturation then lightness) carried by a custom-property chain, so markup class order is irrelevant. Each of the seven surfaces has its own independent chain. text-contrast-* solves against the flat bg-* color. Comic and pixel paint it as dots or columns over a white (comic) or black (pixel) base, so pair them with text-contrast-* only when a small gap and wide bleed or bloom keep the base from showing through the text (comic-dot-0.5 comic-gap-2 comic-bleed-4 works). bg-* emits its --jib-background-image after the textures, so in plain markup the flat color wins the paint; apply the flat bg-* under :where() so it fills --jib-background-color without overriding the background, and the texture as bg-comic-(--jib-background-color) on the plain class, with a hover: copy when bg-lighten-* runs on hover. -->
 
 # Composition
 
@@ -93,21 +93,34 @@ The hint is only needed where a namespace accepts more than a color, which is al
 </div>
 ```
 
-::: danger Automatic contrast needs one flat color, so it cannot be used on a texture
-`text-contrast-*` solves a ratio against a single color. A texture is a background _image_, and no single color describes it. Comic paints CMYK dots over a white base, pixel paints RGB columns over a black base, and what a reader looks at is a mixture of ink and gap whose luminance moves with `comic-gap`, `comic-dot` and `comic-bleed`, or the pixel equivalents.
+::: warning Automatic contrast on a texture
+`text-contrast-*` solves against one flat color. A texture paints that color as a pattern over a base, white for comic and black for pixel, and the reader sees both. The solve holds when the spacing closes the pattern up so the base stops showing through the text. Keep the gap small and the bleed or bloom wide. Open the gaps and the base takes over, so text solved for the ink lands on mostly white, or mostly black.
 
-At `comic-gap-0` the dots close up, the surface approaches the flat color, and the pairing can look right. Open the gaps to anything you would actually ship and the white base takes over most of the area, so a shade solved for the ink is being read against a surface that is mostly white.
-
-Adding the flat color alongside the texture does not rescue it, and quietly makes it worse:
+The solve reads the flat color from `bg-*`, so the element needs one, and the texture then has to win the paint. Markup alone does not get you there. `bg-*` writes the background image after `bg-comic-*` and `bg-pixel-*` in the compiled stylesheet, so this paints flat violet:
 
 ```html
-<!-- Solves against violet-600, paints white-plus-dots. Confidently wrong. -->
+<!-- Solves against violet-600 and paints violet-600. No dots. -->
 <div class="bg-violet-600 bg-comic-violet-600 text-contrast-aa">…</div>
 ```
 
-`bg-*` and `bg-comic-*` both write `--jib-background-image`, so the flat layer never reaches the paint. It still reaches the solve, which is the trap: you get a shade computed for a violet that nobody sees.
+Apply the flat color under `:where()`. Its zero specificity lets it fill `--jib-background-color` for the solve without overriding the background, and the texture in the plain class paints from that same variable, so transforms reach both. `bg-lighten-*` rewrites the flat image on hover, so the texture needs a `hover:` copy too:
 
-Choose the text color yourself over a texture, and keep `text-contrast-*` for flat backgrounds.
+```css
+:where(.comic-button) {
+  @apply bg-violet-600 hover:bg-lighten-40;
+}
+
+.comic-button {
+  @apply bg-comic-(--jib-background-color) hover:bg-comic-(--jib-background-color);
+}
+```
+
+```html
+<button class="comic-button comic-dot-0.5 comic-gap-2 comic-bleed-4 text-contrast-aa">
+  Solved against violet, painted as tight violet dots.
+</button>
+```
+
 :::
 
 ## Textures, borders and ripples on one element
@@ -133,7 +146,7 @@ The ripple and the texture paint inside the padding box, the gradient border pai
 
 ## A card using most of it
 
-The card carries the halftone and the gradient border, and picks its own text color because the background is a texture. The button sits on a flat color, so it can hand its text color to `text-contrast-aa` and take a ripple as well.
+The card carries the halftone and the gradient border, and sets its text color by hand. `text-contrast-*` would need a flat `bg-*` to solve against, and tighter spacing than the comic defaults. The button sits on a flat color, so it can hand its text color to `text-contrast-aa` and take a ripple as well.
 
 ```html
 <div

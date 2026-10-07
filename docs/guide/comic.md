@@ -14,8 +14,8 @@ Comic mixes subtractively, the way ink lands on paper. Its sibling [Pixel](/guid
 Built on CSS relative color syntax with `max()` inside `rgb(from ...)`, and registered custom properties. Live status for each is at the foot of this page.
 :::
 
-::: danger Do not pair this with `text-contrast-*`
-The dots sit on a white base, so the surface a reader sees is part ink and part white, in a proportion set by `comic-gap`, `comic-dot` and `comic-bleed`. `text-contrast-*` solves against one flat color and has no way to know any of that. Pick the text color by hand here. See [Composition](/guide/composition#what-automatic-contrast-can-see).
+::: warning Pairing with `text-contrast-*`
+The dots sit on a white base, and `text-contrast-*` solves against the flat ink color alone. The solve holds when the dots close up far enough that no white shows through the text. Keep `comic-gap` small and `comic-bleed` wide next to `comic-dot`; `comic-dot-0.5 comic-gap-2 comic-bleed-4` covers well enough. The texture also has to win the paint over the flat color the solve reads. See [Composition](/guide/composition#what-automatic-contrast-can-see).
 :::
 
 ## Quick reference

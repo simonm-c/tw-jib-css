@@ -14,8 +14,8 @@ Pixel mixes additively, the way a display emits light. Its sibling [Comic dots](
 Built on CSS relative color syntax (`rgb(from ... r 0 0)`), registered custom properties and the `tan()` and `atan2()` trig functions. Live status for each is at the foot of this page.
 :::
 
-::: danger Do not pair this with `text-contrast-*`
-The columns sit on a black base, so the surface a reader sees is part phosphor and part black, in a proportion set by `pixel-gap`, `pixel-size` and `pixel-bloom`. `text-contrast-*` solves against one flat color and has no way to know any of that. Pick the text color by hand here. See [Composition](/guide/composition#what-automatic-contrast-can-see).
+::: warning Pairing with `text-contrast-*`
+The columns sit on a black base, and `text-contrast-*` solves against the flat phosphor color alone. The solve holds when the columns run together far enough that no black shows through the text. Keep `pixel-gap` small and raise `pixel-bloom` until the gaps fill. The texture also has to win the paint over the flat color the solve reads. See [Composition](/guide/composition#what-automatic-contrast-can-see).
 :::
 
 ## Quick reference

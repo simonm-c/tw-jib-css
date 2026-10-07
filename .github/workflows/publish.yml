@@ -22,11 +22,7 @@ jobs:
       contents: write
       id-token: write
     steps:
-      # A pull_request caller's default ref is refs/pull/N/merge, not the merge
-      # commit on main. Empty on other events, so the default ref applies.
       - uses: actions/checkout@v4
-        with:
-          ref: ${{ github.event.pull_request.merge_commit_sha }}
       - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
@@ -44,9 +40,10 @@ jobs:
       - run: pnpm stage publish -r --no-git-checks --provenance
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      # release-please writes its own GitHub release. Under workflow_call,
-      # github.event_name is the caller's: release-please.yml's push to main.
-      # The release lands while the staged version is still unapproved.
+      # release-please writes its own GitHub release. github.event_name can't
+      # single out the tag route: under workflow_call it is the caller's, which
+      # can be push. The release lands while the staged version is still
+      # unapproved.
       - uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/v')
         with:

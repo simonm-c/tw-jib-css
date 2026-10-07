@@ -1,7 +1,7 @@
 name: Release Please
 
-# A release PR's merge fires both triggers: GitHub has dropped one merge's push
-# event while still recording its PR-closed event. Whichever runs second finds
+# GitHub can drop a merge's push event, so a release PR's merge is also caught
+# as pull_request and relayed. Whichever release-please run comes second finds
 # the PR labelled `autorelease: tagged` and cuts nothing.
 on:
   push:
@@ -11,10 +11,10 @@ on:
     branches: [main]
   workflow_dispatch:
 
-# A group holds one pending run and a newer one cancels it, so a closed PR that
-# cuts nothing gets its own group rather than displacing a release run.
+# A group holds one pending run and a newer one cancels it; sharing would let a
+# pull_request run, which cuts nothing, displace a waiting release run.
 concurrency:
-  group: ${{ (github.event_name != 'pull_request' || (github.event.pull_request.merged && startsWith(github.event.pull_request.head.ref, 'release-please--'))) && 'release-please' || github.run_id }}
+  group: ${{ github.event_name == 'pull_request' && github.run_id || 'release-please' }}
   cancel-in-progress: false
 
 permissions:
@@ -22,8 +22,21 @@ permissions:
   pull-requests: write
 
 jobs:
+  # npm-publish's deployment rules reject refs/pull/N/merge, a pull_request
+  # run's ref. workflow_dispatch is exempt from GITHUB_TOKEN events starting no
+  # runs.
+  relay:
+    if: github.event_name == 'pull_request' && github.event.pull_request.merged && startsWith(github.event.pull_request.head.ref, 'release-please--')
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - run: gh workflow run release-please.yml --repo "$GITHUB_REPOSITORY" --ref main
+        env:
+          GH_TOKEN: ${{ github.token }}
+
   release-please:
-    if: github.event_name != 'pull_request' || (github.event.pull_request.merged && startsWith(github.event.pull_request.head.ref, 'release-please--'))
+    if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
     outputs:
       releases_created: ${{ steps.release.outputs.releases_created }}

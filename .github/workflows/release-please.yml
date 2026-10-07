@@ -3,7 +3,7 @@ name: Release Please
 # Keeps a release PR open against main. Every conventional commit that lands
 # adds to it, and merging it is what cuts a release: release-please writes the
 # version bumps, the per-package CHANGELOGs and the tags, then this workflow
-# hands off to publish.yml.
+# hands off to publish.yml and then deploy-docs.yml.
 #
 # Merging that PR is therefore the only route to npm, which is what makes the
 # branch rules on main the release permission. See CODEOWNERS.
@@ -21,6 +21,7 @@ jobs:
     runs-on: ubuntu-latest
     outputs:
       releases_created: ${{ steps.release.outputs.releases_created }}
+      tag_name: ${{ steps.release.outputs['packages/tw-jib-css--tag_name'] }}
     steps:
       - uses: googleapis/release-please-action@v5
         id: release
@@ -41,3 +42,13 @@ jobs:
       id-token: write
     uses: ./.github/workflows/publish.yml
     secrets: inherit
+
+  deploy-docs:
+    needs: [release-please, publish]
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    uses: ./.github/workflows/deploy-docs.yml
+    with:
+      tag: ${{ needs.release-please.outputs.tag_name }}

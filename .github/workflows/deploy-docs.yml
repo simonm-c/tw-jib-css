@@ -1,13 +1,14 @@
 name: Deploy VitePress to GitHub Pages
 
-# Dispatch-only, and deliberately not on a push to main or on the release
-# being cut. publish.yml stages the version rather than releasing it: the
-# packages are unresolvable by `pnpm install` until a maintainer runs `pnpm
-# stage approve` locally, which takes the 2FA and so cannot be a CI step and
-# raises no event. A deploy wired to any automatic trigger would therefore
-# publish docs for a version that may still be rejected. Run this by hand
-# immediately after the approve, naming the tag that was approved.
+# Called by release-please.yml once publish.yml has staged a release, which is
+# before `pnpm stage approve`: a rejected version's docs stay live until the
+# next deploy. Dispatch redeploys any tag.
 on:
+  workflow_call:
+    inputs:
+      tag:
+        required: true
+        type: string
   workflow_dispatch:
     inputs:
       tag:

@@ -45,17 +45,6 @@ Tailwind:
   </div>
 </Example>
 
-### A gradient and a texture together
-
-Because they share one list, a single clip utility governs both. There is no per-layer
-clip to reason about.
-
-<Example>
-  <div class="bg-linear-to-r from-indigo-500 to-emerald-400 bg-comic-purple-500/40 bg-clip-text text-transparent text-5xl font-extrabold tracking-tight">
-    Both at once
-  </div>
-</Example>
-
 ## Choosing the box
 
 The three box keywords behave as they do in plain CSS. The background stops at the border,

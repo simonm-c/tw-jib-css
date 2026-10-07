@@ -1,6 +1,14 @@
-#!/usr/bin/env node
+type Shade = '200' | '500' | '800';
+type Direction = 'lighten' | 'darken';
 
-const FULL_MATRIX_COLORS = [
+interface Swatch {
+  name: string;
+  light: Shade;
+  mid: Shade;
+  dark: Shade;
+}
+
+const FULL_MATRIX_COLORS: Swatch[] = [
   { name: 'red', light: '200', mid: '500', dark: '800' },
   { name: 'blue', light: '200', mid: '500', dark: '800' },
   { name: 'green', light: '200', mid: '500', dark: '800' },
@@ -8,7 +16,7 @@ const FULL_MATRIX_COLORS = [
   { name: 'slate', light: '200', mid: '500', dark: '800' },
 ];
 
-const ALL_COLORS = [
+const ALL_COLORS: Swatch[] = [
   { name: 'red', light: '200', mid: '500', dark: '800' },
   { name: 'orange', light: '200', mid: '500', dark: '800' },
   { name: 'amber', light: '200', mid: '500', dark: '800' },
@@ -55,7 +63,7 @@ const SPACES = [
 
 const AMOUNTS = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100];
 
-function textColor(shade, direction, amount) {
+function textColor(shade: Shade, direction: Direction, amount: number): string {
   if (direction === 'darken') {
     return 'text-white/60';
   }
@@ -68,7 +76,13 @@ function textColor(shade, direction, amount) {
   return 'text-white/60';
 }
 
-function scaleRow(color, shade, direction, space, withModifier) {
+function scaleRow(
+  color: string,
+  shade: Shade,
+  direction: Direction,
+  space: string,
+  withModifier: boolean,
+): string {
   const spaceLabel = withModifier ? `/${space}` : '(default)';
   const modifier = withModifier ? `/${space}` : '';
   const dirClass = direction === 'darken' ? 'bg-darken' : 'bg-lighten';
@@ -90,7 +104,7 @@ function scaleRow(color, shade, direction, space, withModifier) {
   return html;
 }
 
-function shadeBlock(color, shade, direction, spaces) {
+function shadeBlock(color: string, shade: Shade, direction: Direction, spaces: string[]): string {
   const label = shade === '200' ? 'light' : shade === '500' ? 'mid' : 'dark';
   let html = `#### ${color}-${shade} (${label} base), ${direction === 'darken' ? 'darken' : 'lighten'} scale\n\n`;
   html += `<div class="flex flex-col gap-px my-4">\n`;
@@ -103,7 +117,7 @@ function shadeBlock(color, shade, direction, spaces) {
   return html;
 }
 
-function colorSection(color, shades, spaces, heading) {
+function colorSection(color: Swatch, shades: Shade[], spaces: string[], heading: string): string {
   let html = `### ${heading}\n\n`;
 
   for (const shade of shades) {
@@ -120,7 +134,7 @@ output += `## Comprehensive matrix, key colors × all spaces\n\n`;
 output += `Full lightness scale (0–100) across all 17 colour spaces for 5 representative colours, each at 3 starting shades (200 light, 500 mid, 800 dark).\n\n`;
 
 for (const color of FULL_MATRIX_COLORS) {
-  const shades = [color.light, color.mid, color.dark];
+  const shades: Shade[] = [color.light, color.mid, color.dark];
   output += colorSection(
     color,
     shades,
@@ -135,7 +149,7 @@ output += `Full lightness scale (0–100) in the default oklch colour space for 
 for (const color of ALL_COLORS) {
   if (FULL_MATRIX_COLORS.some((c) => c.name === color.name)) continue;
 
-  const shades = [color.light, color.mid, color.dark];
+  const shades: Shade[] = [color.light, color.mid, color.dark];
   output += colorSection(
     color,
     shades,

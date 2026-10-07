@@ -121,6 +121,7 @@ export default defineConfig({
         items: [
           { text: 'Installation', link: '/guide/installation' },
           { text: 'Composition', link: '/guide/composition' },
+          { text: 'tailwind-merge', link: '/guide/tailwind-merge' },
         ],
       },
       {

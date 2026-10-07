@@ -117,3 +117,21 @@ test.describe('an unparseable slot value falls back instead of voiding the short
     });
   }
 });
+
+test.describe('a gradient beside a texture paints the gradient alone', () => {
+  for (const suite of ['comic', 'pixel'] as const) {
+    test(`${suite} leaves the same background image as the gradient on its own`, async ({
+      page,
+    }) => {
+      // Arrange
+      await gotoPage(page);
+      // Act
+      const styles = await extractStyles(page, ['default-linear', `gradient-${suite}`]);
+      // Assert
+      expect(
+        styles[`gradient-${suite}`].backgroundImage,
+        `bg-linear-to-r beside bg-${suite}-* should paint exactly what bg-linear-to-r paints alone`,
+      ).toBe(styles['default-linear'].backgroundImage);
+    });
+  }
+});

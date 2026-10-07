@@ -31,6 +31,9 @@ jobs:
           registry-url: https://registry.npmjs.org
       - run: pnpm install --frozen-lockfile
       - run: pnpm test:css
+      # tw-jib-css-merge publishes dist/, compiled from its TypeScript source.
+      - run: pnpm build:merge
+      - run: pnpm test:merge
       # -r is load-bearing. The workspace root is private and publishes
       # nothing, so a bare `pnpm stage publish` targets the root rather than the
       # packages under packages/, and the release reaches npm empty.

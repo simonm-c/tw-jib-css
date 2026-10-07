@@ -18,14 +18,16 @@ A TailwindCSS v4 utility library built entirely with CSS-first `@utility` and `@
 
 ## Packages
 
-Two packages, split by **browser support contract** rather than by bundle size. Tailwind's scanner purges
-unused classes either way. Everything in `tw-jib-css` works on every engine; nothing in the experimental
-package does.
+The two CSS packages are split by **browser support contract** rather than by bundle size. Tailwind's
+scanner purges unused classes either way. Everything in `tw-jib-css` works on every engine; nothing in the
+experimental package does. A third package, `tw-jib-css-merge`, is a config that teaches
+tailwind-merge both.
 
-| Package                                                                  | What it is                                                                                           | Docs                                                        |
-| ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------- | ----------------------------------------------------------- |
-| [**`tw-jib-css`**](packages/tw-jib-css#readme)                           | The stable library. Works on every engine. Its own README.                                           | [Docs](https://simonm-c.github.io/tw-jib-css/)              |
-| [**`tw-jib-css-experimental`**](packages/tw-jib-css-experimental#readme) | Not-yet-baseline features, mostly Chromium-only. Its own package, its own README, its own docs site. | [Docs](https://simonm-c.github.io/tw-jib-css/experimental/) |
+| Package                                                                  | What it is                                                                                           | Docs                                                               |
+| ------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------ |
+| [**`tw-jib-css`**](packages/tw-jib-css#readme)                           | The stable library. Works on every engine. Its own README.                                           | [Docs](https://simonm-c.github.io/tw-jib-css/)                     |
+| [**`tw-jib-css-experimental`**](packages/tw-jib-css-experimental#readme) | Not-yet-baseline features, mostly Chromium-only. Its own package, its own README, its own docs site. | [Docs](https://simonm-c.github.io/tw-jib-css/experimental/)        |
+| [**`tw-jib-css-merge`**](packages/tw-jib-css-merge#readme)               | A [tailwind-merge](https://github.com/dcastil/tailwind-merge) config for both CSS packages.          | [Docs](https://simonm-c.github.io/tw-jib-css/guide/tailwind-merge) |
 
 ## Features
 
@@ -190,6 +192,34 @@ the root changes how those classes compute. The additions are reachable on their
 
 → **[Experimental README](packages/tw-jib-css-experimental#readme)** ·
 **[Experimental docs](https://simonm-c.github.io/tw-jib-css/experimental/)**
+
+## tailwind-merge
+
+Out of the box, [tailwind-merge](https://github.com/dcastil/tailwind-merge) reads most jib classes as
+Tailwind colour utilities, so it deletes classes that were meant to work together:
+
+```js
+twMerge('bg-blue-500 bg-lighten-20'); // 'bg-lighten-20'   (the colour being lightened is gone)
+```
+
+[`tw-jib-css-merge`](packages/tw-jib-css-merge#readme) keeps the classes that compose and resolves the
+ones that really conflict, last one wins. It has a plugin for each package and a sub-path for each
+module, mirroring the CSS imports.
+
+```bash
+pnpm add tw-jib-css-merge tailwind-merge
+```
+
+```js
+import { extendTailwindMerge } from 'tailwind-merge';
+import { withJib } from 'tw-jib-css-merge';
+import { withJibExperimental } from 'tw-jib-css-merge/experimental';
+
+export const twMerge = extendTailwindMerge(withJib, withJibExperimental);
+```
+
+→ **[Merge README](packages/tw-jib-css-merge#readme)** ·
+**[Merge docs](https://simonm-c.github.io/tw-jib-css/guide/tailwind-merge)**
 
 ## Documentation
 

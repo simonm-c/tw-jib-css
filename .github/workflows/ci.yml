@@ -19,6 +19,7 @@ jobs:
       - run: pnpm format:check
       - run: pnpm lint
       - run: pnpm test:css
+      - run: pnpm test:merge
 
   # Built once, here, rather than per engine. The integration specs run against
   # a built site because a dev server recompiles the one stylesheet an instance

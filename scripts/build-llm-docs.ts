@@ -8,6 +8,7 @@ const SITE_URL = 'https://simonm-c.github.io/tw-jib-css';
 const PAGE_ORDER = [
   'installation',
   'composition',
+  'tailwind-merge',
   'automatic-contrast',
   'lightness',
   'saturation',
@@ -25,6 +26,7 @@ const PAGE_ORDER = [
 
 const EXPERIMENTAL_PAGE_ORDER = [
   'installation',
+  'tailwind-merge',
   'automatic-contrast',
   'wcag-rating',
   'lightness',

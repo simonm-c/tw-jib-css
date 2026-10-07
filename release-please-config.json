@@ -66,13 +66,17 @@
     "packages/tw-jib-css-experimental": {
       "release-type": "node",
       "component": "tw-jib-css-experimental"
+    },
+    "packages/tw-jib-css-merge": {
+      "release-type": "node",
+      "component": "tw-jib-css-merge"
     }
   },
   "plugins": [
     {
       "type": "linked-versions",
       "groupName": "tw-jib-css",
-      "components": ["workspace", "tw-jib-css", "tw-jib-css-experimental"]
+      "components": ["workspace", "tw-jib-css", "tw-jib-css-experimental", "tw-jib-css-merge"]
     }
   ]
 }

@@ -78,6 +78,22 @@ Every layer clips to the glyphs, the border gradient included.
   </div>
 </div>
 
+## A gradient beside a texture
+
+The gradient and the texture write one image slot, so only the gradient paints.
+The texture class comes last in the markup to show markup order plays no part.
+
+<div class="grid grid-cols-4 gap-4 my-6">
+  <div>
+    <div data-test="gradient-comic" class="bg-linear-to-r from-red-500 to-blue-500 bg-comic-red-500 comic-dot-2 comic-gap-4 border-8 border-linear-to-r border-from-emerald-400 border-to-yellow-300 h-24 p-2 text-2xl font-black">Ag</div>
+    <p class="text-xs font-mono text-center mt-1">linear + comic</p>
+  </div>
+  <div>
+    <div data-test="gradient-pixel" class="bg-linear-to-r from-red-500 to-blue-500 bg-pixel-red-500 pixel-size-3 pixel-gap-2 border-8 border-linear-to-r border-from-emerald-400 border-to-yellow-300 h-24 p-2 text-2xl font-black">Ag</div>
+    <p class="text-xs font-mono text-center mt-1">linear + pixel</p>
+  </div>
+</div>
+
 ## Unparseable slot values
 
 The slots are registered with a closed keyword list, so a value outside it is

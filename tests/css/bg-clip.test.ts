@@ -84,13 +84,37 @@ describe.each(suiteScenarios('comic'))('Tailwind gradients composite too, $name'
     }
   });
 
-  test('a gradient layered with a pattern still takes one clip', async () => {
+  test('a gradient beside a pattern carries bg-clip-text into both slots', async () => {
     const css = await compile(
       'bg-comic-red-500 bg-linear-to-r from-red-500 to-blue-500 bg-clip-text',
     );
     for (const slot of SLOTS) {
-      expect(css).toContain(`${slot}: text;`);
+      expect(css, `bg-clip-text should write text to ${slot}`).toContain(`${slot}: text;`);
     }
-    expect(css).toContain(BG_LAYER_TEXTURED);
   });
 });
+
+function imageWriters(css: string): string[] {
+  return [...css.matchAll(/\n\s*(\.[^{\s]+)\s*\{[^}]*--jib-background-image:/g)].map(
+    (match) => match[1],
+  );
+}
+
+const TEXTURES = ['bg-comic-red-500', 'bg-pixel-red-500'] as const;
+
+describe.each(suiteScenarios('comic', 'pixel'))(
+  'a gradient and a texture share one image slot, $name',
+  ({ compile }) => {
+    test.each(
+      TAILWIND_GRADIENTS.flatMap((gradient) => TEXTURES.map((texture) => [gradient, texture])),
+    )('%s replaces %s', async (gradient, texture) => {
+      const css = await compile(`${texture} ${gradient} from-red-500 to-blue-500`);
+      const writers = imageWriters(css);
+      expect(writers, `${texture} should write --jib-background-image`).toContain(`.${texture}`);
+      expect(
+        writers.at(-1),
+        `${gradient} should be the last rule writing --jib-background-image, so its gradient paints and ${texture} does not`,
+      ).toBe(`.${gradient}`);
+    });
+  },
+);

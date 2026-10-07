@@ -1,6 +1,6 @@
 {
   "name": "tw-jib-css-merge",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "description": "tailwind-merge config for tw-jib-css and tw-jib-css-experimental, so twMerge keeps jib classes that compose and resolves the ones that conflict.",
   "type": "module",
   "license": "MIT",

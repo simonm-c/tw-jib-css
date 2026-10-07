@@ -1,16 +1,21 @@
 name: Release Please
 
-# Keeps a release PR open against main. Every conventional commit that lands
-# adds to it, and merging it is what cuts a release: release-please writes the
-# version bumps, the per-package CHANGELOGs and the tags, then this workflow
-# hands off to publish.yml and then deploy-docs.yml.
-#
-# Merging that PR is therefore the only route to npm, which is what makes the
-# branch rules on main the release permission. See CODEOWNERS.
+# A release PR's merge fires both triggers: GitHub has dropped one merge's push
+# event while still recording its PR-closed event. Whichever runs second finds
+# the PR labelled `autorelease: tagged` and cuts nothing.
 on:
   push:
     branches: [main]
+  pull_request:
+    types: [closed]
+    branches: [main]
   workflow_dispatch:
+
+# A group holds one pending run and a newer one cancels it, so a closed PR that
+# cuts nothing gets its own group rather than displacing a release run.
+concurrency:
+  group: ${{ (github.event_name != 'pull_request' || (github.event.pull_request.merged && startsWith(github.event.pull_request.head.ref, 'release-please--'))) && 'release-please' || github.run_id }}
+  cancel-in-progress: false
 
 permissions:
   contents: write
@@ -18,6 +23,7 @@ permissions:
 
 jobs:
   release-please:
+    if: github.event_name != 'pull_request' || (github.event.pull_request.merged && startsWith(github.event.pull_request.head.ref, 'release-please--'))
     runs-on: ubuntu-latest
     outputs:
       releases_created: ${{ steps.release.outputs.releases_created }}

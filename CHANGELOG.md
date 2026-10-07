@@ -12,6 +12,13 @@ per package, from the commits that went into it:
 - [`packages/tw-jib-css/CHANGELOG.md`](packages/tw-jib-css/CHANGELOG.md)
 - [`packages/tw-jib-css-experimental/CHANGELOG.md`](packages/tw-jib-css-experimental/CHANGELOG.md)
 
+## [2.1.0](https://github.com/simonm-c/tw-jib-css/compare/workspace-v2.0.3...workspace-v2.1.0) (2026-10-07)
+
+
+### Features
+
+* **merge:** add tailwind-merge config for jib classes ([64dc89e](https://github.com/simonm-c/tw-jib-css/commit/64dc89e83716db34684beade45c3ad4591918f67))
+
 ## [2.0.3](https://github.com/simonm-c/tw-jib-css/compare/workspace-v2.0.2...workspace-v2.0.3) (2026-09-24)
 
 

@@ -247,6 +247,9 @@ importers:
       tailwind-merge:
         specifier: ^3.6.0
         version: 3.7.0
+      tw-jib-css:
+        specifier: workspace:^
+        version: link:../tw-jib-css
 
 packages:
 

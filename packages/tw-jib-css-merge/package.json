@@ -88,6 +88,7 @@
     }
   },
   "peerDependencies": {
-    "tailwind-merge": "^3.6.0"
+    "tailwind-merge": "^3.6.0",
+    "tw-jib-css": "workspace:^"
   }
 }

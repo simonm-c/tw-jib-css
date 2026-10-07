@@ -25,7 +25,7 @@ resolved like any other Tailwind class: the last one wins.
 pnpm add tw-jib-css-merge tailwind-merge
 ```
 
-Peer dependency: `tailwind-merge ^3.6.0`.
+Peer dependencies: `tailwind-merge ^3.6.0` and `tw-jib-css`, at this package's version or a later one in the same major.
 
 ## Usage
 

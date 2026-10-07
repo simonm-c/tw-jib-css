@@ -179,7 +179,7 @@ Each uses `bg-blue-500 bg-lighten-20/{space}`.
   </div>
 </div>
 
-<!-- BEGIN GENERATED MATRIX, regenerate with: node scripts/generate-lightness-fixtures.mjs -->
+<!-- BEGIN GENERATED MATRIX, regenerate with: node scripts/generate-lightness-fixtures.ts -->
 
 ## Comprehensive matrix, key colors × all spaces
 

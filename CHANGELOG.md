@@ -12,6 +12,24 @@ per package, from the commits that went into it:
 - [`packages/tw-jib-css/CHANGELOG.md`](packages/tw-jib-css/CHANGELOG.md)
 - [`packages/tw-jib-css-experimental/CHANGELOG.md`](packages/tw-jib-css-experimental/CHANGELOG.md)
 
+## [2.2.0](https://github.com/simonm-c/tw-jib-css/compare/workspace-v2.1.0...workspace-v2.2.0) (2026-10-30)
+
+
+### Features
+
+* **bg-position:** anchor comic and pixel textures on the position keywords ([1d1e41b](https://github.com/simonm-c/tw-jib-css/commit/1d1e41bfcde365567a8f2ea6d92a6939b8469ab3))
+* **pixel:** bloom each phosphor from a crisp rectangle toward an ellipse ([db02c2a](https://github.com/simonm-c/tw-jib-css/commit/db02c2a004ca9b62b2b3e752b78477b85cc8fd5c))
+
+
+### Bug Fixes
+
+* **pixel:** sort bg-pixel after Tailwind's position and size longhands ([12485da](https://github.com/simonm-c/tw-jib-css/commit/12485dae40cb4cb116d49aa6774f7a0665bb2d60))
+
+
+### Code Refactoring
+
+* **automatic-contrast:** factor the target and lift formulas ([220c3ec](https://github.com/simonm-c/tw-jib-css/commit/220c3ec3501a40911ebcaac5226bc0e764f39b56))
+
 ## [2.1.0](https://github.com/simonm-c/tw-jib-css/compare/workspace-v2.0.3...workspace-v2.1.0) (2026-10-07)
 
 

@@ -17,6 +17,8 @@ const INITIAL_VALUES: Record<string, string> = {
   '--jib-background-lightness-amount': '0',
   '--jib-background-origin': 'padding-box',
   '--jib-background-position': '0% 0%',
+  '--jib-background-position-x': '0%',
+  '--jib-background-position-y': '0%',
   '--jib-background-repeat': 'repeat',
   '--jib-background-saturation-amount': '0',
   '--jib-background-size': 'auto',

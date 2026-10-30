@@ -140,6 +140,19 @@
   inherits: false;
   initial-value: auto;
 }
+/* The anchor a layer offset is added to in calc(), which takes neither a
+ * keyword nor a pair, so an arbitrary position never reaches these and leaves
+ * them at their initial value. */
+@property --jib-background-position-x {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+@property --jib-background-position-y {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
 @property --jib-background-repeat {
   syntax: "<custom-ident>+";
   inherits: false;
@@ -286,30 +299,48 @@
 }
 @utility bg-top {
   --jib-background-position: top;
+  --jib-background-position-x: 50%;
+  --jib-background-position-y: 0%;
 }
 @utility bg-bottom {
   --jib-background-position: bottom;
+  --jib-background-position-x: 50%;
+  --jib-background-position-y: 100%;
 }
 @utility bg-left {
   --jib-background-position: left;
+  --jib-background-position-x: 0%;
+  --jib-background-position-y: 50%;
 }
 @utility bg-right {
   --jib-background-position: right;
+  --jib-background-position-x: 100%;
+  --jib-background-position-y: 50%;
 }
 @utility bg-center {
   --jib-background-position: center;
+  --jib-background-position-x: 50%;
+  --jib-background-position-y: 50%;
 }
 @utility bg-top-left {
   --jib-background-position: left top;
+  --jib-background-position-x: 0%;
+  --jib-background-position-y: 0%;
 }
 @utility bg-top-right {
   --jib-background-position: right top;
+  --jib-background-position-x: 100%;
+  --jib-background-position-y: 0%;
 }
 @utility bg-bottom-left {
   --jib-background-position: left bottom;
+  --jib-background-position-x: 0%;
+  --jib-background-position-y: 100%;
 }
 @utility bg-bottom-right {
   --jib-background-position: right bottom;
+  --jib-background-position-x: 100%;
+  --jib-background-position-y: 100%;
 }
 @utility bg-position-* {
   --jib-background-position: --value([ *]);

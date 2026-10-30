@@ -29,6 +29,32 @@ describe.each(suiteScenarios('comic'))('comic utilities, $name', ({ compile }) =
       expect(css).toContain('0.01');
     });
 
+    test.each([
+      ['cyan', 'var(--jib-background-position-x) var(--jib-background-position-y)'],
+      [
+        'magenta',
+        'calc(var(--jib-background-position-x) + var(--jib-comic-cell) / 2) calc(var(--jib-background-position-y) + var(--jib-comic-cell) / 2)',
+      ],
+      [
+        'yellow',
+        'calc(var(--jib-background-position-x) + var(--jib-comic-cell) / 2) var(--jib-background-position-y)',
+      ],
+      [
+        'key',
+        'var(--jib-background-position-x) calc(var(--jib-background-position-y) + var(--jib-comic-cell) / 2)',
+      ],
+    ])('the %s screen sits on the bg-position anchor plus its offset', async (screen, position) => {
+      // Arrange
+      // Act
+      const css = await compile('bg-comic-red-500');
+
+      // Assert
+      expect(
+        css,
+        `the ${screen} dots must follow bg-position, or animating comic-dot grows them from the top left`,
+      ).toContain(`) ${position} / var(--jib-comic-cell) var(--jib-comic-cell)`);
+    });
+
     test('bg-comic-[#ff6600] accepts arbitrary color', async () => {
       const css = await compile('bg-comic-[#ff6600]');
       expect(css).toContain('radial-gradient');

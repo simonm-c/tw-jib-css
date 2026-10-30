@@ -27,6 +27,28 @@ const SHORTHAND_OWNERS = [
   'border-linear-to-r',
 ] as const;
 
+describe('pixel per-layer geometry outranks Tailwind’s single-value longhands', () => {
+  test.each([
+    ['bg-center', 'background-position: center'],
+    ['bg-bottom-right', 'background-position: right bottom'],
+    ['bg-size-[4px_4px]', 'background-size: 4px 4px'],
+  ])('bg-pixel-blue-500 sorts after %s', async (utility, longhand) => {
+    // Arrange
+    // Act
+    const css = await compile(`bg-pixel-blue-500 ${utility}`);
+
+    // Assert
+    expect(
+      positionOf(
+        css,
+        'background-blend-mode: normal, multiply, screen',
+        'bg-pixel-blue-500: the rule carrying the per-layer geometry',
+      ),
+      `sorting first lets ${utility} collapse every channel onto one position`,
+    ).toBeGreaterThan(positionOf(css, longhand, `${utility}: Tailwind’s longhand`));
+  });
+});
+
 describe('the composited shorthand outranks the longhands it replaces', () => {
   test.each(SHORTHAND_OWNERS)("%s sorts after Tailwind's own background-color", async (owner) => {
     const css = await compile(`bg-white/50 ${owner}`);

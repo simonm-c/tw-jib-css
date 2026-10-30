@@ -2,7 +2,7 @@
 title: Pixel
 ---
 
-<!-- llm-context: RGB pixel column backgrounds with a CRT or LCD phosphor look, derived from any Tailwind color. Splits the color into R, G and B columns with relative color syntax and repeating linear gradients, composited with screen for additive mixing. -->
+<!-- llm-context: RGB pixel column backgrounds with a CRT or LCD phosphor look, derived from any Tailwind color. Splits the color into R, G and B columns with relative color syntax. Each phosphor is a radial gradient that blooms from a crisp rectangle toward a soft ellipse, composited with screen for additive mixing. -->
 
 # Pixel
 
@@ -11,7 +11,7 @@ RGB pixel column backgrounds for any Tailwind color. LCD or CRT phosphor look, p
 Pixel mixes additively, the way a display emits light. Its sibling [Comic dots](/guide/comic) mixes subtractively, the way ink lands on paper. Left at their defaults both read back as the color you passed in; turn the knobs up and the channels come apart.
 
 ::: warning Browser support
-Built on CSS relative color syntax (`rgb(from ... r 0 0)`), registered custom properties and the `tan()` and `atan2()` trig functions. Live status for each is at the foot of this page.
+Built on CSS relative color syntax (`rgb(from ... r 0 0)`), registered custom properties, the `tan()` and `atan2()` trig functions, `sqrt()` and gradient interpolation in `srgb-linear`. Live status for each is at the foot of this page.
 :::
 
 ::: warning Pairing with `text-contrast-*`
@@ -26,12 +26,13 @@ The columns sit on a black base, and `text-contrast-*` solves against the flat p
   { class: 'bg-pixel-<color>/[<number>]', styles: 'Same with a 0-1 opacity' },
   { class: 'bg-pixel-[<value>]', styles: 'Arbitrary color value' },
   { class: 'bg-pixel-(--var)', styles: 'Color from a custom property' },
-  { class: 'pixel-size-<number>', styles: '--jib-pixel-size: --spacing(<number>) / 4. Pixel size; width = size, height = size × 2.' },
+  { class: 'pixel-size-<number>', styles: '--jib-pixel-size: --spacing(<number>) / 4. Pixel size; width = size, height = size × 4.' },
   { class: 'pixel-size-[<value>]', styles: '--jib-pixel-size: <value>' },
   { class: 'pixel-gap-<number>', styles: '--jib-pixel-gap: <number>. Gap as a multiple of pixel width.' },
   { class: 'pixel-gap-[<value>]', styles: '--jib-pixel-gap: <value>' },
-  { class: 'pixel-bloom-<number>', styles: '--jib-pixel-bloom: --spacing(<number>) / 4. Phosphor bloom; unbounded, saturates to solid.' },
+  { class: 'pixel-bloom-<number>', styles: '--jib-pixel-bloom: --spacing(<number>) / 4. How far each phosphor glows past its edge; unbounded, saturates to solid.' },
   { class: 'pixel-bloom-[<value>]', styles: '--jib-pixel-bloom: <value>' },
+  { class: 'bg-top, bg-center, bg-bottom-right, …', styles: 'Anchors the pixel grid. Keywords only.' },
 ]" />
 
 ## How it works
@@ -46,14 +47,14 @@ The color splits into its RGB channels, the direct components of additive light:
 
 Four background layers composite together. Each channel needs its own layer for `screen` blending to add up:
 
-1. **Row mask.** `repeating-linear-gradient(to bottom, ...)` with white rows and black gaps, blended with `multiply` to punch out the horizontal row separators.
-2. **Red column.** `repeating-linear-gradient(to right, ...)` at column position 0, blended with `screen`.
-3. **Green column.** The same, at column position 1, blended with `screen`.
-4. **Blue column.** The same, at column position 2, blended with `screen`.
+1. **Row mask.** A `radial-gradient` stretched wide across the cell, white over one phosphor's height and fading to black, blended with `multiply` to shape the rows.
+2. **Red column.** A `radial-gradient` stretched tall, the red channel over one phosphor's width and fading to transparent, blended with `screen`.
+3. **Green column.** The same, one column along, blended with `screen`.
+4. **Blue column.** The same, two columns along, blended with `screen`.
 
-All of it over a black `background-color`. `screen` adds the channels back together, which is additive mixing, and what comes out is tall rectangular pixels in R|G|B triplets, much like a real LCD panel.
+All of it over a black base. `screen` adds the channels back together, which is additive mixing, and what comes out is R|G|B triplets of phosphors four times as tall as they are wide, the slot shape of a slot-mask CRT.
 
-Raise `pixel-bloom` above 0 and each column widens until neighbors overlap into secondary colors: yellow, cyan, magenta. That overlap is the CRT phosphor glow.
+Raise `pixel-bloom` above 0 and each phosphor glows outward: its edge softens, its corners round, and the shape heads from a rectangle toward an ellipse. Where neighbors overlap they mix into secondary colors: yellow, cyan, magenta. That overlap is the CRT phosphor glow.
 
 ::: warning `bg-blend-*` overwrites that list
 `background-blend-mode` repeats a single value across every layer, and Tailwind's `bg-blend-*` sets one. It sorts after the texture, so `bg-pixel-* bg-blend-screen` flattens the row mask's `multiply` and the columns' `screen` into one mode, and the additive mix stops adding up.
@@ -105,7 +106,7 @@ Gap scales with pixel size, so changing `pixel-size-*` moves the gap along with 
 
 ## Size
 
-Control the pixel size with `pixel-size-<number>`. Scales at spacing/4 so `pixel-size-1` = 1px, `pixel-size-2` = 2px. Width equals the size value and height is twice that, so a pixel keeps a 1:2 ratio. The default is 1px.
+Control the pixel size with `pixel-size-<number>`. Scales at spacing/4 so `pixel-size-1` = 1px, `pixel-size-2` = 2px. Width equals the size value and height is four times that, the proportions of a slot-mask CRT's phosphor, so one triplet plus the gap makes a square cell. The default is 1px.
 
 <Example>
   <div class="flex gap-3">
@@ -134,12 +135,11 @@ Control the pixel size with `pixel-size-<number>`. Scales at spacing/4 so `pixel
 
 ## Bloom
 
-Control the phosphor bloom with `pixel-bloom-<number>`. Scales at spacing/4 so `pixel-bloom-1` = 1px. This widens each channel outward so adjacent columns overlap additively, which is the CRT glow. The dial is unbounded; at high values every channel saturates and the pixel structure dissolves into solid color. The default is 1px.
+Control the phosphor bloom with `pixel-bloom-<number>`. Scales at spacing/4 so `pixel-bloom-1` = 1px. Each phosphor's glow fades out over that distance past its edge, the same distance across and down, so the edge softens, the corners round and the shape moves from a rectangle toward an ellipse. Bloom is a length, so the same value reaches further against a small `pixel-size` than a large one. The dial is unbounded; at high values the glows overlap until the pixel structure dissolves into solid color. The default is 1px.
 
 - `pixel-bloom-0` gives crisp hard-edged rectangles, the LCD look
-- `pixel-bloom-1` gives a slight glow, and is the default
-- `pixel-bloom-2` makes adjacent channels meet
-- Larger values saturate, and the structure fades into flat color
+- `pixel-bloom-1`, the default, fills the gaps between channels at the default 1px size
+- Larger values round and merge the phosphors, then saturate into flat color
 
 <Example>
   <div class="flex gap-3">
@@ -165,6 +165,31 @@ Control the phosphor bloom with `pixel-bloom-<number>`. Scales at spacing/4 so `
     </div>
   </div>
 </Example>
+
+## Position
+
+Tailwind's position keywords anchor the pixel grid. With no position the grid starts at the top-left corner, so a growing `pixel-size` pushes every triplet toward the bottom right. With `bg-center` the grid grows outward from the centre. Hover a swatch to grow its pixels:
+
+<Example>
+  <div class="flex gap-3">
+    <div class="space-y-1.5">
+      <div class="bg-pixel-blue-500 pixel-size-2 transition-[--jib-pixel-size] duration-700 hover:pixel-size-8 size-24 rounded-lg"></div>
+      <div class="text-center text-xs font-mono opacity-60">no position</div>
+    </div>
+    <div class="space-y-1.5">
+      <div class="bg-pixel-blue-500 pixel-size-2 bg-center transition-[--jib-pixel-size] duration-700 hover:pixel-size-8 size-24 rounded-lg"></div>
+      <div class="text-center text-xs font-mono opacity-60">bg-center</div>
+    </div>
+    <div class="space-y-1.5">
+      <div class="bg-pixel-blue-500 pixel-size-2 bg-bottom-right transition-[--jib-pixel-size] duration-700 hover:pixel-size-8 size-24 rounded-lg"></div>
+      <div class="text-center text-xs font-mono opacity-60">bg-bottom-right</div>
+    </div>
+  </div>
+</Example>
+
+::: info Keywords only
+`bg-top`, `bg-bottom`, `bg-left`, `bg-right`, `bg-center` and the four `bg-top-left`-style corners reach the pixels. Green and blue sit one and two channels along from the anchor, and `calc()` can add that to a percentage but not to a keyword or to a two-value pair. An arbitrary `bg-position-[…]` therefore leaves the grid anchored top-left.
+:::
 
 ## Opacity
 
@@ -530,4 +555,4 @@ Included in `@import 'tw-jib-css'`. To import individually:
 @import 'tw-jib-css/pixel';
 ```
 
-<BaselineSupport :features="['relative-color', 'registered-custom-properties', 'trig-functions']" />
+<BaselineSupport :features="['relative-color', 'registered-custom-properties', 'trig-functions', 'exp-functions', 'gradient-interpolation']" />

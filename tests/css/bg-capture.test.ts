@@ -96,6 +96,53 @@ describe.each(suiteScenarios('ripple'))('Tailwind companions, $name', ({ compile
   );
 });
 
+const POSITION_AXES = [
+  ['bg-top', '50%', '0%'],
+  ['bg-bottom', '50%', '100%'],
+  ['bg-left', '0%', '50%'],
+  ['bg-right', '100%', '50%'],
+  ['bg-center', '50%', '50%'],
+  ['bg-top-left', '0%', '0%'],
+  ['bg-top-right', '100%', '0%'],
+  ['bg-bottom-left', '0%', '100%'],
+  ['bg-bottom-right', '100%', '100%'],
+] as const;
+
+describe.each(suiteScenarios('comic'))('per-axis position anchor, $name', ({ compile: build }) => {
+  test.each(POSITION_AXES)('%s writes x %s and y %s', async (utility, x, y) => {
+    // Arrange
+    // Act
+    const css = await build(`bg-comic-red-500 ${utility}`);
+
+    // Assert
+    expect(css, `${utility} should anchor x at its keyword's percentage`).toContain(
+      `--jib-background-position-x: ${x};`,
+    );
+    expect(css, `${utility} should anchor y at its keyword's percentage`).toContain(
+      `--jib-background-position-y: ${y};`,
+    );
+  });
+
+  test.each(['bg-position-[10px_4px]', 'bg-[30px_20px]', 'bg-[position:center]'])(
+    '%s leaves the per-axis anchor unset',
+    async (utility) => {
+      // Arrange
+      const axisDeclarations = (css: string) =>
+        css.match(/--jib-background-position-[xy]:/g)?.length ?? 0;
+      const baseline = axisDeclarations(await build('bg-comic-red-500'));
+
+      // Act
+      const css = await build(`bg-comic-red-500 ${utility}`);
+
+      // Assert
+      expect(
+        axisDeclarations(css),
+        'an arbitrary position cannot be split per axis, so the texture keeps its top-left anchor',
+      ).toBe(baseline);
+    },
+  );
+});
+
 describe('the composited shorthand', () => {
   test.each(GEOMETRY_SLOTS)('reads %s on its content layer', (slot) => {
     expect(

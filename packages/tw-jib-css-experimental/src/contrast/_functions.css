@@ -19,13 +19,13 @@
  *   R  T = 3    /4    0.3875
  *   G  T = 4.5  /5.5  0.425
  *   B  T = 7    /8    0.45625
- * Epsilon load-bearing: clamp(0, x·10000, 1) = 0 at exactly 0, and the shade
+ * Epsilon load-bearing: clamp(0, x·1e4, 1) = 0 at exactly 0, and the shade
  * lands ON the threshold. */
 @function --jib-contrast-test-directed(--lighter type(<color>): white, --darker type(<color>): black) returns <color> {
   --jib-scaled-lighter: color(from var(--lighter) srgb-linear calc(r / 4) calc(r / 5.5) calc(r / 8));
   --jib-scaled-darker: color(from var(--darker) srgb-linear calc(g * 3 / 4) calc(g * 4.5 / 5.5) calc(g * 7 / 8));
   --jib-mixed: color-mix(in srgb-linear, var(--jib-scaled-lighter) 50%, var(--jib-scaled-darker) 50%);
-  result: color(from var(--jib-mixed) srgb-linear clamp(0, (r - 0.3875 + 0.000001) * 10000, 1) clamp(0, (g - 0.425 + 0.000001) * 10000, 1) clamp(0, (b - 0.45625 + 0.000001) * 10000, 1));
+  result: color(from var(--jib-mixed) srgb-linear clamp(0, (r - 0.3875 + 1e-6) * 1e4, 1) clamp(0, (g - 0.425 + 1e-6) * 1e4, 1) clamp(0, (b - 0.45625 + 1e-6) * 1e4, 1));
 }
 
 /* Output colour IS the rating, srgb-linear:
@@ -39,7 +39,7 @@
   --jib-test-1-lighter: --jib-contrast-test-directed(var(--jib-packed-1), var(--jib-packed-2));
   --jib-test-2-lighter: --jib-contrast-test-directed(var(--jib-packed-2), var(--jib-packed-1));
   --jib-combined: color-mix(in srgb-linear, var(--jib-test-1-lighter) 50%, var(--jib-test-2-lighter) 50%);
-  result: color(from var(--jib-combined) srgb-linear clamp(0, r * 10000, 1) clamp(0, g * 10000, 1) clamp(0, b * 10000, 1));
+  result: color(from var(--jib-combined) srgb-linear clamp(0, r * 1e4, 1) clamp(0, g * 1e4, 1) clamp(0, b * 1e4, 1));
 }
 
 @function --jib-wcag-rating(--color-1 type(<color>): black, --color-2 type(<color>): white) returns <string> {
@@ -52,10 +52,9 @@
  *
  *   Y     = 0.2126·r + 0.7152·g + 0.0722·b
  *   S     = clamp(0, (0.1791 − Y) · 10⁶, 1)       1 → lighten, 0 → darken
- *   Yt    = clamp(0, (1−S)·((Y+0.05)/R − 0.05)
- *                   +   S ·(R·(Y+0.05) − 0.05), 1)
+ *   Yt    = clamp(0, (Y+0.05)·(1/R + S·(R − 1/R)) − 0.05, 1)
  *   U_c   = Yt · (c − Y) / Y
- *   caps  = min over channels of (1−Yt)/U_c and Yt/(−U_c)
+ *   caps  = (1−Yt)/max(U_c) and Yt/(−min(U_c))
  *   out_c = Yt + min(1, caps) · U_c
  *
  * 0.05 is WCAG's flare constant, from its (L_hi + 0.05)/(L_lo + 0.05) rating.
@@ -72,13 +71,13 @@
 
 /* Retarget: alpha becomes Yt. Input alpha is Y. */
 @function --jib-wcag-target(--carrier type(<color>): white, --ratio type(<number>): 4.5) returns <color> {
-  result: color(from var(--carrier) srgb-linear r g b / calc(clamp(0, (1 - clamp(0, (0.1791 - alpha) * 1000000, 1)) * ((alpha + 0.05) / var(--ratio) - 0.05) + clamp(0, (0.1791 - alpha) * 1000000, 1) * (var(--ratio) * (alpha + 0.05) - 0.05), 1)));
+  result: color(from var(--carrier) srgb-linear r g b / clamp(0, (alpha + 0.05) * (1 / var(--ratio) + clamp(0, (0.1791 - alpha) * 1e6, 1) * (var(--ratio) - 1 / var(--ratio))) - 0.05, 1));
 }
 
 /* U_c, alpha = Yt. The Yt/Y pre-scale makes scale 1 reproduce the background's
  * own chromaticity, and lets the lift use one ceiling for every path. */
 @function --jib-wcag-core-vector(--carrier type(<color>): white, --ratio type(<number>): 4.5) returns <color> {
-  result: color(from var(--carrier) srgb-linear calc(clamp(0, (1 - clamp(0, (0.1791 - alpha) * 1000000, 1)) * ((alpha + 0.05) / var(--ratio) - 0.05) + clamp(0, (0.1791 - alpha) * 1000000, 1) * (var(--ratio) * (alpha + 0.05) - 0.05), 1) * (r - alpha) / max(alpha, 0.000001)) calc(clamp(0, (1 - clamp(0, (0.1791 - alpha) * 1000000, 1)) * ((alpha + 0.05) / var(--ratio) - 0.05) + clamp(0, (0.1791 - alpha) * 1000000, 1) * (var(--ratio) * (alpha + 0.05) - 0.05), 1) * (g - alpha) / max(alpha, 0.000001)) calc(clamp(0, (1 - clamp(0, (0.1791 - alpha) * 1000000, 1)) * ((alpha + 0.05) / var(--ratio) - 0.05) + clamp(0, (0.1791 - alpha) * 1000000, 1) * (var(--ratio) * (alpha + 0.05) - 0.05), 1) * (b - alpha) / max(alpha, 0.000001)) / calc(clamp(0, (1 - clamp(0, (0.1791 - alpha) * 1000000, 1)) * ((alpha + 0.05) / var(--ratio) - 0.05) + clamp(0, (0.1791 - alpha) * 1000000, 1) * (var(--ratio) * (alpha + 0.05) - 0.05), 1)));
+  result: color(from var(--carrier) srgb-linear calc(clamp(0, (alpha + 0.05) * (1 / var(--ratio) + clamp(0, (0.1791 - alpha) * 1e6, 1) * (var(--ratio) - 1 / var(--ratio))) - 0.05, 1) * (r - alpha) / max(alpha, 1e-6)) calc(clamp(0, (alpha + 0.05) * (1 / var(--ratio) + clamp(0, (0.1791 - alpha) * 1e6, 1) * (var(--ratio) - 1 / var(--ratio))) - 0.05, 1) * (g - alpha) / max(alpha, 1e-6)) calc(clamp(0, (alpha + 0.05) * (1 / var(--ratio) + clamp(0, (0.1791 - alpha) * 1e6, 1) * (var(--ratio) - 1 / var(--ratio))) - 0.05, 1) * (b - alpha) / max(alpha, 1e-6)) / clamp(0, (alpha + 0.05) * (1 / var(--ratio) + clamp(0, (0.1791 - alpha) * 1e6, 1) * (var(--ratio) - 1 / var(--ratio))) - 0.05, 1));
 }
 
 /* c − Yc, alpha passes through. */
@@ -90,7 +89,7 @@
  * luminance is exact. The 1 in min(1, caps) also gamut-maps at constant
  * luminance. Alpha resets to 1. */
 @function --jib-wcag-lift(--vector type(<color>): white) returns <color> {
-  result: color(from var(--vector) srgb-linear calc(alpha + min(1, (1 - alpha) / max(r, 0.001), alpha / max((0 - r), 0.001), (1 - alpha) / max(g, 0.001), alpha / max((0 - g), 0.001), (1 - alpha) / max(b, 0.001), alpha / max((0 - b), 0.001)) * r) calc(alpha + min(1, (1 - alpha) / max(r, 0.001), alpha / max((0 - r), 0.001), (1 - alpha) / max(g, 0.001), alpha / max((0 - g), 0.001), (1 - alpha) / max(b, 0.001), alpha / max((0 - b), 0.001)) * g) calc(alpha + min(1, (1 - alpha) / max(r, 0.001), alpha / max((0 - r), 0.001), (1 - alpha) / max(g, 0.001), alpha / max((0 - g), 0.001), (1 - alpha) / max(b, 0.001), alpha / max((0 - b), 0.001)) * b) / 1);
+  result: color(from var(--vector) srgb-linear calc(alpha + min(1, (1 - alpha) / max(r, g, b, 0.001), alpha / max(0 - min(r, g, b), 0.001)) * r) calc(alpha + min(1, (1 - alpha) / max(r, g, b, 0.001), alpha / max(0 - min(r, g, b), 0.001)) * g) calc(alpha + min(1, (1 - alpha) / max(r, g, b, 0.001), alpha / max(0 - min(r, g, b), 0.001)) * b) / 1);
 }
 
 /* Modifier = aesthetic path only; the lift owns correctness.
@@ -118,7 +117,7 @@
 @function --jib-auto-contrast-lch(--background type(<color>): white, --ratio type(<number>): 4.5) returns <color> {
   --jib-carrier: --jib-wcag-carrier(var(--background));
   --jib-target: --jib-wcag-target(var(--jib-carrier), var(--ratio));
-  --jib-seed: lch(from var(--jib-target) calc(clamp(0, (alpha - 0.008856) * 1000000, 1) * (116 * pow(alpha, 0.333333) - 16) + (1 - clamp(0, (alpha - 0.008856) * 1000000, 1)) * (903.3 * alpha)) c h / alpha);
+  --jib-seed: lch(from var(--jib-target) calc(clamp(0, (alpha - 0.008856) * 1e6, 1) * (116 * pow(alpha, 0.333333) - 16) + (1 - clamp(0, (alpha - 0.008856) * 1e6, 1)) * (903.3 * alpha)) c h / alpha);
   --jib-vector: --jib-wcag-chroma-vector(var(--jib-seed));
   result: --jib-wcag-lift(var(--jib-vector));
 }

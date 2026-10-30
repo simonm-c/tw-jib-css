@@ -25,81 +25,51 @@
 }
 
 @utility bg-pixel-* {
+  /* Sorts after Tailwind's background-position and -size, whose single value
+     would otherwise replace the per-layer geometry in --jib-background-image. */
+  --tw-sort: background-blend-mode;
   --jib-pixel-color: --value(--color- *, [color], [ *]);
   --jib-pixel-opacity: calc(--modifier(integer) * 0.01);
   --jib-pixel-opacity: --modifier([number]);
-
-  --jib-pixel-width: var(--jib-pixel-size);
-  /* Phosphor stripe aspect. */
-  --jib-pixel-height: calc(var(--jib-pixel-size) * 2);
-
-  --jib-pixel-gap-actual: calc(var(--jib-pixel-gap) * var(--jib-pixel-width));
 
   /* - Sub-pixel black mask between the R/G/B columns.
      - Without it R's α=1→0 and G's α=0→1 edges share an element x, and the
        rasterizer supersamples that into a colour fringe.
      - 0.5px = one device pixel at 2dppx; the floor binds at or below a 1px
        channel. */
-  --jib-pixel-channel-gap: max(0.5px, calc(var(--jib-pixel-width) / 2));
+  --jib-pixel-channel-gap: max(0.5px, calc(var(--jib-pixel-size) / 2));
+  --jib-pixel-gap-actual: calc(var(--jib-pixel-gap) * var(--jib-pixel-size));
 
-  --jib-pixel-triplet-width: calc(var(--jib-pixel-width) * 3 + var(--jib-pixel-channel-gap) * 2);
-  --jib-pixel-cell-width: calc(var(--jib-pixel-triplet-width) + var(--jib-pixel-gap-actual));
-  --jib-pixel-cell-height: calc(var(--jib-pixel-height) + var(--jib-pixel-gap-actual));
+  /* A slot-mask CRT's lit slot is about four channel widths tall. */
+  --jib-pixel-height: calc(var(--jib-pixel-size) * 3 + var(--jib-pixel-channel-gap) * 2);
+  --jib-pixel-cell: calc(var(--jib-pixel-height) + var(--jib-pixel-gap-actual));
 
-  /* Bloom unbounded: 0 = crisp, ∞ = solid colour. Regimes split at a geometric
-     cap:
-       row cap    = gap/2          row edge → inter-row midline
-       column cap = w + ε + gap/2  channel edge → midway to its next-cell twin
-     Below the cap bloom widens the ramp; above it the overflow raises the mid
-     value by overflow/(overflow+cap).
+  /* - 100-cell radius on the axis a layer does not shape: across one tile it
+       adds at most (1/200)² to the squared gradient distance, so each layer
+       is a 1-D profile centred on its phosphor.
+     - Per axis (s = phosphor size on that axis, b = bloom):
+         fade-out  s/2 + b              colour reaches zero
+         hint      √max(½, s/(s + 2b))  at least ¾ of the colour left at the
+                                        phosphor edge; the ½ floor keeps the
+                                        curve no sharper than a parabola
+       b = 0 lands the hint on the last stop: a hard-edged rectangle.
+     - in srgb-linear reaches only the row mask: an alpha fade composites in
+       encoded sRGB whatever the interpolation space.
+     - tan(atan2(a, b)): Gecko rejects calc(10px / 20px) and drops the whole
+       shorthand with it, and rejects atan2() across mixed units, which the
+       <length> registrations of --jib-pixel-size and --jib-pixel-bloom
+       resolve to px. */
+  --jib-pixel-hint: calc(sqrt(max(0.5, tan(atan2(var(--jib-pixel-size), calc(var(--jib-pixel-size) + var(--jib-pixel-bloom) * 2))))) * 100%);
+  --jib-pixel-column: calc(var(--jib-pixel-size) / 2 + var(--jib-pixel-bloom)) calc(var(--jib-pixel-cell) * 100) in srgb-linear;
 
-     Written tan(atan2(a, b)) because Gecko rejects calc(10px / 20px) and takes
-     the whole shorthand with it. Needs --jib-pixel-size and
-     --jib-pixel-bloom registered <length>: Gecko also rejects atan2()
-     across mixed units. */
-  --jib-pixel-bloom-row-cap: calc(var(--jib-pixel-gap-actual) / 2);
-  --jib-pixel-bloom-row: min(var(--jib-pixel-bloom), var(--jib-pixel-bloom-row-cap));
-  --jib-pixel-bloom-row-overflow: max(0px, calc(var(--jib-pixel-bloom) - var(--jib-pixel-bloom-row-cap)));
-  --jib-pixel-row-mid-alpha: tan(atan2(var(--jib-pixel-bloom-row-overflow), calc(var(--jib-pixel-bloom-row-overflow) + var(--jib-pixel-bloom-row-cap))));
-
-  --jib-pixel-bloom-col-cap: calc(var(--jib-pixel-width) + var(--jib-pixel-channel-gap) + var(--jib-pixel-gap-actual) / 2);
-  --jib-pixel-bloom-col: min(var(--jib-pixel-bloom), var(--jib-pixel-bloom-col-cap));
-  --jib-pixel-bloom-col-overflow: max(0px, calc(var(--jib-pixel-bloom) - var(--jib-pixel-bloom-col-cap)));
-  --jib-pixel-col-mid-alpha: tan(atan2(var(--jib-pixel-bloom-col-overflow), calc(var(--jib-pixel-bloom-col-overflow) + var(--jib-pixel-bloom-col-cap))));
-  --jib-pixel-col-mid-opacity: calc(var(--jib-pixel-opacity) * var(--jib-pixel-col-mid-alpha));
-
-  /* One gradient shape per channel, placed by background-position. Per cell
-     (w = pixel-width, ε = channel-gap, b = bloom-col, cell = 3w + 2ε + gap):
-       solid        0          → w
-       fade out     w          → w + b
-       transparent  w + b      → cell - b
-       fade in      cell - b   → cell
-     Offsets: red 0, green w + ε, blue 2w + 2ε. The ε staggers channel edges so
-     no two transition on the same element x. */
-
-  --jib-background-image: repeating-linear-gradient(to bottom, white 0px, white var(--jib-pixel-height), hsl(0 0% calc(var(--jib-pixel-row-mid-alpha) * 100%) / var(--jib-pixel-opacity)) calc(var(--jib-pixel-height) + var(--jib-pixel-bloom-row)), hsl(0 0% calc(var(--jib-pixel-row-mid-alpha) * 100%) / var(--jib-pixel-opacity)) calc(var(--jib-pixel-cell-height) - var(--jib-pixel-bloom-row)), white var(--jib-pixel-cell-height)) padding-box var(--jib-background-clip), repeating-linear-gradient(to right, rgb(from var(--jib-pixel-color) r 0 0 / var(--jib-pixel-opacity)) 0px, rgb(from var(--jib-pixel-color) r 0 0 / var(--jib-pixel-opacity)) var(--jib-pixel-width), rgb(from var(--jib-pixel-color) r 0 0 / var(--jib-pixel-col-mid-opacity)) calc(var(--jib-pixel-width) + var(--jib-pixel-bloom-col)), rgb(from var(--jib-pixel-color) r 0 0 / var(--jib-pixel-col-mid-opacity)) calc(var(--jib-pixel-cell-width) - var(--jib-pixel-bloom-col)), rgb(from var(--jib-pixel-color) r 0 0 / var(--jib-pixel-opacity)) var(--jib-pixel-cell-width)) padding-box var(--jib-background-clip), repeating-linear-gradient(to right, rgb(from var(--jib-pixel-color) 0 g 0 / var(--jib-pixel-opacity)) 0px, rgb(from var(--jib-pixel-color) 0 g 0 / var(--jib-pixel-opacity)) var(--jib-pixel-width), rgb(from var(--jib-pixel-color) 0 g 0 / var(--jib-pixel-col-mid-opacity)) calc(var(--jib-pixel-width) + var(--jib-pixel-bloom-col)), rgb(from var(--jib-pixel-color) 0 g 0 / var(--jib-pixel-col-mid-opacity)) calc(var(--jib-pixel-cell-width) - var(--jib-pixel-bloom-col)), rgb(from var(--jib-pixel-color) 0 g 0 / var(--jib-pixel-opacity)) var(--jib-pixel-cell-width)) padding-box var(--jib-background-clip), repeating-linear-gradient(to right, rgb(from var(--jib-pixel-color) 0 0 b / var(--jib-pixel-opacity)) 0px, rgb(from var(--jib-pixel-color) 0 0 b / var(--jib-pixel-opacity)) var(--jib-pixel-width), rgb(from var(--jib-pixel-color) 0 0 b / var(--jib-pixel-col-mid-opacity)) calc(var(--jib-pixel-width) + var(--jib-pixel-bloom-col)), rgb(from var(--jib-pixel-color) 0 0 b / var(--jib-pixel-col-mid-opacity)) calc(var(--jib-pixel-cell-width) - var(--jib-pixel-bloom-col)), rgb(from var(--jib-pixel-color) 0 0 b / var(--jib-pixel-opacity)) var(--jib-pixel-cell-width)) padding-box var(--jib-background-clip), linear-gradient(rgb(0 0 0 / var(--jib-pixel-opacity)) 0 0);
+  /* Position and size ride inside each layer: a later utility that rebuilds
+     the background shorthand from this variable resets the size and position
+     longhands, and an auto size makes each layer one element-sized tile. */
+  --jib-background-image: radial-gradient(calc(var(--jib-pixel-cell) * 100) calc(var(--jib-pixel-height) / 2 + var(--jib-pixel-bloom)) in srgb-linear, white, calc(sqrt(max(0.5, tan(atan2(var(--jib-pixel-height), calc(var(--jib-pixel-height) + var(--jib-pixel-bloom) * 2))))) * 100%), rgb(0 0 0 / var(--jib-pixel-opacity))) var(--jib-background-position-x) var(--jib-background-position-y) / var(--jib-pixel-cell) var(--jib-pixel-cell) padding-box var(--jib-background-clip), radial-gradient(var(--jib-pixel-column), rgb(from var(--jib-pixel-color) r 0 0 / var(--jib-pixel-opacity)), var(--jib-pixel-hint), transparent) var(--jib-background-position-x) var(--jib-background-position-y) / var(--jib-pixel-cell) var(--jib-pixel-cell) padding-box var(--jib-background-clip), radial-gradient(var(--jib-pixel-column), rgb(from var(--jib-pixel-color) 0 g 0 / var(--jib-pixel-opacity)), var(--jib-pixel-hint), transparent) calc(var(--jib-background-position-x) + var(--jib-pixel-size) + var(--jib-pixel-channel-gap)) var(--jib-background-position-y) / var(--jib-pixel-cell) var(--jib-pixel-cell) padding-box var(--jib-background-clip), radial-gradient(var(--jib-pixel-column), rgb(from var(--jib-pixel-color) 0 0 b / var(--jib-pixel-opacity)), var(--jib-pixel-hint), transparent) calc(var(--jib-background-position-x) + var(--jib-pixel-size) * 2 + var(--jib-pixel-channel-gap) * 2) var(--jib-background-position-y) / var(--jib-pixel-cell) var(--jib-pixel-cell) padding-box var(--jib-background-clip), linear-gradient(rgb(0 0 0 / var(--jib-pixel-opacity)) 0 0);
   background:
     var(--jib-ripple-image) var(--jib-background-origin) var(--jib-background-clip),
     var(--jib-background-image) var(--jib-background-origin) var(--jib-background-clip),
     var(--jib-border-gradient) var(--jib-border-gradient-origin) var(--jib-border-gradient-clip);
-  background-position:
-    0 0,
-    0 0,
-    0 0,
-    calc(var(--jib-pixel-width) + var(--jib-pixel-channel-gap)) 0,
-    calc(var(--jib-pixel-width) * 2 + var(--jib-pixel-channel-gap) * 2) 0,
-    0 0,
-    0 0;
-  /* One pattern period per tile. With auto the tile is the element, so its
-     right edge lands mid-pattern and the next tile restarts at pattern-0. */
-  background-size:
-    auto,
-    var(--jib-pixel-cell-width) var(--jib-pixel-cell-height),
-    var(--jib-pixel-cell-width) var(--jib-pixel-cell-height),
-    var(--jib-pixel-cell-width) var(--jib-pixel-cell-height),
-    var(--jib-pixel-cell-width) var(--jib-pixel-cell-height),
-    auto,
-    auto;
   background-blend-mode: normal, multiply, screen, screen, screen, normal, normal;
 }
 

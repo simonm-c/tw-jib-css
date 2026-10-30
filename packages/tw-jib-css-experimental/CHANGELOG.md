@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.2.0](https://github.com/simonm-c/tw-jib-css/compare/tw-jib-css-experimental-v2.1.0...tw-jib-css-experimental-v2.2.0) (2026-10-30)
+
+
+### Code Refactoring
+
+* **automatic-contrast:** factor the target and lift formulas ([220c3ec](https://github.com/simonm-c/tw-jib-css/commit/220c3ec3501a40911ebcaac5226bc0e764f39b56))
+
 ## [2.1.0](https://github.com/simonm-c/tw-jib-css/compare/tw-jib-css-experimental-v2.0.3...tw-jib-css-experimental-v2.1.0) (2026-10-07)
 
 

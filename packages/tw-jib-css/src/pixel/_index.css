@@ -25,6 +25,9 @@
 }
 
 @utility bg-pixel-* {
+  /* Sorts after Tailwind's background-position and -size, whose single value
+     would otherwise replace the per-layer lists below. */
+  --tw-sort: background-blend-mode;
   --jib-pixel-color: --value(--color- *, [color], [ *]);
   --jib-pixel-opacity: calc(--modifier(integer) * 0.01);
   --jib-pixel-opacity: --modifier([number]);

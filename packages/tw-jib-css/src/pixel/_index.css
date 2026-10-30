@@ -87,10 +87,10 @@
     var(--jib-border-gradient) var(--jib-border-gradient-origin) var(--jib-border-gradient-clip);
   background-position:
     0 0,
-    0 0,
-    0 0,
-    calc(var(--jib-pixel-width) + var(--jib-pixel-channel-gap)) 0,
-    calc(var(--jib-pixel-width) * 2 + var(--jib-pixel-channel-gap) * 2) 0,
+    var(--jib-background-position-x) var(--jib-background-position-y),
+    var(--jib-background-position-x) var(--jib-background-position-y),
+    calc(var(--jib-background-position-x) + var(--jib-pixel-width) + var(--jib-pixel-channel-gap)) var(--jib-background-position-y),
+    calc(var(--jib-background-position-x) + var(--jib-pixel-width) * 2 + var(--jib-pixel-channel-gap) * 2) var(--jib-background-position-y),
     0 0,
     0 0;
   /* One pattern period per tile. With auto the tile is the element, so its

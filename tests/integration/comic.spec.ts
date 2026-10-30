@@ -1,5 +1,11 @@
 import { test, expect, type Page } from '@playwright/test';
-import { extractRenderedColors, extractStyles, gotoExample, expectBorderGradient } from './helpers';
+import {
+  extractRenderedColors,
+  extractStyles,
+  gotoExample,
+  expectBorderGradient,
+  splitLayers,
+} from './helpers';
 
 const PAGE = 'examples/comic';
 
@@ -99,6 +105,47 @@ test.describe('bg-comic opacity modifier', () => {
     const colors = await extractRenderedColors(page, ['opacity-100', 'opacity-50']);
     // Assert
     expect(colors['opacity-50'].luminance).toBeGreaterThan(colors['opacity-100'].luminance);
+  });
+});
+
+test.describe('comic: bg-position anchors the dot screens', () => {
+  /** Layer order: ripple, cyan, magenta, yellow, key, white base, border gradient. */
+  const CYAN = 1;
+  const MAGENTA = 2;
+
+  const ANCHORS = [
+    ['anchor-default', '0% 0%'],
+    ['anchor-center', '50% 50%'],
+    ['anchor-bottom-right', '100% 100%'],
+    ['anchor-arbitrary', '0% 0%'],
+  ] as const;
+
+  for (const [id, position] of ANCHORS) {
+    test(`${id} puts the cyan screen at ${position}`, async ({ page }) => {
+      // Arrange
+      await gotoPage(page);
+      // Act
+      const styles = await extractStyles(page, [id]);
+      // Assert
+      expect(styles[id].backgroundImage, `${id} should keep its layers`).not.toBe('none');
+      expect(
+        splitLayers(styles[id].backgroundPosition)[CYAN],
+        `${id}: the cyan screen sits on the bg-position anchor`,
+      ).toBe(position);
+    });
+  }
+
+  test('bg-center offsets the magenta screen from the centre, not from the corner', async ({
+    page,
+  }) => {
+    // Arrange
+    await gotoPage(page);
+    // Act
+    const styles = await extractStyles(page, ['anchor-center']);
+    const layers = splitLayers(styles['anchor-center'].backgroundPosition);
+    // Assert
+    expect(layers[MAGENTA], 'magenta is measured from the 50% anchor').toContain('50%');
+    expect(layers[MAGENTA], 'magenta keeps its half-cell offset from cyan').not.toBe(layers[CYAN]);
   });
 });
 

@@ -113,18 +113,40 @@ describe.each(suiteScenarios('pixel'))('pixel utilities, $name', ({ compile }) =
       );
     });
 
-    test('green and blue offset by one and two channel-plus-gap steps', async () => {
+    test('green and blue offset from the anchor by one and two channel-plus-gap steps', async () => {
       // Arrange
       // Act
       const css = await compile('bg-pixel-red-500');
 
       // Assert
-      expect(css, 'green sits one channel plus one gap along').toContain(
-        'calc(var(--jib-pixel-width) + var(--jib-pixel-channel-gap)) 0',
+      expect(css, 'green sits one channel plus one gap along from the anchor').toContain(
+        'calc(var(--jib-background-position-x) + var(--jib-pixel-width) + var(--jib-pixel-channel-gap)) var(--jib-background-position-y)',
       );
-      expect(css, 'blue sits two channels plus two gaps along').toContain(
-        'calc(var(--jib-pixel-width) * 2 + var(--jib-pixel-channel-gap) * 2) 0',
+      expect(css, 'blue sits two channels plus two gaps along from the anchor').toContain(
+        'calc(var(--jib-background-position-x) + var(--jib-pixel-width) * 2 + var(--jib-pixel-channel-gap) * 2) var(--jib-background-position-y)',
       );
+    });
+
+    test('the row mask and red sit on the anchor', async () => {
+      // Arrange
+      // Act
+      const css = await compile('bg-pixel-red-500');
+
+      // Assert
+      expect(
+        decl(css, '(?<!-)background-position')
+          .split(',')
+          .map((layer) => layer.trim()),
+        'ripple and border gradient keep their own origin; the row mask and red follow bg-position',
+      ).toEqual([
+        '0 0',
+        'var(--jib-background-position-x) var(--jib-background-position-y)',
+        'var(--jib-background-position-x) var(--jib-background-position-y)',
+        expect.stringContaining('var(--jib-background-position-x)'),
+        expect.stringContaining('var(--jib-background-position-x)'),
+        '0 0',
+        '0 0',
+      ]);
     });
 
     test('the column bloom cap reaches the next channel, gap included', async () => {

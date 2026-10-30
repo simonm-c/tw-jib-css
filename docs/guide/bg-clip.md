@@ -109,7 +109,7 @@ Tailwind's utilities for them keep working over a composited background:
 
 <UtilityTable :rows="[
   { class: 'bg-auto, bg-cover, bg-contain, bg-size-*', styles: '--jib-background-size' },
-  { class: 'bg-top, bg-center, bg-bottom-right, bg-position-*', styles: '--jib-background-position' },
+  { class: 'bg-top, bg-center, bg-bottom-right, bg-position-*', styles: '--jib-background-position, plus --jib-background-position-x and -y for the keywords' },
   { class: 'bg-repeat, bg-no-repeat, bg-repeat-x, bg-repeat-space', styles: '--jib-background-repeat' },
   { class: 'bg-fixed, bg-local, bg-scroll', styles: '--jib-background-attachment' },
   { class: 'bg-origin-border, bg-origin-padding, bg-origin-content', styles: '--jib-background-origin and --jib-border-gradient-origin' },
@@ -118,6 +118,11 @@ Tailwind's utilities for them keep working over a composited background:
 These reach the **content layer**. A texture packs geometry into each of its own layers —
 a halftone offsets its four screens against each other by half a cell — so `bg-cover` over
 `bg-comic-*` changes nothing.
+
+Position is the exception. The keyword utilities also write a percentage per axis, and
+[comic](/guide/comic#position) and [pixel](/guide/pixel#position) measure their layer
+offsets from it. An arbitrary `bg-position-[…]` cannot be split per axis, so it leaves a
+texture anchored top-left.
 
 ## Grammar the slots cannot carry
 

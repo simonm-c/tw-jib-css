@@ -32,6 +32,7 @@ The columns sit on a black base, and `text-contrast-*` solves against the flat p
   { class: 'pixel-gap-[<value>]', styles: '--jib-pixel-gap: <value>' },
   { class: 'pixel-bloom-<number>', styles: '--jib-pixel-bloom: --spacing(<number>) / 4. Phosphor bloom; unbounded, saturates to solid.' },
   { class: 'pixel-bloom-[<value>]', styles: '--jib-pixel-bloom: <value>' },
+  { class: 'bg-top, bg-center, bg-bottom-right, …', styles: 'Anchors the pixel grid. Keywords only.' },
 ]" />
 
 ## How it works
@@ -165,6 +166,31 @@ Control the phosphor bloom with `pixel-bloom-<number>`. Scales at spacing/4 so `
     </div>
   </div>
 </Example>
+
+## Position
+
+Tailwind's position keywords anchor the pixel grid. With no position the grid starts at the top-left corner, so a growing `pixel-size` pushes every triplet toward the bottom right. With `bg-center` the grid grows outward from the centre. Hover a swatch to grow its pixels:
+
+<Example>
+  <div class="flex gap-3">
+    <div class="space-y-1.5">
+      <div class="bg-pixel-blue-500 pixel-size-2 transition-[--jib-pixel-size] duration-700 hover:pixel-size-8 size-24 rounded-lg"></div>
+      <div class="text-center text-xs font-mono opacity-60">no position</div>
+    </div>
+    <div class="space-y-1.5">
+      <div class="bg-pixel-blue-500 pixel-size-2 bg-center transition-[--jib-pixel-size] duration-700 hover:pixel-size-8 size-24 rounded-lg"></div>
+      <div class="text-center text-xs font-mono opacity-60">bg-center</div>
+    </div>
+    <div class="space-y-1.5">
+      <div class="bg-pixel-blue-500 pixel-size-2 bg-bottom-right transition-[--jib-pixel-size] duration-700 hover:pixel-size-8 size-24 rounded-lg"></div>
+      <div class="text-center text-xs font-mono opacity-60">bg-bottom-right</div>
+    </div>
+  </div>
+</Example>
+
+::: info Keywords only
+`bg-top`, `bg-bottom`, `bg-left`, `bg-right`, `bg-center` and the four `bg-top-left`-style corners reach the pixels. Green and blue sit one and two channels along from the anchor, and `calc()` can add that to a percentage but not to a keyword or to a two-value pair. An arbitrary `bg-position-[…]` therefore leaves the grid anchored top-left.
+:::
 
 ## Opacity
 

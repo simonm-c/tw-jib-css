@@ -32,6 +32,7 @@ The dots sit on a white base, and `text-contrast-*` solves against the flat ink 
   { class: 'comic-bleed-[<value>]', styles: '--jib-comic-bleed: <value>' },
   { class: 'comic-gap-<number>', styles: '--jib-comic-gap: --spacing(<number>) / 4. Space between dots.' },
   { class: 'comic-gap-[<value>]', styles: '--jib-comic-gap: <value>' },
+  { class: 'bg-top, bg-center, bg-bottom-right, …', styles: 'Anchors the dot grid. Keywords only.' },
 ]" />
 
 ## How it works
@@ -156,6 +157,31 @@ Control the dot edge softness with `comic-bleed-<number>`. The transparent gradi
     </div>
   </div>
 </Example>
+
+## Position
+
+Tailwind's position keywords anchor the dot grid. With no position the grid starts at the top-left corner, so a growing `comic-dot` pushes every dot toward the bottom right. With `bg-center` a cyan dot sits on the centre and the grid grows outward from it. Hover a swatch to grow its dots:
+
+<Example>
+  <div class="flex gap-3">
+    <div class="space-y-1.5">
+      <div class="bg-comic-blue-500 comic-dot-1 transition-[--jib-comic-dot] duration-700 hover:comic-dot-4 size-24 rounded-lg"></div>
+      <div class="text-center text-xs font-mono opacity-60">no position</div>
+    </div>
+    <div class="space-y-1.5">
+      <div class="bg-comic-blue-500 comic-dot-1 bg-center transition-[--jib-comic-dot] duration-700 hover:comic-dot-4 size-24 rounded-lg"></div>
+      <div class="text-center text-xs font-mono opacity-60">bg-center</div>
+    </div>
+    <div class="space-y-1.5">
+      <div class="bg-comic-blue-500 comic-dot-1 bg-bottom-right transition-[--jib-comic-dot] duration-700 hover:comic-dot-4 size-24 rounded-lg"></div>
+      <div class="text-center text-xs font-mono opacity-60">bg-bottom-right</div>
+    </div>
+  </div>
+</Example>
+
+::: info Keywords only
+`bg-top`, `bg-bottom`, `bg-left`, `bg-right`, `bg-center` and the four `bg-top-left`-style corners reach the dots. The magenta, yellow and black screens sit half a cell from the anchor, and `calc()` can add that to a percentage but not to a keyword or to a two-value pair. An arbitrary `bg-position-[…]` therefore leaves the grid anchored top-left.
+:::
 
 ## Opacity
 

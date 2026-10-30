@@ -158,6 +158,44 @@ test.describe('bg-pixel opacity modifier', () => {
   });
 });
 
+test.describe('pixel: bg-position anchors the channels', () => {
+  const ROW_MASK = 1;
+  const RED = 2;
+  const GREEN = 3;
+
+  const ANCHORS = [
+    ['anchor-default', '0% 0%'],
+    ['anchor-center', '50% 50%'],
+    ['anchor-bottom-right', '100% 100%'],
+    ['anchor-arbitrary', '0% 0%'],
+  ] as const;
+
+  for (const [id, position] of ANCHORS) {
+    test(`${id} puts the row mask and red channel at ${position}`, async ({ page }) => {
+      // Arrange
+      await gotoPage(page);
+      // Act
+      const styles = await extractStyles(page, [id]);
+      const layers = splitLayers(styles[id].backgroundPosition);
+      // Assert
+      expectPixelLayers(styles, [id]);
+      expect(layers[ROW_MASK], `${id}: the row mask sits on the bg-position anchor`).toBe(position);
+      expect(layers[RED], `${id}: red sits on the bg-position anchor`).toBe(position);
+    });
+  }
+
+  test('bg-center offsets green from the centre, not from the corner', async ({ page }) => {
+    // Arrange
+    await gotoPage(page);
+    // Act
+    const styles = await extractStyles(page, ['anchor-center']);
+    const layers = splitLayers(styles['anchor-center'].backgroundPosition);
+    // Assert
+    expect(layers[GREEN], 'green is measured from the 50% anchor').toContain('50%');
+    expect(layers[GREEN], 'green keeps its channel offset from red').not.toBe(layers[RED]);
+  });
+});
+
 test.describe('pixel + border gradient composition', () => {
   test('linear border directions render with gradients', async ({ page }) => {
     await gotoPage(page);

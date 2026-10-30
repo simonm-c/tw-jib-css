@@ -460,6 +460,27 @@ Verifies the black background becomes transparent, letting underlying content sh
   </div>
 </div>
 
+## Position anchor (bg-position)
+
+<div class="grid grid-cols-4 gap-3 my-6">
+  <div>
+    <div data-test="anchor-default" class="bg-pixel-blue-500 pixel-size-4 h-28 rounded-lg"></div>
+    <p class="text-xs font-mono text-center mt-1">no position</p>
+  </div>
+  <div>
+    <div data-test="anchor-center" class="bg-pixel-blue-500 pixel-size-4 bg-center h-28 rounded-lg"></div>
+    <p class="text-xs font-mono text-center mt-1">bg-center</p>
+  </div>
+  <div>
+    <div data-test="anchor-bottom-right" class="bg-pixel-blue-500 pixel-size-4 bg-bottom-right h-28 rounded-lg"></div>
+    <p class="text-xs font-mono text-center mt-1">bg-bottom-right</p>
+  </div>
+  <div>
+    <div data-test="anchor-arbitrary" class="bg-pixel-blue-500 pixel-size-4 bg-position-[10px_4px] h-28 rounded-lg"></div>
+    <p class="text-xs font-mono text-center mt-1">bg-position-[10px_4px]</p>
+  </div>
+</div>
+
 ## Size + gap combinations (color: blue)
 
 <div class="my-6">

@@ -175,7 +175,7 @@ Material-style ripple. Pure CSS, no JavaScript, radial gradient animation driven
 ### CMYK Dots and RGB Pixels
 
 `bg-comic-*` renders CMYK halftone dots through layered radial gradients and multiply blending;
-`bg-pixel-*` renders RGB phosphor columns through repeating gradients and screen blending. Any colour
+`bg-pixel-*` renders RGB phosphor columns through radial gradients and screen blending. Any colour
 in, textured surface out.
 
 ```html

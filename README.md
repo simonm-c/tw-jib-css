@@ -162,7 +162,7 @@ Material-style ripple effect. Pure CSS, no JavaScript, radial gradient animation
 
 Pure CSS texture effects via layered gradient composition. `bg-comic-*` renders CMYK
 halftone dots through radial gradients and multiply blending; `bg-pixel-*` renders RGB phosphor columns
-through repeating gradients and screen blending. Any colour in, textured surface out.
+through radial gradients and screen blending. Any colour in, textured surface out.
 
 ```html
 <div class="bg-comic-rose-500 comic-dot-2">Halftone</div>

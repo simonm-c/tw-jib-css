@@ -75,7 +75,7 @@ Tailwind's `bg-clip-*` sets `background-clip` to a single keyword, which is righ
 single-layer background Tailwind draws.
 
 Every background here is a **list**. A comic halftone is five radial gradients, a pixel
-surface five repeating ones, a ripple three layers, and a gradient border paints into the
+surface four radial gradients over a flat base, a ripple three layers, and a gradient border paints into the
 border box beside all of them. They arrive as one `background` shorthand, and
 `background-clip` is a list property, so one keyword repeats across every layer.
 

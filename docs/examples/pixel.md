@@ -81,7 +81,7 @@ All using `bg-pixel-blue-500`. Gap is a multiplier of pixel width (pixel-gap-1 =
 
 ## Pixel size (pixel-size-\*)
 
-Using `bg-pixel-red-500`. Size sets width (spacing/4, so size-1 = 1px); height is always 2x width.
+Using `bg-pixel-red-500`. Size sets width (spacing/4, so size-1 = 1px); height is always 4x width.
 
 <div class="grid grid-cols-5 gap-3 my-6">
   <div>

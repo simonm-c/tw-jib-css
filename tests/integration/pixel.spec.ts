@@ -20,21 +20,39 @@ function expectPixelLayers(styles: Record<string, ElementStyles>, ids: string[])
   }
 }
 
-/** Darkest stop = bloom row ratio as a grey level, so the minimum channel
- *  recovers the ratio. */
-function rowMaskMidGrey(backgroundImage: string): number {
-  const rowMask = splitLayers(backgroundImage)[1] ?? '';
-  const greys = [...rowMask.matchAll(/rgba?\((\d+),\s*(\d+),\s*(\d+)/g)].map((m) => Number(m[1]));
-  expect(greys.length, 'row mask should expose colour stops').toBeGreaterThan(0);
-  return Math.min(...greys);
+/** A radial layer's two radii, in px, as the engine computed them. */
+function radii(layer: string): [number, number] {
+  const m = /radial-gradient\(([\d.]+)px ([\d.]+)px/.exec(layer);
+  expect(m, `layer should open with two px radii: ${layer.slice(0, 80)}`).not.toBeNull();
+  return [Number(m![1]), Number(m![2])];
 }
 
-/** Ratio rides on the mid stops' alpha; an omitted alpha serialises as no
- *  `/ n`, which means 1. */
-function channelMidAlpha(backgroundImage: string): number {
-  const channel = splitLayers(backgroundImage)[2] ?? '';
-  const alphas = [...channel.matchAll(/\/\s*([0-9.]+)/g)].map((m) => Number(m[1]));
-  return alphas.length ? Math.min(...alphas) : 1;
+/** The colour hint between a radial layer's two stops, as a fraction of its radius. */
+function hint(layer: string): number {
+  const m = /,\s*([\d.]+)%,/.exec(layer);
+  expect(m, `layer should carry a colour hint: ${layer.slice(0, 120)}`).not.toBeNull();
+  return Number(m![1]) / 100;
+}
+
+/** A later background shorthand that resets the geometry leaves each layer one
+ *  element-sized tile: a single phosphor mid-element. */
+function expectPixelTiling(styles: Record<string, ElementStyles>, ids: string[]) {
+  for (const id of ids) {
+    const sizes = splitLayers(styles[id].backgroundSize);
+    const positions = splitLayers(styles[id].backgroundPosition);
+    for (const [name, at] of [
+      ['row mask', 1],
+      ['red', 2],
+      ['green', 3],
+      ['blue', 4],
+    ] as const) {
+      const [width, height] = sizes[at].split(' ');
+      expect(width, `${id}: the ${name} tiles one cell, not the whole element`).not.toBe('auto');
+      expect(height, `${id}: the ${name} cell is square`).toBe(width);
+    }
+    expect(positions[3], `${id}: green sits one channel along from red`).not.toBe(positions[2]);
+    expect(positions[4], `${id}: blue sits one channel along from green`).not.toBe(positions[3]);
+  }
 }
 
 const PAGE = 'examples/pixel';
@@ -95,51 +113,98 @@ test.describe('pixel-bloom: bloom variations', () => {
     expectPixelLayers(await extractStyles(page, ids), ids);
   });
 
-  /*
-   * From the geometry, not read off a browser. pixel-size-1 (w = 1px), gap-1:
-   *   row cap = gap/2 = 0.5px          → mid = (b - 0.5) / b
-   *   col cap = w + eps + gap/2 = 2px  → mid = (b - 2) / (b - 2 + 2)
-   */
-  test('row-mask mid stop follows the bloom overflow ratio', async ({ page }) => {
+  const ROW_MASK = 1;
+  const RED = 2;
+  const BLOOMS = [0, 1, 2, 3, 4] as const;
+
+  test('a channel glows exactly the bloom past its phosphor edge', async ({ page }) => {
     // Arrange
     await gotoPage(page);
-    const ids = ['bloom-0', 'bloom-1', 'bloom-2', 'bloom-3', 'bloom-4'];
+    const ids = BLOOMS.map((b) => `bloom-${b}`);
     // Act
     const styles = await extractStyles(page, ids);
     // Assert
     expectPixelLayers(styles, ids);
-
-    const expected = [0, 0.5, 0.75, 5 / 6, 0.875].map((r) => r * 255);
-    const greys = ids.map((id) => rowMaskMidGrey(styles[id].backgroundImage));
-
-    for (const [i, id] of ids.entries()) {
-      // engine rounding, e.g. 127 vs 128 at bloom-1
-      expect(
-        Math.abs(greys[i] - expected[i]),
-        `${id} row-mask mid grey: got ${greys[i]}, want ~${expected[i].toFixed(1)}`,
-      ).toBeLessThanOrEqual(2);
-    }
-    for (let i = 1; i < greys.length; i++) {
-      expect(greys[i], `bloom-${i} mid grey > bloom-${i - 1}`).toBeGreaterThan(greys[i - 1]);
+    for (const b of BLOOMS) {
+      const [across] = radii(splitLayers(styles[`bloom-${b}`].backgroundImage)[RED]);
+      expect(across, `bloom-${b}: half the 1px phosphor plus ${b}px of bloom`).toBeCloseTo(
+        0.5 + b,
+        3,
+      );
     }
   });
 
-  test('channel mid alpha stays 0 below the column cap and rises above it', async ({ page }) => {
+  test('a row glows exactly the bloom past its phosphor edge, the same reach as a channel', async ({
+    page,
+  }) => {
     // Arrange
     await gotoPage(page);
-    const ids = ['bloom-0', 'bloom-1', 'bloom-2', 'bloom-3', 'bloom-4'];
+    const ids = BLOOMS.map((b) => `bloom-${b}`);
     // Act
     const styles = await extractStyles(page, ids);
     // Assert
     expectPixelLayers(styles, ids);
+    for (const b of BLOOMS) {
+      const [, down] = radii(splitLayers(styles[`bloom-${b}`].backgroundImage)[ROW_MASK]);
+      expect(down, `bloom-${b}: half the 4px phosphor height plus ${b}px of bloom`).toBeCloseTo(
+        2 + b,
+        3,
+      );
+    }
+  });
 
-    const alphas = ids.map((id) => channelMidAlpha(styles[id].backgroundImage));
+  test('bloom-0 lands every hint on the last stop, a hard-edged rectangle', async ({ page }) => {
+    // Arrange
+    await gotoPage(page);
+    // Act
+    const styles = await extractStyles(page, ['bloom-0']);
+    const layers = splitLayers(styles['bloom-0'].backgroundImage);
+    // Assert
+    expect(hint(layers[ROW_MASK]), 'the row mask steps straight from white to black').toBeCloseTo(
+      1,
+      4,
+    );
+    expect(hint(layers[RED]), 'the channel steps straight from colour to transparent').toBeCloseTo(
+      1,
+      4,
+    );
+  });
 
-    expect(alphas[0], 'bloom-0 channel mid alpha').toBeCloseTo(0, 3);
-    expect(alphas[1], 'bloom-1 channel mid alpha').toBeCloseTo(0, 3);
-    expect(alphas[2], 'bloom-2 channel mid alpha').toBeCloseTo(0, 3);
-    expect(alphas[3], 'bloom-3 channel mid alpha').toBeCloseTo(1 / 3, 2);
-    expect(alphas[4], 'bloom-4 channel mid alpha').toBeCloseTo(0.5, 2);
+  test('no hint drops below √½, so the glow never sharpens past a parabola', async ({ page }) => {
+    // Arrange
+    await gotoPage(page);
+    const ids = BLOOMS.map((b) => `bloom-${b}`);
+    // Act
+    const styles = await extractStyles(page, ids);
+    // Assert
+    for (const b of BLOOMS) {
+      const layers = splitLayers(styles[`bloom-${b}`].backgroundImage);
+      for (const [name, at] of [
+        ['row mask', ROW_MASK],
+        ['red channel', RED],
+      ] as const) {
+        expect(hint(layers[at]), `bloom-${b} ${name} hint`).toBeGreaterThanOrEqual(
+          Math.SQRT1_2 - 1e-4,
+        );
+      }
+    }
+  });
+
+  test('while above the floor, the hint keeps ¾ of the colour at the phosphor edge', async ({
+    page,
+  }) => {
+    // Arrange
+    await gotoPage(page);
+    // Act
+    const styles = await extractStyles(page, ['bloom-size2-b1']);
+    const rowMask = splitLayers(styles['bloom-size2-b1'].backgroundImage)[ROW_MASK];
+    const [, reach] = radii(rowMask);
+    const edge = 4 / reach;
+    // Assert
+    expect(
+      Math.pow(edge, Math.log(0.5) / Math.log(hint(rowMask))),
+      'a hint at h bends the fade to t^(ln ½ / ln h); at the 8px phosphor’s edge that is ¼ faded',
+    ).toBeCloseTo(0.25, 3);
   });
 });
 
@@ -197,6 +262,24 @@ test.describe('pixel: bg-position anchors the channels', () => {
 });
 
 test.describe('pixel + border gradient composition', () => {
+  test('a border gradient leaves every channel on its own tile and offset', async ({ page }) => {
+    // Arrange
+    await gotoPage(page);
+    const ids = [
+      'border-linear-r',
+      'border-linear-b',
+      'border-radial',
+      'border-conic-0',
+      'border-spin-default',
+      'border-via-linear',
+      'border-interp-oklch',
+    ];
+    // Act
+    const styles = await extractStyles(page, ids);
+    // Assert
+    expectPixelTiling(styles, ids);
+  });
+
   test('linear border directions render with gradients', async ({ page }) => {
     await gotoPage(page);
     const ids = ['border-linear-r', 'border-linear-b', 'border-linear-br', 'border-linear-angle'];
@@ -292,5 +375,17 @@ test.describe('bg-pixel: whole-page coverage', () => {
       styles['blue-500'].blendMode.match(/screen/g)?.length,
       'all three channel layers should screen',
     ).toBe(3);
+  });
+});
+
+test.describe('pixel + ripple composition', () => {
+  test('bg-ripple leaves every channel on its own tile and offset', async ({ page }) => {
+    // Arrange
+    await gotoExample(page, 'examples/ripple', 'pixel-white');
+    const ids = ['pixel-white', 'pixel-blue'];
+    // Act
+    const styles = await extractStyles(page, ids);
+    // Assert
+    expectPixelTiling(styles, ids);
   });
 });

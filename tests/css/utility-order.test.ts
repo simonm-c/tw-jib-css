@@ -41,8 +41,8 @@ describe('pixel per-layer geometry outranks Tailwind’s single-value longhands'
     expect(
       positionOf(
         css,
-        'background-position: 0 0,',
-        'bg-pixel-blue-500: per-layer background-position',
+        'background-blend-mode: normal, multiply, screen',
+        'bg-pixel-blue-500: the rule carrying the per-layer geometry',
       ),
       `sorting first lets ${utility} collapse every channel onto one position`,
     ).toBeGreaterThan(positionOf(css, longhand, `${utility}: Tailwind’s longhand`));

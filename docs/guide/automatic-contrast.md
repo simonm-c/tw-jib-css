@@ -603,7 +603,9 @@ Define the level in your theme like any other:
 }
 ```
 
-A decimal works just as well. `0.5` and `calc(1 / 2)` give the same color. Reach for `calc(1 / N)` when you want the ratio to read as the WCAG figure it reverses, or when it has no clean decimal, as with 1/3. Keep the `calc()`. A bare `1/3` is not a number, so the level silently falls back to the default 4.5:1. As a one-off, use `text-contrast-[calc(1/3)]`. `text-contrast-[1/3]` does not compile.
+A decimal works just as well. `0.5` and `calc(1 / 2)` give the same color. Reach for `calc(1 / N)` when you want the ratio to read as the WCAG figure it reverses, or when it has no clean decimal, as with 1/3. As a one-off, `text-contrast-[calc(1/3)]` does the same.
+
+Keep the `calc()` either way. A bare `1/3` in the theme silently falls back to 4.5:1, and `text-contrast-[1/3]` does not compile.
 
 ### Where it reaches
 

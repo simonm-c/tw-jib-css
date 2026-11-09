@@ -37,7 +37,7 @@
 
 /* A: the shade. */
 @utility text-contrast-* {
-  --jib-contrast-ratio: --value(--jib-contrast-ratio- *);
+  --jib-contrast-ratio: --value(--jib-contrast-ratio- *, [number]);
 
   /* Carrier. One origin per expression, so alpha carries background luminance. */
   --jib-contrast-carrier: color(from var(--jib-background-color) srgb-linear r g b / calc(0.2126 * r + 0.7152 * g + 0.0722 * b));
@@ -128,7 +128,7 @@
 
 /* C: cube-root seed. */
 @utility text-contrast-* {
-  --jib-contrast-ratio: --value(--jib-contrast-ratio- *);
+  --jib-contrast-ratio: --value(--jib-contrast-ratio- *, [number]);
   @variant supports-channel-pow {
     --jib-contrast-vector: color(from oklch(from var(--jib-contrast-target) calc(pow(alpha, 0.333333)) c h / alpha) srgb-linear calc(r - (0.2126 * r + 0.7152 * g + 0.0722 * b)) calc(g - (0.2126 * r + 0.7152 * g + 0.0722 * b)) calc(b - (0.2126 * r + 0.7152 * g + 0.0722 * b)) / alpha);
     --jib-contrast-vector: --modifier(--jib-contrast-shade-precise- *);

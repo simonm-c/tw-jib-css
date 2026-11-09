@@ -375,6 +375,58 @@ describe('text-contrast utilities: stable path', () => {
   });
 });
 
+describe('arbitrary ratios', () => {
+  describe.each(suiteScenarios('automatic-contrast'))('$name', ({ compile }) => {
+    test.each([
+      ['text-contrast-[2]', '2'],
+      ['text-contrast-[0.5]', '0.5'],
+      ['text-contrast-[calc(1/3)]', 'calc(1 / 3)'],
+      ['text-contrast-(number:--contrast-ratio)', 'var(--contrast-ratio)'],
+    ])('%s solves for %s', async (candidate, ratio) => {
+      const css = await compile(`bg-blue-500 ${candidate}`);
+      expect(css).toContain(`--jib-contrast-ratio: ${ratio};`);
+      expect(css).toContain('--jib-contrast-shade:');
+      expect(css).toContain('color: var(--jib-contrast-shade)');
+    });
+
+    test.each([
+      ['text-contrast-(--contrast-ratio)', 'a variable without the number: hint'],
+      ['text-contrast-[1/3]', 'a bare fraction, which is not a <number>'],
+      ['text-contrast-[red]', 'a value that is not a number'],
+      ['text-contrast-2', 'a bare number that names no theme key'],
+    ])('%s does not compile: %s', async (candidate, reason) => {
+      const css = await compile(`bg-blue-500 ${candidate}`);
+      expect(css, `${candidate} compiled, but it is ${reason}`).not.toContain('.text-contrast-');
+    });
+  });
+
+  test('a colour-space modifier shapes an arbitrary ratio as it does a level', async () => {
+    const css = await compile('bg-blue-500 text-contrast-[2]/hsl');
+    expect(css).toContain('--jib-contrast-ratio: 2;');
+    expect(css).toContain('hsl(from var(--jib-contrast-target)');
+  });
+
+  test('an arbitrary ratio gets the cube-root seed behind the pow() gate', async () => {
+    const css = await compile('bg-blue-500 text-contrast-[2]');
+    expect(css).toContain(SUPPORTS_CHANNEL_POW);
+    expect(css.slice(css.indexOf(SUPPORTS_CHANNEL_POW))).toContain('pow(alpha, 0.333333)');
+  });
+
+  test('an arbitrary ratio records no level for wcag-badge', async () => {
+    const css = await compile('bg-blue-500 text-contrast-[2]');
+    expect(css).not.toContain('--jib-contrast-level:');
+  });
+
+  test('the @function entry leaves an arbitrary ratio on the stable path', async () => {
+    const css = await compile('bg-blue-500 text-contrast-[2]', {
+      experimental: true,
+      functions: true,
+    });
+    expect(css, 'an arbitrary ratio reached the @function dispatcher').not.toContain(SHADE_CALL);
+    expect(css).toContain('--jib-contrast-ratio: 2;');
+  });
+});
+
 describe('text-contrast-max utility', () => {
   describe.each(suiteScenarios('automatic-contrast'))('$name', ({ compile }) => {
     test('resolves the shade with contrast-color() against the captured background', async () => {

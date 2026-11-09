@@ -89,6 +89,8 @@ Levels are themeable. Define a ratio and the class exists:
 <span class="text-contrast-aa-plus">exactly 5:1</span>
 ```
 
+Or pass one inline, as `text-contrast-[5]` or `text-contrast-(number:--ratio)`.
+
 Its partner `wcag-badge`, which _measures_ a pair and prints its rating, needs `if(style())` and
 lives in [`tw-jib-css-experimental`](https://www.npmjs.com/package/tw-jib-css-experimental).
 

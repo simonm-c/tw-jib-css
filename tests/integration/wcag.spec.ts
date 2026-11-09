@@ -33,6 +33,10 @@ const CONTRAST_IDS = TW_HUES.flatMap((h) => TW_SHADES.map((s) => `${h}-${s}`));
 const CONTRAST_AAA_IDS = TW_HUES.flatMap((h) => TW_SHADES.map((s) => `aaa-${h}-${s}`));
 const CONTRAST_AALG_IDS = TW_HUES.flatMap((h) => TW_SHADES.map((s) => `aalg-${h}-${s}`));
 const CONTRAST_MAX_IDS = TW_HUES.flatMap((h) => TW_SHADES.map((s) => `max-${h}-${s}`));
+const TW_COLOURS = TW_HUES.flatMap((h) => TW_SHADES.map((s) => `${h}-${s}`));
+const DECIMAL_SPELLING_COLOURS = (['blue', 'slate'] as const).flatMap((h) =>
+  TW_SHADES.map((s) => `${h}-${s}`),
+);
 
 const BADGE_IDS = TW_HUES.flatMap((h) => TW_SHADES.map((s) => `badge-${h}-${s}`));
 
@@ -607,6 +611,58 @@ test.describe('text-contrast-max: the most contrast the background allows', () =
             `${id}: color "${readouts[id].color}", --jib-text-color "${readouts[id].textColor}"`,
         )
         .join('\n')}`,
+    ).toHaveLength(0);
+  });
+});
+
+test.describe('arbitrary ratios', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto(CONTRAST_PAGE, { waitUntil: 'networkidle' });
+  });
+
+  test('all 242 TW colours land exactly on 2:1 with text-contrast-[2]', async ({ page }) => {
+    // Arrange
+    const ids = TW_COLOURS.map((c) => `arb2-${c}`);
+    // Act
+    const results = await extractContrastResults(page, ids);
+    const { failures, capped } = gradeGrid(results, ids, 2);
+
+    // Assert
+    expect(failures, `${failures.length} colours missed 2:1:\n${failures.join('\n')}`).toHaveLength(
+      0,
+    );
+    expect(capped, '2:1 is reachable from every background; none should be capped').toBe(0);
+  });
+
+  test('a bracketed ratio, a bracketed calc() and a number:-typed variable match the theme level of the same value', async ({
+    page,
+  }) => {
+    // Arrange
+    const spellings = ['arb-half', 'arb-calc-half', 'var-half'] as const;
+    // Act
+    const themed = await extractContrastResults(
+      page,
+      DECIMAL_SPELLING_COLOURS.map((c) => `half-${c}`),
+    );
+    const differing: string[] = [];
+    for (const spelling of spellings) {
+      const results = await extractContrastResults(
+        page,
+        DECIMAL_SPELLING_COLOURS.map((c) => `${spelling}-${c}`),
+      );
+      for (const colour of DECIMAL_SPELLING_COLOURS) {
+        const got = results[`${spelling}-${colour}`].fgColor;
+        const want = themed[`half-${colour}`].fgColor;
+        if (got !== want) {
+          differing.push(`${spelling}-${colour}: got "${got}", theme level gave "${want}"`);
+        }
+      }
+    }
+
+    // Assert
+    expect(
+      differing,
+      `every spelling of 0.5 must solve to the same colour as the theme level:\n${differing.join('\n')}`,
     ).toHaveLength(0);
   });
 });

@@ -38,6 +38,8 @@ engine without it takes the linear path rather than losing the utility.
   { class: 'text-contrast-aaa', styles: 'color: same-hue shade at exactly WCAG AAA (7:1)' },
   { class: 'text-contrast-aa-lg', styles: 'color: same-hue shade at exactly WCAG AA Large (3:1)' },
   { class: 'text-contrast-aa/<space>', styles: 'color: AA shade, chroma shaped by the given color space' },
+  { class: 'text-contrast-[<ratio>]', styles: 'color: same-hue shade at exactly that ratio' },
+  { class: 'text-contrast-(number:<var>)', styles: 'color: same-hue shade at the ratio the variable holds' },
   { class: 'text-contrast-max', styles: 'color: black or white, whichever contrasts more (contrast-color())' },
 ]" />
 
@@ -503,18 +505,19 @@ Add a key to the `--jib-contrast-ratio-*` theme namespace and the name becomes a
 
 ```css
 @theme {
-  --jib-contrast-ratio-brand: 5.5;
+  --jib-contrast-ratio-brand: 2;
 }
 ```
 
 ```html
-<div class="bg-indigo-700 text-contrast-brand">Solved for exactly 5.5:1</div>
+<div class="bg-indigo-700 text-contrast-brand">Solved for exactly 2:1</div>
 ```
 
 It behaves like the built-in levels in every respect, `/<space>` modifiers included:
 
 <Example>
   <div class="rounded-xl bg-indigo-700 p-5">
+    <div class="text-contrast-brand">brand, a custom 2:1</div>
     <div class="text-contrast-aa">aa, the built-in 4.5:1</div>
     <div class="text-contrast-aaa">aaa, the built-in 7:1</div>
   </div>
@@ -528,6 +531,46 @@ level you add is a second-class case.
 | `text-contrast-aa`    | 4.5:1 | Normal body text                 |
 | `text-contrast-aaa`   | 7:1   | Enhanced, normal body text       |
 | `text-contrast-aa-lg` | 3:1   | Large text, 18.66px bold or 24px |
+
+## Using a custom value
+
+Use bracket notation for a one-off ratio:
+
+<Example>
+  <div class="grid grid-cols-2 gap-3">
+    <div class="rounded-lg p-4 bg-indigo-700 text-contrast-[2] text-center">
+      <div class="font-bold">Solved for 2:1</div>
+      <div class="font-mono text-xs">text-contrast-[2]</div>
+    </div>
+    <div class="rounded-lg p-4 bg-teal-800 text-contrast-[5.5] text-center">
+      <div class="font-bold">Solved for 5.5:1</div>
+      <div class="font-mono text-xs">text-contrast-[5.5]</div>
+    </div>
+  </div>
+</Example>
+
+## Using a custom variable
+
+Reference CSS custom properties with the typed bare-value syntax `(type:--var)`:
+
+| Utility           | Type hint | Example                                   |
+| ----------------- | --------- | ----------------------------------------- |
+| `text-contrast-*` | `number`  | `text-contrast-(number:--contrast-ratio)` |
+
+<Example>
+  <div class="grid grid-cols-2 gap-3">
+    <div class="rounded-lg p-4 bg-indigo-800 text-contrast-(number:--contrast-ratio) [--contrast-ratio:2] text-center">
+      <div class="font-bold">Solved for 2:1</div>
+      <div class="font-mono text-xs">[--contrast-ratio:2]</div>
+    </div>
+    <div class="rounded-lg p-4 bg-indigo-800 text-contrast-(number:--contrast-ratio) [--contrast-ratio:6] text-center">
+      <div class="font-bold">Solved for 6:1</div>
+      <div class="font-mono text-xs">[--contrast-ratio:6]</div>
+    </div>
+  </div>
+</Example>
+
+The hint is required. `text-contrast-(--contrast-ratio)` does not compile.
 
 ## How it works
 

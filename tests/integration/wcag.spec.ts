@@ -615,6 +615,128 @@ test.describe('text-contrast-max: the most contrast the background allows', () =
   });
 });
 
+test.describe('inverse levels: a ratio below 1 reverses the direction', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto(CONTRAST_PAGE, { waitUntil: 'networkidle' });
+  });
+
+  test('all 242 TW colours land on 3:1 opposite to text-contrast-aa-lg, or at the reversed ceiling', async ({
+    page,
+  }) => {
+    // Arrange
+    const target = TARGET_RATIO['AA Large'];
+    // Act
+    const inverse = await extractContrastResults(
+      page,
+      TW_COLOURS.map((c) => `inv-aalg-${c}`),
+    );
+    const forward = await extractContrastResults(
+      page,
+      TW_COLOURS.map((c) => `aalg-${c}`),
+    );
+    const failures: string[] = [];
+    let reached = 0;
+    let capped = 0;
+    for (const colour of TW_COLOURS) {
+      const inverseResult = inverse[`inv-aalg-${colour}`];
+      const forwardResult = forward[`aalg-${colour}`];
+      const reversedCeiling = Math.min(
+        ratio(inverseResult.bgLum, 1),
+        ratio(inverseResult.bgLum, 0),
+      );
+      if (!inverseResult.exact || !forwardResult.exact) {
+        failures.push(`${colour}: measured via the 8-bit canvas fallback, too coarse to grade`);
+      } else if (reversedCeiling >= target) {
+        reached++;
+        if (Math.abs(inverseResult.ratio - target) > EXACT_TOLERANCE) {
+          failures.push(
+            `${colour}: 1:3 is reachable (reversed ceiling ${reversedCeiling.toFixed(3)}) but got ${inverseResult.ratio.toFixed(4)}`,
+          );
+        } else if (
+          inverseResult.fgLum > inverseResult.bgLum ===
+          forwardResult.fgLum > forwardResult.bgLum
+        ) {
+          failures.push(`${colour}: hit 3:1 in the same direction as text-contrast-aa-lg`);
+        }
+      } else {
+        capped++;
+        if (Math.abs(inverseResult.ratio - reversedCeiling) > CAPPED_TOLERANCE) {
+          failures.push(
+            `${colour}: 1:3 unreachable, should park at the reversed ceiling ${reversedCeiling.toFixed(3)} but got ${inverseResult.ratio.toFixed(4)}`,
+          );
+        }
+      }
+    }
+
+    // Assert
+    expect(
+      failures,
+      `${failures.length} colours missed the inverse level:\n${failures.join('\n')}`,
+    ).toHaveLength(0);
+    expect(reached, 'mid-tone backgrounds can reach 3:1 in both directions').toBeGreaterThan(0);
+    expect(capped, 'light and dark backgrounds cannot reach 3:1 reversed').toBeGreaterThan(0);
+  });
+
+  test('the colours that reach 1:3 are exactly the ones where text-contrast-aaa cannot reach 7:1', async ({
+    page,
+  }) => {
+    // Arrange
+    // Act
+    const inverse = await extractContrastResults(
+      page,
+      TW_COLOURS.map((c) => `inv-aalg-${c}`),
+    );
+    const aaa = await extractContrastResults(
+      page,
+      TW_COLOURS.map((c) => `aaa-${c}`),
+    );
+    const disagreeing = TW_COLOURS.filter((colour) => {
+      const reachedInverse =
+        Math.abs(inverse[`inv-aalg-${colour}`].ratio - TARGET_RATIO['AA Large']) <= EXACT_TOLERANCE;
+      const cappedAaa = Math.abs(aaa[`aaa-${colour}`].ratio - TARGET_RATIO.AAA) > EXACT_TOLERANCE;
+      return reachedInverse !== cappedAaa;
+    });
+
+    // Assert
+    expect(
+      disagreeing,
+      `the forward and reversed ceilings multiply to 21 and 3 × 7 = 21, so the band where 1:3 is reachable is the band where 7:1 is not; ${disagreeing.length} colours disagree:\n${disagreeing
+        .map(
+          (colour) =>
+            `${colour}: 1/3 gave ${inverse[`inv-aalg-${colour}`].ratio.toFixed(4)}, aaa gave ${aaa[`aaa-${colour}`].ratio.toFixed(4)}`,
+        )
+        .join('\n')}`,
+    ).toHaveLength(0);
+  });
+
+  test('a decimal level and its calc(1 / N) spelling give the same colour', async ({ page }) => {
+    // Arrange
+    // Act
+    const decimal = await extractContrastResults(
+      page,
+      DECIMAL_SPELLING_COLOURS.map((c) => `half-${c}`),
+    );
+    const fraction = await extractContrastResults(
+      page,
+      DECIMAL_SPELLING_COLOURS.map((c) => `half-calc-${c}`),
+    );
+    const differing = DECIMAL_SPELLING_COLOURS.filter(
+      (c) => decimal[`half-${c}`].fgColor !== fraction[`half-calc-${c}`].fgColor,
+    );
+
+    // Assert
+    expect(
+      differing,
+      `0.5 and calc(1 / 2) are the same number, so they must solve to the same colour:\n${differing
+        .map(
+          (c) =>
+            `${c}: 0.5 gave "${decimal[`half-${c}`].fgColor}", calc(1 / 2) gave "${fraction[`half-calc-${c}`].fgColor}"`,
+        )
+        .join('\n')}`,
+    ).toHaveLength(0);
+  });
+});
+
 test.describe('arbitrary ratios', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto(CONTRAST_PAGE, { waitUntil: 'networkidle' });

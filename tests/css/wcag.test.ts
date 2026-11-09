@@ -87,6 +87,26 @@ describe('text-contrast utilities: stable path', () => {
     expect(css).toContain('--jib-contrast-ratio-aa-plus: 5');
   });
 
+  test('a decimal level below 1 compiles like any other', async () => {
+    const css = await compile('bg-blue-500 text-contrast-half', {
+      extra: '@theme { --jib-contrast-ratio-half: 0.5; }',
+    });
+    expect(css).toContain('--jib-contrast-ratio: var(--jib-contrast-ratio-half)');
+    expect(css).toContain('--jib-contrast-ratio-half: 0.5');
+    expect(css).toContain('--jib-contrast-shade:');
+  });
+
+  test('a calc(1 / N) level reaches the engine unevaluated', async () => {
+    const css = await compile('bg-blue-500 text-contrast-inverse-aa-lg', {
+      extra: '@theme { --jib-contrast-ratio-inverse-aa-lg: calc(1 / 3); }',
+    });
+    expect(css).toContain('--jib-contrast-ratio: var(--jib-contrast-ratio-inverse-aa-lg)');
+    expect(css, 'the fraction must stay a calc() for the engine, not a rounded decimal').toContain(
+      '--jib-contrast-ratio-inverse-aa-lg: calc(1 / 3)',
+    );
+    expect(css).toContain('--jib-contrast-shade:');
+  });
+
   describe('the default colour space is oklch', () => {
     test('text-contrast-aa without a modifier seeds in oklch', async () => {
       const css = await compile('bg-blue-500 text-contrast-aa');

@@ -159,7 +159,8 @@ Two things follow from how it is derived:
 - **It needs `text-contrast-*`.** Max describes a shortfall against a _requested_
   level, and only `text-contrast-*` records what was requested. A bare `wcag-badge`
   has no intent to compare against, so it never shows Max. It reports plain
-  measurement, exactly as before.
+  measurement, exactly as before. `text-contrast-max` requests no level either,
+  so it gets the same plain rating.
 - **It shares Fail's red.** Both mean "don't ship this as-is". The difference is
   what to do about it: Fail means fix the pair, Max means pick a different
   background or accept a lower level.

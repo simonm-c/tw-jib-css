@@ -98,21 +98,22 @@ The second is an **override**. The module re-implements four families on top of 
 win over the stable versions wherever CSS `@function` is supported. Same class names, same output,
 different machinery.
 
-| Utility family                                        | Stable implementation        | With this module        |
-| ----------------------------------------------------- | ---------------------------- | ----------------------- |
-| `bg-lightness-*`, `bg-lighten-*`, `bg-darken-*`       | relative colour syntax       | `--jib-lightness()`     |
-| `bg-saturation-*`, `bg-saturate-*`, `bg-desaturate-*` | relative colour syntax       | `--jib-saturation()`    |
-| `bg-hue-rotate-*`                                     | relative colour syntax       | `--jib-hue-rotate()`    |
-| `text-contrast-*`                                     | nested relative-colour chain | `--jib-auto-contrast()` |
+| Utility family                                                 | Stable implementation        | With this module        |
+| -------------------------------------------------------------- | ---------------------------- | ----------------------- |
+| `bg-lightness-*`, `bg-lighten-*`, `bg-darken-*`                | relative colour syntax       | `--jib-lightness()`     |
+| `bg-saturation-*`, `bg-saturate-*`, `bg-desaturate-*`          | relative colour syntax       | `--jib-saturation()`    |
+| `bg-hue-rotate-*`                                              | relative colour syntax       | `--jib-hue-rotate()`    |
+| `text-contrast-aa`, `text-contrast-aaa`, `text-contrast-aa-lg` | nested relative-colour chain | `--jib-auto-contrast()` |
 
 Both paths compute the same closed forms. Measured against each other they agree to serialisation
 precision, so you cannot tell from the output which one ran. The override exists because `@function`
 expresses the maths with local bindings instead of one deeply nested expression, which is easier to
 maintain.
 
-Automatic contrast itself is _not_ experimental. `text-contrast-aa`, `text-contrast-aaa` and
-`text-contrast-aa-lg` [ship from the stable entry](https://simonm-c.github.io/tw-jib-css/guide/automatic-contrast),
-exact on Chromium, Firefox and Safari alike. Only the _measuring_ half stayed here: the
+Automatic contrast itself is _not_ experimental. `text-contrast-aa`, `text-contrast-aaa`,
+`text-contrast-aa-lg` and `text-contrast-max` [ship from the stable entry](https://simonm-c.github.io/tw-jib-css/guide/automatic-contrast),
+the levels exact on Chromium, Firefox and Safari alike. `text-contrast-max` has no override, because
+it is a single `contrast-color()` call with nothing to re-implement. Only the _measuring_ half stayed here: the
 [badge](/wcag-badge) that names a rating needs `if(style())`, because reading a rating out means turning
 a colour into a string. The shade solves in closed-form relative colour syntax; the badge cannot.
 

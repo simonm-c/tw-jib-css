@@ -161,7 +161,7 @@ or on its own:
 @import 'tw-jib-css/color-transforms';
 ```
 
-`text-contrast-*` takes the same modifier and ships in
+The `text-contrast-*` levels take the same modifier and ship in
 [`tw-jib-css/automatic-contrast`](/guide/automatic-contrast).
 
 <BaselineSupport :features="['relative-color', 'registered-custom-properties', 'oklab', 'abs-sign']" />

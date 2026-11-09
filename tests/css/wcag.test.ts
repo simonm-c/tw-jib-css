@@ -375,6 +375,58 @@ describe('text-contrast utilities: stable path', () => {
   });
 });
 
+describe('text-contrast-max utility', () => {
+  describe.each(suiteScenarios('automatic-contrast'))('$name', ({ compile }) => {
+    test('resolves the shade with contrast-color() against the captured background', async () => {
+      const css = await compile('bg-blue-500 text-contrast-max');
+      expect(css).toContain('.text-contrast-max');
+      expect(css).toContain('--jib-contrast-shade: contrast-color(var(--jib-background-color))');
+      expect(css).toContain('color: var(--jib-contrast-shade)');
+    });
+
+    test('writes --jib-text-color, so wcag-badge has something to measure', async () => {
+      const css = await compile('bg-blue-500 text-contrast-max');
+      expect(css).toContain('--jib-text-color: var(--jib-contrast-shade)');
+    });
+
+    test('is not a level, so it neither reads a ratio nor records one for wcag-badge', async () => {
+      const css = await compile('bg-blue-500 text-contrast-max');
+      const rules = [...css.matchAll(/\.text-contrast-max \{[\s\S]*?\n {2}\}/g)].map((m) => m[0]);
+      expect(rules, 'text-contrast-max emitted more than its one rule').toHaveLength(1);
+      expect(rules[0], 'text-contrast-max fell into the ratio solve').not.toContain(
+        '--jib-contrast-ratio:',
+      );
+      expect(rules[0], 'text-contrast-max recorded a WCAG level').not.toContain(
+        '--jib-contrast-level:',
+      );
+    });
+
+    test('takes no colour-space modifier', async () => {
+      const css = await compile('bg-blue-500 text-contrast-max/oklch');
+      expect(
+        css,
+        'contrast-color() returns black or white, so a space has nothing to shape',
+      ).not.toContain('.text-contrast-max\\/oklch');
+    });
+
+    test('state variants work', async () => {
+      const css = await compile('bg-blue-500 hover:text-contrast-max');
+      expect(css).toContain('.hover\\:text-contrast-max');
+      expect(css).toContain('&:hover');
+      expect(css).toContain('--jib-contrast-shade: contrast-color(var(--jib-background-color))');
+    });
+  });
+
+  test('the @function entry leaves it alone', async () => {
+    const css = await compile('bg-blue-500 text-contrast-max', {
+      experimental: true,
+      functions: true,
+    });
+    expect(css, 'text-contrast-max reached the @function dispatcher').not.toContain(SHADE_CALL);
+    expect(css, 'text-contrast-max was put behind the @function gate').not.toContain(SUPPORTS_WCAG);
+  });
+});
+
 describe('wcag-badge utility: experimental', () => {
   test('not present without the experimental flag', async () => {
     const css = await compile('bg-blue-500 text-white wcag-badge');

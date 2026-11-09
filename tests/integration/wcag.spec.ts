@@ -32,6 +32,7 @@ const CONTRAST_IDS = TW_HUES.flatMap((h) => TW_SHADES.map((s) => `${h}-${s}`));
 
 const CONTRAST_AAA_IDS = TW_HUES.flatMap((h) => TW_SHADES.map((s) => `aaa-${h}-${s}`));
 const CONTRAST_AALG_IDS = TW_HUES.flatMap((h) => TW_SHADES.map((s) => `aalg-${h}-${s}`));
+const CONTRAST_MAX_IDS = TW_HUES.flatMap((h) => TW_SHADES.map((s) => `max-${h}-${s}`));
 
 const BADGE_IDS = TW_HUES.flatMap((h) => TW_SHADES.map((s) => `badge-${h}-${s}`));
 
@@ -48,6 +49,8 @@ const COMBO_GROUPS = [
   { prefix: 'aaa', level: 'AAA', hues: ['red', 'blue', 'slate'] },
   { prefix: 'aalg', level: 'AA Large', hues: ['red', 'blue', 'slate'] },
 ] as const;
+
+const COMBO_MAX_HUES = ['red', 'blue', 'pink'] as const;
 
 interface ContrastResult {
   bgColor: string;
@@ -496,6 +499,118 @@ test.describe('text-contrast-aa-lg: exact ratio verification', () => {
   });
 });
 
+test.describe('text-contrast-max: the most contrast the background allows', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto(CONTRAST_PAGE, { waitUntil: 'networkidle' });
+  });
+
+  test('all 242 TW colours get opaque pure black or pure white text', async ({ page }) => {
+    // Arrange
+    // Act
+    const results = await extractContrastResults(page, CONTRAST_MAX_IDS);
+    const notBlackOrWhite = CONTRAST_MAX_IDS.filter((id) => {
+      const r = results[id];
+      const isBlack = Math.abs(r.fgLum) < 1e-6;
+      const isWhite = Math.abs(r.fgLum - 1) < 1e-6;
+      return !r.exact || r.fgAlpha !== 1 || !(isBlack || isWhite);
+    });
+
+    // Assert
+    expect(
+      notBlackOrWhite,
+      `${notBlackOrWhite.length} colours got text that is neither opaque black nor opaque white, so contrast-color() did not resolve and the text inherited:\n${notBlackOrWhite
+        .map((id) => `${id}: fg "${results[id].fgColor}"`)
+        .join('\n')}`,
+    ).toHaveLength(0);
+  });
+
+  test("all 242 TW colours get the engine's own contrast-color() of their background", async ({
+    page,
+  }) => {
+    // Arrange
+    // Act
+    const { readouts, missing } = await page.evaluate((sels) => {
+      const readouts: Record<string, { color: string; expected: string; background: string }> = {};
+      const missing: string[] = [];
+      const probe = document.createElement('div');
+      document.body.append(probe);
+      for (const sel of sels) {
+        const el = document.querySelector(`[data-test="${sel}"]`);
+        if (!el) {
+          missing.push(sel);
+          continue;
+        }
+        const cs = getComputedStyle(el);
+        probe.style.color = `contrast-color(${cs.backgroundColor})`;
+        readouts[sel] = {
+          color: cs.color,
+          expected: getComputedStyle(probe).color,
+          background: cs.backgroundColor,
+        };
+      }
+      probe.remove();
+      return { readouts, missing };
+    }, CONTRAST_MAX_IDS);
+    expectNoMissingFixtures(missing, page.url());
+    const diverged = CONTRAST_MAX_IDS.filter((id) => readouts[id].color !== readouts[id].expected);
+
+    // Assert
+    expect(
+      diverged,
+      `${diverged.length} colours differ from contrast-color() of their own background, so the utility did not read the background bg-* set:\n${diverged
+        .map(
+          (id) =>
+            `${id}: bg "${readouts[id].background}", got "${readouts[id].color}", contrast-color() gives "${readouts[id].expected}"`,
+        )
+        .join('\n')}`,
+    ).toHaveLength(0);
+  });
+
+  test('--jib-text-color carries the same colour as color, for wcag-badge to measure', async ({
+    page,
+  }) => {
+    // Arrange
+    // Act
+    const { readouts, missing } = await page.evaluate((sels) => {
+      const readouts: Record<string, { color: string; textColor: string }> = {};
+      const missing: string[] = [];
+      const probe = document.createElement('div');
+      document.body.append(probe);
+      const resolve = (value: string) => {
+        probe.style.color = value;
+        return getComputedStyle(probe).color;
+      };
+      for (const sel of sels) {
+        const el = document.querySelector(`[data-test="${sel}"]`);
+        if (!el) {
+          missing.push(sel);
+          continue;
+        }
+        const cs = getComputedStyle(el);
+        readouts[sel] = {
+          color: cs.color,
+          textColor: resolve(cs.getPropertyValue('--jib-text-color').trim()),
+        };
+      }
+      probe.remove();
+      return { readouts, missing };
+    }, CONTRAST_MAX_IDS);
+    expectNoMissingFixtures(missing, page.url());
+    const diverged = CONTRAST_MAX_IDS.filter((id) => readouts[id].color !== readouts[id].textColor);
+
+    // Assert
+    expect(
+      diverged,
+      `${diverged.length} colours paint one colour and report another to wcag-badge:\n${diverged
+        .map(
+          (id) =>
+            `${id}: color "${readouts[id].color}", --jib-text-color "${readouts[id].textColor}"`,
+        )
+        .join('\n')}`,
+    ).toHaveLength(0);
+  });
+});
+
 const CONTRAST_EDGE_IDS = {
   'edge-blue-400': TARGET_RATIO['AA Large'],
   'edge-emerald-500': TARGET_RATIO['AA Large'],
@@ -897,6 +1012,26 @@ test.describe('text-contrast + wcag-badge: the badge must agree with the class',
       ).toHaveLength(0);
     });
   }
+
+  test('text-contrast-max gets the measured rating, never Max', async ({ page }) => {
+    // Arrange
+    const ids = COMBO_MAX_HUES.flatMap((h) => TW_SHADES.map((s) => `max-${h}-${s}`));
+    // Act
+    const results = await extractBadgeResults(page, ids);
+    const mismatched = ids.filter(
+      (id) => results[id].cssRating === 'Max' || results[id].cssRating !== results[id].jsRating,
+    );
+    // Assert
+    expect(
+      mismatched,
+      `text-contrast-max requests no level, so the badge must report what it measures:\n${mismatched
+        .map(
+          (id) =>
+            `${id}: badge "${results[id].cssRating}", measured ${results[id].ratio.toFixed(4)} (${results[id].jsRating})`,
+        )
+        .join('\n')}`,
+    ).toHaveLength(0);
+  });
 
   test('a bare wcag-badge never reports Max', async ({ page }) => {
     // Arrange

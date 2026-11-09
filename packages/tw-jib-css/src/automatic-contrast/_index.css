@@ -26,6 +26,12 @@
   --jib-contrast-ratio-aa-lg: 3;
 }
 
+@utility text-contrast-max {
+  --jib-contrast-shade: contrast-color(var(--jib-background-color));
+  color: var(--jib-contrast-shade);
+  --jib-text-color: var(--jib-contrast-shade);
+}
+
 /* Same-name @utility blocks never merge, sorted most-declarations-first, so C
  * lands after A and overrides its vector. */
 

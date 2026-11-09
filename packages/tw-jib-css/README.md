@@ -23,7 +23,8 @@ build step. It ships raw CSS your Tailwind compiler reads directly.
 Everything that transforms a colour works on **Chrome 138+, Safari 16.4+, Firefox 128+**. Relative
 colour syntax (Chrome 119+) and `@property` account for most of that floor; the lightness and
 saturation transforms also use `abs()` and `sign()`, which Chromium shipped only in 138.
-`border-style` and `grid` need none of it. Live per-feature status is on every
+`border-style` and `grid` need none of it. `text-contrast-max` is CSS `contrast-color()`, which
+needs **Chrome 147+, Safari 26+, Firefox 146+**. Live per-feature status is on every
 [guide page](https://simonm-c.github.io/tw-jib-css/) and on the
 [Web Platform Dashboard](https://webstatus.dev/features/abs-sign). Nothing in this package runs CSS
 `@function`; that is the guarantee that covers consumers who opted into nothing.
@@ -48,7 +49,7 @@ Peer dependency: `tailwindcss >=4.3.0`.
 | Import                          | Module             | Class patterns                                                                                                                                                 |
 | ------------------------------- | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `tw-jib-css`                    | everything         | all of the below, plus the colour pipeline that feeds them                                                                                                     |
-| `tw-jib-css/automatic-contrast` | Automatic Contrast | `text-contrast-aa` `text-contrast-aaa` `text-contrast-aa-lg`                                                                                                   |
+| `tw-jib-css/automatic-contrast` | Automatic Contrast | `text-contrast-aa` `text-contrast-aaa` `text-contrast-aa-lg` `text-contrast-max`                                                                               |
 | `tw-jib-css/color-transforms`   | Lightness          | `<surface>-lightness-*` `-<surface>-lightness-*` `<surface>-lighten-*` `<surface>-darken-*`                                                                    |
 | `tw-jib-css/color-transforms`   | Saturation         | `<surface>-saturation-*` `-<surface>-saturation-*` `<surface>-saturate-*` `<surface>-desaturate-*`                                                             |
 | `tw-jib-css/color-transforms`   | Hue Rotate         | `<surface>-hue-rotate-*` `-<surface>-hue-rotate-*`                                                                                                             |
@@ -73,6 +74,7 @@ JavaScript. Exact on Chromium, Firefox and Safari alike.
 <div class="bg-violet-600 text-contrast-aa">Exactly 4.5:1</div>
 <div class="bg-amber-300 text-contrast-aaa">Exactly 7:1</div>
 <div class="bg-teal-800 text-contrast-aa/oklch">4.5:1, chroma shaped in oklch</div>
+<div class="bg-sky-500 text-contrast-max">Black or white, whichever contrasts more</div>
 ```
 
 Levels are themeable. Define a ratio and the class exists:

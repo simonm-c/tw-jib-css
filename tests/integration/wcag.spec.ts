@@ -1059,8 +1059,15 @@ const AGREEMENT_CASES = ['violet', 'grey', 'teal'].flatMap((bg) =>
     ['aa', 'hsl'],
     ['aaa', 'lch'],
     ['aa', 'hwb'],
+    ['r2', 'oklch'],
+    ['third', 'hsl'],
+    ['var', 'srgb'],
+    ['brand', 'lch'],
+    ['aaa5', 'oklch'],
   ].map(([lvl, sp]) => `${bg}-${lvl}-${sp}`),
 );
+
+const OVERRIDDEN_AAA_CASES = ['violet', 'grey', 'teal'].map((bg) => `${bg}-aaa5-oklch`);
 
 test.describe('text-contrast: the utility and the @function API agree', () => {
   test.beforeEach(async ({ page }) => {
@@ -1107,6 +1114,25 @@ test.describe('text-contrast: the utility and the @function API agree', () => {
     expect(
       drifted,
       `${drifted.length} disagreements across ${AGREEMENT_CASES.length} cases, the two implementations have drifted apart:\n${drifted.join('\n')}`,
+    ).toHaveLength(0);
+  });
+
+  test('aaa overridden to 5 lands on 5:1 through the utility and the function', async ({
+    page,
+  }) => {
+    // Arrange
+    const routes = ['util', 'fn'] as const;
+    const ids = OVERRIDDEN_AAA_CASES.flatMap((c) => routes.map((r) => `agree-${r}-${c}`));
+    // Act
+    const results = await extractContrastResults(page, ids);
+    const missed = ids.filter((id) => Math.abs(results[id].ratio - 5) > EXACT_TOLERANCE);
+
+    // Assert
+    expect(
+      missed,
+      `a theme override of aaa must reach the @function path, not only the stable chain:\n${missed
+        .map((id) => `${id}: ${results[id].ratio.toFixed(4)}:1`)
+        .join('\n')}`,
     ).toHaveLength(0);
   });
 

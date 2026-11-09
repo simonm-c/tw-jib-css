@@ -370,22 +370,29 @@ describe('text-contrast utilities: stable path', () => {
       ).toHaveLength(0);
     });
 
-    test('a themed level keeps the stable path even with @function available', async () => {
+    test('a themed level reaches the @function override with its theme value', async () => {
       const css = await compile('bg-blue-500 text-contrast-aa-plus', {
         functions: true,
         extra: '@theme { --jib-contrast-ratio-aa-plus: 5; }',
       });
       expect(css).toContain('--jib-contrast-ratio: var(--jib-contrast-ratio-aa-plus)');
-      const rules = [...css.matchAll(/\.text-contrast-aa-plus \{[\s\S]*?\n {2}\}/g)].map(
-        (m) => m[0],
+      expect(css).toContain(
+        '--jib-auto-contrast(var(--jib-background-color), var(--jib-contrast-ratio-aa-plus),',
       );
-      expect(rules.length, 'no .text-contrast-aa-plus rule emitted').toBeGreaterThan(0);
-      for (const rule of rules) {
-        expect(rule, `themed level reached the @function dispatcher:\n${rule}`).not.toContain(
-          '--jib-auto-contrast(',
-        );
-      }
     });
+
+    test.each(LEVELS)(
+      'text-contrast-%s passes its theme value to the override, not its name',
+      async (level) => {
+        const css = await compile(`bg-blue-500 text-contrast-${level}`, { functions: true });
+        expect(
+          css,
+          'a level name would ignore a theme override of that level on the @function path',
+        ).toContain(
+          `--jib-auto-contrast(var(--jib-background-color), var(--jib-contrast-ratio-${level}),`,
+        );
+      },
+    );
   });
 
   test('the composable @function API is still defined', async () => {
@@ -437,13 +444,14 @@ describe('arbitrary ratios', () => {
     expect(css).not.toContain('--jib-contrast-level:');
   });
 
-  test('the @function entry leaves an arbitrary ratio on the stable path', async () => {
-    const css = await compile('bg-blue-500 text-contrast-[2]', {
-      experimental: true,
-      functions: true,
-    });
-    expect(css, 'an arbitrary ratio reached the @function dispatcher').not.toContain(SHADE_CALL);
-    expect(css).toContain('--jib-contrast-ratio: 2;');
+  test.each([
+    ['text-contrast-[2]', '2'],
+    ['text-contrast-[calc(1/3)]', 'calc(1 / 3)'],
+    ['text-contrast-(number:--contrast-ratio)', 'var(--contrast-ratio)'],
+  ])('%s reaches the @function override as %s', async (candidate, ratio) => {
+    const css = await compile(`bg-blue-500 ${candidate}`, { functions: true });
+    expect(css).toContain(`--jib-contrast-ratio: ${ratio};`);
+    expect(css).toContain(`--jib-auto-contrast(var(--jib-background-color), ${ratio},`);
   });
 });
 

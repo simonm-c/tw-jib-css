@@ -141,7 +141,7 @@
   result: --jib-wcag-lift(var(--jib-vector));
 }
 
-@function --jib-auto-contrast(--background type(<color>): white, --level type(<custom-ident>): aa, --interpolation type(<custom-ident>): oklch) returns <color> {
-  --jib-ratio: if(style(--level: aaa): 7; style(--level: aa-lg): 3; else: 4.5);
+@function --jib-auto-contrast(--background type(<color>): white, --level type(<custom-ident> | <number>): aa, --interpolation type(<custom-ident>): oklch) returns <color> {
+  --jib-ratio: if(style(--level: aaa): var(--jib-contrast-ratio-aaa, 7); style(--level: aa-lg): var(--jib-contrast-ratio-aa-lg, 3); style(--level: aa): var(--jib-contrast-ratio-aa, 4.5); else: var(--level));
   result: if(style(--interpolation: oklch): --jib-auto-contrast-oklch(var(--background), var(--jib-ratio)) ; style(--interpolation: oklab): --jib-auto-contrast-oklch(var(--background), var(--jib-ratio)) ; style(--interpolation: lch): --jib-auto-contrast-lch(var(--background), var(--jib-ratio)) ; style(--interpolation: lab): --jib-auto-contrast-lch(var(--background), var(--jib-ratio)) ; style(--interpolation: hsl): --jib-auto-contrast-hsl(var(--background), var(--jib-ratio)) ; style(--interpolation: hwb): --jib-auto-contrast-hwb(var(--background), var(--jib-ratio)) ; else: --jib-auto-contrast-core(var(--background), var(--jib-ratio)));
 }

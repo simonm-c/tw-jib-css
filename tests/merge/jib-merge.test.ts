@@ -218,6 +218,11 @@ const STABLE_RESOLVED = [
     'text-contrast-aa text-contrast-[2]',
     'text-contrast-[2]',
   ],
+  [
+    'a contrast level and maximum contrast',
+    'text-contrast-aa text-contrast-max',
+    'text-contrast-max',
+  ],
   ['two gradient directions', 'border-linear-to-r border-linear-45', 'border-linear-45'],
   [
     'a bare gradient type and a direction',

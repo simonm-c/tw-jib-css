@@ -7,7 +7,7 @@ export type JibAutomaticContrastClassGroupIds = never;
 export const jibAutomaticContrastExtension: JibExtensionOf<JibAutomaticContrastClassGroupIds> = {
   extend: {
     classGroups: {
-      'text-color': [{ text: [{ contrast: [validators.isAny] }] }],
+      'text-color': [{ text: [{ contrast: ['max', validators.isAny] }] }],
     },
   },
 };

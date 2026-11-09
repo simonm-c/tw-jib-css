@@ -2,7 +2,7 @@
 title: Automatic contrast
 ---
 
-<!-- llm-context: Solves a text color whose WCAG contrast ratio against its own background equals the level you asked for, and ships from the main entry. text-contrast-{aa,aaa,aa-lg} solves in closed form for a same-hue text color whose WCAG 2.x contrast ratio against the background equals the requested ratio exactly. No candidate search, no verification pass. Optional /<space> modifier for all 17 color spaces selects the aesthetic path only; correctness is owned by a shared final stage. All computation happens in CSS relative color syntax at render time, no JS. Verified exact on Chromium, Firefox and WebKit. Levels are themeable via the --jib-contrast-ratio-* namespace. -->
+<!-- llm-context: Solves a text color whose WCAG contrast ratio against its own background equals the level you asked for, and ships from the main entry. text-contrast-{aa,aaa,aa-lg} solves in closed form for a same-hue text color whose WCAG 2.x contrast ratio against the background equals the requested ratio exactly. No candidate search, no verification pass. Optional /<space> modifier for all 17 color spaces selects the aesthetic path only; correctness is owned by a shared final stage. All computation happens in CSS relative color syntax at render time, no JS. Verified exact on Chromium, Firefox and WebKit. Levels are themeable via the --jib-contrast-ratio-* namespace. Arbitrary ratios also work: text-contrast-[2], text-contrast-[calc(1/3)], text-contrast-(number:--x); an untyped text-contrast-(--x) and a bare text-contrast-[1/3] do not compile. A themed ratio between 0 and 1 reverses the direction (1/N gives N:1 toward the side with less room); write it as a decimal or calc(1 / N), never a bare 1/N, which silently falls back to 4.5. The forward and reversed ceilings multiply to 21, so 1/N is reachable where the forward ceiling is at most 21/N; for calc(1 / 3) that is luminance 0.10 to 0.30, the same band where AAA caps. text-contrast-max is separate: black or white via CSS contrast-color(), whose contrast algorithm is browser-defined, so engines can pick differently for backgrounds near the crossover and no WCAG ratio is promised; no modifier, no level recorded for wcag-badge. -->
 
 # Automatic contrast
 
@@ -571,6 +571,49 @@ Reference CSS custom properties with the typed bare-value syntax `(type:--var)`:
 </Example>
 
 The hint is required. `text-contrast-(--contrast-ratio)` does not compile.
+
+## Inverse contrast
+
+A ratio below 1 reverses the direction. A level of 3 moves the text toward whichever of black and white has more room. A level of 1/3 moves it the other way, by the same 3:1. Light backgrounds get lighter text and dark backgrounds get darker text.
+
+That pays off in the mid-tones. A mid-tone background has room for 3:1 in both directions, so you can pick light or dark text at the same contrast:
+
+<Example>
+  <div class="grid grid-cols-3 gap-3">
+    <div class="flex flex-col gap-2">
+      <div class="rounded-lg p-4 bg-blue-500 text-contrast-aa-lg text-center font-bold">aa-lg</div>
+      <div class="rounded-lg p-4 bg-blue-500 text-contrast-inverse-aa-lg text-center font-bold">inverse-aa-lg</div>
+    </div>
+    <div class="flex flex-col gap-2">
+      <div class="rounded-lg p-4 bg-red-500 text-contrast-aa-lg text-center font-bold">aa-lg</div>
+      <div class="rounded-lg p-4 bg-red-500 text-contrast-inverse-aa-lg text-center font-bold">inverse-aa-lg</div>
+    </div>
+    <div class="flex flex-col gap-2">
+      <div class="rounded-lg p-4 bg-slate-500 text-contrast-aa-lg text-center font-bold">aa-lg</div>
+      <div class="rounded-lg p-4 bg-slate-500 text-contrast-inverse-aa-lg text-center font-bold">inverse-aa-lg</div>
+    </div>
+  </div>
+</Example>
+
+Define the level in your theme like any other:
+
+```css
+@theme {
+  --jib-contrast-ratio-inverse-aa-lg: calc(1 / 3);
+}
+```
+
+A decimal works just as well. `0.5` and `calc(1 / 2)` give the same color. Reach for `calc(1 / N)` when you want the ratio to read as the WCAG figure it reverses, or when it has no clean decimal, as with 1/3. Keep the `calc()`. A bare `1/3` is not a number, so the level silently falls back to the default 4.5:1. As a one-off, use `text-contrast-[calc(1/3)]`. `text-contrast-[1/3]` does not compile.
+
+### Where it reaches
+
+The reversed direction is always the one with less room, so it runs out sooner.
+
+- `1/3` reaches 3:1 on backgrounds between luminance 0.10 and 0.30. That is the same band where `text-contrast-aaa` caps.
+- `1/4.5` only reaches 4.5:1 in a thin band around the crossover, roughly luminance 0.175 to 0.183.
+- Outside its band, a reversed level parks at white or black, as `text-contrast-aaa` does when 7:1 is out of reach. On a white or black background, that is the background color itself.
+
+A ratio of 0 or below is not an inverse. It gives black text on every background.
 
 ## How it works
 

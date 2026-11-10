@@ -1,5 +1,13 @@
 # Changelog
 
+## [2.3.0](https://github.com/simonm-c/tw-jib-css/compare/tw-jib-css-v2.2.0...tw-jib-css-v2.3.0) (2026-11-10)
+
+
+### Features
+
+* **automatic-contrast:** accept arbitrary ratios in text-contrast-* ([cc114af](https://github.com/simonm-c/tw-jib-css/commit/cc114af980cdc77d863ac82f7de3b3c18814bdcc))
+* **automatic-contrast:** add text-contrast-max on contrast-color() ([3d2567b](https://github.com/simonm-c/tw-jib-css/commit/3d2567b26dd2c60a9057a88bfe3945ed24216b0d))
+
 ## [2.2.0](https://github.com/simonm-c/tw-jib-css/compare/tw-jib-css-v2.1.0...tw-jib-css-v2.2.0) (2026-10-30)
 
 

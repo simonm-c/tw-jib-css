@@ -213,6 +213,16 @@ const STABLE_RESOLVED = [
   ['a gradient and a texture', 'bg-linear-to-r bg-comic-red-500', 'bg-comic-red-500'],
   ['a text colour and automatic contrast', 'text-white text-contrast-aa', 'text-contrast-aa'],
   ['automatic contrast and a text colour', 'text-contrast-aa/oklch text-red-500', 'text-red-500'],
+  [
+    'a contrast level and an arbitrary ratio',
+    'text-contrast-aa text-contrast-[2]',
+    'text-contrast-[2]',
+  ],
+  [
+    'a contrast level and maximum contrast',
+    'text-contrast-aa text-contrast-max',
+    'text-contrast-max',
+  ],
   ['two gradient directions', 'border-linear-to-r border-linear-45', 'border-linear-45'],
   [
     'a bare gradient type and a direction',

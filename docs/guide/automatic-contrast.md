@@ -2,7 +2,7 @@
 title: Automatic contrast
 ---
 
-<!-- llm-context: Solves a text color whose WCAG contrast ratio against its own background equals the level you asked for, and ships from the main entry. text-contrast-{aa,aaa,aa-lg} solves in closed form for a same-hue text color whose WCAG 2.x contrast ratio against the background equals the requested ratio exactly. No candidate search, no verification pass. Optional /<space> modifier for all 17 color spaces selects the aesthetic path only; correctness is owned by a shared final stage. All computation happens in CSS relative color syntax at render time, no JS. Verified exact on Chromium, Firefox and WebKit. Levels are themeable via the --jib-contrast-ratio-* namespace. -->
+<!-- llm-context: Solves a text color whose WCAG contrast ratio against its own background equals the level you asked for, and ships from the main entry. text-contrast-{aa,aaa,aa-lg} solves in closed form for a same-hue text color whose WCAG 2.x contrast ratio against the background equals the requested ratio exactly. No candidate search, no verification pass. Optional /<space> modifier for all 17 color spaces selects the aesthetic path only; correctness is owned by a shared final stage. All computation happens in CSS relative color syntax at render time, no JS. Verified exact on Chromium, Firefox and WebKit. Levels are themeable via the --jib-contrast-ratio-* namespace. Arbitrary ratios also work: text-contrast-[2], text-contrast-[calc(1/3)], text-contrast-(number:--x); an untyped text-contrast-(--x) and a bare text-contrast-[1/3] do not compile. A themed ratio between 0 and 1 reverses the direction (1/N gives N:1 toward the side with less room); write it as a decimal or calc(1 / N), never a bare 1/N, which silently falls back to 4.5. The forward and reversed ceilings multiply to 21, so 1/N is reachable where the forward ceiling is at most 21/N; for calc(1 / 3) that is luminance 0.10 to 0.30, the same band where AAA caps. text-contrast-max is separate: black or white via CSS contrast-color(), whose contrast algorithm is browser-defined, so engines can pick differently for backgrounds near the crossover and no WCAG ratio is promised; no modifier, no level recorded for wcag-badge. -->
 
 # Automatic contrast
 
@@ -11,6 +11,8 @@ title: Automatic contrast
 The shade is not searched for. It is **solved**. WCAG 2's contrast ratio constrains exactly one quantity, relative luminance, and luminance is a linear function of linear-light RGB. So invert the ratio formula for the target luminance, then use a single relative-color expression to build a color carrying that luminance, the background's hue and the background's chroma. The achieved ratio equals the requested ratio by construction: no candidate bracket, no verification pass, no convergence tolerance.
 
 Solving instead of searching is also what makes the utility portable. A search would need a way to call itself and a way to pick the candidate that passed; the closed form needs neither, so it is built from `calc`, `clamp`, `min`, `max` and relative color syntax, and works everywhere.
+
+`text-contrast-max` gives plain black or white instead of a solved shade, using the browser's own `contrast-color()`. See [Maximum contrast](#maximum-contrast).
 
 ::: warning A background from a CSS variable must carry the `color:` hint
 `text-contrast-*` solves against the background you set with `bg-*`, so the background has to reach it. `bg-(color:--brand)` does; `bg-(--brand)` does not, because Tailwind will not infer a type from inside a `var()`. Without the hint the element still gets its background, but the contrast solve runs against an unset value and returns the same shade whatever color you passed — a plausible-looking result that does not meet the ratio the class names. See [Colors from CSS variables need a type hint](/guide/composition#colors-from-css-variables-need-a-type-hint).
@@ -21,9 +23,10 @@ Because the utilities hit the ratio _exactly_ rather than overshooting it, the r
 :::
 
 ::: tip Browser support
-Works in Chromium, Firefox and Safari. Every engine gets the requested ratio exactly, verified against all 242 Tailwind colors at all three levels on each. The only per-engine difference is cosmetic; see [Color Spaces](#color-spaces) below.
+Works in Chromium, Firefox and Safari. Every engine gets the requested ratio exactly, verified against all 242 Tailwind colors at all three levels on each. For the levels, the only per-engine difference is cosmetic; see [Color Spaces](#color-spaces) below. `text-contrast-max` can pick a different color in each engine; see [Maximum contrast](#maximum-contrast).
 
-`text-contrast-*` needs relative color syntax and `@property` and nothing else. The `pow()`
+The levels need relative color syntax and `@property` and nothing else. `text-contrast-max`
+needs `contrast-color()` instead, which reached every engine later. The `pow()`
 seed described under [Color Spaces](#color-spaces) sits behind an `@supports` gate, so an
 engine without it takes the linear path rather than losing the utility.
 :::
@@ -35,6 +38,9 @@ engine without it takes the linear path rather than losing the utility.
   { class: 'text-contrast-aaa', styles: 'color: same-hue shade at exactly WCAG AAA (7:1)' },
   { class: 'text-contrast-aa-lg', styles: 'color: same-hue shade at exactly WCAG AA Large (3:1)' },
   { class: 'text-contrast-aa/<space>', styles: 'color: AA shade, chroma shaped by the given color space' },
+  { class: 'text-contrast-[<ratio>]', styles: 'color: same-hue shade at exactly that ratio' },
+  { class: 'text-contrast-(number:<var>)', styles: 'color: same-hue shade at the ratio the variable holds' },
+  { class: 'text-contrast-max', styles: 'color: black or white, whichever contrasts more (contrast-color())' },
 ]" />
 
 ### Levels are themeable
@@ -55,10 +61,10 @@ Useful for the "AAA but let an external checker round in my favor" case in the w
 
 ## Basic usage
 
-Set a background with `bg-*`, then use `text-contrast-*` to pick the WCAG level:
+Set a background with `bg-*`, then use `text-contrast-*` to pick the WCAG level, or `text-contrast-max` for plain black or white:
 
 <Example>
-  <div class="grid grid-cols-3 gap-3">
+  <div class="grid grid-cols-4 gap-3">
     <div class="rounded-lg p-4 bg-indigo-800 text-contrast-aa-lg text-center">
       <div class="text-lg font-bold">AA Large</div>
       <div class="text-xs">3:1 ratio</div>
@@ -71,10 +77,14 @@ Set a background with `bg-*`, then use `text-contrast-*` to pick the WCAG level:
       <div class="text-lg font-bold">AAA</div>
       <div class="text-xs">7:1 ratio</div>
     </div>
+    <div class="rounded-lg p-4 bg-indigo-800 text-contrast-max text-center">
+      <div class="text-lg font-bold">Max</div>
+      <div class="text-xs">contrast-color()</div>
+    </div>
   </div>
 </Example>
 
-The result is a lighter or darker shade of the background color, landing on the requested ratio rather than merely clearing it. Dark backgrounds get lighter text, light backgrounds get darker text. The crossover is the luminance where there is equal room to move in either direction.
+The result is a lighter or darker shade of the background color, landing on the requested ratio rather than merely clearing it. Dark backgrounds get lighter text, light backgrounds get darker text. The crossover is the luminance where there is equal room to move in either direction. `text-contrast-max` skips the shade and goes straight to white or black.
 
 ### WCAG levels
 
@@ -379,6 +389,29 @@ Every default TW color at every shade, with `text-contrast-aa` picking the text 
   </div>
 </Example>
 
+## Maximum contrast
+
+`text-contrast-max` sets the text to black or white, whichever the browser judges to contrast more with the background. It is the browser's own `contrast-color()` run on the background you set with `bg-*`. Nothing is solved, so the result is always one of those two colors.
+
+<Example>
+  <div class="grid grid-cols-4 gap-3">
+    <div class="rounded-lg p-4 bg-yellow-300 text-contrast-max text-center font-bold">Yellow 300</div>
+    <div class="rounded-lg p-4 bg-sky-500 text-contrast-max text-center font-bold">Sky 500</div>
+    <div class="rounded-lg p-4 bg-violet-700 text-contrast-max text-center font-bold">Violet 700</div>
+    <div class="rounded-lg p-4 bg-stone-900 text-contrast-max text-center font-bold">Stone 900</div>
+  </div>
+</Example>
+
+Use it when you want plain black or white text and have no particular ratio in mind.
+
+- **No WCAG promise.** The levels solve against the WCAG 2 ratio. `contrast-color()` leaves the algorithm to the browser and promises no ratio.
+- **No `/<space>` modifier.** Black and white have no hue for a color space to shape, so `text-contrast-max/oklch` does not compile.
+- **No requested level.** It records no level for [`wcag-badge`](https://simonm-c.github.io/tw-jib-css/experimental/wcag-badge), so the badge reports its plain rating and never shows Max.
+
+::: info Browsers can choose differently near the crossover
+Each engine runs its own contrast algorithm, so a background close to the point where black and white contrast equally can get a different color in each. `bg-pink-600` and `bg-rose-600` get white in Firefox and WebKit and black in Chromium. By WCAG 2, black on those two measures 4.49:1 and 4.40:1. If a WCAG ratio has to hold in every browser, use a level such as `text-contrast-aa`.
+:::
+
 ## Color spaces
 
 The modifier selects the **aesthetic path** of the shade: how chroma and perceptual hue travel between the background and the output. It has no say in the ratio. One shared final stage owns correctness for every space, so all seventeen land on the same contrast and differ only in how colorful the result is. Default is oklch, as it is for every color transform in this library.
@@ -459,34 +492,32 @@ solved for the new one rather than the old.
   </div>
 </Example>
 
+`text-contrast-max` takes variants the same way, and re-picks black or white for the new
+background.
+
 Breakpoint variants work the same way, which is the practical route to the typographic
 hierarchy above: `text-contrast-aa-lg md:text-contrast-aa` tightens the requirement as the
 text gets smaller.
 
 ## Using a custom level
 
-There is no bracket syntax here. `text-contrast-[5]` does not compile, and neither does
-`text-contrast-(--my-ratio)`. That is deliberate rather than an omission.
-
-A ratio is not a one-off value. Two elements asking for 5:1 are making the same
-accessibility claim, and that claim belongs somewhere a reader can find it, not inlined at
-two call sites that can drift apart. So levels come from your theme:
+Add a key to the `--jib-contrast-ratio-*` theme namespace and the name becomes a utility:
 
 ```css
 @theme {
-  --jib-contrast-ratio-brand: 5.5;
+  --jib-contrast-ratio-brand: 2;
 }
 ```
 
 ```html
-<div class="bg-indigo-700 text-contrast-brand">Solved for exactly 5.5:1</div>
+<div class="bg-indigo-700 text-contrast-brand">Solved for exactly 2:1</div>
 ```
 
-The name you choose becomes the utility, and it behaves like the built-in levels in every
-respect, `/<space>` modifiers included:
+It behaves like the built-in levels in every respect, `/<space>` modifiers included:
 
 <Example>
   <div class="rounded-xl bg-indigo-700 p-5">
+    <div class="text-contrast-brand">brand, a custom 2:1</div>
     <div class="text-contrast-aa">aa, the built-in 4.5:1</div>
     <div class="text-contrast-aaa">aaa, the built-in 7:1</div>
   </div>
@@ -500,6 +531,91 @@ level you add is a second-class case.
 | `text-contrast-aa`    | 4.5:1 | Normal body text                 |
 | `text-contrast-aaa`   | 7:1   | Enhanced, normal body text       |
 | `text-contrast-aa-lg` | 3:1   | Large text, 18.66px bold or 24px |
+
+## Using a custom value
+
+Use bracket notation for a one-off ratio:
+
+<Example>
+  <div class="grid grid-cols-2 gap-3">
+    <div class="rounded-lg p-4 bg-indigo-700 text-contrast-[2] text-center">
+      <div class="font-bold">Solved for 2:1</div>
+      <div class="font-mono text-xs">text-contrast-[2]</div>
+    </div>
+    <div class="rounded-lg p-4 bg-teal-800 text-contrast-[5.5] text-center">
+      <div class="font-bold">Solved for 5.5:1</div>
+      <div class="font-mono text-xs">text-contrast-[5.5]</div>
+    </div>
+  </div>
+</Example>
+
+## Using a custom variable
+
+Reference CSS custom properties with the typed bare-value syntax `(type:--var)`:
+
+| Utility           | Type hint | Example                                   |
+| ----------------- | --------- | ----------------------------------------- |
+| `text-contrast-*` | `number`  | `text-contrast-(number:--contrast-ratio)` |
+
+<Example>
+  <div class="grid grid-cols-2 gap-3">
+    <div class="rounded-lg p-4 bg-indigo-800 text-contrast-(number:--contrast-ratio) [--contrast-ratio:2] text-center">
+      <div class="font-bold">Solved for 2:1</div>
+      <div class="font-mono text-xs">[--contrast-ratio:2]</div>
+    </div>
+    <div class="rounded-lg p-4 bg-indigo-800 text-contrast-(number:--contrast-ratio) [--contrast-ratio:6] text-center">
+      <div class="font-bold">Solved for 6:1</div>
+      <div class="font-mono text-xs">[--contrast-ratio:6]</div>
+    </div>
+  </div>
+</Example>
+
+The hint is required. `text-contrast-(--contrast-ratio)` does not compile.
+
+## Inverse contrast
+
+A ratio below 1 reverses the direction. A level of 3 moves the text toward whichever of black and white has more room. A level of 1/3 moves it the other way, by the same 3:1. Light backgrounds get lighter text and dark backgrounds get darker text.
+
+That pays off in the mid-tones. A mid-tone background has room for 3:1 in both directions, so you can pick light or dark text at the same contrast:
+
+<Example>
+  <div class="grid grid-cols-3 gap-3">
+    <div class="flex flex-col gap-2">
+      <div class="rounded-lg p-4 bg-blue-500 text-contrast-aa-lg text-center font-bold">aa-lg</div>
+      <div class="rounded-lg p-4 bg-blue-500 text-contrast-inverse-aa-lg text-center font-bold">inverse-aa-lg</div>
+    </div>
+    <div class="flex flex-col gap-2">
+      <div class="rounded-lg p-4 bg-red-500 text-contrast-aa-lg text-center font-bold">aa-lg</div>
+      <div class="rounded-lg p-4 bg-red-500 text-contrast-inverse-aa-lg text-center font-bold">inverse-aa-lg</div>
+    </div>
+    <div class="flex flex-col gap-2">
+      <div class="rounded-lg p-4 bg-slate-500 text-contrast-aa-lg text-center font-bold">aa-lg</div>
+      <div class="rounded-lg p-4 bg-slate-500 text-contrast-inverse-aa-lg text-center font-bold">inverse-aa-lg</div>
+    </div>
+  </div>
+</Example>
+
+Define the level in your theme like any other:
+
+```css
+@theme {
+  --jib-contrast-ratio-inverse-aa-lg: calc(1 / 3);
+}
+```
+
+A decimal works just as well. `0.5` and `calc(1 / 2)` give the same color. Reach for `calc(1 / N)` when you want the ratio to read as the WCAG figure it reverses, or when it has no clean decimal, as with 1/3. As a one-off, `text-contrast-[calc(1/3)]` does the same.
+
+Keep the `calc()` either way. A bare `1/3` in the theme silently falls back to 4.5:1, and `text-contrast-[1/3]` does not compile.
+
+### Where it reaches
+
+The reversed direction is always the one with less room, so it runs out sooner.
+
+- `1/3` reaches 3:1 on backgrounds between luminance 0.10 and 0.30. That is the same band where `text-contrast-aaa` caps.
+- `1/4.5` only reaches 4.5:1 in a thin band around the crossover, roughly luminance 0.175 to 0.183.
+- Outside its band, a reversed level parks at white or black, as `text-contrast-aaa` does when 7:1 is out of reach. On a white or black background, that is the background color itself.
+
+A ratio of 0 or below is not an inverse. It gives black text on every background.
 
 ## How it works
 
@@ -553,4 +669,4 @@ Included in `@import 'tw-jib-css'`. To import individually:
 @import 'tw-jib-css/automatic-contrast';
 ```
 
-<BaselineSupport :features="['relative-color', 'registered-custom-properties']" />
+<BaselineSupport :features="['relative-color', 'registered-custom-properties', 'contrast-color']" />

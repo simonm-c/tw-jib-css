@@ -94,3 +94,79 @@ paths side by side. Targeted by the Playwright integration suite.
   <div class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#164e63] text-contrast-aaa/lch"><span data-test="agree-stable-teal-aaa-lch" class="text-(color:--jib-contrast-shade)">stable</span><span>aaa/lch</span></div>
   <div class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#164e63] text-contrast-aa/hwb"><span data-test="agree-stable-teal-aa-hwb" class="text-(color:--jib-contrast-shade)">stable</span><span>aa/hwb</span></div>
 </div>
+
+## Ratios beyond the named levels
+
+Arbitrary ratios, a `number:`-typed variable, a themed `brand` level (2.5 in this instance's theme) and `aaa` overridden to 5 on the element. Each must reach the same color by every route.
+
+### #7c3aed, beyond the named levels
+
+<div class="grid grid-cols-5 gap-2 my-2">
+  <div data-test="agree-util-violet-r2-oklch" class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#7c3aed] text-contrast-[2]/oklch"><span>util</span><span>[2]/oklch</span></div>
+  <div data-test="agree-util-violet-third-hsl" class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#7c3aed] text-contrast-[calc(1/3)]/hsl"><span>util</span><span>[calc(1/3)]/hsl</span></div>
+  <div data-test="agree-util-violet-var-srgb" class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#7c3aed] [--contrast-ratio:2] text-contrast-(number:--contrast-ratio)/srgb"><span>util</span><span>(number:--contrast-ratio)/srgb</span></div>
+  <div data-test="agree-util-violet-brand-lch" class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#7c3aed] text-contrast-brand/lch"><span>util</span><span>brand/lch</span></div>
+  <div data-test="agree-util-violet-aaa5-oklch" class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#7c3aed] [--jib-contrast-ratio-aaa:5] text-contrast-aaa/oklch"><span>util</span><span>aaa=5/oklch</span></div>
+</div>
+<div class="grid grid-cols-5 gap-2 my-2">
+  <div data-test="agree-fn-violet-r2-oklch" class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#7c3aed] text-[--jib-auto-contrast(#7c3aed,2,oklch)]"><span>fn</span><span>[2]/oklch</span></div>
+  <div data-test="agree-fn-violet-third-hsl" class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#7c3aed] text-[color:--jib-auto-contrast(#7c3aed,calc(1/3),hsl)]"><span>fn</span><span>[calc(1/3)]/hsl</span></div>
+  <div data-test="agree-fn-violet-var-srgb" class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#7c3aed] [--contrast-ratio:2] text-[--jib-auto-contrast(#7c3aed,var(--contrast-ratio),srgb)]"><span>fn</span><span>(number:--contrast-ratio)/srgb</span></div>
+  <div data-test="agree-fn-violet-brand-lch" class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#7c3aed] text-[--jib-auto-contrast(#7c3aed,var(--jib-contrast-ratio-brand),lch)]"><span>fn</span><span>brand/lch</span></div>
+  <div data-test="agree-fn-violet-aaa5-oklch" class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#7c3aed] [--jib-contrast-ratio-aaa:5] text-[--jib-auto-contrast(#7c3aed,aaa,oklch)]"><span>fn</span><span>aaa=5/oklch</span></div>
+</div>
+<div class="grid grid-cols-5 gap-2 my-2">
+  <div class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#7c3aed] text-contrast-[2]/oklch"><span data-test="agree-stable-violet-r2-oklch" class="text-(color:--jib-contrast-shade)">stable</span><span>[2]/oklch</span></div>
+  <div class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#7c3aed] text-contrast-[calc(1/3)]/hsl"><span data-test="agree-stable-violet-third-hsl" class="text-(color:--jib-contrast-shade)">stable</span><span>[calc(1/3)]/hsl</span></div>
+  <div class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#7c3aed] [--contrast-ratio:2] text-contrast-(number:--contrast-ratio)/srgb"><span data-test="agree-stable-violet-var-srgb" class="text-(color:--jib-contrast-shade)">stable</span><span>(number:--contrast-ratio)/srgb</span></div>
+  <div class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#7c3aed] text-contrast-brand/lch"><span data-test="agree-stable-violet-brand-lch" class="text-(color:--jib-contrast-shade)">stable</span><span>brand/lch</span></div>
+  <div class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#7c3aed] [--jib-contrast-ratio-aaa:5] text-contrast-aaa/oklch"><span data-test="agree-stable-violet-aaa5-oklch" class="text-(color:--jib-contrast-shade)">stable</span><span>aaa=5/oklch</span></div>
+</div>
+
+### #d4d4d4, beyond the named levels
+
+<div class="grid grid-cols-5 gap-2 my-2">
+  <div data-test="agree-util-grey-r2-oklch" class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#d4d4d4] text-contrast-[2]/oklch"><span>util</span><span>[2]/oklch</span></div>
+  <div data-test="agree-util-grey-third-hsl" class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#d4d4d4] text-contrast-[calc(1/3)]/hsl"><span>util</span><span>[calc(1/3)]/hsl</span></div>
+  <div data-test="agree-util-grey-var-srgb" class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#d4d4d4] [--contrast-ratio:2] text-contrast-(number:--contrast-ratio)/srgb"><span>util</span><span>(number:--contrast-ratio)/srgb</span></div>
+  <div data-test="agree-util-grey-brand-lch" class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#d4d4d4] text-contrast-brand/lch"><span>util</span><span>brand/lch</span></div>
+  <div data-test="agree-util-grey-aaa5-oklch" class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#d4d4d4] [--jib-contrast-ratio-aaa:5] text-contrast-aaa/oklch"><span>util</span><span>aaa=5/oklch</span></div>
+</div>
+<div class="grid grid-cols-5 gap-2 my-2">
+  <div data-test="agree-fn-grey-r2-oklch" class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#d4d4d4] text-[--jib-auto-contrast(#d4d4d4,2,oklch)]"><span>fn</span><span>[2]/oklch</span></div>
+  <div data-test="agree-fn-grey-third-hsl" class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#d4d4d4] text-[color:--jib-auto-contrast(#d4d4d4,calc(1/3),hsl)]"><span>fn</span><span>[calc(1/3)]/hsl</span></div>
+  <div data-test="agree-fn-grey-var-srgb" class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#d4d4d4] [--contrast-ratio:2] text-[--jib-auto-contrast(#d4d4d4,var(--contrast-ratio),srgb)]"><span>fn</span><span>(number:--contrast-ratio)/srgb</span></div>
+  <div data-test="agree-fn-grey-brand-lch" class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#d4d4d4] text-[--jib-auto-contrast(#d4d4d4,var(--jib-contrast-ratio-brand),lch)]"><span>fn</span><span>brand/lch</span></div>
+  <div data-test="agree-fn-grey-aaa5-oklch" class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#d4d4d4] [--jib-contrast-ratio-aaa:5] text-[--jib-auto-contrast(#d4d4d4,aaa,oklch)]"><span>fn</span><span>aaa=5/oklch</span></div>
+</div>
+<div class="grid grid-cols-5 gap-2 my-2">
+  <div class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#d4d4d4] text-contrast-[2]/oklch"><span data-test="agree-stable-grey-r2-oklch" class="text-(color:--jib-contrast-shade)">stable</span><span>[2]/oklch</span></div>
+  <div class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#d4d4d4] text-contrast-[calc(1/3)]/hsl"><span data-test="agree-stable-grey-third-hsl" class="text-(color:--jib-contrast-shade)">stable</span><span>[calc(1/3)]/hsl</span></div>
+  <div class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#d4d4d4] [--contrast-ratio:2] text-contrast-(number:--contrast-ratio)/srgb"><span data-test="agree-stable-grey-var-srgb" class="text-(color:--jib-contrast-shade)">stable</span><span>(number:--contrast-ratio)/srgb</span></div>
+  <div class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#d4d4d4] text-contrast-brand/lch"><span data-test="agree-stable-grey-brand-lch" class="text-(color:--jib-contrast-shade)">stable</span><span>brand/lch</span></div>
+  <div class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#d4d4d4] [--jib-contrast-ratio-aaa:5] text-contrast-aaa/oklch"><span data-test="agree-stable-grey-aaa5-oklch" class="text-(color:--jib-contrast-shade)">stable</span><span>aaa=5/oklch</span></div>
+</div>
+
+### #164e63, beyond the named levels
+
+<div class="grid grid-cols-5 gap-2 my-2">
+  <div data-test="agree-util-teal-r2-oklch" class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#164e63] text-contrast-[2]/oklch"><span>util</span><span>[2]/oklch</span></div>
+  <div data-test="agree-util-teal-third-hsl" class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#164e63] text-contrast-[calc(1/3)]/hsl"><span>util</span><span>[calc(1/3)]/hsl</span></div>
+  <div data-test="agree-util-teal-var-srgb" class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#164e63] [--contrast-ratio:2] text-contrast-(number:--contrast-ratio)/srgb"><span>util</span><span>(number:--contrast-ratio)/srgb</span></div>
+  <div data-test="agree-util-teal-brand-lch" class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#164e63] text-contrast-brand/lch"><span>util</span><span>brand/lch</span></div>
+  <div data-test="agree-util-teal-aaa5-oklch" class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#164e63] [--jib-contrast-ratio-aaa:5] text-contrast-aaa/oklch"><span>util</span><span>aaa=5/oklch</span></div>
+</div>
+<div class="grid grid-cols-5 gap-2 my-2">
+  <div data-test="agree-fn-teal-r2-oklch" class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#164e63] text-[--jib-auto-contrast(#164e63,2,oklch)]"><span>fn</span><span>[2]/oklch</span></div>
+  <div data-test="agree-fn-teal-third-hsl" class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#164e63] text-[color:--jib-auto-contrast(#164e63,calc(1/3),hsl)]"><span>fn</span><span>[calc(1/3)]/hsl</span></div>
+  <div data-test="agree-fn-teal-var-srgb" class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#164e63] [--contrast-ratio:2] text-[--jib-auto-contrast(#164e63,var(--contrast-ratio),srgb)]"><span>fn</span><span>(number:--contrast-ratio)/srgb</span></div>
+  <div data-test="agree-fn-teal-brand-lch" class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#164e63] text-[--jib-auto-contrast(#164e63,var(--jib-contrast-ratio-brand),lch)]"><span>fn</span><span>brand/lch</span></div>
+  <div data-test="agree-fn-teal-aaa5-oklch" class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#164e63] [--jib-contrast-ratio-aaa:5] text-[--jib-auto-contrast(#164e63,aaa,oklch)]"><span>fn</span><span>aaa=5/oklch</span></div>
+</div>
+<div class="grid grid-cols-5 gap-2 my-2">
+  <div class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#164e63] text-contrast-[2]/oklch"><span data-test="agree-stable-teal-r2-oklch" class="text-(color:--jib-contrast-shade)">stable</span><span>[2]/oklch</span></div>
+  <div class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#164e63] text-contrast-[calc(1/3)]/hsl"><span data-test="agree-stable-teal-third-hsl" class="text-(color:--jib-contrast-shade)">stable</span><span>[calc(1/3)]/hsl</span></div>
+  <div class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#164e63] [--contrast-ratio:2] text-contrast-(number:--contrast-ratio)/srgb"><span data-test="agree-stable-teal-var-srgb" class="text-(color:--jib-contrast-shade)">stable</span><span>(number:--contrast-ratio)/srgb</span></div>
+  <div class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#164e63] text-contrast-brand/lch"><span data-test="agree-stable-teal-brand-lch" class="text-(color:--jib-contrast-shade)">stable</span><span>brand/lch</span></div>
+  <div class="h-16 rounded flex flex-col items-center justify-center text-[10px] font-mono font-bold bg-[#164e63] [--jib-contrast-ratio-aaa:5] text-contrast-aaa/oklch"><span data-test="agree-stable-teal-aaa5-oklch" class="text-(color:--jib-contrast-shade)">stable</span><span>aaa=5/oklch</span></div>
+</div>

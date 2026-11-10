@@ -2,7 +2,7 @@
 title: Automatic contrast
 ---
 
-<!-- llm-context: --jib-auto-contrast(<color>, <level>, <space>) is the CSS @function form of the stable text-contrast-* utilities. It returns a <color> whose WCAG 2.x contrast ratio against the color you pass equals the requested level exactly, solved in closed form rather than searched. Because it returns a value it reaches properties text-contrast-* cannot: border-color, an SVG stroke, an outline, a box-shadow, a gradient stop. Levels are aa (4.5:1), aaa (7:1) and aa-lg (3:1). The space argument is optional and defaults to oklch; oklch, oklab, lch, lab, hsl and hwb are recognised and anything else uses the shared core path. A level is only reachable if the base color can carry it; where it cannot, the solve clamps to white or black and returns the maximum available instead. Importing the functions entry also re-implements text-contrast-* on top of this function wherever CSS @function is supported. Chromium only. -->
+<!-- llm-context: --jib-auto-contrast(<color>, <level>, <space>) is the CSS @function form of the stable text-contrast-* utilities. It returns a <color> whose WCAG 2.x contrast ratio against the color you pass equals the requested level exactly, solved in closed form rather than searched. Because it returns a value it reaches properties text-contrast-* cannot: border-color, an SVG stroke, an outline, a box-shadow, a gradient stop. Levels are aa (4.5:1), aaa (7:1) and aa-lg (3:1), read from the --jib-contrast-ratio-* theme so overrides apply; a number (calc(1 / 3), var(--x)) is used as the ratio directly; any other identifier gives 4.5, so pass a custom theme level as var(--jib-contrast-ratio-name). The space argument is optional and defaults to oklch; oklch, oklab, lch, lab, hsl and hwb are recognised and anything else uses the shared core path. A level is only reachable if the base color can carry it; where it cannot, the solve clamps to white or black and returns the maximum available instead. Importing the functions entry also re-implements text-contrast-* (built-in and theme levels, bracket values, number:-typed variables; not text-contrast-max) on top of this function wherever CSS @function is supported. Chromium only. -->
 
 # Automatic contrast
 
@@ -24,8 +24,9 @@ The class form is stable and works in every engine, verified exact against all 2
 | `--jib-auto-contrast(<color>, aaa)`              | a shade at exactly WCAG AAA, 7:1                      |
 | `--jib-auto-contrast(<color>, aa-lg)`            | a shade at exactly WCAG AA Large, 3:1                 |
 | `--jib-auto-contrast(<color>, <level>, <space>)` | the same, with chroma shaped by the named space       |
+| `--jib-auto-contrast(<color>, <number>)`         | a shade at exactly that ratio                         |
 
-The level is a bare identifier, not a string. `aaa` maps to 7, `aa-lg` to 3, and anything else to 4.5. The space is optional and defaults to `oklch`.
+The level is a bare identifier or a number. `aa`, `aaa` and `aa-lg` read their ratio from the `--jib-contrast-ratio-*` theme, so overriding one there changes the function too. A number is the ratio itself, `calc(1 / 3)` and `var(--ratio)` included. Any other identifier gives 4.5, so a custom theme level goes in as `var(--jib-contrast-ratio-brand)` rather than by name. The space is optional and defaults to `oklch`.
 
 ## What the utility cannot reach
 
@@ -156,7 +157,7 @@ The space argument shapes the chroma of the returned shade. It does not affect c
 
 ## The override
 
-This module re-implements `text-contrast-*` on top of this function wherever `@function` is supported, keeping the class name and its output. See [the overrides](/guide/installation#the-function-overrides).
+This module re-implements `text-contrast-*` on top of this function wherever `@function` is supported, keeping the class name and its output. Built-in levels, theme levels, bracket values and `number:` variables all take this path with the same ratio. `text-contrast-max` is a single `contrast-color()` call and has no override. See [the overrides](/guide/installation#the-function-overrides).
 
 ## Import
 

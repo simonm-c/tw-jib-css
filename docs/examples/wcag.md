@@ -5,7 +5,7 @@ layout: page
 
 # Automatic contrast test fixtures
 
-Every TW default color at every shade, exercised against all three WCAG levels (AA, AAA, AA Large) plus threshold edge cases and oklch stress fixtures. Targeted by the Playwright integration suite.
+Every TW default color at every shade, exercised against all three WCAG levels (AA, AAA, AA Large), maximum contrast, an inverse level and arbitrary ratios, plus threshold edge cases and oklch stress fixtures. Targeted by the Playwright integration suite.
 
 ## All colors, AA
 
@@ -1067,6 +1067,1238 @@ Every TW default color at every shade, exercised against all three WCAG levels (
   <div data-test="aalg-stone-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-800 text-contrast-aa-lg">800</div>
   <div data-test="aalg-stone-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-900 text-contrast-aa-lg">900</div>
   <div data-test="aalg-stone-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-950 text-contrast-aa-lg">950</div>
+</div>
+
+## All colors, Max
+
+### Red
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="max-red-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-50 text-contrast-max">50</div>
+  <div data-test="max-red-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-100 text-contrast-max">100</div>
+  <div data-test="max-red-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-200 text-contrast-max">200</div>
+  <div data-test="max-red-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-300 text-contrast-max">300</div>
+  <div data-test="max-red-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-400 text-contrast-max">400</div>
+  <div data-test="max-red-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-500 text-contrast-max">500</div>
+  <div data-test="max-red-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-600 text-contrast-max">600</div>
+  <div data-test="max-red-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-700 text-contrast-max">700</div>
+  <div data-test="max-red-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-800 text-contrast-max">800</div>
+  <div data-test="max-red-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-900 text-contrast-max">900</div>
+  <div data-test="max-red-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-950 text-contrast-max">950</div>
+</div>
+
+### Orange
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="max-orange-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-orange-50 text-contrast-max">50</div>
+  <div data-test="max-orange-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-orange-100 text-contrast-max">100</div>
+  <div data-test="max-orange-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-orange-200 text-contrast-max">200</div>
+  <div data-test="max-orange-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-orange-300 text-contrast-max">300</div>
+  <div data-test="max-orange-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-orange-400 text-contrast-max">400</div>
+  <div data-test="max-orange-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-orange-500 text-contrast-max">500</div>
+  <div data-test="max-orange-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-orange-600 text-contrast-max">600</div>
+  <div data-test="max-orange-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-orange-700 text-contrast-max">700</div>
+  <div data-test="max-orange-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-orange-800 text-contrast-max">800</div>
+  <div data-test="max-orange-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-orange-900 text-contrast-max">900</div>
+  <div data-test="max-orange-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-orange-950 text-contrast-max">950</div>
+</div>
+
+### Amber
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="max-amber-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-amber-50 text-contrast-max">50</div>
+  <div data-test="max-amber-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-amber-100 text-contrast-max">100</div>
+  <div data-test="max-amber-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-amber-200 text-contrast-max">200</div>
+  <div data-test="max-amber-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-amber-300 text-contrast-max">300</div>
+  <div data-test="max-amber-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-amber-400 text-contrast-max">400</div>
+  <div data-test="max-amber-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-amber-500 text-contrast-max">500</div>
+  <div data-test="max-amber-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-amber-600 text-contrast-max">600</div>
+  <div data-test="max-amber-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-amber-700 text-contrast-max">700</div>
+  <div data-test="max-amber-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-amber-800 text-contrast-max">800</div>
+  <div data-test="max-amber-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-amber-900 text-contrast-max">900</div>
+  <div data-test="max-amber-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-amber-950 text-contrast-max">950</div>
+</div>
+
+### Yellow
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="max-yellow-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-yellow-50 text-contrast-max">50</div>
+  <div data-test="max-yellow-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-yellow-100 text-contrast-max">100</div>
+  <div data-test="max-yellow-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-yellow-200 text-contrast-max">200</div>
+  <div data-test="max-yellow-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-yellow-300 text-contrast-max">300</div>
+  <div data-test="max-yellow-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-yellow-400 text-contrast-max">400</div>
+  <div data-test="max-yellow-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-yellow-500 text-contrast-max">500</div>
+  <div data-test="max-yellow-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-yellow-600 text-contrast-max">600</div>
+  <div data-test="max-yellow-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-yellow-700 text-contrast-max">700</div>
+  <div data-test="max-yellow-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-yellow-800 text-contrast-max">800</div>
+  <div data-test="max-yellow-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-yellow-900 text-contrast-max">900</div>
+  <div data-test="max-yellow-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-yellow-950 text-contrast-max">950</div>
+</div>
+
+### Lime
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="max-lime-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-lime-50 text-contrast-max">50</div>
+  <div data-test="max-lime-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-lime-100 text-contrast-max">100</div>
+  <div data-test="max-lime-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-lime-200 text-contrast-max">200</div>
+  <div data-test="max-lime-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-lime-300 text-contrast-max">300</div>
+  <div data-test="max-lime-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-lime-400 text-contrast-max">400</div>
+  <div data-test="max-lime-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-lime-500 text-contrast-max">500</div>
+  <div data-test="max-lime-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-lime-600 text-contrast-max">600</div>
+  <div data-test="max-lime-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-lime-700 text-contrast-max">700</div>
+  <div data-test="max-lime-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-lime-800 text-contrast-max">800</div>
+  <div data-test="max-lime-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-lime-900 text-contrast-max">900</div>
+  <div data-test="max-lime-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-lime-950 text-contrast-max">950</div>
+</div>
+
+### Green
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="max-green-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-green-50 text-contrast-max">50</div>
+  <div data-test="max-green-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-green-100 text-contrast-max">100</div>
+  <div data-test="max-green-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-green-200 text-contrast-max">200</div>
+  <div data-test="max-green-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-green-300 text-contrast-max">300</div>
+  <div data-test="max-green-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-green-400 text-contrast-max">400</div>
+  <div data-test="max-green-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-green-500 text-contrast-max">500</div>
+  <div data-test="max-green-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-green-600 text-contrast-max">600</div>
+  <div data-test="max-green-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-green-700 text-contrast-max">700</div>
+  <div data-test="max-green-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-green-800 text-contrast-max">800</div>
+  <div data-test="max-green-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-green-900 text-contrast-max">900</div>
+  <div data-test="max-green-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-green-950 text-contrast-max">950</div>
+</div>
+
+### Emerald
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="max-emerald-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-emerald-50 text-contrast-max">50</div>
+  <div data-test="max-emerald-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-emerald-100 text-contrast-max">100</div>
+  <div data-test="max-emerald-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-emerald-200 text-contrast-max">200</div>
+  <div data-test="max-emerald-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-emerald-300 text-contrast-max">300</div>
+  <div data-test="max-emerald-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-emerald-400 text-contrast-max">400</div>
+  <div data-test="max-emerald-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-emerald-500 text-contrast-max">500</div>
+  <div data-test="max-emerald-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-emerald-600 text-contrast-max">600</div>
+  <div data-test="max-emerald-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-emerald-700 text-contrast-max">700</div>
+  <div data-test="max-emerald-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-emerald-800 text-contrast-max">800</div>
+  <div data-test="max-emerald-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-emerald-900 text-contrast-max">900</div>
+  <div data-test="max-emerald-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-emerald-950 text-contrast-max">950</div>
+</div>
+
+### Teal
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="max-teal-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-teal-50 text-contrast-max">50</div>
+  <div data-test="max-teal-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-teal-100 text-contrast-max">100</div>
+  <div data-test="max-teal-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-teal-200 text-contrast-max">200</div>
+  <div data-test="max-teal-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-teal-300 text-contrast-max">300</div>
+  <div data-test="max-teal-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-teal-400 text-contrast-max">400</div>
+  <div data-test="max-teal-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-teal-500 text-contrast-max">500</div>
+  <div data-test="max-teal-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-teal-600 text-contrast-max">600</div>
+  <div data-test="max-teal-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-teal-700 text-contrast-max">700</div>
+  <div data-test="max-teal-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-teal-800 text-contrast-max">800</div>
+  <div data-test="max-teal-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-teal-900 text-contrast-max">900</div>
+  <div data-test="max-teal-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-teal-950 text-contrast-max">950</div>
+</div>
+
+### Cyan
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="max-cyan-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-cyan-50 text-contrast-max">50</div>
+  <div data-test="max-cyan-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-cyan-100 text-contrast-max">100</div>
+  <div data-test="max-cyan-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-cyan-200 text-contrast-max">200</div>
+  <div data-test="max-cyan-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-cyan-300 text-contrast-max">300</div>
+  <div data-test="max-cyan-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-cyan-400 text-contrast-max">400</div>
+  <div data-test="max-cyan-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-cyan-500 text-contrast-max">500</div>
+  <div data-test="max-cyan-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-cyan-600 text-contrast-max">600</div>
+  <div data-test="max-cyan-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-cyan-700 text-contrast-max">700</div>
+  <div data-test="max-cyan-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-cyan-800 text-contrast-max">800</div>
+  <div data-test="max-cyan-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-cyan-900 text-contrast-max">900</div>
+  <div data-test="max-cyan-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-cyan-950 text-contrast-max">950</div>
+</div>
+
+### Sky
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="max-sky-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-sky-50 text-contrast-max">50</div>
+  <div data-test="max-sky-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-sky-100 text-contrast-max">100</div>
+  <div data-test="max-sky-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-sky-200 text-contrast-max">200</div>
+  <div data-test="max-sky-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-sky-300 text-contrast-max">300</div>
+  <div data-test="max-sky-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-sky-400 text-contrast-max">400</div>
+  <div data-test="max-sky-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-sky-500 text-contrast-max">500</div>
+  <div data-test="max-sky-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-sky-600 text-contrast-max">600</div>
+  <div data-test="max-sky-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-sky-700 text-contrast-max">700</div>
+  <div data-test="max-sky-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-sky-800 text-contrast-max">800</div>
+  <div data-test="max-sky-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-sky-900 text-contrast-max">900</div>
+  <div data-test="max-sky-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-sky-950 text-contrast-max">950</div>
+</div>
+
+### Blue
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="max-blue-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-50 text-contrast-max">50</div>
+  <div data-test="max-blue-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-100 text-contrast-max">100</div>
+  <div data-test="max-blue-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-200 text-contrast-max">200</div>
+  <div data-test="max-blue-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-300 text-contrast-max">300</div>
+  <div data-test="max-blue-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-400 text-contrast-max">400</div>
+  <div data-test="max-blue-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-500 text-contrast-max">500</div>
+  <div data-test="max-blue-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-600 text-contrast-max">600</div>
+  <div data-test="max-blue-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-700 text-contrast-max">700</div>
+  <div data-test="max-blue-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-800 text-contrast-max">800</div>
+  <div data-test="max-blue-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-900 text-contrast-max">900</div>
+  <div data-test="max-blue-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-950 text-contrast-max">950</div>
+</div>
+
+### Indigo
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="max-indigo-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-indigo-50 text-contrast-max">50</div>
+  <div data-test="max-indigo-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-indigo-100 text-contrast-max">100</div>
+  <div data-test="max-indigo-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-indigo-200 text-contrast-max">200</div>
+  <div data-test="max-indigo-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-indigo-300 text-contrast-max">300</div>
+  <div data-test="max-indigo-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-indigo-400 text-contrast-max">400</div>
+  <div data-test="max-indigo-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-indigo-500 text-contrast-max">500</div>
+  <div data-test="max-indigo-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-indigo-600 text-contrast-max">600</div>
+  <div data-test="max-indigo-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-indigo-700 text-contrast-max">700</div>
+  <div data-test="max-indigo-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-indigo-800 text-contrast-max">800</div>
+  <div data-test="max-indigo-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-indigo-900 text-contrast-max">900</div>
+  <div data-test="max-indigo-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-indigo-950 text-contrast-max">950</div>
+</div>
+
+### Violet
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="max-violet-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-violet-50 text-contrast-max">50</div>
+  <div data-test="max-violet-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-violet-100 text-contrast-max">100</div>
+  <div data-test="max-violet-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-violet-200 text-contrast-max">200</div>
+  <div data-test="max-violet-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-violet-300 text-contrast-max">300</div>
+  <div data-test="max-violet-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-violet-400 text-contrast-max">400</div>
+  <div data-test="max-violet-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-violet-500 text-contrast-max">500</div>
+  <div data-test="max-violet-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-violet-600 text-contrast-max">600</div>
+  <div data-test="max-violet-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-violet-700 text-contrast-max">700</div>
+  <div data-test="max-violet-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-violet-800 text-contrast-max">800</div>
+  <div data-test="max-violet-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-violet-900 text-contrast-max">900</div>
+  <div data-test="max-violet-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-violet-950 text-contrast-max">950</div>
+</div>
+
+### Purple
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="max-purple-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-purple-50 text-contrast-max">50</div>
+  <div data-test="max-purple-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-purple-100 text-contrast-max">100</div>
+  <div data-test="max-purple-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-purple-200 text-contrast-max">200</div>
+  <div data-test="max-purple-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-purple-300 text-contrast-max">300</div>
+  <div data-test="max-purple-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-purple-400 text-contrast-max">400</div>
+  <div data-test="max-purple-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-purple-500 text-contrast-max">500</div>
+  <div data-test="max-purple-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-purple-600 text-contrast-max">600</div>
+  <div data-test="max-purple-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-purple-700 text-contrast-max">700</div>
+  <div data-test="max-purple-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-purple-800 text-contrast-max">800</div>
+  <div data-test="max-purple-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-purple-900 text-contrast-max">900</div>
+  <div data-test="max-purple-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-purple-950 text-contrast-max">950</div>
+</div>
+
+### Fuchsia
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="max-fuchsia-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-fuchsia-50 text-contrast-max">50</div>
+  <div data-test="max-fuchsia-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-fuchsia-100 text-contrast-max">100</div>
+  <div data-test="max-fuchsia-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-fuchsia-200 text-contrast-max">200</div>
+  <div data-test="max-fuchsia-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-fuchsia-300 text-contrast-max">300</div>
+  <div data-test="max-fuchsia-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-fuchsia-400 text-contrast-max">400</div>
+  <div data-test="max-fuchsia-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-fuchsia-500 text-contrast-max">500</div>
+  <div data-test="max-fuchsia-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-fuchsia-600 text-contrast-max">600</div>
+  <div data-test="max-fuchsia-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-fuchsia-700 text-contrast-max">700</div>
+  <div data-test="max-fuchsia-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-fuchsia-800 text-contrast-max">800</div>
+  <div data-test="max-fuchsia-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-fuchsia-900 text-contrast-max">900</div>
+  <div data-test="max-fuchsia-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-fuchsia-950 text-contrast-max">950</div>
+</div>
+
+### Pink
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="max-pink-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-50 text-contrast-max">50</div>
+  <div data-test="max-pink-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-100 text-contrast-max">100</div>
+  <div data-test="max-pink-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-200 text-contrast-max">200</div>
+  <div data-test="max-pink-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-300 text-contrast-max">300</div>
+  <div data-test="max-pink-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-400 text-contrast-max">400</div>
+  <div data-test="max-pink-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-500 text-contrast-max">500</div>
+  <div data-test="max-pink-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-600 text-contrast-max">600</div>
+  <div data-test="max-pink-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-700 text-contrast-max">700</div>
+  <div data-test="max-pink-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-800 text-contrast-max">800</div>
+  <div data-test="max-pink-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-900 text-contrast-max">900</div>
+  <div data-test="max-pink-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-950 text-contrast-max">950</div>
+</div>
+
+### Rose
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="max-rose-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-rose-50 text-contrast-max">50</div>
+  <div data-test="max-rose-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-rose-100 text-contrast-max">100</div>
+  <div data-test="max-rose-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-rose-200 text-contrast-max">200</div>
+  <div data-test="max-rose-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-rose-300 text-contrast-max">300</div>
+  <div data-test="max-rose-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-rose-400 text-contrast-max">400</div>
+  <div data-test="max-rose-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-rose-500 text-contrast-max">500</div>
+  <div data-test="max-rose-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-rose-600 text-contrast-max">600</div>
+  <div data-test="max-rose-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-rose-700 text-contrast-max">700</div>
+  <div data-test="max-rose-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-rose-800 text-contrast-max">800</div>
+  <div data-test="max-rose-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-rose-900 text-contrast-max">900</div>
+  <div data-test="max-rose-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-rose-950 text-contrast-max">950</div>
+</div>
+
+### Slate
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="max-slate-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-50 text-contrast-max">50</div>
+  <div data-test="max-slate-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-100 text-contrast-max">100</div>
+  <div data-test="max-slate-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-200 text-contrast-max">200</div>
+  <div data-test="max-slate-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-300 text-contrast-max">300</div>
+  <div data-test="max-slate-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-400 text-contrast-max">400</div>
+  <div data-test="max-slate-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-500 text-contrast-max">500</div>
+  <div data-test="max-slate-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-600 text-contrast-max">600</div>
+  <div data-test="max-slate-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-700 text-contrast-max">700</div>
+  <div data-test="max-slate-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-800 text-contrast-max">800</div>
+  <div data-test="max-slate-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-900 text-contrast-max">900</div>
+  <div data-test="max-slate-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-950 text-contrast-max">950</div>
+</div>
+
+### Gray
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="max-gray-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-gray-50 text-contrast-max">50</div>
+  <div data-test="max-gray-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-gray-100 text-contrast-max">100</div>
+  <div data-test="max-gray-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-gray-200 text-contrast-max">200</div>
+  <div data-test="max-gray-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-gray-300 text-contrast-max">300</div>
+  <div data-test="max-gray-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-gray-400 text-contrast-max">400</div>
+  <div data-test="max-gray-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-gray-500 text-contrast-max">500</div>
+  <div data-test="max-gray-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-gray-600 text-contrast-max">600</div>
+  <div data-test="max-gray-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-gray-700 text-contrast-max">700</div>
+  <div data-test="max-gray-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-gray-800 text-contrast-max">800</div>
+  <div data-test="max-gray-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-gray-900 text-contrast-max">900</div>
+  <div data-test="max-gray-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-gray-950 text-contrast-max">950</div>
+</div>
+
+### Zinc
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="max-zinc-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-zinc-50 text-contrast-max">50</div>
+  <div data-test="max-zinc-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-zinc-100 text-contrast-max">100</div>
+  <div data-test="max-zinc-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-zinc-200 text-contrast-max">200</div>
+  <div data-test="max-zinc-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-zinc-300 text-contrast-max">300</div>
+  <div data-test="max-zinc-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-zinc-400 text-contrast-max">400</div>
+  <div data-test="max-zinc-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-zinc-500 text-contrast-max">500</div>
+  <div data-test="max-zinc-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-zinc-600 text-contrast-max">600</div>
+  <div data-test="max-zinc-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-zinc-700 text-contrast-max">700</div>
+  <div data-test="max-zinc-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-zinc-800 text-contrast-max">800</div>
+  <div data-test="max-zinc-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-zinc-900 text-contrast-max">900</div>
+  <div data-test="max-zinc-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-zinc-950 text-contrast-max">950</div>
+</div>
+
+### Neutral
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="max-neutral-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-neutral-50 text-contrast-max">50</div>
+  <div data-test="max-neutral-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-neutral-100 text-contrast-max">100</div>
+  <div data-test="max-neutral-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-neutral-200 text-contrast-max">200</div>
+  <div data-test="max-neutral-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-neutral-300 text-contrast-max">300</div>
+  <div data-test="max-neutral-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-neutral-400 text-contrast-max">400</div>
+  <div data-test="max-neutral-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-neutral-500 text-contrast-max">500</div>
+  <div data-test="max-neutral-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-neutral-600 text-contrast-max">600</div>
+  <div data-test="max-neutral-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-neutral-700 text-contrast-max">700</div>
+  <div data-test="max-neutral-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-neutral-800 text-contrast-max">800</div>
+  <div data-test="max-neutral-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-neutral-900 text-contrast-max">900</div>
+  <div data-test="max-neutral-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-neutral-950 text-contrast-max">950</div>
+</div>
+
+### Stone
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="max-stone-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-50 text-contrast-max">50</div>
+  <div data-test="max-stone-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-100 text-contrast-max">100</div>
+  <div data-test="max-stone-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-200 text-contrast-max">200</div>
+  <div data-test="max-stone-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-300 text-contrast-max">300</div>
+  <div data-test="max-stone-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-400 text-contrast-max">400</div>
+  <div data-test="max-stone-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-500 text-contrast-max">500</div>
+  <div data-test="max-stone-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-600 text-contrast-max">600</div>
+  <div data-test="max-stone-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-700 text-contrast-max">700</div>
+  <div data-test="max-stone-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-800 text-contrast-max">800</div>
+  <div data-test="max-stone-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-900 text-contrast-max">900</div>
+  <div data-test="max-stone-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-950 text-contrast-max">950</div>
+</div>
+
+## All colors, inverse AA Large
+
+`text-contrast-inverse-aa-lg` is a docs-theme level of `calc(1 / 3)`: 3:1 in the opposite direction to `text-contrast-aa-lg`, or the reversed ceiling where 3:1 is out of reach that way.
+
+### Red
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="inv-aalg-red-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-50 text-contrast-inverse-aa-lg">50</div>
+  <div data-test="inv-aalg-red-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-100 text-contrast-inverse-aa-lg">100</div>
+  <div data-test="inv-aalg-red-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-200 text-contrast-inverse-aa-lg">200</div>
+  <div data-test="inv-aalg-red-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-300 text-contrast-inverse-aa-lg">300</div>
+  <div data-test="inv-aalg-red-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-400 text-contrast-inverse-aa-lg">400</div>
+  <div data-test="inv-aalg-red-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-500 text-contrast-inverse-aa-lg">500</div>
+  <div data-test="inv-aalg-red-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-600 text-contrast-inverse-aa-lg">600</div>
+  <div data-test="inv-aalg-red-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-700 text-contrast-inverse-aa-lg">700</div>
+  <div data-test="inv-aalg-red-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-800 text-contrast-inverse-aa-lg">800</div>
+  <div data-test="inv-aalg-red-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-900 text-contrast-inverse-aa-lg">900</div>
+  <div data-test="inv-aalg-red-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-950 text-contrast-inverse-aa-lg">950</div>
+</div>
+
+### Orange
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="inv-aalg-orange-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-orange-50 text-contrast-inverse-aa-lg">50</div>
+  <div data-test="inv-aalg-orange-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-orange-100 text-contrast-inverse-aa-lg">100</div>
+  <div data-test="inv-aalg-orange-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-orange-200 text-contrast-inverse-aa-lg">200</div>
+  <div data-test="inv-aalg-orange-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-orange-300 text-contrast-inverse-aa-lg">300</div>
+  <div data-test="inv-aalg-orange-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-orange-400 text-contrast-inverse-aa-lg">400</div>
+  <div data-test="inv-aalg-orange-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-orange-500 text-contrast-inverse-aa-lg">500</div>
+  <div data-test="inv-aalg-orange-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-orange-600 text-contrast-inverse-aa-lg">600</div>
+  <div data-test="inv-aalg-orange-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-orange-700 text-contrast-inverse-aa-lg">700</div>
+  <div data-test="inv-aalg-orange-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-orange-800 text-contrast-inverse-aa-lg">800</div>
+  <div data-test="inv-aalg-orange-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-orange-900 text-contrast-inverse-aa-lg">900</div>
+  <div data-test="inv-aalg-orange-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-orange-950 text-contrast-inverse-aa-lg">950</div>
+</div>
+
+### Amber
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="inv-aalg-amber-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-amber-50 text-contrast-inverse-aa-lg">50</div>
+  <div data-test="inv-aalg-amber-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-amber-100 text-contrast-inverse-aa-lg">100</div>
+  <div data-test="inv-aalg-amber-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-amber-200 text-contrast-inverse-aa-lg">200</div>
+  <div data-test="inv-aalg-amber-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-amber-300 text-contrast-inverse-aa-lg">300</div>
+  <div data-test="inv-aalg-amber-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-amber-400 text-contrast-inverse-aa-lg">400</div>
+  <div data-test="inv-aalg-amber-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-amber-500 text-contrast-inverse-aa-lg">500</div>
+  <div data-test="inv-aalg-amber-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-amber-600 text-contrast-inverse-aa-lg">600</div>
+  <div data-test="inv-aalg-amber-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-amber-700 text-contrast-inverse-aa-lg">700</div>
+  <div data-test="inv-aalg-amber-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-amber-800 text-contrast-inverse-aa-lg">800</div>
+  <div data-test="inv-aalg-amber-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-amber-900 text-contrast-inverse-aa-lg">900</div>
+  <div data-test="inv-aalg-amber-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-amber-950 text-contrast-inverse-aa-lg">950</div>
+</div>
+
+### Yellow
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="inv-aalg-yellow-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-yellow-50 text-contrast-inverse-aa-lg">50</div>
+  <div data-test="inv-aalg-yellow-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-yellow-100 text-contrast-inverse-aa-lg">100</div>
+  <div data-test="inv-aalg-yellow-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-yellow-200 text-contrast-inverse-aa-lg">200</div>
+  <div data-test="inv-aalg-yellow-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-yellow-300 text-contrast-inverse-aa-lg">300</div>
+  <div data-test="inv-aalg-yellow-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-yellow-400 text-contrast-inverse-aa-lg">400</div>
+  <div data-test="inv-aalg-yellow-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-yellow-500 text-contrast-inverse-aa-lg">500</div>
+  <div data-test="inv-aalg-yellow-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-yellow-600 text-contrast-inverse-aa-lg">600</div>
+  <div data-test="inv-aalg-yellow-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-yellow-700 text-contrast-inverse-aa-lg">700</div>
+  <div data-test="inv-aalg-yellow-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-yellow-800 text-contrast-inverse-aa-lg">800</div>
+  <div data-test="inv-aalg-yellow-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-yellow-900 text-contrast-inverse-aa-lg">900</div>
+  <div data-test="inv-aalg-yellow-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-yellow-950 text-contrast-inverse-aa-lg">950</div>
+</div>
+
+### Lime
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="inv-aalg-lime-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-lime-50 text-contrast-inverse-aa-lg">50</div>
+  <div data-test="inv-aalg-lime-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-lime-100 text-contrast-inverse-aa-lg">100</div>
+  <div data-test="inv-aalg-lime-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-lime-200 text-contrast-inverse-aa-lg">200</div>
+  <div data-test="inv-aalg-lime-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-lime-300 text-contrast-inverse-aa-lg">300</div>
+  <div data-test="inv-aalg-lime-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-lime-400 text-contrast-inverse-aa-lg">400</div>
+  <div data-test="inv-aalg-lime-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-lime-500 text-contrast-inverse-aa-lg">500</div>
+  <div data-test="inv-aalg-lime-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-lime-600 text-contrast-inverse-aa-lg">600</div>
+  <div data-test="inv-aalg-lime-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-lime-700 text-contrast-inverse-aa-lg">700</div>
+  <div data-test="inv-aalg-lime-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-lime-800 text-contrast-inverse-aa-lg">800</div>
+  <div data-test="inv-aalg-lime-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-lime-900 text-contrast-inverse-aa-lg">900</div>
+  <div data-test="inv-aalg-lime-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-lime-950 text-contrast-inverse-aa-lg">950</div>
+</div>
+
+### Green
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="inv-aalg-green-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-green-50 text-contrast-inverse-aa-lg">50</div>
+  <div data-test="inv-aalg-green-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-green-100 text-contrast-inverse-aa-lg">100</div>
+  <div data-test="inv-aalg-green-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-green-200 text-contrast-inverse-aa-lg">200</div>
+  <div data-test="inv-aalg-green-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-green-300 text-contrast-inverse-aa-lg">300</div>
+  <div data-test="inv-aalg-green-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-green-400 text-contrast-inverse-aa-lg">400</div>
+  <div data-test="inv-aalg-green-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-green-500 text-contrast-inverse-aa-lg">500</div>
+  <div data-test="inv-aalg-green-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-green-600 text-contrast-inverse-aa-lg">600</div>
+  <div data-test="inv-aalg-green-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-green-700 text-contrast-inverse-aa-lg">700</div>
+  <div data-test="inv-aalg-green-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-green-800 text-contrast-inverse-aa-lg">800</div>
+  <div data-test="inv-aalg-green-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-green-900 text-contrast-inverse-aa-lg">900</div>
+  <div data-test="inv-aalg-green-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-green-950 text-contrast-inverse-aa-lg">950</div>
+</div>
+
+### Emerald
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="inv-aalg-emerald-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-emerald-50 text-contrast-inverse-aa-lg">50</div>
+  <div data-test="inv-aalg-emerald-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-emerald-100 text-contrast-inverse-aa-lg">100</div>
+  <div data-test="inv-aalg-emerald-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-emerald-200 text-contrast-inverse-aa-lg">200</div>
+  <div data-test="inv-aalg-emerald-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-emerald-300 text-contrast-inverse-aa-lg">300</div>
+  <div data-test="inv-aalg-emerald-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-emerald-400 text-contrast-inverse-aa-lg">400</div>
+  <div data-test="inv-aalg-emerald-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-emerald-500 text-contrast-inverse-aa-lg">500</div>
+  <div data-test="inv-aalg-emerald-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-emerald-600 text-contrast-inverse-aa-lg">600</div>
+  <div data-test="inv-aalg-emerald-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-emerald-700 text-contrast-inverse-aa-lg">700</div>
+  <div data-test="inv-aalg-emerald-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-emerald-800 text-contrast-inverse-aa-lg">800</div>
+  <div data-test="inv-aalg-emerald-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-emerald-900 text-contrast-inverse-aa-lg">900</div>
+  <div data-test="inv-aalg-emerald-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-emerald-950 text-contrast-inverse-aa-lg">950</div>
+</div>
+
+### Teal
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="inv-aalg-teal-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-teal-50 text-contrast-inverse-aa-lg">50</div>
+  <div data-test="inv-aalg-teal-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-teal-100 text-contrast-inverse-aa-lg">100</div>
+  <div data-test="inv-aalg-teal-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-teal-200 text-contrast-inverse-aa-lg">200</div>
+  <div data-test="inv-aalg-teal-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-teal-300 text-contrast-inverse-aa-lg">300</div>
+  <div data-test="inv-aalg-teal-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-teal-400 text-contrast-inverse-aa-lg">400</div>
+  <div data-test="inv-aalg-teal-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-teal-500 text-contrast-inverse-aa-lg">500</div>
+  <div data-test="inv-aalg-teal-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-teal-600 text-contrast-inverse-aa-lg">600</div>
+  <div data-test="inv-aalg-teal-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-teal-700 text-contrast-inverse-aa-lg">700</div>
+  <div data-test="inv-aalg-teal-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-teal-800 text-contrast-inverse-aa-lg">800</div>
+  <div data-test="inv-aalg-teal-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-teal-900 text-contrast-inverse-aa-lg">900</div>
+  <div data-test="inv-aalg-teal-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-teal-950 text-contrast-inverse-aa-lg">950</div>
+</div>
+
+### Cyan
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="inv-aalg-cyan-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-cyan-50 text-contrast-inverse-aa-lg">50</div>
+  <div data-test="inv-aalg-cyan-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-cyan-100 text-contrast-inverse-aa-lg">100</div>
+  <div data-test="inv-aalg-cyan-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-cyan-200 text-contrast-inverse-aa-lg">200</div>
+  <div data-test="inv-aalg-cyan-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-cyan-300 text-contrast-inverse-aa-lg">300</div>
+  <div data-test="inv-aalg-cyan-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-cyan-400 text-contrast-inverse-aa-lg">400</div>
+  <div data-test="inv-aalg-cyan-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-cyan-500 text-contrast-inverse-aa-lg">500</div>
+  <div data-test="inv-aalg-cyan-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-cyan-600 text-contrast-inverse-aa-lg">600</div>
+  <div data-test="inv-aalg-cyan-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-cyan-700 text-contrast-inverse-aa-lg">700</div>
+  <div data-test="inv-aalg-cyan-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-cyan-800 text-contrast-inverse-aa-lg">800</div>
+  <div data-test="inv-aalg-cyan-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-cyan-900 text-contrast-inverse-aa-lg">900</div>
+  <div data-test="inv-aalg-cyan-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-cyan-950 text-contrast-inverse-aa-lg">950</div>
+</div>
+
+### Sky
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="inv-aalg-sky-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-sky-50 text-contrast-inverse-aa-lg">50</div>
+  <div data-test="inv-aalg-sky-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-sky-100 text-contrast-inverse-aa-lg">100</div>
+  <div data-test="inv-aalg-sky-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-sky-200 text-contrast-inverse-aa-lg">200</div>
+  <div data-test="inv-aalg-sky-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-sky-300 text-contrast-inverse-aa-lg">300</div>
+  <div data-test="inv-aalg-sky-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-sky-400 text-contrast-inverse-aa-lg">400</div>
+  <div data-test="inv-aalg-sky-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-sky-500 text-contrast-inverse-aa-lg">500</div>
+  <div data-test="inv-aalg-sky-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-sky-600 text-contrast-inverse-aa-lg">600</div>
+  <div data-test="inv-aalg-sky-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-sky-700 text-contrast-inverse-aa-lg">700</div>
+  <div data-test="inv-aalg-sky-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-sky-800 text-contrast-inverse-aa-lg">800</div>
+  <div data-test="inv-aalg-sky-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-sky-900 text-contrast-inverse-aa-lg">900</div>
+  <div data-test="inv-aalg-sky-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-sky-950 text-contrast-inverse-aa-lg">950</div>
+</div>
+
+### Blue
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="inv-aalg-blue-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-50 text-contrast-inverse-aa-lg">50</div>
+  <div data-test="inv-aalg-blue-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-100 text-contrast-inverse-aa-lg">100</div>
+  <div data-test="inv-aalg-blue-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-200 text-contrast-inverse-aa-lg">200</div>
+  <div data-test="inv-aalg-blue-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-300 text-contrast-inverse-aa-lg">300</div>
+  <div data-test="inv-aalg-blue-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-400 text-contrast-inverse-aa-lg">400</div>
+  <div data-test="inv-aalg-blue-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-500 text-contrast-inverse-aa-lg">500</div>
+  <div data-test="inv-aalg-blue-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-600 text-contrast-inverse-aa-lg">600</div>
+  <div data-test="inv-aalg-blue-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-700 text-contrast-inverse-aa-lg">700</div>
+  <div data-test="inv-aalg-blue-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-800 text-contrast-inverse-aa-lg">800</div>
+  <div data-test="inv-aalg-blue-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-900 text-contrast-inverse-aa-lg">900</div>
+  <div data-test="inv-aalg-blue-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-950 text-contrast-inverse-aa-lg">950</div>
+</div>
+
+### Indigo
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="inv-aalg-indigo-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-indigo-50 text-contrast-inverse-aa-lg">50</div>
+  <div data-test="inv-aalg-indigo-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-indigo-100 text-contrast-inverse-aa-lg">100</div>
+  <div data-test="inv-aalg-indigo-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-indigo-200 text-contrast-inverse-aa-lg">200</div>
+  <div data-test="inv-aalg-indigo-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-indigo-300 text-contrast-inverse-aa-lg">300</div>
+  <div data-test="inv-aalg-indigo-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-indigo-400 text-contrast-inverse-aa-lg">400</div>
+  <div data-test="inv-aalg-indigo-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-indigo-500 text-contrast-inverse-aa-lg">500</div>
+  <div data-test="inv-aalg-indigo-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-indigo-600 text-contrast-inverse-aa-lg">600</div>
+  <div data-test="inv-aalg-indigo-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-indigo-700 text-contrast-inverse-aa-lg">700</div>
+  <div data-test="inv-aalg-indigo-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-indigo-800 text-contrast-inverse-aa-lg">800</div>
+  <div data-test="inv-aalg-indigo-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-indigo-900 text-contrast-inverse-aa-lg">900</div>
+  <div data-test="inv-aalg-indigo-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-indigo-950 text-contrast-inverse-aa-lg">950</div>
+</div>
+
+### Violet
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="inv-aalg-violet-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-violet-50 text-contrast-inverse-aa-lg">50</div>
+  <div data-test="inv-aalg-violet-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-violet-100 text-contrast-inverse-aa-lg">100</div>
+  <div data-test="inv-aalg-violet-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-violet-200 text-contrast-inverse-aa-lg">200</div>
+  <div data-test="inv-aalg-violet-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-violet-300 text-contrast-inverse-aa-lg">300</div>
+  <div data-test="inv-aalg-violet-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-violet-400 text-contrast-inverse-aa-lg">400</div>
+  <div data-test="inv-aalg-violet-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-violet-500 text-contrast-inverse-aa-lg">500</div>
+  <div data-test="inv-aalg-violet-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-violet-600 text-contrast-inverse-aa-lg">600</div>
+  <div data-test="inv-aalg-violet-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-violet-700 text-contrast-inverse-aa-lg">700</div>
+  <div data-test="inv-aalg-violet-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-violet-800 text-contrast-inverse-aa-lg">800</div>
+  <div data-test="inv-aalg-violet-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-violet-900 text-contrast-inverse-aa-lg">900</div>
+  <div data-test="inv-aalg-violet-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-violet-950 text-contrast-inverse-aa-lg">950</div>
+</div>
+
+### Purple
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="inv-aalg-purple-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-purple-50 text-contrast-inverse-aa-lg">50</div>
+  <div data-test="inv-aalg-purple-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-purple-100 text-contrast-inverse-aa-lg">100</div>
+  <div data-test="inv-aalg-purple-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-purple-200 text-contrast-inverse-aa-lg">200</div>
+  <div data-test="inv-aalg-purple-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-purple-300 text-contrast-inverse-aa-lg">300</div>
+  <div data-test="inv-aalg-purple-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-purple-400 text-contrast-inverse-aa-lg">400</div>
+  <div data-test="inv-aalg-purple-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-purple-500 text-contrast-inverse-aa-lg">500</div>
+  <div data-test="inv-aalg-purple-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-purple-600 text-contrast-inverse-aa-lg">600</div>
+  <div data-test="inv-aalg-purple-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-purple-700 text-contrast-inverse-aa-lg">700</div>
+  <div data-test="inv-aalg-purple-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-purple-800 text-contrast-inverse-aa-lg">800</div>
+  <div data-test="inv-aalg-purple-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-purple-900 text-contrast-inverse-aa-lg">900</div>
+  <div data-test="inv-aalg-purple-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-purple-950 text-contrast-inverse-aa-lg">950</div>
+</div>
+
+### Fuchsia
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="inv-aalg-fuchsia-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-fuchsia-50 text-contrast-inverse-aa-lg">50</div>
+  <div data-test="inv-aalg-fuchsia-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-fuchsia-100 text-contrast-inverse-aa-lg">100</div>
+  <div data-test="inv-aalg-fuchsia-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-fuchsia-200 text-contrast-inverse-aa-lg">200</div>
+  <div data-test="inv-aalg-fuchsia-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-fuchsia-300 text-contrast-inverse-aa-lg">300</div>
+  <div data-test="inv-aalg-fuchsia-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-fuchsia-400 text-contrast-inverse-aa-lg">400</div>
+  <div data-test="inv-aalg-fuchsia-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-fuchsia-500 text-contrast-inverse-aa-lg">500</div>
+  <div data-test="inv-aalg-fuchsia-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-fuchsia-600 text-contrast-inverse-aa-lg">600</div>
+  <div data-test="inv-aalg-fuchsia-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-fuchsia-700 text-contrast-inverse-aa-lg">700</div>
+  <div data-test="inv-aalg-fuchsia-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-fuchsia-800 text-contrast-inverse-aa-lg">800</div>
+  <div data-test="inv-aalg-fuchsia-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-fuchsia-900 text-contrast-inverse-aa-lg">900</div>
+  <div data-test="inv-aalg-fuchsia-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-fuchsia-950 text-contrast-inverse-aa-lg">950</div>
+</div>
+
+### Pink
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="inv-aalg-pink-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-50 text-contrast-inverse-aa-lg">50</div>
+  <div data-test="inv-aalg-pink-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-100 text-contrast-inverse-aa-lg">100</div>
+  <div data-test="inv-aalg-pink-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-200 text-contrast-inverse-aa-lg">200</div>
+  <div data-test="inv-aalg-pink-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-300 text-contrast-inverse-aa-lg">300</div>
+  <div data-test="inv-aalg-pink-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-400 text-contrast-inverse-aa-lg">400</div>
+  <div data-test="inv-aalg-pink-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-500 text-contrast-inverse-aa-lg">500</div>
+  <div data-test="inv-aalg-pink-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-600 text-contrast-inverse-aa-lg">600</div>
+  <div data-test="inv-aalg-pink-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-700 text-contrast-inverse-aa-lg">700</div>
+  <div data-test="inv-aalg-pink-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-800 text-contrast-inverse-aa-lg">800</div>
+  <div data-test="inv-aalg-pink-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-900 text-contrast-inverse-aa-lg">900</div>
+  <div data-test="inv-aalg-pink-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-950 text-contrast-inverse-aa-lg">950</div>
+</div>
+
+### Rose
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="inv-aalg-rose-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-rose-50 text-contrast-inverse-aa-lg">50</div>
+  <div data-test="inv-aalg-rose-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-rose-100 text-contrast-inverse-aa-lg">100</div>
+  <div data-test="inv-aalg-rose-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-rose-200 text-contrast-inverse-aa-lg">200</div>
+  <div data-test="inv-aalg-rose-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-rose-300 text-contrast-inverse-aa-lg">300</div>
+  <div data-test="inv-aalg-rose-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-rose-400 text-contrast-inverse-aa-lg">400</div>
+  <div data-test="inv-aalg-rose-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-rose-500 text-contrast-inverse-aa-lg">500</div>
+  <div data-test="inv-aalg-rose-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-rose-600 text-contrast-inverse-aa-lg">600</div>
+  <div data-test="inv-aalg-rose-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-rose-700 text-contrast-inverse-aa-lg">700</div>
+  <div data-test="inv-aalg-rose-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-rose-800 text-contrast-inverse-aa-lg">800</div>
+  <div data-test="inv-aalg-rose-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-rose-900 text-contrast-inverse-aa-lg">900</div>
+  <div data-test="inv-aalg-rose-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-rose-950 text-contrast-inverse-aa-lg">950</div>
+</div>
+
+### Slate
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="inv-aalg-slate-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-50 text-contrast-inverse-aa-lg">50</div>
+  <div data-test="inv-aalg-slate-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-100 text-contrast-inverse-aa-lg">100</div>
+  <div data-test="inv-aalg-slate-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-200 text-contrast-inverse-aa-lg">200</div>
+  <div data-test="inv-aalg-slate-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-300 text-contrast-inverse-aa-lg">300</div>
+  <div data-test="inv-aalg-slate-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-400 text-contrast-inverse-aa-lg">400</div>
+  <div data-test="inv-aalg-slate-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-500 text-contrast-inverse-aa-lg">500</div>
+  <div data-test="inv-aalg-slate-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-600 text-contrast-inverse-aa-lg">600</div>
+  <div data-test="inv-aalg-slate-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-700 text-contrast-inverse-aa-lg">700</div>
+  <div data-test="inv-aalg-slate-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-800 text-contrast-inverse-aa-lg">800</div>
+  <div data-test="inv-aalg-slate-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-900 text-contrast-inverse-aa-lg">900</div>
+  <div data-test="inv-aalg-slate-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-950 text-contrast-inverse-aa-lg">950</div>
+</div>
+
+### Gray
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="inv-aalg-gray-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-gray-50 text-contrast-inverse-aa-lg">50</div>
+  <div data-test="inv-aalg-gray-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-gray-100 text-contrast-inverse-aa-lg">100</div>
+  <div data-test="inv-aalg-gray-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-gray-200 text-contrast-inverse-aa-lg">200</div>
+  <div data-test="inv-aalg-gray-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-gray-300 text-contrast-inverse-aa-lg">300</div>
+  <div data-test="inv-aalg-gray-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-gray-400 text-contrast-inverse-aa-lg">400</div>
+  <div data-test="inv-aalg-gray-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-gray-500 text-contrast-inverse-aa-lg">500</div>
+  <div data-test="inv-aalg-gray-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-gray-600 text-contrast-inverse-aa-lg">600</div>
+  <div data-test="inv-aalg-gray-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-gray-700 text-contrast-inverse-aa-lg">700</div>
+  <div data-test="inv-aalg-gray-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-gray-800 text-contrast-inverse-aa-lg">800</div>
+  <div data-test="inv-aalg-gray-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-gray-900 text-contrast-inverse-aa-lg">900</div>
+  <div data-test="inv-aalg-gray-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-gray-950 text-contrast-inverse-aa-lg">950</div>
+</div>
+
+### Zinc
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="inv-aalg-zinc-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-zinc-50 text-contrast-inverse-aa-lg">50</div>
+  <div data-test="inv-aalg-zinc-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-zinc-100 text-contrast-inverse-aa-lg">100</div>
+  <div data-test="inv-aalg-zinc-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-zinc-200 text-contrast-inverse-aa-lg">200</div>
+  <div data-test="inv-aalg-zinc-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-zinc-300 text-contrast-inverse-aa-lg">300</div>
+  <div data-test="inv-aalg-zinc-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-zinc-400 text-contrast-inverse-aa-lg">400</div>
+  <div data-test="inv-aalg-zinc-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-zinc-500 text-contrast-inverse-aa-lg">500</div>
+  <div data-test="inv-aalg-zinc-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-zinc-600 text-contrast-inverse-aa-lg">600</div>
+  <div data-test="inv-aalg-zinc-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-zinc-700 text-contrast-inverse-aa-lg">700</div>
+  <div data-test="inv-aalg-zinc-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-zinc-800 text-contrast-inverse-aa-lg">800</div>
+  <div data-test="inv-aalg-zinc-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-zinc-900 text-contrast-inverse-aa-lg">900</div>
+  <div data-test="inv-aalg-zinc-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-zinc-950 text-contrast-inverse-aa-lg">950</div>
+</div>
+
+### Neutral
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="inv-aalg-neutral-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-neutral-50 text-contrast-inverse-aa-lg">50</div>
+  <div data-test="inv-aalg-neutral-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-neutral-100 text-contrast-inverse-aa-lg">100</div>
+  <div data-test="inv-aalg-neutral-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-neutral-200 text-contrast-inverse-aa-lg">200</div>
+  <div data-test="inv-aalg-neutral-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-neutral-300 text-contrast-inverse-aa-lg">300</div>
+  <div data-test="inv-aalg-neutral-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-neutral-400 text-contrast-inverse-aa-lg">400</div>
+  <div data-test="inv-aalg-neutral-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-neutral-500 text-contrast-inverse-aa-lg">500</div>
+  <div data-test="inv-aalg-neutral-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-neutral-600 text-contrast-inverse-aa-lg">600</div>
+  <div data-test="inv-aalg-neutral-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-neutral-700 text-contrast-inverse-aa-lg">700</div>
+  <div data-test="inv-aalg-neutral-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-neutral-800 text-contrast-inverse-aa-lg">800</div>
+  <div data-test="inv-aalg-neutral-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-neutral-900 text-contrast-inverse-aa-lg">900</div>
+  <div data-test="inv-aalg-neutral-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-neutral-950 text-contrast-inverse-aa-lg">950</div>
+</div>
+
+### Stone
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="inv-aalg-stone-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-50 text-contrast-inverse-aa-lg">50</div>
+  <div data-test="inv-aalg-stone-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-100 text-contrast-inverse-aa-lg">100</div>
+  <div data-test="inv-aalg-stone-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-200 text-contrast-inverse-aa-lg">200</div>
+  <div data-test="inv-aalg-stone-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-300 text-contrast-inverse-aa-lg">300</div>
+  <div data-test="inv-aalg-stone-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-400 text-contrast-inverse-aa-lg">400</div>
+  <div data-test="inv-aalg-stone-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-500 text-contrast-inverse-aa-lg">500</div>
+  <div data-test="inv-aalg-stone-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-600 text-contrast-inverse-aa-lg">600</div>
+  <div data-test="inv-aalg-stone-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-700 text-contrast-inverse-aa-lg">700</div>
+  <div data-test="inv-aalg-stone-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-800 text-contrast-inverse-aa-lg">800</div>
+  <div data-test="inv-aalg-stone-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-900 text-contrast-inverse-aa-lg">900</div>
+  <div data-test="inv-aalg-stone-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-950 text-contrast-inverse-aa-lg">950</div>
+</div>
+
+## Decimal and calc() spellings
+
+`text-contrast-half` is a docs-theme level of `0.5`, `text-contrast-half-calc` the same ratio written `calc(1 / 2)`.
+
+### Blue, half
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="half-blue-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-50 text-contrast-half">50</div>
+  <div data-test="half-blue-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-100 text-contrast-half">100</div>
+  <div data-test="half-blue-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-200 text-contrast-half">200</div>
+  <div data-test="half-blue-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-300 text-contrast-half">300</div>
+  <div data-test="half-blue-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-400 text-contrast-half">400</div>
+  <div data-test="half-blue-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-500 text-contrast-half">500</div>
+  <div data-test="half-blue-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-600 text-contrast-half">600</div>
+  <div data-test="half-blue-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-700 text-contrast-half">700</div>
+  <div data-test="half-blue-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-800 text-contrast-half">800</div>
+  <div data-test="half-blue-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-900 text-contrast-half">900</div>
+  <div data-test="half-blue-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-950 text-contrast-half">950</div>
+</div>
+
+### Blue, half-calc
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="half-calc-blue-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-50 text-contrast-half-calc">50</div>
+  <div data-test="half-calc-blue-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-100 text-contrast-half-calc">100</div>
+  <div data-test="half-calc-blue-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-200 text-contrast-half-calc">200</div>
+  <div data-test="half-calc-blue-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-300 text-contrast-half-calc">300</div>
+  <div data-test="half-calc-blue-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-400 text-contrast-half-calc">400</div>
+  <div data-test="half-calc-blue-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-500 text-contrast-half-calc">500</div>
+  <div data-test="half-calc-blue-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-600 text-contrast-half-calc">600</div>
+  <div data-test="half-calc-blue-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-700 text-contrast-half-calc">700</div>
+  <div data-test="half-calc-blue-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-800 text-contrast-half-calc">800</div>
+  <div data-test="half-calc-blue-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-900 text-contrast-half-calc">900</div>
+  <div data-test="half-calc-blue-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-950 text-contrast-half-calc">950</div>
+</div>
+
+### Slate, half
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="half-slate-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-50 text-contrast-half">50</div>
+  <div data-test="half-slate-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-100 text-contrast-half">100</div>
+  <div data-test="half-slate-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-200 text-contrast-half">200</div>
+  <div data-test="half-slate-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-300 text-contrast-half">300</div>
+  <div data-test="half-slate-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-400 text-contrast-half">400</div>
+  <div data-test="half-slate-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-500 text-contrast-half">500</div>
+  <div data-test="half-slate-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-600 text-contrast-half">600</div>
+  <div data-test="half-slate-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-700 text-contrast-half">700</div>
+  <div data-test="half-slate-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-800 text-contrast-half">800</div>
+  <div data-test="half-slate-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-900 text-contrast-half">900</div>
+  <div data-test="half-slate-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-950 text-contrast-half">950</div>
+</div>
+
+### Slate, half-calc
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="half-calc-slate-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-50 text-contrast-half-calc">50</div>
+  <div data-test="half-calc-slate-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-100 text-contrast-half-calc">100</div>
+  <div data-test="half-calc-slate-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-200 text-contrast-half-calc">200</div>
+  <div data-test="half-calc-slate-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-300 text-contrast-half-calc">300</div>
+  <div data-test="half-calc-slate-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-400 text-contrast-half-calc">400</div>
+  <div data-test="half-calc-slate-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-500 text-contrast-half-calc">500</div>
+  <div data-test="half-calc-slate-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-600 text-contrast-half-calc">600</div>
+  <div data-test="half-calc-slate-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-700 text-contrast-half-calc">700</div>
+  <div data-test="half-calc-slate-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-800 text-contrast-half-calc">800</div>
+  <div data-test="half-calc-slate-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-900 text-contrast-half-calc">900</div>
+  <div data-test="half-calc-slate-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-950 text-contrast-half-calc">950</div>
+</div>
+
+## All colors, arbitrary 2:1
+
+### Red
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="arb2-red-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-50 text-contrast-[2]">50</div>
+  <div data-test="arb2-red-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-100 text-contrast-[2]">100</div>
+  <div data-test="arb2-red-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-200 text-contrast-[2]">200</div>
+  <div data-test="arb2-red-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-300 text-contrast-[2]">300</div>
+  <div data-test="arb2-red-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-400 text-contrast-[2]">400</div>
+  <div data-test="arb2-red-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-500 text-contrast-[2]">500</div>
+  <div data-test="arb2-red-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-600 text-contrast-[2]">600</div>
+  <div data-test="arb2-red-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-700 text-contrast-[2]">700</div>
+  <div data-test="arb2-red-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-800 text-contrast-[2]">800</div>
+  <div data-test="arb2-red-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-900 text-contrast-[2]">900</div>
+  <div data-test="arb2-red-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-950 text-contrast-[2]">950</div>
+</div>
+
+### Orange
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="arb2-orange-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-orange-50 text-contrast-[2]">50</div>
+  <div data-test="arb2-orange-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-orange-100 text-contrast-[2]">100</div>
+  <div data-test="arb2-orange-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-orange-200 text-contrast-[2]">200</div>
+  <div data-test="arb2-orange-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-orange-300 text-contrast-[2]">300</div>
+  <div data-test="arb2-orange-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-orange-400 text-contrast-[2]">400</div>
+  <div data-test="arb2-orange-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-orange-500 text-contrast-[2]">500</div>
+  <div data-test="arb2-orange-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-orange-600 text-contrast-[2]">600</div>
+  <div data-test="arb2-orange-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-orange-700 text-contrast-[2]">700</div>
+  <div data-test="arb2-orange-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-orange-800 text-contrast-[2]">800</div>
+  <div data-test="arb2-orange-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-orange-900 text-contrast-[2]">900</div>
+  <div data-test="arb2-orange-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-orange-950 text-contrast-[2]">950</div>
+</div>
+
+### Amber
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="arb2-amber-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-amber-50 text-contrast-[2]">50</div>
+  <div data-test="arb2-amber-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-amber-100 text-contrast-[2]">100</div>
+  <div data-test="arb2-amber-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-amber-200 text-contrast-[2]">200</div>
+  <div data-test="arb2-amber-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-amber-300 text-contrast-[2]">300</div>
+  <div data-test="arb2-amber-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-amber-400 text-contrast-[2]">400</div>
+  <div data-test="arb2-amber-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-amber-500 text-contrast-[2]">500</div>
+  <div data-test="arb2-amber-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-amber-600 text-contrast-[2]">600</div>
+  <div data-test="arb2-amber-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-amber-700 text-contrast-[2]">700</div>
+  <div data-test="arb2-amber-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-amber-800 text-contrast-[2]">800</div>
+  <div data-test="arb2-amber-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-amber-900 text-contrast-[2]">900</div>
+  <div data-test="arb2-amber-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-amber-950 text-contrast-[2]">950</div>
+</div>
+
+### Yellow
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="arb2-yellow-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-yellow-50 text-contrast-[2]">50</div>
+  <div data-test="arb2-yellow-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-yellow-100 text-contrast-[2]">100</div>
+  <div data-test="arb2-yellow-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-yellow-200 text-contrast-[2]">200</div>
+  <div data-test="arb2-yellow-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-yellow-300 text-contrast-[2]">300</div>
+  <div data-test="arb2-yellow-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-yellow-400 text-contrast-[2]">400</div>
+  <div data-test="arb2-yellow-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-yellow-500 text-contrast-[2]">500</div>
+  <div data-test="arb2-yellow-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-yellow-600 text-contrast-[2]">600</div>
+  <div data-test="arb2-yellow-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-yellow-700 text-contrast-[2]">700</div>
+  <div data-test="arb2-yellow-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-yellow-800 text-contrast-[2]">800</div>
+  <div data-test="arb2-yellow-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-yellow-900 text-contrast-[2]">900</div>
+  <div data-test="arb2-yellow-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-yellow-950 text-contrast-[2]">950</div>
+</div>
+
+### Lime
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="arb2-lime-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-lime-50 text-contrast-[2]">50</div>
+  <div data-test="arb2-lime-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-lime-100 text-contrast-[2]">100</div>
+  <div data-test="arb2-lime-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-lime-200 text-contrast-[2]">200</div>
+  <div data-test="arb2-lime-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-lime-300 text-contrast-[2]">300</div>
+  <div data-test="arb2-lime-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-lime-400 text-contrast-[2]">400</div>
+  <div data-test="arb2-lime-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-lime-500 text-contrast-[2]">500</div>
+  <div data-test="arb2-lime-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-lime-600 text-contrast-[2]">600</div>
+  <div data-test="arb2-lime-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-lime-700 text-contrast-[2]">700</div>
+  <div data-test="arb2-lime-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-lime-800 text-contrast-[2]">800</div>
+  <div data-test="arb2-lime-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-lime-900 text-contrast-[2]">900</div>
+  <div data-test="arb2-lime-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-lime-950 text-contrast-[2]">950</div>
+</div>
+
+### Green
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="arb2-green-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-green-50 text-contrast-[2]">50</div>
+  <div data-test="arb2-green-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-green-100 text-contrast-[2]">100</div>
+  <div data-test="arb2-green-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-green-200 text-contrast-[2]">200</div>
+  <div data-test="arb2-green-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-green-300 text-contrast-[2]">300</div>
+  <div data-test="arb2-green-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-green-400 text-contrast-[2]">400</div>
+  <div data-test="arb2-green-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-green-500 text-contrast-[2]">500</div>
+  <div data-test="arb2-green-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-green-600 text-contrast-[2]">600</div>
+  <div data-test="arb2-green-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-green-700 text-contrast-[2]">700</div>
+  <div data-test="arb2-green-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-green-800 text-contrast-[2]">800</div>
+  <div data-test="arb2-green-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-green-900 text-contrast-[2]">900</div>
+  <div data-test="arb2-green-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-green-950 text-contrast-[2]">950</div>
+</div>
+
+### Emerald
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="arb2-emerald-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-emerald-50 text-contrast-[2]">50</div>
+  <div data-test="arb2-emerald-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-emerald-100 text-contrast-[2]">100</div>
+  <div data-test="arb2-emerald-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-emerald-200 text-contrast-[2]">200</div>
+  <div data-test="arb2-emerald-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-emerald-300 text-contrast-[2]">300</div>
+  <div data-test="arb2-emerald-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-emerald-400 text-contrast-[2]">400</div>
+  <div data-test="arb2-emerald-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-emerald-500 text-contrast-[2]">500</div>
+  <div data-test="arb2-emerald-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-emerald-600 text-contrast-[2]">600</div>
+  <div data-test="arb2-emerald-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-emerald-700 text-contrast-[2]">700</div>
+  <div data-test="arb2-emerald-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-emerald-800 text-contrast-[2]">800</div>
+  <div data-test="arb2-emerald-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-emerald-900 text-contrast-[2]">900</div>
+  <div data-test="arb2-emerald-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-emerald-950 text-contrast-[2]">950</div>
+</div>
+
+### Teal
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="arb2-teal-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-teal-50 text-contrast-[2]">50</div>
+  <div data-test="arb2-teal-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-teal-100 text-contrast-[2]">100</div>
+  <div data-test="arb2-teal-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-teal-200 text-contrast-[2]">200</div>
+  <div data-test="arb2-teal-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-teal-300 text-contrast-[2]">300</div>
+  <div data-test="arb2-teal-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-teal-400 text-contrast-[2]">400</div>
+  <div data-test="arb2-teal-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-teal-500 text-contrast-[2]">500</div>
+  <div data-test="arb2-teal-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-teal-600 text-contrast-[2]">600</div>
+  <div data-test="arb2-teal-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-teal-700 text-contrast-[2]">700</div>
+  <div data-test="arb2-teal-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-teal-800 text-contrast-[2]">800</div>
+  <div data-test="arb2-teal-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-teal-900 text-contrast-[2]">900</div>
+  <div data-test="arb2-teal-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-teal-950 text-contrast-[2]">950</div>
+</div>
+
+### Cyan
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="arb2-cyan-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-cyan-50 text-contrast-[2]">50</div>
+  <div data-test="arb2-cyan-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-cyan-100 text-contrast-[2]">100</div>
+  <div data-test="arb2-cyan-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-cyan-200 text-contrast-[2]">200</div>
+  <div data-test="arb2-cyan-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-cyan-300 text-contrast-[2]">300</div>
+  <div data-test="arb2-cyan-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-cyan-400 text-contrast-[2]">400</div>
+  <div data-test="arb2-cyan-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-cyan-500 text-contrast-[2]">500</div>
+  <div data-test="arb2-cyan-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-cyan-600 text-contrast-[2]">600</div>
+  <div data-test="arb2-cyan-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-cyan-700 text-contrast-[2]">700</div>
+  <div data-test="arb2-cyan-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-cyan-800 text-contrast-[2]">800</div>
+  <div data-test="arb2-cyan-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-cyan-900 text-contrast-[2]">900</div>
+  <div data-test="arb2-cyan-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-cyan-950 text-contrast-[2]">950</div>
+</div>
+
+### Sky
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="arb2-sky-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-sky-50 text-contrast-[2]">50</div>
+  <div data-test="arb2-sky-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-sky-100 text-contrast-[2]">100</div>
+  <div data-test="arb2-sky-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-sky-200 text-contrast-[2]">200</div>
+  <div data-test="arb2-sky-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-sky-300 text-contrast-[2]">300</div>
+  <div data-test="arb2-sky-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-sky-400 text-contrast-[2]">400</div>
+  <div data-test="arb2-sky-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-sky-500 text-contrast-[2]">500</div>
+  <div data-test="arb2-sky-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-sky-600 text-contrast-[2]">600</div>
+  <div data-test="arb2-sky-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-sky-700 text-contrast-[2]">700</div>
+  <div data-test="arb2-sky-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-sky-800 text-contrast-[2]">800</div>
+  <div data-test="arb2-sky-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-sky-900 text-contrast-[2]">900</div>
+  <div data-test="arb2-sky-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-sky-950 text-contrast-[2]">950</div>
+</div>
+
+### Blue
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="arb2-blue-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-50 text-contrast-[2]">50</div>
+  <div data-test="arb2-blue-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-100 text-contrast-[2]">100</div>
+  <div data-test="arb2-blue-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-200 text-contrast-[2]">200</div>
+  <div data-test="arb2-blue-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-300 text-contrast-[2]">300</div>
+  <div data-test="arb2-blue-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-400 text-contrast-[2]">400</div>
+  <div data-test="arb2-blue-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-500 text-contrast-[2]">500</div>
+  <div data-test="arb2-blue-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-600 text-contrast-[2]">600</div>
+  <div data-test="arb2-blue-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-700 text-contrast-[2]">700</div>
+  <div data-test="arb2-blue-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-800 text-contrast-[2]">800</div>
+  <div data-test="arb2-blue-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-900 text-contrast-[2]">900</div>
+  <div data-test="arb2-blue-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-950 text-contrast-[2]">950</div>
+</div>
+
+### Indigo
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="arb2-indigo-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-indigo-50 text-contrast-[2]">50</div>
+  <div data-test="arb2-indigo-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-indigo-100 text-contrast-[2]">100</div>
+  <div data-test="arb2-indigo-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-indigo-200 text-contrast-[2]">200</div>
+  <div data-test="arb2-indigo-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-indigo-300 text-contrast-[2]">300</div>
+  <div data-test="arb2-indigo-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-indigo-400 text-contrast-[2]">400</div>
+  <div data-test="arb2-indigo-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-indigo-500 text-contrast-[2]">500</div>
+  <div data-test="arb2-indigo-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-indigo-600 text-contrast-[2]">600</div>
+  <div data-test="arb2-indigo-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-indigo-700 text-contrast-[2]">700</div>
+  <div data-test="arb2-indigo-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-indigo-800 text-contrast-[2]">800</div>
+  <div data-test="arb2-indigo-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-indigo-900 text-contrast-[2]">900</div>
+  <div data-test="arb2-indigo-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-indigo-950 text-contrast-[2]">950</div>
+</div>
+
+### Violet
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="arb2-violet-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-violet-50 text-contrast-[2]">50</div>
+  <div data-test="arb2-violet-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-violet-100 text-contrast-[2]">100</div>
+  <div data-test="arb2-violet-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-violet-200 text-contrast-[2]">200</div>
+  <div data-test="arb2-violet-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-violet-300 text-contrast-[2]">300</div>
+  <div data-test="arb2-violet-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-violet-400 text-contrast-[2]">400</div>
+  <div data-test="arb2-violet-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-violet-500 text-contrast-[2]">500</div>
+  <div data-test="arb2-violet-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-violet-600 text-contrast-[2]">600</div>
+  <div data-test="arb2-violet-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-violet-700 text-contrast-[2]">700</div>
+  <div data-test="arb2-violet-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-violet-800 text-contrast-[2]">800</div>
+  <div data-test="arb2-violet-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-violet-900 text-contrast-[2]">900</div>
+  <div data-test="arb2-violet-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-violet-950 text-contrast-[2]">950</div>
+</div>
+
+### Purple
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="arb2-purple-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-purple-50 text-contrast-[2]">50</div>
+  <div data-test="arb2-purple-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-purple-100 text-contrast-[2]">100</div>
+  <div data-test="arb2-purple-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-purple-200 text-contrast-[2]">200</div>
+  <div data-test="arb2-purple-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-purple-300 text-contrast-[2]">300</div>
+  <div data-test="arb2-purple-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-purple-400 text-contrast-[2]">400</div>
+  <div data-test="arb2-purple-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-purple-500 text-contrast-[2]">500</div>
+  <div data-test="arb2-purple-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-purple-600 text-contrast-[2]">600</div>
+  <div data-test="arb2-purple-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-purple-700 text-contrast-[2]">700</div>
+  <div data-test="arb2-purple-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-purple-800 text-contrast-[2]">800</div>
+  <div data-test="arb2-purple-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-purple-900 text-contrast-[2]">900</div>
+  <div data-test="arb2-purple-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-purple-950 text-contrast-[2]">950</div>
+</div>
+
+### Fuchsia
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="arb2-fuchsia-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-fuchsia-50 text-contrast-[2]">50</div>
+  <div data-test="arb2-fuchsia-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-fuchsia-100 text-contrast-[2]">100</div>
+  <div data-test="arb2-fuchsia-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-fuchsia-200 text-contrast-[2]">200</div>
+  <div data-test="arb2-fuchsia-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-fuchsia-300 text-contrast-[2]">300</div>
+  <div data-test="arb2-fuchsia-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-fuchsia-400 text-contrast-[2]">400</div>
+  <div data-test="arb2-fuchsia-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-fuchsia-500 text-contrast-[2]">500</div>
+  <div data-test="arb2-fuchsia-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-fuchsia-600 text-contrast-[2]">600</div>
+  <div data-test="arb2-fuchsia-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-fuchsia-700 text-contrast-[2]">700</div>
+  <div data-test="arb2-fuchsia-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-fuchsia-800 text-contrast-[2]">800</div>
+  <div data-test="arb2-fuchsia-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-fuchsia-900 text-contrast-[2]">900</div>
+  <div data-test="arb2-fuchsia-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-fuchsia-950 text-contrast-[2]">950</div>
+</div>
+
+### Pink
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="arb2-pink-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-50 text-contrast-[2]">50</div>
+  <div data-test="arb2-pink-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-100 text-contrast-[2]">100</div>
+  <div data-test="arb2-pink-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-200 text-contrast-[2]">200</div>
+  <div data-test="arb2-pink-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-300 text-contrast-[2]">300</div>
+  <div data-test="arb2-pink-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-400 text-contrast-[2]">400</div>
+  <div data-test="arb2-pink-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-500 text-contrast-[2]">500</div>
+  <div data-test="arb2-pink-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-600 text-contrast-[2]">600</div>
+  <div data-test="arb2-pink-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-700 text-contrast-[2]">700</div>
+  <div data-test="arb2-pink-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-800 text-contrast-[2]">800</div>
+  <div data-test="arb2-pink-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-900 text-contrast-[2]">900</div>
+  <div data-test="arb2-pink-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-950 text-contrast-[2]">950</div>
+</div>
+
+### Rose
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="arb2-rose-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-rose-50 text-contrast-[2]">50</div>
+  <div data-test="arb2-rose-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-rose-100 text-contrast-[2]">100</div>
+  <div data-test="arb2-rose-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-rose-200 text-contrast-[2]">200</div>
+  <div data-test="arb2-rose-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-rose-300 text-contrast-[2]">300</div>
+  <div data-test="arb2-rose-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-rose-400 text-contrast-[2]">400</div>
+  <div data-test="arb2-rose-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-rose-500 text-contrast-[2]">500</div>
+  <div data-test="arb2-rose-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-rose-600 text-contrast-[2]">600</div>
+  <div data-test="arb2-rose-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-rose-700 text-contrast-[2]">700</div>
+  <div data-test="arb2-rose-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-rose-800 text-contrast-[2]">800</div>
+  <div data-test="arb2-rose-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-rose-900 text-contrast-[2]">900</div>
+  <div data-test="arb2-rose-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-rose-950 text-contrast-[2]">950</div>
+</div>
+
+### Slate
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="arb2-slate-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-50 text-contrast-[2]">50</div>
+  <div data-test="arb2-slate-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-100 text-contrast-[2]">100</div>
+  <div data-test="arb2-slate-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-200 text-contrast-[2]">200</div>
+  <div data-test="arb2-slate-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-300 text-contrast-[2]">300</div>
+  <div data-test="arb2-slate-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-400 text-contrast-[2]">400</div>
+  <div data-test="arb2-slate-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-500 text-contrast-[2]">500</div>
+  <div data-test="arb2-slate-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-600 text-contrast-[2]">600</div>
+  <div data-test="arb2-slate-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-700 text-contrast-[2]">700</div>
+  <div data-test="arb2-slate-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-800 text-contrast-[2]">800</div>
+  <div data-test="arb2-slate-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-900 text-contrast-[2]">900</div>
+  <div data-test="arb2-slate-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-950 text-contrast-[2]">950</div>
+</div>
+
+### Gray
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="arb2-gray-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-gray-50 text-contrast-[2]">50</div>
+  <div data-test="arb2-gray-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-gray-100 text-contrast-[2]">100</div>
+  <div data-test="arb2-gray-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-gray-200 text-contrast-[2]">200</div>
+  <div data-test="arb2-gray-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-gray-300 text-contrast-[2]">300</div>
+  <div data-test="arb2-gray-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-gray-400 text-contrast-[2]">400</div>
+  <div data-test="arb2-gray-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-gray-500 text-contrast-[2]">500</div>
+  <div data-test="arb2-gray-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-gray-600 text-contrast-[2]">600</div>
+  <div data-test="arb2-gray-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-gray-700 text-contrast-[2]">700</div>
+  <div data-test="arb2-gray-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-gray-800 text-contrast-[2]">800</div>
+  <div data-test="arb2-gray-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-gray-900 text-contrast-[2]">900</div>
+  <div data-test="arb2-gray-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-gray-950 text-contrast-[2]">950</div>
+</div>
+
+### Zinc
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="arb2-zinc-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-zinc-50 text-contrast-[2]">50</div>
+  <div data-test="arb2-zinc-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-zinc-100 text-contrast-[2]">100</div>
+  <div data-test="arb2-zinc-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-zinc-200 text-contrast-[2]">200</div>
+  <div data-test="arb2-zinc-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-zinc-300 text-contrast-[2]">300</div>
+  <div data-test="arb2-zinc-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-zinc-400 text-contrast-[2]">400</div>
+  <div data-test="arb2-zinc-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-zinc-500 text-contrast-[2]">500</div>
+  <div data-test="arb2-zinc-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-zinc-600 text-contrast-[2]">600</div>
+  <div data-test="arb2-zinc-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-zinc-700 text-contrast-[2]">700</div>
+  <div data-test="arb2-zinc-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-zinc-800 text-contrast-[2]">800</div>
+  <div data-test="arb2-zinc-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-zinc-900 text-contrast-[2]">900</div>
+  <div data-test="arb2-zinc-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-zinc-950 text-contrast-[2]">950</div>
+</div>
+
+### Neutral
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="arb2-neutral-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-neutral-50 text-contrast-[2]">50</div>
+  <div data-test="arb2-neutral-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-neutral-100 text-contrast-[2]">100</div>
+  <div data-test="arb2-neutral-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-neutral-200 text-contrast-[2]">200</div>
+  <div data-test="arb2-neutral-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-neutral-300 text-contrast-[2]">300</div>
+  <div data-test="arb2-neutral-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-neutral-400 text-contrast-[2]">400</div>
+  <div data-test="arb2-neutral-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-neutral-500 text-contrast-[2]">500</div>
+  <div data-test="arb2-neutral-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-neutral-600 text-contrast-[2]">600</div>
+  <div data-test="arb2-neutral-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-neutral-700 text-contrast-[2]">700</div>
+  <div data-test="arb2-neutral-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-neutral-800 text-contrast-[2]">800</div>
+  <div data-test="arb2-neutral-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-neutral-900 text-contrast-[2]">900</div>
+  <div data-test="arb2-neutral-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-neutral-950 text-contrast-[2]">950</div>
+</div>
+
+### Stone
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="arb2-stone-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-50 text-contrast-[2]">50</div>
+  <div data-test="arb2-stone-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-100 text-contrast-[2]">100</div>
+  <div data-test="arb2-stone-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-200 text-contrast-[2]">200</div>
+  <div data-test="arb2-stone-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-300 text-contrast-[2]">300</div>
+  <div data-test="arb2-stone-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-400 text-contrast-[2]">400</div>
+  <div data-test="arb2-stone-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-500 text-contrast-[2]">500</div>
+  <div data-test="arb2-stone-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-600 text-contrast-[2]">600</div>
+  <div data-test="arb2-stone-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-700 text-contrast-[2]">700</div>
+  <div data-test="arb2-stone-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-800 text-contrast-[2]">800</div>
+  <div data-test="arb2-stone-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-900 text-contrast-[2]">900</div>
+  <div data-test="arb2-stone-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-stone-950 text-contrast-[2]">950</div>
+</div>
+
+## Arbitrary and variable spellings
+
+0.5 written as `[0.5]`, `[calc(1/2)]` and a `number:`-typed variable, beside the `half` theme level above.
+
+### Blue, arb-half
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="arb-half-blue-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-50 text-contrast-[0.5]">50</div>
+  <div data-test="arb-half-blue-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-100 text-contrast-[0.5]">100</div>
+  <div data-test="arb-half-blue-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-200 text-contrast-[0.5]">200</div>
+  <div data-test="arb-half-blue-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-300 text-contrast-[0.5]">300</div>
+  <div data-test="arb-half-blue-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-400 text-contrast-[0.5]">400</div>
+  <div data-test="arb-half-blue-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-500 text-contrast-[0.5]">500</div>
+  <div data-test="arb-half-blue-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-600 text-contrast-[0.5]">600</div>
+  <div data-test="arb-half-blue-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-700 text-contrast-[0.5]">700</div>
+  <div data-test="arb-half-blue-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-800 text-contrast-[0.5]">800</div>
+  <div data-test="arb-half-blue-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-900 text-contrast-[0.5]">900</div>
+  <div data-test="arb-half-blue-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-950 text-contrast-[0.5]">950</div>
+</div>
+
+### Blue, arb-calc-half
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="arb-calc-half-blue-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-50 text-contrast-[calc(1/2)]">50</div>
+  <div data-test="arb-calc-half-blue-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-100 text-contrast-[calc(1/2)]">100</div>
+  <div data-test="arb-calc-half-blue-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-200 text-contrast-[calc(1/2)]">200</div>
+  <div data-test="arb-calc-half-blue-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-300 text-contrast-[calc(1/2)]">300</div>
+  <div data-test="arb-calc-half-blue-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-400 text-contrast-[calc(1/2)]">400</div>
+  <div data-test="arb-calc-half-blue-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-500 text-contrast-[calc(1/2)]">500</div>
+  <div data-test="arb-calc-half-blue-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-600 text-contrast-[calc(1/2)]">600</div>
+  <div data-test="arb-calc-half-blue-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-700 text-contrast-[calc(1/2)]">700</div>
+  <div data-test="arb-calc-half-blue-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-800 text-contrast-[calc(1/2)]">800</div>
+  <div data-test="arb-calc-half-blue-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-900 text-contrast-[calc(1/2)]">900</div>
+  <div data-test="arb-calc-half-blue-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-950 text-contrast-[calc(1/2)]">950</div>
+</div>
+
+### Blue, var-half
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="var-half-blue-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-50 [--contrast-ratio:0.5] text-contrast-(number:--contrast-ratio)">50</div>
+  <div data-test="var-half-blue-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-100 [--contrast-ratio:0.5] text-contrast-(number:--contrast-ratio)">100</div>
+  <div data-test="var-half-blue-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-200 [--contrast-ratio:0.5] text-contrast-(number:--contrast-ratio)">200</div>
+  <div data-test="var-half-blue-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-300 [--contrast-ratio:0.5] text-contrast-(number:--contrast-ratio)">300</div>
+  <div data-test="var-half-blue-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-400 [--contrast-ratio:0.5] text-contrast-(number:--contrast-ratio)">400</div>
+  <div data-test="var-half-blue-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-500 [--contrast-ratio:0.5] text-contrast-(number:--contrast-ratio)">500</div>
+  <div data-test="var-half-blue-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-600 [--contrast-ratio:0.5] text-contrast-(number:--contrast-ratio)">600</div>
+  <div data-test="var-half-blue-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-700 [--contrast-ratio:0.5] text-contrast-(number:--contrast-ratio)">700</div>
+  <div data-test="var-half-blue-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-800 [--contrast-ratio:0.5] text-contrast-(number:--contrast-ratio)">800</div>
+  <div data-test="var-half-blue-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-900 [--contrast-ratio:0.5] text-contrast-(number:--contrast-ratio)">900</div>
+  <div data-test="var-half-blue-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-950 [--contrast-ratio:0.5] text-contrast-(number:--contrast-ratio)">950</div>
+</div>
+
+### Slate, arb-half
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="arb-half-slate-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-50 text-contrast-[0.5]">50</div>
+  <div data-test="arb-half-slate-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-100 text-contrast-[0.5]">100</div>
+  <div data-test="arb-half-slate-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-200 text-contrast-[0.5]">200</div>
+  <div data-test="arb-half-slate-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-300 text-contrast-[0.5]">300</div>
+  <div data-test="arb-half-slate-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-400 text-contrast-[0.5]">400</div>
+  <div data-test="arb-half-slate-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-500 text-contrast-[0.5]">500</div>
+  <div data-test="arb-half-slate-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-600 text-contrast-[0.5]">600</div>
+  <div data-test="arb-half-slate-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-700 text-contrast-[0.5]">700</div>
+  <div data-test="arb-half-slate-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-800 text-contrast-[0.5]">800</div>
+  <div data-test="arb-half-slate-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-900 text-contrast-[0.5]">900</div>
+  <div data-test="arb-half-slate-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-950 text-contrast-[0.5]">950</div>
+</div>
+
+### Slate, arb-calc-half
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="arb-calc-half-slate-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-50 text-contrast-[calc(1/2)]">50</div>
+  <div data-test="arb-calc-half-slate-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-100 text-contrast-[calc(1/2)]">100</div>
+  <div data-test="arb-calc-half-slate-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-200 text-contrast-[calc(1/2)]">200</div>
+  <div data-test="arb-calc-half-slate-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-300 text-contrast-[calc(1/2)]">300</div>
+  <div data-test="arb-calc-half-slate-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-400 text-contrast-[calc(1/2)]">400</div>
+  <div data-test="arb-calc-half-slate-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-500 text-contrast-[calc(1/2)]">500</div>
+  <div data-test="arb-calc-half-slate-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-600 text-contrast-[calc(1/2)]">600</div>
+  <div data-test="arb-calc-half-slate-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-700 text-contrast-[calc(1/2)]">700</div>
+  <div data-test="arb-calc-half-slate-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-800 text-contrast-[calc(1/2)]">800</div>
+  <div data-test="arb-calc-half-slate-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-900 text-contrast-[calc(1/2)]">900</div>
+  <div data-test="arb-calc-half-slate-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-950 text-contrast-[calc(1/2)]">950</div>
+</div>
+
+### Slate, var-half
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="var-half-slate-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-50 [--contrast-ratio:0.5] text-contrast-(number:--contrast-ratio)">50</div>
+  <div data-test="var-half-slate-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-100 [--contrast-ratio:0.5] text-contrast-(number:--contrast-ratio)">100</div>
+  <div data-test="var-half-slate-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-200 [--contrast-ratio:0.5] text-contrast-(number:--contrast-ratio)">200</div>
+  <div data-test="var-half-slate-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-300 [--contrast-ratio:0.5] text-contrast-(number:--contrast-ratio)">300</div>
+  <div data-test="var-half-slate-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-400 [--contrast-ratio:0.5] text-contrast-(number:--contrast-ratio)">400</div>
+  <div data-test="var-half-slate-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-500 [--contrast-ratio:0.5] text-contrast-(number:--contrast-ratio)">500</div>
+  <div data-test="var-half-slate-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-600 [--contrast-ratio:0.5] text-contrast-(number:--contrast-ratio)">600</div>
+  <div data-test="var-half-slate-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-700 [--contrast-ratio:0.5] text-contrast-(number:--contrast-ratio)">700</div>
+  <div data-test="var-half-slate-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-800 [--contrast-ratio:0.5] text-contrast-(number:--contrast-ratio)">800</div>
+  <div data-test="var-half-slate-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-900 [--contrast-ratio:0.5] text-contrast-(number:--contrast-ratio)">900</div>
+  <div data-test="var-half-slate-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-950 [--contrast-ratio:0.5] text-contrast-(number:--contrast-ratio)">950</div>
 </div>
 
 ## Threshold edge cases

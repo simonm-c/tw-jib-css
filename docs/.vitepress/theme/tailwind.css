@@ -11,6 +11,10 @@
 
 @theme {
   --docs-accent: var(--color-sky-400);
+  --jib-contrast-ratio-brand: 2;
+  --jib-contrast-ratio-inverse-aa-lg: calc(1 / 3);
+  --jib-contrast-ratio-half: 0.5;
+  --jib-contrast-ratio-half-calc: calc(1 / 2);
 }
 
 @custom-variant dark (&:where(.dark, .dark *));

@@ -5,7 +5,7 @@ layout: page
 
 # WCAG Badge + text-contrast-\* Combination Test
 
-Every swatch applies `text-contrast-{level}` for the text color AND `wcag-badge` on the same element. The badge rating should always meet or exceed the requested level: AA text gets AA+ badge, AAA text gets AAA badge, AA Large text gets AA Large+ badge.
+Every swatch applies `text-contrast-{level}` for the text color AND `wcag-badge` on the same element. The badge rating should always meet or exceed the requested level: AA text gets AA+ badge, AAA text gets AAA badge, AA Large text gets AA Large+ badge. `text-contrast-max` requests no level, so its badge reports the measured rating.
 
 ## text-contrast-aa + wcag-badge
 
@@ -187,4 +187,54 @@ Every swatch applies `text-contrast-{level}` for the text color AND `wcag-badge`
   <div data-test="aalg-slate-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-800 text-contrast-aa-lg wcag-badge">800</div>
   <div data-test="aalg-slate-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-900 text-contrast-aa-lg wcag-badge">900</div>
   <div data-test="aalg-slate-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-slate-950 text-contrast-aa-lg wcag-badge">950</div>
+</div>
+
+## text-contrast-max + wcag-badge
+
+### Red
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="max-red-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-50 text-contrast-max wcag-badge">50</div>
+  <div data-test="max-red-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-100 text-contrast-max wcag-badge">100</div>
+  <div data-test="max-red-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-200 text-contrast-max wcag-badge">200</div>
+  <div data-test="max-red-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-300 text-contrast-max wcag-badge">300</div>
+  <div data-test="max-red-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-400 text-contrast-max wcag-badge">400</div>
+  <div data-test="max-red-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-500 text-contrast-max wcag-badge">500</div>
+  <div data-test="max-red-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-600 text-contrast-max wcag-badge">600</div>
+  <div data-test="max-red-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-700 text-contrast-max wcag-badge">700</div>
+  <div data-test="max-red-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-800 text-contrast-max wcag-badge">800</div>
+  <div data-test="max-red-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-900 text-contrast-max wcag-badge">900</div>
+  <div data-test="max-red-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-red-950 text-contrast-max wcag-badge">950</div>
+</div>
+
+### Blue
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="max-blue-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-50 text-contrast-max wcag-badge">50</div>
+  <div data-test="max-blue-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-100 text-contrast-max wcag-badge">100</div>
+  <div data-test="max-blue-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-200 text-contrast-max wcag-badge">200</div>
+  <div data-test="max-blue-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-300 text-contrast-max wcag-badge">300</div>
+  <div data-test="max-blue-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-400 text-contrast-max wcag-badge">400</div>
+  <div data-test="max-blue-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-500 text-contrast-max wcag-badge">500</div>
+  <div data-test="max-blue-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-600 text-contrast-max wcag-badge">600</div>
+  <div data-test="max-blue-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-700 text-contrast-max wcag-badge">700</div>
+  <div data-test="max-blue-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-800 text-contrast-max wcag-badge">800</div>
+  <div data-test="max-blue-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-900 text-contrast-max wcag-badge">900</div>
+  <div data-test="max-blue-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-blue-950 text-contrast-max wcag-badge">950</div>
+</div>
+
+### Pink
+
+<div class="grid grid-cols-11 gap-1 my-2">
+  <div data-test="max-pink-50" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-50 text-contrast-max wcag-badge">50</div>
+  <div data-test="max-pink-100" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-100 text-contrast-max wcag-badge">100</div>
+  <div data-test="max-pink-200" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-200 text-contrast-max wcag-badge">200</div>
+  <div data-test="max-pink-300" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-300 text-contrast-max wcag-badge">300</div>
+  <div data-test="max-pink-400" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-400 text-contrast-max wcag-badge">400</div>
+  <div data-test="max-pink-500" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-500 text-contrast-max wcag-badge">500</div>
+  <div data-test="max-pink-600" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-600 text-contrast-max wcag-badge">600</div>
+  <div data-test="max-pink-700" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-700 text-contrast-max wcag-badge">700</div>
+  <div data-test="max-pink-800" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-800 text-contrast-max wcag-badge">800</div>
+  <div data-test="max-pink-900" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-900 text-contrast-max wcag-badge">900</div>
+  <div data-test="max-pink-950" class="h-14 rounded flex items-center justify-center text-xs font-mono font-bold bg-pink-950 text-contrast-max wcag-badge">950</div>
 </div>

@@ -47,10 +47,10 @@ Experimental always comes **after** stable. Source order is what carries the ove
 
 Only one of them can change code you have already written.
 
-|               | What importing it does                                                                                                                                                                                                      |
-| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Additions** | Give you a class with no stable equivalent: `corner-*`, `interpolate-*`, `appearance-base-select`, `wcag-badge`. Nothing you already use changes.                                                                           |
-| **Overrides** | Re-implement utilities the stable package already defines, on CSS `@function`. `bg-lightness-*`, `bg-saturation-*`, `bg-hue-rotate-*` and `text-contrast-*` keep their names and their output, and change how they compute. |
+|               | What importing it does                                                                                                                                                                                                                                    |
+| ------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Additions** | Give you a class with no stable equivalent: `corner-*`, `interpolate-*`, `appearance-base-select`, `wcag-badge`. Nothing you already use changes.                                                                                                         |
+| **Overrides** | Re-implement utilities the stable package already defines, on CSS `@function`. `bg-lightness-*`, `bg-saturation-*`, `bg-hue-rotate-*` and `text-contrast-*` (all but `text-contrast-max`) keep their names and their output, and change how they compute. |
 
 Importing the package root gives you both. Each is reachable alone:
 
@@ -65,7 +65,7 @@ Importing the package root gives you both. Each is reachable alone:
 > [!WARNING]
 > **The `@function` overrides change utilities you already use.** Importing the package root, or
 > `tw-jib-css-experimental/functions`, reroutes `bg-lightness-*`, `bg-saturation-*`, `bg-hue-rotate-*`
-> and `text-contrast-*` onto CSS `@function` wherever an engine supports it. Same names, same output, a
+> and `text-contrast-*` (all but `text-contrast-max`) onto CSS `@function` wherever an engine supports it. Same names, same output, a
 > different code path. That is a deliberate import, not something an addition should drag in, which is
 > why the two halves have separate entries. The stable package is untouched either way.
 
@@ -110,7 +110,7 @@ than only where a utility exists: a gradient stop, a layered shadow, an SVG stro
 | `--jib-saturate(<color>, <number>, <space>)`     | the same, named for the direction                                          |
 | `--jib-desaturate(<color>, <number>, <space>)`   | the same with the amount negated                                           |
 | `--jib-hue-rotate(<color>, <number>, <space>)`   | the colour, hue rotated by degrees                                         |
-| `--jib-auto-contrast(<color>, <level>, <space>)` | a text colour at exactly that level's WCAG ratio                           |
+| `--jib-auto-contrast(<color>, <level>, <space>)` | a text colour at exactly that level's WCAG ratio, or at a number you pass  |
 | `--jib-wcag-rating(<bg>, <fg>)`                  | the pair's rating as a `<string>`: `"AAA"`, `"AA"`, `"AA Large"`, `"Fail"` |
 
 The space argument is optional and defaults to `oklch`, matching every other transform in the library.

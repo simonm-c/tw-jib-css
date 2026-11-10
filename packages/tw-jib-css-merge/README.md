@@ -121,6 +121,7 @@ config along with every other project extension
 | `bg-comic-red-500 bg-pixel-blue-500`, `bg-linear-to-r bg-comic-red-500`     | The last one. Textures and gradients share one background-image slot.                                  |
 | `bg-red-500 bg-comic-red-500`                                               | Both kept. The flat colour still feeds `text-contrast-*` and the transforms.                           |
 | `text-white text-contrast-aa`                                               | `text-contrast-aa`. Automatic contrast sets the text colour.                                           |
+| `text-contrast-aa text-contrast-max`                                        | `text-contrast-max`. Both set the text colour.                                                         |
 | `border-red-500 border-linear-to-r border-from-pink-500 border-to-cyan-500` | All kept. The gradient holds the border colour at transparent.                                         |
 | `border-linear/srgb border-linear-to-r`                                     | Both kept. The slash form carries the interpolation, the direction class carries the direction.        |
 | `border-linear-to-r border-linear-45`                                       | `border-linear-45`.                                                                                    |

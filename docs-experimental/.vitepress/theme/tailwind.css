@@ -8,6 +8,7 @@
 
 @theme {
   --docs-accent: var(--color-teal-500);
+  --jib-contrast-ratio-brand: 2.5;
 }
 
 @custom-variant dark (&:where(.dark, .dark *));

@@ -87,6 +87,26 @@ describe('text-contrast utilities: stable path', () => {
     expect(css).toContain('--jib-contrast-ratio-aa-plus: 5');
   });
 
+  test('a decimal level below 1 compiles like any other', async () => {
+    const css = await compile('bg-blue-500 text-contrast-half', {
+      extra: '@theme { --jib-contrast-ratio-half: 0.5; }',
+    });
+    expect(css).toContain('--jib-contrast-ratio: var(--jib-contrast-ratio-half)');
+    expect(css).toContain('--jib-contrast-ratio-half: 0.5');
+    expect(css).toContain('--jib-contrast-shade:');
+  });
+
+  test('a calc(1 / N) level reaches the engine unevaluated', async () => {
+    const css = await compile('bg-blue-500 text-contrast-inverse-aa-lg', {
+      extra: '@theme { --jib-contrast-ratio-inverse-aa-lg: calc(1 / 3); }',
+    });
+    expect(css).toContain('--jib-contrast-ratio: var(--jib-contrast-ratio-inverse-aa-lg)');
+    expect(css, 'the fraction must stay a calc() for the engine, not a rounded decimal').toContain(
+      '--jib-contrast-ratio-inverse-aa-lg: calc(1 / 3)',
+    );
+    expect(css).toContain('--jib-contrast-shade:');
+  });
+
   describe('the default colour space is oklch', () => {
     test('text-contrast-aa without a modifier seeds in oklch', async () => {
       const css = await compile('bg-blue-500 text-contrast-aa');
@@ -350,28 +370,140 @@ describe('text-contrast utilities: stable path', () => {
       ).toHaveLength(0);
     });
 
-    test('a themed level keeps the stable path even with @function available', async () => {
+    test('a themed level reaches the @function override with its theme value', async () => {
       const css = await compile('bg-blue-500 text-contrast-aa-plus', {
         functions: true,
         extra: '@theme { --jib-contrast-ratio-aa-plus: 5; }',
       });
       expect(css).toContain('--jib-contrast-ratio: var(--jib-contrast-ratio-aa-plus)');
-      const rules = [...css.matchAll(/\.text-contrast-aa-plus \{[\s\S]*?\n {2}\}/g)].map(
-        (m) => m[0],
+      expect(css).toContain(
+        '--jib-auto-contrast(var(--jib-background-color), var(--jib-contrast-ratio-aa-plus),',
       );
-      expect(rules.length, 'no .text-contrast-aa-plus rule emitted').toBeGreaterThan(0);
-      for (const rule of rules) {
-        expect(rule, `themed level reached the @function dispatcher:\n${rule}`).not.toContain(
-          '--jib-auto-contrast(',
-        );
-      }
     });
+
+    test.each(LEVELS)(
+      'text-contrast-%s passes its theme value to the override, not its name',
+      async (level) => {
+        const css = await compile(`bg-blue-500 text-contrast-${level}`, { functions: true });
+        expect(
+          css,
+          'a level name would ignore a theme override of that level on the @function path',
+        ).toContain(
+          `--jib-auto-contrast(var(--jib-background-color), var(--jib-contrast-ratio-${level}),`,
+        );
+      },
+    );
   });
 
   test('the composable @function API is still defined', async () => {
     const css = await compile('bg-blue-500 wcag-badge', { experimental: true });
     expect(css).toContain('@function --jib-auto-contrast(');
     expect(css).toContain('@function --jib-linearize(');
+  });
+});
+
+describe('arbitrary ratios', () => {
+  describe.each(suiteScenarios('automatic-contrast'))('$name', ({ compile }) => {
+    test.each([
+      ['text-contrast-[2]', '2'],
+      ['text-contrast-[0.5]', '0.5'],
+      ['text-contrast-[calc(1/3)]', 'calc(1 / 3)'],
+      ['text-contrast-(number:--contrast-ratio)', 'var(--contrast-ratio)'],
+    ])('%s solves for %s', async (candidate, ratio) => {
+      const css = await compile(`bg-blue-500 ${candidate}`);
+      expect(css).toContain(`--jib-contrast-ratio: ${ratio};`);
+      expect(css).toContain('--jib-contrast-shade:');
+      expect(css).toContain('color: var(--jib-contrast-shade)');
+    });
+
+    test.each([
+      ['text-contrast-(--contrast-ratio)', 'a variable without the number: hint'],
+      ['text-contrast-[1/3]', 'a bare fraction, which is not a <number>'],
+      ['text-contrast-[red]', 'a value that is not a number'],
+      ['text-contrast-2', 'a bare number that names no theme key'],
+    ])('%s does not compile: %s', async (candidate, reason) => {
+      const css = await compile(`bg-blue-500 ${candidate}`);
+      expect(css, `${candidate} compiled, but it is ${reason}`).not.toContain('.text-contrast-');
+    });
+  });
+
+  test('a colour-space modifier shapes an arbitrary ratio as it does a level', async () => {
+    const css = await compile('bg-blue-500 text-contrast-[2]/hsl');
+    expect(css).toContain('--jib-contrast-ratio: 2;');
+    expect(css).toContain('hsl(from var(--jib-contrast-target)');
+  });
+
+  test('an arbitrary ratio gets the cube-root seed behind the pow() gate', async () => {
+    const css = await compile('bg-blue-500 text-contrast-[2]');
+    expect(css).toContain(SUPPORTS_CHANNEL_POW);
+    expect(css.slice(css.indexOf(SUPPORTS_CHANNEL_POW))).toContain('pow(alpha, 0.333333)');
+  });
+
+  test('an arbitrary ratio records no level for wcag-badge', async () => {
+    const css = await compile('bg-blue-500 text-contrast-[2]');
+    expect(css).not.toContain('--jib-contrast-level:');
+  });
+
+  test.each([
+    ['text-contrast-[2]', '2'],
+    ['text-contrast-[calc(1/3)]', 'calc(1 / 3)'],
+    ['text-contrast-(number:--contrast-ratio)', 'var(--contrast-ratio)'],
+  ])('%s reaches the @function override as %s', async (candidate, ratio) => {
+    const css = await compile(`bg-blue-500 ${candidate}`, { functions: true });
+    expect(css).toContain(`--jib-contrast-ratio: ${ratio};`);
+    expect(css).toContain(`--jib-auto-contrast(var(--jib-background-color), ${ratio},`);
+  });
+});
+
+describe('text-contrast-max utility', () => {
+  describe.each(suiteScenarios('automatic-contrast'))('$name', ({ compile }) => {
+    test('resolves the shade with contrast-color() against the captured background', async () => {
+      const css = await compile('bg-blue-500 text-contrast-max');
+      expect(css).toContain('.text-contrast-max');
+      expect(css).toContain('--jib-contrast-shade: contrast-color(var(--jib-background-color))');
+      expect(css).toContain('color: var(--jib-contrast-shade)');
+    });
+
+    test('writes --jib-text-color, so wcag-badge has something to measure', async () => {
+      const css = await compile('bg-blue-500 text-contrast-max');
+      expect(css).toContain('--jib-text-color: var(--jib-contrast-shade)');
+    });
+
+    test('is not a level, so it neither reads a ratio nor records one for wcag-badge', async () => {
+      const css = await compile('bg-blue-500 text-contrast-max');
+      const rules = [...css.matchAll(/\.text-contrast-max \{[\s\S]*?\n {2}\}/g)].map((m) => m[0]);
+      expect(rules, 'text-contrast-max emitted more than its one rule').toHaveLength(1);
+      expect(rules[0], 'text-contrast-max fell into the ratio solve').not.toContain(
+        '--jib-contrast-ratio:',
+      );
+      expect(rules[0], 'text-contrast-max recorded a WCAG level').not.toContain(
+        '--jib-contrast-level:',
+      );
+    });
+
+    test('takes no colour-space modifier', async () => {
+      const css = await compile('bg-blue-500 text-contrast-max/oklch');
+      expect(
+        css,
+        'contrast-color() returns black or white, so a space has nothing to shape',
+      ).not.toContain('.text-contrast-max\\/oklch');
+    });
+
+    test('state variants work', async () => {
+      const css = await compile('bg-blue-500 hover:text-contrast-max');
+      expect(css).toContain('.hover\\:text-contrast-max');
+      expect(css).toContain('&:hover');
+      expect(css).toContain('--jib-contrast-shade: contrast-color(var(--jib-background-color))');
+    });
+  });
+
+  test('the @function entry leaves it alone', async () => {
+    const css = await compile('bg-blue-500 text-contrast-max', {
+      experimental: true,
+      functions: true,
+    });
+    expect(css, 'text-contrast-max reached the @function dispatcher').not.toContain(SHADE_CALL);
+    expect(css, 'text-contrast-max was put behind the @function gate').not.toContain(SUPPORTS_WCAG);
   });
 });
 

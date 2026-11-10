@@ -32,6 +32,11 @@ const CONTRAST_IDS = TW_HUES.flatMap((h) => TW_SHADES.map((s) => `${h}-${s}`));
 
 const CONTRAST_AAA_IDS = TW_HUES.flatMap((h) => TW_SHADES.map((s) => `aaa-${h}-${s}`));
 const CONTRAST_AALG_IDS = TW_HUES.flatMap((h) => TW_SHADES.map((s) => `aalg-${h}-${s}`));
+const CONTRAST_MAX_IDS = TW_HUES.flatMap((h) => TW_SHADES.map((s) => `max-${h}-${s}`));
+const TW_COLOURS = TW_HUES.flatMap((h) => TW_SHADES.map((s) => `${h}-${s}`));
+const DECIMAL_SPELLING_COLOURS = (['blue', 'slate'] as const).flatMap((h) =>
+  TW_SHADES.map((s) => `${h}-${s}`),
+);
 
 const BADGE_IDS = TW_HUES.flatMap((h) => TW_SHADES.map((s) => `badge-${h}-${s}`));
 
@@ -48,6 +53,8 @@ const COMBO_GROUPS = [
   { prefix: 'aaa', level: 'AAA', hues: ['red', 'blue', 'slate'] },
   { prefix: 'aalg', level: 'AA Large', hues: ['red', 'blue', 'slate'] },
 ] as const;
+
+const COMBO_MAX_HUES = ['red', 'blue', 'pink'] as const;
 
 interface ContrastResult {
   bgColor: string;
@@ -496,6 +503,292 @@ test.describe('text-contrast-aa-lg: exact ratio verification', () => {
   });
 });
 
+test.describe('text-contrast-max: the most contrast the background allows', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto(CONTRAST_PAGE, { waitUntil: 'networkidle' });
+  });
+
+  test('all 242 TW colours get opaque pure black or pure white text', async ({ page }) => {
+    // Arrange
+    // Act
+    const results = await extractContrastResults(page, CONTRAST_MAX_IDS);
+    const notBlackOrWhite = CONTRAST_MAX_IDS.filter((id) => {
+      const r = results[id];
+      const isBlack = Math.abs(r.fgLum) < 1e-6;
+      const isWhite = Math.abs(r.fgLum - 1) < 1e-6;
+      return !r.exact || r.fgAlpha !== 1 || !(isBlack || isWhite);
+    });
+
+    // Assert
+    expect(
+      notBlackOrWhite,
+      `${notBlackOrWhite.length} colours got text that is neither opaque black nor opaque white, so contrast-color() did not resolve and the text inherited:\n${notBlackOrWhite
+        .map((id) => `${id}: fg "${results[id].fgColor}"`)
+        .join('\n')}`,
+    ).toHaveLength(0);
+  });
+
+  test("all 242 TW colours get the engine's own contrast-color() of their background", async ({
+    page,
+  }) => {
+    // Arrange
+    // Act
+    const { readouts, missing } = await page.evaluate((sels) => {
+      const readouts: Record<string, { color: string; expected: string; background: string }> = {};
+      const missing: string[] = [];
+      const probe = document.createElement('div');
+      document.body.append(probe);
+      for (const sel of sels) {
+        const el = document.querySelector(`[data-test="${sel}"]`);
+        if (!el) {
+          missing.push(sel);
+          continue;
+        }
+        const cs = getComputedStyle(el);
+        probe.style.color = `contrast-color(${cs.backgroundColor})`;
+        readouts[sel] = {
+          color: cs.color,
+          expected: getComputedStyle(probe).color,
+          background: cs.backgroundColor,
+        };
+      }
+      probe.remove();
+      return { readouts, missing };
+    }, CONTRAST_MAX_IDS);
+    expectNoMissingFixtures(missing, page.url());
+    const diverged = CONTRAST_MAX_IDS.filter((id) => readouts[id].color !== readouts[id].expected);
+
+    // Assert
+    expect(
+      diverged,
+      `${diverged.length} colours differ from contrast-color() of their own background, so the utility did not read the background bg-* set:\n${diverged
+        .map(
+          (id) =>
+            `${id}: bg "${readouts[id].background}", got "${readouts[id].color}", contrast-color() gives "${readouts[id].expected}"`,
+        )
+        .join('\n')}`,
+    ).toHaveLength(0);
+  });
+
+  test('--jib-text-color carries the same colour as color, for wcag-badge to measure', async ({
+    page,
+  }) => {
+    // Arrange
+    // Act
+    const { readouts, missing } = await page.evaluate((sels) => {
+      const readouts: Record<string, { color: string; textColor: string }> = {};
+      const missing: string[] = [];
+      const probe = document.createElement('div');
+      document.body.append(probe);
+      const resolve = (value: string) => {
+        probe.style.color = value;
+        return getComputedStyle(probe).color;
+      };
+      for (const sel of sels) {
+        const el = document.querySelector(`[data-test="${sel}"]`);
+        if (!el) {
+          missing.push(sel);
+          continue;
+        }
+        const cs = getComputedStyle(el);
+        readouts[sel] = {
+          color: cs.color,
+          textColor: resolve(cs.getPropertyValue('--jib-text-color').trim()),
+        };
+      }
+      probe.remove();
+      return { readouts, missing };
+    }, CONTRAST_MAX_IDS);
+    expectNoMissingFixtures(missing, page.url());
+    const diverged = CONTRAST_MAX_IDS.filter((id) => readouts[id].color !== readouts[id].textColor);
+
+    // Assert
+    expect(
+      diverged,
+      `${diverged.length} colours paint one colour and report another to wcag-badge:\n${diverged
+        .map(
+          (id) =>
+            `${id}: color "${readouts[id].color}", --jib-text-color "${readouts[id].textColor}"`,
+        )
+        .join('\n')}`,
+    ).toHaveLength(0);
+  });
+});
+
+test.describe('inverse levels: a ratio below 1 reverses the direction', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto(CONTRAST_PAGE, { waitUntil: 'networkidle' });
+  });
+
+  test('all 242 TW colours land on 3:1 opposite to text-contrast-aa-lg, or at the reversed ceiling', async ({
+    page,
+  }) => {
+    // Arrange
+    const target = TARGET_RATIO['AA Large'];
+    // Act
+    const inverse = await extractContrastResults(
+      page,
+      TW_COLOURS.map((c) => `inv-aalg-${c}`),
+    );
+    const forward = await extractContrastResults(
+      page,
+      TW_COLOURS.map((c) => `aalg-${c}`),
+    );
+    const failures: string[] = [];
+    let reached = 0;
+    let capped = 0;
+    for (const colour of TW_COLOURS) {
+      const inverseResult = inverse[`inv-aalg-${colour}`];
+      const forwardResult = forward[`aalg-${colour}`];
+      const reversedCeiling = Math.min(
+        ratio(inverseResult.bgLum, 1),
+        ratio(inverseResult.bgLum, 0),
+      );
+      if (!inverseResult.exact || !forwardResult.exact) {
+        failures.push(`${colour}: measured via the 8-bit canvas fallback, too coarse to grade`);
+      } else if (reversedCeiling >= target) {
+        reached++;
+        if (Math.abs(inverseResult.ratio - target) > EXACT_TOLERANCE) {
+          failures.push(
+            `${colour}: 1:3 is reachable (reversed ceiling ${reversedCeiling.toFixed(3)}) but got ${inverseResult.ratio.toFixed(4)}`,
+          );
+        } else if (
+          inverseResult.fgLum > inverseResult.bgLum ===
+          forwardResult.fgLum > forwardResult.bgLum
+        ) {
+          failures.push(`${colour}: hit 3:1 in the same direction as text-contrast-aa-lg`);
+        }
+      } else {
+        capped++;
+        if (Math.abs(inverseResult.ratio - reversedCeiling) > CAPPED_TOLERANCE) {
+          failures.push(
+            `${colour}: 1:3 unreachable, should park at the reversed ceiling ${reversedCeiling.toFixed(3)} but got ${inverseResult.ratio.toFixed(4)}`,
+          );
+        }
+      }
+    }
+
+    // Assert
+    expect(
+      failures,
+      `${failures.length} colours missed the inverse level:\n${failures.join('\n')}`,
+    ).toHaveLength(0);
+    expect(reached, 'mid-tone backgrounds can reach 3:1 in both directions').toBeGreaterThan(0);
+    expect(capped, 'light and dark backgrounds cannot reach 3:1 reversed').toBeGreaterThan(0);
+  });
+
+  test('the colours that reach 1:3 are exactly the ones where text-contrast-aaa cannot reach 7:1', async ({
+    page,
+  }) => {
+    // Arrange
+    // Act
+    const inverse = await extractContrastResults(
+      page,
+      TW_COLOURS.map((c) => `inv-aalg-${c}`),
+    );
+    const aaa = await extractContrastResults(
+      page,
+      TW_COLOURS.map((c) => `aaa-${c}`),
+    );
+    const disagreeing = TW_COLOURS.filter((colour) => {
+      const reachedInverse =
+        Math.abs(inverse[`inv-aalg-${colour}`].ratio - TARGET_RATIO['AA Large']) <= EXACT_TOLERANCE;
+      const cappedAaa = Math.abs(aaa[`aaa-${colour}`].ratio - TARGET_RATIO.AAA) > EXACT_TOLERANCE;
+      return reachedInverse !== cappedAaa;
+    });
+
+    // Assert
+    expect(
+      disagreeing,
+      `the forward and reversed ceilings multiply to 21 and 3 × 7 = 21, so the band where 1:3 is reachable is the band where 7:1 is not; ${disagreeing.length} colours disagree:\n${disagreeing
+        .map(
+          (colour) =>
+            `${colour}: 1/3 gave ${inverse[`inv-aalg-${colour}`].ratio.toFixed(4)}, aaa gave ${aaa[`aaa-${colour}`].ratio.toFixed(4)}`,
+        )
+        .join('\n')}`,
+    ).toHaveLength(0);
+  });
+
+  test('a decimal level and its calc(1 / N) spelling give the same colour', async ({ page }) => {
+    // Arrange
+    // Act
+    const decimal = await extractContrastResults(
+      page,
+      DECIMAL_SPELLING_COLOURS.map((c) => `half-${c}`),
+    );
+    const fraction = await extractContrastResults(
+      page,
+      DECIMAL_SPELLING_COLOURS.map((c) => `half-calc-${c}`),
+    );
+    const differing = DECIMAL_SPELLING_COLOURS.filter(
+      (c) => decimal[`half-${c}`].fgColor !== fraction[`half-calc-${c}`].fgColor,
+    );
+
+    // Assert
+    expect(
+      differing,
+      `0.5 and calc(1 / 2) are the same number, so they must solve to the same colour:\n${differing
+        .map(
+          (c) =>
+            `${c}: 0.5 gave "${decimal[`half-${c}`].fgColor}", calc(1 / 2) gave "${fraction[`half-calc-${c}`].fgColor}"`,
+        )
+        .join('\n')}`,
+    ).toHaveLength(0);
+  });
+});
+
+test.describe('arbitrary ratios', () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto(CONTRAST_PAGE, { waitUntil: 'networkidle' });
+  });
+
+  test('all 242 TW colours land exactly on 2:1 with text-contrast-[2]', async ({ page }) => {
+    // Arrange
+    const ids = TW_COLOURS.map((c) => `arb2-${c}`);
+    // Act
+    const results = await extractContrastResults(page, ids);
+    const { failures, capped } = gradeGrid(results, ids, 2);
+
+    // Assert
+    expect(failures, `${failures.length} colours missed 2:1:\n${failures.join('\n')}`).toHaveLength(
+      0,
+    );
+    expect(capped, '2:1 is reachable from every background; none should be capped').toBe(0);
+  });
+
+  test('a bracketed ratio, a bracketed calc() and a number:-typed variable match the theme level of the same value', async ({
+    page,
+  }) => {
+    // Arrange
+    const spellings = ['arb-half', 'arb-calc-half', 'var-half'] as const;
+    // Act
+    const themed = await extractContrastResults(
+      page,
+      DECIMAL_SPELLING_COLOURS.map((c) => `half-${c}`),
+    );
+    const differing: string[] = [];
+    for (const spelling of spellings) {
+      const results = await extractContrastResults(
+        page,
+        DECIMAL_SPELLING_COLOURS.map((c) => `${spelling}-${c}`),
+      );
+      for (const colour of DECIMAL_SPELLING_COLOURS) {
+        const got = results[`${spelling}-${colour}`].fgColor;
+        const want = themed[`half-${colour}`].fgColor;
+        if (got !== want) {
+          differing.push(`${spelling}-${colour}: got "${got}", theme level gave "${want}"`);
+        }
+      }
+    }
+
+    // Assert
+    expect(
+      differing,
+      `every spelling of 0.5 must solve to the same colour as the theme level:\n${differing.join('\n')}`,
+    ).toHaveLength(0);
+  });
+});
+
 const CONTRAST_EDGE_IDS = {
   'edge-blue-400': TARGET_RATIO['AA Large'],
   'edge-emerald-500': TARGET_RATIO['AA Large'],
@@ -766,8 +1059,15 @@ const AGREEMENT_CASES = ['violet', 'grey', 'teal'].flatMap((bg) =>
     ['aa', 'hsl'],
     ['aaa', 'lch'],
     ['aa', 'hwb'],
+    ['r2', 'oklch'],
+    ['third', 'hsl'],
+    ['var', 'srgb'],
+    ['brand', 'lch'],
+    ['aaa5', 'oklch'],
   ].map(([lvl, sp]) => `${bg}-${lvl}-${sp}`),
 );
+
+const OVERRIDDEN_AAA_CASES = ['violet', 'grey', 'teal'].map((bg) => `${bg}-aaa5-oklch`);
 
 test.describe('text-contrast: the utility and the @function API agree', () => {
   test.beforeEach(async ({ page }) => {
@@ -814,6 +1114,25 @@ test.describe('text-contrast: the utility and the @function API agree', () => {
     expect(
       drifted,
       `${drifted.length} disagreements across ${AGREEMENT_CASES.length} cases, the two implementations have drifted apart:\n${drifted.join('\n')}`,
+    ).toHaveLength(0);
+  });
+
+  test('aaa overridden to 5 lands on 5:1 through the utility and the function', async ({
+    page,
+  }) => {
+    // Arrange
+    const routes = ['util', 'fn'] as const;
+    const ids = OVERRIDDEN_AAA_CASES.flatMap((c) => routes.map((r) => `agree-${r}-${c}`));
+    // Act
+    const results = await extractContrastResults(page, ids);
+    const missed = ids.filter((id) => Math.abs(results[id].ratio - 5) > EXACT_TOLERANCE);
+
+    // Assert
+    expect(
+      missed,
+      `a theme override of aaa must reach the @function path, not only the stable chain:\n${missed
+        .map((id) => `${id}: ${results[id].ratio.toFixed(4)}:1`)
+        .join('\n')}`,
     ).toHaveLength(0);
   });
 
@@ -897,6 +1216,26 @@ test.describe('text-contrast + wcag-badge: the badge must agree with the class',
       ).toHaveLength(0);
     });
   }
+
+  test('text-contrast-max gets the measured rating, never Max', async ({ page }) => {
+    // Arrange
+    const ids = COMBO_MAX_HUES.flatMap((h) => TW_SHADES.map((s) => `max-${h}-${s}`));
+    // Act
+    const results = await extractBadgeResults(page, ids);
+    const mismatched = ids.filter(
+      (id) => results[id].cssRating === 'Max' || results[id].cssRating !== results[id].jsRating,
+    );
+    // Assert
+    expect(
+      mismatched,
+      `text-contrast-max requests no level, so the badge must report what it measures:\n${mismatched
+        .map(
+          (id) =>
+            `${id}: badge "${results[id].cssRating}", measured ${results[id].ratio.toFixed(4)} (${results[id].jsRating})`,
+        )
+        .join('\n')}`,
+    ).toHaveLength(0);
+  });
 
   test('a bare wcag-badge never reports Max', async ({ page }) => {
     // Arrange

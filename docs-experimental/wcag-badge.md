@@ -2,7 +2,7 @@
 title: WCAG badge
 ---
 
-<!-- llm-context: wcag badge module (experimental). wcag-badge overlays a ::after pseudo-element showing the WCAG 2.x contrast rating (AAA/AA/AA Large/Fail, plus Max) for the element's bg + text color combination. Badge background is green/yellow/orange/red using TW color tokens; Max shares Fail's red. Max appears only when text-contrast-* is on the same element and the level it requested is physically unreachable from that background. Badge text is black on yellow (AA), white on all others. All computation in CSS via @function + if(style()). Chromium only, and unlike text-contrast-* it cannot be made portable: color-to-string needs if(style()). Ships from tw-jib-css-experimental, importable alone as tw-jib-css-experimental/wcag-badge; text-contrast-* ships from the stable tw-jib-css main entry. -->
+<!-- llm-context: wcag badge module (experimental). wcag-badge overlays a ::after pseudo-element showing the WCAG 2.x contrast rating (AAA/AA/AA Large/Fail, plus Max) for the element's bg + text color combination. Badge background is green/yellow/orange/red using TW color tokens; Max shares Fail's red. Max appears only when text-contrast-aa, -aaa or -aa-lg is on the same element and the level it requested is physically unreachable from that background; custom theme levels, bracket values, variables and text-contrast-max record no level and get the plain rating. Badge text is black on yellow (AA), white on all others. All computation in CSS via @function + if(style()). Chromium only, and unlike text-contrast-* it cannot be made portable: color-to-string needs if(style()). Ships from tw-jib-css-experimental, importable alone as tw-jib-css-experimental/wcag-badge; text-contrast-* ships from the stable tw-jib-css main entry. -->
 
 # WCAG badge
 
@@ -156,10 +156,12 @@ is the ceiling, and asking for more will not help.
 
 Two things follow from how it is derived:
 
-- **It needs `text-contrast-*`.** Max describes a shortfall against a _requested_
-  level, and only `text-contrast-*` records what was requested. A bare `wcag-badge`
-  has no intent to compare against, so it never shows Max. It reports plain
-  measurement, exactly as before.
+- **It needs a built-in level.** Max describes a shortfall against a _requested_
+  level, and only `text-contrast-aa`, `text-contrast-aaa` and `text-contrast-aa-lg`
+  record what was requested. A bare `wcag-badge` has no intent to compare against,
+  so it never shows Max. It reports plain measurement, exactly as before. Custom
+  theme levels, bracket values, variables and `text-contrast-max` request no level
+  either, so they get the same plain rating.
 - **It shares Fail's red.** Both mean "don't ship this as-is". The difference is
   what to do about it: Fail means fix the pair, Max means pick a different
   background or accept a lower level.

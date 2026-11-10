@@ -99,7 +99,8 @@ the shared pipeline lands once, not once per module. The test suite covers both 
 - **Chrome 138+, Safari 16.4+, Firefox 128+** for anything that transforms a colour. Relative colour
   syntax (Chrome 119+) and `@property` account for most of that, but the lightness and saturation
   transforms also use `abs()` and `sign()`, which Chromium shipped only in 138. `border-style` and
-  `grid` need none of it and work wherever Tailwind does. Every
+  `grid` need none of it and work wherever Tailwind does. `text-contrast-max` is CSS
+  `contrast-color()` and needs Chrome 147+, Safari 26+, Firefox 146+. Every
   [guide page](https://simonm-c.github.io/tw-jib-css/) carries live Baseline status for the features
   it is built on; `abs()`/`sign()` is
   [tracked here](https://webstatus.dev/features/abs-sign).
@@ -120,6 +121,7 @@ main entry and works in Chromium, Firefox and Safari; import on its own with
 <div class="bg-violet-600 text-contrast-aa">Exactly 4.5:1</div>
 <div class="bg-amber-300 text-contrast-aaa">Exactly 7:1</div>
 <div class="bg-teal-800 text-contrast-aa/oklch">4.5:1, chroma shaped in oklch</div>
+<div class="bg-sky-500 text-contrast-max">Black or white, whichever contrasts more</div>
 ```
 
 The matching `wcag-badge`, which _measures_ a pair and prints its rating, needs

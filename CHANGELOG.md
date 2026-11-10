@@ -12,6 +12,24 @@ per package, from the commits that went into it:
 - [`packages/tw-jib-css/CHANGELOG.md`](packages/tw-jib-css/CHANGELOG.md)
 - [`packages/tw-jib-css-experimental/CHANGELOG.md`](packages/tw-jib-css-experimental/CHANGELOG.md)
 
+## [2.3.0](https://github.com/simonm-c/tw-jib-css/compare/workspace-v2.2.0...workspace-v2.3.0) (2026-11-10)
+
+
+### Features
+
+* **automatic-contrast:** accept arbitrary ratios in text-contrast-* ([cc114af](https://github.com/simonm-c/tw-jib-css/commit/cc114af980cdc77d863ac82f7de3b3c18814bdcc))
+* **automatic-contrast:** add text-contrast-max on contrast-color() ([3d2567b](https://github.com/simonm-c/tw-jib-css/commit/3d2567b26dd2c60a9057a88bfe3945ed24216b0d))
+
+
+### Bug Fixes
+
+* **automatic-contrast:** read theme ratios in the `[@function](https://github.com/function)` override ([82de08b](https://github.com/simonm-c/tw-jib-css/commit/82de08b6f30d8b792201004c68696c3496054abf))
+
+
+### Code Refactoring
+
+* **merge:** name text-contrast-max in the text-color group ([f089b6c](https://github.com/simonm-c/tw-jib-css/commit/f089b6c848b4650a7c388e866b4ef2a1780f042b))
+
 ## [2.2.0](https://github.com/simonm-c/tw-jib-css/compare/workspace-v2.1.0...workspace-v2.2.0) (2026-10-30)
 
 

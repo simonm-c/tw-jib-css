@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.3.0](https://github.com/simonm-c/tw-jib-css/compare/tw-jib-css-merge-v2.2.0...tw-jib-css-merge-v2.3.0) (2026-11-10)
+
+
+### Code Refactoring
+
+* **merge:** name text-contrast-max in the text-color group ([f089b6c](https://github.com/simonm-c/tw-jib-css/commit/f089b6c848b4650a7c388e866b4ef2a1780f042b))
+
 ## [2.2.0](https://github.com/simonm-c/tw-jib-css/compare/tw-jib-css-merge-v2.1.0...tw-jib-css-merge-v2.2.0) (2026-10-30)
 
 

@@ -1,5 +1,6 @@
 import { test, expect, type Page } from '@playwright/test';
 import {
+  colorDistance,
   extractRenderedColors,
   extractStyles,
   gotoExample,
@@ -106,6 +107,32 @@ test.describe('bg-comic opacity modifier', () => {
     // Assert
     expect(colors['opacity-50'].luminance).toBeGreaterThan(colors['opacity-100'].luminance);
   });
+});
+
+test.describe('comic-paper: the base layer paints the paper colour', () => {
+  const PAPERS = [
+    ['paper-amber', 'a coloured paper paints that colour'],
+    ['paper-transparent', 'a transparent paper shows what is behind the element'],
+    ['paper-alpha', 'the /alpha modifier fades the paper over what is behind it'],
+    ['paper-nested', "a comic inside a comic-paper ancestor keeps the theme's white paper"],
+  ] as const;
+
+  for (const [id, behaviour] of PAPERS) {
+    test(`${id}: ${behaviour}`, async ({ page }) => {
+      // Arrange
+      await gotoPage(page);
+      const reference = `${id}-reference`;
+
+      // Act
+      const painted = await extractRenderedColors(page, [id, reference]);
+
+      // Assert
+      expect(
+        colorDistance(painted[id], painted[reference]),
+        `${id} painted ${JSON.stringify(painted[id])} where ${reference} painted ${JSON.stringify(painted[reference])}`,
+      ).toBeLessThan(12);
+    });
+  }
 });
 
 test.describe('comic: bg-position anchors the dot screens', () => {

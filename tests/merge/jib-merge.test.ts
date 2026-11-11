@@ -179,6 +179,8 @@ const STABLE_KEPT = [
   ['a background colour under the ripple', 'bg-red-500/50 bg-ripple'],
   ['a texture under the ripple', 'bg-comic-red-500 bg-ripple'],
   ['a flat colour beside the texture it feeds', 'bg-violet-600 bg-comic-violet-600'],
+  ['a paper beside the texture printed on it', 'bg-comic-red-500 comic-paper-amber-100'],
+  ['a paper beside a flat background colour', 'bg-white comic-paper-transparent'],
   ['a border colour beside a gradient', 'border-red-500 border-linear-to-r'],
   ['a gradient beside a border colour', 'border-linear-to-r border-red-500'],
   [
@@ -247,6 +249,7 @@ const STABLE_RESOLVED = [
   ['two ripple fades', 'ripple-fade ripple-fade-none', 'ripple-fade-none'],
   ['two ripple colours', 'ripple-color-current ripple-color-white/30', 'ripple-color-white/30'],
   ['two comic dot sizes', 'comic-dot-1 comic-dot-2', 'comic-dot-2'],
+  ['two comic papers', 'comic-paper-white comic-paper-amber-100/50', 'comic-paper-amber-100/50'],
   ['two pixel sizes', 'pixel-size-2 pixel-size-[3px]', 'pixel-size-[3px]'],
 ] as const;
 

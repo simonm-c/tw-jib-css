@@ -1,7 +1,7 @@
 import { color, number, toPlugin } from './_shared.js';
 import type { JibExtensionOf } from './_types.js';
 
-export type JibComicClassGroupIds = `jib.comic-${'dot' | 'gap' | 'bleed'}`;
+export type JibComicClassGroupIds = `jib.comic-${'dot' | 'gap' | 'bleed' | 'paper'}`;
 
 export const jibComicExtension: JibExtensionOf<JibComicClassGroupIds> = {
   extend: {
@@ -10,6 +10,7 @@ export const jibComicExtension: JibExtensionOf<JibComicClassGroupIds> = {
       'jib.comic-dot': [{ 'comic-dot': number }],
       'jib.comic-gap': [{ 'comic-gap': number }],
       'jib.comic-bleed': [{ 'comic-bleed': number }],
+      'jib.comic-paper': [{ 'comic-paper': color }],
     },
   },
 };

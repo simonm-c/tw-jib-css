@@ -12,6 +12,14 @@ per package, from the commits that went into it:
 - [`packages/tw-jib-css/CHANGELOG.md`](packages/tw-jib-css/CHANGELOG.md)
 - [`packages/tw-jib-css-experimental/CHANGELOG.md`](packages/tw-jib-css-experimental/CHANGELOG.md)
 
+## [2.4.0](https://github.com/simonm-c/tw-jib-css/compare/workspace-v2.3.0...workspace-v2.4.0) (2026-11-13)
+
+
+### Features
+
+* **comic:** add comic-paper-* and a --jib-comic-paper theme default ([bbbcabd](https://github.com/simonm-c/tw-jib-css/commit/bbbcabd35a5313e4129b4638bacab8f52a5d4c68))
+* **merge:** resolve comic-paper-* as its own class group ([d7d6c02](https://github.com/simonm-c/tw-jib-css/commit/d7d6c02a447269342c72ff51bcc2b3a695e4196b))
+
 ## [2.3.0](https://github.com/simonm-c/tw-jib-css/compare/workspace-v2.2.0...workspace-v2.3.0) (2026-11-10)
 
 

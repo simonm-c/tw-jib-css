@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.4.0](https://github.com/simonm-c/tw-jib-css/compare/tw-jib-css-merge-v2.3.0...tw-jib-css-merge-v2.4.0) (2026-11-13)
+
+
+### Features
+
+* **merge:** resolve comic-paper-* as its own class group ([d7d6c02](https://github.com/simonm-c/tw-jib-css/commit/d7d6c02a447269342c72ff51bcc2b3a695e4196b))
+
 ## [2.3.0](https://github.com/simonm-c/tw-jib-css/compare/tw-jib-css-merge-v2.2.0...tw-jib-css-merge-v2.3.0) (2026-11-10)
 
 

@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.4.0](https://github.com/simonm-c/tw-jib-css/compare/tw-jib-css-v2.3.0...tw-jib-css-v2.4.0) (2026-11-13)
+
+
+### Features
+
+* **comic:** add comic-paper-* and a --jib-comic-paper theme default ([bbbcabd](https://github.com/simonm-c/tw-jib-css/commit/bbbcabd35a5313e4129b4638bacab8f52a5d4c68))
+
 ## [2.3.0](https://github.com/simonm-c/tw-jib-css/compare/tw-jib-css-v2.2.0...tw-jib-css-v2.3.0) (2026-11-10)
 
 

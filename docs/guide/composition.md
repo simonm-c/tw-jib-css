@@ -2,7 +2,7 @@
 title: Composition
 ---
 
-<!-- llm-context: How tw-jib-css utilities combine on one element. The three color transforms are one fixed pipeline (hue-rotate then saturation then lightness) carried by a custom-property chain, so markup class order is irrelevant. Each of the seven surfaces has its own independent chain. text-contrast-* solves against the flat bg-* color. Comic and pixel paint it as dots or columns over a white (comic) or black (pixel) base, so pair them with text-contrast-* only when a small gap and wide bleed or bloom keep the base from showing through the text (comic-dot-0.5 comic-gap-2 comic-bleed-4 works). bg-* emits its --jib-background-image after the textures, so in plain markup the flat color wins the paint; apply the flat bg-* under :where() so it fills --jib-background-color without overriding the background, and the texture as bg-comic-(--jib-background-color) on the plain class, with a hover: copy when bg-lighten-* runs on hover. -->
+<!-- llm-context: How tw-jib-css utilities combine on one element. The three color transforms are one fixed pipeline (hue-rotate then saturation then lightness) carried by a custom-property chain, so markup class order is irrelevant. Each of the seven surfaces has its own independent chain. text-contrast-* solves against the flat bg-* color. Comic paints it as dots over its paper, which is white unless comic-paper-* or the --jib-comic-paper theme variable sets another color. Pixel paints it as columns over black. Pair either with text-contrast-* only when a small gap and wide bleed or bloom keep the base from showing through the text (comic-dot-0.5 comic-gap-2 comic-bleed-4 works). bg-* emits its --jib-background-image after the textures, so in plain markup the flat color wins the paint; apply the flat bg-* under :where() so it fills --jib-background-color without overriding the background, and the texture as bg-comic-(--jib-background-color) on the plain class, with a hover: copy when bg-lighten-* runs on hover. -->
 
 # Composition
 
@@ -94,7 +94,7 @@ The hint is only needed where a namespace accepts more than a color, which is al
 ```
 
 ::: warning Automatic contrast on a texture
-`text-contrast-*` solves against one flat color. A texture paints that color as a pattern over a base, white for comic and black for pixel, and the reader sees both. The solve holds when the spacing closes the pattern up so the base stops showing through the text. Keep the gap small and the bleed or bloom wide. Open the gaps and the base takes over, so text solved for the ink lands on mostly white, or mostly black.
+`text-contrast-*` solves against one flat color. A texture paints that color as a pattern over a base, and the reader sees both. Comic's base is its paper, white by default. Pixel's is black. The solve holds when the spacing closes the pattern up so the base stops showing through the text. Keep the gap small and the bleed or bloom wide. Open the gaps and the base takes over, so text solved for the ink lands on mostly paper, or mostly black.
 
 The solve reads the flat color from `bg-*`, so the element needs one, and the texture then has to win the paint. Markup alone does not get you there. `bg-*` writes the background image after `bg-comic-*` and `bg-pixel-*` in the compiled stylesheet, so this paints flat violet:
 

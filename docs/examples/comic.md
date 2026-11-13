@@ -216,6 +216,41 @@ Verifies the white background becomes transparent, letting underlying content sh
   </div>
 </div>
 
+## Paper (comic-paper-\*)
+
+Each subject sits beside the reference it must paint identically. `bg-comic-white` lays no ink, so only the paper shows.
+
+<div class="grid grid-cols-4 gap-3 my-6">
+  <div>
+    <div data-test="paper-amber" class="bg-comic-white comic-paper-amber-200 h-28 rounded-lg"></div>
+    <div data-test="paper-amber-reference" class="bg-amber-200 h-8 rounded-lg mt-1"></div>
+    <p class="text-xs font-mono text-center mt-1">comic-paper-amber-200</p>
+  </div>
+  <div>
+    <div class="relative h-28 rounded-lg overflow-hidden bg-amber-400">
+      <div data-test="paper-transparent" class="absolute inset-0 bg-comic-white comic-paper-transparent"></div>
+    </div>
+    <div data-test="paper-transparent-reference" class="bg-amber-400 h-8 rounded-lg mt-1"></div>
+    <p class="text-xs font-mono text-center mt-1">comic-paper-transparent over amber</p>
+  </div>
+  <div>
+    <div class="relative h-28 rounded-lg overflow-hidden bg-white">
+      <div data-test="paper-alpha" class="absolute inset-0 bg-comic-white comic-paper-black/50"></div>
+    </div>
+    <div class="relative h-8 rounded-lg overflow-hidden bg-white mt-1">
+      <div data-test="paper-alpha-reference" class="absolute inset-0 bg-black/50"></div>
+    </div>
+    <p class="text-xs font-mono text-center mt-1">comic-paper-black/50 over white</p>
+  </div>
+  <div>
+    <div class="comic-paper-black p-4 rounded-lg bg-gray-200">
+      <div data-test="paper-nested" class="bg-comic-white h-20 rounded-lg"></div>
+    </div>
+    <div data-test="paper-nested-reference" class="bg-white h-8 rounded-lg mt-1"></div>
+    <p class="text-xs font-mono text-center mt-1">inside comic-paper-black</p>
+  </div>
+</div>
+
 ## Position anchor (bg-position)
 
 <div class="grid grid-cols-4 gap-3 my-6">

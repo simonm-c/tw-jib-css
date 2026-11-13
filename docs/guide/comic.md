@@ -15,7 +15,7 @@ Built on CSS relative color syntax with `max()` inside `rgb(from ...)`, and regi
 :::
 
 ::: warning Pairing with `text-contrast-*`
-The dots sit on a white base, and `text-contrast-*` solves against the flat ink color alone. The solve holds when the dots close up far enough that no white shows through the text. Keep `comic-gap` small and `comic-bleed` wide next to `comic-dot`; `comic-dot-0.5 comic-gap-2 comic-bleed-4` covers well enough. The texture also has to win the paint over the flat color the solve reads. See [Composition](/guide/composition#what-automatic-contrast-can-see).
+The dots sit on the paper color, white by default, and `text-contrast-*` solves against the flat ink color alone. The solve holds when the dots close up far enough that no paper shows through the text. Keep `comic-gap` small and `comic-bleed` wide next to `comic-dot`; `comic-dot-0.5 comic-gap-2 comic-bleed-4` covers well enough. The texture also has to win the paint over the flat color the solve reads. See [Composition](/guide/composition#what-automatic-contrast-can-see).
 :::
 
 ## Quick reference
@@ -32,6 +32,11 @@ The dots sit on a white base, and `text-contrast-*` solves against the flat ink 
   { class: 'comic-bleed-[<value>]', styles: '--jib-comic-bleed: <value>' },
   { class: 'comic-gap-<number>', styles: '--jib-comic-gap: --spacing(<number>) / 4. Space between dots.' },
   { class: 'comic-gap-[<value>]', styles: '--jib-comic-gap: <value>' },
+  { class: 'comic-paper-<color>', styles: 'Paper under the dots. Defaults to the --jib-comic-paper theme variable, white.' },
+  { class: 'comic-paper-<color>/<opacity>', styles: 'Same with an alpha modifier' },
+  { class: 'comic-paper-transparent', styles: 'Removes the paper, so the dots print straight onto whatever is behind the element' },
+  { class: 'comic-paper-[<value>]', styles: 'Arbitrary paper color' },
+  { class: 'comic-paper-(color:--var)', styles: 'Paper color from a custom property' },
   { class: 'bg-top, bg-center, bg-bottom-right, …', styles: 'Anchors the dot grid. Keywords only.' },
 ]" />
 
@@ -185,7 +190,7 @@ Tailwind's position keywords anchor the dot grid. With no position the grid star
 
 ## Opacity
 
-Add an opacity modifier with the `/` syntax to fade the whole pattern: all four CMYK dot layers and the white background. The bare value is a percentage (0–100); a bracketed value is a 0–1 alpha, so `/50` and `/[0.5]` are the same. The bracketed-percentage form `/[50%]` that the color utilities accept is not available here, because converting it would need `calc(x / 100%)`, which Firefox rejects.
+Add an opacity modifier with the `/` syntax to fade the whole pattern, all four CMYK dot layers and the paper. The bare value is a percentage (0–100); a bracketed value is a 0–1 alpha, so `/50` and `/[0.5]` are the same. The bracketed-percentage form `/[50%]` that the color utilities accept is not available here, because converting it would need `calc(x / 100%)`, which Firefox rejects.
 
 <Example>
   <div class="flex gap-3">
@@ -212,26 +217,132 @@ Add an opacity modifier with the `/` syntax to fade the whole pattern: all four 
   </div>
 </Example>
 
-It scales every CMYK channel opacity by the same factor and turns the white background semi-transparent, so you can layer the pattern over whatever is underneath.
+It scales every CMYK channel's opacity and the paper's by the same factor. To fade the paper and keep the dots at full strength, see [Transparent and faded paper](#transparent-and-faded-paper).
+
+## Paper
+
+The dots print on paper, white by default. `comic-paper-<color>` changes it for one element. It takes any color, including arbitrary values and `(color:--var)`, and an `/alpha` modifier, the same as `bg-*`. The ink multiplies into the paper, so colored paper tints every dot the way newsprint does.
 
 <Example>
   <div class="flex gap-3">
     <div class="space-y-1.5">
-      <div class="relative size-24 rounded-lg overflow-hidden">
-        <div class="absolute inset-0 bg-linear-to-br from-sky-400 to-indigo-600"></div>
-        <div class="absolute inset-0 bg-comic-black/50"></div>
-      </div>
-      <p class="m-0 text-center text-xs font-mono opacity-60">over gradient</p>
+      <div class="bg-comic-red-500 comic-dot-1.5 size-24 rounded-lg"></div>
+      <p class="m-0 text-center text-xs font-mono opacity-60">default</p>
     </div>
     <div class="space-y-1.5">
-      <div class="relative size-24 rounded-lg overflow-hidden">
-        <div class="absolute inset-0 bg-linear-to-br from-amber-400 to-rose-500"></div>
-        <div class="absolute inset-0 bg-comic-blue-500/40"></div>
-      </div>
-      <p class="m-0 text-center text-xs font-mono opacity-60">over gradient</p>
+      <div class="bg-comic-red-500 comic-dot-1.5 comic-paper-[#f4ead0] size-24 rounded-lg"></div>
+      <p class="m-0 text-center text-xs font-mono opacity-60">[#f4ead0]</p>
+    </div>
+    <div class="space-y-1.5">
+      <div class="bg-comic-red-500 comic-dot-1.5 comic-paper-amber-200 size-24 rounded-lg"></div>
+      <p class="m-0 text-center text-xs font-mono opacity-60">amber-200</p>
+    </div>
+    <div class="space-y-1.5">
+      <div class="bg-comic-red-500 comic-dot-1.5 comic-paper-sky-200 size-24 rounded-lg"></div>
+      <p class="m-0 text-center text-xs font-mono opacity-60">sky-200</p>
+    </div>
+    <div class="space-y-1.5">
+      <div class="bg-comic-red-500 comic-dot-1.5 comic-paper-sky-200/40 size-24 rounded-lg"></div>
+      <p class="m-0 text-center text-xs font-mono opacity-60">sky-200/40</p>
     </div>
   </div>
 </Example>
+
+`comic-paper-*` applies only to the element that carries it. A comic nested inside that element keeps the default paper.
+
+### Transparent and faded paper
+
+Three utilities let what is behind the element show through. None of them blend with it.
+
+- `bg-comic-<color>/<opacity>` fades the dots and the paper together.
+- `comic-paper-<color>/<alpha>` fades the paper only. The dots keep full strength.
+- `comic-paper-transparent` removes the paper. The dots print straight onto whatever is behind.
+
+<Example>
+  <div class="flex gap-3">
+    <div class="space-y-1.5">
+      <div class="relative size-24 rounded-lg overflow-hidden bg-linear-to-br from-sky-400 to-indigo-600">
+        <div class="absolute inset-0 bg-comic-black comic-dot-1.5 comic-gap-4"></div>
+      </div>
+      <p class="m-0 text-center text-xs font-mono opacity-60">default</p>
+    </div>
+    <div class="space-y-1.5">
+      <div class="relative size-24 rounded-lg overflow-hidden bg-linear-to-br from-sky-400 to-indigo-600">
+        <div class="absolute inset-0 bg-comic-black/50 comic-dot-1.5 comic-gap-4"></div>
+      </div>
+      <p class="m-0 text-center text-xs font-mono opacity-60">bg-comic-black/50</p>
+    </div>
+    <div class="space-y-1.5">
+      <div class="relative size-24 rounded-lg overflow-hidden bg-linear-to-br from-sky-400 to-indigo-600">
+        <div class="absolute inset-0 bg-comic-black comic-dot-1.5 comic-gap-4 comic-paper-white/50"></div>
+      </div>
+      <p class="m-0 text-center text-xs font-mono opacity-60">comic-paper-white/50</p>
+    </div>
+    <div class="space-y-1.5">
+      <div class="relative size-24 rounded-lg overflow-hidden bg-linear-to-br from-sky-400 to-indigo-600">
+        <div class="absolute inset-0 bg-comic-black comic-dot-1.5 comic-gap-4 comic-paper-transparent"></div>
+      </div>
+      <p class="m-0 text-center text-xs font-mono opacity-60">comic-paper-transparent</p>
+    </div>
+  </div>
+</Example>
+
+### Blending with what is behind
+
+`mix-blend-mode` blends the whole element with whatever is behind it. The dots and the paper mix with each other first, and the result blends as one image. There is no way to blend the dots and leave the paper out. `bg-blend-*` won't do it either, because `background-blend-mode` only mixes an element's own background layers and never reaches behind the element.
+
+With `mix-blend-multiply`, each kind of paper behaves differently.
+
+- White or transparent paper drops out, because multiplying by white changes nothing. Only the dots darken what is behind, so for most overlap effects the default paper is all you need.
+- Colored paper multiplies too, and tints everything behind the element.
+- Translucent colored paper, such as `comic-paper-amber-200/50`, still multiplies, only more weakly. The browser never lays it over the backdrop the normal way.
+
+Overlapping comics with `mix-blend-multiply` mix their dots across elements the same way the dots mix within one element:
+
+<Example>
+  <div class="relative isolate h-40 w-64 bg-white">
+    <div class="absolute top-0 left-6 size-28 rounded-full bg-comic-cyan-500 comic-dot-1.5 mix-blend-multiply"></div>
+    <div class="absolute top-0 left-30 size-28 rounded-full bg-comic-fuchsia-500 comic-dot-1.5 mix-blend-multiply"></div>
+    <div class="absolute top-12 left-18 size-28 rounded-full bg-comic-yellow-400 comic-dot-1.5 mix-blend-multiply"></div>
+  </div>
+</Example>
+
+To lay a paper normally under dots that multiply, split it across two elements. Put the paper underneath as a plain `bg-*`, and the dots on top with `comic-paper-transparent mix-blend-multiply`.
+
+<Example>
+  <div class="flex gap-3">
+    <div class="space-y-1.5">
+      <div class="relative isolate size-24 rounded-lg overflow-hidden bg-linear-to-r from-neutral-900 to-white">
+        <div class="absolute inset-0 bg-comic-red-500 comic-gap-4 comic-paper-amber-200/50 mix-blend-multiply"></div>
+      </div>
+      <p class="m-0 text-center text-xs font-mono opacity-60">one element</p>
+    </div>
+    <div class="space-y-1.5">
+      <div class="relative isolate size-24 rounded-lg overflow-hidden bg-linear-to-r from-neutral-900 to-white">
+        <div class="absolute inset-0 bg-amber-200/50"></div>
+        <div class="absolute inset-0 bg-comic-red-500 comic-gap-4 comic-paper-transparent mix-blend-multiply"></div>
+      </div>
+      <p class="m-0 text-center text-xs font-mono opacity-60">two elements</p>
+    </div>
+  </div>
+</Example>
+
+```html
+<div class="relative isolate">
+  <div class="absolute inset-0 bg-amber-200/50"></div>
+  <div class="absolute inset-0 bg-comic-red-500 comic-paper-transparent mix-blend-multiply"></div>
+</div>
+```
+
+### Project default
+
+The default paper is the `--jib-comic-paper` theme variable. Override it in your own `@theme` to change the paper for every `bg-comic-*` without `comic-paper-*`:
+
+```css
+@theme {
+  --jib-comic-paper: #f4ead0;
+}
+```
 
 ## CMYK channel behavior
 

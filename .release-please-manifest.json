@@ -1,6 +1,6 @@
 {
-  ".": "2.3.0",
-  "packages/tw-jib-css": "2.3.0",
-  "packages/tw-jib-css-experimental": "2.3.0",
-  "packages/tw-jib-css-merge": "2.3.0"
+  ".": "2.4.0",
+  "packages/tw-jib-css": "2.4.0",
+  "packages/tw-jib-css-experimental": "2.4.0",
+  "packages/tw-jib-css-merge": "2.4.0"
 }

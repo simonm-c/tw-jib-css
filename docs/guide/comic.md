@@ -51,7 +51,7 @@ Each color decomposes into CMYK channels from the inverse of its RGB values:
 | **Y** (yellow)  | `rgb(255 255 0)` | `(max(R,G,B) - B) / max(R,G,B)` |
 | **K** (black)   | `rgb(0 0 0)`     | `1 - max(R,G,B) / 255`          |
 
-The four dot layers sit at different grid offsets and composite through `background-blend-mode: multiply` for subtractive color mixing, just like a printing press.
+The four dot layers sit close together, so at a normal viewing distance the eye blends them into one color. They composite through `background-blend-mode: multiply` for subtractive color mixing, just like a printing press.
 
 ::: warning `bg-blend-*` overwrites that list
 `background-blend-mode` repeats a single value across every layer, and Tailwind's `bg-blend-*` sets one. It sorts after the halftone, so `bg-comic-* bg-blend-multiply` blends nothing with the halftone — it replaces the per-layer list the CMYK mixing is built from, including the `normal` entries that keep a ripple, a border gradient and the colour underlay out of the mix.
@@ -185,7 +185,7 @@ Tailwind's position keywords anchor the dot grid. With no position the grid star
 </Example>
 
 ::: info Keywords only
-`bg-top`, `bg-bottom`, `bg-left`, `bg-right`, `bg-center` and the four `bg-top-left`-style corners reach the dots. The magenta, yellow and black screens sit half a cell from the anchor, and `calc()` can add that to a percentage but not to a keyword or to a two-value pair. An arbitrary `bg-position-[…]` therefore leaves the grid anchored top-left.
+`bg-top`, `bg-bottom`, `bg-left`, `bg-right`, `bg-center` and the four `bg-top-left`-style corners reach the dots. The magenta, yellow and black screens sit a fraction of a cell from the anchor, and `calc()` can add that to a percentage but not to a keyword or to a two-value pair. An arbitrary `bg-position-[…]` therefore leaves the grid anchored top-left.
 :::
 
 ## Opacity

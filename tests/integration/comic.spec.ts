@@ -1,6 +1,7 @@
 import { test, expect, type Page } from '@playwright/test';
 import {
   colorDistance,
+  extractMeanColors,
   extractRenderedColors,
   extractStyles,
   gotoExample,
@@ -31,7 +32,7 @@ test.describe('bg-comic: primary colours render', () => {
     // Arrange
     await gotoPage(page);
     // Act
-    const colors = await extractRenderedColors(page, ['black', 'yellow']);
+    const colors = await extractMeanColors(page, ['black', 'yellow']);
     // Assert
     expect(colors['black'].luminance).toBeLessThan(colors['yellow'].luminance);
   });
@@ -103,7 +104,7 @@ test.describe('bg-comic opacity modifier', () => {
     // Arrange
     await gotoPage(page);
     // Act
-    const colors = await extractRenderedColors(page, ['opacity-100', 'opacity-50']);
+    const colors = await extractMeanColors(page, ['opacity-100', 'opacity-50']);
     // Assert
     expect(colors['opacity-50'].luminance).toBeGreaterThan(colors['opacity-100'].luminance);
   });
@@ -296,7 +297,7 @@ test.describe('comic: full Tailwind colour palette', () => {
     await gotoPage(page);
     const shades = ['blue-50', 'blue-200', 'blue-500', 'blue-800', 'blue-950'];
     // Act
-    const colors = await extractRenderedColors(page, shades);
+    const colors = await extractMeanColors(page, shades);
     // Assert
     expect(colors['blue-50'].luminance).toBeGreaterThan(colors['blue-950'].luminance);
   });

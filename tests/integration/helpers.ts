@@ -180,6 +180,95 @@ export async function extractRenderedColors(
   return out;
 }
 
+/** One pixel of a halftone lands on a dot or on bare paper depending on where
+ *  the lattice falls, so it cannot rank two textures by tone. */
+export async function extractMeanColors(
+  page: Page,
+  selectors: string[],
+): Promise<Record<string, SampledColor>> {
+  const screenshot = await page.screenshot({ fullPage: true });
+
+  const { rects, missing } = await page.evaluate((sels) => {
+    const found: Record<string, { x: number; y: number; w: number; h: number }> = {};
+    const absent: string[] = [];
+    for (const sel of sels) {
+      const element = document.querySelector(`[data-test="${sel}"]`);
+      if (!element) {
+        absent.push(sel);
+        continue;
+      }
+      const box = element.getBoundingClientRect();
+      found[sel] = {
+        x: box.x + window.scrollX,
+        y: box.y + window.scrollY,
+        w: box.width,
+        h: box.height,
+      };
+    }
+    return { rects: found, missing: absent };
+  }, selectors);
+
+  assertNonePlaceholder(missing, page.url());
+
+  const averaged = await page.evaluate(
+    async (args: {
+      img: string;
+      rects: Record<string, { x: number; y: number; w: number; h: number }>;
+    }) => {
+      const image = new Image();
+      image.src = `data:image/png;base64,${args.img}`;
+      await image.decode();
+      const canvas = document.createElement('canvas');
+      canvas.width = image.width;
+      canvas.height = image.height;
+      const ctx = canvas.getContext('2d')!;
+      ctx.drawImage(image, 0, 0);
+
+      const toLinear = (v: number) => {
+        const c = v / 255;
+        return c <= 0.04045 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+      };
+      const toEncoded = (c: number) =>
+        Math.round(255 * (c <= 0.0031308 ? c * 12.92 : 1.055 * c ** (1 / 2.4) - 0.055));
+
+      const dpr = window.devicePixelRatio || 1;
+      const result: Record<string, { r: number; g: number; b: number; a: number }> = {};
+      for (const [sel, rect] of Object.entries(args.rects)) {
+        const x = Math.ceil(rect.x * dpr);
+        const y = Math.ceil(rect.y * dpr);
+        const w = Math.floor((rect.x + rect.w) * dpr) - x;
+        const h = Math.floor((rect.y + rect.h) * dpr) - y;
+        const data = ctx.getImageData(x, y, w, h).data;
+        const sum = [0, 0, 0, 0];
+        for (let i = 0; i < data.length; i += 4) {
+          sum[0] += toLinear(data[i]);
+          sum[1] += toLinear(data[i + 1]);
+          sum[2] += toLinear(data[i + 2]);
+          sum[3] += data[i + 3] / 255;
+        }
+        const count = data.length / 4;
+        result[sel] = {
+          r: toEncoded(sum[0] / count),
+          g: toEncoded(sum[1] / count),
+          b: toEncoded(sum[2] / count),
+          a: sum[3] / count,
+        };
+      }
+      return result;
+    },
+    { img: screenshot.toString('base64'), rects },
+  );
+
+  const out: Record<string, SampledColor> = {};
+  for (const [sel, color] of Object.entries(averaged)) {
+    out[sel] = {
+      ...color,
+      luminance: 0.2126 * (color.r / 255) + 0.7152 * (color.g / 255) + 0.0722 * (color.b / 255),
+    };
+  }
+  return out;
+}
+
 /** Anchor on any id the page defines: reading styles before it exists returns
  *  initial values that look real. */
 export async function gotoExample(page: Page, path: string, anchorId: string) {

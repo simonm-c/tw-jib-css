@@ -172,7 +172,9 @@ test.describe('comic: bg-position anchors the dot screens', () => {
     const layers = splitLayers(styles['anchor-center'].backgroundPosition);
     // Assert
     expect(layers[MAGENTA], 'magenta is measured from the 50% anchor').toContain('50%');
-    expect(layers[MAGENTA], 'magenta keeps its half-cell offset from cyan').not.toBe(layers[CYAN]);
+    expect(layers[MAGENTA], "magenta keeps its knight's-move offset from cyan").not.toBe(
+      layers[CYAN],
+    );
   });
 });
 

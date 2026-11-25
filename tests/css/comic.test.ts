@@ -86,15 +86,15 @@ describe.each(suiteScenarios('comic'))('comic utilities, $name', ({ compile }) =
       ['cyan', 'var(--jib-background-position-x) var(--jib-background-position-y)'],
       [
         'magenta',
-        'calc(var(--jib-background-position-x) + var(--jib-comic-cell) / 2) calc(var(--jib-background-position-y) + var(--jib-comic-cell) / 2)',
+        'calc(var(--jib-background-position-x) + var(--jib-comic-cell) / 5) calc(var(--jib-background-position-y) + var(--jib-comic-cell) * 2 / 5)',
       ],
       [
         'yellow',
-        'calc(var(--jib-background-position-x) + var(--jib-comic-cell) / 2) var(--jib-background-position-y)',
+        'calc(var(--jib-background-position-x) + var(--jib-comic-cell) * 2 / 5) calc(var(--jib-background-position-y) + var(--jib-comic-cell) * 4 / 5)',
       ],
       [
         'key',
-        'var(--jib-background-position-x) calc(var(--jib-background-position-y) + var(--jib-comic-cell) / 2)',
+        'calc(var(--jib-background-position-x) + var(--jib-comic-cell) * 3 / 5) calc(var(--jib-background-position-y) + var(--jib-comic-cell) / 5)',
       ],
     ])('the %s screen sits on the bg-position anchor plus its offset', async (screen, position) => {
       // Arrange

@@ -272,6 +272,38 @@ Each subject sits beside the reference it must paint identically. `bg-comic-whit
   </div>
 </div>
 
+## Screen registration
+
+One pure ink per layer, each at full strength, stacked with `mix-blend-multiply`. Dot 6px radius, no bleed and gap 24px make a 36px cell. The inks sit a knight's move apart, a fifth of the cell across and two fifths down, and the fifth spot stays empty.
+
+<div class="grid grid-cols-5 gap-3 my-6">
+  <div class="col-span-5">
+    <div data-test="registration" class="relative isolate size-[288px] bg-white border border-gray-300">
+      <div data-test="registration-c" class="absolute inset-0 mix-blend-multiply bg-comic-[#00ffff] comic-paper-transparent comic-dot-[6px] comic-bleed-0 comic-gap-[24px]"></div>
+      <div data-test="registration-m" class="absolute inset-0 mix-blend-multiply bg-comic-[#ff00ff] comic-paper-transparent comic-dot-[6px] comic-bleed-0 comic-gap-[24px]"></div>
+      <div data-test="registration-y" class="absolute inset-0 mix-blend-multiply bg-comic-[#ffff00] comic-paper-transparent comic-dot-[6px] comic-bleed-0 comic-gap-[24px]"></div>
+      <div data-test="registration-k" class="absolute inset-0 mix-blend-multiply bg-comic-[#000000] comic-paper-transparent comic-dot-[6px] comic-bleed-0 comic-gap-[24px]"></div>
+    </div>
+    <div class="text-xs font-mono mt-1">C + M + Y + K, each at 100%</div>
+  </div>
+  <div>
+    <div data-test="registration-c-alone" class="size-[144px] bg-comic-[#00ffff] comic-dot-[6px] comic-bleed-0 comic-gap-[24px] border border-gray-300"></div>
+    <div class="text-xs font-mono mt-1">C alone</div>
+  </div>
+  <div>
+    <div data-test="registration-m-alone" class="size-[144px] bg-comic-[#ff00ff] comic-dot-[6px] comic-bleed-0 comic-gap-[24px] border border-gray-300"></div>
+    <div class="text-xs font-mono mt-1">M alone</div>
+  </div>
+  <div>
+    <div data-test="registration-y-alone" class="size-[144px] bg-comic-[#ffff00] comic-dot-[6px] comic-bleed-0 comic-gap-[24px] border border-gray-300"></div>
+    <div class="text-xs font-mono mt-1">Y alone</div>
+  </div>
+  <div>
+    <div data-test="registration-k-alone" class="size-[144px] bg-comic-[#000000] comic-dot-[6px] comic-bleed-0 comic-gap-[24px] border border-gray-300"></div>
+    <div class="text-xs font-mono mt-1">K alone</div>
+  </div>
+</div>
+
 ## Dot + gap combinations (color: blue)
 
 <div class="my-6">

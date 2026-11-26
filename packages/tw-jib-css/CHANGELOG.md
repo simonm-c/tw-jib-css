@@ -1,5 +1,22 @@
 # Changelog
 
+## [3.0.0](https://github.com/simonm-c/tw-jib-css/compare/tw-jib-css-v2.4.0...tw-jib-css-v3.0.0) (2026-11-26)
+
+
+### ⚠ BREAKING CHANGES
+
+* **comic:** comic-gap-* and comic-bleed-* take a number of dots, not a length.
+
+### Features
+
+* **comic:** size each dot by its ink coverage ([1e75236](https://github.com/simonm-c/tw-jib-css/commit/1e75236e8a8a8cea0b9d8a8158c14c79420c27d1))
+
+
+### Bug Fixes
+
+* **comic:** space every ink pair evenly ([56d44c7](https://github.com/simonm-c/tw-jib-css/commit/56d44c7717b5da339ba6d40c5de0c33e53611bce))
+* **comic:** stop a full dot at its cell edge ([9d0c500](https://github.com/simonm-c/tw-jib-css/commit/9d0c500e8369fdebb4f121dbfab13e3814e6941e))
+
 ## [2.4.0](https://github.com/simonm-c/tw-jib-css/compare/tw-jib-css-v2.3.0...tw-jib-css-v2.4.0) (2026-11-13)
 
 

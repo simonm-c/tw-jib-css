@@ -98,7 +98,7 @@ the shared pipeline lands once, not once per module. The test suite covers both 
 - **TailwindCSS 4.3+**, declared as a peer dependency (`tailwindcss >=4.3.0`).
 - **Chrome 138+, Safari 16.4+, Firefox 128+** for anything that transforms a colour. Relative colour
   syntax (Chrome 119+) and `@property` account for most of that, but the lightness and saturation
-  transforms also use `abs()` and `sign()`, which Chromium shipped only in 138. `border-style` and
+  transforms also use `abs()` and `sign()`, and comic uses `sign()`, which Chromium shipped only in 138. `border-style` and
   `grid` need none of it and work wherever Tailwind does. `text-contrast-max` is CSS
   `contrast-color()` and needs Chrome 147+, Safari 26+, Firefox 146+. Every
   [guide page](https://simonm-c.github.io/tw-jib-css/) carries live Baseline status for the features

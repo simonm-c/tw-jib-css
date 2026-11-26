@@ -1,6 +1,7 @@
 import { test, expect, type Page } from '@playwright/test';
 import {
   colorDistance,
+  extractMeanColors,
   extractRenderedColors,
   extractStyles,
   gotoExample,
@@ -31,7 +32,7 @@ test.describe('bg-comic: primary colours render', () => {
     // Arrange
     await gotoPage(page);
     // Act
-    const colors = await extractRenderedColors(page, ['black', 'yellow']);
+    const colors = await extractMeanColors(page, ['black', 'yellow']);
     // Assert
     expect(colors['black'].luminance).toBeLessThan(colors['yellow'].luminance);
   });
@@ -103,7 +104,7 @@ test.describe('bg-comic opacity modifier', () => {
     // Arrange
     await gotoPage(page);
     // Act
-    const colors = await extractRenderedColors(page, ['opacity-100', 'opacity-50']);
+    const colors = await extractMeanColors(page, ['opacity-100', 'opacity-50']);
     // Assert
     expect(colors['opacity-50'].luminance).toBeGreaterThan(colors['opacity-100'].luminance);
   });
@@ -172,7 +173,36 @@ test.describe('comic: bg-position anchors the dot screens', () => {
     const layers = splitLayers(styles['anchor-center'].backgroundPosition);
     // Assert
     expect(layers[MAGENTA], 'magenta is measured from the 50% anchor').toContain('50%');
-    expect(layers[MAGENTA], 'magenta keeps its half-cell offset from cyan').not.toBe(layers[CYAN]);
+    expect(layers[MAGENTA], "magenta keeps its knight's-move offset from cyan").not.toBe(
+      layers[CYAN],
+    );
+  });
+});
+
+test.describe('comic: a full dot reaches its cell edge', () => {
+  test('full dots at gap 0 and bleed 0 touch without overlapping', async ({ page }) => {
+    // Arrange
+    await gotoPage(page);
+    const linear = (channel: number) => ((channel / 255 + 0.055) / 1.055) ** 2.4;
+    // Act
+    const colors = await extractMeanColors(page, ['full-touch']);
+    // Assert
+    expect(
+      linear(colors['full-touch'].r),
+      'a circle inscribed in its cell leaves 1 - π/4 of the surface as paper, read from the red cyan ink absorbs',
+    ).toBeCloseTo(1 - Math.PI / 4, 1);
+  });
+
+  test('bleed inks the paper between full dots', async ({ page }) => {
+    // Arrange
+    await gotoPage(page);
+    // Act
+    const colors = await extractMeanColors(page, ['full-touch', 'full-bleed']);
+    // Assert
+    expect(
+      colors['full-bleed'].r,
+      'the feather must cover paper the hard-edged dots leave bare',
+    ).toBeLessThan(colors['full-touch'].r);
   });
 });
 
@@ -294,7 +324,7 @@ test.describe('comic: full Tailwind colour palette', () => {
     await gotoPage(page);
     const shades = ['blue-50', 'blue-200', 'blue-500', 'blue-800', 'blue-950'];
     // Act
-    const colors = await extractRenderedColors(page, shades);
+    const colors = await extractMeanColors(page, shades);
     // Assert
     expect(colors['blue-50'].luminance).toBeGreaterThan(colors['blue-950'].luminance);
   });

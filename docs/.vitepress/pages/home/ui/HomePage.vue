@@ -242,9 +242,9 @@ import ModuleIndex from '../../../widgets/module-index/ui/ModuleIndex.vue';
         <div class="grid grid-cols-2 gap-x-3 gap-y-4">
           <div class="space-y-1.5">
             <div
-              class="aspect-[3/2] rounded-lg bg-comic-(color:--landing-tex-color) comic-gap-1 comic-bleed-2"
+              class="aspect-[3/2] rounded-lg bg-comic-(color:--landing-tex-color) comic-gap-0"
             ></div>
-            <p class="m-0 font-mono text-[9px] opacity-60">comic-gap-1 comic-bleed-2</p>
+            <p class="m-0 font-mono text-[9px] opacity-60">comic-gap-0</p>
           </div>
           <div class="space-y-1.5">
             <div
@@ -262,11 +262,9 @@ import ModuleIndex from '../../../widgets/module-index/ui/ModuleIndex.vue';
           </div>
           <div class="space-y-1.5">
             <div
-              class="aspect-[3/2] rounded-lg bg-comic-(color:--landing-tex-color) comic-dot-1 comic-gap-10 comic-bleed-0"
+              class="aspect-[3/2] rounded-lg bg-comic-(color:--landing-tex-color) comic-dot-1 comic-bleed-0"
             ></div>
-            <p class="m-0 font-mono text-[9px] opacity-60">
-              comic-dot-1 comic-gap-10 comic-bleed-0
-            </p>
+            <p class="m-0 font-mono text-[9px] opacity-60">comic-dot-1 comic-bleed-0</p>
           </div>
           <div class="space-y-1.5">
             <div

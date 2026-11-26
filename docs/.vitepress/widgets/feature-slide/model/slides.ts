@@ -25,8 +25,8 @@ export const slides: FeatureSlideData[] = [
   },
   {
     headline: 'CMYK dots and RGB pixels, faithfully reproduced.',
-    body: 'Not an overlay. Comic splits your color into CMYK dot grids and multiplies them back, the way a press prints. Pixel splits it into RGB columns and screens them, the way a display emits light. Left alone both read back as your color. Turn them up and the channels come apart. Ink holds its edge, emitters glare, which is why big dots want bleed at zero and big pixels want bloom cranked.',
-    code: `<!-- working size: reads back as the color -->\n<div class="bg-comic-indigo-600">\n<div class="bg-pixel-indigo-600">\n\n<!-- turned up: the channels show -->\n<div class="bg-comic-indigo-600 comic-dot-1 comic-gap-10 comic-bleed-0">\n<div class="bg-pixel-indigo-600 pixel-size-6 pixel-bloom-8">`,
+    body: 'Not an overlay. Comic splits your color into CMYK dot grids and multiplies them back, the way a press prints. Pixel splits it into RGB columns and screens them, the way a display emits light. Left alone, pixel reads back as your color and comic prints it as a tint on white paper. Turn them up and the channels come apart. Ink holds its edge, emitters glare, which is why big dots want bleed at zero and big pixels want bloom cranked.',
+    code: `<!-- working size -->\n<div class="bg-comic-indigo-600">\n<div class="bg-pixel-indigo-600">\n\n<!-- turned up: the channels show -->\n<div class="bg-comic-indigo-600 comic-dot-1 comic-bleed-0">\n<div class="bg-pixel-indigo-600 pixel-size-6 pixel-bloom-8">`,
   },
   {
     headline: 'Ripples on tap. Zero JavaScript.',

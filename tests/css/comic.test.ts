@@ -12,11 +12,15 @@ describe.each(suiteScenarios('comic'))('comic utilities, $name', ({ compile }) =
     });
 
     test('bg-comic-red-500 extracts CMYK channels via relative color syntax', async () => {
+      // Arrange
+      // Act
       const css = await compile('bg-comic-red-500');
-      expect(css).toContain('0 255 255');
-      expect(css).toContain('255 0 255');
-      expect(css).toContain('255 255 0');
-      expect(css).toContain('0 0 0');
+
+      // Assert
+      expect(css, 'cyan dots are not painted in srgb 0 1 1').toContain('srgb 0 1 1 /');
+      expect(css, 'magenta dots are not painted in srgb 1 0 1').toContain('srgb 1 0 1 /');
+      expect(css, 'yellow dots are not painted in srgb 1 1 0').toContain('srgb 1 1 0 /');
+      expect(css, 'black dots are not painted in srgb 0 0 0').toContain('srgb 0 0 0 /');
     });
 
     test('bg-comic-red-500 paints its base layer from the paper slot, falling back to the theme paper', async () => {
@@ -86,15 +90,15 @@ describe.each(suiteScenarios('comic'))('comic utilities, $name', ({ compile }) =
       ['cyan', 'var(--jib-background-position-x) var(--jib-background-position-y)'],
       [
         'magenta',
-        'calc(var(--jib-background-position-x) + var(--jib-comic-cell) / 2) calc(var(--jib-background-position-y) + var(--jib-comic-cell) / 2)',
+        'calc(var(--jib-background-position-x) + var(--jib-comic-cell) / 5) calc(var(--jib-background-position-y) + var(--jib-comic-cell) * 2 / 5)',
       ],
       [
         'yellow',
-        'calc(var(--jib-background-position-x) + var(--jib-comic-cell) / 2) var(--jib-background-position-y)',
+        'calc(var(--jib-background-position-x) + var(--jib-comic-cell) * 2 / 5) calc(var(--jib-background-position-y) + var(--jib-comic-cell) * 4 / 5)',
       ],
       [
         'key',
-        'var(--jib-background-position-x) calc(var(--jib-background-position-y) + var(--jib-comic-cell) / 2)',
+        'calc(var(--jib-background-position-x) + var(--jib-comic-cell) * 3 / 5) calc(var(--jib-background-position-y) + var(--jib-comic-cell) / 5)',
       ],
     ])('the %s screen sits on the bg-position anchor plus its offset', async (screen, position) => {
       // Arrange
@@ -105,7 +109,7 @@ describe.each(suiteScenarios('comic'))('comic utilities, $name', ({ compile }) =
       expect(
         css,
         `the ${screen} dots must follow bg-position, or animating comic-dot grows them from the top left`,
-      ).toContain(`) ${position} / var(--jib-comic-cell) var(--jib-comic-cell)`);
+      ).toContain(`) ${position} / var(--jib-comic-tile)`);
     });
 
     test('bg-comic-[#ff6600] accepts arbitrary color', async () => {
@@ -116,7 +120,7 @@ describe.each(suiteScenarios('comic'))('comic utilities, $name', ({ compile }) =
   });
 
   describe('comic-dot-*', () => {
-    test('comic-dot-2 sets dot radius from spacing scale', async () => {
+    test('comic-dot-2 sets the dot from the spacing scale', async () => {
       const css = await compile('comic-dot-2');
       expect(css).toContain('--jib-comic-dot');
     });
@@ -128,26 +132,62 @@ describe.each(suiteScenarios('comic'))('comic utilities, $name', ({ compile }) =
   });
 
   describe('comic-bleed-*', () => {
-    test('comic-bleed-2 sets bleed with spacing/4 scaling', async () => {
+    test('comic-bleed-2 sets bleed as a multiple of the dot', async () => {
+      // Arrange
+      // Act
       const css = await compile('comic-bleed-2');
-      expect(css).toContain('--jib-comic-bleed');
+
+      // Assert
+      expect(css, 'bleed must be a bare number so the screen zooms with comic-dot').toContain(
+        '--jib-comic-bleed: 2;',
+      );
     });
 
-    test('comic-bleed-[2px] accepts arbitrary length', async () => {
-      const css = await compile('comic-bleed-[2px]');
-      expect(css).toContain('--jib-comic-bleed: 2px');
+    test('comic-bleed-[0.25] accepts an arbitrary multiple', async () => {
+      // Arrange
+      // Act
+      const css = await compile('comic-bleed-[0.25]');
+
+      // Assert
+      expect(css, 'an arbitrary bleed must reach the slot unchanged').toContain(
+        '--jib-comic-bleed: 0.25;',
+      );
     });
   });
 
   describe('comic-gap-*', () => {
-    test('comic-gap-4 sets gap with spacing/4 scaling', async () => {
+    test('comic-gap-4 sets gap as a multiple of the dot', async () => {
+      // Arrange
+      // Act
       const css = await compile('comic-gap-4');
-      expect(css).toContain('--jib-comic-gap');
+
+      // Assert
+      expect(css, 'gap must be a bare number so the screen zooms with comic-dot').toContain(
+        '--jib-comic-gap: 4;',
+      );
     });
 
-    test('comic-gap-[5px] accepts arbitrary length', async () => {
-      const css = await compile('comic-gap-[5px]');
-      expect(css).toContain('--jib-comic-gap: 5px');
+    test('comic-gap-[1.5] accepts an arbitrary multiple', async () => {
+      // Arrange
+      // Act
+      const css = await compile('comic-gap-[1.5]');
+
+      // Assert
+      expect(css, 'an arbitrary gap must reach the slot unchanged').toContain(
+        '--jib-comic-gap: 1.5;',
+      );
+    });
+
+    test('bg-comic-red-500 sizes the cell from the dot alone', async () => {
+      // Arrange
+      // Act
+      const css = await compile('bg-comic-red-500');
+
+      // Assert
+      expect(
+        css,
+        'every length must scale with comic-dot for the dot to zoom the screen',
+      ).toContain('--jib-comic-cell: calc(var(--jib-comic-dot) * (2 + var(--jib-comic-gap)));');
     });
   });
 

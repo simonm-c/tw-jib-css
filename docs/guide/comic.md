@@ -11,7 +11,7 @@ CMYK halftone dot backgrounds for any Tailwind color. Pure CSS, no images.
 Comic mixes subtractively, the way ink lands on paper. Its sibling [Pixel](/guide/pixel) mixes additively, the way a display emits light. Left at their defaults both read back as the color you passed in; turn the knobs up and the channels come apart.
 
 ::: info Browser support
-Built on CSS relative color syntax with `max()` inside `rgb(from ...)`, and registered custom properties. Live status for each is at the foot of this page.
+Built on CSS relative color syntax, `min()`, `max()` and `clamp()`, `sqrt()` and `pow()`, `sign()`, the `pi` constant, and registered custom properties. Live status for each is at the foot of this page.
 :::
 
 ::: warning Pairing with `text-contrast-*`
@@ -26,12 +26,12 @@ The dots sit on the paper color, white by default, and `text-contrast-*` solves 
   { class: 'bg-comic-<color>/[<number>]', styles: 'Same with a 0-1 opacity' },
   { class: 'bg-comic-[<value>]', styles: 'Arbitrary color value' },
   { class: 'bg-comic-(--var)', styles: 'Color from a custom property' },
-  { class: 'comic-dot-<number>', styles: '--jib-comic-dot: --spacing(<number>). Dot radius.' },
+  { class: 'comic-dot-<number>', styles: '--jib-comic-dot: --spacing(<number>). Screen scale. Gap and bleed scale with it.' },
   { class: 'comic-dot-[<value>]', styles: '--jib-comic-dot: <value>' },
-  { class: 'comic-bleed-<number>', styles: '--jib-comic-bleed: --spacing(<number>) / 4. Dot edge softness.' },
-  { class: 'comic-bleed-[<value>]', styles: '--jib-comic-bleed: <value>' },
-  { class: 'comic-gap-<number>', styles: '--jib-comic-gap: --spacing(<number>) / 4. Space between dots.' },
-  { class: 'comic-gap-[<value>]', styles: '--jib-comic-gap: <value>' },
+  { class: 'comic-bleed-<number>', styles: '--jib-comic-bleed: <number>. Ink spread past the dot edge, in dots.' },
+  { class: 'comic-bleed-[<number>]', styles: '--jib-comic-bleed: <number>' },
+  { class: 'comic-gap-<number>', styles: '--jib-comic-gap: <number>. Space between dots, in dots.' },
+  { class: 'comic-gap-[<number>]', styles: '--jib-comic-gap: <number>' },
   { class: 'comic-paper-<color>', styles: 'Paper under the dots. Defaults to the --jib-comic-paper theme variable, white.' },
   { class: 'comic-paper-<color>/<opacity>', styles: 'Same with an alpha modifier' },
   { class: 'comic-paper-transparent', styles: 'Removes the paper, so the dots print straight onto whatever is behind the element' },
@@ -44,12 +44,14 @@ The dots sit on the paper color, white by default, and `text-contrast-*` solves 
 
 Each color decomposes into CMYK channels from the inverse of its RGB values:
 
-| Dot             | Color            | Opacity formula                 |
+| Dot             | Color            | Coverage                        |
 | --------------- | ---------------- | ------------------------------- |
 | **C** (cyan)    | `rgb(0 255 255)` | `(max(R,G,B) - R) / max(R,G,B)` |
 | **M** (magenta) | `rgb(255 0 255)` | `(max(R,G,B) - G) / max(R,G,B)` |
 | **Y** (yellow)  | `rgb(255 255 0)` | `(max(R,G,B) - B) / max(R,G,B)` |
 | **K** (black)   | `rgb(0 0 0)`     | `1 - max(R,G,B) / 255`          |
+
+Coverage sets the size of each dot, the way a printing plate does. Every dot prints at full ink strength, and a 40% cyan dot covers 40% of a square two dots wide. At `comic-gap-0` those squares tile the surface. Above about 79% neighbouring dots join, and at 100% the ink is solid. A wider gap spaces the same dots further apart, so more paper shows.
 
 The four dot layers sit close together, so at a normal viewing distance the eye blends them into one color. They composite through `background-blend-mode: multiply` for subtractive color mixing, just like a printing press.
 
@@ -72,7 +74,7 @@ Add `bg-comic-<color>` to any element:
 
 ## Gap
 
-Control the space between dots with `comic-gap-<number>`. The value scales at `--spacing / 4`, so `comic-gap-1` is 1px and `comic-gap-4` is 4px. The default is 2px.
+Control the space between dots with `comic-gap-<number>`. The value counts in dots, so `comic-gap-4` leaves four dots of space. The default is 2.
 
 <Example>
   <div class="flex gap-3">
@@ -99,32 +101,32 @@ Control the space between dots with `comic-gap-<number>`. The value scales at `-
   </div>
 </Example>
 
-Gap adds to dot size, so the grid cell works out to `dot * 2 + gap`. Changing `comic-dot-*` scales the grid with it.
+The grid cell works out to `dot × (2 + gap)`. Gap moves the dots apart without resizing them, so the color lightens as the gap grows. Only `comic-gap-0` prints the full color.
 
 ## Dot size
 
-Control the dot radius with `comic-dot-<number>` using the Tailwind spacing scale. The default is 1px.
+Set the scale of the screen with `comic-dot-<number>`, using the Tailwind spacing scale. The default is 1px. Gap and bleed count in dots, so a larger dot zooms the whole pattern in and keeps its proportions.
 
 <Example>
   <div class="flex gap-3">
     <div class="space-y-1.5">
-      <div class="bg-comic-red-500 comic-dot-0.5 size-24 rounded-lg"></div>
+      <div class="bg-comic-red-500 comic-dot-0.5 comic-bleed-0 size-24 rounded-lg"></div>
       <p class="m-0 text-center text-xs font-mono opacity-60">dot-0.5</p>
     </div>
     <div class="space-y-1.5">
-      <div class="bg-comic-red-500 comic-dot-1 size-24 rounded-lg"></div>
+      <div class="bg-comic-red-500 comic-dot-1 comic-bleed-0 size-24 rounded-lg"></div>
       <p class="m-0 text-center text-xs font-mono opacity-60">dot-1</p>
     </div>
     <div class="space-y-1.5">
-      <div class="bg-comic-red-500 comic-dot-1.5 size-24 rounded-lg"></div>
+      <div class="bg-comic-red-500 comic-dot-1.5 comic-bleed-0 size-24 rounded-lg"></div>
       <p class="m-0 text-center text-xs font-mono opacity-60">dot-1.5</p>
     </div>
     <div class="space-y-1.5">
-      <div class="bg-comic-red-500 comic-dot-2 size-24 rounded-lg"></div>
+      <div class="bg-comic-red-500 comic-dot-2 comic-bleed-0 size-24 rounded-lg"></div>
       <p class="m-0 text-center text-xs font-mono opacity-60">dot-2</p>
     </div>
     <div class="space-y-1.5">
-      <div class="bg-comic-red-500 comic-dot-3 size-24 rounded-lg"></div>
+      <div class="bg-comic-red-500 comic-dot-3 comic-bleed-0 size-24 rounded-lg"></div>
       <p class="m-0 text-center text-xs font-mono opacity-60">dot-3</p>
     </div>
   </div>
@@ -132,11 +134,11 @@ Control the dot radius with `comic-dot-<number>` using the Tailwind spacing scal
 
 ## Bleed
 
-Control the dot edge softness with `comic-bleed-<number>`. The transparent gradient stop sits at `dot + bleed`, so:
+Control how far ink spreads past each dot edge with `comic-bleed-<number>`, counted in dots. The default is 1.
 
-- `comic-bleed-0` gives crisp hard-edged circles
-- `comic-bleed-1` gives slight softness, and is the default
-- Larger values blur the dot edges further
+- `comic-bleed-0` prints hard-edged dots at any dot size. Each dot snaps to the nearest of a few fixed sizes, so dots step in size between neighbouring shades, and a very faint ink can print no dot at all.
+- Each dot keeps full ink to its edge and feathers outward from there. A small dot gets a faint halo and a large one a strong halo, so the mix of inks holds.
+- Bleed adds ink. Higher values spread the dots into each other and darken the color toward solid ink.
 
 <Example>
   <div class="flex gap-3">
@@ -170,15 +172,15 @@ Tailwind's position keywords anchor the dot grid. With no position the grid star
 <Example>
   <div class="flex gap-3">
     <div class="space-y-1.5">
-      <div class="bg-comic-blue-500 comic-dot-1 transition-[--jib-comic-dot] duration-700 hover:comic-dot-4 size-24 rounded-lg"></div>
+      <div class="bg-comic-blue-500 comic-dot-1 comic-bleed-0 transition-[--jib-comic-dot] duration-700 hover:comic-dot-4 size-24 rounded-lg"></div>
       <div class="text-center text-xs font-mono opacity-60">no position</div>
     </div>
     <div class="space-y-1.5">
-      <div class="bg-comic-blue-500 comic-dot-1 bg-center transition-[--jib-comic-dot] duration-700 hover:comic-dot-4 size-24 rounded-lg"></div>
+      <div class="bg-comic-blue-500 comic-dot-1 comic-bleed-0 bg-center transition-[--jib-comic-dot] duration-700 hover:comic-dot-4 size-24 rounded-lg"></div>
       <div class="text-center text-xs font-mono opacity-60">bg-center</div>
     </div>
     <div class="space-y-1.5">
-      <div class="bg-comic-blue-500 comic-dot-1 bg-bottom-right transition-[--jib-comic-dot] duration-700 hover:comic-dot-4 size-24 rounded-lg"></div>
+      <div class="bg-comic-blue-500 comic-dot-1 comic-bleed-0 bg-bottom-right transition-[--jib-comic-dot] duration-700 hover:comic-dot-4 size-24 rounded-lg"></div>
       <div class="text-center text-xs font-mono opacity-60">bg-bottom-right</div>
     </div>
   </div>
@@ -226,23 +228,23 @@ The dots print on paper, white by default. `comic-paper-<color>` changes it for 
 <Example>
   <div class="flex gap-3">
     <div class="space-y-1.5">
-      <div class="bg-comic-red-500 comic-dot-1.5 size-24 rounded-lg"></div>
+      <div class="bg-comic-red-500 comic-dot-1.5 comic-bleed-0 size-24 rounded-lg"></div>
       <p class="m-0 text-center text-xs font-mono opacity-60">default</p>
     </div>
     <div class="space-y-1.5">
-      <div class="bg-comic-red-500 comic-dot-1.5 comic-paper-[#f4ead0] size-24 rounded-lg"></div>
+      <div class="bg-comic-red-500 comic-dot-1.5 comic-bleed-0 comic-paper-[#f4ead0] size-24 rounded-lg"></div>
       <p class="m-0 text-center text-xs font-mono opacity-60">[#f4ead0]</p>
     </div>
     <div class="space-y-1.5">
-      <div class="bg-comic-red-500 comic-dot-1.5 comic-paper-amber-200 size-24 rounded-lg"></div>
+      <div class="bg-comic-red-500 comic-dot-1.5 comic-bleed-0 comic-paper-amber-200 size-24 rounded-lg"></div>
       <p class="m-0 text-center text-xs font-mono opacity-60">amber-200</p>
     </div>
     <div class="space-y-1.5">
-      <div class="bg-comic-red-500 comic-dot-1.5 comic-paper-sky-200 size-24 rounded-lg"></div>
+      <div class="bg-comic-red-500 comic-dot-1.5 comic-bleed-0 comic-paper-sky-200 size-24 rounded-lg"></div>
       <p class="m-0 text-center text-xs font-mono opacity-60">sky-200</p>
     </div>
     <div class="space-y-1.5">
-      <div class="bg-comic-red-500 comic-dot-1.5 comic-paper-sky-200/40 size-24 rounded-lg"></div>
+      <div class="bg-comic-red-500 comic-dot-1.5 comic-bleed-0 comic-paper-sky-200/40 size-24 rounded-lg"></div>
       <p class="m-0 text-center text-xs font-mono opacity-60">sky-200/40</p>
     </div>
   </div>
@@ -262,25 +264,25 @@ Three utilities let what is behind the element show through. None of them blend 
   <div class="flex gap-3">
     <div class="space-y-1.5">
       <div class="relative size-24 rounded-lg overflow-hidden bg-linear-to-br from-sky-400 to-indigo-600">
-        <div class="absolute inset-0 bg-comic-black comic-dot-1.5 comic-gap-4"></div>
+        <div class="absolute inset-0 bg-comic-black comic-dot-1.5 comic-bleed-0 comic-gap-4"></div>
       </div>
       <p class="m-0 text-center text-xs font-mono opacity-60">default</p>
     </div>
     <div class="space-y-1.5">
       <div class="relative size-24 rounded-lg overflow-hidden bg-linear-to-br from-sky-400 to-indigo-600">
-        <div class="absolute inset-0 bg-comic-black/50 comic-dot-1.5 comic-gap-4"></div>
+        <div class="absolute inset-0 bg-comic-black/50 comic-dot-1.5 comic-bleed-0 comic-gap-4"></div>
       </div>
       <p class="m-0 text-center text-xs font-mono opacity-60">bg-comic-black/50</p>
     </div>
     <div class="space-y-1.5">
       <div class="relative size-24 rounded-lg overflow-hidden bg-linear-to-br from-sky-400 to-indigo-600">
-        <div class="absolute inset-0 bg-comic-black comic-dot-1.5 comic-gap-4 comic-paper-white/50"></div>
+        <div class="absolute inset-0 bg-comic-black comic-dot-1.5 comic-bleed-0 comic-gap-4 comic-paper-white/50"></div>
       </div>
       <p class="m-0 text-center text-xs font-mono opacity-60">comic-paper-white/50</p>
     </div>
     <div class="space-y-1.5">
       <div class="relative size-24 rounded-lg overflow-hidden bg-linear-to-br from-sky-400 to-indigo-600">
-        <div class="absolute inset-0 bg-comic-black comic-dot-1.5 comic-gap-4 comic-paper-transparent"></div>
+        <div class="absolute inset-0 bg-comic-black comic-dot-1.5 comic-bleed-0 comic-gap-4 comic-paper-transparent"></div>
       </div>
       <p class="m-0 text-center text-xs font-mono opacity-60">comic-paper-transparent</p>
     </div>
@@ -301,9 +303,9 @@ Overlapping comics with `mix-blend-multiply` mix their dots across elements the 
 
 <Example>
   <div class="relative isolate h-40 w-64 bg-white">
-    <div class="absolute top-0 left-6 size-28 rounded-full bg-comic-cyan-500 comic-dot-1.5 mix-blend-multiply"></div>
-    <div class="absolute top-0 left-30 size-28 rounded-full bg-comic-fuchsia-500 comic-dot-1.5 mix-blend-multiply"></div>
-    <div class="absolute top-12 left-18 size-28 rounded-full bg-comic-yellow-400 comic-dot-1.5 mix-blend-multiply"></div>
+    <div class="absolute top-0 left-6 size-28 rounded-full bg-comic-cyan-500 comic-dot-1.5 comic-bleed-0 mix-blend-multiply"></div>
+    <div class="absolute top-0 left-30 size-28 rounded-full bg-comic-fuchsia-500 comic-dot-1.5 comic-bleed-0 mix-blend-multiply"></div>
+    <div class="absolute top-12 left-18 size-28 rounded-full bg-comic-yellow-400 comic-dot-1.5 comic-bleed-0 mix-blend-multiply"></div>
   </div>
 </Example>
 
@@ -758,4 +760,4 @@ Included in `@import 'tw-jib-css'`. To import individually:
 @import 'tw-jib-css/comic';
 ```
 
-<BaselineSupport :features="['relative-color', 'registered-custom-properties']" />
+<BaselineSupport :features="['relative-color', 'min-max-clamp', 'exp-functions', 'calc-constants', 'abs-sign', 'registered-custom-properties']" />

@@ -120,7 +120,7 @@ describe.each(suiteScenarios('comic'))('comic utilities, $name', ({ compile }) =
   });
 
   describe('comic-dot-*', () => {
-    test('comic-dot-2 sets dot radius from spacing scale', async () => {
+    test('comic-dot-2 sets the dot from the spacing scale', async () => {
       const css = await compile('comic-dot-2');
       expect(css).toContain('--jib-comic-dot');
     });

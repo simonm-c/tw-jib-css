@@ -179,6 +179,33 @@ test.describe('comic: bg-position anchors the dot screens', () => {
   });
 });
 
+test.describe('comic: a full dot reaches its cell edge', () => {
+  test('full dots at gap 0 and bleed 0 touch without overlapping', async ({ page }) => {
+    // Arrange
+    await gotoPage(page);
+    const linear = (channel: number) => ((channel / 255 + 0.055) / 1.055) ** 2.4;
+    // Act
+    const colors = await extractMeanColors(page, ['full-touch']);
+    // Assert
+    expect(
+      linear(colors['full-touch'].r),
+      'a circle inscribed in its cell leaves 1 - π/4 of the surface as paper, read from the red cyan ink absorbs',
+    ).toBeCloseTo(1 - Math.PI / 4, 1);
+  });
+
+  test('bleed inks the paper between full dots', async ({ page }) => {
+    // Arrange
+    await gotoPage(page);
+    // Act
+    const colors = await extractMeanColors(page, ['full-touch', 'full-bleed']);
+    // Assert
+    expect(
+      colors['full-bleed'].r,
+      'the feather must cover paper the hard-edged dots leave bare',
+    ).toBeLessThan(colors['full-touch'].r);
+  });
+});
+
 test.describe('comic dot + gap combinations', () => {
   test('representative dot+gap combos render', async ({ page }) => {
     // Arrange

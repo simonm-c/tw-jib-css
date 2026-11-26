@@ -79,7 +79,7 @@ All using `bg-comic-blue-500`. Gap is a multiple of the dot: comic-gap-1 = 1 × 
   </div>
 </div>
 
-## Dot radius (comic-dot-\*)
+## Dot size (comic-dot-\*)
 
 Using `bg-comic-red-500 comic-gap-4`.
 
@@ -274,7 +274,7 @@ Each subject sits beside the reference it must paint identically. `bg-comic-whit
 
 ## Screen registration
 
-One ink per layer, each at 20% coverage, stacked with `mix-blend-multiply`. Dot 6px, no bleed and gap 4 × dot make a 36px cell; full coverage would fill it solid. The inks sit a knight's move apart, a fifth of the cell across and two fifths down, and the fifth spot stays empty.
+One ink per layer, each at 20% coverage, stacked with `mix-blend-multiply`. Dot 6px, no bleed and gap 4 × dot make a 36px cell; a full dot would span 12px of it. The inks sit a knight's move apart, a fifth of the cell across and two fifths down, and the fifth spot stays empty.
 
 <div class="grid grid-cols-5 gap-3 my-6">
   <div class="col-span-5">
@@ -301,6 +301,21 @@ One ink per layer, each at 20% coverage, stacked with `mix-blend-multiply`. Dot 
   <div>
     <div data-test="registration-k-alone" class="size-[144px] bg-comic-[#cccccc] comic-dot-[6px] comic-bleed-0 comic-gap-4 border border-gray-300"></div>
     <div class="text-xs font-mono mt-1">K alone</div>
+  </div>
+</div>
+
+## Full coverage
+
+Pure cyan is 100% cyan ink. Dot 8px and gap 0 make a 16px cell; a full dot is 8px in radius, so it reaches the cell edge and no further.
+
+<div class="grid grid-cols-2 gap-3 my-6">
+  <div>
+    <div data-test="full-touch" class="size-[160px] bg-comic-[#00ffff] comic-dot-2 comic-gap-0 comic-bleed-0"></div>
+    <div class="text-xs font-mono mt-1">bleed-0, dots touch</div>
+  </div>
+  <div>
+    <div data-test="full-bleed" class="size-[160px] bg-comic-[#00ffff] comic-dot-2 comic-gap-0 comic-bleed-2"></div>
+    <div class="text-xs font-mono mt-1">bleed-2, feather fills the paper</div>
   </div>
 </div>
 

@@ -8,7 +8,7 @@ title: Pixel
 
 RGB pixel column backgrounds for any Tailwind color. LCD or CRT phosphor look, pure CSS.
 
-Pixel mixes additively, the way a display emits light. Its sibling [Comic dots](/guide/comic) mixes subtractively, the way ink lands on paper. Left at their defaults both read back as the color you passed in; turn the knobs up and the channels come apart.
+Pixel mixes additively, the way a display emits light. Its sibling [Comic dots](/guide/comic) mixes subtractively, the way ink lands on paper. Left at its defaults Pixel reads back as the color you passed in; turn the knobs up and the channels come apart.
 
 ::: warning Browser support
 Built on CSS relative color syntax (`rgb(from ... r 0 0)`), registered custom properties, the `tan()` and `atan2()` trig functions, `sqrt()` and gradient interpolation in `srgb-linear`. Live status for each is at the foot of this page.

@@ -94,7 +94,7 @@ The hint is only needed where a namespace accepts more than a color, which is al
 ```
 
 ::: warning Automatic contrast on a texture
-`text-contrast-*` solves against one flat color. A texture paints that color as a pattern over a base, and the reader sees both. Comic's base is its paper, white by default. Pixel's is black. The solve holds when the spacing closes the pattern up so the base stops showing through the text. Keep the gap small and the bleed or bloom wide. Open the gaps and the base takes over, so text solved for the ink lands on mostly paper, or mostly black.
+`text-contrast-*` solves against one flat color. A texture paints that color as a pattern over a base, and the reader sees both. Comic's base is its paper, white by default. Pixel's is black. The solve holds when the spacing closes the pattern up so the base stops showing through the text. For comic that means `comic-gap-0` with some bleed, since a gap or a hard-edged dot leaves paper showing. For pixel, keep the gap small and the bloom wide. Open the gaps and the base takes over, so text solved for the ink lands on mostly paper, or mostly black.
 
 The solve reads the flat color from `bg-*`, so the element needs one, and the texture then has to win the paint. Markup alone does not get you there. `bg-*` writes the background image after `bg-comic-*` and `bg-pixel-*` in the compiled stylesheet, so this paints flat violet:
 
@@ -116,7 +116,7 @@ Apply the flat color under `:where()`. Its zero specificity lets it fill `--jib-
 ```
 
 ```html
-<button class="comic-button comic-dot-0.5 comic-gap-2 comic-bleed-4 text-contrast-aa">
+<button class="comic-button comic-dot-0.5 comic-gap-0 text-contrast-aa">
   Solved against violet, painted as tight violet dots.
 </button>
 ```

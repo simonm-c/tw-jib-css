@@ -111,7 +111,7 @@ taken alone, and that the combined entry never re-emits the shared core.
   color syntax and `@property`. That covers automatic contrast, the color
   transforms, comic and pixel; border gradients and ripple need `@property` but no
   relative color syntax. The lightness and saturation transforms also use the
-  `abs()` and `sign()` math functions, which reached Chromium later than the rest
+  `abs()` and `sign()` math functions, and comic uses `sign()`, which reached Chromium later than the rest
   and so set the floor for the rest of the package. `text-contrast-max` is the
   exception. It uses `contrast-color()`, which reached every engine later still,
   so it has a higher floor of its own. Each module page carries live Baseline

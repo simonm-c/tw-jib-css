@@ -8,14 +8,14 @@ title: Comic dots
 
 CMYK halftone dot backgrounds for any Tailwind color. Pure CSS, no images.
 
-Comic mixes subtractively, the way ink lands on paper. Its sibling [Pixel](/guide/pixel) mixes additively, the way a display emits light. Left at their defaults both read back as the color you passed in; turn the knobs up and the channels come apart.
+Comic mixes subtractively, the way ink lands on paper. Its sibling [Pixel](/guide/pixel) mixes additively, the way a display emits light. At its defaults the dots sit apart on white paper, so the color prints as a lighter tint of the one you passed in. Close the gap and it deepens; turn the dot up and the channels come apart.
 
 ::: info Browser support
-Built on CSS relative color syntax, `min()`, `max()` and `clamp()`, `sqrt()` and `pow()`, `sign()`, the `pi` constant, and registered custom properties. Live status for each is at the foot of this page.
+Built on CSS relative color syntax, `min()`, `max()` and `clamp()`, `sqrt()`, `sign()`, and registered custom properties. Live status for each is at the foot of this page.
 :::
 
 ::: warning Pairing with `text-contrast-*`
-The dots sit on the paper color, white by default, and `text-contrast-*` solves against the flat ink color alone. The solve holds when the dots close up far enough that no paper shows through the text. Keep `comic-gap` small and `comic-bleed` wide next to `comic-dot`; `comic-dot-0.5 comic-gap-2 comic-bleed-4` covers well enough. The texture also has to win the paint over the flat color the solve reads. See [Composition](/guide/composition#what-automatic-contrast-can-see).
+The dots sit on the paper color, white by default, and `text-contrast-*` solves against the flat ink color alone. The solve holds when the dots close up far enough that no paper shows through the text. Set `comic-gap-0` and leave some bleed on; `comic-dot-0.5 comic-gap-0` covers well enough. The texture also has to win the paint over the flat color the solve reads. See [Composition](/guide/composition#what-automatic-contrast-can-see).
 :::
 
 ## Quick reference
@@ -51,7 +51,7 @@ Each color decomposes into CMYK channels from the inverse of its RGB values:
 | **Y** (yellow)  | `rgb(255 255 0)` | `(max(R,G,B) - B) / max(R,G,B)` |
 | **K** (black)   | `rgb(0 0 0)`     | `1 - max(R,G,B) / 255`          |
 
-Coverage sets the size of each dot, the way a printing plate does. Every dot prints at full ink strength, and a 40% cyan dot covers 40% of a square two dots wide. At `comic-gap-0` those squares tile the surface. Above about 79% neighbouring dots join, and at 100% the ink is solid. A wider gap spaces the same dots further apart, so more paper shows.
+Coverage sets the size of each dot, the way a printing plate does. Every dot prints at full ink strength, and a 40% cyan dot has 40% of the area of a full one. A full dot is one `comic-dot` in radius, so at `comic-gap-0` and `comic-bleed-0` full dots just touch their neighbors of the same ink and paper shows between them. Bleed feathers each dot past its edge and into its neighbors, so a higher bleed trends toward a solid wash. A wider gap spaces the same dots further apart, so more paper shows.
 
 The four dot layers sit close together, so at a normal viewing distance the eye blends them into one color. They composite through `background-blend-mode: multiply` for subtractive color mixing, just like a printing press.
 
@@ -101,7 +101,7 @@ Control the space between dots with `comic-gap-<number>`. The value counts in do
   </div>
 </Example>
 
-The grid cell works out to `dot × (2 + gap)`. Gap moves the dots apart without resizing them, so the color lightens as the gap grows. Only `comic-gap-0` prints the full color.
+The grid cell works out to `dot × (2 + gap)`. Gap moves the dots apart without resizing them, so the color lightens as the gap grows.
 
 ## Dot size
 
@@ -303,9 +303,9 @@ Overlapping comics with `mix-blend-multiply` mix their dots across elements the 
 
 <Example>
   <div class="relative isolate h-40 w-64 bg-white">
-    <div class="absolute top-0 left-6 size-28 rounded-full bg-comic-cyan-500 comic-dot-1.5 comic-bleed-0 mix-blend-multiply"></div>
-    <div class="absolute top-0 left-30 size-28 rounded-full bg-comic-fuchsia-500 comic-dot-1.5 comic-bleed-0 mix-blend-multiply"></div>
-    <div class="absolute top-12 left-18 size-28 rounded-full bg-comic-yellow-400 comic-dot-1.5 comic-bleed-0 mix-blend-multiply"></div>
+    <div class="absolute top-0 left-6 size-28 rounded-full bg-comic-cyan-500 comic-dot-0.5 comic-gap-0 comic-bleed-0 mix-blend-multiply"></div>
+    <div class="absolute top-0 left-30 size-28 rounded-full bg-comic-fuchsia-500 comic-dot-0.5 comic-gap-0 comic-bleed-0 mix-blend-multiply"></div>
+    <div class="absolute top-12 left-18 size-28 rounded-full bg-comic-yellow-400 comic-dot-0.5 comic-gap-0 comic-bleed-0 mix-blend-multiply"></div>
   </div>
 </Example>
 
@@ -760,4 +760,4 @@ Included in `@import 'tw-jib-css'`. To import individually:
 @import 'tw-jib-css/comic';
 ```
 
-<BaselineSupport :features="['relative-color', 'min-max-clamp', 'exp-functions', 'calc-constants', 'abs-sign', 'registered-custom-properties']" />
+<BaselineSupport :features="['relative-color', 'min-max-clamp', 'exp-functions', 'abs-sign', 'registered-custom-properties']" />

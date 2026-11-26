@@ -1,10 +1,9 @@
-/* Per-dot opacity. K takes the neutral component so CMY carry only chroma,
- * which is what lets the multiply stack reproduce the input:
+/* Coverage sets dot area. K takes the neutral component so CMY carry only chroma:
  *
- *   K = 1 - max(R,G,B) / 255
- *   C = (max(R,G,B) - R) / max(R,G,B)
- *   M = (max(R,G,B) - G) / max(R,G,B)
- *   Y = (max(R,G,B) - B) / max(R,G,B) */
+ *   K = 1 - max(R,G,B)     C = (max(R,G,B) - R) / max(R,G,B), M and Y alike
+ *
+ * Radius inverts a circle clipped to its cell to within 0.0053 coverage. Lengths stay in dots,
+ * as Gecko rejects length ÷ length. Chromium samples at pixel centres, hence the 1px·√½ floor. */
 
 @property --jib-comic-color {
   syntax: "<color>";
@@ -17,14 +16,14 @@
   initial-value: 1px;
 }
 @property --jib-comic-bleed {
-  syntax: "<length>";
+  syntax: "<number>";
   inherits: false;
-  initial-value: 1px;
+  initial-value: 1;
 }
 @property --jib-comic-gap {
-  syntax: "<length>";
+  syntax: "<number>";
   inherits: false;
-  initial-value: 2px;
+  initial-value: 2;
 }
 @property --jib-comic-opacity {
   syntax: "<number>";
@@ -44,12 +43,40 @@
   --jib-comic-color: --value(--color- *, [color], [ *]);
   --jib-comic-opacity: calc(--modifier(integer) * 0.01);
   --jib-comic-opacity: --modifier([number]);
-  /* C, M, Y and K sit at four of the five points k·(1, 2)/5 of the cell; (4/5, 3/5) stays empty.
-   * Any two inks are a nonzero multiple of (1, 2)/5 apart. A quarter turn keeps the cell grid and
-   * takes multiple k to 2k mod 5, so every pair of inks has the same distances at every range and
+  /* Inks at k·(1, 2)/5 of the cell. A quarter turn maps k to 2k mod 5, so every ink pair
    * overlaps alike at every dot size. */
-  --jib-comic-cell: calc(var(--jib-comic-dot) * 2 + var(--jib-comic-gap));
-  --jib-background-image: radial-gradient(circle, rgb(from var(--jib-comic-color) 0 255 255 / calc((max(r, g, b) - r) / max(max(r, g, b), 1) * var(--jib-comic-opacity))) var(--jib-comic-dot), transparent calc(var(--jib-comic-dot) + var(--jib-comic-bleed))) var(--jib-background-position-x) var(--jib-background-position-y) / var(--jib-comic-cell) var(--jib-comic-cell) padding-box var(--jib-background-clip), radial-gradient(circle, rgb(from var(--jib-comic-color) 255 0 255 / calc((max(r, g, b) - g) / max(max(r, g, b), 1) * var(--jib-comic-opacity))) var(--jib-comic-dot), transparent calc(var(--jib-comic-dot) + var(--jib-comic-bleed))) calc(var(--jib-background-position-x) + var(--jib-comic-cell) / 5) calc(var(--jib-background-position-y) + var(--jib-comic-cell) * 2 / 5) / var(--jib-comic-cell) var(--jib-comic-cell) padding-box var(--jib-background-clip), radial-gradient(circle, rgb(from var(--jib-comic-color) 255 255 0 / calc((max(r, g, b) - b) / max(max(r, g, b), 1) * var(--jib-comic-opacity))) var(--jib-comic-dot), transparent calc(var(--jib-comic-dot) + var(--jib-comic-bleed))) calc(var(--jib-background-position-x) + var(--jib-comic-cell) * 2 / 5) calc(var(--jib-background-position-y) + var(--jib-comic-cell) * 4 / 5) / var(--jib-comic-cell) var(--jib-comic-cell) padding-box var(--jib-background-clip), radial-gradient(circle, rgb(from var(--jib-comic-color) 0 0 0 / calc((1 - max(r, g, b) / 255) * var(--jib-comic-opacity))) var(--jib-comic-dot), transparent calc(var(--jib-comic-dot) + var(--jib-comic-bleed))) calc(var(--jib-background-position-x) + var(--jib-comic-cell) * 3 / 5) calc(var(--jib-background-position-y) + var(--jib-comic-cell) / 5) / var(--jib-comic-cell) var(--jib-comic-cell) padding-box var(--jib-background-clip), linear-gradient(oklch(from var(--jib-comic-paper-color, var(--jib-comic-paper)) l c h / calc(alpha * var(--jib-comic-opacity))) 0 0);
+  --jib-comic-cell: calc(var(--jib-comic-dot) * (2 + var(--jib-comic-gap)));
+  --jib-comic-tile: var(--jib-comic-cell) var(--jib-comic-cell) padding-box var(--jib-background-clip);
+  --jib-comic-hard: (1 - sign(var(--jib-comic-bleed)));
+  --jib-comic-span: (sqrt(2) + var(--jib-comic-bleed));
+  --jib-comic-step: calc(var(--jib-comic-dot) * var(--jib-comic-span) / 3);
+  --jib-comic-slope: calc(var(--jib-comic-span) / 3 / max(var(--jib-comic-bleed), 1e-6));
+  --jib-comic-fill: (r * 4 / pow(2 + var(--jib-comic-gap), 2));
+  --jib-comic-corner: sqrt(min(1, (1 - var(--jib-comic-fill)) / (1 - pi / 4)));
+  --jib-comic-radius: calc((sqrt(min(var(--jib-comic-fill), pi / 4) / pi) + (sqrt(0.5) - 0.5) * (1 - var(--jib-comic-corner)) * (1 - var(--jib-comic-corner) * (sqrt(1 - pi / 4) / (sqrt(2) - 1) - 1))));
+  --jib-comic-reach: calc(var(--jib-comic-radius) * (2 + var(--jib-comic-gap)) * 3 / var(--jib-comic-span) / 3);
+  --jib-comic-halo: min(1, r * (sqrt(2) * var(--jib-comic-bleed) + var(--jib-comic-bleed) * var(--jib-comic-bleed) / 3) / max(g * var(--jib-comic-span) * var(--jib-comic-bleed) + var(--jib-comic-bleed) * var(--jib-comic-bleed) / 3, 1e-6));
+  --jib-comic-edge: (min(1, 2 * var(--jib-comic-slope)) + var(--jib-comic-hard) * 1e6);
+  --jib-comic-fade: calc(var(--jib-comic-opacity) * min(1, 8 * sqrt(r) + var(--jib-comic-hard)));
+  --jib-comic-alpha-0: calc(var(--jib-comic-fade) * max(clamp(0, ((g * 3) - (var(--jib-comic-hard) * sqrt(0.5))) * var(--jib-comic-edge) + 0.5, 1), var(--jib-comic-halo) * clamp(0, (g * 3) * var(--jib-comic-slope) + 1, 1)));
+  --jib-comic-alpha-1: calc(var(--jib-comic-fade) * max(clamp(0, ((g * 3) - (1 + var(--jib-comic-hard) * (sqrt(2.5) - 1))) * var(--jib-comic-edge) + 0.5, 1), var(--jib-comic-halo) * clamp(0, ((g * 3) - 1) * var(--jib-comic-slope) + 1, 1)));
+  --jib-comic-alpha-2: calc(var(--jib-comic-fade) * max(clamp(0, ((g * 3) - (2 + var(--jib-comic-hard) * (sqrt(6.5) - 2))) * var(--jib-comic-edge) + 0.5, 1), var(--jib-comic-halo) * clamp(0, ((g * 3) - 2) * var(--jib-comic-slope) + 1, 1)));
+  --jib-comic-alpha-3: calc(var(--jib-comic-fade) * max(clamp(0, ((g * 3) - (3 + var(--jib-comic-hard) * (sqrt(12.5) - 3))) * var(--jib-comic-edge) + 0.5, 1), var(--jib-comic-halo) * clamp(0, ((g * 3) - 3) * var(--jib-comic-slope) + 1, 1)));
+  --jib-comic-stop-1: max(var(--jib-comic-step), 1px * sqrt(0.5));
+  --jib-comic-stop-2: max(var(--jib-comic-step) * 2, 1px * sqrt(0.5));
+  --jib-comic-stop-3: max(var(--jib-comic-step) * 3, 1px * sqrt(0.5));
+  --jib-comic-stop-end-0: calc(var(--jib-comic-stop-1) * var(--jib-comic-hard));
+  --jib-comic-stop-end-1: max(var(--jib-comic-step) * (1 + var(--jib-comic-hard)), 1px * sqrt(0.5));
+  --jib-comic-stop-end-2: max(var(--jib-comic-step) * (2 + var(--jib-comic-hard)), 1px * sqrt(0.5));
+  --jib-comic-cyan-coverage: color(from var(--jib-comic-color) srgb calc(clamp(0, (max(r, g, b) - r) / max(r, g, b, 1e-6), 1)) 0 0);
+  --jib-comic-cyan-reach: color(from var(--jib-comic-cyan-coverage) srgb r var(--jib-comic-reach) 0);
+  --jib-comic-magenta-coverage: color(from var(--jib-comic-color) srgb calc(clamp(0, (max(r, g, b) - g) / max(r, g, b, 1e-6), 1)) 0 0);
+  --jib-comic-magenta-reach: color(from var(--jib-comic-magenta-coverage) srgb r var(--jib-comic-reach) 0);
+  --jib-comic-yellow-coverage: color(from var(--jib-comic-color) srgb calc(clamp(0, (max(r, g, b) - b) / max(r, g, b, 1e-6), 1)) 0 0);
+  --jib-comic-yellow-reach: color(from var(--jib-comic-yellow-coverage) srgb r var(--jib-comic-reach) 0);
+  --jib-comic-black-coverage: color(from var(--jib-comic-color) srgb calc(clamp(0, 1 - max(r, g, b), 1)) 0 0);
+  --jib-comic-black-reach: color(from var(--jib-comic-black-coverage) srgb r var(--jib-comic-reach) 0);
+  --jib-background-image: radial-gradient(circle, color(from var(--jib-comic-cyan-reach) srgb 0 1 1 / var(--jib-comic-alpha-0)) 0px var(--jib-comic-stop-end-0), color(from var(--jib-comic-cyan-reach) srgb 0 1 1 / var(--jib-comic-alpha-1)) var(--jib-comic-stop-1) var(--jib-comic-stop-end-1), color(from var(--jib-comic-cyan-reach) srgb 0 1 1 / var(--jib-comic-alpha-2)) var(--jib-comic-stop-2) var(--jib-comic-stop-end-2), color(from var(--jib-comic-cyan-reach) srgb 0 1 1 / var(--jib-comic-alpha-3)) var(--jib-comic-stop-3)) var(--jib-background-position-x) var(--jib-background-position-y) / var(--jib-comic-tile), radial-gradient(circle, color(from var(--jib-comic-magenta-reach) srgb 1 0 1 / var(--jib-comic-alpha-0)) 0px var(--jib-comic-stop-end-0), color(from var(--jib-comic-magenta-reach) srgb 1 0 1 / var(--jib-comic-alpha-1)) var(--jib-comic-stop-1) var(--jib-comic-stop-end-1), color(from var(--jib-comic-magenta-reach) srgb 1 0 1 / var(--jib-comic-alpha-2)) var(--jib-comic-stop-2) var(--jib-comic-stop-end-2), color(from var(--jib-comic-magenta-reach) srgb 1 0 1 / var(--jib-comic-alpha-3)) var(--jib-comic-stop-3)) calc(var(--jib-background-position-x) + var(--jib-comic-cell) / 5) calc(var(--jib-background-position-y) + var(--jib-comic-cell) * 2 / 5) / var(--jib-comic-tile), radial-gradient(circle, color(from var(--jib-comic-yellow-reach) srgb 1 1 0 / var(--jib-comic-alpha-0)) 0px var(--jib-comic-stop-end-0), color(from var(--jib-comic-yellow-reach) srgb 1 1 0 / var(--jib-comic-alpha-1)) var(--jib-comic-stop-1) var(--jib-comic-stop-end-1), color(from var(--jib-comic-yellow-reach) srgb 1 1 0 / var(--jib-comic-alpha-2)) var(--jib-comic-stop-2) var(--jib-comic-stop-end-2), color(from var(--jib-comic-yellow-reach) srgb 1 1 0 / var(--jib-comic-alpha-3)) var(--jib-comic-stop-3)) calc(var(--jib-background-position-x) + var(--jib-comic-cell) * 2 / 5) calc(var(--jib-background-position-y) + var(--jib-comic-cell) * 4 / 5) / var(--jib-comic-tile), radial-gradient(circle, color(from var(--jib-comic-black-reach) srgb 0 0 0 / var(--jib-comic-alpha-0)) 0px var(--jib-comic-stop-end-0), color(from var(--jib-comic-black-reach) srgb 0 0 0 / var(--jib-comic-alpha-1)) var(--jib-comic-stop-1) var(--jib-comic-stop-end-1), color(from var(--jib-comic-black-reach) srgb 0 0 0 / var(--jib-comic-alpha-2)) var(--jib-comic-stop-2) var(--jib-comic-stop-end-2), color(from var(--jib-comic-black-reach) srgb 0 0 0 / var(--jib-comic-alpha-3)) var(--jib-comic-stop-3)) calc(var(--jib-background-position-x) + var(--jib-comic-cell) * 3 / 5) calc(var(--jib-background-position-y) + var(--jib-comic-cell) / 5) / var(--jib-comic-tile), linear-gradient(oklch(from var(--jib-comic-paper-color, var(--jib-comic-paper)) l c h / calc(alpha * var(--jib-comic-opacity))) 0 0);
   background:
     var(--jib-ripple-image) var(--jib-background-origin) var(--jib-background-clip),
     var(--jib-background-image) var(--jib-background-origin) var(--jib-background-clip),
@@ -62,15 +89,12 @@
   --jib-comic-dot: --value([length], [ *]);
 }
 
-/* Quartered so softness and spacing get finer control than 0.25rem steps. */
 @utility comic-bleed-* {
-  --jib-comic-bleed: calc(--spacing(--value(number)) / 4);
-  --jib-comic-bleed: --value([length], [ *]);
+  --jib-comic-bleed: --value(number, [number], [ *]);
 }
 
 @utility comic-gap-* {
-  --jib-comic-gap: calc(--spacing(--value(number)) / 4);
-  --jib-comic-gap: --value([length], [ *]);
+  --jib-comic-gap: --value(number, [number], [ *]);
 }
 
 @utility comic-paper-* {

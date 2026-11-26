@@ -7,11 +7,11 @@ layout: page
 
 Visual test page for `bg-comic-*` utilities.
 
-Cell size = `dot * 2 + gap`. Gap scales at `--spacing / 4` (comic-gap-1 = 1px, comic-gap-4 = 4px).
+Cell size = `dot × (2 + gap)`. Gap and bleed are multiples of the dot, so `comic-dot` zooms the whole screen.
 
 ## Utility classes, primary & secondary colors
 
-Defaults: dot 1px, bleed 1px, gap 2px.
+Defaults: dot 1px, gap 2 × dot, bleed 1 × dot.
 
 <div class="grid grid-cols-4 gap-4 my-6">
   <div>
@@ -50,32 +50,32 @@ Defaults: dot 1px, bleed 1px, gap 2px.
 
 ## Gap sizes (comic-gap-\*)
 
-All using `bg-comic-blue-500`. Gap scales at spacing/4: comic-gap-1=1px, comic-gap-2=2px, comic-gap-4=4px, etc.
+All using `bg-comic-blue-500`. Gap is a multiple of the dot: comic-gap-1 = 1 × dot, comic-gap-4 = 4 × dot.
 
 <div class="grid grid-cols-6 gap-3 my-6">
   <div>
     <div data-test="gap-0" class="bg-comic-blue-500 comic-gap-0 h-28 rounded-lg"></div>
-    <p class="text-xs font-mono text-center mt-1">gap-0 (0px)</p>
+    <p class="text-xs font-mono text-center mt-1">gap-0 (0 × dot)</p>
   </div>
   <div>
     <div data-test="gap-1" class="bg-comic-blue-500 comic-gap-1 h-28 rounded-lg"></div>
-    <p class="text-xs font-mono text-center mt-1">gap-1 (1px)</p>
+    <p class="text-xs font-mono text-center mt-1">gap-1 (1 × dot)</p>
   </div>
   <div>
     <div data-test="gap-2" class="bg-comic-blue-500 comic-gap-2 h-28 rounded-lg"></div>
-    <p class="text-xs font-mono text-center mt-1">gap-2 (2px)</p>
+    <p class="text-xs font-mono text-center mt-1">gap-2 (2 × dot)</p>
   </div>
   <div>
     <div data-test="gap-4" class="bg-comic-blue-500 h-28 rounded-lg"></div>
-    <p class="text-xs font-mono text-center mt-1">gap-4 (4px)</p>
+    <p class="text-xs font-mono text-center mt-1">gap-4 (4 × dot)</p>
   </div>
   <div>
     <div data-test="gap-8" class="bg-comic-blue-500 comic-gap-8 h-28 rounded-lg"></div>
-    <p class="text-xs font-mono text-center mt-1">gap-8 (8px)</p>
+    <p class="text-xs font-mono text-center mt-1">gap-8 (8 × dot)</p>
   </div>
   <div>
     <div data-test="gap-16" class="bg-comic-blue-500 comic-gap-16 h-28 rounded-lg"></div>
-    <p class="text-xs font-mono text-center mt-1">gap-16 (16px)</p>
+    <p class="text-xs font-mono text-center mt-1">gap-16 (16 × dot)</p>
   </div>
 </div>
 
@@ -211,8 +211,8 @@ Verifies the white background becomes transparent, letting underlying content sh
     <p class="text-xs font-mono text-center mt-1">dot-[3px]</p>
   </div>
   <div>
-    <div data-test="arbitrary-gap" class="bg-comic-blue-500 comic-gap-[12px] h-28 rounded-lg"></div>
-    <p class="text-xs font-mono text-center mt-1">gap-[12px]</p>
+    <div data-test="arbitrary-gap" class="bg-comic-blue-500 comic-gap-[12] h-28 rounded-lg"></div>
+    <p class="text-xs font-mono text-center mt-1">gap-[12]</p>
   </div>
 </div>
 
@@ -274,32 +274,32 @@ Each subject sits beside the reference it must paint identically. `bg-comic-whit
 
 ## Screen registration
 
-One pure ink per layer, each at full strength, stacked with `mix-blend-multiply`. Dot 6px radius, no bleed and gap 24px make a 36px cell. The inks sit a knight's move apart, a fifth of the cell across and two fifths down, and the fifth spot stays empty.
+One ink per layer, each at 20% coverage, stacked with `mix-blend-multiply`. Dot 6px, no bleed and gap 4 × dot make a 36px cell; full coverage would fill it solid. The inks sit a knight's move apart, a fifth of the cell across and two fifths down, and the fifth spot stays empty.
 
 <div class="grid grid-cols-5 gap-3 my-6">
   <div class="col-span-5">
     <div data-test="registration" class="relative isolate size-[288px] bg-white border border-gray-300">
-      <div data-test="registration-c" class="absolute inset-0 mix-blend-multiply bg-comic-[#00ffff] comic-paper-transparent comic-dot-[6px] comic-bleed-0 comic-gap-[24px]"></div>
-      <div data-test="registration-m" class="absolute inset-0 mix-blend-multiply bg-comic-[#ff00ff] comic-paper-transparent comic-dot-[6px] comic-bleed-0 comic-gap-[24px]"></div>
-      <div data-test="registration-y" class="absolute inset-0 mix-blend-multiply bg-comic-[#ffff00] comic-paper-transparent comic-dot-[6px] comic-bleed-0 comic-gap-[24px]"></div>
-      <div data-test="registration-k" class="absolute inset-0 mix-blend-multiply bg-comic-[#000000] comic-paper-transparent comic-dot-[6px] comic-bleed-0 comic-gap-[24px]"></div>
+      <div data-test="registration-c" class="absolute inset-0 mix-blend-multiply bg-comic-[#ccffff] comic-paper-transparent comic-dot-[6px] comic-bleed-0 comic-gap-4"></div>
+      <div data-test="registration-m" class="absolute inset-0 mix-blend-multiply bg-comic-[#ffccff] comic-paper-transparent comic-dot-[6px] comic-bleed-0 comic-gap-4"></div>
+      <div data-test="registration-y" class="absolute inset-0 mix-blend-multiply bg-comic-[#ffffcc] comic-paper-transparent comic-dot-[6px] comic-bleed-0 comic-gap-4"></div>
+      <div data-test="registration-k" class="absolute inset-0 mix-blend-multiply bg-comic-[#cccccc] comic-paper-transparent comic-dot-[6px] comic-bleed-0 comic-gap-4"></div>
     </div>
-    <div class="text-xs font-mono mt-1">C + M + Y + K, each at 100%</div>
+    <div class="text-xs font-mono mt-1">C + M + Y + K, each at 20%</div>
   </div>
   <div>
-    <div data-test="registration-c-alone" class="size-[144px] bg-comic-[#00ffff] comic-dot-[6px] comic-bleed-0 comic-gap-[24px] border border-gray-300"></div>
+    <div data-test="registration-c-alone" class="size-[144px] bg-comic-[#ccffff] comic-dot-[6px] comic-bleed-0 comic-gap-4 border border-gray-300"></div>
     <div class="text-xs font-mono mt-1">C alone</div>
   </div>
   <div>
-    <div data-test="registration-m-alone" class="size-[144px] bg-comic-[#ff00ff] comic-dot-[6px] comic-bleed-0 comic-gap-[24px] border border-gray-300"></div>
+    <div data-test="registration-m-alone" class="size-[144px] bg-comic-[#ffccff] comic-dot-[6px] comic-bleed-0 comic-gap-4 border border-gray-300"></div>
     <div class="text-xs font-mono mt-1">M alone</div>
   </div>
   <div>
-    <div data-test="registration-y-alone" class="size-[144px] bg-comic-[#ffff00] comic-dot-[6px] comic-bleed-0 comic-gap-[24px] border border-gray-300"></div>
+    <div data-test="registration-y-alone" class="size-[144px] bg-comic-[#ffffcc] comic-dot-[6px] comic-bleed-0 comic-gap-4 border border-gray-300"></div>
     <div class="text-xs font-mono mt-1">Y alone</div>
   </div>
   <div>
-    <div data-test="registration-k-alone" class="size-[144px] bg-comic-[#000000] comic-dot-[6px] comic-bleed-0 comic-gap-[24px] border border-gray-300"></div>
+    <div data-test="registration-k-alone" class="size-[144px] bg-comic-[#cccccc] comic-dot-[6px] comic-bleed-0 comic-gap-4 border border-gray-300"></div>
     <div class="text-xs font-mono mt-1">K alone</div>
   </div>
 </div>
@@ -310,96 +310,96 @@ One pure ink per layer, each at full strength, stacked with `mix-blend-multiply`
   <h3 class="text-sm font-mono mb-2">dot: 0.5px</h3>
   <div class="grid grid-cols-5 gap-3 mb-6">
     <div>
-      <div data-test="d05-g1" class="bg-comic-blue-500 comic-dot-[0.5px] comic-bleed-[1px] comic-gap-1 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">gap-1 (1px)</p>
+      <div data-test="d05-g1" class="bg-comic-blue-500 comic-dot-[0.5px] comic-bleed-2 comic-gap-1 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">gap-1 (1 × dot)</p>
     </div>
     <div>
-      <div data-test="d05-g2" class="bg-comic-blue-500 comic-dot-[0.5px] comic-bleed-[1px] comic-gap-2 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">gap-2 (2px)</p>
+      <div data-test="d05-g2" class="bg-comic-blue-500 comic-dot-[0.5px] comic-bleed-2 comic-gap-2 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">gap-2 (2 × dot)</p>
     </div>
     <div>
-      <div data-test="d05-g4" class="bg-comic-blue-500 comic-dot-[0.5px] comic-bleed-[1px] comic-gap-4 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">gap-4 (4px)</p>
+      <div data-test="d05-g4" class="bg-comic-blue-500 comic-dot-[0.5px] comic-bleed-2 comic-gap-4 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">gap-4 (4 × dot)</p>
     </div>
     <div>
-      <div data-test="d05-g8" class="bg-comic-blue-500 comic-dot-[0.5px] comic-bleed-[1px] comic-gap-8 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">gap-8 (8px)</p>
+      <div data-test="d05-g8" class="bg-comic-blue-500 comic-dot-[0.5px] comic-bleed-2 comic-gap-8 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">gap-8 (8 × dot)</p>
     </div>
     <div>
-      <div data-test="d05-g16" class="bg-comic-blue-500 comic-dot-[0.5px] comic-bleed-[1px] comic-gap-16 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">gap-16 (16px)</p>
+      <div data-test="d05-g16" class="bg-comic-blue-500 comic-dot-[0.5px] comic-bleed-2 comic-gap-16 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">gap-16 (16 × dot)</p>
     </div>
   </div>
 
   <h3 class="text-sm font-mono mb-2">dot: 1px</h3>
   <div class="grid grid-cols-5 gap-3 mb-6">
     <div>
-      <div data-test="d1-g1" class="bg-comic-blue-500 comic-dot-[1px] comic-bleed-[2px] comic-gap-1 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">gap-1 (1px)</p>
+      <div data-test="d1-g1" class="bg-comic-blue-500 comic-dot-[1px] comic-bleed-2 comic-gap-1 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">gap-1 (1 × dot)</p>
     </div>
     <div>
-      <div data-test="d1-g2" class="bg-comic-blue-500 comic-dot-[1px] comic-bleed-[2px] comic-gap-2 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">gap-2 (2px)</p>
+      <div data-test="d1-g2" class="bg-comic-blue-500 comic-dot-[1px] comic-bleed-2 comic-gap-2 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">gap-2 (2 × dot)</p>
     </div>
     <div>
-      <div data-test="d1-g4" class="bg-comic-blue-500 comic-dot-[1px] comic-bleed-[2px] comic-gap-4 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">gap-4 (4px)</p>
+      <div data-test="d1-g4" class="bg-comic-blue-500 comic-dot-[1px] comic-bleed-2 comic-gap-4 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">gap-4 (4 × dot)</p>
     </div>
     <div>
-      <div data-test="d1-g8" class="bg-comic-blue-500 comic-dot-[1px] comic-bleed-[2px] comic-gap-8 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">gap-8 (8px)</p>
+      <div data-test="d1-g8" class="bg-comic-blue-500 comic-dot-[1px] comic-bleed-2 comic-gap-8 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">gap-8 (8 × dot)</p>
     </div>
     <div>
-      <div data-test="d1-g16" class="bg-comic-blue-500 comic-dot-[1px] comic-bleed-[2px] comic-gap-16 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">gap-16 (16px)</p>
+      <div data-test="d1-g16" class="bg-comic-blue-500 comic-dot-[1px] comic-bleed-2 comic-gap-16 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">gap-16 (16 × dot)</p>
     </div>
   </div>
 
   <h3 class="text-sm font-mono mb-2">dot: 2px</h3>
   <div class="grid grid-cols-5 gap-3 mb-6">
     <div>
-      <div data-test="d2-g2" class="bg-comic-blue-500 comic-dot-[2px] comic-bleed-[3px] comic-gap-2 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">gap-2 (2px)</p>
+      <div data-test="d2-g2" class="bg-comic-blue-500 comic-dot-[2px] comic-bleed-[1.5] comic-gap-2 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">gap-2 (2 × dot)</p>
     </div>
     <div>
-      <div data-test="d2-g4" class="bg-comic-blue-500 comic-dot-[2px] comic-bleed-[3px] comic-gap-4 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">gap-4 (4px)</p>
+      <div data-test="d2-g4" class="bg-comic-blue-500 comic-dot-[2px] comic-bleed-[1.5] comic-gap-4 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">gap-4 (4 × dot)</p>
     </div>
     <div>
-      <div data-test="d2-g8" class="bg-comic-blue-500 comic-dot-[2px] comic-bleed-[3px] comic-gap-8 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">gap-8 (8px)</p>
+      <div data-test="d2-g8" class="bg-comic-blue-500 comic-dot-[2px] comic-bleed-[1.5] comic-gap-8 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">gap-8 (8 × dot)</p>
     </div>
     <div>
-      <div data-test="d2-g16" class="bg-comic-blue-500 comic-dot-[2px] comic-bleed-[3px] comic-gap-16 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">gap-16 (16px)</p>
+      <div data-test="d2-g16" class="bg-comic-blue-500 comic-dot-[2px] comic-bleed-[1.5] comic-gap-16 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">gap-16 (16 × dot)</p>
     </div>
     <div>
-      <div data-test="d2-g24" class="bg-comic-blue-500 comic-dot-[2px] comic-bleed-[3px] comic-gap-[24px] h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">gap-[24px]</p>
+      <div data-test="d2-g24" class="bg-comic-blue-500 comic-dot-[2px] comic-bleed-[1.5] comic-gap-[12] h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">gap-[12]</p>
     </div>
   </div>
 
   <h3 class="text-sm font-mono mb-2">dot: 3px</h3>
   <div class="grid grid-cols-5 gap-3 mb-6">
     <div>
-      <div data-test="d3-g2" class="bg-comic-blue-500 comic-dot-[3px] comic-bleed-[4px] comic-gap-2 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">gap-2 (2px)</p>
+      <div data-test="d3-g2" class="bg-comic-blue-500 comic-dot-[3px] comic-bleed-[1.25] comic-gap-2 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">gap-2 (2 × dot)</p>
     </div>
     <div>
-      <div data-test="d3-g4" class="bg-comic-blue-500 comic-dot-[3px] comic-bleed-[4px] comic-gap-4 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">gap-4 (4px)</p>
+      <div data-test="d3-g4" class="bg-comic-blue-500 comic-dot-[3px] comic-bleed-[1.25] comic-gap-4 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">gap-4 (4 × dot)</p>
     </div>
     <div>
-      <div data-test="d3-g8" class="bg-comic-blue-500 comic-dot-[3px] comic-bleed-[4px] comic-gap-8 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">gap-8 (8px)</p>
+      <div data-test="d3-g8" class="bg-comic-blue-500 comic-dot-[3px] comic-bleed-[1.25] comic-gap-8 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">gap-8 (8 × dot)</p>
     </div>
     <div>
-      <div data-test="d3-g16" class="bg-comic-blue-500 comic-dot-[3px] comic-bleed-[4px] comic-gap-16 h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">gap-16 (16px)</p>
+      <div data-test="d3-g16" class="bg-comic-blue-500 comic-dot-[3px] comic-bleed-[1.25] comic-gap-16 h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">gap-16 (16 × dot)</p>
     </div>
     <div>
-      <div data-test="d3-g32" class="bg-comic-blue-500 comic-dot-[3px] comic-bleed-[4px] comic-gap-[32px] h-28 rounded-lg"></div>
-      <p class="text-xs font-mono text-center mt-1">gap-[32px]</p>
+      <div data-test="d3-g32" class="bg-comic-blue-500 comic-dot-[3px] comic-bleed-[1.25] comic-gap-[10.5] h-28 rounded-lg"></div>
+      <p class="text-xs font-mono text-center mt-1">gap-[10.5]</p>
     </div>
   </div>
 </div>

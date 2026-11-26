@@ -184,9 +184,10 @@ describe.each(suiteScenarios('comic'))('comic utilities, $name', ({ compile }) =
       const css = await compile('bg-comic-red-500');
 
       // Assert
-      expect(css, 'every length must scale with comic-dot for the dot to zoom the screen').toContain(
-        '--jib-comic-cell: calc(var(--jib-comic-dot) * (2 + var(--jib-comic-gap)));',
-      );
+      expect(
+        css,
+        'every length must scale with comic-dot for the dot to zoom the screen',
+      ).toContain('--jib-comic-cell: calc(var(--jib-comic-dot) * (2 + var(--jib-comic-gap)));');
     });
   });
 
